@@ -33,15 +33,15 @@ namespace Phundus.Tests.Inventory
         {
             owner = owner ?? Owner();
             var store = fake.an<Store>();
-            store.setup(x => x.Id).Return(new StoreId());
+            store.setup(x => x.StoreId).Return(new StoreId());
             store.setup(x => x.Owner).Return(owner);
             return store;
         }
 
-        public StoreAggregate StoreAggregate(Owner owner = null)
+        public Store StoreAggregate(Owner owner = null)
         {
             owner = owner ?? Owner();
-            var result = fake.an<StoreAggregate>();
+            var result = fake.an<Store>();
             result.setup(x => x.StoreId).Return(new StoreId());
             result.setup(x => x.Owner).Return(owner);
             return result;

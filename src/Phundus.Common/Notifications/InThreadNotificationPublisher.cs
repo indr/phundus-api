@@ -1,24 +1,40 @@
 ﻿namespace Phundus.Common.Notifications
 {
-    using Eventing;    
+    using System;
+    using System.Collections.Generic;
+    using Eventing;
 
     public class InThreadNotificationPublisher : INotificationPublisher
     {
-        public IEventStore EventStore { get; set; }
+        private readonly IEventStore _eventStore;
+        private readonly INotificationHandlerFactory _handlerFactory;
 
-        public INotificationHandlerFactory Factory { get; set; }
-
-        public InThreadNotificationPublisher(IEventStore eventStore)
+        public InThreadNotificationPublisher(IEventStore eventStore, INotificationHandlerFactory handlerFactory)
         {
-            EventStore = eventStore;
+            if (eventStore == null) throw new ArgumentNullException("eventStore");
+            if (handlerFactory == null) throw new ArgumentNullException("handlerFactory");
+
+            _eventStore = eventStore;
+            _handlerFactory = handlerFactory;
         }
 
         public void PublishNotification(StoredEvent storedEvent)
         {
-            var notification = new Notification(storedEvent.EventId, EventStore.Deserialize(storedEvent));
+            var notification = new Notification(storedEvent.EventId, _eventStore.Deserialize(storedEvent), storedEvent.Version);
 
-            var handlers = Factory.GetNotificationHandlers();
-            
+            PublishNotification(notification);
+        }
+
+        public void PublishNotification(IEnumerable<StoredEvent> storedEvents)
+        {
+            foreach (var each in storedEvents)
+                PublishNotification(each);
+        }
+
+        private void PublishNotification(Notification notification)
+        {
+            var handlers = _handlerFactory.GetNotificationHandlers();
+
             foreach (var each in handlers)
             {
                 each.Handle(notification);

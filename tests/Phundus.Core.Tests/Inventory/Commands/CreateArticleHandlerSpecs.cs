@@ -37,9 +37,9 @@
 
             articleRepository.setup(x => x.Add(Arg<Article>.Is.Anything)).Return(theArticleShortId);
             ownerService.setup(x => x.GetById(theOwner.OwnerId)).Return(theOwner);
-            depends.on<IStoreRepository>().setup(x => x.GetById(theStore.Id)).Return(theStore);
+            depends.on<IStoreRepository>().setup(x => x.GetById(theStore.StoreId)).Return(theStore);
 
-            command = new CreateArticle(theInitiatorId, theOwner.OwnerId, theStore.Id, theArticleId,
+            command = new CreateArticle(theInitiatorId, theOwner.OwnerId, theStore.StoreId, theArticleId,
                 theName, theGrossStock, thePublicPrice, theMemberPrice);
         };
 
@@ -60,7 +60,7 @@
                 && p.Name == theName
                 && Equals(p.Owner.OwnerId, theOwner.OwnerId)
                 && p.PublicPrice == thePublicPrice
-                && p.StoreId == theStore.Id.Id);
+                && p.StoreId == theStore.StoreId.Id);
 
         public It should_set_resulting_article_id = () => command.ResultingArticleId.ShouldEqual(theArticleShortId);
     }

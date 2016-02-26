@@ -26,10 +26,10 @@ namespace Phundus.Inventory.Stores.Commands
 
     public class ChangeAddressHandler : IHandleCommand<ChangeAddress>
     {
-        private readonly IStoreAggregateRepository _storeRepository;
+        private readonly IStoreRepository _storeRepository;
         private readonly IUserInRole _userInRole;
 
-        public ChangeAddressHandler(IStoreAggregateRepository storeRepository, IUserInRole userInRole)
+        public ChangeAddressHandler(IStoreRepository storeRepository, IUserInRole userInRole)
         {
             if (storeRepository == null) throw new ArgumentNullException("storeRepository");
             if (userInRole == null) throw new ArgumentNullException("userInRole");

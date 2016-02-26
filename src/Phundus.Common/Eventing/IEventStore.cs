@@ -6,7 +6,7 @@
     public interface IEventStore
     {
         void Append(DomainEvent domainEvent);
-        void AppendToStream(GuidIdentity id, int expectedVersion, ICollection<IDomainEvent> events);
+        void AppendToStream(GuidIdentity id, int version, ICollection<IDomainEvent> events);
         IEnumerable<StoredEvent> AllStoredEventsBetween(long lowStoredEventId, long highStoredEventId);
         long CountStoredEvents();
         long GetMaxNotificationId();

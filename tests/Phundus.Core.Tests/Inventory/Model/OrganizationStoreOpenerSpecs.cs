@@ -24,9 +24,7 @@
                 "Rocks and Scissors", OrganizationPlan.Free);
         };
 
-        private It should_add_store_to_repository = () => storeRepository.WasToldTo(x => x.Add(Arg<Store>.Is.NotNull));
-
-        private It should_publish_store_opened = () =>
-            Published<StoreOpened>(p => p != null);
+        private It should_add_store_to_repository = () =>
+            storeRepository.WasToldTo(x => x.Add(Arg<Store>.Is.NotNull));
     }
 }

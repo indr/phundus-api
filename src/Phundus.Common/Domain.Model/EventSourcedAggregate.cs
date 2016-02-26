@@ -5,17 +5,17 @@
     using System.Linq;
     using System.Reflection;
 
-    public abstract class EventSourcedRootEntity : EntityWithCompositeId
+    public abstract class EventSourcedAggregate : EntityWithCompositeId
     {
         private readonly List<IDomainEvent> _mutatingEvents;
         private readonly int _unmutatedVersion;
 
-        protected EventSourcedRootEntity()
+        protected EventSourcedAggregate()
         {
             _mutatingEvents = new List<IDomainEvent>();
         }
 
-        protected EventSourcedRootEntity(IEnumerable<IDomainEvent> eventStream, int streamVersion) : this()
+        protected EventSourcedAggregate(IEnumerable<IDomainEvent> eventStream, int streamVersion) : this()
         {
             foreach (var e in eventStream)
                 When(e);

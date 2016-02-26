@@ -2,6 +2,7 @@
 {
     using System;
     using System.Runtime.Serialization;
+    using Domain.Model;
 
     [Serializable]
     public class NotFoundException : Exception
@@ -24,6 +25,16 @@
 
         protected NotFoundException(SerializationInfo info, StreamingContext context) : base(info, context)
         {
+        }
+    }
+
+    [Serializable]
+    public class AggregateNotFoundException : NotFoundException
+    {
+        public AggregateNotFoundException(string name, GuidIdentity id)
+            : base(String.Format("Aggregate {0} {1} not found.", name, id))
+        {
+            
         }
     }
 }

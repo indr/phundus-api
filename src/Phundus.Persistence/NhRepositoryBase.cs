@@ -28,6 +28,11 @@
             get { return Session.Query<TEntity>(); }
         }
 
+        protected IQueryOver<TEntity, TEntity> QueryOver()
+        {
+            return Session.QueryOver<TEntity>();
+        }
+
         public TEntity FindById(object id)
         {
             return (TEntity) Session.Get(ConcreteType, id);

@@ -44,6 +44,8 @@ namespace Phundus.Inventory.Stores.Commands
             var manager = _userInRole.Manager(command.InitiatorId, store.Owner.OwnerId);
 
             store.ChangeOpeningHours(manager, command.OpeningHours);
+
+            _storeRepository.Save(store);
         }
     }
 }

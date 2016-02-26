@@ -5,7 +5,7 @@ namespace Phundus.Tests.Inventory.Model
     using Phundus.Inventory.Model;
     using Phundus.Inventory.Stores.Model;
 
-    public class store_concern : aggregate_root_concern<StoreAggregate>
+    public class store_concern : aggregate_root_concern<Store>
     {
         protected static inventory_factory make;
 
@@ -20,7 +20,7 @@ namespace Phundus.Tests.Inventory.Model
             theStoreId = new StoreId();
             theOwner = make.Owner();
             theManager = make.Manager();
-            sut_factory.create_using(() => new StoreAggregate(theManager, theStoreId, theOwner));
+            sut_factory.create_using(() => new Store(theManager, theStoreId, theOwner));
         };
     }
 

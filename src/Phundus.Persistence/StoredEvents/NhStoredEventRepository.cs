@@ -5,12 +5,35 @@
     using System.Linq;
     using Common.Eventing;
     using Ddd;
+    using NHibernate.Criterion;
 
     public class NhStoredEventRepository : NhRepositoryBase<StoredEvent>, IStoredEventRepository
     {
         public void Append(StoredEvent storedEvent)
         {
             Session.Save(storedEvent);
+        }
+
+        public void Append(IEnumerable<StoredEvent> storedEvents, Guid aggregateId, int? expectedVersion)
+        {
+            var version = QueryOver()
+                .Where(p => p.AggregateId == aggregateId)
+                .Select(Projections.Max("Version"))
+                .SingleOrDefault<int?>() ?? 0;
+
+            if (expectedVersion.HasValue)
+            {
+                if (version != expectedVersion)
+                {
+                    throw new EventStoreConcurrencyException(
+                    version, expectedVersion.Value, aggregateId);
+                }
+            }
+
+            foreach (var each in storedEvents)
+            {
+                Session.Save(each);
+            }
         }
 
         public IEnumerable<StoredEvent> AllStoredEventsBetween(long lowStoredEventId, long highStoredEventId)
@@ -43,6 +66,15 @@
                 .OrderBy(p => p.Version).Asc
                 .ThenBy(p => p.EventId).Asc
                 .Future();
+        }
+    }
+
+    public class EventStoreConcurrencyException : Exception
+    {
+        public EventStoreConcurrencyException(int version, int expectedVersion, Guid aggregateId) : base(String.Format(
+            @"Could not append to stream {2}, version {0}, expected version {1}.", version, expectedVersion, aggregateId))
+        {
+            
         }
     }
 }
