@@ -201,7 +201,7 @@
             private It should_public_prices_changed = () =>
                 publisher.WasToldTo(x => x.Publish(Arg<PricesChanged>.Matches(p =>
                     p.ArticleId == theArticleId.Id
-                    && p.Initiator.InitiatorGuid == theInitiatorId.Id
+                    && Equals(p.Initiator.InitiatorId, theInitiatorId)
                     && p.MemberPrice == theNewMemberPrice
                     && p.PublicPrice == theNewPublicPrice)));
         }
@@ -220,7 +220,7 @@
             private It should_public_prices_changed = () =>
                 publisher.WasToldTo(x => x.Publish(Arg<PricesChanged>.Matches(p =>
                     p.ArticleId == theArticleId.Id
-                    && p.Initiator.InitiatorGuid == theInitiatorId.Id
+                    && Equals(p.Initiator.InitiatorId, theInitiatorId)
                     && p.MemberPrice == null
                     && p.PublicPrice == theNewPublicPrice)));
         }
@@ -242,7 +242,7 @@
             private It should_public_prices_changed = () =>
                 publisher.WasToldTo(x => x.Publish(Arg<PricesChanged>.Matches(p =>
                     p.ArticleId == theArticleId.Id
-                    && p.Initiator.InitiatorGuid == theInitiatorId.Id
+                    && Equals(p.Initiator.InitiatorId, theInitiatorId)
                     && p.MemberPrice == theNewMemberPrice
                     && p.PublicPrice == theNewPublicPrice)));
         }
