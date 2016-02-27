@@ -9,7 +9,7 @@
     public class order_rejected : shop_domain_event_concern<OrderRejected>
     {
         private static OrderId theOrderId;
-        private static ShortOrderId theShortOrderId;
+        private static OrderShortId theOrderShortId;
         private static List<OrderEventItem> theItems;
         private static decimal theOrderTotal;
         private static int theOrderStatus;
@@ -17,22 +17,22 @@
         private Establish ctx = () =>
         {
             theOrderId = new OrderId();
-            theShortOrderId = new ShortOrderId(1234);
+            theOrderShortId = new OrderShortId(1234);
             theOrderStatus = 123;
             theOrderTotal = 123.50m;
             theItems = new List<OrderEventItem>();
             theItems.Add(CreateOrderEventItem());
 
             sut_factory.create_using(() =>
-                new OrderRejected(theInitiator, theOrderId, theShortOrderId, theLessor, theLessee,
+                new OrderRejected(theInitiator, theOrderId, theOrderShortId, theLessor, theLessee,
                     theOrderStatus, theOrderTotal, theItems));
         };
 
         private It should_be_in_assembly = () =>
             itsAssembly.ShouldEqual("Phundus.Core");
 
-        private It should_have_at_1_the_short_order_id = () =>
-            dataMember(1).ShouldEqual(theShortOrderId.Id);
+        private It should_have_at_1_the_order_short_id = () =>
+            dataMember(1).ShouldEqual(theOrderShortId.Id);
 
         private It should_have_at_2_the_lessor_id = () =>
             dataMember(2).ShouldEqual(theLessor.LessorId.Id);

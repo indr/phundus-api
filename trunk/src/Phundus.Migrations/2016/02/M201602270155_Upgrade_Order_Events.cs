@@ -30,7 +30,7 @@
 
             foreach (var each in domainEvents)
             {
-                var aggregateId = _orderIdMap[each.ShortOrderId];
+                var aggregateId = _orderIdMap[each.OrderShortId];
                 UpdateStoredEventAggregateId(each.EventGuid, aggregateId);
             }
             ;
@@ -46,7 +46,7 @@
                 if (each.OrderId != Guid.Empty)
                     continue;
 
-                each.OrderId = _orderIdMap[each.ShortOrderId];
+                each.OrderId = _orderIdMap[each.OrderShortId];
                 UpdateStoredEvent(each.EventGuid, each, each.OrderId);
             }
             ;
@@ -62,7 +62,7 @@
                 if (each.OrderId != Guid.Empty)
                     continue;
 
-                each.OrderId = _orderIdMap[each.ShortOrderId];
+                each.OrderId = _orderIdMap[each.OrderShortId];
                 UpdateStoredEvent(each.EventGuid, each, each.OrderId);
             }
             ;
@@ -78,7 +78,7 @@
                 if (each.OrderId != Guid.Empty)
                     continue;
 
-                each.OrderId = _orderIdMap[each.ShortOrderId];
+                each.OrderId = _orderIdMap[each.OrderShortId];
                 UpdateStoredEvent(each.EventGuid, each, each.OrderId);
             }
         }
@@ -108,7 +108,7 @@
         public class OrderApproved : MigratingDomainEvent
         {
             [DataMember(Order = 1)]
-            public int ShortOrderId { get; set; }
+            public int OrderShortId { get; set; }
 
             [DataMember(Order = 2)]
             public Guid LessorId { get; set; }
@@ -121,7 +121,7 @@
         public class OrderClosed : MigratingDomainEvent
         {
             [DataMember(Order = 1)]
-            public int ShortOrderId { get; set; }
+            public int OrderShortId { get; set; }
 
             [DataMember(Order = 2)]
             public Guid LessorId { get; set; }
@@ -134,7 +134,7 @@
         public class OrderPlaced : MigratingDomainEvent
         {
             [DataMember(Order = 1)]
-            public int ShortOrderId { get; protected set; }
+            public int OrderShortId { get; protected set; }
 
             [DataMember(Order = 2)]
             public Guid LessorId { get; set; }
@@ -147,7 +147,7 @@
         public class OrderRejected : MigratingDomainEvent
         {
             [DataMember(Order = 1)]
-            public int ShortOrderId { get; set; }
+            public int OrderShortId { get; set; }
 
             [DataMember(Order = 2)]
             public Guid LessorId { get; set; }

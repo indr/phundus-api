@@ -25,7 +25,7 @@
             Insert(order =>
             {
                 order.OrderId = e.OrderId;
-                order.OrderShortId = e.ShortOrderId;
+                order.OrderShortId = e.OrderShortId;
                 order.CreatedAtUtc = e.OccuredOnUtc;
                 order.ModifiedAtUtc = e.OccuredOnUtc;
                 order.Status = OrderData.OrderStatus.Pending;
@@ -55,7 +55,7 @@
             Insert(order =>
             {
                 order.OrderId = e.OrderId;
-                order.OrderShortId = e.ShortOrderId;
+                order.OrderShortId = e.OrderShortId;
                 order.CreatedAtUtc = e.OccuredOnUtc;
                 order.ModifiedAtUtc = e.OccuredOnUtc;
                 order.Status = OrderData.OrderStatus.Pending;

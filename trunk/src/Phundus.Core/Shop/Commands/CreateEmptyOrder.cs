@@ -12,21 +12,25 @@
 
     public class CreateEmptyOrder
     {
-        public CreateEmptyOrder(InitiatorId initiatorId, LessorId lessorId, LesseeId lesseeId)
+        public CreateEmptyOrder(InitiatorId initiatorId, OrderId orderId, OrderShortId orderShortId, LessorId lessorId, LesseeId lesseeId)
         {
             if (initiatorId == null) throw new ArgumentNullException("initiatorId");
+            if (orderId == null) throw new ArgumentNullException("orderId");
+            if (orderShortId == null) throw new ArgumentNullException("orderShortId");
             if (lessorId == null) throw new ArgumentNullException("lessorId");
             if (lesseeId == null) throw new ArgumentNullException("lesseeId");
             InitiatorId = initiatorId;
+            OrderId = orderId;
+            OrderShortId = orderShortId;
             LessorId = lessorId;
             LesseeId = lesseeId;
         }
 
         public InitiatorId InitiatorId { get; protected set; }
+        public OrderId OrderId { get; protected set; }
+        public OrderShortId OrderShortId { get; protected set; }
         public LessorId LessorId { get; protected set; }
         public LesseeId LesseeId { get; protected set; }
-        
-        public int ResultingOrderId { get; set; }
     }
 
     public class CreateEmptyOrderHandler : IHandleCommand<CreateEmptyOrder>
@@ -54,15 +58,14 @@
             MemberInRole.ActiveManager(ownerId, command.InitiatorId);
 
             var order = new Order(
+                command.OrderId, command.OrderShortId,
                 LessorService.GetById(command.LessorId),
                 LesseeService.GetById(command.LesseeId));
 
             OrderRepository.Add(order);
 
-            command.ResultingOrderId = order.ShortOrderId.Id;
-
             EventPublisher.Publish(new OrderCreated(initiator,
-                order.OrderId, order.ShortOrderId, order.Lessor, order.Lessee));
+                order.OrderId, order.OrderShortId, order.Lessor, order.Lessee));
         }
     }
 }

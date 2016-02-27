@@ -7,15 +7,15 @@ namespace Phundus.Shop.Orders.Model
     [DataContract]
     public class OrderItemAdded : DomainEvent
     {
-        public OrderItemAdded(Initiator initiator, OrderId orderId, ShortOrderId shortOrderId, int orderStatus,
+        public OrderItemAdded(Initiator initiator, OrderId orderId, OrderShortId orderShortId, int orderStatus,
             decimal orderTotal, OrderEventItem orderItem)
         {
             if (initiator == null) throw new ArgumentNullException("initiator");
             if (orderId == null) throw new ArgumentNullException("orderId");
-            if (shortOrderId == null) throw new ArgumentNullException("shortOrderId");
+            if (orderShortId == null) throw new ArgumentNullException("orderShortId");
             Initiator = initiator;
             OrderId = orderId.Id;
-            ShortOrderId = shortOrderId.Id;
+            OrderShortId = orderShortId.Id;
             OrderStatus = orderStatus;
             OrderTotal = orderTotal;
             OrderItem = orderItem;
@@ -32,7 +32,7 @@ namespace Phundus.Shop.Orders.Model
         public Guid OrderId { get; set; }
 
         [DataMember(Order = 3)]
-        public int ShortOrderId { get; set; }
+        public int OrderShortId { get; set; }
 
         [DataMember(Order = 4)]
         public int OrderStatus { get; set; }

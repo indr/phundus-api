@@ -102,13 +102,13 @@
         }
     }
 
-    public class ShortOrderId : Identity<int>
+    public class OrderShortId : Identity<int>
     {
-        public ShortOrderId(int id) : base(id)
+        public OrderShortId(int id) : base(id)
         {
         }
 
-        protected ShortOrderId()
+        protected OrderShortId()
         {
         }
     }

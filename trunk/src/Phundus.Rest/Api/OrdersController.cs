@@ -21,14 +21,17 @@
     {
         private readonly IOrderQueries _orderQueries;
         private readonly IPdfStore _pdfStore;
+        private readonly IShortIdGeneratorService _shortIdGeneratorService;
 
-        public OrdersController(IOrderQueries orderQueries, IPdfStore pdfStore)
+        public OrdersController(IOrderQueries orderQueries, IPdfStore pdfStore, IShortIdGeneratorService shortIdGeneratorService)
         {
-            AssertionConcern.AssertArgumentNotNull(orderQueries, "OrderQueries must be provided.");
-            AssertionConcern.AssertArgumentNotNull(pdfStore, "PdfStore must be provided.");
+            if (orderQueries == null) throw new ArgumentNullException("orderQueries");
+            if (pdfStore == null) throw new ArgumentNullException("pdfStore");
+            if (shortIdGeneratorService == null) throw new ArgumentNullException("shortIdGeneratorService");
 
             _orderQueries = orderQueries;
             _pdfStore = pdfStore;
+            _shortIdGeneratorService = shortIdGeneratorService;
         }
 
         [GET("")]
@@ -52,7 +55,7 @@
         [Transaction]
         public virtual HttpResponseMessage Get(int orderId)
         {
-            var order = _orderQueries.GetById(CurrentUserId, new ShortOrderId(orderId));
+            var order = _orderQueries.GetById(CurrentUserId, new OrderShortId(orderId));
             return Request.CreateResponse(HttpStatusCode.OK, Map<OrderDetail>(order));
         }
 
@@ -60,7 +63,7 @@
         [Transaction]
         public virtual HttpResponseMessage GetPdf(int orderId)
         {
-            _orderQueries.GetById(CurrentUserId, new ShortOrderId(orderId));
+            _orderQueries.GetById(CurrentUserId, new OrderShortId(orderId));
             var result = _pdfStore.GetOrderPdf(orderId, CurrentUserId);
             if (result == null)
                 return CreateNotFoundResponse("Die Bestellung mit der Id {0} konnte nicht gefunden werden.", orderId);
@@ -72,7 +75,11 @@
         [Transaction]
         public virtual OrdersPostOkResponseContent Post(OrdersPostRequestContent requestContent)
         {
+            var orderId = new OrderId();
+            var orderShortId = _shortIdGeneratorService.GetNext<OrderShortId>();
+
             var command = new CreateEmptyOrder(CurrentUserId,
+                orderId, orderShortId,
                 new LessorId(requestContent.OwnerId),
                 new LesseeId(requestContent.LesseeId));
 
@@ -80,7 +87,7 @@
 
             return new OrdersPostOkResponseContent
             {
-                OrderId = command.ResultingOrderId
+                OrderId = orderShortId.Id
             };
         }
 

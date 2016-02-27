@@ -104,6 +104,7 @@
     <Compile Include="Shop\Mappings\ShopItemImagesProjectionRowMap.cs" />
     <Compile Include="Shop\Mappings\ShopItemDataMap.cs" />
     <Compile Include="Shop\Mappings\ShopItemsSortByPopularityProjectionRowMap.cs" />
+    <Compile Include="Shop\Repositories\ShortIdGeneratorService.cs" />
     <Compile Include="StoredEvents\EventStore.cs" />
     <Compile Include="StoredEvents\NhStoredEventRepository.cs" />
     <Compile Include="StoredEvents\StoredEventMap.cs" />

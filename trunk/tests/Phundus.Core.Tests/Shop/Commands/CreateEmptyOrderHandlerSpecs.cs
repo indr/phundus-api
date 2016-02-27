@@ -13,21 +13,22 @@
     public class when_create_empty_order_command_is_handled :
         order_command_handler_concern<CreateEmptyOrder, CreateEmptyOrderHandler>
     {
-        public const int orderId = 3;
         public static Guid userId = Guid.NewGuid();
+        private static OrderId theOrderId;
+        private static OrderShortId theOrderShortId;
 
         public Establish c = () =>
         {
             var lessee = CreateLessee(new LesseeId(userId));
 
-            var idProperty = typeof (Order).GetProperty("Id");
-            orderRepository.Expect(x => x.Add(Arg<Order>.Is.NotNull)).WhenCalled(a =>
-                idProperty.SetValue(a.Arguments[0], orderId, null));
+            theOrderId = new OrderId();
+            theOrderShortId = new OrderShortId(1234);
+
             lessorService.setup(x => x.GetById(theLessor.LessorId)).Return(theLessor);
             lesseeService.setup(x => x.GetById(lessee.LesseeId)).Return(lessee);
 
-            command = new CreateEmptyOrder(theInitiatorId, theLessor.LessorId,
-                new LesseeId(userId));
+            command = new CreateEmptyOrder(theInitiatorId, theOrderId, theOrderShortId,
+                theLessor.LessorId, new LesseeId(userId));
         };
 
         public It should_add_to_repository = () => orderRepository.WasToldTo(x => x.Add(Arg<Order>.Is.NotNull));
@@ -37,7 +38,5 @@
 
         public It should_publish_order_created = () => publisher.WasToldTo(x => x.Publish(
             Arg<OrderCreated>.Matches(p => Equals(p.Initiator.InitiatorId, theInitiatorId))));
-
-        public It should_set_order_id = () => command.ResultingOrderId.ShouldEqual(orderId);
     }
 }

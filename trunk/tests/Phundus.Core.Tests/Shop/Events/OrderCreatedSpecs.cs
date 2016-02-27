@@ -8,29 +8,29 @@
     [Subject(typeof (OrderCreated))]
     public class order_created : domain_event_concern<OrderCreated>
     {
-        private static ShortOrderId theShortOrderId;
+        private static OrderShortId theOrderShortId;
         private static OrderId theOrderId;
         private static Lessor theLessor;
         private static Lessee theLessee;
 
         private Establish ctx = () =>
         {
-            theShortOrderId = new ShortOrderId(1234);
+            theOrderShortId = new OrderShortId(1234);
             theOrderId = new OrderId();
             theLessor = new Lessor(new LessorId(), "The lessor", true);
             theLessee = new Lessee(new LesseeId(), "Hans", "Muster", "Street", "12345", "City", "user@test.phundus.ch",
                 "+1234567890", "123456");
 
             sut_factory.create_using(() =>
-                new OrderCreated(theInitiator, theOrderId, theShortOrderId,
+                new OrderCreated(theInitiator, theOrderId, theOrderShortId,
                     theLessor, theLessee));
         };
 
         private It should_be_in_assembly = () =>
             itsAssembly.ShouldEqual("Phundus.Core");
 
-        private It should_have_at_1_the_short_order_id = () =>
-            dataMember(1).ShouldEqual(theShortOrderId.Id);
+        private It should_have_at_1_the_order_short_id = () =>
+            dataMember(1).ShouldEqual(theOrderShortId.Id);
 
         private It should_have_at_2_the_order_id = () =>
             dataMember(2).ShouldEqual(theOrderId.Id);

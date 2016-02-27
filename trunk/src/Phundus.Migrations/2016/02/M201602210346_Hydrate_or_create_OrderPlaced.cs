@@ -16,7 +16,7 @@ namespace Phundus.Migrations
 
         public class ListItem
         {
-            public int ShortOrderId { get; set; }
+            public int OrderShortId { get; set; }
             public DateTime CreatedAtUtc { get; set; }
             public bool IsNew { get; set; }
             public OrderPlaced Evnt { get; set; }
@@ -55,13 +55,13 @@ namespace Phundus.Migrations
                 {
                     var shortOrderId = reader.GetInt32(0);
 
-                    var evnt = domainEvents.SingleOrDefault(p => p.ShortOrderId == shortOrderId);
+                    var evnt = domainEvents.SingleOrDefault(p => p.OrderShortId == shortOrderId);
                     var isNew = false;
                     if (evnt == null)
                     {
                         isNew = true;
                         evnt = new OrderPlaced();
-                        evnt.ShortOrderId = shortOrderId;
+                        evnt.OrderShortId = shortOrderId;
                     }
 
                     var createdAtUtc = reader.GetDateTime(11);
@@ -93,7 +93,7 @@ namespace Phundus.Migrations
                         CreatedAtUtc = createdAtUtc,
                         Evnt = evnt,
                         IsNew = isNew,
-                        ShortOrderId = shortOrderId
+                        OrderShortId = shortOrderId
                     });
                 }
             }
@@ -117,7 +117,7 @@ namespace Phundus.Migrations
 
                 var param = selectItemsCmd.CreateParameter();
                 param.ParameterName = "@OrderId";
-                param.Value = each.ShortOrderId;
+                param.Value = each.OrderShortId;
                 selectItemsCmd.Parameters.Add(param);
 
                 using (var reader = selectItemsCmd.ExecuteReader())
@@ -153,18 +153,18 @@ namespace Phundus.Migrations
         [DataContract]
         public class OrderPlaced : MigratingDomainEvent
         {
-            public OrderPlaced(Initiator initiator, OrderId orderId, ShortOrderId shortOrderId, Lessor lessor, Lessee lessee,
+            public OrderPlaced(Initiator initiator, OrderId orderId, OrderShortId orderShortId, Lessor lessor, Lessee lessee,
                 int orderStatus, decimal orderTotal, IList<OrderEventItem> items)
             {
                 if (initiator == null) throw new ArgumentNullException("initiator");
                 if (orderId == null) throw new ArgumentNullException("orderId");
-                if (shortOrderId == null) throw new ArgumentNullException("shortOrderId");
+                if (orderShortId == null) throw new ArgumentNullException("orderShortId");
                 if (lessor == null) throw new ArgumentNullException("lessor");
                 if (lessee == null) throw new ArgumentNullException("lessee");
                 if (items == null) throw new ArgumentNullException("items");
                 Initiator = initiator;
                 OrderId = orderId.Id;
-                ShortOrderId = shortOrderId.Id;
+                OrderShortId = orderShortId.Id;
                 Lessor = lessor;
                 Lessee = lessee;
                 OrderStatus = orderStatus;
@@ -178,7 +178,7 @@ namespace Phundus.Migrations
             }
 
             [DataMember(Order = 1)]
-            public int ShortOrderId { get; set; }
+            public int OrderShortId { get; set; }
 
             [DataMember(Order = 2)]
             public Guid LessorId { get; set; }
