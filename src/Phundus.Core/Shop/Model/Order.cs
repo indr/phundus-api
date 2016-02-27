@@ -18,7 +18,7 @@
         private OrderShortId _orderShortId;
         private OrderStatus _status = OrderStatus.Pending;
 
-        public Order(OrderId orderId, OrderShortId orderShortId, Lessor lessor, Lessee lessee) : this(orderId, orderShortId, lessor, lessee, null)
+        public Order(Initiator initiator, OrderId orderId, OrderShortId orderShortId, Lessor lessor, Lessee lessee) : this(orderId, orderShortId, lessor, lessee, null)
         {
         }
 

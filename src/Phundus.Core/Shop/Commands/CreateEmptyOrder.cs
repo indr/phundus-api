@@ -57,7 +57,7 @@
             var ownerId = new OwnerId(command.LessorId.Id);
             MemberInRole.ActiveManager(ownerId, command.InitiatorId);
 
-            var order = new Order(
+            var order = new Order(initiator,
                 command.OrderId, command.OrderShortId,
                 LessorService.GetById(command.LessorId),
                 LesseeService.GetById(command.LesseeId));

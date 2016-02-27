@@ -84,13 +84,12 @@
                 _authorize.Enforce(cart.UserId, Rent.Article(article));
             }
 
-            var orderItems =
-                cartItemsToPlace.Select(
-                    s =>
-                        new OrderItem(s.Article.ArticleId, s.ArticleShortId, s.LineText, new Period(s.From, s.To),
-                            s.Quantity, s.UnitPrice)).ToList();
 
-            var order = new Order(command.OrderId, command.OrderShortId, lessor, lessee, orderItems);
+            var order = new Order(initiator, command.OrderId, command.OrderShortId, lessor, lessee);
+            foreach (var cartItem in cartItemsToPlace)
+            {
+                order.AddItem(initiator, new OrderItemId(), cartItem.Article, cartItem.Period.FromUtc, cartItem.Period.ToUtc, cartItem.Quantity);
+            }
 
             _orderRepository.Add(order);
 
