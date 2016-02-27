@@ -12,7 +12,7 @@
         private static OrderShortId theOrderShortId;
         private static int theOrderStatus;
         private static decimal theOrderTotal;
-        private static OrderItemId theOrderItemId;
+        private static OrderLineId theOrderItemId;
         private static decimal theOldItemTotal;
         private static decimal theNewItemTotal;
         private static OrderEventItem theOrderItem;
@@ -23,7 +23,7 @@
             theOrderShortId = new OrderShortId(1234);
             theOrderStatus = 1;
             theOrderTotal = 12.50m;
-            theOrderItemId = new OrderItemId();
+            theOrderItemId = new OrderLineId();
             theOldItemTotal = 1.50m;
             theNewItemTotal = 1.60m;
             theOrderItem = CreateOrderEventItem();

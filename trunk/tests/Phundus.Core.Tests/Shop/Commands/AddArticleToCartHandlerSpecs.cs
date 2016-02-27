@@ -9,7 +9,6 @@
     using Phundus.Shop.Authorization;
     using Phundus.Shop.Model;
     using Phundus.Shop.Orders.Commands;
-    using Phundus.Shop.Orders.Repositories;
     using Phundus.Shop.Services;
     using Rhino.Mocks;
 

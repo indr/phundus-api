@@ -3,6 +3,7 @@
     using developwithpassion.specifications.extensions;
     using Machine.Specifications;
     using Orders.Model;
+    using Phundus.Shop.Model;
     using Phundus.Shop.Orders.Model;
 
     public abstract class pending_order_concern : order_concern

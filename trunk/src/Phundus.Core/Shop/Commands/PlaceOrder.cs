@@ -10,7 +10,7 @@
     using Integration.IdentityAccess;
     using Model;
     using Phundus.Authorization;
-    using Repositories;
+    using Shop.Model;
     using Shop.Services;
 
     public class PlaceOrder : ICommand
@@ -88,7 +88,7 @@
             var order = new Order(initiator, command.OrderId, command.OrderShortId, lessor, lessee);
             foreach (var cartItem in cartItemsToPlace)
             {
-                order.AddItem(initiator, new OrderItemId(), cartItem.Article, cartItem.Period.FromUtc, cartItem.Period.ToUtc, cartItem.Quantity);
+                order.AddItem(initiator, new OrderLineId(), cartItem.Article, cartItem.Period, cartItem.Quantity);
             }
 
             _orderRepository.Add(order);
@@ -99,9 +99,9 @@
             }
 
             EventPublisher.Publish(new OrderPlaced(initiator, order.OrderId, order.OrderShortId,
-                lessor, lessee, (int) order.Status, order.TotalPrice, order.Items.Select(s => new OrderEventItem(
-                    s.ItemId, s.ArticleId, s.ArticleShortId, s.Text, s.UnitPrice, s.FromUtc, s.ToUtc, s.Amount,
-                    s.ItemTotal)).ToList()));
+                lessor, lessee, (int) order.Status, order.OrderTotal, order.Items.Select(s => new OrderEventItem(
+                    s.LineId, s.ArticleId, s.ArticleShortId, s.Text, s.UnitPricePerWeek, s.Period, s.Quantity,
+                    s.LineTotal)).ToList()));
         }
     }
 }

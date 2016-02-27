@@ -8,20 +8,21 @@ namespace Phundus.Shop.Orders.Model
     [DataContract]
     public class OrderEventItem : ValueObject
     {
-        public OrderEventItem(OrderItemId orderItemId, ArticleId articleId, ArticleShortId articleShortId, string text,
-            decimal unitPricePerWeek, DateTime fromUtc, DateTime toUtc, int quantity, decimal itemTotal)
+        public OrderEventItem(OrderLineId orderLineId, ArticleId articleId, ArticleShortId articleShortId, string text,
+            decimal unitPricePerWeek, Period period, int quantity, decimal itemTotal)
         {
             if (articleId == null) throw new ArgumentNullException("articleId");
             if (articleShortId == null) throw new ArgumentNullException("articleShortId");
             if (text == null) throw new ArgumentNullException("text");
+            if (period == null) throw new ArgumentNullException("period");
 
-            ItemId = orderItemId.Id;
+            ItemId = orderLineId.Id;
             ArticleId = articleId.Id;
             ArticleShortId = articleShortId.Id;
             Text = text;
             UnitPricePerWeek = unitPricePerWeek;
-            FromUtc = fromUtc;
-            ToUtc = toUtc;
+            FromUtc = period.FromUtc;
+            ToUtc = period.ToUtc;
             Quantity = quantity;
             ItemTotal = itemTotal;
         }

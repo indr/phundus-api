@@ -320,13 +320,13 @@
     <Compile Include="Ddd\EntityBase.cs" />
     <Compile Include="Inventory\Articles\Model\Image.cs" />
     <Compile Include="Shop\Model\Order.cs" />
-    <Compile Include="Shop\Model\OrderItem.cs" />
+    <Compile Include="Shop\Model\OrderLine.cs" />
     <Compile Include="Shop\Model\OrderStatus.cs" />
     <Compile Include="Inventory\AvailabilityAndReservation\Model\Reservation.cs" />
     <Compile Include="Shop\Model\Mails\OrderReceivedMail.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Shop\Model\Repositories\ICartRepository.cs" />
-    <Compile Include="Shop\Model\Repositories\IOrderRepository.cs" />
+    <Compile Include="Shop\Model\ICartRepository.cs" />
+    <Compile Include="Shop\Model\IOrderRepository.cs" />
     <Compile Include="Inventory\AvailabilityAndReservation\Repositories\IReservationRepository.cs" />
   </ItemGroup>
   <ItemGroup>

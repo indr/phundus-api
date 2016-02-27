@@ -8,19 +8,18 @@ namespace Phundus.Tests.Shop.Events
     [Subject(typeof (OrderEventItem))]
     public class order_event_item : domain_event_concern<OrderEventItem>
     {
-        private static OrderItemId theItemId = new OrderItemId();
+        private static OrderLineId theItemId = new OrderLineId();
         private static ArticleId theArticleId = new ArticleId();
         private static ArticleShortId theArticleShortId = new ArticleShortId(1234);
         private static string theText = "The text";
         private static decimal theUnitPricePerWeek = 1.23m;
-        private static DateTime theFromUtc = DateTime.Today;
-        private static DateTime theToUtc = DateTime.Today.AddDays(1);
         private static int theQuantity = 2;
+        private static Period thePeriod = Period.FromNow(6);
         private static decimal theItemTotal = 2.50m;
 
         private Establish ctx = () => sut_factory.create_using(() =>
             new OrderEventItem(theItemId, theArticleId, theArticleShortId,
-                theText, theUnitPricePerWeek, theFromUtc, theToUtc, theQuantity,
+                theText, theUnitPricePerWeek, thePeriod, theQuantity,
                 theItemTotal));
 
         private It should_be_in_assembly = () =>
@@ -42,10 +41,10 @@ namespace Phundus.Tests.Shop.Events
             dataMember(5).ShouldEqual(theUnitPricePerWeek);
 
         private It should_have_at_6_the_from_utc = () =>
-            dataMember(6).ShouldEqual(theFromUtc);
+            dataMember(6).ShouldEqual(thePeriod.FromUtc);
 
         private It should_have_at_7_the_to_utc = () =>
-            dataMember(7).ShouldEqual(theToUtc);
+            dataMember(7).ShouldEqual(thePeriod.ToUtc);
 
         private It should_have_at_8_the_quantity = () =>
             dataMember(8).ShouldEqual(theQuantity);

@@ -4,6 +4,7 @@
     using developwithpassion.specifications.extensions;
     using Machine.Fakes;
     using Machine.Specifications;
+    using Phundus.Shop.Model;
     using Phundus.Shop.Orders.Commands;
     using Phundus.Shop.Orders.Model;
     using Phundus.Tests.Shop;

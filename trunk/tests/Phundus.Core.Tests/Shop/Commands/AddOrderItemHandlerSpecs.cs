@@ -1,13 +1,12 @@
-﻿namespace Phundus.Tests.Shop.Orders.Commands
+﻿namespace Phundus.Tests.Shop.Commands
 {
     using Common.Domain.Model;
     using developwithpassion.specifications.extensions;
-    using Events;
     using Machine.Fakes;
     using Machine.Specifications;
+    using Orders.Commands;
     using Phundus.Shop.Model;
     using Phundus.Shop.Orders.Commands;
-    using Phundus.Shop.Orders.Model;
 
     [Subject(typeof (AddOrderItemHandler))]
     public class when_add_order_command_item_is_handled :
@@ -16,7 +15,7 @@
         private static Period thePeriod;
         private static Order theOrder;
         private static Article theArticle;
-        private static OrderItemId theOrderItemId;
+        private static OrderLineId theOrderItemId;
 
         private Establish ctx = () =>
         {
@@ -30,7 +29,7 @@
                 .Return(theArticle);
 
             thePeriod = Period.FromNow(1);
-            theOrderItemId = new OrderItemId();
+            theOrderItemId = new OrderLineId();
 
             command = new AddOrderItem(theInitiatorId, theOrder.OrderId, theOrderItemId, theArticle.ArticleId,
                 thePeriod, 10);
@@ -39,11 +38,11 @@
         public It should_ask_for_chief_privileges = () =>
             memberInRole.WasToldTo(x => x.ActiveManager(theLessor.LessorId.Id, theInitiatorId));
 
-        public It should_tell_order_to_add_item = () =>
-            theOrder.WasToldTo(x =>
-                x.AddItem(theInitiator, theOrderItemId, theArticle, thePeriod.FromUtc, thePeriod.ToUtc, 10));
-
         private It should_save_to_repository = () =>
             orderRepository.received(x => x.Save(theOrder));
+
+        public It should_tell_order_to_add_item = () =>
+            theOrder.WasToldTo(x =>
+                x.AddItem(theInitiator, theOrderItemId, theArticle, thePeriod, 10));
     }
 }

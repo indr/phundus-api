@@ -4,7 +4,6 @@
     using Common.Domain.Model;
     using IdentityAccess.Projections;
     using Orders.Model;
-    using Orders.Repositories;
     using Orders.Services;
 
     public interface IPdfStore

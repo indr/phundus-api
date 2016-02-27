@@ -60,28 +60,30 @@
     {
         private static Article theArticle;
         private static Period thePeriod;
-        private static int theQuantity = 10;
-        private static OrderItemId theOrderItemId;
+        private static int theQuantity;
+        private static OrderLineId theOrderItemId;
 
         private Establish ctx = () =>
         {
-            theOrderItemId = new OrderItemId();
+            theOrderItemId = new OrderLineId();
             theArticle = make.Article();
-            thePeriod = Period.FromNow(2);
+            thePeriod = Period.FromNow(6);
+            theQuantity = 10;
         };
 
         private Because of = () =>
-            sut.AddItem(theInitiator, theOrderItemId, theArticle, thePeriod.FromUtc, thePeriod.ToUtc, theQuantity);
+            sut.AddItem(theInitiator, theOrderItemId, theArticle, thePeriod, theQuantity);
 
         private It should_have_an_order_item = () =>
             sut.Items.ShouldContain(p =>
-                p.ItemId.Id == theOrderItemId.Id
-                && p.FromUtc == thePeriod.FromUtc
-                && p.ToUtc == thePeriod.ToUtc);
+                p.LineId.Id == theOrderItemId.Id
+                && Equals(p.Period, thePeriod));
 
         private It should_have_mutating_event_order_item_added = () =>
             mutatingEvent<OrderItemAdded>(p =>
                 p.OrderId == theOrderId.Id
-                & p.OrderItem.ItemId == theOrderItemId.Id);
+                && p.OrderTotal == 70.0m
+                && p.OrderItem.ItemId == theOrderItemId.Id
+                && p.OrderItem.ItemTotal == 70.0m);
     }
 }

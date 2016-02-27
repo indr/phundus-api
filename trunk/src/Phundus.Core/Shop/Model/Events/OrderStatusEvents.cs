@@ -10,7 +10,7 @@ namespace Phundus.Shop.Orders.Model
     public class OrderRejected : DomainEvent
     {
         public OrderRejected(Initiator initiator, OrderId orderId, OrderShortId orderShortId, Lessor lessor,
-            Lessee lessee, int orderStatus, decimal orderTotal, IList<OrderEventItem> items)
+            Lessee lessee, OrderStatus orderStatus, decimal orderTotal, IList<OrderEventItem> items)
         {
             if (initiator == null) throw new ArgumentNullException("initiator");
             if (orderId == null) throw new ArgumentNullException("orderId");
@@ -24,7 +24,7 @@ namespace Phundus.Shop.Orders.Model
             OrderShortId = orderShortId.Id;
             Lessor = lessor;
             Lessee = lessee;
-            OrderStatus = orderStatus;
+            OrderStatus = (int)orderStatus;
             OrderTotal = orderTotal;
             LessorId = lessor.LessorId.Id;
             Items = items;
@@ -66,7 +66,7 @@ namespace Phundus.Shop.Orders.Model
     public class OrderApproved : DomainEvent
     {
         public OrderApproved(Initiator initiator, OrderId orderId, OrderShortId orderShortId, Lessor lessor,
-            Lessee lessee, int orderStatus, decimal orderTotal, IList<OrderEventItem> items)
+            Lessee lessee, OrderStatus orderStatus, decimal orderTotal, IList<OrderEventItem> items)
         {
             if (initiator == null) throw new ArgumentNullException("initiator");
             if (orderId == null) throw new ArgumentNullException("orderId");
@@ -80,7 +80,7 @@ namespace Phundus.Shop.Orders.Model
             OrderShortId = orderShortId.Id;
             Lessor = lessor;
             Lessee = lessee;
-            OrderStatus = orderStatus;
+            OrderStatus = (int)orderStatus;
             OrderTotal = orderTotal;
             LessorId = lessor.LessorId.Id;
             Items = items;
@@ -122,7 +122,7 @@ namespace Phundus.Shop.Orders.Model
     public class OrderClosed : DomainEvent
     {
         public OrderClosed(Initiator initiator, OrderId orderId, OrderShortId orderShortId, Lessor lessor,
-            Lessee lessee, int orderStatus, decimal orderTotal, IList<OrderEventItem> items)
+            Lessee lessee, OrderStatus orderStatus, decimal orderTotal, IList<OrderEventItem> items)
         {
             if (initiator == null) throw new ArgumentNullException("initiator");
             if (orderId == null) throw new ArgumentNullException("orderId");
@@ -136,7 +136,7 @@ namespace Phundus.Shop.Orders.Model
             OrderShortId = orderShortId.Id;
             Lessor = lessor;
             Lessee = lessee;
-            OrderStatus = orderStatus;
+            OrderStatus = (int) orderStatus;
             OrderTotal = orderTotal;
             LessorId = lessor.LessorId.Id;
             Items = items;

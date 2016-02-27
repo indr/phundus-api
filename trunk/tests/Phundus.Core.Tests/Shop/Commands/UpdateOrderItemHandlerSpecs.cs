@@ -6,6 +6,7 @@
     using developwithpassion.specifications.extensions;
     using Machine.Fakes;
     using Machine.Specifications;
+    using Phundus.Shop.Model;
     using Phundus.Shop.Orders.Commands;
     using Phundus.Shop.Orders.Model;
 
@@ -17,14 +18,14 @@
         private static Order theOrder;
         private static DateTime newFromUtc;
         private static DateTime newToUtc;
-        private static OrderItemId theOrderItemId;
+        private static OrderLineId theOrderItemId;
 
         public Establish c = () =>
         {
             var article = make.Article();
             theOrder = new Order(theInitiator, new OrderId(), new OrderShortId(1234), theLessor, CreateLessee());
-            theOrderItemId = new OrderItemId();
-            theOrder.AddItem(theInitiator, theOrderItemId, article, DateTime.Today, DateTime.Today, 1);
+            theOrderItemId = new OrderLineId();
+            theOrder.AddItem(theInitiator, theOrderItemId, article, Period.FromNow(1), 1);
             orderRepository.setup(x => x.GetById(theOrder.OrderId)).Return(theOrder);
 
             newFromUtc = DateTime.UtcNow.AddDays(1);
@@ -47,14 +48,14 @@
             orderRepository.received(x => x.Save(theOrder));
 
         public It should_update_order_items_amount = () =>
-            theOrder.Items.Single(p => p.ItemId.Id == theOrderItemId.Id).Amount.ShouldEqual(newAmount);
+            theOrder.Items.Single(p => p.LineId.Id == theOrderItemId.Id).Quantity.ShouldEqual(newAmount);
 
         public It should_update_order_items_period_from_to_midnight = () =>
-            theOrder.Items.Single(p => p.ItemId.Id == theOrderItemId.Id)
-                .FromUtc.ShouldEqual(newFromUtc.ToLocalTime().Date.ToUniversalTime());
+            theOrder.Items.Single(p => p.LineId.Id == theOrderItemId.Id)
+                .Period.FromUtc.ShouldEqual(newFromUtc.ToLocalTime().Date.ToUniversalTime());
 
         public It should_update_order_items_period_to_one_second_before_midnight = () =>
-            theOrder.Items.Single(p => p.ItemId.Id == theOrderItemId.Id)
-                .ToUtc.ShouldEqual(newToUtc.ToLocalTime().Date.AddDays(1).AddSeconds(-1).ToUniversalTime());
+            theOrder.Items.Single(p => p.LineId.Id == theOrderItemId.Id)
+                .Period.ToUtc.ShouldEqual(newToUtc.ToLocalTime().Date.AddDays(1).AddSeconds(-1).ToUniversalTime());
     }
 }

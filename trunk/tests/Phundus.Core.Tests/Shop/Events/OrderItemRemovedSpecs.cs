@@ -9,7 +9,7 @@
     {
         private static OrderId theOrderId;
         private static OrderShortId theOrderShortId;
-        private static int theOrderStatus;
+        private static OrderStatus theOrderStatus;
         private static decimal theOrderTotal;
         private static OrderEventItem theOrderItem;
 
@@ -17,7 +17,7 @@
         {
             theOrderId = new OrderId();
             theOrderShortId = new OrderShortId(1234);
-            theOrderStatus = 123;
+            theOrderStatus = OrderStatus.Pending;
             theOrderTotal = 12.50m;
             theOrderItem = CreateOrderEventItem();
 
@@ -39,7 +39,7 @@
             dataMember(3).ShouldEqual(theOrderShortId.Id);
 
         private It should_have_at_4_the_order_status = () =>
-            dataMember(4).ShouldEqual(theOrderStatus);
+            dataMember(4).ShouldEqual((int)theOrderStatus);
 
         private It should_have_at_5_the_order_total = () =>
             dataMember(5).ShouldEqual(theOrderTotal);

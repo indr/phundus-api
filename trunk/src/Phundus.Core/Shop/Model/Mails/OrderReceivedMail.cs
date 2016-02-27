@@ -8,8 +8,8 @@
     using Infrastructure;
     using Infrastructure.Gateways;
     using Model;
-    using Repositories;
     using Services;
+    using Shop.Model;
     using Shop.Model.Mails;
     using Shop.Services;
 
