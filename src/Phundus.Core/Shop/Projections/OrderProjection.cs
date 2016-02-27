@@ -7,29 +7,104 @@
     using Common.Domain.Model;
     using Common.Notifications;
     using Cqrs;
+    using IdentityAccess.Projections;
+    using Inventory.Services;
+    using NHibernate.Criterion;
     using Orders.Model;
-    using Queries;
 
-    public interface IOrderQueries
+    public interface IOrdersQueries
     {
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="currentUserId"></param>
-        /// <param name="shortOrderId"></param>
-        /// <returns></returns>
-        /// <exception cref="NotFoundException"></exception>
-        OrderDto GetById(CurrentUserId currentUserId, ShortOrderId shortOrderId);
+        OrderData GetById(CurrentUserId currentUserId, ShortOrderId shortOrderId);
 
-        IEnumerable<OrderDto> Query(CurrentUserId currentUserId, ShortOrderId shortOrderId, UserId queryUserId,
+        IEnumerable<OrderData> Query(CurrentUserId currentUserId, ShortOrderId shortOrderId, UserId queryUserId,
             OrganizationId queryOrganizationId);
     }
 
-    public class OrderProjection : ProjectionBase<OrderData>, IStoredEventsConsumer
+    public class OrderProjection : ProjectionBase<OrderData>, IOrdersQueries, IStoredEventsConsumer
     {
+        private readonly IMembershipQueries _membershipQueries;
+        private readonly IAvailabilityService _availabilityService;
+
+        public OrderProjection(IMembershipQueries membershipQueries, IAvailabilityService availabilityService)
+        {
+            if (membershipQueries == null) throw new ArgumentNullException("membershipQueries");
+            if (availabilityService == null) throw new ArgumentNullException("availabilityService");
+            _membershipQueries = membershipQueries;
+            _availabilityService = availabilityService;
+        }
+
+        public OrderData GetById(CurrentUserId currentUserId, ShortOrderId shortOrderId)
+        {
+            if (currentUserId == null) throw new ArgumentNullException("currentUserId");
+
+            var result =
+                Query(currentUserId, shortOrderId == null ? (int?) null : shortOrderId.Id, null, null).SingleOrDefault();
+            if (result == null)
+                throw new NotFoundException(String.Format("Order {0} not found.", shortOrderId));
+
+            CalculateAvailabilities(result);
+
+            return result;
+        }
+
+        public IEnumerable<OrderData> Query(CurrentUserId currentUserId, ShortOrderId shortOrderId, UserId queryUserId,
+            OrganizationId queryOrganizationId)
+        {
+            return Query(currentUserId, shortOrderId == null ? (int?) null : shortOrderId.Id,
+                queryUserId == null ? (Guid?) null : queryUserId.Id,
+                queryOrganizationId == null ? (Guid?) null : queryOrganizationId.Id);
+        }
+
         public void Handle(DomainEvent e)
         {
             Process((dynamic) e);
+        }
+
+        private IEnumerable<OrderData> Query(CurrentUserId currentUserId, int? queryOrderId, Guid? queryUserId,
+            Guid? queryOrganizationId)
+        {
+            var query = QueryOver();
+
+            var organizationIds = _membershipQueries.FindByUserId(currentUserId.Id)
+                .Where(p => p.MembershipRole == "Manager")
+                .Select(s => s.OrganizationGuid).ToList();
+
+            var lesseeOrLessor = new Disjunction();
+            lesseeOrLessor.Add(Restrictions.Where<OrderData>(p => p.LesseeId == currentUserId.Id));
+            lesseeOrLessor.Add(Restrictions.Where<OrderData>(p => p.LessorId == currentUserId.Id));
+
+            var authRestriction = new Disjunction();
+            authRestriction.Add(lesseeOrLessor);
+            authRestriction.Add(Restrictions.On<OrderData>(p => p.LessorId).IsIn(organizationIds));
+
+            query.Where(lesseeOrLessor).And(authRestriction);
+
+            if (queryOrderId.HasValue)
+            {
+                query.And(p => p.OrderShortId == queryOrderId.Value);
+            }
+            if (queryUserId.HasValue)
+            {
+                query.And(p => p.LessorId == queryUserId.Value || p.LesseeId == queryUserId.Value);
+            }
+            if (queryOrganizationId.HasValue)
+            {
+                query.And(p => p.LessorId == queryOrganizationId.Value);
+            }
+
+            return query.List();
+        }
+
+        private void CalculateAvailabilities(OrderData orderDto)
+        {
+            if (orderDto == null)
+                return;
+
+            foreach (var each in orderDto.Items)
+            {
+                each.IsAvailable = _availabilityService.IsArticleAvailable(each.ArticleId, each.FromUtc, each.ToUtc,
+                    each.Quantity, each.Id);
+            }
         }
 
         private void Process(DomainEvent e)
@@ -232,5 +307,6 @@
         public virtual int Quantity { get; set; }
         public virtual decimal UnitPricePerWeek { get; set; }
         public virtual decimal LineTotal { get; set; }
+        public virtual bool IsAvailable { get; set; }
     }
 }

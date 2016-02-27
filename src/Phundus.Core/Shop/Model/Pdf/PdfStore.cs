@@ -19,8 +19,6 @@
 
         public IOrderRepository OrderRepository { get; set; }
 
-        public IOrderQueries OrderQueries { get; set; }
-
         public IOrderPdfGeneratorService OrderPdfGeneratorService { get; set; }
 
         public Stream GetOrderPdf(int orderId, UserId currentUserId)
