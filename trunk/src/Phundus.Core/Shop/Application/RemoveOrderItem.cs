@@ -3,9 +3,7 @@
     using System;
     using Common.Domain.Model;
     using Cqrs;
-    using IdentityAccess.Projections;
-    using Integration.IdentityAccess;
-    using Shop.Model;
+    using Model;
 
     public class RemoveOrderItem
     {
@@ -16,27 +14,23 @@
 
     public class RemoveOrderItemHandler : IHandleCommand<RemoveOrderItem>
     {
-        private readonly IInitiatorService _initiatorService;
+        private readonly IOrderRepository _orderRepository;
+        private readonly IUserInRole _userInRole;
 
-        public RemoveOrderItemHandler(IInitiatorService initiatorService)
+        public RemoveOrderItemHandler(IUserInRole userInRole, IOrderRepository orderRepository)
         {
-            if (initiatorService == null) throw new ArgumentNullException("initiatorService");
-            _initiatorService = initiatorService;
+            if (userInRole == null) throw new ArgumentNullException("userInRole");
+            if (orderRepository == null) throw new ArgumentNullException("orderRepository");
+            _userInRole = userInRole;
+            _orderRepository = orderRepository;
         }
-
-        public IOrderRepository _orderRepository { get; set; }
-
-        public IMemberInRole MemberInRole { get; set; }
 
         public void Handle(RemoveOrderItem command)
         {
-            var initiator = _initiatorService.GetActiveById(command.InitiatorId);
-
             var order = _orderRepository.GetById(command.OrderId);
+            var manager = _userInRole.Manager(command.InitiatorId, order.Lessor.LessorId);
 
-            MemberInRole.ActiveManager(order.Lessor.LessorId.Id, command.InitiatorId);
-
-            order.RemoveItem(initiator, command.OrderItemId);
+            order.RemoveItem(manager, command.OrderItemId);
 
             _orderRepository.Save(order);
         }

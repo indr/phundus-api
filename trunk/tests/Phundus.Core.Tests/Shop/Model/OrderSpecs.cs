@@ -10,6 +10,7 @@
     {
         protected static shop_factory make;
 
+        protected static Manager theManager;
         protected static Lessor theLessor;
         protected static Lessee theLessee;
 
@@ -19,14 +20,13 @@
         {
             make = new shop_factory(fake);
 
+            theManager = make.Manager();
+            theLessor = make.Lessor();
+            theLessee = make.Lessee();
             theOrderId = new OrderId();
 
             sut_factory.create_using(() =>
-            {
-                theLessor = make.Lessor();
-                theLessee = make.Lessee();
-                return new Order(theInitiator, theOrderId, new OrderShortId(1234), theLessor, theLessee);
-            });
+                new Order(theInitiator, theOrderId, new OrderShortId(1234), theLessor, theLessee));
         };
     }
 
@@ -73,7 +73,7 @@
         };
 
         private Because of = () =>
-            sut.AddItem(theInitiator, theOrderItemId, theArticle, thePeriod, theQuantity);
+            sut.AddItem(theManager, theOrderItemId, theArticle, thePeriod, theQuantity);
 
         private It should_have_an_order_item = () =>
             sut.Lines.ShouldContain(p =>

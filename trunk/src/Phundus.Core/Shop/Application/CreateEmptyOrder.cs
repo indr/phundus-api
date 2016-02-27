@@ -3,13 +3,12 @@
     using System;
     using Common.Domain.Model;
     using Cqrs;
-    using IdentityAccess.Projections;
-    using Integration.IdentityAccess;
     using Model;
 
     public class CreateEmptyOrder
     {
-        public CreateEmptyOrder(InitiatorId initiatorId, OrderId orderId, OrderShortId orderShortId, LessorId lessorId, LesseeId lesseeId)
+        public CreateEmptyOrder(InitiatorId initiatorId, OrderId orderId, OrderShortId orderShortId, LessorId lessorId,
+            LesseeId lesseeId)
         {
             if (initiatorId == null) throw new ArgumentNullException("initiatorId");
             if (orderId == null) throw new ArgumentNullException("orderId");
@@ -32,34 +31,35 @@
 
     public class CreateEmptyOrderHandler : IHandleCommand<CreateEmptyOrder>
     {
-        private readonly IInitiatorService _initiatorService;
+        private readonly ILesseeService _lesseeService;
+        private readonly ILessorService _lessorService;
+        private readonly IOrderRepository _orderRepository;
+        private readonly IUserInRole _userInRole;
 
-        public CreateEmptyOrderHandler(IInitiatorService initiatorService)
+        public CreateEmptyOrderHandler(IUserInRole userInRole, IOrderRepository orderRepository,
+            ILessorService lessorService, ILesseeService lesseeService)
         {
-            if (initiatorService == null) throw new ArgumentNullException("initiatorService");
-            _initiatorService = initiatorService;
+            if (userInRole == null) throw new ArgumentNullException("userInRole");
+            if (orderRepository == null) throw new ArgumentNullException("orderRepository");
+            if (lessorService == null) throw new ArgumentNullException("lessorService");
+            if (lesseeService == null) throw new ArgumentNullException("lesseeService");
+
+            _userInRole = userInRole;
+            _orderRepository = orderRepository;
+            _lessorService = lessorService;
+            _lesseeService = lesseeService;
         }
-
-        public IMemberInRole MemberInRole { get; set; }
-
-        public IOrderRepository OrderRepository { get; set; }
-
-        public ILessorService LessorService { get; set; }
-
-        public ILesseeService LesseeService { get; set; }
 
         public void Handle(CreateEmptyOrder command)
         {
-            var initiator = _initiatorService.GetActiveById(command.InitiatorId);
-            var ownerId = new OwnerId(command.LessorId.Id);
-            MemberInRole.ActiveManager(ownerId, command.InitiatorId);
+            var manager = _userInRole.Manager(command.InitiatorId, command.LessorId);
 
-            var order = new Order(initiator,
+            var order = new Order(manager,
                 command.OrderId, command.OrderShortId,
-                LessorService.GetById(command.LessorId),
-                LesseeService.GetById(command.LesseeId));
+                _lessorService.GetById(command.LessorId),
+                _lesseeService.GetById(command.LesseeId));
 
-            OrderRepository.Add(order);
+            _orderRepository.Add(order);
         }
     }
 }

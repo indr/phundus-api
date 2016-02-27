@@ -3,19 +3,20 @@ namespace Phundus.Shop.Orders.Model
     using System;
     using System.Runtime.Serialization;
     using Common.Domain.Model;
+    using Shop.Model;
 
     [DataContract]
     public class OrderItemRemoved : DomainEvent
     {
-        public OrderItemRemoved(Initiator initiator, OrderId orderId, OrderShortId orderShortId, OrderStatus orderStatus,
+        public OrderItemRemoved(Manager manager, OrderId orderId, OrderShortId orderShortId, OrderStatus orderStatus,
             decimal orderTotal, OrderEventLine orderLine)
         {
-            if (initiator == null) throw new ArgumentNullException("initiator");
+            if (manager == null) throw new ArgumentNullException("manager");
             if (orderId == null) throw new ArgumentNullException("orderId");
             if (orderShortId == null) throw new ArgumentNullException("orderShortId");
             if (orderLine == null) throw new ArgumentNullException("orderLine");
 
-            Initiator = initiator;
+            Manager = manager;
             OrderId = orderId.Id;
             OrderShortId = orderShortId.Id;
             OrderStatus = (int)orderStatus;
@@ -28,7 +29,7 @@ namespace Phundus.Shop.Orders.Model
         }
 
         [DataMember(Order = 1)]
-        public Initiator Initiator { get; set; }
+        public Manager Manager { get; set; }
 
         [DataMember(Order = 2)]
         public Guid OrderId { get; set; }

@@ -5,7 +5,7 @@
     using Cqrs;
     using IdentityAccess.Projections;
     using Integration.IdentityAccess;
-    using Shop.Model;
+    using Model;
 
     public class ApproveOrder
     {
@@ -15,26 +15,24 @@
 
     public class ApproveOrderHandler : IHandleCommand<ApproveOrder>
     {
-        private readonly IInitiatorService _initiatorService;
+        private readonly IUserInRole _userInRole;
+        private readonly IOrderRepository _orderRepository;
 
-        public ApproveOrderHandler(IInitiatorService initiatorService)
+        public ApproveOrderHandler(IUserInRole userInRole, IOrderRepository orderRepository)
         {
-            if (initiatorService == null) throw new ArgumentNullException("initiatorService");
-            _initiatorService = initiatorService;
+            if (userInRole == null) throw new ArgumentNullException("userInRole");
+            if (orderRepository == null) throw new ArgumentNullException("orderRepository");
+
+            _userInRole = userInRole;
+            _orderRepository = orderRepository;
         }
-
-        public IOrderRepository _orderRepository { get; set; }
-
-        public IMemberInRole MemberInRole { get; set; }
 
         public void Handle(ApproveOrder command)
         {
-            var initiator = _initiatorService.GetActiveById(command.InitiatorId);
             var order = _orderRepository.GetById(command.OrderId);
+            var manager = _userInRole.Manager(command.InitiatorId, order.Lessor.LessorId);
 
-            MemberInRole.ActiveManager(order.Lessor.LessorId.Id, command.InitiatorId);
-
-            order.Approve(initiator);
+            order.Approve(manager);
 
             _orderRepository.Save(order);
         }

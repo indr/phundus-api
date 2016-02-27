@@ -10,6 +10,12 @@
     {
         private OrderLines _orderLines;
 
+        public Order(Manager manager, OrderId orderId, OrderShortId orderShortId, Lessor lessor, Lessee lessee)
+            : this(new Initiator(new InitiatorId(manager.UserId.Id), manager.EmailAddress, manager.FullName),
+                orderId, orderShortId, lessor, lessee)
+        {
+        }
+
         public Order(Initiator initiator, OrderId orderId, OrderShortId orderShortId, Lessor lessor, Lessee lessee,
             OrderLines orderLines = null)
         {
@@ -54,14 +60,14 @@
             _orderLines = new OrderLines(e.Lines);
         }
 
-        public virtual void Reject(Initiator initiator)
+        public virtual void Reject(Manager manager)
         {
             if (Status == OrderStatus.Closed)
                 throw new OrderAlreadyClosedException();
             if (Status == OrderStatus.Rejected)
                 throw new OrderAlreadyRejectedException();
 
-            Apply(new OrderRejected(initiator, OrderId, OrderShortId, Lessor, Lessee, Status,
+            Apply(new OrderRejected(manager, OrderId, OrderShortId, Lessor, Lessee, Status,
                 OrderTotal, CreateOrderEventItems(_orderLines)));
         }
 
@@ -71,11 +77,11 @@
         }
 
 
-        public virtual void Approve(Initiator initiator)
+        public virtual void Approve(Manager manager)
         {
             AssertPending();
 
-            Apply(new OrderApproved(initiator, OrderId, OrderShortId, Lessor, Lessee, Status,
+            Apply(new OrderApproved(manager, OrderId, OrderShortId, Lessor, Lessee, Status,
                 OrderTotal, CreateOrderEventItems(_orderLines)));
         }
 
@@ -85,12 +91,12 @@
         }
 
 
-        public virtual void Close(Initiator initiator)
+        public virtual void Close(Manager manager)
         {
             AssertNotRejected();
             AssertNotClosed();
 
-            Apply(new OrderClosed(initiator, OrderId, OrderShortId, Lessor, Lessee, Status,
+            Apply(new OrderClosed(manager, OrderId, OrderShortId, Lessor, Lessee, Status,
                 OrderTotal, CreateOrderEventItems(_orderLines)));
         }
 
@@ -100,7 +106,7 @@
         }
 
 
-        public virtual void AddItem(Initiator initiator, OrderLineId orderLineId, Article article, Period period,
+        public virtual void AddItem(Manager manager, OrderLineId orderLineId, Article article, Period period,
             int quantity)
         {
             AssertPending();
@@ -109,7 +115,7 @@
             var priceInfo = new PerDayWithPerSevenDaysPricePricingStrategy()
                 .Calculate(period, quantity, unitPricePerWeek);
 
-            Apply(new OrderItemAdded(initiator, OrderId, OrderShortId, (int) Status, OrderTotal + priceInfo.Price,
+            Apply(new OrderItemAdded(manager, OrderId, OrderShortId, (int) Status, OrderTotal + priceInfo.Price,
                 new OrderEventLine(orderLineId, article.ArticleId, article.ArticleShortId,
                     article.Name, unitPricePerWeek, period, quantity, priceInfo.Price)));
         }
@@ -119,13 +125,13 @@
             _orderLines.When(e);
         }
 
-        public virtual void RemoveItem(Initiator initiator, Guid orderItemId)
+        public virtual void RemoveItem(Manager manager, Guid orderItemId)
         {
             AssertPending();
 
             var item = _orderLines.GetOrderLine(orderItemId);
 
-            Apply(new OrderItemRemoved(initiator, OrderId, OrderShortId, Status, OrderTotal - item.LineTotal,
+            Apply(new OrderItemRemoved(manager, OrderId, OrderShortId, Status, OrderTotal - item.LineTotal,
                 CreateOrderEventItem(item)));
         }
 
@@ -135,13 +141,13 @@
         }
 
 
-        public virtual void ChangeAmount(Initiator initiator, Guid orderItemId, int amount)
+        public virtual void ChangeAmount(Manager manager, Guid orderItemId, int amount)
         {
             AssertPending();
 
             var item = _orderLines.GetOrderLine(orderItemId);
 
-            Apply(new OrderItemQuantityChanged(initiator, OrderId, OrderShortId,
+            Apply(new OrderItemQuantityChanged(manager, OrderId, OrderShortId,
                 (int) Status, OrderTotal, item.LineId, item.Quantity, amount,
                 CreateOrderEventItem(item)));
         }
@@ -152,13 +158,13 @@
         }
 
 
-        public virtual void ChangeItemPeriod(Initiator initiator, Guid orderItemId, DateTime fromUtc, DateTime toUtc)
+        public virtual void ChangeItemPeriod(Manager manager, Guid orderItemId, DateTime fromUtc, DateTime toUtc)
         {
             AssertPending();
 
             var item = _orderLines.GetOrderLine(orderItemId);
 
-            Apply(new OrderItemPeriodChanged(initiator, OrderId, OrderShortId, (int) Status, OrderTotal, orderItemId,
+            Apply(new OrderItemPeriodChanged(manager, OrderId, OrderShortId, (int) Status, OrderTotal, orderItemId,
                 item.Period, new Period(fromUtc, toUtc), CreateOrderEventItem(item)));
         }
 
@@ -168,13 +174,13 @@
         }
 
 
-        public virtual void ChangeItemTotal(Initiator initiator, Guid orderItemId, decimal itemTotal)
+        public virtual void ChangeItemTotal(Manager manager, Guid orderItemId, decimal itemTotal)
         {
             AssertPending();
 
             var item = _orderLines.GetOrderLine(orderItemId);
 
-            Apply(new OrderItemTotalChanged(initiator, OrderId, OrderShortId,
+            Apply(new OrderItemTotalChanged(manager, OrderId, OrderShortId,
                 (int) Status, OrderTotal, item.LineId, item.LineTotal, itemTotal,
                 CreateOrderEventItem(item)));
         }

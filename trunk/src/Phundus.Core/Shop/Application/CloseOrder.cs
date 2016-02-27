@@ -15,27 +15,24 @@
 
     public class CloseOrderHandler : IHandleCommand<CloseOrder>
     {
-        private readonly IInitiatorService _initiatorService;
+        private readonly IUserInRole _userInRole;
+        private readonly IOrderRepository _orderRepository;
 
-        public CloseOrderHandler(IInitiatorService initiatorService)
+        public CloseOrderHandler(IUserInRole userInRole, IOrderRepository orderRepository)
         {
-            if (initiatorService == null) throw new ArgumentNullException("initiatorService");
-            _initiatorService = initiatorService;
+            if (userInRole == null) throw new ArgumentNullException("userInRole");
+            if (orderRepository == null) throw new ArgumentNullException("orderRepository");
+
+            _userInRole = userInRole;
+            _orderRepository = orderRepository;
         }
-
-        public IOrderRepository _orderRepository { get; set; }
-
-        public IMemberInRole MemberInRole { get; set; }
 
         public void Handle(CloseOrder command)
         {
-            var initiator = _initiatorService.GetActiveById(command.InitiatorId);
-
             var order = _orderRepository.GetById(command.OrderId);
+            var manager = _userInRole.Manager(command.InitiatorId, order.Lessor.LessorId);
 
-            MemberInRole.ActiveManager(order.Lessor.LessorId.Id, command.InitiatorId);
-
-            order.Close(initiator);
+            order.Close(manager);
 
             _orderRepository.Save(order);
         }

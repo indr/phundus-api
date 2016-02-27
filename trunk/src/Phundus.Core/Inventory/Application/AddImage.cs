@@ -50,6 +50,7 @@
             if (memberInRole == null) throw new ArgumentNullException("memberInRole");
             if (initiatorService == null) throw new ArgumentNullException("initiatorService");
             if (articleRepository == null) throw new ArgumentNullException("articleRepository");
+
             _memberInRole = memberInRole;
             _initiatorService = initiatorService;
             _articleRepository = articleRepository;

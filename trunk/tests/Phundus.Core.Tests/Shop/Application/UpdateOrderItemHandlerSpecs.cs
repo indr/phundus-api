@@ -1,14 +1,12 @@
-﻿namespace Phundus.Tests.Shop.Orders.Commands
+﻿namespace Phundus.Tests.Shop.Application
 {
     using System;
     using System.Linq;
     using Common.Domain.Model;
     using developwithpassion.specifications.extensions;
-    using Machine.Fakes;
     using Machine.Specifications;
     using Phundus.Shop.Application;
     using Phundus.Shop.Model;
-    using Phundus.Shop.Orders.Model;
 
     [Subject(typeof (UpdateOrderItemHandler))]
     public class when_update_order_command_item_is_handled :
@@ -23,9 +21,9 @@
         public Establish c = () =>
         {
             var article = make.Article();
-            theOrder = new Order(theInitiator, new OrderId(), new OrderShortId(1234), theLessor, CreateLessee());
+            theOrder = new Order(theInitiator, new OrderId(), new OrderShortId(1234), theLessor, theLessee);
             theOrderItemId = new OrderLineId();
-            theOrder.AddItem(theInitiator, theOrderItemId, article, Period.FromNow(1), 1);
+            theOrder.AddItem(theManager, theOrderItemId, article, Period.FromNow(1), 1);
             orderRepository.setup(x => x.GetById(theOrder.OrderId)).Return(theOrder);
 
             newFromUtc = DateTime.UtcNow.AddDays(1);
@@ -40,9 +38,6 @@
                 ToUtc = newToUtc
             };
         };
-
-        public It should_ask_for_chief_privileges =
-            () => memberInRole.WasToldTo(x => x.ActiveManager(theLessor.LessorId.Id, theInitiatorId));
 
         private It should_save_to_repository = () =>
             orderRepository.received(x => x.Save(theOrder));

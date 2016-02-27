@@ -1,4 +1,4 @@
-﻿namespace Phundus.Tests.IdentityAccess.Organizations.Commands
+﻿namespace Phundus.Tests.IdentityAccess.Application
 {
     using Common.Domain.Model;
     using developwithpassion.specifications.extensions;

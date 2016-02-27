@@ -1,10 +1,8 @@
-﻿namespace Phundus.Tests.Shop.Commands
+﻿namespace Phundus.Tests.Shop.Application
 {
     using Common.Domain.Model;
     using developwithpassion.specifications.extensions;
-    using Machine.Fakes;
     using Machine.Specifications;
-    using Orders.Commands;
     using Phundus.Shop.Application;
     using Phundus.Shop.Model;
 
@@ -19,9 +17,7 @@
 
         private Establish ctx = () =>
         {
-            theOrder = make.Order();
-            theLessor = theOrder.Lessor;
-            theLessee = theOrder.Lessee;
+            theOrder = make.Order(theLessor, theLessee);
             orderRepository.setup(x => x.GetById(theOrder.OrderId)).Return(theOrder);
 
             theArticle = make.Article();
@@ -35,14 +31,11 @@
                 thePeriod, 10);
         };
 
-        public It should_ask_for_chief_privileges = () =>
-            memberInRole.WasToldTo(x => x.ActiveManager(theLessor.LessorId.Id, theInitiatorId));
+        public It should_add_item_to_order = () =>
+            theOrder.received(x =>
+                x.AddItem(theManager, theOrderItemId, theArticle, thePeriod, 10));
 
         private It should_save_to_repository = () =>
             orderRepository.received(x => x.Save(theOrder));
-
-        public It should_tell_order_to_add_item = () =>
-            theOrder.WasToldTo(x =>
-                x.AddItem(theInitiator, theOrderItemId, theArticle, thePeriod, 10));
     }
 }

@@ -3,20 +3,19 @@
     using System;
     using Common.Domain.Model;
     using Cqrs;
-    using IdentityAccess.Projections;
-    using Integration.IdentityAccess;
-    using Shop.Model;
+    using Model;
 
     public class AddOrderItem : ICommand
     {
-        public AddOrderItem(InitiatorId initiatorId, OrderId orderId, OrderLineId orderLineId, ArticleId articleId, Period period, int quantity)
+        public AddOrderItem(InitiatorId initiatorId, OrderId orderId, OrderLineId orderLineId, ArticleId articleId,
+            Period period, int quantity)
         {
             if (initiatorId == null) throw new ArgumentNullException("initiatorId");
             if (orderId == null) throw new ArgumentNullException("orderId");
             if (orderLineId == null) throw new ArgumentNullException("orderLineId");
             if (articleId == null) throw new ArgumentNullException("articleId");
-            if (period == null) throw new ArgumentNullException("period");   
-         
+            if (period == null) throw new ArgumentNullException("period");
+
             InitiatorId = initiatorId;
             OrderId = orderId;
             OrderLineId = orderLineId;
@@ -35,32 +34,29 @@
 
     public class AddOrderItemHandler : IHandleCommand<AddOrderItem>
     {
-        private readonly IInitiatorService _initiatorService;
         private readonly IArticleService _articleService;
-        private readonly IMemberInRole _memberInRole;
         private readonly IOrderRepository _orderRepository;
+        private readonly IUserInRole _userInRole;
 
-        public AddOrderItemHandler(IInitiatorService initiatorService, IArticleService articleService, IMemberInRole memberInRole, IOrderRepository orderRepository)
+        public AddOrderItemHandler(IUserInRole userInRole, IOrderRepository orderRepository,
+            IArticleService articleService)
         {
-            if (initiatorService == null) throw new ArgumentNullException("initiatorService");
-            if (articleService == null) throw new ArgumentNullException("articleService");
-            if (memberInRole == null) throw new ArgumentNullException("memberInRole");
+            if (userInRole == null) throw new ArgumentNullException("userInRole");
             if (orderRepository == null) throw new ArgumentNullException("orderRepository");
-            _initiatorService = initiatorService;
-            _articleService = articleService;
-            _memberInRole = memberInRole;
+            if (articleService == null) throw new ArgumentNullException("articleService");
+
+            _userInRole = userInRole;
             _orderRepository = orderRepository;
+            _articleService = articleService;
         }
 
         public void Handle(AddOrderItem command)
         {
-            var initiator = _initiatorService.GetActiveById(command.InitiatorId);
             var order = _orderRepository.GetById(command.OrderId);
-            var lessor = order.Lessor;
-            _memberInRole.ActiveManager(lessor.LessorId.Id, command.InitiatorId);
+            var manager = _userInRole.Manager(command.InitiatorId, order.Lessor.LessorId);
+            var article = _articleService.GetById(order.Lessor.LessorId, command.ArticleId, order.Lessee.LesseeId);
 
-            var article = _articleService.GetById(lessor.LessorId, command.ArticleId, order.Lessee.LesseeId);
-            order.AddItem(initiator, command.OrderLineId, article, command.Period, command.Quantity);
+            order.AddItem(manager, command.OrderLineId, article, command.Period, command.Quantity);
 
             _orderRepository.Save(order);
         }

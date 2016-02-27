@@ -22,15 +22,15 @@
             theOrderItem = CreateOrderEventItem();
 
             sut_factory.create_using(() =>
-                new OrderItemRemoved(theInitiator, theOrderId, theOrderShortId,
+                new OrderItemRemoved(theManager, theOrderId, theOrderShortId,
                     theOrderStatus, theOrderTotal, theOrderItem));
         };
 
         private It should_be_in_assembly = () =>
             itsAssembly.ShouldEqual("Phundus.Core");
 
-        private It should_have_at_1_the_initiator = () =>
-            dataMember(1).ShouldEqual(theInitiator);
+        private It should_have_at_1_the_manager = () =>
+            dataMember(1).ShouldEqual(theManager);
 
         private It should_have_at_2_the_order_id = () =>
             dataMember(2).ShouldEqual(theOrderId.Id);

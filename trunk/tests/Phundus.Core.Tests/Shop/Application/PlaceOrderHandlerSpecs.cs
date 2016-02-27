@@ -1,4 +1,4 @@
-﻿namespace Phundus.Tests.Shop.Commands
+﻿namespace Phundus.Tests.Shop.Application
 {
     using System;
     using System.Collections.Generic;
@@ -6,7 +6,6 @@
     using developwithpassion.specifications.extensions;
     using Machine.Fakes;
     using Machine.Specifications;
-    using Orders.Commands;
     using Phundus.Shop.Application;
     using Phundus.Shop.Model;
     using Phundus.Shop.Orders.Model;
@@ -14,7 +13,6 @@
 
     public class place_order_command_handler_concern : order_command_handler_concern<PlaceOrder, PlaceOrderHandler>
     {
-        protected const int theResultingOrderId = 123;
         protected static Cart theCart;
         protected static ICartRepository cartRepository;
 
@@ -23,9 +21,6 @@
 
         private Establish ctx = () =>
         {
-            lesseeService.WhenToldTo(x => x.GetById(new LesseeId(theInitiatorId.Id)))
-                .Return(CreateLessee(new LesseeId(theInitiatorId.Id)));
-
             theOrderId = new OrderId();
             theOrderShortId = new OrderShortId(1234);
 
@@ -102,7 +97,7 @@
             var anOtherLessorId = new LessorId();
             theCartItemsToRemove.Add(AddCartItem(theLessor.LessorId));
             AddCartItem(anOtherLessorId);
-            theCartItemsToRemove.Add(AddCartItem(theLessor.LessorId));
+            theCartItemsToRemove.Add(AddCartItem(theLessor.LessorId));            
         };
 
         private It should_add_to_repository_with_two_items =

@@ -28,10 +28,11 @@ namespace Phundus.Tests.Shop
             return article;
         }
 
-        public Lessee Lessee()
+        public Lessee Lessee(UserId userId = null)
         {
+            userId = userId ?? new UserId();
             var lessee = fake.an<Lessee>();
-            lessee.setup(x => x.LesseeId).Return(new LesseeId());
+            lessee.setup(x => x.LesseeId).Return(new LesseeId(userId.Id));
             return lessee;
         }
 
@@ -52,6 +53,12 @@ namespace Phundus.Tests.Shop
             order.setup(x => x.Lessor).Return(lessor);
             order.setup(x => x.Lessee).Return(lessee);
             return order;
+        }
+
+        public Manager Manager(UserId userId = null)
+        {
+            userId = userId ?? new UserId();
+            return new Manager(userId, "manager@test.phundus.ch", "The Manager");
         }
     }
 }

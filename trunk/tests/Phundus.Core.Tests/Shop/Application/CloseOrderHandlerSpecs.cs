@@ -1,14 +1,9 @@
-﻿namespace Phundus.Tests.Shop.Orders.Commands
+﻿namespace Phundus.Tests.Shop.Application
 {
-    using Common.Domain.Model;
     using developwithpassion.specifications.extensions;
-    using Machine.Fakes;
     using Machine.Specifications;
     using Phundus.Shop.Application;
     using Phundus.Shop.Model;
-    using Phundus.Shop.Orders.Model;
-    using Phundus.Tests.Shop;
-    using Rhino.Mocks;
 
     [Subject(typeof (CloseOrderHandler))]
     public class when_close_order_command_is_handled : order_command_handler_concern<CloseOrder, CloseOrderHandler>
@@ -27,11 +22,8 @@
             };
         };
 
-        public It should_ask_for_chief_privilegs =
-            () => memberInRole.WasToldTo(x => x.ActiveManager(theLessor.LessorId.Id, theInitiatorId));
-
-        public It should_ask_order_to_close =
-            () => theOrder.WasToldTo(x => x.Close(theInitiator));
+        public It should_close_order =
+            () => theOrder.received(x => x.Close(theManager));
 
         private It should_save_to_repository = () =>
             orderRepository.received(x => x.Save(theOrder));

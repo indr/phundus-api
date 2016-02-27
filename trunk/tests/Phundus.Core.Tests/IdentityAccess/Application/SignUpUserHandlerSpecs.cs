@@ -1,4 +1,4 @@
-﻿namespace Phundus.Tests.IdentityAccess.Users.Commands
+﻿namespace Phundus.Tests.IdentityAccess.Application
 {
     using Common.Domain.Model;
     using Machine.Fakes;
