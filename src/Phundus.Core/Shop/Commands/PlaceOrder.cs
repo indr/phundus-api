@@ -99,7 +99,7 @@
             }
 
             EventPublisher.Publish(new OrderPlaced(initiator, order.OrderId, order.OrderShortId,
-                lessor, lessee, (int) order.Status, order.OrderTotal, order.Items.Select(s => new OrderEventItem(
+                lessor, lessee, (int) order.Status, order.OrderTotal, order.Lines.Select(s => new OrderEventItem(
                     s.LineId, s.ArticleId, s.ArticleShortId, s.Text, s.UnitPricePerWeek, s.Period, s.Quantity,
                     s.LineTotal)).ToList()));
         }

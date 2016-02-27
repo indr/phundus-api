@@ -1,6 +1,6 @@
 ﻿<p>Hallo @Model.Lessee.FullName</p>
 
-<p>Die Bestellung vom @Model.Order.CreatedAtLocal mit der Nummer @Model.Order.Id wurde <b>genehmigt</b>.</p>
+<p>Die Bestellung vom @Model.Order.CreatedAtUtc.ToLocalTime() mit der Nummer @Model.Order.OrderShortId.Id wurde <b>genehmigt</b>.</p>
 
 <p>Bitte vereinbare mit der Materialstelle telefonisch einen Übergabetermin. Wir bitten dich bei der Materialübernahme den Mietpreis bar zu bezahlen.</p>
 
@@ -16,21 +16,21 @@
         </tr>
     </thead>
     <tbody>
-        @foreach (var each in Model.Order.Items)
+        @foreach (var each in Model.Order.Lines)
         {
             <tr>
                 <td>@each.Text</td>
                 <td>@each.FromLocal.ToString("d")</td>
                 <td>@each.ToLocal.ToString("d")</td>
-                <td>@each.Amount</td>
-                <td style="text-align:right">@each.UnitPrice.ToString("N")</td>
+                <td>@each.Quantity</td>
+                <td style="text-align:right">@each.UnitPricePerWeek.ToString("N")</td>
                 <td style="text-align:right">@each.LineTotal.ToString("N")</td>
             </tr>
         }
         
         <tr>
             <td colspan="5" style="text-align:right; font-weight:bold">Total</td>
-            <td style="text-align:right; font-weight:bold">@Model.Order.TotalPrice.ToString("N")</td>
+            <td style="text-align:right; font-weight:bold">@Model.Order.OrderTotal.ToString("N")</td>
         </tr>
     </tbody>
 </table>

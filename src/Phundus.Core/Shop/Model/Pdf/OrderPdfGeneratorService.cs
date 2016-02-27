@@ -130,7 +130,7 @@
             table.AddCell(cell);
             table.AddCell(new Phrase(order.Lessee.PhoneNumber + " / " + order.Lessee.EmailAddress, defaultFont));
 
-            var firstFrom = order.Items.Count == 0 ? (DateTime?)null : order.Items.Min(s => s.Period.FromUtc);
+            var firstFrom = order.Lines.Count == 0 ? (DateTime?)null : order.Lines.Min(s => s.Period.FromUtc);
             if (firstFrom.HasValue)
             {
                 cell = new PdfPCell(new Phrase("Abholen:", defaultFontGray));
@@ -142,7 +142,7 @@
                 table.AddCell(new Phrase(firstFrom.Value.ToLocalTime().ToString("d"), defaultFont));
             }
 
-            var lastTo = order.Items.Count == 0 ? (DateTime?)null : order.Items.Max(s => s.Period.ToUtc);
+            var lastTo = order.Lines.Count == 0 ? (DateTime?)null : order.Lines.Max(s => s.Period.ToUtc);
             if (lastTo.HasValue)
             {
                 cell = new PdfPCell(new Phrase("Rückgabe:", defaultFontGray));
@@ -187,7 +187,7 @@
 
 
             int pos = 0;
-            foreach (var item in order.Items)
+            foreach (var item in order.Lines)
             {
                 pos++;
                 table.AddCell(new Phrase(pos.ToString(), defaultFont));

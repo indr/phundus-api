@@ -38,7 +38,7 @@
             () => memberInRole.WasToldTo(x => x.ActiveManager(theLessor.LessorId.Id, theInitiatorId));
 
         public It should_remove_order_item =
-            () => theOrder.Items.ShouldNotContain(p => p.LineId.Id == orderLineId.Id);
+            () => theOrder.Lines.ShouldNotContain(p => p.LineId.Id == orderLineId.Id);
 
         private It should_save_to_repository = () =>
             orderRepository.received(x => x.Save(theOrder));

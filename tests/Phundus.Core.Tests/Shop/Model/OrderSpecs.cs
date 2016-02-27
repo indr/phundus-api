@@ -40,7 +40,8 @@
             return new Order(theInitiator, new OrderId(), new OrderShortId(1234), theLessor, theLessee);
         });
 
-        public It should_be_empty = () => sut.Items.ShouldBeEmpty();
+        public It should_be_empty = () =>
+            sut.Lines.ShouldBeEmpty();
 
         public It should_have_status_pending =
             () => sut.Status.ShouldEqual(OrderStatus.Pending);
@@ -75,7 +76,7 @@
             sut.AddItem(theInitiator, theOrderItemId, theArticle, thePeriod, theQuantity);
 
         private It should_have_an_order_item = () =>
-            sut.Items.ShouldContain(p =>
+            sut.Lines.ShouldContain(p =>
                 p.LineId.Id == theOrderItemId.Id
                 && Equals(p.Period, thePeriod));
 

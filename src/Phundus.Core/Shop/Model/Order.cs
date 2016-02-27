@@ -2,14 +2,14 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.Collections.ObjectModel;
     using System.Linq;
     using Common.Domain.Model;
-    using Iesi.Collections.Generic;
     using Orders.Model;
 
     public class Order : EventSourcedAggregate
     {
-        private Iesi.Collections.Generic.ISet<OrderLine> _items = new HashedSet<OrderLine>();
+        private OrderLines _orderLines = new OrderLines();
 
         public Order(Initiator initiator, OrderId orderId, OrderShortId orderShortId, Lessor lessor, Lessee lessee)
         {
@@ -32,16 +32,15 @@
         public virtual Lessor Lessor { get; private set; }
         public virtual Lessee Lessee { get; private set; }
 
-        public virtual Iesi.Collections.Generic.ISet<OrderLine> Items
-        {
-            get { return new ImmutableSet<OrderLine>(_items); }
-            protected set { _items = value; }
-        }
-
         public virtual decimal OrderTotal
         {
-            get { return _items.Sum(x => x.LineTotal); }
+            get { return _orderLines.GetOrderLinesSum(); }
         }
+
+        public virtual ICollection<OrderLine> Lines
+        {
+            get { return _orderLines.Lines; }
+        } 
 
         protected void When(OrderCreated e)
         {
@@ -115,18 +114,14 @@
 
         protected void When(OrderItemAdded e)
         {
-            var item = new OrderLine(new OrderLineId(e.OrderItem.ItemId), new ArticleId(e.OrderItem.ArticleId),
-                new ArticleShortId(e.OrderItem.ArticleShortId),
-                e.OrderItem.Text, e.OrderItem.Period, e.OrderItem.Quantity, e.OrderItem.UnitPricePerWeek,
-                e.OrderItem.ItemTotal);
-            _items.Add(item);
+            _orderLines.When(e);
         }
 
         public virtual void RemoveItem(Initiator initiator, Guid orderItemId)
         {
             AssertPending();
 
-            var item = GetOrderLine(orderItemId);
+            var item = _orderLines.GetOrderLine(orderItemId);
 
             Apply(new OrderItemRemoved(initiator, OrderId, OrderShortId, Status, OrderTotal - item.LineTotal,
                 CreateOrderEventItem(item)));
@@ -134,8 +129,7 @@
 
         protected void When(OrderItemRemoved e)
         {
-            var item = GetOrderLine(e.OrderItem.ItemId);
-            _items.Remove(item);
+            _orderLines.When(e);            
         }
 
 
@@ -143,7 +137,7 @@
         {
             AssertPending();
 
-            var item = GetOrderLine(orderItemId);
+            var item = _orderLines.GetOrderLine(orderItemId);
 
             Apply(new OrderItemQuantityChanged(initiator, OrderId, OrderShortId,
                 (int) Status, OrderTotal, item.LineId, item.Quantity, amount,
@@ -152,8 +146,7 @@
 
         protected void When(OrderItemQuantityChanged e)
         {
-            var item = GetOrderLine(e.OrderItemId);
-            item.ChangeQuantity(e.NewQuantity);
+            _orderLines.When(e);
         }
 
 
@@ -161,7 +154,7 @@
         {
             AssertPending();
 
-            var item = GetOrderLine(orderItemId);
+            var item = _orderLines.GetOrderLine(orderItemId);
 
             Apply(new OrderItemPeriodChanged(initiator, OrderId, OrderShortId, (int) Status, OrderTotal, orderItemId,
                 item.Period, new Period(fromUtc, toUtc), CreateOrderEventItem(item)));
@@ -169,8 +162,7 @@
 
         protected void When(OrderItemPeriodChanged e)
         {
-            var item = GetOrderLine(e.OrderItemId);
-            item.ChangePeriod(e.NewPeriod);
+            _orderLines.When(e);
         }
 
 
@@ -178,7 +170,7 @@
         {
             AssertPending();
 
-            var item = GetOrderLine(orderItemId);
+            var item = _orderLines.GetOrderLine(orderItemId);
 
             Apply(new OrderItemTotalChanged(initiator, OrderId, OrderShortId,
                 (int) Status, OrderTotal, item.LineId, item.LineTotal, itemTotal,
@@ -187,17 +179,7 @@
 
         protected void When(OrderItemTotalChanged e)
         {
-            var item = GetOrderLine(e.OrderItemId);
-            item.ChangeLineTotal(e.NewItemTotal);
-        }
-
-
-        private OrderLine GetOrderLine(Guid orderItemId)
-        {
-            var item = _items.FirstOrDefault(p => p.LineId.Id == orderItemId);
-            if (item == null)
-                throw new InvalidOperationException(String.Format("Could not find order line {0}", orderItemId));
-            return item;
+            _orderLines.When(e);
         }
 
         private void AssertPending()
@@ -231,7 +213,7 @@
 
         private IList<OrderEventItem> CreateOrderEventItems()
         {
-            return Items.Select(CreateOrderEventItem).ToList();
+            return Lines.Select(CreateOrderEventItem).ToList();
         }
 
         private OrderEventItem CreateOrderEventItem(OrderLine line)
