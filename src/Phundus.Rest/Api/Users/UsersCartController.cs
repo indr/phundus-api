@@ -9,7 +9,7 @@ namespace Phundus.Rest.Api.Users
     using Castle.Transactions;
     using Common.Domain.Model;
     using Newtonsoft.Json;
-    using Phundus.Shop.Orders.Commands;
+    using Phundus.Shop.Application;
     using Phundus.Shop.Projections;
 
     [RoutePrefix("api/users/{userId}/cart")]

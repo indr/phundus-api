@@ -4,7 +4,6 @@ namespace Phundus.Tests.Inventory
     using Machine.Specifications;
     using Phundus.Cqrs;
     using Phundus.Inventory.Model;
-    using Phundus.Inventory.Services;
     using Phundus.Inventory.Stores.Repositories;
 
     public abstract class store_command_handler_concern<TCommand, THandler> :

@@ -8,9 +8,7 @@
     using Castle.Windsor;
     using Cqrs;
     using Ddd;
-    using IdentityAccess.Projections;
     using IdentityAccess.Users.Services;
-    using Shop.Projections;
 
     public class CoreInstaller : IWindsorInstaller
     {
@@ -73,13 +71,15 @@
 
             container.Register(
                 Component.For<IUserInRole>()
-                    .ImplementedBy<UserInRole>()
-                    .LifestyleTransient());
+                    .ImplementedBy<UserInRole>());
 
             container.Register(
-                Component.For<Inventory.Services.IUserInRole>()
-                    .ImplementedBy<Inventory.Services.UserInRole>()
-                    .LifestyleTransient());
+                Component.For<Inventory.Model.IUserInRole>()
+                    .ImplementedBy<Inventory.Model.UserInRole>());
+
+            container.Register(
+                Component.For<Shop.Model.IUserInRole>()
+                    .ImplementedBy<Shop.Model.UserInRole>());
 
             EventPublisher.Factory(container.Resolve<IEventPublisher>);
         }

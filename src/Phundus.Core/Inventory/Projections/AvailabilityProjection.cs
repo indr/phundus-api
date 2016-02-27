@@ -4,8 +4,8 @@
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
     using System.Linq;
+    using Application;
     using Cqrs;
-    using Services;
 
     public interface IAvailabilityQueries
     {

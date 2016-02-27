@@ -12,7 +12,7 @@ namespace Phundus.Rest.Api
     using ContentObjects;
     using IdentityAccess.Projections;
     using Integration.IdentityAccess;
-    using Inventory.Articles.Commands;
+    using Inventory.Application;
     using Inventory.AvailabilityAndReservation.Repositories;
     using Inventory.Projections;
     using Newtonsoft.Json;

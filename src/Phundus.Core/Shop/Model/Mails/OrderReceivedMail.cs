@@ -11,7 +11,6 @@
     using Services;
     using Shop.Model;
     using Shop.Model.Mails;
-    using Shop.Services;
 
     public class OrderReceivedMail : BaseMail, ISubscribeTo<OrderPlaced>
     {

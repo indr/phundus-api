@@ -9,8 +9,7 @@
     using Common;
     using Common.Domain.Model;
     using ContentObjects;
-    using IdentityAccess.Commands;
-    using IdentityAccess.Organizations.Commands;
+    using IdentityAccess.Application;
     using IdentityAccess.Organizations.Model;
     using IdentityAccess.Projections;
     using Newtonsoft.Json;

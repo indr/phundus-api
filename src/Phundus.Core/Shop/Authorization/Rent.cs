@@ -6,7 +6,6 @@
     using IdentityAccess.Projections;
     using Model;
     using Phundus.Authorization;
-    using Services;
 
     public static class Rent
     {

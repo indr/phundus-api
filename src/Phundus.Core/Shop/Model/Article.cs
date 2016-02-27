@@ -3,18 +3,19 @@ namespace Phundus.Shop.Model
     using System;
     using System.Collections.Generic;
     using Common.Domain.Model;
-    using Orders.Model;
 
     public class Article : ValueObject
     {
         private ArticleId _articleId;
         private ArticleShortId _articleShortId;
-        private string _name;
         private Lessor _lessor;
+        private string _name;
         private decimal _publicPrice;
 
-        public Article(ArticleShortId articleShortId, ArticleId articleId, Lessor lessor, string name, decimal publicPrice)
+        public Article(ArticleShortId articleShortId, ArticleId articleId, Lessor lessor, string name,
+            decimal publicPrice)
         {
+            if (articleShortId == null) throw new ArgumentNullException("articleShortId");
             if (articleId == null) throw new ArgumentNullException("articleId");
             if (lessor == null) throw new ArgumentNullException("lessor");
 

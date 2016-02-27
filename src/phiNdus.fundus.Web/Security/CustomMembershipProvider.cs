@@ -7,7 +7,7 @@
     using System.Web.Security;
     using Common;
     using Cqrs;
-    using IdentityAccess.Users.Commands;
+    using IdentityAccess.Application;
     using IdentityAccess.Users.Repositories;
     using IdentityAccess.Users.Services;
     using Integration.IdentityAccess;

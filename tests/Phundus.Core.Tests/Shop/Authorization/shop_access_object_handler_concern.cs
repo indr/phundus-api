@@ -3,7 +3,7 @@
     using Machine.Specifications;
     using Phundus.Authorization;
     using Phundus.IdentityAccess.Projections;
-    using Phundus.Shop.Services;
+    using Phundus.Shop.Model;
 
     public class shop_access_object_handler_concern<TAccessObject, TAccessObjectHandler> :
         access_object_handler_concern<TAccessObject, TAccessObjectHandler>
