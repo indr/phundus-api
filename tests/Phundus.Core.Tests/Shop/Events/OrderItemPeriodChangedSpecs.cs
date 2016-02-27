@@ -15,7 +15,7 @@
         private static Guid theOrderItemId;
         private static Period theOldPeriod;
         private static Period theNewPeriod;
-        private static OrderEventItem theOrderItem;
+        private static OrderEventLine theOrderItem;
 
         private Establish ctx = () =>
         {

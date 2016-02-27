@@ -28,7 +28,7 @@
             ProcessItems(domainEvent.Items);
         }
 
-        private void ProcessItems(IEnumerable<OrderEventItem> items)
+        private void ProcessItems(IEnumerable<OrderEventLine> items)
         {
             if (items == null) throw new ArgumentNullException("items");
 
@@ -36,21 +36,21 @@
                 ProcessItem(item);
         }
 
-        private void ProcessItem(OrderEventItem item)
+        private void ProcessItem(OrderEventLine line)
         {
-            if (item == null) throw new ArgumentNullException("item");
-            if (item.ArticleId == Guid.Empty)
+            if (line == null) throw new ArgumentNullException("line");
+            if (line.ArticleId == Guid.Empty)
                 return;
 
-            var from = new DateTime(item.FromUtc.Year, item.FromUtc.Month, 1);
-            var to = new DateTime(item.ToUtc.Year, item.ToUtc.Month, 1).AddMonths(1);
+            var from = new DateTime(line.FromUtc.Year, line.FromUtc.Month, 1);
+            var to = new DateTime(line.ToUtc.Year, line.ToUtc.Month, 1).AddMonths(1);
 
             for (var firstOf = from.Date; firstOf < to; firstOf = firstOf.AddMonths(1))
             {
                 var month = firstOf.Month;
 
-                var row = Find(item.ArticleId, month) ??
-                          new ShopItemsSortByPopularityProjectionRow(item.ArticleId, month);
+                var row = Find(line.ArticleId, month) ??
+                          new ShopItemsSortByPopularityProjectionRow(line.ArticleId, month);
                 row.Value += 1;
                 InsertOrUpdate(row);
             }

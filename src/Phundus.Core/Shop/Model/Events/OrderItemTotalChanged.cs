@@ -8,13 +8,13 @@ namespace Phundus.Shop.Orders.Model
     public class OrderItemTotalChanged : DomainEvent
     {
         public OrderItemTotalChanged(Initiator initiator, OrderId orderId, OrderShortId orderShortId, int orderStatus,
-            decimal orderTotal, OrderLineId orderLineId, decimal oldItemTotal, decimal newItemTotal, OrderEventItem orderItem)
+            decimal orderTotal, OrderLineId orderLineId, decimal oldItemTotal, decimal newItemTotal, OrderEventLine orderLine)
         {
             if (initiator == null) throw new ArgumentNullException("initiator");
             if (orderId == null) throw new ArgumentNullException("orderId");
             if (orderShortId == null) throw new ArgumentNullException("orderShortId");
             if (orderLineId == null) throw new ArgumentNullException("orderLineId");
-            if (orderItem == null) throw new ArgumentNullException("orderItem");
+            if (orderLine == null) throw new ArgumentNullException("orderLine");
 
             Initiator = initiator;
             OrderId = orderId.Id;
@@ -24,7 +24,7 @@ namespace Phundus.Shop.Orders.Model
             OrderItemId = orderLineId.Id;
             OldItemTotal = oldItemTotal;
             NewItemTotal = newItemTotal;
-            OrderItem = orderItem;
+            OrderLine = orderLine;
         }
 
         protected OrderItemTotalChanged()
@@ -56,6 +56,6 @@ namespace Phundus.Shop.Orders.Model
         public decimal NewItemTotal { get; set; }
 
         [DataMember(Order = 9)]
-        public OrderEventItem OrderItem { get; set; }
+        public OrderEventLine OrderLine { get; set; }
     }
 }

@@ -8,19 +8,19 @@ namespace Phundus.Shop.Orders.Model
     public class OrderItemRemoved : DomainEvent
     {
         public OrderItemRemoved(Initiator initiator, OrderId orderId, OrderShortId orderShortId, OrderStatus orderStatus,
-            decimal orderTotal, OrderEventItem orderItem)
+            decimal orderTotal, OrderEventLine orderLine)
         {
             if (initiator == null) throw new ArgumentNullException("initiator");
             if (orderId == null) throw new ArgumentNullException("orderId");
             if (orderShortId == null) throw new ArgumentNullException("orderShortId");
-            if (orderItem == null) throw new ArgumentNullException("orderItem");
+            if (orderLine == null) throw new ArgumentNullException("orderLine");
 
             Initiator = initiator;
             OrderId = orderId.Id;
             OrderShortId = orderShortId.Id;
             OrderStatus = (int)orderStatus;
             OrderTotal = orderTotal;
-            OrderItem = orderItem;
+            OrderLine = orderLine;
         }
 
         protected OrderItemRemoved()
@@ -43,6 +43,6 @@ namespace Phundus.Shop.Orders.Model
         public decimal OrderTotal { get; set; }
 
         [DataMember(Order = 6)]
-        public OrderEventItem OrderItem { get; set; }
+        public OrderEventLine OrderLine { get; set; }
     }
 }

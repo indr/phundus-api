@@ -256,7 +256,7 @@
     <Compile Include="Inventory\Stores\Model\Store.cs" />
     <Compile Include="Inventory\Stores\Model\StoreOpened.cs" />
     <Compile Include="Inventory\Stores\Repositories\IStoreRepository.cs" />
-    <Compile Include="Shop\Model\Events\OrderEventItem.cs" />
+    <Compile Include="Shop\Model\Events\OrderEventLine.cs" />
     <Compile Include="Shop\Model\Events\OrderItemRemoved.cs" />
     <Compile Include="Shop\Model\Lessee.cs" />
     <Compile Include="Shop\Commands\AddArticleToCart.cs" />

@@ -6,10 +6,10 @@ namespace Phundus.Shop.Orders.Model
     using Common.Domain.Model;
 
     [DataContract]
-    public class OrderEventItem : ValueObject
+    public class OrderEventLine : ValueObject
     {
-        public OrderEventItem(OrderLineId orderLineId, ArticleId articleId, ArticleShortId articleShortId, string text,
-            decimal unitPricePerWeek, Period period, int quantity, decimal itemTotal)
+        public OrderEventLine(OrderLineId orderLineId, ArticleId articleId, ArticleShortId articleShortId, string text,
+            decimal unitPricePerWeek, Period period, int quantity, decimal lineTotal)
         {
             if (articleId == null) throw new ArgumentNullException("articleId");
             if (articleShortId == null) throw new ArgumentNullException("articleShortId");
@@ -24,10 +24,10 @@ namespace Phundus.Shop.Orders.Model
             FromUtc = period.FromUtc;
             ToUtc = period.ToUtc;
             Quantity = quantity;
-            ItemTotal = itemTotal;
+            LineTotal = lineTotal;
         }
 
-        protected OrderEventItem()
+        protected OrderEventLine()
         {
         }
 
@@ -56,7 +56,7 @@ namespace Phundus.Shop.Orders.Model
         public int Quantity { get; set; }
 
         [DataMember(Order = 9)]
-        public decimal ItemTotal { get; set; }
+        public decimal LineTotal { get; set; }
 
         public Period Period
         {

@@ -8,13 +8,13 @@ namespace Phundus.Shop.Orders.Model
     public class OrderItemQuantityChanged : DomainEvent
     {
         public OrderItemQuantityChanged(Initiator initiator, OrderId orderId, OrderShortId orderShortId, int orderStatus,
-            decimal orderTotal, OrderLineId orderLineId, int oldQuantity, int newQuantity, OrderEventItem orderItem)
+            decimal orderTotal, OrderLineId orderLineId, int oldQuantity, int newQuantity, OrderEventLine orderLine)
         {
             if (initiator == null) throw new ArgumentNullException("initiator");
             if (orderId == null) throw new ArgumentNullException("orderId");
             if (orderShortId == null) throw new ArgumentNullException("orderShortId");
             if (orderLineId == null) throw new ArgumentNullException("orderLineId");
-            if (orderItem == null) throw new ArgumentNullException("orderItem");
+            if (orderLine == null) throw new ArgumentNullException("orderLine");
 
             Initiator = initiator;
             OrderId = orderId.Id;
@@ -24,7 +24,7 @@ namespace Phundus.Shop.Orders.Model
             OrderItemId = orderLineId.Id;
             OldQuantity = oldQuantity;
             NewQuantity = newQuantity;
-            OrderItem = orderItem;
+            OrderLine = orderLine;
         }
 
         protected OrderItemQuantityChanged()
@@ -56,6 +56,6 @@ namespace Phundus.Shop.Orders.Model
         public int NewQuantity { get; set; }
 
         [DataMember(Order = 9)]
-        public OrderEventItem OrderItem { get; set; }
+        public OrderEventLine OrderLine { get; set; }
     }
 }

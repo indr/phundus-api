@@ -12,7 +12,7 @@
         private static OrderShortId theOrderShortId;
         private static OrderStatus theOrderStatus;
         private static decimal theOrderTotal;
-        private static List<OrderEventItem> theItems;
+        private static List<OrderEventLine> theItems;
 
         private Establish ctx = () =>
         {
@@ -20,7 +20,7 @@
             theOrderShortId = new OrderShortId(1234);
             theOrderStatus = OrderStatus.Pending;
             theOrderTotal = 123.50m;
-            theItems = new List<OrderEventItem>();
+            theItems = new List<OrderEventLine>();
             theItems.Add(CreateOrderEventItem());
 
             sut_factory.create_using(() =>

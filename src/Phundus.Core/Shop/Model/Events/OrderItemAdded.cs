@@ -8,7 +8,7 @@ namespace Phundus.Shop.Orders.Model
     public class OrderItemAdded : DomainEvent
     {
         public OrderItemAdded(Initiator initiator, OrderId orderId, OrderShortId orderShortId, int orderStatus,
-            decimal orderTotal, OrderEventItem orderItem)
+            decimal orderTotal, OrderEventLine orderLine)
         {
             if (initiator == null) throw new ArgumentNullException("initiator");
             if (orderId == null) throw new ArgumentNullException("orderId");
@@ -18,7 +18,7 @@ namespace Phundus.Shop.Orders.Model
             OrderShortId = orderShortId.Id;
             OrderStatus = orderStatus;
             OrderTotal = orderTotal;
-            OrderItem = orderItem;
+            OrderLine = orderLine;
         }
 
         protected OrderItemAdded()
@@ -41,6 +41,6 @@ namespace Phundus.Shop.Orders.Model
         public decimal OrderTotal { get; set; }
 
         [DataMember(Order = 6)]
-        public OrderEventItem OrderItem { get; set; }
+        public OrderEventLine OrderLine { get; set; }
     }
 }

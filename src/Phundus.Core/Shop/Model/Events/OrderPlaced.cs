@@ -10,7 +10,7 @@ namespace Phundus.Shop.Orders.Model
     public class OrderPlaced : DomainEvent
     {
         public OrderPlaced(Initiator initiator, OrderId orderId, OrderShortId orderShortId, Lessor lessor, Lessee lessee,
-            int orderStatus, decimal orderTotal, IList<OrderEventItem> items)
+            OrderStatus orderStatus, decimal orderTotal, IList<OrderEventLine> items)
         {
             if (initiator == null) throw new ArgumentNullException("initiator");
             if (orderId == null) throw new ArgumentNullException("orderId");
@@ -24,7 +24,7 @@ namespace Phundus.Shop.Orders.Model
             OrderShortId = orderShortId.Id;
             Lessor = lessor;
             Lessee = lessee;
-            OrderStatus = orderStatus;
+            OrderStatus = (int)orderStatus;
             OrderTotal = orderTotal;
             LessorId = lessor.LessorId.Id;
             Items = items;
@@ -59,6 +59,6 @@ namespace Phundus.Shop.Orders.Model
         public decimal OrderTotal { get; set; }
 
         [DataMember(Order = 9)]
-        public IList<OrderEventItem> Items { get; set; }
+        public IList<OrderEventLine> Items { get; set; }
     }
 }

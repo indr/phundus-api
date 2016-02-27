@@ -11,28 +11,59 @@ namespace Phundus.Shop.Model
     {
         private readonly IList<OrderLine> _items = new List<OrderLine>();
 
+        public OrderLines()
+        {
+        }
+
+        public OrderLines(IEnumerable<CartItem> cartItems)
+        {
+            if (cartItems == null)
+                return;
+
+            foreach (var each in cartItems)
+            {
+                var item = new OrderLine(new OrderLineId(), each.ArticleId, each.ArticleShortId, each.LineText,
+                    each.Period, each.Quantity, each.UnitPrice, each.ItemTotal);
+                _items.Add(item);
+            }
+        }
+
+        public OrderLines(IEnumerable<OrderEventLine> orderEventLines)
+        {
+            if (orderEventLines == null)
+                return;
+
+            foreach (var each in orderEventLines)
+            {
+                var item = new OrderLine(new OrderLineId(each.ItemId), new ArticleId(each.ArticleId),
+                    new ArticleShortId(each.ArticleShortId), each.Text, each.Period, each.Quantity,
+                    each.UnitPricePerWeek, each.LineTotal);
+                _items.Add(item);
+            }
+        }
+
+        public IList<OrderLine> Lines
+        {
+            get { return new ReadOnlyCollection<OrderLine>(_items); }
+        }
+
         public decimal GetOrderLinesSum()
         {
             return _items.Count == 0 ? 0.0m : _items.Sum(s => s.LineTotal);
         }
 
-        public IList<OrderLine> Lines
-        {
-            get { return new ReadOnlyCollection<OrderLine>(_items);}
-        } 
-
         public void When(OrderItemAdded e)
         {
-            var item = new OrderLine(new OrderLineId(e.OrderItem.ItemId), new ArticleId(e.OrderItem.ArticleId),
-                new ArticleShortId(e.OrderItem.ArticleShortId),
-                e.OrderItem.Text, e.OrderItem.Period, e.OrderItem.Quantity, e.OrderItem.UnitPricePerWeek,
-                e.OrderItem.ItemTotal);
+            var item = new OrderLine(new OrderLineId(e.OrderLine.ItemId), new ArticleId(e.OrderLine.ArticleId),
+                new ArticleShortId(e.OrderLine.ArticleShortId),
+                e.OrderLine.Text, e.OrderLine.Period, e.OrderLine.Quantity, e.OrderLine.UnitPricePerWeek,
+                e.OrderLine.LineTotal);
             _items.Add(item);
         }
 
         public void When(OrderItemRemoved e)
         {
-            var item = GetOrderLine(e.OrderItem.ItemId);
+            var item = GetOrderLine(e.OrderLine.ItemId);
             _items.Remove(item);
         }
 
