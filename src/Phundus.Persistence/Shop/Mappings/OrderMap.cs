@@ -12,7 +12,7 @@ namespace Phundus.Persistence.Shop.Mappings
 
             Table("Dm_Shop_Order");
 
-            Id(x => x.Id, "Id").GeneratedBy.Native();            
+            Id(x => x.Id, "Id").GeneratedBy.Assigned();            
             Version(x => x.Version);
             Component(x => x.OrderId, a => a.Map(x => x.Id, "OrderGuid"));
 

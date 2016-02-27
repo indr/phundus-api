@@ -23,7 +23,7 @@
         public Establish c = () =>
         {
             var article = make.Article();
-            order = new Order(theLessor, CreateLessee());
+            order = new Order(new OrderId(), new OrderShortId(1234), theLessor, CreateLessee());
             theOrderItemId = new OrderItemId();
             order.AddItem(theInitiator, theOrderItemId, article, DateTime.Today, DateTime.Today, 1);
             orderRepository.setup(x => x.GetById(orderId)).Return(order);

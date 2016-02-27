@@ -9,19 +9,19 @@ namespace Phundus.Shop.Orders.Model
     [DataContract]
     public class OrderPlaced : DomainEvent
     {
-        public OrderPlaced(Initiator initiator, OrderId orderId, ShortOrderId shortOrderId, Lessor lessor, Lessee lessee,
+        public OrderPlaced(Initiator initiator, OrderId orderId, OrderShortId orderShortId, Lessor lessor, Lessee lessee,
             int orderStatus, decimal orderTotal, IList<OrderEventItem> items)
         {
             if (initiator == null) throw new ArgumentNullException("initiator");
             if (orderId == null) throw new ArgumentNullException("orderId");
-            if (shortOrderId == null) throw new ArgumentNullException("shortOrderId");
+            if (orderShortId == null) throw new ArgumentNullException("orderShortId");
             if (lessor == null) throw new ArgumentNullException("lessor");
             if (lessee == null) throw new ArgumentNullException("lessee");
             if (items == null) throw new ArgumentNullException("items");
 
             Initiator = initiator;
             OrderId = orderId.Id;
-            ShortOrderId = shortOrderId.Id;
+            OrderShortId = orderShortId.Id;
             Lessor = lessor;
             Lessee = lessee;
             OrderStatus = orderStatus;
@@ -35,7 +35,7 @@ namespace Phundus.Shop.Orders.Model
         }
 
         [DataMember(Order = 1)]
-        public int ShortOrderId { get; protected set; }
+        public int OrderShortId { get; protected set; }
 
         [DataMember(Order = 2)]
         public Guid LessorId { get; set; }

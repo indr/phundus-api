@@ -1,6 +1,7 @@
 ﻿namespace Phundus.Persistence.Shop.Repositories
 {
     using Common;
+    using Common.Domain.Model;
     using Phundus.Shop.Orders.Model;
     using Phundus.Shop.Orders.Repositories;
 

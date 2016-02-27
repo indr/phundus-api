@@ -13,9 +13,9 @@ namespace Phundus.Shop.Projections
 
     public interface IOrderQueries
     {
-        OrderData GetById(CurrentUserId currentUserId, ShortOrderId shortOrderId);
+        OrderData GetById(CurrentUserId currentUserId, OrderShortId orderShortId);
 
-        IEnumerable<OrderData> Query(CurrentUserId currentUserId, ShortOrderId shortOrderId, UserId queryUserId,
+        IEnumerable<OrderData> Query(CurrentUserId currentUserId, OrderShortId orderShortId, UserId queryUserId,
             OrganizationId queryOrganizationId);
     }
 
@@ -33,24 +33,24 @@ namespace Phundus.Shop.Projections
             _availabilityService = availabilityService;
         }
 
-        public OrderData GetById(CurrentUserId currentUserId, ShortOrderId shortOrderId)
+        public OrderData GetById(CurrentUserId currentUserId, OrderShortId orderShortId)
         {
             if (currentUserId == null) throw new ArgumentNullException("currentUserId");
 
             var result =
-                Query(currentUserId, shortOrderId == null ? (int?) null : shortOrderId.Id, null, null).SingleOrDefault();
+                Query(currentUserId, orderShortId == null ? (int?) null : orderShortId.Id, null, null).SingleOrDefault();
             if (result == null)
-                throw new NotFoundException(String.Format("Order {0} not found.", shortOrderId));
+                throw new NotFoundException(String.Format("Order {0} not found.", orderShortId));
 
             CalculateAvailabilities(result);
 
             return result;
         }
 
-        public IEnumerable<OrderData> Query(CurrentUserId currentUserId, ShortOrderId shortOrderId, UserId queryUserId,
+        public IEnumerable<OrderData> Query(CurrentUserId currentUserId, OrderShortId orderShortId, UserId queryUserId,
             OrganizationId queryOrganizationId)
         {
-            return Query(currentUserId, shortOrderId == null ? (int?) null : shortOrderId.Id,
+            return Query(currentUserId, orderShortId == null ? (int?) null : orderShortId.Id,
                 queryUserId == null ? (Guid?) null : queryUserId.Id,
                 queryOrganizationId == null ? (Guid?) null : queryOrganizationId.Id);
         }

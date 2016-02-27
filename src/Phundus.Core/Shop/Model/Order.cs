@@ -14,18 +14,22 @@
         private Iesi.Collections.Generic.ISet<OrderItem> _items = new HashedSet<OrderItem>();
         private Lessee _lessee;
         private Lessor _lessor;
-        private OrderId _orderId = new OrderId();
-        private ShortOrderId _shortOrderId = new ShortOrderId(0);
+        private OrderId _orderId;
+        private OrderShortId _orderShortId;
         private OrderStatus _status = OrderStatus.Pending;
 
-        public Order(Lessor lessor, Lessee lessee) : this(lessor, lessee, null)
+        public Order(OrderId orderId, OrderShortId orderShortId, Lessor lessor, Lessee lessee) : this(orderId, orderShortId, lessor, lessee, null)
         {
         }
 
-        public Order(Lessor lessor, Lessee lessee, ICollection<OrderItem> items)
+        public Order(OrderId orderId, OrderShortId orderShortId, Lessor lessor, Lessee lessee, ICollection<OrderItem> items)
         {
+            if (orderId == null) throw new ArgumentNullException("orderId");
+            if (orderShortId == null) throw new ArgumentNullException("orderShortId");
             if (lessor == null) throw new ArgumentNullException("lessor");
             if (lessee == null) throw new ArgumentNullException("lessee");
+            _orderId = orderId;
+            _orderShortId = orderShortId;
             _lessor = lessor;
             _lessee = lessee;
 
@@ -39,14 +43,14 @@
 
         public virtual int Id
         {
-            get { return _shortOrderId.Id; }
-            protected set { _shortOrderId = new ShortOrderId(value); }
+            get { return _orderShortId.Id; }
+            protected set { _orderShortId = new OrderShortId(value); }
         }
 
-        public virtual ShortOrderId ShortOrderId
+        public virtual OrderShortId OrderShortId
         {
-            get { return _shortOrderId; }
-            protected set { _shortOrderId = value; }
+            get { return _orderShortId; }
+            protected set { _orderShortId = value; }
         }
 
         public virtual OrderId OrderId
@@ -126,7 +130,7 @@
 
             Status = OrderStatus.Rejected;
 
-            EventPublisher.Publish(new OrderRejected(initiator, OrderId, ShortOrderId, Lessor, Lessee, (int) Status,
+            EventPublisher.Publish(new OrderRejected(initiator, OrderId, OrderShortId, Lessor, Lessee, (int) Status,
                 TotalPrice, CreateOrderEventItems()));
         }
 
@@ -141,7 +145,7 @@
 
             Status = OrderStatus.Approved;
 
-            EventPublisher.Publish(new OrderApproved(initiator, OrderId, ShortOrderId, Lessor, Lessee, (int) Status,
+            EventPublisher.Publish(new OrderApproved(initiator, OrderId, OrderShortId, Lessor, Lessee, (int) Status,
                 TotalPrice, CreateOrderEventItems()));
         }
 
@@ -154,11 +158,11 @@
 
             Status = OrderStatus.Closed;
 
-            EventPublisher.Publish(new OrderClosed(initiator, OrderId, ShortOrderId, Lessor, Lessee, (int) Status,
+            EventPublisher.Publish(new OrderClosed(initiator, OrderId, OrderShortId, Lessor, Lessee, (int) Status,
                 TotalPrice, CreateOrderEventItems()));
         }
 
-        public virtual void EnsurePending()
+        private void AssertPending()
         {
             switch (Status)
             {
@@ -179,18 +183,18 @@
             DateTime toUtc,
             int quantity)
         {
-            EnsurePending();
+            AssertPending();
 
             var item = new OrderItem(this, orderItemId, article, fromUtc, toUtc, quantity);
             _items.Add(item);
 
-            EventPublisher.Publish(new OrderItemAdded(initiator, OrderId, ShortOrderId,
+            EventPublisher.Publish(new OrderItemAdded(initiator, OrderId, OrderShortId,
                 (int) Status, TotalPrice, CreateOrderEventItem(item)));
         }
 
         public virtual void RemoveItem(Initiator initiator, Guid orderItemId)
         {
-            EnsurePending();
+            AssertPending();
 
             var item = _items.FirstOrDefault(p => p.Id == orderItemId);
             if (item == null)
@@ -199,13 +203,13 @@
             _items.Remove(item);
             item.Delete();
 
-            EventPublisher.Publish(new OrderItemRemoved(initiator, OrderId, ShortOrderId,
+            EventPublisher.Publish(new OrderItemRemoved(initiator, OrderId, OrderShortId,
                 (int) Status, TotalPrice, CreateOrderEventItem(item)));
         }
 
         public virtual void ChangeAmount(Initiator initiator, Guid orderItemId, int amount)
         {
-            EnsurePending();
+            AssertPending();
 
             var item = _items.SingleOrDefault(p => p.Id == orderItemId);
             if (item == null)
@@ -214,14 +218,14 @@
             var oldQuantity = item.Amount;
             item.ChangeAmount(amount);
 
-            EventPublisher.Publish(new OrderItemQuantityChanged(initiator, OrderId, ShortOrderId,
+            EventPublisher.Publish(new OrderItemQuantityChanged(initiator, OrderId, OrderShortId,
                 (int) Status, TotalPrice, item.Id, oldQuantity, item.Amount,
                 CreateOrderEventItem(item)));
         }
 
         public virtual void ChangeItemPeriod(Initiator initiator, Guid orderItemId, DateTime fromUtc, DateTime toUtc)
         {
-            EnsurePending();
+            AssertPending();
 
             var item = _items.SingleOrDefault(p => p.Id == orderItemId);
             if (item == null)
@@ -234,7 +238,7 @@
 
         public virtual void ChangeItemTotal(Initiator initiator, Guid orderItemId, decimal itemTotal)
         {
-            EnsurePending();
+            AssertPending();
 
             var item = _items.SingleOrDefault(p => p.Id == orderItemId);
             if (item == null)
@@ -243,7 +247,7 @@
             var oldItemTotal = item.ItemTotal;
             item.ChangeTotal(itemTotal);
 
-            EventPublisher.Publish(new OrderItemTotalChanged(initiator, OrderId, ShortOrderId,
+            EventPublisher.Publish(new OrderItemTotalChanged(initiator, OrderId, OrderShortId,
                 (int) Status, TotalPrice, item.Id, oldItemTotal, item.ItemTotal,
                 CreateOrderEventItem(item)));
         }

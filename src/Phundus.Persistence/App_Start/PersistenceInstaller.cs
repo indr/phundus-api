@@ -3,10 +3,12 @@
     using Castle.MicroKernel.Registration;
     using Castle.MicroKernel.SubSystems.Configuration;
     using Castle.Windsor;
+    using Common.Domain.Model;
     using Common.Eventing;
     using Common.Notifications;
     using Inventory.Repositories;
     using Phundus.Inventory.AvailabilityAndReservation.Repositories;
+    using Shop.Repositories;
     using StoredEvents;
 
     public class TrackerStoreInstaller : IWindsorInstaller
@@ -38,6 +40,9 @@
             container.Register(Component.For<IReservationRepository>()
                 .ImplementedBy<NhReservationsBasedOnOrdersRepository>()
                 .LifestyleTransient());
+
+            container.Register(Component.For<IShortIdGeneratorService>()
+                .ImplementedBy<ShortIdGeneratorService>());
         }
     }
 }

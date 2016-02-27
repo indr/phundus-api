@@ -57,7 +57,7 @@
             InsertStoredEvent(_orderModifiedAtUtcMap[orderId].Value, _closedTypeName, new M201602270155_Upgrade_Order_Events.OrderClosed
             {
                 OrderId = orderId,
-                ShortOrderId = _orderIdMap[orderId]
+                OrderShortId = _orderIdMap[orderId]
             });
         }
 
@@ -70,7 +70,7 @@
             InsertStoredEvent(_orderModifiedAtUtcMap[orderId].Value, _rejectedTypeName, new M201602270155_Upgrade_Order_Events.OrderRejected
             {
                 OrderId = orderId,
-                ShortOrderId = _orderIdMap[orderId]
+                OrderShortId = _orderIdMap[orderId]
             });
         }
 
@@ -83,7 +83,7 @@
             InsertStoredEvent(_orderModifiedAtUtcMap[orderId].Value, _approvedTypeName, new M201602270155_Upgrade_Order_Events.OrderApproved
             {
                 OrderId = orderId,
-                ShortOrderId = _orderIdMap[orderId]
+                OrderShortId = _orderIdMap[orderId]
             });
         }
 

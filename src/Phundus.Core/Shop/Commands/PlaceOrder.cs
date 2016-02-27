@@ -15,17 +15,23 @@
 
     public class PlaceOrder : ICommand
     {
-        public PlaceOrder(InitiatorId initiatorId, LessorId lessorId)
+        public PlaceOrder(InitiatorId initiatorId, OrderId orderId, OrderShortId orderShortId, LessorId lessorId)
         {
             if (initiatorId == null) throw new ArgumentNullException("initiatorId");
+            if (orderId == null) throw new ArgumentNullException("orderId");
+            if (orderShortId == null) throw new ArgumentNullException("orderShortId");
             if (lessorId == null) throw new ArgumentNullException("lessorId");
+
             InitiatorId = initiatorId;
+            OrderId = orderId;
+            OrderShortId = orderShortId;
             LessorId = lessorId;
         }
 
         public InitiatorId InitiatorId { get; protected set; }
+        public OrderId OrderId { get; protected set; }
+        public OrderShortId OrderShortId { get;  protected set; }
         public LessorId LessorId { get; protected set; }
-        public int ResultingOrderId { get; set; }
     }
 
     public class PlaceOrderHandler : IHandleCommand<PlaceOrder>
@@ -49,6 +55,7 @@
             if (lessorService == null) throw new ArgumentNullException("lessorService");
             if (lesseeService == null) throw new ArgumentNullException("lesseeService");
             if (articleService == null) throw new ArgumentNullException("articleService");
+
             _authorize = authorize;
             _initiatorService = initiatorService;
             _cartRepository = cartRepository;
@@ -82,17 +89,17 @@
                     s =>
                         new OrderItem(s.Article.ArticleId, s.ArticleShortId, s.LineText, new Period(s.From, s.To),
                             s.Quantity, s.UnitPrice)).ToList();
-            var order = new Order(lessor, lessee, orderItems);
+
+            var order = new Order(command.OrderId, command.OrderShortId, lessor, lessee, orderItems);
 
             _orderRepository.Add(order);
-            command.ResultingOrderId = order.ShortOrderId.Id;
 
             foreach (var each in cartItemsToPlace)
             {
                 cart.RemoveItem(each.CartItemId);
             }
 
-            EventPublisher.Publish(new OrderPlaced(initiator, order.OrderId, order.ShortOrderId,
+            EventPublisher.Publish(new OrderPlaced(initiator, order.OrderId, order.OrderShortId,
                 lessor, lessee, (int) order.Status, order.TotalPrice, order.Items.Select(s => new OrderEventItem(
                     s.Id, s.ArticleId, s.ArticleShortId, s.Text, s.UnitPrice, s.FromUtc, s.ToUtc, s.Amount,
                     s.ItemTotal)).ToList()));

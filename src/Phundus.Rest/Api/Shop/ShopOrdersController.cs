@@ -11,17 +11,28 @@
     [RoutePrefix("api/shop/orders")]
     public class ShopOrdersController : ApiControllerBase
     {
+        private readonly IShortIdGeneratorService _shortIdGeneratorService;
+
+        public ShopOrdersController(IShortIdGeneratorService shortIdGeneratorService)
+        {
+            if (shortIdGeneratorService == null) throw new ArgumentNullException("shortIdGeneratorService");
+            _shortIdGeneratorService = shortIdGeneratorService;
+        }
+
         [POST("")]
         [Transaction]
         public virtual ShopOrdersPostOkResponseContent Post(ShopOrdersPostRequestContent requestContent)
         {
-            var command = new PlaceOrder(CurrentUserId, new LessorId(requestContent.LessorId));
+            var orderId = new OrderId();
+            var orderShortId = _shortIdGeneratorService.GetNext<OrderShortId>();
+
+            var command = new PlaceOrder(CurrentUserId, orderId, orderShortId, new LessorId(requestContent.LessorId));
 
             Dispatch(command);
 
             return new ShopOrdersPostOkResponseContent
             {
-                OrderId = command.ResultingOrderId
+                OrderId = orderShortId.Id
             };
         }
 

@@ -19,21 +19,23 @@
         protected static Cart theCart;
         protected static ICartRepository cartRepository;
 
+        private static OrderId theOrderId;
+        private static OrderShortId theOrderShortId;
+
         private Establish ctx = () =>
         {
             lesseeService.WhenToldTo(x => x.GetById(new LesseeId(theInitiatorId.Id)))
                 .Return(CreateLessee(new LesseeId(theInitiatorId.Id)));
 
-            var idProperty = typeof (Order).GetProperty("Id");
-            orderRepository.Expect(x => x.Add(Arg<Order>.Is.NotNull)).WhenCalled(a =>
-                idProperty.SetValue(a.Arguments[0], theResultingOrderId, null));
+            theOrderId = new OrderId();
+            theOrderShortId = new OrderShortId(1234);
 
             theCart = new Cart(theInitiatorId);
             depends.on<ICartRepository>()
                 .WhenToldTo(x => x.GetByUserGuid(new UserId(theInitiatorId.Id)))
                 .Return(theCart);
 
-            command = new PlaceOrder(theInitiatorId, theLessor.LessorId);
+            command = new PlaceOrder(theInitiatorId, theOrderId, theOrderShortId, theLessor.LessorId);
         };
 
         protected static CartItemId AddCartItem(LessorId lessorId)
@@ -111,9 +113,6 @@
             Published<OrderPlaced>(p =>
                 Equals(p.Initiator.InitiatorId, theInitiatorId)
                 && p.LessorId == theLessor.LessorId.Id);
-
-        private It should_set_resulting_order_id =
-            () => command.ResultingOrderId.ShouldEqual(theResultingOrderId);
 
         private It should_tell_cart_to_remove_items =
             () => theCart.Items.ShouldNotContain(c => theCartItemsToRemove.Contains(c.CartItemId));

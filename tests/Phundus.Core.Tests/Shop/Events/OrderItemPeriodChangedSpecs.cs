@@ -9,7 +9,7 @@
     public class order_item_period_changed : shop_domain_event_concern<OrderItemPeriodChanged>
     {
         private static OrderId theOrderId;
-        private static ShortOrderId theShortOrderId;
+        private static OrderShortId theOrderShortId;
         private static int theOrderStatus;
         private static decimal theOrderTotal;
         private static Guid theOrderItemId;
@@ -20,7 +20,7 @@
         private Establish ctx = () =>
         {
             theOrderId = new OrderId();
-            theShortOrderId = new ShortOrderId(1234);
+            theOrderShortId = new OrderShortId(1234);
             theOrderStatus = 1;
             theOrderTotal = 12.50m;
             theOrderItemId = Guid.NewGuid();
@@ -29,7 +29,7 @@
             theOrderItem = CreateOrderEventItem();
 
             sut_factory.create_using(() =>
-                new OrderItemPeriodChanged(theInitiator, theOrderId, theShortOrderId,
+                new OrderItemPeriodChanged(theInitiator, theOrderId, theOrderShortId,
                     theOrderStatus, theOrderTotal, theOrderItemId, theOldPeriod,
                     theNewPeriod, theOrderItem));
         };
@@ -43,8 +43,8 @@
         private It should_have_at_2_the_order_id = () =>
             dataMember(2).ShouldEqual(theOrderId.Id);
 
-        private It should_have_at_3_the_short_order_id = () =>
-            dataMember(3).ShouldEqual(theShortOrderId.Id);
+        private It should_have_at_3_the_order_short_id = () =>
+            dataMember(3).ShouldEqual(theOrderShortId.Id);
 
         private It should_have_at_4_the_order_status = () =>
             dataMember(4).ShouldEqual(theOrderStatus);

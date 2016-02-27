@@ -8,7 +8,7 @@
     [Subject(typeof (OrderPlaced))]
     public class order_placed : shop_domain_event_concern<OrderPlaced>
     {
-        private static ShortOrderId theShortOrderId;
+        private static OrderShortId theOrderShortId;
         private static OrderId theOrderId;
         private static int theOrderStatus = 1;
         private static decimal theOrderTotal = 10.20m;
@@ -17,20 +17,20 @@
         private Establish ctx = () =>
         {
             theOrderId = new OrderId();
-            theShortOrderId = new ShortOrderId(1234);
+            theOrderShortId = new OrderShortId(1234);
             theItems = new List<OrderEventItem>();
             theItems.Add(CreateOrderEventItem());
 
             sut_factory.create_using(() =>
-                new OrderPlaced(theInitiator, theOrderId, theShortOrderId,
+                new OrderPlaced(theInitiator, theOrderId, theOrderShortId,
                     theLessor, theLessee, theOrderStatus, theOrderTotal, theItems));
         };
 
         private It should_be_in_assembly = () =>
             itsAssembly.ShouldEqual("Phundus.Core");
 
-        private It should_have_at_1_the_short_order_id = () =>
-            dataMember(1).ShouldEqual(theShortOrderId.Id);
+        private It should_have_at_1_the_order_short_id = () =>
+            dataMember(1).ShouldEqual(theOrderShortId.Id);
 
         private It should_have_at_2_the_lessor_id = () =>
             dataMember(2).ShouldEqual(theLessor.LessorId.Id);

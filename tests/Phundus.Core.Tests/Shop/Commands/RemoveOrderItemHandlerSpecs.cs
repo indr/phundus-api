@@ -7,12 +7,11 @@
     using Machine.Specifications;
     using Phundus.Shop.Orders.Commands;
     using Phundus.Shop.Orders.Model;
-    using Phundus.Tests.Shop;
     using Rhino.Mocks;
-    using Article = Phundus.Shop.Model.Article;    
 
     [Subject(typeof (RemoveOrderItemHandler))]
-    public class when_remove_order_command_item_is_handled : order_command_handler_concern<RemoveOrderItem, RemoveOrderItemHandler>
+    public class when_remove_order_command_item_is_handled :
+        order_command_handler_concern<RemoveOrderItem, RemoveOrderItemHandler>
     {
         private const int orderId = 2;
         private static OrderItemId orderItemId;
@@ -21,7 +20,7 @@
         public Establish c = () =>
         {
             var article = make.Article();
-            order = new Order(theLessor, CreateLessee());
+            order = new Order(new OrderId(), new OrderShortId(1234), theLessor, CreateLessee());
             orderItemId = new OrderItemId();
             order.AddItem(theInitiator, orderItemId, article, DateTime.Today, DateTime.Today, 1);
             orderRepository.setup(x => x.GetById(orderId)).Return(order);

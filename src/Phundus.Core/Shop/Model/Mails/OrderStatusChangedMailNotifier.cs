@@ -22,7 +22,7 @@
 
         public void Handle(OrderApproved @event)
         {
-            var order = OrderRepository.GetById(@event.ShortOrderId);
+            var order = OrderRepository.GetById(@event.OrderShortId);
 
             Model = new
             {
@@ -33,7 +33,7 @@
             };
 
             Attachments.Add(new Attachment(OrderPdfGeneratorService.GeneratePdf(order),
-                String.Format("Bestellung-{0}.pdf", order.ShortOrderId.Id),
+                String.Format("Bestellung-{0}.pdf", order.OrderShortId.Id),
                 "application/pdf"));
 
             Send(order.Lessee.EmailAddress, Templates.OrderApprovedSubject, null, Templates.OrderApprovedHtml);
@@ -41,7 +41,7 @@
 
         public void Handle(OrderRejected @event)
         {
-            var order = OrderRepository.GetById(@event.ShortOrderId);
+            var order = OrderRepository.GetById(@event.OrderShortId);
 
             Model = new
             {
@@ -52,7 +52,7 @@
             };
 
             Attachments.Add(new Attachment(OrderPdfGeneratorService.GeneratePdf(order),
-                String.Format("Bestellung-{0}.pdf", order.ShortOrderId.Id),
+                String.Format("Bestellung-{0}.pdf", order.OrderShortId.Id),
                 "application/pdf"));
 
             Send(order.Lessee.EmailAddress, Templates.OrderRejectedSubject, null, Templates.OrderRejectedHtml);
