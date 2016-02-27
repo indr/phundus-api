@@ -199,6 +199,7 @@
     <Compile Include="2016\02\M201602270319_Reset_Es_Shop_Orders.cs" />
     <Compile Include="2016\02\M201602270318_Generate_Missing_OrderStatus_Events.cs" />
     <Compile Include="2016\02\M201602270534_Create_Sequence_Generator.cs" />
+    <Compile Include="2016\02\M201602270747_Alter_Table_Dm_Shop_Order.cs" />
     <Compile Include="Helper\EventMigrationBase.cs" />
     <Compile Include="2016\01\M201601151255AddUserGuidToApplicationAndMembership.cs" />
     <Compile Include="2016\01\M201501110544AlterTableNames.cs" />
