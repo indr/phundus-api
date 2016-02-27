@@ -6,7 +6,7 @@
     using AttributeRouting.Web.Http;
     using Castle.Transactions;
     using Common.Domain.Model;
-    using IdentityAccess.Commands;
+    using IdentityAccess.Application;
     using IdentityAccess.Projections;
     using Newtonsoft.Json;
 

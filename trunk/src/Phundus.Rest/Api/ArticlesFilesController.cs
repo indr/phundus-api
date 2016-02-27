@@ -10,7 +10,7 @@ namespace Phundus.Rest.Api
     using Castle.Transactions;
     using Common.Domain.Model;
     using FileUpload;
-    using Inventory.Articles.Commands;
+    using Inventory.Application;
     using Inventory.Projections;
     using Newtonsoft.Json;
 

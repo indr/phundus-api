@@ -6,7 +6,6 @@ namespace Phundus.Tests.Shop.Orders.Commands
     using Phundus.Cqrs;
     using Phundus.IdentityAccess.Projections;
     using Phundus.Shop.Model;
-    using Phundus.Shop.Services;
 
     public abstract class order_command_handler_concern<TCommand, THandler> :
         shop_command_handler_concern<TCommand, THandler>

@@ -5,7 +5,7 @@
     using AttributeRouting;
     using AttributeRouting.Web.Http;
     using Castle.Transactions;
-    using Inventory.Services;
+    using Inventory.Application;
     using Newtonsoft.Json;
 
     [RoutePrefix("api/shop/items/{itemId}/availability-check")]

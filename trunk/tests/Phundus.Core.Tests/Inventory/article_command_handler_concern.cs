@@ -4,7 +4,7 @@ namespace Phundus.Tests.Inventory
     using Phundus.Cqrs;
     using Phundus.IdentityAccess.Projections;
     using Phundus.Inventory.Articles.Repositories;
-    using Phundus.Inventory.Services;
+    using Phundus.Inventory.Model;
 
     public abstract class article_command_handler_concern<TCommand, THandler> :
         command_handler_concern<TCommand, THandler>

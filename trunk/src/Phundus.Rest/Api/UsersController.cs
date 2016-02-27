@@ -11,9 +11,8 @@ namespace Phundus.Rest.Api
     using Common;
     using Common.Domain.Model;
     using ContentObjects;
-    using IdentityAccess.Organizations.Commands;
+    using IdentityAccess.Application;
     using IdentityAccess.Projections;
-    using IdentityAccess.Users.Commands;
     using Integration.IdentityAccess;
     using Inventory.Projections;
     using Newtonsoft.Json;

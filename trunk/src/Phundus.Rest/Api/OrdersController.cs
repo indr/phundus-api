@@ -11,8 +11,8 @@
     using Common.Domain.Model;
     using ContentObjects;
     using Newtonsoft.Json;
+    using Phundus.Shop.Application;
     using Phundus.Shop.Model.Pdf;
-    using Phundus.Shop.Orders.Commands;
     using Phundus.Shop.Projections;
 
     [RoutePrefix("api/orders")]

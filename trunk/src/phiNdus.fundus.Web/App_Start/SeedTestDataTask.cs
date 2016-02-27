@@ -7,10 +7,8 @@ namespace Phundus.Web
     using Castle.Transactions;
     using Common.Domain.Model;
     using Cqrs;
-    using IdentityAccess.Organizations.Commands;
+    using IdentityAccess.Application;
     using IdentityAccess.Organizations.Model;
-    using IdentityAccess.Users.Commands;
-    using Inventory.Articles.Commands;
 
     public class SeedTestDataTask : IStartupTask
     {

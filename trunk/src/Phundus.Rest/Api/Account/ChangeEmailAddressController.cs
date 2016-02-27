@@ -5,7 +5,7 @@
     using AttributeRouting;
     using AttributeRouting.Web.Http;
     using Castle.Transactions;
-    using IdentityAccess.Users.Commands;
+    using IdentityAccess.Application;
     using Newtonsoft.Json;
 
     [RoutePrefix("api/account/change-email-address")]

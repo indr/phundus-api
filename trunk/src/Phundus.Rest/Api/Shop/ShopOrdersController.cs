@@ -6,7 +6,7 @@
     using Castle.Transactions;
     using Common.Domain.Model;
     using Newtonsoft.Json;
-    using Phundus.Shop.Orders.Commands;
+    using Phundus.Shop.Application;
 
     [RoutePrefix("api/shop/orders")]
     public class ShopOrdersController : ApiControllerBase

@@ -11,7 +11,7 @@ namespace Phundus.Rest.Api
     using Common.Domain.Model;
     using ContentObjects;
     using Newtonsoft.Json;
-    using Phundus.Shop.Orders.Commands;
+    using Phundus.Shop.Application;
     using Phundus.Shop.Projections;
 
     [RoutePrefix("api/orders/{orderId}/items")]
