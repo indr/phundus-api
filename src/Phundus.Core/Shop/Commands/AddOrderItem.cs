@@ -10,15 +10,16 @@
 
     public class AddOrderItem : ICommand
     {
-        public AddOrderItem(InitiatorId initiatorId, OrderShortId orderShortId, OrderItemId orderItemId, ArticleId articleId, Period period, int quantity)
+        public AddOrderItem(InitiatorId initiatorId, OrderId orderId, OrderItemId orderItemId, ArticleId articleId, Period period, int quantity)
         {
             if (initiatorId == null) throw new ArgumentNullException("initiatorId");
-            if (orderShortId == null) throw new ArgumentNullException("orderShortId");
+            if (orderId == null) throw new ArgumentNullException("orderId");
             if (orderItemId == null) throw new ArgumentNullException("orderItemId");
             if (articleId == null) throw new ArgumentNullException("articleId");
-            if (period == null) throw new ArgumentNullException("period");            
+            if (period == null) throw new ArgumentNullException("period");   
+         
             InitiatorId = initiatorId;
-            OrderShortId = orderShortId;
+            OrderId = orderId;
             OrderItemId = orderItemId;
             ArticleId = articleId;
             Period = period;
@@ -26,7 +27,7 @@
         }
 
         public InitiatorId InitiatorId { get; protected set; }
-        public OrderShortId OrderShortId { get; protected set; }
+        public OrderId OrderId { get; protected set; }
         public OrderItemId OrderItemId { get; protected set; }
         public ArticleId ArticleId { get; protected set; }
         public Period Period { get; protected set; }
@@ -55,12 +56,14 @@
         public void Handle(AddOrderItem command)
         {
             var initiator = _initiatorService.GetActiveById(command.InitiatorId);
-            var order = _orderRepository.GetById(command.OrderShortId.Id);
+            var order = _orderRepository.GetById(command.OrderId);
             var lessor = order.Lessor;
             _memberInRole.ActiveManager(lessor.LessorId.Id, command.InitiatorId);
 
             var article = _articleService.GetById(lessor.LessorId, command.ArticleId, order.Lessee.LesseeId);
             order.AddItem(initiator, command.OrderItemId, article, command.Period.FromUtc, command.Period.ToUtc, command.Quantity);
+
+            _orderRepository.Save(order);
         }
     }
 }

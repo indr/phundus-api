@@ -27,7 +27,7 @@ namespace Phundus.Shop.Orders.Model
             OrderItem = orderItem;
         }
 
-        public OrderItemPeriodChanged()
+        protected OrderItemPeriodChanged()
         {
         }
 

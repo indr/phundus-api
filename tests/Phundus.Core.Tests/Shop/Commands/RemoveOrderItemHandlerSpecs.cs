@@ -15,20 +15,20 @@
     {
         private const int orderId = 2;
         private static OrderItemId orderItemId;
-        private static Order order;
+        private static Order theOrder;
 
         public Establish c = () =>
         {
             var article = make.Article();
-            order = new Order(theInitiator, new OrderId(), new OrderShortId(1234), theLessor, CreateLessee());
+            theOrder = new Order(theInitiator, new OrderId(), new OrderShortId(1234), theLessor, CreateLessee());
             orderItemId = new OrderItemId();
-            order.AddItem(theInitiator, orderItemId, article, DateTime.Today, DateTime.Today, 1);
-            orderRepository.setup(x => x.GetById(orderId)).Return(order);
+            theOrder.AddItem(theInitiator, orderItemId, article, DateTime.Today, DateTime.Today, 1);
+            orderRepository.setup(x => x.GetById(theOrder.OrderId)).Return(theOrder);
 
             command = new RemoveOrderItem
             {
                 InitiatorId = theInitiatorId,
-                OrderId = orderId,
+                OrderId = theOrder.OrderId,
                 OrderItemId = orderItemId.Id
             };
         };
@@ -36,10 +36,10 @@
         public It should_ask_for_chief_privileges =
             () => memberInRole.WasToldTo(x => x.ActiveManager(theLessor.LessorId.Id, theInitiatorId));
 
-        public It should_publish_order_item_removed =
-            () => publisher.WasToldTo(x => x.Publish(Arg<OrderItemRemoved>.Is.NotNull));
-
         public It should_remove_order_item =
-            () => order.Items.ShouldNotContain(p => p.Id == orderItemId.Id);
+            () => theOrder.Items.ShouldNotContain(p => p.ItemId.Id == orderItemId.Id);
+
+        private It should_save_to_repository = () =>
+            orderRepository.received(x => x.Save(theOrder));
     }
 }

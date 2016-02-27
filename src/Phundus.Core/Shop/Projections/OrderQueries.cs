@@ -13,9 +13,9 @@ namespace Phundus.Shop.Projections
 
     public interface IOrderQueries
     {
-        OrderData GetById(CurrentUserId currentUserId, OrderShortId orderShortId);
+        OrderData GetById(CurrentUserId currentUserId, OrderId orderId);
 
-        IEnumerable<OrderData> Query(CurrentUserId currentUserId, OrderShortId orderShortId, UserId queryUserId,
+        IEnumerable<OrderData> Query(CurrentUserId currentUserId, OrderId orderId, UserId queryUserId,
             OrganizationId queryOrganizationId);
     }
 
@@ -33,29 +33,29 @@ namespace Phundus.Shop.Projections
             _availabilityService = availabilityService;
         }
 
-        public OrderData GetById(CurrentUserId currentUserId, OrderShortId orderShortId)
+        public OrderData GetById(CurrentUserId currentUserId, OrderId orderId)
         {
             if (currentUserId == null) throw new ArgumentNullException("currentUserId");
 
             var result =
-                Query(currentUserId, orderShortId == null ? (int?) null : orderShortId.Id, null, null).SingleOrDefault();
+                Query(currentUserId, orderId == null ? (Guid?) null : orderId.Id, null, null).SingleOrDefault();
             if (result == null)
-                throw new NotFoundException(String.Format("Order {0} not found.", orderShortId));
+                throw new NotFoundException(String.Format("Order {0} not found.", orderId));
 
             CalculateAvailabilities(result);
 
             return result;
         }
 
-        public IEnumerable<OrderData> Query(CurrentUserId currentUserId, OrderShortId orderShortId, UserId queryUserId,
+        public IEnumerable<OrderData> Query(CurrentUserId currentUserId, OrderId orderId, UserId queryUserId,
             OrganizationId queryOrganizationId)
         {
-            return Query(currentUserId, orderShortId == null ? (int?) null : orderShortId.Id,
+            return Query(currentUserId, orderId == null ? (Guid?) null : orderId.Id,
                 queryUserId == null ? (Guid?) null : queryUserId.Id,
                 queryOrganizationId == null ? (Guid?) null : queryOrganizationId.Id);
         }
 
-        private IEnumerable<OrderData> Query(CurrentUserId currentUserId, int? queryOrderId, Guid? queryUserId,
+        private IEnumerable<OrderData> Query(CurrentUserId currentUserId, Guid? queryOrderId, Guid? queryUserId,
             Guid? queryOrganizationId)
         {
             var query = QueryOver();
@@ -83,12 +83,12 @@ namespace Phundus.Shop.Projections
             query.Where(authRestriction);
         }
 
-        private void AddQueryFilter(IQueryOver<OrderData, OrderData> query, int? queryOrderId, Guid? queryUserId,
+        private void AddQueryFilter(IQueryOver<OrderData, OrderData> query, Guid? queryOrderId, Guid? queryUserId,
           Guid? queryOrganizationId)
         {
             if (queryOrderId.HasValue)
             {
-                query.And(p => p.OrderShortId == queryOrderId.Value);
+                query.And(p => p.OrderId == queryOrderId.Value);
             }
             if (queryUserId.HasValue)
             {

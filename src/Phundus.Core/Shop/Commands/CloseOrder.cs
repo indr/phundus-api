@@ -9,8 +9,8 @@
 
     public class CloseOrder
     {
-        public int OrderId { get; set; }
         public InitiatorId InitiatorId { get; set; }
+        public OrderId OrderId { get; set; }
     }
 
     public class CloseOrderHandler : IHandleCommand<CloseOrder>
@@ -23,7 +23,7 @@
             _initiatorService = initiatorService;
         }
 
-        public IOrderRepository OrderRepository { get; set; }
+        public IOrderRepository _orderRepository { get; set; }
 
         public IMemberInRole MemberInRole { get; set; }
 
@@ -31,11 +31,13 @@
         {
             var initiator = _initiatorService.GetActiveById(command.InitiatorId);
 
-            var order = OrderRepository.GetById(command.OrderId);
+            var order = _orderRepository.GetById(command.OrderId);
 
             MemberInRole.ActiveManager(order.Lessor.LessorId.Id, command.InitiatorId);
 
             order.Close(initiator);
+
+            _orderRepository.Save(order);
         }
     }
 }

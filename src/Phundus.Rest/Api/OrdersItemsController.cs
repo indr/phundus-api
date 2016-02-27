@@ -28,21 +28,21 @@ namespace Phundus.Rest.Api
 
         [POST("")]
         [Transaction]
-        public virtual HttpResponseMessage Post(int orderId, OrdersItemsPostRequestContent requestContent)
+        public virtual HttpResponseMessage Post(Guid orderId, OrdersItemsPostRequestContent requestContent)
         {
             var orderItemId = new OrderItemId();
-            var command = new AddOrderItem(CurrentUserId, new OrderShortId(orderId), orderItemId,
+            var command = new AddOrderItem(CurrentUserId, new OrderId(orderId), orderItemId,
                 new ArticleId(requestContent.ArticleId), new Period(requestContent.FromUtc, requestContent.ToUtc),
                 requestContent.Quantity);
 
             Dispatch(command);
 
-            return Get(orderId, orderItemId.Id, HttpStatusCode.Created);
+            return Get(new OrderId(orderId), orderItemId.Id, HttpStatusCode.Created);
         }
 
-        private HttpResponseMessage Get(int orderId, Guid orderItemId, HttpStatusCode statusCode)
+        private HttpResponseMessage Get(OrderId orderId, Guid orderItemId, HttpStatusCode statusCode)
         {
-            var order = _orderQueries.GetById(CurrentUserId, new OrderShortId(orderId));
+            var order = _orderQueries.GetById(CurrentUserId, orderId);
             var item = order.Items.FirstOrDefault(p => p.LineId == orderItemId);
             if (item == null)
                 return Request.CreateErrorResponse(HttpStatusCode.NotFound,
@@ -65,7 +65,7 @@ namespace Phundus.Rest.Api
 
         [PATCH("{orderItemId}")]
         [Transaction]
-        public virtual HttpResponseMessage Patch(int orderId, Guid orderItemId,
+        public virtual HttpResponseMessage Patch(Guid orderId, Guid orderItemId,
             OrdersItemsPatchRequestContent requestContent)
         {
             Dispatcher.Dispatch(new UpdateOrderItem
@@ -73,23 +73,23 @@ namespace Phundus.Rest.Api
                 Amount = requestContent.Amount,
                 FromUtc = requestContent.FromUtc,
                 InitiatorId = CurrentUserId,
-                OrderId = orderId,
+                OrderId = new OrderId(orderId),
                 OrderItemId = orderItemId,
                 ToUtc = requestContent.ToUtc,
                 ItemTotal = requestContent.ItemTotal
             });
 
-            return Get(orderId, orderItemId, HttpStatusCode.OK);
+            return Get(new OrderId(orderId), orderItemId, HttpStatusCode.OK);
         }
 
         [DELETE("{orderItemId}")]
         [Transaction]
-        public virtual HttpResponseMessage Delete(int orderId, Guid orderItemId)
+        public virtual HttpResponseMessage Delete(Guid orderId, Guid orderItemId)
         {
             Dispatcher.Dispatch(new RemoveOrderItem
             {
                 InitiatorId = CurrentUserId,
-                OrderId = orderId,
+                OrderId = new OrderId(orderId),
                 OrderItemId = orderItemId
             });
 

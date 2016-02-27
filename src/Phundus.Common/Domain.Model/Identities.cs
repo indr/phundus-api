@@ -115,10 +115,24 @@
 
     public class OrderId : GuidIdentity
     {
+        public OrderId()
+        {
+        }
+
+        public OrderId(Guid id) : base(id)
+        {
+        }
     }
 
     public class OrderItemId : GuidIdentity
     {
+        public OrderItemId()
+        {
+        }
+
+        public OrderItemId(Guid id) : base(id)
+        {
+        }
     }
 
     public class OrganizationId : GuidIdentity

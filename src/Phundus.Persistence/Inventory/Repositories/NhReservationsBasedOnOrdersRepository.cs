@@ -25,7 +25,7 @@
 
             var query = from oi in OrderItems
                         where oi.ArticleShortId.Id == articleId
-                         && oi.Id != orderItemToExclude
+                         && oi.ItemId.Id != orderItemToExclude
                         select oi;
 
             result.AddRange(factory.Create(query));

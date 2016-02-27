@@ -20,7 +20,7 @@
 
         protected static OrderEventItem CreateOrderEventItem()
         {
-            return new OrderEventItem(Guid.NewGuid(), new ArticleId(), new ArticleShortId(1234),
+            return new OrderEventItem(new OrderItemId(), new ArticleId(), new ArticleShortId(1234),
                 "The text", 1.23m, DateTime.Today, DateTime.Today.AddDays(1), 10, 12.3m);
         }
     }

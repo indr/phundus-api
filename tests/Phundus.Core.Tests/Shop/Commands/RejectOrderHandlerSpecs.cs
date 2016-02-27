@@ -11,18 +11,17 @@
     [Subject(typeof (RejectOrderHandler))]
     public class when_reject_order_command_is_handled : order_command_handler_concern<RejectOrder, RejectOrderHandler>
     {
-        private const int orderId = 3;
-        private static Order order;
+        private static Order theOrder;
 
         public Establish c = () =>
         {
-            order = make.Order(theLessor);
-            orderRepository.setup(x => x.GetById(orderId)).Return(order);
+            theOrder = make.Order(theLessor);
+            orderRepository.setup(x => x.GetById(theOrder.OrderId)).Return(theOrder);
 
             command = new RejectOrder
             {
                 InitiatorId = theInitiatorId,
-                OrderId = orderId
+                OrderId = theOrder.OrderId
             };
         };
 
@@ -30,6 +29,9 @@
             () => memberInRole.WasToldTo(x => x.ActiveManager(theLessor.LessorId.Id, theInitiatorId));
 
         public It should_ask_order_to_reject =
-            () => order.WasToldTo(x => x.Reject(theInitiator));
+            () => theOrder.WasToldTo(x => x.Reject(theInitiator));
+
+        private It should_save_to_repository = () =>
+            orderRepository.received(x => x.Save(theOrder));
     }
 }

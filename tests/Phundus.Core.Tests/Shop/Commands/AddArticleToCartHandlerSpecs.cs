@@ -2,13 +2,13 @@
 {
     using System;
     using Common.Domain.Model;
+    using developwithpassion.specifications.extensions;
     using Machine.Fakes;
     using Machine.Specifications;
     using Orders.Commands;
     using Phundus.Shop.Authorization;
     using Phundus.Shop.Model;
     using Phundus.Shop.Orders.Commands;
-    using Phundus.Shop.Orders.Model;
     using Phundus.Shop.Orders.Repositories;
     using Phundus.Shop.Services;
     using Rhino.Mocks;
@@ -28,7 +28,9 @@
             theArticle = make.Article();
             cartRepository = depends.on<ICartRepository>();
 
-            depends.on<IArticleService>().WhenToldTo(x => x.GetById(theArticle.ArticleId, theInitiatorId)).Return(theArticle);
+            depends.on<IArticleService>()
+                .WhenToldTo(x => x.GetById(theArticle.ArticleId, theInitiatorId))
+                .Return(theArticle);
             command = new AddArticleToCart(theInitiatorId, theArticle.ArticleId, theFromUtc, theToUtc, theQuantity);
         };
     }
@@ -60,7 +62,7 @@
         private It should_enforce_initiator_to_rent_article = () =>
             EnforcedInitiatorTo<RentArticle>(p => Equals(p.Article.ArticleId, theArticle.ArticleId));
 
-        private It should_not_add_a_cart_to_repository =
-            () => cartRepository.WasNotToldTo(x => x.Add(Arg<Cart>.Is.Anything));
+        private It should_not_add_a_cart_to_repository = () =>
+            cartRepository.never_received(x => x.Add(Arg<Cart>.Is.NotNull));
     }
 }

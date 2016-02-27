@@ -9,7 +9,7 @@
 
     public class UpdateOrderItem
     {
-        public int OrderId { get; set; }
+        public OrderId OrderId { get; set; }
         public Guid OrderItemId { get; set; }
         public InitiatorId InitiatorId { get; set; }
 
@@ -29,14 +29,14 @@
             _initiatorService = initiatorService;
         }
 
-        public IOrderRepository OrderRepository { get; set; }
+        public IOrderRepository _orderRepository { get; set; }
 
         public IMemberInRole MemberInRole { get; set; }
 
         public void Handle(UpdateOrderItem command)
         {
             var initiator = _initiatorService.GetActiveById(command.InitiatorId);
-            var order = OrderRepository.GetById(command.OrderId);
+            var order = _orderRepository.GetById(command.OrderId);
 
             MemberInRole.ActiveManager(order.Lessor.LessorId.Id, command.InitiatorId);
 
@@ -45,6 +45,8 @@
                 command.ToUtc.ToLocalTime().Date.AddDays(1).AddSeconds(-1).ToUniversalTime());
 
             order.ChangeItemTotal(initiator, command.OrderItemId, command.ItemTotal);
+
+            _orderRepository.Save(order);
         }
     }
 }

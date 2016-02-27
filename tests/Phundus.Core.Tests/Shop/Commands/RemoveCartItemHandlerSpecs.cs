@@ -1,12 +1,10 @@
 namespace Phundus.Tests.Shop.Commands
 {
-    using System;
     using Common.Domain.Model;
     using Machine.Fakes;
     using Machine.Specifications;
     using Phundus.Shop.Model;
     using Phundus.Shop.Orders.Commands;
-    using Phundus.Shop.Orders.Model;
     using Phundus.Shop.Orders.Repositories;
 
     [Subject(typeof (RemoveCartItemHandler))]
@@ -17,11 +15,14 @@ namespace Phundus.Tests.Shop.Commands
 
         private Establish ctx = () =>
         {
-            theCart = mock.partial<Cart>(new object[] { theInitiatorId });
-            depends.on<ICartRepository>().WhenToldTo(x => x.FindByUserGuid(new UserId(theInitiatorId.Id))).Return(theCart);
+            theCart = mock.partial<Cart>(new object[] {theInitiatorId});
+            depends.on<ICartRepository>()
+                .WhenToldTo(x => x.FindByUserGuid(new UserId(theInitiatorId.Id)))
+                .Return(theCart);
             command = new RemoveCartItem(theInitiatorId, theCartItemId);
         };
 
-        private It should_tell_cart_to_remove_item = () => theCart.WasToldTo(x => x.RemoveItem(theCartItemId));
+        private It should_tell_cart_to_remove_item = () =>
+            theCart.WasToldTo(x => x.RemoveItem(theCartItemId));
     }
 }

@@ -10,7 +10,7 @@
         private int _amount;
         private ArticleShortId _articleShortId;
         private DateTime _fromUtc;
-        private Guid _id = Guid.NewGuid();
+        private OrderItemId _itemId;
         private Order _order;
         private string _text;
         private DateTime _toUtc;
@@ -18,29 +18,14 @@
         private decimal _itemTotal;
         private ArticleId _articleId;
 
-        public OrderItem(Order order, OrderItem copyFrom)
+        public OrderItem(OrderItemId orderItemId, ArticleId articleId, ArticleShortId articleShortId, string text, Period period, int quantity, decimal unitPricePerWeek)
         {
-            if (order == null) throw new ArgumentNullException("order");
-            if (copyFrom == null) throw new ArgumentNullException("copyFrom");
-
-            _order = order;
-            _articleId = copyFrom.ArticleId;
-            _articleShortId = copyFrom.ArticleShortId;
-            _text = copyFrom.Text;
-            _fromUtc = copyFrom.FromUtc;
-            _toUtc = copyFrom.ToUtc;
-            _amount = copyFrom.Amount;
-            _unitPrice = copyFrom.UnitPrice;
-
-            CalculateTotal();
-        }
-
-        public OrderItem(ArticleId articleId, ArticleShortId articleShortId, string text, Period period, int quantity, decimal unitPricePerWeek)
-        {
+            if (orderItemId == null) throw new ArgumentNullException("orderItemId");
             if (articleId == null) throw new ArgumentNullException("articleId");
             if (articleShortId == null) throw new ArgumentNullException("articleShortId");
             if (period == null) throw new ArgumentNullException("period");
 
+            _itemId = orderItemId;
             _articleId = articleId;
             _articleShortId = articleShortId;
             _text = text;
@@ -57,7 +42,7 @@
             if (orderItemId == null) throw new ArgumentNullException("orderItemId");
             if (article == null) throw new ArgumentNullException("article");
 
-            _id = orderItemId.Id;
+            _itemId = orderItemId;
             _order = order;
             _articleId = article.ArticleId;
             _articleShortId = article.ArticleShortId;
@@ -74,10 +59,10 @@
         {
         }
 
-        public virtual Guid Id
+        public virtual OrderItemId ItemId
         {
-            get { return _id; }
-            protected set { _id = value; }
+            get { return _itemId; }
+            protected set { _itemId = value; }
         }
 
         public virtual int Version { get; protected set; }
@@ -85,7 +70,7 @@
         public virtual Order Order
         {
             get { return _order; }
-            protected set { _order = value; }
+            set { _order = value; }
         }
 
         public virtual int Amount
@@ -174,11 +159,6 @@
             FromUtc = fromUtc;
             ToUtc = toUtc;
             CalculateTotal();
-        }
-
-        public virtual void Delete()
-        {
-            _order = null;
         }
 
         public virtual void ChangeTotal(decimal itemTotal)

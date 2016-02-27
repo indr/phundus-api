@@ -19,7 +19,7 @@ Scenario: Add article to order for member picks member price
 	| Text  | Item Total |
 	| Apple | 1.00       |
 
-Scenario: Add article to order for non-member picks public price
+Scenario: Add article to order for non member picks public price
 	Given I created a new empty order for John
 	When I try to add the article Apple to the order
 	Then the order should have these items:

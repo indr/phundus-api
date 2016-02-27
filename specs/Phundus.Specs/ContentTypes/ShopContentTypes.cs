@@ -20,7 +20,10 @@
     public class ShopOrdersPostOkResponseContent
     {
         [JsonProperty("orderId")]
-        public int OrderId { get; set; }
+        public Guid OrderId { get; set; }
+
+        [JsonProperty("orderShortId")]
+        public int OrderShortId { get; set; }
     }
 
     public class ShopItem

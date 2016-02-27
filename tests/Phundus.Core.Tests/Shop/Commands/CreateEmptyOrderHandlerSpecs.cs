@@ -31,12 +31,10 @@
                 theLessor.LessorId, new LesseeId(userId));
         };
 
-        public It should_add_to_repository = () => orderRepository.WasToldTo(x => x.Add(Arg<Order>.Is.NotNull));
+        public It should_add_to_repository = () =>
+            orderRepository.received(x => x.Add(Arg<Order>.Is.NotNull));
 
         public It should_ask_for_chief_privileges =
             () => memberInRole.WasToldTo(x => x.ActiveManager(new OwnerId(theLessor.LessorId.Id), theInitiatorId));
-
-        public It should_publish_order_created = () => publisher.WasToldTo(x => x.Publish(
-            Arg<OrderCreated>.Matches(p => Equals(p.Initiator.InitiatorId, theInitiatorId))));
     }
 }

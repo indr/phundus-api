@@ -325,7 +325,7 @@
                 new {organizationId, memberId, isManager = role == MemberRole.Manager});
         }
 
-        public int CreateOrder(Guid organizationId, Guid lesseeId)
+        public Guid CreateOrder(Guid organizationId, Guid lesseeId)
         {
             var result = _apiClient.OrdersApi.Post<OrdersPostOkResponseContent>(new {ownerId = organizationId, lesseeId});
             return result.Data.OrderId;
@@ -341,7 +341,7 @@
             return _apiClient.OrdersApi.Query<Order>(new {organizationId}).Data.Results;
         }
 
-        public void AddOrderItem(int orderId, Guid articleId)
+        public void AddOrderItem(Guid orderId, Guid articleId)
         {
             _apiClient.OrdersItemsApi.Post(new OrdersItemsPostRequestContent
             {
@@ -360,7 +360,7 @@
                 {
                     LessorId = lessorId
                 })
-                .Data.OrderId;
+                .Data.OrderShortId;
         }
 
         public void UpdateStartpage(Organization organization, string htmlContent)
@@ -414,7 +414,7 @@
                 new {ownerId = article.OwnerId}).Data;
         }
 
-        public Order GetOrder(int orderId)
+        public Order GetOrder(Guid orderId)
         {
             return _apiClient.OrdersApi.Get<Order>(new {orderId}).Data;
         }
