@@ -26,7 +26,7 @@ namespace Phundus.Migrations
         {
             const string typeName = @"Phundus.Shop.Orders.Model.OrderPlaced, Phundus.Core";
             var storedEvents = FindStoredEvents(typeName);
-            var domainEvents = storedEvents.Select(s => s.Deserialize<OrderPlaced>()).ToList();
+            var domainEvents = storedEvents.Select(s => Deserialize<OrderPlaced>(s)).ToList();
 
             var command = CreateCommand(@"SELECT [Id]
       ,[Version]
@@ -151,7 +151,7 @@ namespace Phundus.Migrations
         }
 
         [DataContract]
-        public class OrderPlaced : DomainEvent
+        public class OrderPlaced : MigratingDomainEvent
         {
             public OrderPlaced(Initiator initiator, OrderId orderId, ShortOrderId shortOrderId, Lessor lessor, Lessee lessee,
                 int orderStatus, decimal orderTotal, IList<OrderEventItem> items)

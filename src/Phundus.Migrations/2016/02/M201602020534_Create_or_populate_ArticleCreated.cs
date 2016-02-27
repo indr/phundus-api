@@ -15,7 +15,7 @@ namespace Phundus.Migrations
             const string typeName = @"Phundus.Inventory.Articles.Model.ArticleCreated, Phundus.Core";
             var storedEvents = FindStoredEvents(typeName);
             var domainEvents =
-                storedEvents.Select(s => s.Deserialize<ArticleCreated>()).OrderBy(p => p.OccuredOnUtc).ToList();
+                storedEvents.Select(s => Deserialize<ArticleCreated>(s)).OrderBy(p => p.OccuredOnUtc).ToList();
 
             var command = CreateCommand(@"SELECT TOP 1000 [Id]
       ,[Version]
@@ -71,7 +71,7 @@ namespace Phundus.Migrations
         }
 
         [DataContract]
-        public class ArticleCreated : DomainEvent
+        public class ArticleCreated : MigratingDomainEvent
         {
             [DataMember(Order = 1)]
             public Initiator Initiator { get; set; }

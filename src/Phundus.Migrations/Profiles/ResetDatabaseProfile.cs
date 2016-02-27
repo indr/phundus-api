@@ -27,6 +27,8 @@
             DropTable("Es_Shop_Item");
             DropTable("Es_Shop_ShopItemsSortByPopularityProjection");
             DropTable("Es_Shop_Items");
+            DropTable("Es_Shop_Orders_Lines");
+            DropTable("Es_Shop_Orders");
             
             DeleteAllRowsIfTableExists("Es_Inventory_Articles");
             DeleteAllRowsFromTableWithPrefix("Es_");

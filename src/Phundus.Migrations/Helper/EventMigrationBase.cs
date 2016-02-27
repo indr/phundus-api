@@ -97,15 +97,26 @@ VALUES (@EventGuid, @TypeName, @OccuredOnUtc, @AggregateId, @Serialization)");
             _commands.Add(command);
         }
 
-        protected void UpdateStoredEvent(Guid eventGuid, object domainEvent)
+        protected void UpdateStoredEvent(Guid eventGuid, MigratingDomainEvent domainEvent, Guid? aggregateId = null)
         {
             var stream = new MemoryStream();
             Serializer.Serialize(stream, domainEvent);
 
             var command = CreateCommand(
-                    @"UPDATE [dbo].[StoredEvents] SET [Serialization] = @Serialization WHERE [EventGuid] = @EventGuid");
+                    @"UPDATE [dbo].[StoredEvents] SET [Serialization] = @Serialization, [AggregateId] = @AggregateId WHERE [EventGuid] = @EventGuid");
             command.Parameters.Add(new SqlParameter(@"EventGuid", eventGuid));
             command.Parameters.Add(new SqlParameter(@"Serialization", stream.ToArray()));
+            command.Parameters.Add(new SqlParameter(@"AggregateId",
+                aggregateId.HasValue ? aggregateId.Value : Guid.Empty));
+            _commands.Add(command);
+        }
+
+        protected void UpdateStoredEventAggregateId(Guid eventGuid, Guid aggregateId)
+        {
+            var command = CreateCommand(
+                    @"UPDATE [dbo].[StoredEvents] SET [AggregateId] = @AggregateId WHERE [EventGuid] = @EventGuid");
+            command.Parameters.Add(new SqlParameter(@"EventGuid", eventGuid));
+            command.Parameters.Add(new SqlParameter(@"AggregateId", aggregateId));
             _commands.Add(command);
         }
 
