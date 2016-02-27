@@ -38,7 +38,7 @@
             Model = new
             {
                 Urls = new Urls(Config.ServerUrl),
-                Borrower = order.Lessee,
+                Lessee = order.Lessee,
                 Order = order,
                 Admins = Config.FeedbackRecipients
             };
