@@ -59,16 +59,16 @@
             return Request.CreateResponse(HttpStatusCode.OK, Map<OrderDetail>(order));
         }
 
-        [GET("{orderId}.pdf")]
+        [GET("{orderId}/pdf")]
         [Transaction]
         public virtual HttpResponseMessage GetPdf(Guid orderId)
         {
-            _orderQueries.GetById(CurrentUserId, new OrderId(orderId));
+            var order = _orderQueries.GetById(CurrentUserId, new OrderId(orderId));
             var result = _pdfStore.GetOrderPdf(new OrderId(orderId), CurrentUserId);
             if (result == null)
                 return CreateNotFoundResponse("Die Bestellung mit der Id {0} konnte nicht gefunden werden.", orderId);
 
-            return CreatePdfResponse(result, string.Format("Bestellung-{0}.pdf", orderId));
+            return CreatePdfResponse(result, string.Format("Bestellung-{0}.pdf", order.OrderShortId));
         }
 
         [POST("")]
