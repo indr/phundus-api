@@ -54,7 +54,10 @@ namespace Phundus.Persistence.Shop.Mappings
             SchemaAction.Validate();
 
             Table("Dm_Shop_OrderItem");
-            Id(x => x.Id, "OrderItemGuid").GeneratedBy.Assigned();
+
+            CompositeId(x => x.ItemId)
+                .KeyProperty(k => k.Id, "OrderItemGuid");
+
             Version(x => x.Version);
 
             References(x => x.Order, "OrderId");

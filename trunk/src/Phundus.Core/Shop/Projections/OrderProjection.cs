@@ -2,6 +2,7 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.Collections.ObjectModel;
     using System.Linq;
     using Common.Domain.Model;
     using Common.Notifications;
@@ -132,6 +133,8 @@
 
     public class OrderData
     {
+        private ICollection<OrderLineData> _items = new Collection<OrderLineData>();
+
         public enum OrderStatus
         {
             Pending = 1,
@@ -164,7 +167,11 @@
         public virtual string LesseeEmailAddress { get; set; }
         public virtual string LesseePhoneNumber { get; set; }
 
-        public virtual ICollection<OrderLineData> Items { get; set; }
+        public virtual ICollection<OrderLineData> Items
+        {
+            get { return _items; }
+            set { _items = value; }
+        }
     }
 
     public class OrderLineData

@@ -1,28 +1,31 @@
 ﻿namespace Phundus.Tests.Shop.Orders.Model
 {
     using System;
-    using System.Collections.Generic;
     using Common.Domain.Model;
     using Machine.Specifications;
     using Phundus.Shop.Model;
     using Phundus.Shop.Orders.Model;
 
-    public abstract class order_concern : aggregate_concern<Order>
+    public abstract class order_concern : aggregate_root_concern<Order>
     {
         protected static shop_factory make;
 
         protected static Lessor theLessor;
         protected static Lessee theLessee;
 
+        protected static OrderId theOrderId;
+
         private Establish ctx = () =>
         {
             make = new shop_factory(fake);
+
+            theOrderId = new OrderId();
 
             sut_factory.create_using(() =>
             {
                 theLessor = make.Lessor();
                 theLessee = make.Lessee();
-                return new Order(theInitiator, new OrderId(), new OrderShortId(1234), theLessor, theLessee);
+                return new Order(theInitiator, theOrderId, new OrderShortId(1234), theLessor, theLessee);
             });
         };
     }
@@ -53,39 +56,6 @@
     }
 
     [Subject(typeof (Order))]
-    public class when_creating_an_order_three_with_items : order_concern
-    {
-        private static List<OrderItem> theItems;
-
-        public Establish ctx = () =>
-        {
-            theItems = new List<OrderItem>();
-            theItems.Add(new OrderItem(null, new OrderItemId(), make.Article(), DateTime.UtcNow,
-                DateTime.UtcNow.AddDays(1), 1));
-            theItems.Add(new OrderItem(null, new OrderItemId(), make.Article(), DateTime.UtcNow,
-                DateTime.UtcNow.AddDays(1), 1));
-            theItems.Add(new OrderItem(null, new OrderItemId(), make.Article(), DateTime.UtcNow,
-                DateTime.UtcNow.AddDays(1), 1));
-
-            sut_factory.create_using(() =>
-            {
-                theLessor = make.Lessor();
-                theLessee = make.Lessee();
-                return new Order(new OrderId(), new OrderShortId(1234), theLessor, theLessee, theItems);
-            });
-        };
-
-        private It should_copy_the_items = () =>
-            sut.Items.ShouldNotContain(theItems);
-
-        private It should_have_three_items = () =>
-            sut.Items.Count.ShouldEqual(3);
-
-        private It should_not_be_empty = () =>
-            sut.Items.ShouldNotBeEmpty();
-    }
-
-    [Subject(typeof (Order))]
     public class when_adding_an_order_item : order_concern
     {
         private static Article theArticle;
@@ -105,8 +75,13 @@
 
         private It should_have_an_order_item = () =>
             sut.Items.ShouldContain(p =>
-                p.Id == theOrderItemId.Id
+                p.ItemId.Id == theOrderItemId.Id
                 && p.FromUtc == thePeriod.FromUtc
                 && p.ToUtc == thePeriod.ToUtc);
+
+        private It should_have_mutating_event_order_item_added = () =>
+            mutatingEvent<OrderItemAdded>(p =>
+                p.OrderId == theOrderId.Id
+                & p.OrderItem.ItemId == theOrderItemId.Id);
     }
 }

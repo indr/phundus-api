@@ -1,10 +1,12 @@
 ﻿namespace Phundus.Shop.Orders.Repositories
 {
-    using Infrastructure;
+    using Common.Domain.Model;
     using Model;
 
-    public interface IOrderRepository : IRepository<Order>
+    public interface IOrderRepository
     {
-        Order GetById(int orderId);
+        Order GetById(OrderId orderId);
+        void Add(Order aggregate);
+        void Save(Order aggregate);
     }
 }

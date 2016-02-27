@@ -8,7 +8,6 @@
     using AttributeRouting;
     using AttributeRouting.Web.Http;
     using Castle.Transactions;
-    using Common;
     using Common.Domain.Model;
     using ContentObjects;
     using Newtonsoft.Json;
@@ -23,7 +22,8 @@
         private readonly IPdfStore _pdfStore;
         private readonly IShortIdGeneratorService _shortIdGeneratorService;
 
-        public OrdersController(IOrderQueries orderQueries, IPdfStore pdfStore, IShortIdGeneratorService shortIdGeneratorService)
+        public OrdersController(IOrderQueries orderQueries, IPdfStore pdfStore,
+            IShortIdGeneratorService shortIdGeneratorService)
         {
             if (orderQueries == null) throw new ArgumentNullException("orderQueries");
             if (pdfStore == null) throw new ArgumentNullException("pdfStore");
@@ -51,20 +51,20 @@
             return new QueryOkResponseContent<Order>(Map<IList<Order>>(orders));
         }
 
-        [GET("{orderId:int}")]
+        [GET("{orderId}")]
         [Transaction]
-        public virtual HttpResponseMessage Get(int orderId)
+        public virtual HttpResponseMessage Get(Guid orderId)
         {
-            var order = _orderQueries.GetById(CurrentUserId, new OrderShortId(orderId));
+            var order = _orderQueries.GetById(CurrentUserId, new OrderId(orderId));
             return Request.CreateResponse(HttpStatusCode.OK, Map<OrderDetail>(order));
         }
 
-        [GET("{orderId:int}.pdf")]
+        [GET("{orderId}.pdf")]
         [Transaction]
-        public virtual HttpResponseMessage GetPdf(int orderId)
+        public virtual HttpResponseMessage GetPdf(Guid orderId)
         {
-            _orderQueries.GetById(CurrentUserId, new OrderShortId(orderId));
-            var result = _pdfStore.GetOrderPdf(orderId, CurrentUserId);
+            _orderQueries.GetById(CurrentUserId, new OrderId(orderId));
+            var result = _pdfStore.GetOrderPdf(new OrderId(orderId), CurrentUserId);
             if (result == null)
                 return CreateNotFoundResponse("Die Bestellung mit der Id {0} konnte nicht gefunden werden.", orderId);
 
@@ -87,20 +87,21 @@
 
             return new OrdersPostOkResponseContent
             {
-                OrderId = orderShortId.Id
+                OrderId = orderId.Id,
+                OrderShortId = orderShortId.Id
             };
         }
 
         [PATCH("{orderId}")]
         [Transaction]
-        public virtual HttpResponseMessage Patch(int orderId, OrdersPatchRequestContent requestContent)
+        public virtual HttpResponseMessage Patch(Guid orderId, OrdersPatchRequestContent requestContent)
         {
             if (requestContent.Status == "Rejected")
-                Dispatch(new RejectOrder {InitiatorId = CurrentUserId, OrderId = orderId});
+                Dispatch(new RejectOrder {InitiatorId = CurrentUserId, OrderId = new OrderId(orderId)});
             else if (requestContent.Status == "Approved")
-                Dispatch(new ApproveOrder {InitiatorId = CurrentUserId, OrderId = orderId});
+                Dispatch(new ApproveOrder {InitiatorId = CurrentUserId, OrderId = new OrderId(orderId)});
             else if (requestContent.Status == "Closed")
-                Dispatch(new CloseOrder {InitiatorId = CurrentUserId, OrderId = orderId});
+                Dispatch(new CloseOrder {InitiatorId = CurrentUserId, OrderId = new OrderId(orderId)});
             else
                 return Request.CreateErrorResponse(HttpStatusCode.BadRequest,
                     "Unbekannter Status \"" + requestContent.Status + "\"");
@@ -127,6 +128,9 @@
     public class OrdersPostOkResponseContent
     {
         [JsonProperty("orderId")]
-        public int OrderId { get; set; }
+        public Guid OrderId { get; set; }
+
+        [JsonProperty("orderShortId")]
+        public int OrderShortId { get; set; }
     }
 }

@@ -2,6 +2,7 @@
 {
     using Common.Domain.Model;
     using developwithpassion.specifications.extensions;
+    using Events;
     using Machine.Fakes;
     using Machine.Specifications;
     using Phundus.Shop.Model;
@@ -22,7 +23,7 @@
             theOrder = make.Order();
             theLessor = theOrder.Lessor;
             theLessee = theOrder.Lessee;
-            orderRepository.setup(x => x.GetById(theOrder.OrderShortId.Id)).Return(theOrder);
+            orderRepository.setup(x => x.GetById(theOrder.OrderId)).Return(theOrder);
 
             theArticle = make.Article();
             articleService.setup(x => x.GetById(theLessor.LessorId, theArticle.ArticleId, theLessee.LesseeId))
@@ -31,9 +32,8 @@
             thePeriod = Period.FromNow(1);
             theOrderItemId = new OrderItemId();
 
-            command = new AddOrderItem(theInitiatorId, theOrder.OrderShortId, theOrderItemId, theArticle.ArticleId,
-                thePeriod,
-                10);
+            command = new AddOrderItem(theInitiatorId, theOrder.OrderId, theOrderItemId, theArticle.ArticleId,
+                thePeriod, 10);
         };
 
         public It should_ask_for_chief_privileges = () =>
@@ -42,5 +42,8 @@
         public It should_tell_order_to_add_item = () =>
             theOrder.WasToldTo(x =>
                 x.AddItem(theInitiator, theOrderItemId, theArticle, thePeriod.FromUtc, thePeriod.ToUtc, 10));
+
+        private It should_save_to_repository = () =>
+            orderRepository.received(x => x.Save(theOrder));
     }
 }

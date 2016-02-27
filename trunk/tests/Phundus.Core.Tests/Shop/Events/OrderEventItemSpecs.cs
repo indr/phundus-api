@@ -8,7 +8,7 @@ namespace Phundus.Tests.Shop.Events
     [Subject(typeof (OrderEventItem))]
     public class order_event_item : domain_event_concern<OrderEventItem>
     {
-        private static Guid theItemId = Guid.NewGuid();
+        private static OrderItemId theItemId = new OrderItemId();
         private static ArticleId theArticleId = new ArticleId();
         private static ArticleShortId theArticleShortId = new ArticleShortId(1234);
         private static string theText = "The text";
@@ -27,7 +27,7 @@ namespace Phundus.Tests.Shop.Events
             itsAssembly.ShouldEqual("Phundus.Core");
 
         private It should_have_at_1_the_item_id = () =>
-            dataMember(1).ShouldEqual(theItemId);
+            dataMember(1).ShouldEqual(theItemId.Id);
 
         private It should_have_at_2_the_article_id = () =>
             dataMember(2).ShouldEqual(theArticleId.Id);

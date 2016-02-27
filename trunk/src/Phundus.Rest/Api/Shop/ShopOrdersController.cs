@@ -32,14 +32,18 @@
 
             return new ShopOrdersPostOkResponseContent
             {
-                OrderId = orderShortId.Id
+                OrderId = orderId.Id,
+                OrderShortId = orderShortId.Id
             };
         }
 
         public class ShopOrdersPostOkResponseContent
         {
             [JsonProperty("orderId")]
-            public int OrderId { get; set; }
+            public Guid OrderId { get; set; }
+
+            [JsonProperty("orderShortId")]
+            public int OrderShortId { get; set; }
         }
 
         public class ShopOrdersPostRequestContent

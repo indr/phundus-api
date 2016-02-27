@@ -126,10 +126,10 @@ this.FeatureBackground();
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("Add article to order for non-member picks public price")]
-        public virtual void AddArticleToOrderForNon_MemberPicksPublicPrice()
+        [NUnit.Framework.DescriptionAttribute("Add article to order for non member picks public price")]
+        public virtual void AddArticleToOrderForNonMemberPicksPublicPrice()
         {
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Add article to order for non-member picks public price", ((string[])(null)));
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Add article to order for non member picks public price", ((string[])(null)));
 #line 22
 this.ScenarioSetup(scenarioInfo);
 #line 3

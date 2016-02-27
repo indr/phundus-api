@@ -8,7 +8,7 @@
     using Iesi.Collections.Generic;
     using Shop.Model;
 
-    public class Order
+    public class Order : EventSourcedAggregate
     {
         private DateTime _createdAtUtc = DateTime.UtcNow;
         private Iesi.Collections.Generic.ISet<OrderItem> _items = new HashedSet<OrderItem>();
@@ -18,26 +18,17 @@
         private OrderShortId _orderShortId;
         private OrderStatus _status = OrderStatus.Pending;
 
-        public Order(Initiator initiator, OrderId orderId, OrderShortId orderShortId, Lessor lessor, Lessee lessee) : this(orderId, orderShortId, lessor, lessee, null)
+        public Order(Initiator initiator, OrderId orderId, OrderShortId orderShortId, Lessor lessor, Lessee lessee)
         {
-        }
-
-        public Order(OrderId orderId, OrderShortId orderShortId, Lessor lessor, Lessee lessee, ICollection<OrderItem> items)
-        {
-            if (orderId == null) throw new ArgumentNullException("orderId");
-            if (orderShortId == null) throw new ArgumentNullException("orderShortId");
-            if (lessor == null) throw new ArgumentNullException("lessor");
-            if (lessee == null) throw new ArgumentNullException("lessee");
-            _orderId = orderId;
-            _orderShortId = orderShortId;
-            _lessor = lessor;
-            _lessee = lessee;
-
-            if ((items != null) && (items.Count > 0))
-                _items.AddAll(items.Select(s => new OrderItem(this, s)).ToList());
+            Apply(new OrderCreated(initiator, orderId, orderShortId, lessor, lessee));
         }
 
         protected Order()
+        {
+        }
+
+        protected Order(IEnumerable<IDomainEvent> eventStream, int streamVersion)
+            : base(eventStream, streamVersion)
         {
         }
 
@@ -121,6 +112,16 @@
             }
         }
 
+        protected void When(OrderCreated e)
+        {
+            OrderId = new OrderId(e.OrderId);
+            OrderShortId = new OrderShortId(e.OrderShortId);
+            CreatedAtUtc = e.OccuredOnUtc;
+            Status = OrderStatus.Pending;
+            Lessee = e.Lessee;
+            Lessor = e.Lessor;
+        }
+
         public virtual void Reject(Initiator initiator)
         {
             if (Status == OrderStatus.Closed)
@@ -128,11 +129,15 @@
             if (Status == OrderStatus.Rejected)
                 throw new OrderAlreadyRejectedException();
 
-            Status = OrderStatus.Rejected;
-
-            EventPublisher.Publish(new OrderRejected(initiator, OrderId, OrderShortId, Lessor, Lessee, (int) Status,
+            Apply(new OrderRejected(initiator, OrderId, OrderShortId, Lessor, Lessee, (int) OrderStatus.Rejected,
                 TotalPrice, CreateOrderEventItems()));
         }
+
+        protected void When(OrderRejected e)
+        {
+            Status = OrderStatus.Rejected;
+        }
+
 
         public virtual void Approve(Initiator initiator)
         {
@@ -143,11 +148,15 @@
             if (Status == OrderStatus.Approved)
                 throw new OrderAlreadyApprovedException();
 
-            Status = OrderStatus.Approved;
-
-            EventPublisher.Publish(new OrderApproved(initiator, OrderId, OrderShortId, Lessor, Lessee, (int) Status,
+            Apply(new OrderApproved(initiator, OrderId, OrderShortId, Lessor, Lessee, (int) OrderStatus.Approved,
                 TotalPrice, CreateOrderEventItems()));
         }
+
+        protected void When(OrderApproved e)
+        {
+            Status = OrderStatus.Approved;
+        }
+
 
         public virtual void Close(Initiator initiator)
         {
@@ -156,11 +165,125 @@
             if (Status == OrderStatus.Closed)
                 throw new OrderAlreadyClosedException();
 
-            Status = OrderStatus.Closed;
-
-            EventPublisher.Publish(new OrderClosed(initiator, OrderId, OrderShortId, Lessor, Lessee, (int) Status,
+            Apply(new OrderClosed(initiator, OrderId, OrderShortId, Lessor, Lessee, (int) OrderStatus.Closed,
                 TotalPrice, CreateOrderEventItems()));
         }
+
+        protected void When(OrderClosed e)
+        {
+            Status = OrderStatus.Closed;
+        }
+
+
+        public virtual void AddItem(Initiator initiator, OrderItemId orderItemId, Article article, DateTime fromUtc,
+            DateTime toUtc, int quantity)
+        {
+            AssertPending();
+
+            Apply(new OrderItemAdded(initiator, OrderId, OrderShortId, (int) Status, TotalPrice,
+                new OrderEventItem(orderItemId, article.ArticleId, article.ArticleShortId,
+                    article.Name, article.Price, fromUtc, toUtc, quantity, 0.0m)));
+        }
+
+        protected void When(OrderItemAdded e)
+        {
+            var item = new OrderItem(new OrderItemId(e.OrderItem.ItemId), new ArticleId(e.OrderItem.ArticleId),
+                new ArticleShortId(e.OrderItem.ArticleShortId),
+                e.OrderItem.Text, e.OrderItem.Period, e.OrderItem.Quantity, e.OrderItem.UnitPricePerWeek);
+            _items.Add(item);
+            item.Order = this;
+        }
+
+        public virtual void RemoveItem(Initiator initiator, Guid orderItemId)
+        {
+            AssertPending();
+
+            var item = _items.FirstOrDefault(p => p.ItemId.Id == orderItemId);
+            if (item == null)
+                return;
+
+            Apply(new OrderItemRemoved(initiator, OrderId, OrderShortId,
+                (int) Status, TotalPrice, CreateOrderEventItem(item)));
+        }
+
+        protected void When(OrderItemRemoved e)
+        {
+            var item = _items.FirstOrDefault(p => p.ItemId.Id == e.OrderItem.ItemId);
+            if (item == null)
+                return;
+
+            _items.Remove(item);
+            item.Order = null;
+        }
+
+
+        public virtual void ChangeAmount(Initiator initiator, Guid orderItemId, int amount)
+        {
+            AssertPending();
+
+            var item = _items.SingleOrDefault(p => p.ItemId.Id == orderItemId);
+            if (item == null)
+                return;
+
+            Apply(new OrderItemQuantityChanged(initiator, OrderId, OrderShortId,
+                (int) Status, TotalPrice, item.ItemId, item.Amount, amount,
+                CreateOrderEventItem(item)));
+        }
+
+        protected void When(OrderItemQuantityChanged e)
+        {
+            var item = _items.SingleOrDefault(p => p.ItemId.Id == e.OrderItemId);
+            if (item == null)
+                return;
+
+            item.ChangeAmount(e.NewQuantity);
+        }
+
+
+        public virtual void ChangeItemPeriod(Initiator initiator, Guid orderItemId, DateTime fromUtc, DateTime toUtc)
+        {
+            AssertPending();
+
+            var item = _items.SingleOrDefault(p => p.ItemId.Id == orderItemId);
+            if (item == null)
+                return;
+
+            Apply(new OrderItemPeriodChanged(initiator, OrderId, OrderShortId, (int) Status, TotalPrice, orderItemId,
+                new Period(item.FromUtc, item.ToUtc), new Period(fromUtc, toUtc), CreateOrderEventItem(item)));
+        }
+
+        protected void When(OrderItemPeriodChanged e)
+        {
+            var item = _items.SingleOrDefault(p => p.ItemId.Id == e.OrderItemId);
+            if (item == null)
+                return;
+
+            item.ChangePeriod(e.NewPeriod.FromUtc, e.NewPeriod.ToUtc);
+        }
+
+
+        public virtual void ChangeItemTotal(Initiator initiator, Guid orderItemId, decimal itemTotal)
+        {
+            AssertPending();
+
+            var item = _items.SingleOrDefault(p => p.ItemId.Id == orderItemId);
+            if (item == null)
+                return;
+
+            Apply(new OrderItemTotalChanged(initiator, OrderId, OrderShortId,
+                (int) Status, TotalPrice, item.ItemId, item.LineTotal, itemTotal,
+                CreateOrderEventItem(item)));
+        }
+
+        protected void When(OrderItemTotalChanged e)
+        {
+            var item = _items.SingleOrDefault(p => p.ItemId.Id == e.OrderItemId);
+            if (item == null)
+                return;
+
+            item.ChangeTotal(e.NewItemTotal);
+        }
+
 
         private void AssertPending()
         {
@@ -179,79 +302,6 @@
             }
         }
 
-        public virtual void AddItem(Initiator initiator, OrderItemId orderItemId, Article article, DateTime fromUtc,
-            DateTime toUtc,
-            int quantity)
-        {
-            AssertPending();
-
-            var item = new OrderItem(this, orderItemId, article, fromUtc, toUtc, quantity);
-            _items.Add(item);
-
-            EventPublisher.Publish(new OrderItemAdded(initiator, OrderId, OrderShortId,
-                (int) Status, TotalPrice, CreateOrderEventItem(item)));
-        }
-
-        public virtual void RemoveItem(Initiator initiator, Guid orderItemId)
-        {
-            AssertPending();
-
-            var item = _items.FirstOrDefault(p => p.Id == orderItemId);
-            if (item == null)
-                return;
-
-            _items.Remove(item);
-            item.Delete();
-
-            EventPublisher.Publish(new OrderItemRemoved(initiator, OrderId, OrderShortId,
-                (int) Status, TotalPrice, CreateOrderEventItem(item)));
-        }
-
-        public virtual void ChangeAmount(Initiator initiator, Guid orderItemId, int amount)
-        {
-            AssertPending();
-
-            var item = _items.SingleOrDefault(p => p.Id == orderItemId);
-            if (item == null)
-                return;
-
-            var oldQuantity = item.Amount;
-            item.ChangeAmount(amount);
-
-            EventPublisher.Publish(new OrderItemQuantityChanged(initiator, OrderId, OrderShortId,
-                (int) Status, TotalPrice, item.Id, oldQuantity, item.Amount,
-                CreateOrderEventItem(item)));
-        }
-
-        public virtual void ChangeItemPeriod(Initiator initiator, Guid orderItemId, DateTime fromUtc, DateTime toUtc)
-        {
-            AssertPending();
-
-            var item = _items.SingleOrDefault(p => p.Id == orderItemId);
-            if (item == null)
-                return;
-
-            item.ChangePeriod(fromUtc, toUtc);
-
-            EventPublisher.Publish(new OrderItemPeriodChanged());
-        }
-
-        public virtual void ChangeItemTotal(Initiator initiator, Guid orderItemId, decimal itemTotal)
-        {
-            AssertPending();
-
-            var item = _items.SingleOrDefault(p => p.Id == orderItemId);
-            if (item == null)
-                return;
-
-            var oldItemTotal = item.ItemTotal;
-            item.ChangeTotal(itemTotal);
-
-            EventPublisher.Publish(new OrderItemTotalChanged(initiator, OrderId, OrderShortId,
-                (int) Status, TotalPrice, item.Id, oldItemTotal, item.ItemTotal,
-                CreateOrderEventItem(item)));
-        }
-
         private IList<OrderEventItem> CreateOrderEventItems()
         {
             return Items.Select(CreateOrderEventItem).ToList();
@@ -259,8 +309,13 @@
 
         private OrderEventItem CreateOrderEventItem(OrderItem item)
         {
-            return new OrderEventItem(item.Id, item.ArticleId, item.ArticleShortId, item.Text, item.UnitPrice,
+            return new OrderEventItem(item.ItemId, item.ArticleId, item.ArticleShortId, item.Text, item.UnitPrice,
                 item.FromUtc, item.ToUtc, item.Amount, item.ItemTotal);
+        }
+
+        protected override IEnumerable<object> GetIdentityComponents()
+        {
+            yield return OrderId;
         }
     }
 

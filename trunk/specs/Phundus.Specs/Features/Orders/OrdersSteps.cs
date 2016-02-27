@@ -1,5 +1,6 @@
 ﻿namespace Phundus.Specs.Features.Orders
 {
+    using System;
     using System.Collections.Generic;
     using ContentTypes;
     using NUnit.Framework;
@@ -26,7 +27,7 @@
     [Binding]
     public class OrdersSteps : AppStepsBase
     {
-        private int _orderId;
+        private Guid _orderId;
         private IList<Order> _results;
         private Order _order;
 

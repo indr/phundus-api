@@ -2,6 +2,7 @@
 {
     using System;
     using System.Net.Mail;
+    using Common.Domain.Model;
     using Ddd;
     using Infrastructure;
     using Infrastructure.Gateways;
@@ -22,7 +23,7 @@
 
         public void Handle(OrderApproved @event)
         {
-            var order = OrderRepository.GetById(@event.OrderShortId);
+            var order = OrderRepository.GetById(new OrderId(@event.OrderId));
 
             Model = new
             {
@@ -41,7 +42,7 @@
 
         public void Handle(OrderRejected @event)
         {
-            var order = OrderRepository.GetById(@event.OrderShortId);
+            var order = OrderRepository.GetById(new OrderId(@event.OrderId));
 
             Model = new
             {

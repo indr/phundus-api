@@ -6,23 +6,23 @@
     using Machine.Specifications;
     using Phundus.Shop.Orders.Commands;
     using Phundus.Shop.Orders.Model;
-    using Rhino.Mocks;
 
-    [Subject(typeof(ApproveOrderHandler))]
-    public class when_approve_order_command_is_handled : order_command_handler_concern<ApproveOrder, ApproveOrderHandler>
+    [Subject(typeof (ApproveOrderHandler))]
+    public class when_approve_order_command_is_handled :
+        order_command_handler_concern<ApproveOrder, ApproveOrderHandler>
     {
-        private const int orderId = 3;
-        private static Order order;
+        private OrderId orderId;
+        private static Order theOrder;
 
         public Establish c = () =>
         {
-            order = make.Order(theLessor);
-            orderRepository.setup(x => x.GetById(orderId)).Return(order);
+            theOrder = make.Order(theLessor);
+            orderRepository.setup(x => x.GetById(theOrder.OrderId)).Return(theOrder);
 
             command = new ApproveOrder
             {
                 InitiatorId = theInitiatorId,
-                OrderId = orderId
+                OrderId = theOrder.OrderId
             };
         };
 
@@ -30,6 +30,9 @@
             () => memberInRole.WasToldTo(x => x.ActiveManager(theLessor.LessorId.Id, theInitiatorId));
 
         public It should_ask_order_to_approve =
-            () => order.WasToldTo(x => x.Approve(theInitiator));
+            () => theOrder.WasToldTo(x => x.Approve(theInitiator));
+
+        private It should_save_to_repository = () =>
+            orderRepository.received(x => x.Save(theOrder));
     }
 }

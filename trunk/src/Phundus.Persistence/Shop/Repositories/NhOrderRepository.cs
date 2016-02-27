@@ -2,17 +2,25 @@
 {
     using Common;
     using Common.Domain.Model;
+    using Inventory.Repositories;
     using Phundus.Shop.Orders.Model;
     using Phundus.Shop.Orders.Repositories;
 
-    public class NhOrderRepository : NhRepositoryBase<Order>, IOrderRepository
+    public class NhOrderRepository : EventSourcedRepositoryBase<Order>, IOrderRepository
     {
-        public Order GetById(int id)
+        public Order GetById(OrderId orderId)
         {
-            var result = FindById(id);
-            if (result == null)
-                throw new NotFoundException("Order {0} not found.", id);
-            return result;
+            return base.GetById(orderId);
+        }
+
+        public void Add(Order aggregate)
+        {
+            Save(aggregate);
+        }
+
+        public void Save(Order aggregate)
+        {
+            EventStore.AppendToStream(aggregate.OrderId, aggregate.MutatedVersion, aggregate.MutatingEvents);
         }
     }
 }

@@ -8,13 +8,14 @@ namespace Phundus.Shop.Orders.Model
     [DataContract]
     public class OrderEventItem : ValueObject
     {
-        public OrderEventItem(Guid itemId, ArticleId articleId, ArticleShortId articleShortId, string text,
+        public OrderEventItem(OrderItemId orderItemId, ArticleId articleId, ArticleShortId articleShortId, string text,
             decimal unitPricePerWeek, DateTime fromUtc, DateTime toUtc, int quantity, decimal itemTotal)
         {
             if (articleId == null) throw new ArgumentNullException("articleId");
             if (articleShortId == null) throw new ArgumentNullException("articleShortId");
             if (text == null) throw new ArgumentNullException("text");
-            ItemId = itemId;
+
+            ItemId = orderItemId.Id;
             ArticleId = articleId.Id;
             ArticleShortId = articleShortId.Id;
             Text = text;
@@ -55,6 +56,11 @@ namespace Phundus.Shop.Orders.Model
 
         [DataMember(Order = 9)]
         public decimal ItemTotal { get; set; }
+
+        public Period Period
+        {
+            get { return new Period(FromUtc, ToUtc); }
+        }
 
         protected override IEnumerable<object> GetEqualityComponents()
         {

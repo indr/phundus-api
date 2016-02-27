@@ -95,6 +95,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="aggregate_root_concern.cs" />
     <Compile Include="Ddd\DomainEntitesSpecs.cs" />
     <Compile Include="Ddd\DomainEventsSpecs.cs" />
     <Compile Include="factory_base.cs" />
@@ -200,7 +201,7 @@
     <Compile Include="Shop\Events\OrderCreatedSpecs.cs" />
     <Compile Include="Shop\Commands\AddOrderItemHandlerSpecs.cs" />
     <Compile Include="Shop\Commands\CloseOrderHandlerSpecs.cs" />
-    <Compile Include="Shop\Commands\ConfirmOrderHandlerSpecs.cs" />
+    <Compile Include="Shop\Commands\ApproveOrderHandlerSpecs.cs" />
     <Compile Include="Shop\Commands\CreateEmptyOrderHandlerSpecs.cs" />
     <Compile Include="Mock.cs" />
     <Compile Include="Shop\order_command_handler_concern.cs" />

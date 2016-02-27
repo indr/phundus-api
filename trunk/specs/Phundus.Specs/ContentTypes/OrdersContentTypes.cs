@@ -7,7 +7,7 @@
     public class Order
     {
         [JsonProperty("orderId")]
-        public int OrderId { get; set; }
+        public Guid OrderId { get; set; }
 
         [JsonProperty("items")]
         public List<OrderItems> Items { get; set; }
@@ -40,12 +40,16 @@
     internal class OrdersPostOkResponseContent
     {
         [JsonProperty("orderId")]
-        public int OrderId { get; set; }
+        public Guid OrderId { get; set; }
+
+        [JsonProperty("orderShortId")]
+        public int OrderShortId { get; set; }
     }
 
     internal class OrdersItemsPostRequestContent
     {
-        public int OrderId { get; set; }
+        [JsonProperty("orderId")]
+        public Guid OrderId { get; set; }
 
         [JsonProperty("articleId")]
         public Guid ArticleId { get; set; }

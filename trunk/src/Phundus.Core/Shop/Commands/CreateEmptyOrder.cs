@@ -63,9 +63,6 @@
                 LesseeService.GetById(command.LesseeId));
 
             OrderRepository.Add(order);
-
-            EventPublisher.Publish(new OrderCreated(initiator,
-                order.OrderId, order.OrderShortId, order.Lessor, order.Lessee));
         }
     }
 }

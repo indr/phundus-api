@@ -6,7 +6,10 @@ namespace Phundus.Rest.ContentObjects
     public class Order
     {
         [JsonProperty("orderId")]
-        public int OrderId { get; set; }
+        public Guid OrderId { get; set; }
+
+        [JsonProperty("orderShortId")]
+        public int OrderShortId { get; set; }
 
         [JsonProperty("createdAtUtc")]
         public DateTime CreatedAtUtc { get; set; }

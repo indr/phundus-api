@@ -12,7 +12,7 @@
         private static OrderShortId theOrderShortId;
         private static int theOrderStatus;
         private static decimal theOrderTotal;
-        private static Guid theOrderItemId;
+        private static OrderItemId theOrderItemId;
         private static decimal theOldItemTotal;
         private static decimal theNewItemTotal;
         private static OrderEventItem theOrderItem;
@@ -23,7 +23,7 @@
             theOrderShortId = new OrderShortId(1234);
             theOrderStatus = 1;
             theOrderTotal = 12.50m;
-            theOrderItemId = Guid.NewGuid();
+            theOrderItemId = new OrderItemId();
             theOldItemTotal = 1.50m;
             theNewItemTotal = 1.60m;
             theOrderItem = CreateOrderEventItem();
@@ -53,7 +53,7 @@
             dataMember(5).ShouldEqual(theOrderTotal);
 
         private It should_have_at_6_the_order_item_id = () =>
-            dataMember(6).ShouldEqual(theOrderItemId);
+            dataMember(6).ShouldEqual(theOrderItemId.Id);
 
         private It should_have_at_7_the_old_item_total = () =>
             dataMember(7).ShouldEqual(theOldItemTotal);

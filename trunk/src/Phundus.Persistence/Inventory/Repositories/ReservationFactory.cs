@@ -14,7 +14,7 @@
                            FromUtc = orderItem.FromUtc,
                            ToUtc = orderItem.ToUtc,
                            Amount = orderItem.Amount,
-                           OrderItemId = orderItem.Id
+                           OrderItemId = orderItem.ItemId.Id
                        };
         }
 

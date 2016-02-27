@@ -6,11 +6,10 @@
     using Orders.Model;
     using Orders.Repositories;
     using Orders.Services;
-    using Projections;
 
     public interface IPdfStore
     {
-        Stream GetOrderPdf(int orderId, UserId currentUserId);
+        Stream GetOrderPdf(OrderId orderId, UserId currentUserId);
     }
 
     public class PdfStore : IPdfStore
@@ -21,7 +20,7 @@
 
         public IOrderPdfGeneratorService OrderPdfGeneratorService { get; set; }
 
-        public Stream GetOrderPdf(int orderId, UserId currentUserId)
+        public Stream GetOrderPdf(OrderId orderId, UserId currentUserId)
         {
             var order = OrderRepository.GetById(orderId);
             return GetPdf(order);

@@ -28,12 +28,12 @@
             get { return _unmutatedVersion; }
         }
 
-        public IList<IDomainEvent> MutatingEvents
+        public virtual IList<IDomainEvent> MutatingEvents
         {
             get { return _mutatingEvents; }
         }
 
-        public int MutatedVersion
+        public virtual int MutatedVersion
         {
             get { return _unmutatedVersion + 1; }
         }
