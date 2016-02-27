@@ -61,6 +61,10 @@
                 Component.For<IEventHandlerFactory>().AsFactory(c => c.SelectedWith<EventHandlerSelector>())
                 );
 
+            container.Register(
+                Classes.FromThisAssembly()
+                    .BasedOn<QueryBase>()
+                    .WithServiceAllInterfaces());
 
             container.Register(
                 Classes.FromThisAssembly()

@@ -7,6 +7,8 @@ namespace Phundus.Cqrs
 
     public class ProjectionBase
     {
+        public ILogger Logger { get; set; }
+
         public Func<ISession> SessionFactory { get; set; }
 
         protected virtual ISession Session
@@ -15,10 +17,8 @@ namespace Phundus.Cqrs
         }
     }
 
-    public class ProjectionBase<TEntity> :ProjectionBase where TEntity : class, new()
+    public class ProjectionBase<TEntity> : ProjectionBase where TEntity : class, new()
     {
-        public ILogger Logger { get; set; }
-
         protected void Insert(Action<TEntity> action)
         {
             var row = new TEntity();
@@ -36,7 +36,8 @@ namespace Phundus.Cqrs
             var row = Session.Get<TEntity>(id);
             if (row == null)
             {
-                Logger.Warn(String.Format("Could not update projection {0}. Projection {1} not found.", typeof(TEntity).Name, id));
+                Logger.Warn(String.Format("Could not update projection {0}. Projection {1} not found.",
+                    typeof (TEntity).Name, id));
                 return;
             }
             action(row);

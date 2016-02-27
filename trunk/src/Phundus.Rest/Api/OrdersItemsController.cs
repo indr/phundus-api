@@ -17,13 +17,13 @@ namespace Phundus.Rest.Api
     [RoutePrefix("api/orders/{orderId}/items")]
     public class OrdersItemsController : ApiControllerBase
     {
-        private readonly IOrdersQueries _ordersQueries;
+        private readonly IOrderQueries _orderQueries;
 
-        public OrdersItemsController(IOrdersQueries ordersQueries)
+        public OrdersItemsController(IOrderQueries orderQueries)
         {
-            AssertionConcern.AssertArgumentNotNull(ordersQueries, "OrderQueries must be provided.");
+            AssertionConcern.AssertArgumentNotNull(orderQueries, "OrderQueries must be provided.");
 
-            _ordersQueries = ordersQueries;
+            _orderQueries = orderQueries;
         }
 
         [POST("")]
@@ -42,7 +42,7 @@ namespace Phundus.Rest.Api
 
         private HttpResponseMessage Get(int orderId, Guid orderItemId, HttpStatusCode statusCode)
         {
-            var order = _ordersQueries.GetById(CurrentUserId, new ShortOrderId(orderId));
+            var order = _orderQueries.GetById(CurrentUserId, new ShortOrderId(orderId));
             var item = order.Items.FirstOrDefault(p => p.LineId == orderItemId);
             if (item == null)
                 return Request.CreateErrorResponse(HttpStatusCode.NotFound,
