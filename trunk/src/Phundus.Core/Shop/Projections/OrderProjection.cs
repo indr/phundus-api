@@ -219,6 +219,7 @@
 
     public class OrderLineData
     {
+        public virtual Guid Id { get; set; }
         public virtual Guid LineId { get; set; }
         public virtual OrderData Order { get; set; }
 

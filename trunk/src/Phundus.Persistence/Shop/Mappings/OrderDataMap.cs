@@ -46,8 +46,9 @@ namespace Phundus.Persistence.Shop.Mappings
             SchemaAction.All();
             Table("Es_Shop_Orders_Lines");
 
-            Id(x => x.LineId).GeneratedBy.Assigned();
+            Id(x => x.Id).GeneratedBy.GuidComb();
 
+            Map(x => x.LineId);
             References(x => x.Order, "OrderId");
 
             Map(x => x.ArticleId);
