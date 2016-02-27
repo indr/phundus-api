@@ -48,14 +48,14 @@
             orderRepository.received(x => x.Save(theOrder));
 
         public It should_update_order_items_amount = () =>
-            theOrder.Items.Single(p => p.LineId.Id == theOrderItemId.Id).Quantity.ShouldEqual(newAmount);
+            theOrder.Lines.Single(p => p.LineId.Id == theOrderItemId.Id).Quantity.ShouldEqual(newAmount);
 
         public It should_update_order_items_period_from_to_midnight = () =>
-            theOrder.Items.Single(p => p.LineId.Id == theOrderItemId.Id)
+            theOrder.Lines.Single(p => p.LineId.Id == theOrderItemId.Id)
                 .Period.FromUtc.ShouldEqual(newFromUtc.ToLocalTime().Date.ToUniversalTime());
 
         public It should_update_order_items_period_to_one_second_before_midnight = () =>
-            theOrder.Items.Single(p => p.LineId.Id == theOrderItemId.Id)
+            theOrder.Lines.Single(p => p.LineId.Id == theOrderItemId.Id)
                 .Period.ToUtc.ShouldEqual(newToUtc.ToLocalTime().Date.AddDays(1).AddSeconds(-1).ToUniversalTime());
     }
 }
