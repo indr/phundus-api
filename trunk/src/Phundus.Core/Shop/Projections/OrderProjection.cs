@@ -50,39 +50,6 @@
             });
         }
 
-        private void Process(OrderPlaced e)
-        {
-            Insert(order =>
-            {
-                order.OrderId = e.OrderId;
-                order.OrderShortId = e.OrderShortId;
-                order.CreatedAtUtc = e.OccuredOnUtc;
-                order.ModifiedAtUtc = e.OccuredOnUtc;
-                order.Status = OrderData.OrderStatus.Pending;
-                order.OrderTotal = e.OrderTotal;
-
-                order.LesseeId = e.Lessee.LesseeId.Id;
-                order.LesseeFirstName = e.Lessee.FirstName;
-                order.LesseeLastName = e.Lessee.LastName;
-                order.LesseeStreet = e.Lessee.Street;
-                order.LesseePostcode = e.Lessee.Postcode;
-                order.LesseeCity = e.Lessee.City;
-                order.LesseeEmailAddress = e.Lessee.EmailAddress;
-                order.LesseePhoneNumber = e.Lessee.PhoneNumber;
-
-                order.LessorId = e.Lessor.LessorId.Id;
-                order.LessorName = e.Lessor.Name;
-                order.LessorStreet = null;
-                order.LessorPostcode = null;
-                order.LessorCity = null;
-                order.LessorEmailAddress = null;
-                order.LessorPhoneNumber = null;
-
-                order.Items = e.Items.Select(s => CreateOrderLineData(order, s)).ToList();
-            });
-        }
-
-
         private void Process(OrderApproved e)
         {
             Update(e.OrderId, order =>

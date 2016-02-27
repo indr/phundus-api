@@ -20,7 +20,7 @@
         public Establish c = () =>
         {
             var article = make.Article();
-            order = new Order(new OrderId(), new OrderShortId(1234), theLessor, CreateLessee());
+            order = new Order(theInitiator, new OrderId(), new OrderShortId(1234), theLessor, CreateLessee());
             orderItemId = new OrderItemId();
             order.AddItem(theInitiator, orderItemId, article, DateTime.Today, DateTime.Today, 1);
             orderRepository.setup(x => x.GetById(orderId)).Return(order);

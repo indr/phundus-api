@@ -22,7 +22,7 @@
             {
                 theLessor = make.Lessor();
                 theLessee = make.Lessee();
-                return new Order(new OrderId(), new OrderShortId(1234), theLessor, theLessee);
+                return new Order(theInitiator, new OrderId(), new OrderShortId(1234), theLessor, theLessee);
             });
         };
     }
@@ -34,7 +34,7 @@
         {
             theLessor = make.Lessor();
             theLessee = make.Lessee();
-            return new Order(new OrderId(), new OrderShortId(1234), theLessor, theLessee);
+            return new Order(theInitiator, new OrderId(), new OrderShortId(1234), theLessor, theLessee);
         });
 
         public It should_be_empty = () => sut.Items.ShouldBeEmpty();
