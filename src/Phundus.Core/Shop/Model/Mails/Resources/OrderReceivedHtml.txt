@@ -1,4 +1,4 @@
-﻿<p>Hallo @Model.Borrower.FullName</p>
+﻿<p>Hallo @Model.Lessee.FullName</p>
 
 <p>Wir haben deine Bestellung vom @Model.Order.CreatedAtLocal mit der Nummer @Model.Order.Id erhalten.</p>
 

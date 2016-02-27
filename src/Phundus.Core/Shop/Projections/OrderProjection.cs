@@ -77,7 +77,7 @@
             authRestriction.Add(lesseeOrLessor);
             authRestriction.Add(Restrictions.On<OrderData>(p => p.LessorId).IsIn(organizationIds));
 
-            query.Where(lesseeOrLessor).And(authRestriction);
+            query.Where(authRestriction);
 
             if (queryOrderId.HasValue)
             {
