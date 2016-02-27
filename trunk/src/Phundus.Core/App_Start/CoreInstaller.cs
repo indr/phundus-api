@@ -68,12 +68,6 @@
                     .WithServiceAllInterfaces());
 
             container.Register(
-                Classes.FromThisAssembly()
-                    .BasedOn(typeof (Shop.Queries.Models.ReadModelReaderBase))
-                    .WithServiceAllInterfaces()
-                    .LifestyleTransient());
-
-            container.Register(
                 Component.For<IUserInRole>()
                     .ImplementedBy<UserInRole>()
                     .LifestyleTransient());

@@ -19,15 +19,15 @@
     [RoutePrefix("api/orders")]
     public class OrdersController : ApiControllerBase
     {
-        private readonly IOrderQueries _orderQueries;
+        private readonly IOrdersQueries _ordersQueries;
         private readonly IPdfStore _pdfStore;
 
-        public OrdersController(IOrderQueries orderQueries, IPdfStore pdfStore)
+        public OrdersController(IOrdersQueries ordersQueries, IPdfStore pdfStore)
         {
-            AssertionConcern.AssertArgumentNotNull(orderQueries, "OrderQueries must be provided.");
+            AssertionConcern.AssertArgumentNotNull(ordersQueries, "OrderQueries must be provided.");
             AssertionConcern.AssertArgumentNotNull(pdfStore, "PdfStore must be provided.");
 
-            _orderQueries = orderQueries;
+            _ordersQueries = ordersQueries;
             _pdfStore = pdfStore;
         }
 
@@ -44,7 +44,7 @@
             if (queryParams.ContainsKey("organizationId"))
                 queryOrganizationId = new OrganizationId(Guid.Parse(queryParams["organizationId"]));
 
-            var orders = _orderQueries.Query(CurrentUserId, null, queryUserId, queryOrganizationId).ToList();
+            var orders = _ordersQueries.Query(CurrentUserId, null, queryUserId, queryOrganizationId).ToList();
             return new QueryOkResponseContent<Order>(Map<IList<Order>>(orders));
         }
 
@@ -52,7 +52,7 @@
         [Transaction]
         public virtual HttpResponseMessage Get(int orderId)
         {
-            var order = _orderQueries.GetById(CurrentUserId, new ShortOrderId(orderId));
+            var order = _ordersQueries.GetById(CurrentUserId, new ShortOrderId(orderId));
             return Request.CreateResponse(HttpStatusCode.OK, Map<OrderDetail>(order));
         }
 
@@ -60,7 +60,7 @@
         [Transaction]
         public virtual HttpResponseMessage GetPdf(int orderId)
         {
-            _orderQueries.GetById(CurrentUserId, new ShortOrderId(orderId));
+            _ordersQueries.GetById(CurrentUserId, new ShortOrderId(orderId));
             var result = _pdfStore.GetOrderPdf(orderId, CurrentUserId);
             if (result == null)
                 return CreateNotFoundResponse("Die Bestellung mit der Id {0} konnte nicht gefunden werden.", orderId);

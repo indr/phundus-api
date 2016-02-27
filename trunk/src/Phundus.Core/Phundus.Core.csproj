@@ -289,21 +289,10 @@
     <Compile Include="Shop\Projections\ShopItemImagesProjection.cs" />
     <Compile Include="Shop\Projections\ShopItemsSortByPopularityProjection.cs" />
     <Compile Include="Shop\Projections\CartsProjection.cs" />
-    <Compile Include="Shop\Queries\Dtos\MembershipRoleDto.cs" />
-    <Compile Include="Shop\Queries\Dtos\OrderDto.cs" />
-    <Compile Include="Shop\Queries\Dtos\OrderStatusDto.cs" />
-    <Compile Include="Shop\Queries\Dtos\OrderItemDto.cs" />
     <Compile Include="Shop\Projections\ItemsProjection.cs" />
     <Compile Include="IdentityAccess\Projections\MembershipApplicationsProjection.cs" />
     <Compile Include="Shop\Projections\LesseesProjection.cs" />
     <Compile Include="Shop\Projections\LessorsProjection.cs" />
-    <Compile Include="Shop\Queries\Models\OrderReadModelReader.cs" />
-    <Compile Include="Shop\Queries\Models\ReadModelReaderBase.cs" />
-    <Compile Include="Shop\Queries\ReadModel.designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>ReadModel.dbml</DependentUpon>
-    </Compile>
     <Compile Include="Shop\Model\Services\LesseeService.cs" />
     <Compile Include="Shop\Model\Services\ArticleService.cs" />
     <Compile Include="Shop\Authorization\Rent.cs" />
@@ -356,17 +345,9 @@
     <None Include="app.config" />
     <None Include="Shop\app.config" />
     <None Include="packages.config" />
-    <None Include="Shop\Queries\ReadModel.dbml">
-      <Generator>MSLinqToSQLGenerator</Generator>
-      <LastGenOutput>ReadModel.designer.cs</LastGenOutput>
-      <SubType>Designer</SubType>
-    </None>
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
-    <None Include="Shop\Queries\ReadModel.dbml.layout">
-      <DependentUpon>ReadModel.dbml</DependentUpon>
-    </None>
     <EmbeddedResource Include="IdentityAccess\Organizations\Mails\Templates.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Templates.Designer.cs</LastGenOutput>

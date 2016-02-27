@@ -17,13 +17,13 @@ namespace Phundus.Rest.Api
     [RoutePrefix("api/orders/{orderId}/items")]
     public class OrdersItemsController : ApiControllerBase
     {
-        private readonly IOrderQueries _orderQueries;
+        private readonly IOrdersQueries _ordersQueries;
 
-        public OrdersItemsController(IOrderQueries orderQueries)
+        public OrdersItemsController(IOrdersQueries ordersQueries)
         {
-            AssertionConcern.AssertArgumentNotNull(orderQueries, "OrderQueries must be provided.");
+            AssertionConcern.AssertArgumentNotNull(ordersQueries, "OrderQueries must be provided.");
 
-            _orderQueries = orderQueries;
+            _ordersQueries = ordersQueries;
         }
 
         [POST("")]
@@ -42,7 +42,7 @@ namespace Phundus.Rest.Api
 
         private HttpResponseMessage Get(int orderId, Guid orderItemId, HttpStatusCode statusCode)
         {
-            var order = _orderQueries.GetById(CurrentUserId, new ShortOrderId(orderId));
+            var order = _ordersQueries.GetById(CurrentUserId, new ShortOrderId(orderId));
             var item = order.Items.FirstOrDefault(p => p.Id == orderItemId);
             if (item == null)
                 return Request.CreateErrorResponse(HttpStatusCode.NotFound,
@@ -50,16 +50,16 @@ namespace Phundus.Rest.Api
 
             return Request.CreateResponse(statusCode, new OrderItem
             {
-                Amount = item.Amount,
-                ArticleId = item.ArticleId,
+                Amount = item.Quantity,
+                ArticleId = item.ArticleShortId,
                 FromUtc = item.FromUtc,
                 IsAvailable = item.IsAvailable,
-                ItemTotal = item.ItemTotal,
-                OrderId = item.OrderId,
+                ItemTotal = item.LineTotal,
+                OrderId = item.Order.OrderShortId,
                 OrderItemId = item.Id,
                 Text = item.Text,
                 ToUtc = item.ToUtc,
-                UnitPrice = item.UnitPrice
+                UnitPrice = item.UnitPricePerWeek
             });
         }
 

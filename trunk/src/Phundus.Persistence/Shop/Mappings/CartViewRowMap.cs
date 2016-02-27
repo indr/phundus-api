@@ -2,7 +2,6 @@
 {
     using FluentNHibernate.Mapping;
     using Phundus.Shop.Projections;
-    using Phundus.Shop.Queries;
 
     public class CartViewRowMap : ClassMap<CartViewRow>
     {
@@ -16,7 +15,7 @@
             Id(x => x.CartId, "CartGuid");
             Map(x => x.UserId, "UserGuid");
 
-            HasMany<CartItemViewRow>(me => me.Items).KeyColumn("CartGuid").OrderBy("LessorName");
+            HasMany(me => me.Items).KeyColumn("CartGuid").OrderBy("LessorName");
         }
     }
 }
