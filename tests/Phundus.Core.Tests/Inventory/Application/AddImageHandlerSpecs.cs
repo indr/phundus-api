@@ -1,4 +1,4 @@
-﻿namespace Phundus.Tests.Inventory.Articles.Commands
+﻿namespace Phundus.Tests.Inventory.Application
 {
     using Common.Domain.Model;
     using developwithpassion.specifications.extensions;

@@ -1,4 +1,4 @@
-namespace Phundus.Tests.Shop.Commands
+namespace Phundus.Tests.Shop.Application
 {
     using Common.Domain.Model;
     using Machine.Fakes;

@@ -9,17 +9,17 @@ namespace Phundus.Shop.Orders.Model
     [DataContract]
     public class OrderRejected : DomainEvent
     {
-        public OrderRejected(Initiator initiator, OrderId orderId, OrderShortId orderShortId, Lessor lessor,
+        public OrderRejected(Manager manager, OrderId orderId, OrderShortId orderShortId, Lessor lessor,
             Lessee lessee, OrderStatus orderStatus, decimal orderTotal, IList<OrderEventLine> items)
         {
-            if (initiator == null) throw new ArgumentNullException("initiator");
+            if (manager == null) throw new ArgumentNullException("manager");
             if (orderId == null) throw new ArgumentNullException("orderId");
             if (orderShortId == null) throw new ArgumentNullException("orderShortId");
             if (lessor == null) throw new ArgumentNullException("lessor");
             if (lessee == null) throw new ArgumentNullException("lessee");
             if (items == null) throw new ArgumentNullException("items");
 
-            Initiator = initiator;
+            Manager = manager;
             OrderId = orderId.Id;
             OrderShortId = orderShortId.Id;
             Lessor = lessor;
@@ -44,7 +44,7 @@ namespace Phundus.Shop.Orders.Model
         public Guid OrderId { get; set; }
 
         [DataMember(Order = 4)]
-        public Initiator Initiator { get; set; }
+        public Manager Manager { get; set; }
 
         [DataMember(Order = 5)]
         public Lessor Lessor { get; set; }
@@ -65,17 +65,17 @@ namespace Phundus.Shop.Orders.Model
     [DataContract]
     public class OrderApproved : DomainEvent
     {
-        public OrderApproved(Initiator initiator, OrderId orderId, OrderShortId orderShortId, Lessor lessor,
+        public OrderApproved(Manager manager, OrderId orderId, OrderShortId orderShortId, Lessor lessor,
             Lessee lessee, OrderStatus orderStatus, decimal orderTotal, IList<OrderEventLine> items)
         {
-            if (initiator == null) throw new ArgumentNullException("initiator");
+            if (manager == null) throw new ArgumentNullException("manager");
             if (orderId == null) throw new ArgumentNullException("orderId");
             if (orderShortId == null) throw new ArgumentNullException("orderShortId");
             if (lessor == null) throw new ArgumentNullException("lessor");
             if (lessee == null) throw new ArgumentNullException("lessee");
             if (items == null) throw new ArgumentNullException("items");
 
-            Initiator = initiator;
+            Manager = manager;
             OrderId = orderId.Id;
             OrderShortId = orderShortId.Id;
             Lessor = lessor;
@@ -100,7 +100,7 @@ namespace Phundus.Shop.Orders.Model
         public Guid OrderId { get; set; }
 
         [DataMember(Order = 4)]
-        public Initiator Initiator { get; set; }
+        public Manager Manager { get; set; }
 
         [DataMember(Order = 5)]
         public Lessor Lessor { get; set; }
@@ -121,17 +121,17 @@ namespace Phundus.Shop.Orders.Model
     [DataContract]
     public class OrderClosed : DomainEvent
     {
-        public OrderClosed(Initiator initiator, OrderId orderId, OrderShortId orderShortId, Lessor lessor,
+        public OrderClosed(Manager manager, OrderId orderId, OrderShortId orderShortId, Lessor lessor,
             Lessee lessee, OrderStatus orderStatus, decimal orderTotal, IList<OrderEventLine> items)
         {
-            if (initiator == null) throw new ArgumentNullException("initiator");
+            if (manager == null) throw new ArgumentNullException("manager");
             if (orderId == null) throw new ArgumentNullException("orderId");
             if (orderShortId == null) throw new ArgumentNullException("orderShortId");
             if (lessor == null) throw new ArgumentNullException("lessor");
             if (lessee == null) throw new ArgumentNullException("lessee");
             if (items == null) throw new ArgumentNullException("items");
 
-            Initiator = initiator;
+            Manager = manager;
             OrderId = orderId.Id;
             OrderShortId = orderShortId.Id;
             Lessor = lessor;
@@ -156,7 +156,7 @@ namespace Phundus.Shop.Orders.Model
         public Guid OrderId { get; set; }
 
         [DataMember(Order = 4)]
-        public Initiator Initiator { get; set; }
+        public Manager Manager { get; set; }
 
         [DataMember(Order = 5)]
         public Lessor Lessor { get; set; }

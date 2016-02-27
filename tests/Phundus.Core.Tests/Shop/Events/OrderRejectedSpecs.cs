@@ -24,7 +24,7 @@
             theItems.Add(CreateOrderEventItem());
 
             sut_factory.create_using(() =>
-                new OrderRejected(theInitiator, theOrderId, theOrderShortId, theLessor, theLessee,
+                new OrderRejected(theManager, theOrderId, theOrderShortId, theLessor, theLessee,
                     theOrderStatus, theOrderTotal, theItems));
         };
 
@@ -40,8 +40,8 @@
         private It should_have_at_3_the_order_id = () =>
             dataMember(3).ShouldEqual(theOrderId.Id);
 
-        private It should_have_at_4_the_initiator = () =>
-            dataMember(4).ShouldEqual(theInitiator);
+        private It should_have_at_4_the_manager = () =>
+            dataMember(4).ShouldEqual(theManager);
 
         private It should_have_at_5_the_lessor = () =>
             dataMember(5).ShouldEqual(theLessor);

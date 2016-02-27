@@ -1,4 +1,4 @@
-﻿namespace Phundus.Tests.IdentityAccess.Commands
+﻿namespace Phundus.Tests.IdentityAccess.Application
 {
     using Machine.Fakes;
     using Machine.Specifications;

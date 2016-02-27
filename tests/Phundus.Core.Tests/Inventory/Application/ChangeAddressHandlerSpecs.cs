@@ -1,4 +1,4 @@
-﻿namespace Phundus.Tests.Inventory.Commands
+﻿namespace Phundus.Tests.Inventory.Application
 {
     using developwithpassion.specifications.extensions;
     using Machine.Specifications;

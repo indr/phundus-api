@@ -21,30 +21,29 @@
 
     public class UpdateOrderItemHandler : IHandleCommand<UpdateOrderItem>
     {
-        private readonly IInitiatorService _initiatorService;
+        private readonly IUserInRole _userInRole;
+        private readonly IOrderRepository _orderRepository;
 
-        public UpdateOrderItemHandler(IInitiatorService initiatorService)
+        public UpdateOrderItemHandler(IUserInRole userInRole, IOrderRepository orderRepository)
         {
-            if (initiatorService == null) throw new ArgumentNullException("initiatorService");
-            _initiatorService = initiatorService;
+            if (userInRole == null) throw new ArgumentNullException("userInRole");
+            if (orderRepository == null) throw new ArgumentNullException("orderRepository");
+            
+            _userInRole = userInRole;
+            _orderRepository = orderRepository;
         }
-
-        public IOrderRepository _orderRepository { get; set; }
-
-        public IMemberInRole MemberInRole { get; set; }
 
         public void Handle(UpdateOrderItem command)
         {
-            var initiator = _initiatorService.GetActiveById(command.InitiatorId);
             var order = _orderRepository.GetById(command.OrderId);
+            var manager = _userInRole.Manager(command.InitiatorId, order.Lessor.LessorId);
 
-            MemberInRole.ActiveManager(order.Lessor.LessorId.Id, command.InitiatorId);
 
-            order.ChangeAmount(initiator, command.OrderItemId, command.Amount);
-            order.ChangeItemPeriod(initiator, command.OrderItemId, command.FromUtc.ToLocalTime().Date.ToUniversalTime(),
+            order.ChangeAmount(manager, command.OrderItemId, command.Amount);
+            order.ChangeItemPeriod(manager, command.OrderItemId, command.FromUtc.ToLocalTime().Date.ToUniversalTime(),
                 command.ToUtc.ToLocalTime().Date.AddDays(1).AddSeconds(-1).ToUniversalTime());
 
-            order.ChangeItemTotal(initiator, command.OrderItemId, command.ItemTotal);
+            order.ChangeItemTotal(manager, command.OrderItemId, command.ItemTotal);
 
             _orderRepository.Save(order);
         }

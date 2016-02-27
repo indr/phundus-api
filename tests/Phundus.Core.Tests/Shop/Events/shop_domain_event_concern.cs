@@ -7,11 +7,13 @@
 
     public class shop_domain_event_concern<TDomainEvent> : domain_event_concern<TDomainEvent> where TDomainEvent : class
     {
+        protected static Manager theManager;
         protected static Lessor theLessor;
         protected static Lessee theLessee;
 
         private Establish ctx = () =>
         {
+            theManager = new Manager(new UserId(), "manager@test.phundus.ch", "The Manager");
             theLessor = new Lessor(new LessorId(), "The lessor", true);
             theLessee = new Lessee(new LesseeId(), "First name", "Last name", "Street", "Postcode", "City",
                 "Email address", "Phone number", "Member number");

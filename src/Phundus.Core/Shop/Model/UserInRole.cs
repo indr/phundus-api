@@ -5,7 +5,7 @@
 
     public interface IUserInRole
     {
-        Manager Manager(UserId userId, OwnerId ownerId);
+        Manager Manager(UserId userId, LessorId lessorId);
     }
 
     public class UserInRole : IUserInRole
@@ -18,9 +18,9 @@
             _userInRole = userInRole;
         }
 
-        public Manager Manager(UserId userId, OwnerId ownerId)
+        public Manager Manager(UserId userId, LessorId lessorId)
         {
-            var manager = _userInRole.Manager(userId, new OrganizationId(ownerId.Id));
+            var manager = _userInRole.Manager(userId, new OrganizationId(lessorId.Id));
 
             return new Manager(manager.UserId, manager.EmailAddress, manager.FullName);
         }

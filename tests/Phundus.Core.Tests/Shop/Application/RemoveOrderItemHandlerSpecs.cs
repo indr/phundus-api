@@ -1,14 +1,10 @@
-﻿namespace Phundus.Tests.Shop.Orders.Commands
+﻿namespace Phundus.Tests.Shop.Application
 {
-    using System;
     using Common.Domain.Model;
     using developwithpassion.specifications.extensions;
-    using Machine.Fakes;
     using Machine.Specifications;
     using Phundus.Shop.Application;
     using Phundus.Shop.Model;
-    using Phundus.Shop.Orders.Model;
-    using Rhino.Mocks;
 
     [Subject(typeof (RemoveOrderItemHandler))]
     public class when_remove_order_command_item_is_handled :
@@ -21,9 +17,9 @@
         public Establish c = () =>
         {
             var article = make.Article();
-            theOrder = new Order(theInitiator, new OrderId(), new OrderShortId(1234), theLessor, CreateLessee());
+            theOrder = new Order(theInitiator, new OrderId(), new OrderShortId(1234), theLessor, theLessee);
             orderLineId = new OrderLineId();
-            theOrder.AddItem(theInitiator, orderLineId, article, Period.FromNow(1), 1);
+            theOrder.AddItem(theManager, orderLineId, article, Period.FromNow(1), 1);
             orderRepository.setup(x => x.GetById(theOrder.OrderId)).Return(theOrder);
 
             command = new RemoveOrderItem
@@ -33,9 +29,6 @@
                 OrderItemId = orderLineId.Id
             };
         };
-
-        public It should_ask_for_chief_privileges =
-            () => memberInRole.WasToldTo(x => x.ActiveManager(theLessor.LessorId.Id, theInitiatorId));
 
         public It should_remove_order_item =
             () => theOrder.Lines.ShouldNotContain(p => p.LineId.Id == orderLineId.Id);

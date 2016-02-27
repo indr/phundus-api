@@ -1,11 +1,10 @@
-﻿namespace Phundus.Tests.Shop.Commands
+﻿namespace Phundus.Tests.Shop.Application
 {
     using System;
     using Common.Domain.Model;
     using developwithpassion.specifications.extensions;
     using Machine.Fakes;
     using Machine.Specifications;
-    using Orders.Commands;
     using Phundus.Shop.Application;
     using Phundus.Shop.Authorization;
     using Phundus.Shop.Model;

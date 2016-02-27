@@ -1,6 +1,5 @@
-namespace Phundus.Tests.Inventory.Articles.Commands
+namespace Phundus.Tests.Inventory.Application
 {
-    using Common.Domain.Model;
     using developwithpassion.specifications.extensions;
     using Machine.Fakes;
     using Machine.Specifications;

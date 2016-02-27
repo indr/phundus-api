@@ -1,4 +1,4 @@
-﻿namespace Phundus.Tests.IdentityAccess.Organizations.Commands
+﻿namespace Phundus.Tests.IdentityAccess.Application
 {
     using developwithpassion.specifications.extensions;
     using Machine.Fakes;

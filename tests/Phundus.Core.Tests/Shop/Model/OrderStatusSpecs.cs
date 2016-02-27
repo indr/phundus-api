@@ -14,7 +14,7 @@
     public class when_a_pending_order_is_approved : pending_order_concern
     {
         public Because of = () =>
-            sut.Approve(theInitiator);
+            sut.Approve(theManager);
 
         private It should_have_mutating_event_order_approved = () =>
             mutatingEvent<OrderApproved>(p =>
@@ -28,7 +28,7 @@
     public class when_a_pending_order_is_rejected : pending_order_concern
     {
         public Because of = () =>
-            sut.Reject(theInitiator);
+            sut.Reject(theManager);
 
         private It should_have_mutating_event_order_rejected = () =>
             mutatingEvent<OrderRejected>(p =>
@@ -42,7 +42,7 @@
     public class when_a_pending_order_is_closed : pending_order_concern
     {
         public Because of = () =>
-            sut.Close(theInitiator);
+            sut.Close(theManager);
 
         private It should_have_mutating_event_order_closed = () =>
             mutatingEvent<OrderClosed>(p =>
@@ -57,7 +57,7 @@
     {
         public Establish ctx = () =>
             sut_setup.run(sut =>
-                sut.Approve(theInitiator));
+                sut.Approve(theManager));
     }
 
     [Subject(typeof (Order))]
@@ -65,7 +65,7 @@
     {
         public Because of = () =>
             spec.catch_exception(() =>
-                sut.Approve(theInitiator));
+                sut.Approve(theManager));
 
         public It should_retain_status_approved = () =>
             sut.Status.ShouldEqual(OrderStatus.Approved);
@@ -78,7 +78,7 @@
     public class when_a_approved_order_is_closed : approved_order_concern
     {
         public Because of = () =>
-            sut.Close(theInitiator);
+            sut.Close(theManager);
 
         public It should_have_mutating_event_order_closed = () =>
             mutatingEvent<OrderClosed>(p =>
@@ -92,7 +92,7 @@
     public class when_a_approved_order_is_rejected : approved_order_concern
     {
         public Because of = () =>
-            sut.Reject(theInitiator);
+            sut.Reject(theManager);
 
         private It should_have_mutating_event_order_rejected = () =>
             mutatingEvent<OrderRejected>(p =>
@@ -106,7 +106,7 @@
     {
         public Establish ctx = () =>
             sut_setup.run(sut =>
-                sut.Reject(theInitiator));
+                sut.Reject(theManager));
     }
 
     [Subject(typeof (Order))]
@@ -114,7 +114,7 @@
     {
         public Because of = () =>
             spec.catch_exception(() =>
-                sut.Approve(theInitiator));
+                sut.Approve(theManager));
 
         public It should_retain_status_rejected = () =>
             sut.Status.ShouldEqual(OrderStatus.Rejected);
@@ -128,7 +128,7 @@
     {
         public Because of = () =>
             spec.catch_exception(() =>
-                sut.Reject(theInitiator));
+                sut.Reject(theManager));
 
         public It should_retain_status_rejected = () =>
             sut.Status.ShouldEqual(OrderStatus.Rejected);
@@ -142,7 +142,7 @@
     {
         public Because of = () =>
             spec.catch_exception(() =>
-                sut.Close(theInitiator));
+                sut.Close(theManager));
 
         public It should_retain_status_rejected = () =>
             sut.Status.ShouldEqual(OrderStatus.Rejected);
@@ -156,7 +156,7 @@
     {
         public Establish ctx = () =>
             sut_setup.run(sut =>
-                sut.Close(theInitiator));
+                sut.Close(theManager));
     }
 
     [Subject(typeof (Order))]
@@ -164,7 +164,7 @@
     {
         public Because of = () =>
             spec.catch_exception(() =>
-                sut.Approve(theInitiator));
+                sut.Approve(theManager));
 
         public It should_retain_status_closed = () =>
             sut.Status.ShouldEqual(OrderStatus.Closed);
@@ -178,7 +178,7 @@
     {
         public Because of = () =>
             spec.catch_exception(() =>
-                sut.Reject(theInitiator));
+                sut.Reject(theManager));
 
         public It should_retain_status_closed = () =>
             sut.Status.ShouldEqual(OrderStatus.Closed);
@@ -192,7 +192,7 @@
     {
         public Because of = () =>
             spec.catch_exception(() =>
-                sut.Close(theInitiator));
+                sut.Close(theManager));
 
         public It should_retain_status_closed = () =>
             sut.Status.ShouldEqual(OrderStatus.Closed);

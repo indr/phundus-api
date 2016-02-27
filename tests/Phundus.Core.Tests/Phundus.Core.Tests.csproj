@@ -204,6 +204,7 @@
     <Compile Include="Shop\Application\ApproveOrderHandlerSpecs.cs" />
     <Compile Include="Shop\Application\CreateEmptyOrderHandlerSpecs.cs" />
     <Compile Include="Mock.cs" />
+    <Compile Include="Shop\Model\ManagerSpecs.cs" />
     <Compile Include="Shop\order_command_handler_concern.cs" />
     <Compile Include="Shop\Application\RejectOrderHandlerSpecs.cs" />
     <Compile Include="Shop\Application\RemoveOrderItemHandlerSpecs.cs" />
