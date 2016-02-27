@@ -59,7 +59,7 @@
             Published<ArticleCreated>(p =>
                 p.ArticleId == theArticleId.Id
                 && p.GrossStock == theGrossStock
-                && p.Initiator.InitiatorGuid == theInitiatorId.Id
+                && Equals(p.Initiator.InitiatorId, theInitiatorId)
                 && p.MemberPrice == theMemberPrice
                 && p.Name == theName
                 && Equals(p.Owner.OwnerId, theOwner.OwnerId)

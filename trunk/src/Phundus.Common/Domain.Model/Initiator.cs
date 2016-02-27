@@ -12,7 +12,8 @@
             if (initiatorId == null) throw new ArgumentNullException("initiatorId");
             if (fullName == null) throw new ArgumentNullException("fullName");
             if (emailAddress == null) throw new ArgumentNullException("emailAddress");
-            InitiatorGuid = initiatorId.Id;
+
+            InitiatorId = initiatorId;
             EmailAddress = emailAddress;
             FullName = fullName;
         }
@@ -21,12 +22,13 @@
         {
         }
 
-        [DataMember(Order = 1)]
-        public Guid InitiatorGuid { get; protected set; }
+        public InitiatorId InitiatorId { get; protected set; }
 
-        public InitiatorId InitiatorId
+        [DataMember(Order = 1)]
+        protected Guid InitiatorGuid
         {
-            get { return new InitiatorId(InitiatorGuid); }
+            get { return InitiatorId.Id; }
+            set { InitiatorId = new InitiatorId(value); }
         }
 
         [DataMember(Order = 2)]
