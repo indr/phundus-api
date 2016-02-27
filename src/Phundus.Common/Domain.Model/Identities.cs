@@ -124,13 +124,13 @@
         }
     }
 
-    public class OrderItemId : GuidIdentity
+    public class OrderLineId : GuidIdentity
     {
-        public OrderItemId()
+        public OrderLineId()
         {
         }
 
-        public OrderItemId(Guid id) : base(id)
+        public OrderLineId(Guid id) : base(id)
         {
         }
     }

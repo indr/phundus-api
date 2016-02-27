@@ -5,7 +5,7 @@
     using Cqrs;
     using IdentityAccess.Projections;
     using Integration.IdentityAccess;
-    using Repositories;
+    using Shop.Model;
 
     public class CloseOrder
     {

@@ -2,12 +2,14 @@
 {
     using System;
     using System.IO;
+    using System.Linq;
     using System.Web.Hosting;
     using IdentityAccess.Organizations.Repositories;
     using iTextSharp.text;
     using iTextSharp.text.exceptions;
     using iTextSharp.text.pdf;
     using Model;
+    using Shop.Model;
 
     public interface IOrderPdfGeneratorService
     {
@@ -128,7 +130,7 @@
             table.AddCell(cell);
             table.AddCell(new Phrase(order.Lessee.PhoneNumber + " / " + order.Lessee.EmailAddress, defaultFont));
 
-            var firstFrom = order.FirstFromUtc;
+            var firstFrom = order.Items.Count == 0 ? (DateTime?)null : order.Items.Min(s => s.Period.FromUtc);
             if (firstFrom.HasValue)
             {
                 cell = new PdfPCell(new Phrase("Abholen:", defaultFontGray));
@@ -140,7 +142,7 @@
                 table.AddCell(new Phrase(firstFrom.Value.ToLocalTime().ToString("d"), defaultFont));
             }
 
-            var lastTo = order.LastToUtc;
+            var lastTo = order.Items.Count == 0 ? (DateTime?)null : order.Items.Max(s => s.Period.ToUtc);
             if (lastTo.HasValue)
             {
                 cell = new PdfPCell(new Phrase("Rückgabe:", defaultFontGray));
@@ -189,13 +191,13 @@
             {
                 pos++;
                 table.AddCell(new Phrase(pos.ToString(), defaultFont));
-                table.AddCell(new Phrase(item.Amount.ToString(), defaultFont));
+                table.AddCell(new Phrase(item.Quantity.ToString(), defaultFont));
                 table.AddCell(new Phrase(item.Text, defaultFont));
                 table.AddCell(new Phrase(item.ArticleShortId.Id.ToString(), defaultFont));
-                table.AddCell(new Phrase(item.FromUtc.ToLocalTime().ToString("d"), defaultFont));
-                table.AddCell(new Phrase(item.ToUtc.ToLocalTime().ToString("d"), defaultFont));
-                table.AddCell(new Phrase(item.UnitPrice.ToString("N"), defaultFont));
-                table.AddCell(new Phrase(item.ItemTotal.ToString("N"), defaultFont));
+                table.AddCell(new Phrase(item.Period.FromUtc.ToLocalTime().ToString("d"), defaultFont));
+                table.AddCell(new Phrase(item.Period.ToUtc.ToLocalTime().ToString("d"), defaultFont));
+                table.AddCell(new Phrase(item.UnitPricePerWeek.ToString("N"), defaultFont));
+                table.AddCell(new Phrase(item.LineTotal.ToString("N"), defaultFont));
             }
 
             table.AddCell(new Phrase("", defaultFont));
@@ -205,7 +207,7 @@
             table.AddCell(new Phrase("", defaultFont));
             table.AddCell(new Phrase("", defaultFont));
             table.AddCell(new Phrase("", defaultFont));
-            table.AddCell(new Phrase(order.TotalPrice.ToString("N"), defaultFontBold));
+            table.AddCell(new Phrase(order.OrderTotal.ToString("N"), defaultFontBold));
             doc.Add(table);
 //            var path = HttpContext.Current.Server.MapPath(@"~\Content\Images\PdfFooter.png");
 //            var img = iTextSharp.text.Image.GetInstance(path);

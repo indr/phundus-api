@@ -5,7 +5,6 @@ namespace Phundus.Tests.Shop.Commands
     using Machine.Specifications;
     using Phundus.Shop.Model;
     using Phundus.Shop.Orders.Commands;
-    using Phundus.Shop.Orders.Repositories;
 
     [Subject(typeof (RemoveCartItemHandler))]
     public class when_remove_cart_item_is_handled : command_handler_concern<RemoveCartItem, RemoveCartItemHandler>

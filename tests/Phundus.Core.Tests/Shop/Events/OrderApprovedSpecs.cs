@@ -10,15 +10,15 @@
     {
         private static OrderId theOrderId;
         private static OrderShortId theOrderShortId;
-        private static List<OrderEventItem> theItems;
+        private static OrderStatus theOrderStatus;
         private static decimal theOrderTotal;
-        private static int theOrderStatus;
+        private static List<OrderEventItem> theItems;
 
         private Establish ctx = () =>
         {
             theOrderId = new OrderId();
             theOrderShortId = new OrderShortId(1234);
-            theOrderStatus = 123;
+            theOrderStatus = OrderStatus.Pending;
             theOrderTotal = 123.50m;
             theItems = new List<OrderEventItem>();
             theItems.Add(CreateOrderEventItem());
@@ -50,7 +50,7 @@
             dataMember(6).ShouldEqual(theLessee);
 
         private It should_have_at_7_the_status = () =>
-            dataMember(7).ShouldEqual(theOrderStatus);
+            dataMember(7).ShouldEqual((int)theOrderStatus);
 
         private It should_have_at_8_the_total_price = () =>
             dataMember(8).ShouldEqual(theOrderTotal);

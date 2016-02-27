@@ -7,15 +7,15 @@
     using NHibernate.Linq;
     using Phundus.Inventory.AvailabilityAndReservation.Model;
     using Phundus.Inventory.AvailabilityAndReservation.Repositories;
-    using Phundus.Shop.Orders.Model;
+    using Phundus.Shop.Model;
 
     public class NhReservationsBasedOnOrdersRepository : IReservationRepository
     {
         public Func<ISession> Session { get; set; }
 
-        private IQueryable<OrderItem> OrderItems
+        private IQueryable<OrderLine> OrderItems
         {
-            get { return Session().Query<OrderItem>(); }
+            get { return Session().Query<OrderLine>(); }
         }
 
         public IEnumerable<Reservation> Find(int articleId, Guid orderItemToExclude)
@@ -24,9 +24,9 @@
             var result = new List<Reservation>();
 
             var query = from oi in OrderItems
-                        where oi.ArticleShortId.Id == articleId
-                         && oi.ItemId.Id != orderItemToExclude
-                        select oi;
+                where oi.ArticleShortId.Id == articleId
+                      && oi.LineId.Id != orderItemToExclude
+                select oi;
 
             result.AddRange(factory.Create(query));
 

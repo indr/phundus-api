@@ -1,22 +1,15 @@
-﻿namespace Phundus.Shop.Orders.Model
+﻿namespace Phundus.Shop.Model
 {
     using System;
     using System.Collections.Generic;
     using System.Linq;
     using Common.Domain.Model;
-    using Ddd;
     using Iesi.Collections.Generic;
-    using Shop.Model;
+    using Orders.Model;
 
     public class Order : EventSourcedAggregate
     {
-        private DateTime _createdAtUtc = DateTime.UtcNow;
-        private Iesi.Collections.Generic.ISet<OrderItem> _items = new HashedSet<OrderItem>();
-        private Lessee _lessee;
-        private Lessor _lessor;
-        private OrderId _orderId;
-        private OrderShortId _orderShortId;
-        private OrderStatus _status = OrderStatus.Pending;
+        private Iesi.Collections.Generic.ISet<OrderLine> _items = new HashedSet<OrderLine>();
 
         public Order(Initiator initiator, OrderId orderId, OrderShortId orderShortId, Lessor lessor, Lessee lessee)
         {
@@ -32,84 +25,22 @@
         {
         }
 
-        public virtual int Id
-        {
-            get { return _orderShortId.Id; }
-            protected set { _orderShortId = new OrderShortId(value); }
-        }
+        public virtual OrderId OrderId { get; private set; }
+        public virtual OrderShortId OrderShortId { get; private set; }
+        public virtual DateTime CreatedAtUtc { get; private set; }
+        public virtual OrderStatus Status { get; private set; }
+        public virtual Lessor Lessor { get; private set; }
+        public virtual Lessee Lessee { get; private set; }
 
-        public virtual OrderShortId OrderShortId
+        public virtual Iesi.Collections.Generic.ISet<OrderLine> Items
         {
-            get { return _orderShortId; }
-            protected set { _orderShortId = value; }
-        }
-
-        public virtual OrderId OrderId
-        {
-            get { return _orderId; }
-            protected set { _orderId = value; }
-        }
-
-        public virtual int Version { get; protected set; }
-
-        public virtual DateTime CreatedAtUtc
-        {
-            get { return _createdAtUtc; }
-            set { _createdAtUtc = value; }
-        }
-
-        public virtual DateTime CreatedAtLocal
-        {
-            get { return CreatedAtUtc.ToLocalTime(); }
-        }
-
-        public virtual OrderStatus Status
-        {
-            get { return _status; }
-            protected set { _status = value; }
-        }
-
-        public virtual Lessor Lessor
-        {
-            get { return _lessor; }
-            protected set { _lessor = value; }
-        }
-
-        public virtual Lessee Lessee
-        {
-            get { return _lessee; }
-            protected set { _lessee = value; }
-        }
-
-        public virtual Iesi.Collections.Generic.ISet<OrderItem> Items
-        {
-            get { return new ImmutableSet<OrderItem>(_items); }
+            get { return new ImmutableSet<OrderLine>(_items); }
             protected set { _items = value; }
         }
 
-        public virtual decimal TotalPrice
+        public virtual decimal OrderTotal
         {
-            get { return _items.Sum(x => x.ItemTotal); }
-        }
-
-        public virtual DateTime? LastToUtc
-        {
-            get
-            {
-                if (_items.Count == 0)
-                    return null;
-                return _items.Max(s => s.ToUtc);
-            }
-        }
-
-        public virtual DateTime? FirstFromUtc
-        {
-            get
-            {
-                if (_items.Count == 0)
-                    return null;
-                return _items.Min(s => s.FromUtc);
-            }
+            get { return _items.Sum(x => x.LineTotal); }
         }
 
         protected void When(OrderCreated e)
@@ -129,8 +60,8 @@
             if (Status == OrderStatus.Rejected)
                 throw new OrderAlreadyRejectedException();
 
-            Apply(new OrderRejected(initiator, OrderId, OrderShortId, Lessor, Lessee, (int) OrderStatus.Rejected,
-                TotalPrice, CreateOrderEventItems()));
+            Apply(new OrderRejected(initiator, OrderId, OrderShortId, Lessor, Lessee, Status,
+                OrderTotal, CreateOrderEventItems()));
         }
 
         protected void When(OrderRejected e)
@@ -141,15 +72,10 @@
 
         public virtual void Approve(Initiator initiator)
         {
-            if (Status == OrderStatus.Rejected)
-                throw new OrderAlreadyRejectedException();
-            if (Status == OrderStatus.Closed)
-                throw new OrderAlreadyClosedException();
-            if (Status == OrderStatus.Approved)
-                throw new OrderAlreadyApprovedException();
+            AssertPending();
 
-            Apply(new OrderApproved(initiator, OrderId, OrderShortId, Lessor, Lessee, (int) OrderStatus.Approved,
-                TotalPrice, CreateOrderEventItems()));
+            Apply(new OrderApproved(initiator, OrderId, OrderShortId, Lessor, Lessee, Status,
+                OrderTotal, CreateOrderEventItems()));
         }
 
         protected void When(OrderApproved e)
@@ -160,13 +86,11 @@
 
         public virtual void Close(Initiator initiator)
         {
-            if (Status == OrderStatus.Rejected)
-                throw new OrderAlreadyRejectedException();
-            if (Status == OrderStatus.Closed)
-                throw new OrderAlreadyClosedException();
+            AssertNotRejected();
+            AssertNotClosed();
 
-            Apply(new OrderClosed(initiator, OrderId, OrderShortId, Lessor, Lessee, (int) OrderStatus.Closed,
-                TotalPrice, CreateOrderEventItems()));
+            Apply(new OrderClosed(initiator, OrderId, OrderShortId, Lessor, Lessee, Status,
+                OrderTotal, CreateOrderEventItems()));
         }
 
         protected void When(OrderClosed e)
@@ -175,45 +99,43 @@
         }
 
 
-        public virtual void AddItem(Initiator initiator, OrderItemId orderItemId, Article article, DateTime fromUtc,
-            DateTime toUtc, int quantity)
+        public virtual void AddItem(Initiator initiator, OrderLineId orderLineId, Article article, Period period,
+            int quantity)
         {
             AssertPending();
 
-            Apply(new OrderItemAdded(initiator, OrderId, OrderShortId, (int) Status, TotalPrice,
-                new OrderEventItem(orderItemId, article.ArticleId, article.ArticleShortId,
-                    article.Name, article.Price, fromUtc, toUtc, quantity, 0.0m)));
+            var unitPricePerWeek = article.Price;
+            var priceInfo = new PerDayWithPerSevenDaysPricePricingStrategy()
+                .Calculate(period, quantity, unitPricePerWeek);
+
+            Apply(new OrderItemAdded(initiator, OrderId, OrderShortId, (int) Status, OrderTotal + priceInfo.Price,
+                new OrderEventItem(orderLineId, article.ArticleId, article.ArticleShortId,
+                    article.Name, unitPricePerWeek, period, quantity, priceInfo.Price)));
         }
 
         protected void When(OrderItemAdded e)
         {
-            var item = new OrderItem(new OrderItemId(e.OrderItem.ItemId), new ArticleId(e.OrderItem.ArticleId),
+            var item = new OrderLine(new OrderLineId(e.OrderItem.ItemId), new ArticleId(e.OrderItem.ArticleId),
                 new ArticleShortId(e.OrderItem.ArticleShortId),
-                e.OrderItem.Text, e.OrderItem.Period, e.OrderItem.Quantity, e.OrderItem.UnitPricePerWeek);
+                e.OrderItem.Text, e.OrderItem.Period, e.OrderItem.Quantity, e.OrderItem.UnitPricePerWeek,
+                e.OrderItem.ItemTotal);
             _items.Add(item);
-            item.Order = this;
         }
 
         public virtual void RemoveItem(Initiator initiator, Guid orderItemId)
         {
             AssertPending();
 
-            var item = _items.FirstOrDefault(p => p.ItemId.Id == orderItemId);
-            if (item == null)
-                return;
+            var item = GetOrderLine(orderItemId);
 
-            Apply(new OrderItemRemoved(initiator, OrderId, OrderShortId,
-                (int) Status, TotalPrice, CreateOrderEventItem(item)));
+            Apply(new OrderItemRemoved(initiator, OrderId, OrderShortId, Status, OrderTotal - item.LineTotal,
+                CreateOrderEventItem(item)));
         }
 
         protected void When(OrderItemRemoved e)
         {
-            var item = _items.FirstOrDefault(p => p.ItemId.Id == e.OrderItem.ItemId);
-            if (item == null)
-                return;
-
+            var item = GetOrderLine(e.OrderItem.ItemId);
             _items.Remove(item);
-            item.Order = null;
         }
 
 
@@ -221,22 +143,17 @@
         {
             AssertPending();
 
-            var item = _items.SingleOrDefault(p => p.ItemId.Id == orderItemId);
-            if (item == null)
-                return;
+            var item = GetOrderLine(orderItemId);
 
             Apply(new OrderItemQuantityChanged(initiator, OrderId, OrderShortId,
-                (int) Status, TotalPrice, item.ItemId, item.Amount, amount,
+                (int) Status, OrderTotal, item.LineId, item.Quantity, amount,
                 CreateOrderEventItem(item)));
         }
 
         protected void When(OrderItemQuantityChanged e)
         {
-            var item = _items.SingleOrDefault(p => p.ItemId.Id == e.OrderItemId);
-            if (item == null)
-                return;
-
-            item.ChangeAmount(e.NewQuantity);
+            var item = GetOrderLine(e.OrderItemId);
+            item.ChangeQuantity(e.NewQuantity);
         }
 
 
@@ -244,21 +161,16 @@
         {
             AssertPending();
 
-            var item = _items.SingleOrDefault(p => p.ItemId.Id == orderItemId);
-            if (item == null)
-                return;
+            var item = GetOrderLine(orderItemId);
 
-            Apply(new OrderItemPeriodChanged(initiator, OrderId, OrderShortId, (int) Status, TotalPrice, orderItemId,
-                new Period(item.FromUtc, item.ToUtc), new Period(fromUtc, toUtc), CreateOrderEventItem(item)));
+            Apply(new OrderItemPeriodChanged(initiator, OrderId, OrderShortId, (int) Status, OrderTotal, orderItemId,
+                item.Period, new Period(fromUtc, toUtc), CreateOrderEventItem(item)));
         }
 
         protected void When(OrderItemPeriodChanged e)
         {
-            var item = _items.SingleOrDefault(p => p.ItemId.Id == e.OrderItemId);
-            if (item == null)
-                return;
-
-            item.ChangePeriod(e.NewPeriod.FromUtc, e.NewPeriod.ToUtc);
+            var item = GetOrderLine(e.OrderItemId);
+            item.ChangePeriod(e.NewPeriod);
         }
 
 
@@ -266,24 +178,27 @@
         {
             AssertPending();
 
-            var item = _items.SingleOrDefault(p => p.ItemId.Id == orderItemId);
-            if (item == null)
-                return;
+            var item = GetOrderLine(orderItemId);
 
             Apply(new OrderItemTotalChanged(initiator, OrderId, OrderShortId,
-                (int) Status, TotalPrice, item.ItemId, item.LineTotal, itemTotal,
+                (int) Status, OrderTotal, item.LineId, item.LineTotal, itemTotal,
                 CreateOrderEventItem(item)));
         }
 
         protected void When(OrderItemTotalChanged e)
         {
-            var item = _items.SingleOrDefault(p => p.ItemId.Id == e.OrderItemId);
-            if (item == null)
-                return;
-
-            item.ChangeTotal(e.NewItemTotal);
+            var item = GetOrderLine(e.OrderItemId);
+            item.ChangeLineTotal(e.NewItemTotal);
         }
 
+
+        private OrderLine GetOrderLine(Guid orderItemId)
+        {
+            var item = _items.FirstOrDefault(p => p.LineId.Id == orderItemId);
+            if (item == null)
+                throw new InvalidOperationException(String.Format("Could not find order line {0}", orderItemId));
+            return item;
+        }
 
         private void AssertPending()
         {
@@ -302,15 +217,27 @@
             }
         }
 
+        private void AssertNotRejected()
+        {
+            if (Status == OrderStatus.Rejected)
+                throw new OrderAlreadyRejectedException();
+        }
+
+        private void AssertNotClosed()
+        {
+            if (Status == OrderStatus.Closed)
+                throw new OrderAlreadyClosedException();
+        }
+
         private IList<OrderEventItem> CreateOrderEventItems()
         {
             return Items.Select(CreateOrderEventItem).ToList();
         }
 
-        private OrderEventItem CreateOrderEventItem(OrderItem item)
+        private OrderEventItem CreateOrderEventItem(OrderLine line)
         {
-            return new OrderEventItem(item.ItemId, item.ArticleId, item.ArticleShortId, item.Text, item.UnitPrice,
-                item.FromUtc, item.ToUtc, item.Amount, item.ItemTotal);
+            return new OrderEventItem(line.LineId, line.ArticleId, line.ArticleShortId, line.Text, line.UnitPricePerWeek,
+                line.Period, line.Quantity, line.LineTotal);
         }
 
         protected override IEnumerable<object> GetIdentityComponents()

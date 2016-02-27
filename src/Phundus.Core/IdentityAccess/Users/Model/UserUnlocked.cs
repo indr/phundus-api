@@ -12,7 +12,7 @@ namespace Phundus.IdentityAccess.Users.Model
             if (initiator == null) throw new ArgumentNullException("initiator");
             if (user == null) throw new ArgumentNullException("user");
 
-            InitiatorId = initiator.InitiatorGuid;
+            InitiatorId = initiator.InitiatorId.Id;
             UserId = user.UserId.Id;
             LockedAtUtc = lockedAtUtc;
         }

@@ -10,7 +10,6 @@
     using Phundus.Shop.Model;
     using Phundus.Shop.Orders.Commands;
     using Phundus.Shop.Orders.Model;
-    using Phundus.Shop.Orders.Repositories;
     using Rhino.Mocks;
 
     public class place_order_command_handler_concern : order_command_handler_concern<PlaceOrder, PlaceOrderHandler>

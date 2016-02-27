@@ -7,7 +7,7 @@
     using IdentityAccess.Projections;
     using Integration.IdentityAccess;
     using Model;
-    using Repositories;
+    using Shop.Model;
     using Shop.Services;
 
     public class CreateEmptyOrder

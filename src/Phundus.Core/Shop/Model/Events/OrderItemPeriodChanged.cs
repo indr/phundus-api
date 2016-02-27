@@ -16,6 +16,7 @@ namespace Phundus.Shop.Orders.Model
             if (oldPeriod == null) throw new ArgumentNullException("oldPeriod");
             if (newPeriod == null) throw new ArgumentNullException("newPeriod");
             if (orderItem == null) throw new ArgumentNullException("orderItem");
+
             Initiator = initiator;
             OrderId = orderId.Id;
             OrderShortId = orderShortId.Id;

@@ -1,7 +1,6 @@
-﻿namespace Phundus.Shop.Orders.Repositories
+﻿namespace Phundus.Shop.Model
 {
     using Common.Domain.Model;
-    using Model;
 
     public interface IOrderRepository
     {

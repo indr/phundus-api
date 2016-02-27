@@ -24,6 +24,7 @@ namespace Phundus.Tests.Shop
             article.setup(x => x.ArticleShortId).Return(articleId);
             article.setup(x => x.LessorId).Return(new LessorId(lessorId));
             article.setup(x => x.Name).Return("The article " + articleId.Id);
+            article.setup(x => x.Price).Return(7.0m);
             return article;
         }
 

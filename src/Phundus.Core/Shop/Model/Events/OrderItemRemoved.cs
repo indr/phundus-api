@@ -7,17 +7,18 @@ namespace Phundus.Shop.Orders.Model
     [DataContract]
     public class OrderItemRemoved : DomainEvent
     {
-        public OrderItemRemoved(Initiator initiator, OrderId orderId, OrderShortId orderShortId, int orderStatus,
+        public OrderItemRemoved(Initiator initiator, OrderId orderId, OrderShortId orderShortId, OrderStatus orderStatus,
             decimal orderTotal, OrderEventItem orderItem)
         {
             if (initiator == null) throw new ArgumentNullException("initiator");
             if (orderId == null) throw new ArgumentNullException("orderId");
             if (orderShortId == null) throw new ArgumentNullException("orderShortId");
             if (orderItem == null) throw new ArgumentNullException("orderItem");
+
             Initiator = initiator;
             OrderId = orderId.Id;
             OrderShortId = orderShortId.Id;
-            OrderStatus = orderStatus;
+            OrderStatus = (int)orderStatus;
             OrderTotal = orderTotal;
             OrderItem = orderItem;
         }

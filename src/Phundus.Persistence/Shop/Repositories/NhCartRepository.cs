@@ -5,8 +5,6 @@
     using Common;
     using Common.Domain.Model;
     using Phundus.Shop.Model;
-    using Phundus.Shop.Orders.Model;
-    using Phundus.Shop.Orders.Repositories;
 
     public class NhCartRepository : NhRepositoryBase<Cart>, ICartRepository
     {

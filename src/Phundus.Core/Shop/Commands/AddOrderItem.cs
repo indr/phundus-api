@@ -5,22 +5,22 @@
     using Cqrs;
     using IdentityAccess.Projections;
     using Integration.IdentityAccess;
-    using Repositories;
+    using Shop.Model;
     using Shop.Services;
 
     public class AddOrderItem : ICommand
     {
-        public AddOrderItem(InitiatorId initiatorId, OrderId orderId, OrderItemId orderItemId, ArticleId articleId, Period period, int quantity)
+        public AddOrderItem(InitiatorId initiatorId, OrderId orderId, OrderLineId orderLineId, ArticleId articleId, Period period, int quantity)
         {
             if (initiatorId == null) throw new ArgumentNullException("initiatorId");
             if (orderId == null) throw new ArgumentNullException("orderId");
-            if (orderItemId == null) throw new ArgumentNullException("orderItemId");
+            if (orderLineId == null) throw new ArgumentNullException("orderLineId");
             if (articleId == null) throw new ArgumentNullException("articleId");
             if (period == null) throw new ArgumentNullException("period");   
          
             InitiatorId = initiatorId;
             OrderId = orderId;
-            OrderItemId = orderItemId;
+            OrderLineId = orderLineId;
             ArticleId = articleId;
             Period = period;
             Quantity = quantity;
@@ -28,7 +28,7 @@
 
         public InitiatorId InitiatorId { get; protected set; }
         public OrderId OrderId { get; protected set; }
-        public OrderItemId OrderItemId { get; protected set; }
+        public OrderLineId OrderLineId { get; protected set; }
         public ArticleId ArticleId { get; protected set; }
         public Period Period { get; protected set; }
         public int Quantity { get; protected set; }
@@ -61,7 +61,7 @@
             _memberInRole.ActiveManager(lessor.LessorId.Id, command.InitiatorId);
 
             var article = _articleService.GetById(lessor.LessorId, command.ArticleId, order.Lessee.LesseeId);
-            order.AddItem(initiator, command.OrderItemId, article, command.Period.FromUtc, command.Period.ToUtc, command.Quantity);
+            order.AddItem(initiator, command.OrderLineId, article, command.Period, command.Quantity);
 
             _orderRepository.Save(order);
         }

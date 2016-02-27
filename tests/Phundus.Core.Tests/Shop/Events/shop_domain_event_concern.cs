@@ -20,8 +20,8 @@
 
         protected static OrderEventItem CreateOrderEventItem()
         {
-            return new OrderEventItem(new OrderItemId(), new ArticleId(), new ArticleShortId(1234),
-                "The text", 1.23m, DateTime.Today, DateTime.Today.AddDays(1), 10, 12.3m);
+            return new OrderEventItem(new OrderLineId(), new ArticleId(), new ArticleShortId(1234),
+                "The text", 1.23m, Period.FromNow(1), 10, 12.3m);
         }
     }
 }
