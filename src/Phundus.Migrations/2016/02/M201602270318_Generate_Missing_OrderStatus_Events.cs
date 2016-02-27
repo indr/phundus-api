@@ -34,10 +34,6 @@
             _closedTypeName = "Phundus.Shop.Orders.Model.OrderClosed, Phundus.Core";
             _closedEvents = FindStoredEvents(_closedTypeName);
             
-            if (_approvedEvents.Count == 0) throw new Exception("No approved events found.");
-            if (_rejectedEvents.Count == 0) throw new Exception("No rejected events found.");
-            if (_closedEvents.Count == 0) throw new Exception("No closed events found.");
-            
             foreach (var each in _orderStatusMap)
             {
                 if (each.Value == 0)
