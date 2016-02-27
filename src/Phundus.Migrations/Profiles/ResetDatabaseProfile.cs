@@ -24,9 +24,10 @@
 
             DropTable("Es_Shop_Item_Files");
             DropTable("Es_Shop_Item_Images");
-            DropTable("Es_Shop_Items");
+            DropTable("Es_Shop_Item");
             DropTable("Es_Shop_ShopItemsSortByPopularityProjection");
-            DropTable("Es_Shop_ResultItems");
+            DropTable("Es_Shop_Items");
+            
             DeleteAllRowsIfTableExists("Es_Inventory_Articles");
             DeleteAllRowsFromTableWithPrefix("Es_");
 
