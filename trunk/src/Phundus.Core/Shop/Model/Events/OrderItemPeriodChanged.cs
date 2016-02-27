@@ -8,14 +8,14 @@ namespace Phundus.Shop.Orders.Model
     public class OrderItemPeriodChanged : DomainEvent
     {
         public OrderItemPeriodChanged(Initiator initiator, OrderId orderId, OrderShortId orderShortId, int orderStatus,
-            decimal orderTotal, Guid orderItemId, Period oldPeriod, Period newPeriod, OrderEventItem orderItem)
+            decimal orderTotal, Guid orderItemId, Period oldPeriod, Period newPeriod, OrderEventLine orderLine)
         {
             if (initiator == null) throw new ArgumentNullException("initiator");
             if (orderId == null) throw new ArgumentNullException("orderId");
             if (orderShortId == null) throw new ArgumentNullException("orderShortId");
             if (oldPeriod == null) throw new ArgumentNullException("oldPeriod");
             if (newPeriod == null) throw new ArgumentNullException("newPeriod");
-            if (orderItem == null) throw new ArgumentNullException("orderItem");
+            if (orderLine == null) throw new ArgumentNullException("orderLine");
 
             Initiator = initiator;
             OrderId = orderId.Id;
@@ -25,7 +25,7 @@ namespace Phundus.Shop.Orders.Model
             OrderItemId = orderItemId;
             OldPeriod = oldPeriod;
             NewPeriod = newPeriod;
-            OrderItem = orderItem;
+            OrderLine = orderLine;
         }
 
         protected OrderItemPeriodChanged()
@@ -57,6 +57,6 @@ namespace Phundus.Shop.Orders.Model
         public Period NewPeriod { get; set; }
 
         [DataMember(Order = 9)]
-        public OrderEventItem OrderItem { get; set; }
+        public OrderEventLine OrderLine { get; set; }
     }
 }

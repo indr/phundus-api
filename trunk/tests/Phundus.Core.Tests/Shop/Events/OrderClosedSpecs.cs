@@ -10,7 +10,7 @@
     {
         private static OrderId theOrderId;
         private static OrderShortId theOrderShortId;
-        private static List<OrderEventItem> theItems;
+        private static List<OrderEventLine> theItems;
         private static decimal theOrderTotal;
         private static OrderStatus theOrderStatus;
 
@@ -20,7 +20,7 @@
             theOrderShortId = new OrderShortId(1234);
             theOrderStatus = OrderStatus.Approved;
             theOrderTotal = 123.50m;
-            theItems = new List<OrderEventItem>();
+            theItems = new List<OrderEventLine>();
             theItems.Add(CreateOrderEventItem());
 
             sut_factory.create_using(() =>

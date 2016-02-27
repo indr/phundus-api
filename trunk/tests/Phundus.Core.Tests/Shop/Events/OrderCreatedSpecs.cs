@@ -1,29 +1,32 @@
 ﻿namespace Phundus.Tests.Shop.Model
 {
+    using System.Collections.Generic;
     using Common.Domain.Model;
+    using Events;
     using Machine.Specifications;
-    using Phundus.Shop.Model;
     using Phundus.Shop.Orders.Model;
 
     [Subject(typeof (OrderCreated))]
-    public class order_created : domain_event_concern<OrderCreated>
+    public class order_created : shop_domain_event_concern<OrderCreated>
     {
         private static OrderShortId theOrderShortId;
         private static OrderId theOrderId;
-        private static Lessor theLessor;
-        private static Lessee theLessee;
+        private static OrderStatus theOrderStatus;
+        private static decimal theOrderTotal;
+        private static IList<OrderEventLine> theOrderLines;
 
         private Establish ctx = () =>
         {
             theOrderShortId = new OrderShortId(1234);
             theOrderId = new OrderId();
-            theLessor = new Lessor(new LessorId(), "The lessor", true);
-            theLessee = new Lessee(new LesseeId(), "Hans", "Muster", "Street", "12345", "City", "user@test.phundus.ch",
-                "+1234567890", "123456");
+            theOrderStatus = OrderStatus.Approved;
+            theOrderTotal = 120.0m;
+            theOrderLines = new List<OrderEventLine>();
+            theOrderLines.Add(CreateOrderEventItem());
 
             sut_factory.create_using(() =>
                 new OrderCreated(theInitiator, theOrderId, theOrderShortId,
-                    theLessor, theLessee));
+                    theLessor, theLessee, theOrderStatus, theOrderTotal, theOrderLines));
         };
 
         private It should_be_in_assembly = () =>
@@ -43,6 +46,15 @@
 
         private It should_have_at_5_the_lessee = () =>
             dataMember(5).ShouldEqual(theLessee);
+
+        private It should_have_at_6_the_order_status = () =>
+            dataMember(6).ShouldEqual((int) theOrderStatus);
+
+        private It should_have_at_7_the_order_total = () =>
+            dataMember(7).ShouldEqual(theOrderTotal);
+
+        private It should_have_at_8_the_order_lines = () =>
+            dataMember(8).ShouldEqual(theOrderLines);
 
         private It should_have_full_name = () =>
             itsFullName.ShouldEqual("Phundus.Shop.Orders.Model.OrderCreated");

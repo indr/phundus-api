@@ -5,8 +5,8 @@ namespace Phundus.Tests.Shop.Events
     using Machine.Specifications;
     using Phundus.Shop.Orders.Model;
 
-    [Subject(typeof (OrderEventItem))]
-    public class order_event_item : domain_event_concern<OrderEventItem>
+    [Subject(typeof (OrderEventLine))]
+    public class order_event_item : domain_event_concern<OrderEventLine>
     {
         private static OrderLineId theItemId = new OrderLineId();
         private static ArticleId theArticleId = new ArticleId();
@@ -18,12 +18,9 @@ namespace Phundus.Tests.Shop.Events
         private static decimal theItemTotal = 2.50m;
 
         private Establish ctx = () => sut_factory.create_using(() =>
-            new OrderEventItem(theItemId, theArticleId, theArticleShortId,
+            new OrderEventLine(theItemId, theArticleId, theArticleShortId,
                 theText, theUnitPricePerWeek, thePeriod, theQuantity,
                 theItemTotal));
-
-        private It should_be_in_assembly = () =>
-            itsAssembly.ShouldEqual("Phundus.Core");
 
         private It should_have_at_1_the_item_id = () =>
             dataMember(1).ShouldEqual(theItemId.Id);
@@ -51,8 +48,5 @@ namespace Phundus.Tests.Shop.Events
 
         private It should_have_at_9_the_item_total = () =>
             dataMember(9).ShouldEqual(theItemTotal);
-
-        private It should_have_full_name = () =>
-            itsFullName.ShouldEqual("Phundus.Shop.Orders.Model.OrderEventItem");
     }
 }

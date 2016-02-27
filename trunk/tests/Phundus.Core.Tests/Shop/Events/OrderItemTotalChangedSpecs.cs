@@ -15,7 +15,7 @@
         private static OrderLineId theOrderItemId;
         private static decimal theOldItemTotal;
         private static decimal theNewItemTotal;
-        private static OrderEventItem theOrderItem;
+        private static OrderEventLine theOrderItem;
 
         private Establish ctx = () =>
         {

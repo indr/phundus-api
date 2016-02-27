@@ -85,12 +85,9 @@
             }
 
 
-            var order = new Order(initiator, command.OrderId, command.OrderShortId, lessor, lessee);
-            foreach (var cartItem in cartItemsToPlace)
-            {
-                order.AddItem(initiator, new OrderLineId(), cartItem.Article, cartItem.Period, cartItem.Quantity);
-            }
-
+            var orderLines = new OrderLines(cartItemsToPlace);
+            var order = new Order(initiator, command.OrderId, command.OrderShortId, lessor, lessee, orderLines);
+            
             _orderRepository.Add(order);
 
             foreach (var each in cartItemsToPlace)
@@ -99,7 +96,7 @@
             }
 
             EventPublisher.Publish(new OrderPlaced(initiator, order.OrderId, order.OrderShortId,
-                lessor, lessee, (int) order.Status, order.OrderTotal, order.Lines.Select(s => new OrderEventItem(
+                lessor, lessee, order.Status, order.OrderTotal, order.Lines.Select(s => new OrderEventLine(
                     s.LineId, s.ArticleId, s.ArticleShortId, s.Text, s.UnitPricePerWeek, s.Period, s.Quantity,
                     s.LineTotal)).ToList()));
         }

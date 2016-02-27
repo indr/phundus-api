@@ -72,14 +72,14 @@
         private void Process(OrderItemAdded e)
         {
             Update(e.OrderId, order =>
-                order.Items.Add(CreateOrderLineData(order, e.OrderItem)));
+                order.Items.Add(CreateOrderLineData(order, e.OrderLine)));
         }
 
         private void Process(OrderItemRemoved e)
         {
             Update(e.OrderId, order =>
             {
-                var item = order.Items.Single(p => p.LineId == e.OrderItem.ItemId);
+                var item = order.Items.Single(p => p.LineId == e.OrderLine.ItemId);
                 order.Items.Remove(item);
             });
         }
@@ -103,7 +103,7 @@
             UpdateOrderLine(e.OrderId, e.OrderItemId, line => { line.LineTotal = e.NewItemTotal; });
         }
 
-        private static OrderLineData CreateOrderLineData(OrderData order, OrderEventItem s)
+        private static OrderLineData CreateOrderLineData(OrderData order, OrderEventLine s)
         {
             return new OrderLineData
             {
@@ -116,7 +116,7 @@
                 ToUtc = s.ToUtc,
                 Quantity = s.Quantity,
                 UnitPricePerWeek = s.UnitPricePerWeek,
-                LineTotal = s.ItemTotal
+                LineTotal = s.LineTotal
             };
         }
 

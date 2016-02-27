@@ -1,6 +1,5 @@
 ﻿namespace Phundus.Tests.Shop.Events
 {
-    using System;
     using Common.Domain.Model;
     using Machine.Specifications;
     using Phundus.Shop.Model;
@@ -18,9 +17,9 @@
                 "Email address", "Phone number", "Member number");
         };
 
-        protected static OrderEventItem CreateOrderEventItem()
+        protected static OrderEventLine CreateOrderEventItem()
         {
-            return new OrderEventItem(new OrderLineId(), new ArticleId(), new ArticleShortId(1234),
+            return new OrderEventLine(new OrderLineId(), new ArticleId(), new ArticleShortId(1234),
                 "The text", 1.23m, Period.FromNow(1), 10, 12.3m);
         }
     }

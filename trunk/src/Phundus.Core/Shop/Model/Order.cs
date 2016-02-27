@@ -2,18 +2,19 @@
 {
     using System;
     using System.Collections.Generic;
-    using System.Collections.ObjectModel;
     using System.Linq;
     using Common.Domain.Model;
     using Orders.Model;
 
     public class Order : EventSourcedAggregate
     {
-        private OrderLines _orderLines = new OrderLines();
+        private OrderLines _orderLines;
 
-        public Order(Initiator initiator, OrderId orderId, OrderShortId orderShortId, Lessor lessor, Lessee lessee)
+        public Order(Initiator initiator, OrderId orderId, OrderShortId orderShortId, Lessor lessor, Lessee lessee,
+            OrderLines orderLines = null)
         {
-            Apply(new OrderCreated(initiator, orderId, orderShortId, lessor, lessee));
+            Apply(new OrderCreated(initiator, orderId, orderShortId, lessor, lessee, OrderStatus.Pending,
+                orderLines == null ? 0.0m : orderLines.GetOrderLinesSum(), CreateOrderEventItems(orderLines)));
         }
 
         protected Order()
@@ -40,7 +41,7 @@
         public virtual ICollection<OrderLine> Lines
         {
             get { return _orderLines.Lines; }
-        } 
+        }
 
         protected void When(OrderCreated e)
         {
@@ -50,6 +51,7 @@
             Status = OrderStatus.Pending;
             Lessee = e.Lessee;
             Lessor = e.Lessor;
+            _orderLines = new OrderLines(e.Lines);
         }
 
         public virtual void Reject(Initiator initiator)
@@ -60,7 +62,7 @@
                 throw new OrderAlreadyRejectedException();
 
             Apply(new OrderRejected(initiator, OrderId, OrderShortId, Lessor, Lessee, Status,
-                OrderTotal, CreateOrderEventItems()));
+                OrderTotal, CreateOrderEventItems(_orderLines)));
         }
 
         protected void When(OrderRejected e)
@@ -74,7 +76,7 @@
             AssertPending();
 
             Apply(new OrderApproved(initiator, OrderId, OrderShortId, Lessor, Lessee, Status,
-                OrderTotal, CreateOrderEventItems()));
+                OrderTotal, CreateOrderEventItems(_orderLines)));
         }
 
         protected void When(OrderApproved e)
@@ -89,7 +91,7 @@
             AssertNotClosed();
 
             Apply(new OrderClosed(initiator, OrderId, OrderShortId, Lessor, Lessee, Status,
-                OrderTotal, CreateOrderEventItems()));
+                OrderTotal, CreateOrderEventItems(_orderLines)));
         }
 
         protected void When(OrderClosed e)
@@ -108,7 +110,7 @@
                 .Calculate(period, quantity, unitPricePerWeek);
 
             Apply(new OrderItemAdded(initiator, OrderId, OrderShortId, (int) Status, OrderTotal + priceInfo.Price,
-                new OrderEventItem(orderLineId, article.ArticleId, article.ArticleShortId,
+                new OrderEventLine(orderLineId, article.ArticleId, article.ArticleShortId,
                     article.Name, unitPricePerWeek, period, quantity, priceInfo.Price)));
         }
 
@@ -129,7 +131,7 @@
 
         protected void When(OrderItemRemoved e)
         {
-            _orderLines.When(e);            
+            _orderLines.When(e);
         }
 
 
@@ -211,14 +213,16 @@
                 throw new OrderAlreadyClosedException();
         }
 
-        private IList<OrderEventItem> CreateOrderEventItems()
+        private static IList<OrderEventLine> CreateOrderEventItems(OrderLines orderLines)
         {
-            return Lines.Select(CreateOrderEventItem).ToList();
+            if (orderLines == null)
+                return null;
+            return orderLines.Lines.Select(CreateOrderEventItem).ToList();
         }
 
-        private OrderEventItem CreateOrderEventItem(OrderLine line)
+        private static OrderEventLine CreateOrderEventItem(OrderLine line)
         {
-            return new OrderEventItem(line.LineId, line.ArticleId, line.ArticleShortId, line.Text, line.UnitPricePerWeek,
+            return new OrderEventLine(line.LineId, line.ArticleId, line.ArticleShortId, line.Text, line.UnitPricePerWeek,
                 line.Period, line.Quantity, line.LineTotal);
         }
 
