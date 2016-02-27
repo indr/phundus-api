@@ -106,6 +106,7 @@
     <Compile Include="Authorization\IAccessObjectHandlerFactory.cs" />
     <Compile Include="Authorization\IHandleAccessObject.cs" />
     <Compile Include="Cqrs\ProjectionBase.cs" />
+    <Compile Include="Cqrs\QueryBase.cs" />
     <Compile Include="Dashboard\Projections\EventLogProjection.cs" />
     <Compile Include="Cqrs\ReadModelUpdater.cs" />
     <Compile Include="Ddd\Aggregate.cs" />
@@ -234,6 +235,7 @@
     <Compile Include="Inventory\Services\UserInRole.cs" />
     <Compile Include="Inventory\Stores\Commands\RenameStore.cs" />
     <Compile Include="Inventory\Stores\Model\StoreRenamed.cs" />
+    <Compile Include="Shop\Projections\OrderQueries.cs" />
     <Compile Include="Shop\Projections\ShopItemProjection.cs" />
     <Compile Include="Inventory\Projections\ArticlesProjection.cs" />
     <Compile Include="Inventory\Projections\ImagesProjection.cs" />
