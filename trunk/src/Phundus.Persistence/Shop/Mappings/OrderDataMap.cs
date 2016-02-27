@@ -12,7 +12,7 @@ namespace Phundus.Persistence.Shop.Mappings
             Table("Es_Shop_Orders");
 
             Id(x => x.OrderId).GeneratedBy.Assigned();
-            Map(x => x.OrderShortId);
+            Map(x => x.OrderShortId).Unique();
             Map(x => x.CreatedAtUtc).CustomType<UtcDateTimeType>();
             Map(x => x.ModifiedAtUtc).CustomType<UtcDateTimeType>();
             Map(x => x.Status).CustomType<OrderData.OrderStatus>();
