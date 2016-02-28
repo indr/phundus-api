@@ -32,7 +32,7 @@
                                          && p.FirstName == "FirstName"
                                          && p.JsNumber == null
                                          && p.LastName == "LastName"
-                                         && p.MobilePhone == "MobilePhone"
+                                         && p.PhoneNumber == "MobilePhone"
                                          && p.Password != "Password"
                                          && p.Postcode == "Postcode"
                                          && p.Salt != ""

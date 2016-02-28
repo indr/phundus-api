@@ -3,8 +3,8 @@
     using System;
     using System.Runtime.Serialization;
     using Common.Domain.Model;
-    using Organizations.Model;
-    using Users.Model;
+    using IdentityAccess.Users.Model;
+    using Organizations.Model;    
 
     [DataContract]
     public class OrganizationPlanChanged : DomainEvent
