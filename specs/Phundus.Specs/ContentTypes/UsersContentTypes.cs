@@ -52,6 +52,12 @@
         public string FullName { get; set; }
 
         [JsonProperty("email")]
+        public string Email
+        {
+            get { return EmailAddress; }
+        }
+
+        [JsonProperty("emailAddress")]
         public string EmailAddress { get; set; }
 
         [JsonProperty("memberships")]
