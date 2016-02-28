@@ -37,6 +37,6 @@
                                          && p.Postcode == "Postcode"
                                          && p.Salt != ""
                                          && p.Street == "Street"
-                                         && p.UserGuid == command.UserId.Id);
+                                         && p.UserId == command.UserId.Id);
     }
 }

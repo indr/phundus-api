@@ -215,8 +215,8 @@
 
         private It should_publish_user_locked = () =>
             wasPublished<UserLocked>(p => p.InitiatorId == theInitiatorId.Id
-                                       && p.LockedAtUtc == sut.Account.LastLockoutDate
-                                       && p.UserId == sut.UserId.Id);
+                                          && p.LockedAtUtc == sut.Account.LastLockoutDate
+                                          && p.UserId == sut.UserId.Id);
     }
 
     [Subject(typeof (User))]
@@ -233,7 +233,7 @@
 
         private It should_publish_user_unlocked = () =>
             wasPublished<UserUnlocked>(p => p.InitiatorId == theInitiatorId.Id
-                                         && p.LockedAtUtc == sut.Account.LastLockoutDate
-                                         && p.UserId == sut.UserId.Id);
+                                            && p.LockedAtUtc == sut.Account.LastLockoutDate
+                                            && p.UserId == sut.UserId.Id);
     }
 }
