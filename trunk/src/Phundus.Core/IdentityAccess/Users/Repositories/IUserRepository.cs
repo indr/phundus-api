@@ -21,5 +21,7 @@
         /// <returns></returns>
         /// <exception cref="NotFoundException"></exception>
         User GetByGuid(UserId userId);
+
+        void Save(User user);
     }
 }

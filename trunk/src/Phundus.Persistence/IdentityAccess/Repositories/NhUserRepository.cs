@@ -23,6 +23,11 @@
             return result;
         }
 
+        public void Save(User user)
+        {
+            Session.Update(user);
+        }
+
         public User FindByGuid(Guid userId)
         {
             return Users.SingleOrDefault(p => p.UserId.Id == userId);

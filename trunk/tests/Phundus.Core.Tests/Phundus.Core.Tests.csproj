@@ -99,6 +99,7 @@
     <Compile Include="Ddd\DomainEntitesSpecs.cs" />
     <Compile Include="Ddd\DomainEventsSpecs.cs" />
     <Compile Include="factory_base.cs" />
+    <Compile Include="IdentityAccess\Application\ChangeUserAddressSpecs.cs" />
     <Compile Include="IdentityAccess\Authorize\identityaccess_access_object_handler_concern.cs" />
     <Compile Include="IdentityAccess\Authorize\ManageUsersAccessObjectHandlerSpecs.cs" />
     <Compile Include="IdentityAccess\Application\ChangeMemberRecievesEmailNotificationsSpecs.cs" />
@@ -122,7 +123,7 @@
     <Compile Include="IdentityAccess\Model\OrganizationSpecs.cs" />
     <Compile Include="IdentityAccess\Model\UserInRoleSpecs.cs" />
     <Compile Include="IdentityAccess\Model\Users\UserAddressChangedSpecs.cs" />
-    <Compile Include="IdentityAccess\Projections\OrganizationViewRowSpecs.cs" />
+    <Compile Include="IdentityAccess\Projections\OrganizationDataSpecs.cs" />
     <Compile Include="IdentityAccess\Application\ChangeEmailAddressHandlerSpecs.cs" />
     <Compile Include="IdentityAccess\Application\SignUpUserHandlerSpecs.cs" />
     <Compile Include="domain_event_concern.cs" />

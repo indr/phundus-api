@@ -1,4 +1,4 @@
-﻿namespace Phundus.Tests.IdentityAccess.Queries
+﻿namespace Phundus.Tests.IdentityAccess.Projections
 {
     using developwithpassion.specifications.rhinomocks;
     using Machine.Specifications;
