@@ -7,7 +7,7 @@
     using Model.Users;
     using Users.Model;
 
-    public class UserAddressProjection : ProjectionBase<UserAddress>, IStoredEventsConsumer
+    public class UserAddressProjection : ProjectionBase<UserAddressData>, IStoredEventsConsumer
     {
         public void Handle(DomainEvent e)
         {
@@ -54,15 +54,15 @@
         }
     }
 
-    public class UserAddress
+    public class UserAddressData
     {
-        public Guid UserId { get; set; }
-        public string FirstName { get; set; }
-        public string LastName { get; set; }
-        public string Street { get; set; }
-        public string Postcode { get; set; }
-        public string City { get; set; }
-        public string EmailAddress { get; set; }
-        public string PhoneNumber { get; set; }
+        public virtual Guid UserId { get; set; }
+        public virtual string FirstName { get; set; }
+        public virtual string LastName { get; set; }
+        public virtual string Street { get; set; }
+        public virtual string Postcode { get; set; }
+        public virtual string City { get; set; }
+        public virtual string EmailAddress { get; set; }
+        public virtual string PhoneNumber { get; set; }
     }
 }

@@ -49,7 +49,8 @@
                 order.LessorEmailAddress = null;
                 order.LessorPhoneNumber = null;
 
-                order.Lines = e.Lines.Select(s => CreateOrderLineData(order, s)).ToList();
+                if (e.Lines != null)
+                    order.Lines = e.Lines.Select(s => CreateOrderLineData(order, s)).ToList();
             });
         }
 

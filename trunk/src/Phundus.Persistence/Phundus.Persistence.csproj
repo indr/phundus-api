@@ -86,6 +86,7 @@
     <Compile Include="IdentityAccess\Mappings\MembershipApplicationViewRowMap.cs" />
     <Compile Include="IdentityAccess\Mappings\RelationshipProjectionRowMap.cs" />
     <Compile Include="IdentityAccess\Mappings\UserViewRowMap.cs" />
+    <Compile Include="IdentityAccess\Projections\UserAddressDataMap.cs" />
     <Compile Include="Infrastructure\UrlMapData.cs" />
     <Compile Include="Inventory\Mappings\ArticleActionDataMap.cs" />
     <Compile Include="Inventory\Mappings\ArticleDataMap.cs" />
