@@ -163,6 +163,8 @@
     <Compile Include="IdentityAccess\Projections\MembershipsProjection.cs" />
     <Compile Include="IdentityAccess\Projections\MembersProjection.cs" />
     <Compile Include="IdentityAccess\Projections\OrganizationsProjection.cs" />
+    <Compile Include="IdentityAccess\Projections\UserAddressProjection.cs" />
+    <Compile Include="IdentityAccess\Projections\UserAddressQueries.cs" />
     <Compile Include="IdentityAccess\Projections\UsersProjection.cs" />
     <Compile Include="IdentityAccess\Application\ApproveUser.cs" />
     <Compile Include="IdentityAccess\Application\ChangeEmailAddress.cs" />
@@ -190,6 +192,7 @@
     <Compile Include="IdentityAccess\Users\Mails\UserUnlockedMailNotifier.cs" />
     <Compile Include="IdentityAccess\Users\Model\Account.cs" />
     <Compile Include="IdentityAccess\Users\Model\Admin.cs" />
+    <Compile Include="IdentityAccess\Model\Users\UserAddressChanged.cs" />
     <Compile Include="IdentityAccess\Users\Model\UserEmailAddressChanged.cs" />
     <Compile Include="IdentityAccess\Users\Model\UserEmailAddressChangeRequested.cs" />
     <Compile Include="IdentityAccess\Users\Model\User.cs" />

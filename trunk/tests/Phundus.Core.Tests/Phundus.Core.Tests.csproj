@@ -121,6 +121,7 @@
     <Compile Include="IdentityAccess\Events\MembershipApplicationFiledSpecs.cs" />
     <Compile Include="IdentityAccess\Model\OrganizationSpecs.cs" />
     <Compile Include="IdentityAccess\Model\UserInRoleSpecs.cs" />
+    <Compile Include="IdentityAccess\Model\Users\UserAddressChangedSpecs.cs" />
     <Compile Include="IdentityAccess\Projections\OrganizationViewRowSpecs.cs" />
     <Compile Include="IdentityAccess\Application\ChangeEmailAddressHandlerSpecs.cs" />
     <Compile Include="IdentityAccess\Application\SignUpUserHandlerSpecs.cs" />
