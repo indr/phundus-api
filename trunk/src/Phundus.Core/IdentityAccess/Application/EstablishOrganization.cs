@@ -55,7 +55,7 @@
                 organization.Name, organization.Plan));
 
             var requestId = new MembershipApplicationId();
-            var user = _userRepository.GetByGuid(command.InitiatorId);
+            var user = _userRepository.GetById(command.InitiatorId);
             var application = organization.ApplyForMembership(command.InitiatorId, requestId, user);
 
             var membershipId = Guid.NewGuid();

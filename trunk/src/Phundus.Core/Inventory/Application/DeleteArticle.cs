@@ -42,7 +42,7 @@
 
         public void Handle(DeleteArticle command)
         {
-            var initiator = _initiatorService.GetActiveById(command.InitiatorId);
+            var initiator = _initiatorService.GetById(command.InitiatorId);
             var article = _articleRepository.GetById(command.ArticleId);
 
             _authorize.Enforce(initiator.InitiatorId, Manage.Articles(article.Owner.OwnerId));

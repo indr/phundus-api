@@ -28,7 +28,7 @@ namespace Phundus.Tests.Inventory.Application
         };
 
         private It should_enforce_initiator_to_manage_articles = () =>
-            EnforcedInitiatorTo<ManageArticlesAccessObject>(p => Equals(p.OwnerId, theOwner.OwnerId));
+            enforceInitiatorTo<ManageArticlesAccessObject>(p => Equals(p.OwnerId, theOwner.OwnerId));
 
         private It should_tell_article_to_change_details = () =>
             theArticle.WasToldTo(x => x.ChangeDetails(theInitiator, theName, theBrand, theColor));

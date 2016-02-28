@@ -73,7 +73,7 @@
             AssertionConcern.AssertArgumentGreaterThan(cartItemsToPlace.Count, 0,
                 String.Format("The cart does not contain items belonging to the lessor {0}.", command.LessorId));
 
-            var initiator = _initiatorService.GetActiveById(command.InitiatorId);
+            var initiator = _initiatorService.GetById(command.InitiatorId);
             var lessor = _lessorService.GetById(command.LessorId);
             var lessee = _lesseeService.GetById(new LesseeId(command.InitiatorId.Id));
 

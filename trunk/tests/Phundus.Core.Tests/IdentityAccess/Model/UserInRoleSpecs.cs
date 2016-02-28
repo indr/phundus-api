@@ -28,7 +28,7 @@
             membershipRepository = depends.on<IMembershipRepository>();
 
             theUser = make.User();
-            userRepository.WhenToldTo(x => x.GetByGuid(theUser.UserId)).Return(theUser);
+            userRepository.WhenToldTo(x => x.GetById(theUser.UserId)).Return(theUser);
         };
     }
 
@@ -76,10 +76,11 @@
         private Establish ctx = () => theUser.setup(x => x.IsLocked).Return(true);
 
         private Because of = () =>
-            caughtException = Catch.Exception(() => sut.Founder(theUser.UserId));
+            spec.catch_exception(() =>
+                sut.Founder(theUser.UserId));
 
         private It should_throw_exception = () =>
-            caughtException.ShouldNotBeNull();
+            spec.exception_thrown.ShouldNotBeNull();
     }
 
     [Subject(typeof (UserInRole))]

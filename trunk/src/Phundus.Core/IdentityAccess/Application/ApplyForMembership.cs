@@ -42,7 +42,7 @@
         {
             var organization = OrganizationRepository.GetById(command.OrganizationId);
 
-            var user = UserRepository.GetByGuid(command.ApplicantId);
+            var user = UserRepository.GetById(command.ApplicantId);
 
             var request = organization.ApplyForMembership(command.InitiatorId,
                 command.ApplicationId, user);

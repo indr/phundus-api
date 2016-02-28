@@ -44,7 +44,7 @@
 
         public void Handle(SetPreviewImage command)
         {
-            var initiator = _initiatorService.GetActiveById(command.InitiatorId);
+            var initiator = _initiatorService.GetById(command.InitiatorId);
             var article = _articleRepository.GetById(command.ArticleShortId);
 
             _authorize.Enforce(initiator.InitiatorId, Manage.Articles(article.Owner.OwnerId));

@@ -58,7 +58,7 @@
 
         public void Handle(AddImage command)
         {
-            var initiator = _initiatorService.GetActiveById(command.InitiatorId);
+            var initiator = _initiatorService.GetById(command.InitiatorId);
             var article = _articleRepository.GetById(command.ArticleShortId);
 
             _memberInRole.ActiveManager(article.Owner.OwnerId.Id, command.InitiatorId);

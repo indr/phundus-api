@@ -108,6 +108,7 @@
     <Compile Include="IdentityAccess\Application\LockUserHandlerSpecs.cs" />
     <Compile Include="IdentityAccess\Application\LockMemberHandlerSpecs.cs" />
     <Compile Include="IdentityAccess\Application\UnlockMemberHandlerSpecs.cs" />
+    <Compile Include="IdentityAccess\Authorize\ManageUserAccessObjectHandlerSpecs.cs" />
     <Compile Include="IdentityAccess\Events\MembershipApplicationApprovedSpecs.cs" />
     <Compile Include="IdentityAccess\Events\MembershipApplicationRejectedSpecs.cs" />
     <Compile Include="IdentityAccess\identityaccess_factory.cs" />

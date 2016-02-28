@@ -87,7 +87,7 @@
 
         public void Handle(CreateArticle command)
         {
-            var initiator = _initiatorService.GetActiveById(command.InitiatorId);
+            var initiator = _initiatorService.GetById(command.InitiatorId);
             var owner = _ownerService.GetById(command.OwnerId);
 
             _authorize.Enforce(initiator.InitiatorId, Create.Article(owner.OwnerId));

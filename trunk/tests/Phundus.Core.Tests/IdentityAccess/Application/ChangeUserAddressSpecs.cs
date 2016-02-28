@@ -1,9 +1,9 @@
 ﻿namespace Phundus.Tests.IdentityAccess.Application
 {
-    using Common.Domain.Model;
     using developwithpassion.specifications.extensions;
     using Machine.Specifications;
     using Phundus.IdentityAccess.Application;
+    using Phundus.IdentityAccess.Authorization;
     using Phundus.IdentityAccess.Users.Model;
 
     [Subject(typeof (ChangeUserAddressHandler))]
@@ -20,9 +20,9 @@
 
         private Establish ctx = () =>
         {
-            theUser = make.User();            
+            theUser = make.User();
 
-            userRepository.setup(x => x.GetByGuid(theUser.UserId)).Return(theUser);
+            userRepository.setup(x => x.GetById(theUser.UserId)).Return(theUser);
 
             command = new ChangeUserAddress(theInitiatorId, theUser.UserId, theFirstName, theLastName, theStreet,
                 thePostcode, theCity, thePhoneNumber);
@@ -32,6 +32,10 @@
             theUser.received(x =>
                 x.ChangeAddress(theInitiator, theFirstName, theLastName, theStreet, thePostcode, theCity,
                     thePhoneNumber));
+
+        private It should_enforce_initiator_to_manage_user = () =>
+            enforceInitiatorTo<ManageUserAccessObject>(p =>
+                Equals(p.UserId, theUser.UserId));
 
         private It should_save_to_repository = () =>
             userRepository.received(x => x.Save(theUser));

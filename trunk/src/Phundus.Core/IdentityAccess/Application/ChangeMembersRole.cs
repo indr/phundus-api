@@ -41,7 +41,7 @@
         {
             var organization = OrganizationRepository.GetById(command.OrganizationId);
 
-            var member = UserRepository.GetByGuid(command.MemberId);
+            var member = UserRepository.GetById(command.MemberId);
 
             MemberInRole.ActiveManager(command.OrganizationId, command.InitiatorId);
 

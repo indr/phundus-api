@@ -42,11 +42,11 @@
 
         public void Handle(LockUser command)
         {
-            var initiator = _initiatorService.GetActiveById(command.InitiatorId);
+            var initiator = _initiatorService.GetById(command.InitiatorId);
 
             _authorize.Enforce(initiator.InitiatorId, Manage.Users);
 
-            var user = _userRepository.GetByGuid(command.UserId);
+            var user = _userRepository.GetById(command.UserId);
 
             user.Lock(initiator);
         }

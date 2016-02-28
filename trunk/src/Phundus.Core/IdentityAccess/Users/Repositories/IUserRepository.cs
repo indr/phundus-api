@@ -20,7 +20,7 @@
         /// <param name="userId"></param>
         /// <returns></returns>
         /// <exception cref="NotFoundException"></exception>
-        User GetByGuid(UserId userId);
+        User GetById(UserId userId);
 
         void Save(User user);
     }

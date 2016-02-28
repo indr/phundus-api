@@ -43,7 +43,7 @@
         public void Handle(ChangeSettingPublicRental command)
         {
             var organization = _organizationRepository.GetById(command.OrganizationId);
-            var initiator = _initiatorService.GetActiveById(command.InitiatorId);
+            var initiator = _initiatorService.GetById(command.InitiatorId);
 
             _authorize.Enforce(initiator.InitiatorId, Manage.Organization(organization.Id));
             

@@ -15,7 +15,7 @@
             get { return Session.Query<User>(); }
         }
 
-        public User GetByGuid(UserId userId)
+        public User GetById(UserId userId)
         {
             var result = FindByGuid(userId.Id);
             if (result == null)

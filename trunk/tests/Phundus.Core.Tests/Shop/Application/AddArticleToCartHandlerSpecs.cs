@@ -42,7 +42,7 @@
             cartRepository.WasToldTo(x => x.Add(Arg<Cart>.Is.NotNull));
 
         private It should_enforce_initiator_to_rent_article = () =>
-            EnforcedInitiatorTo<RentArticle>(p => Equals(p.Article.ArticleId, theArticle.ArticleId));
+            enforceInitiatorTo<RentArticle>(p => Equals(p.Article.ArticleId, theArticle.ArticleId));
     }
 
     [Subject(typeof (AddArticleToCartHandler))]
@@ -57,7 +57,7 @@
         };
 
         private It should_enforce_initiator_to_rent_article = () =>
-            EnforcedInitiatorTo<RentArticle>(p => Equals(p.Article.ArticleId, theArticle.ArticleId));
+            enforceInitiatorTo<RentArticle>(p => Equals(p.Article.ArticleId, theArticle.ArticleId));
 
         private It should_not_add_a_cart_to_repository = () =>
             cartRepository.never_received(x => x.Add(Arg<Cart>.Is.NotNull));

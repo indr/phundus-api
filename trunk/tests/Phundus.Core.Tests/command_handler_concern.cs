@@ -4,6 +4,7 @@ namespace Phundus.Tests
     using System.Linq.Expressions;
     using Authorization;
     using Common.Domain.Model;
+    using developwithpassion.specifications.extensions;
     using Integration.IdentityAccess;
     using Machine.Fakes;
     using Machine.Specifications;
@@ -27,7 +28,7 @@ namespace Phundus.Tests
 
             authorize = depends.on<IAuthorize>();
             initiatorService = depends.on<IInitiatorService>();
-            initiatorService.WhenToldTo(x => x.GetActiveById(theInitiatorId)).Return(theInitiator);
+            initiatorService.setup(x => x.GetById(theInitiatorId)).Return(theInitiator);
         };
 
         public Because of = () =>
@@ -39,17 +40,17 @@ namespace Phundus.Tests
                 sut.Handle(command);
         };
 
-        protected static IMethodCallOccurrence EnforcedInitiatorTo<T>()
+        protected static IMethodCallOccurrence enforceInitiatorTo<TAccessObject>() where TAccessObject : IAccessObject
         {
             return authorize.WasToldTo(x =>
                 x.Enforce(Arg<InitiatorId>.Is.Equal(theInitiatorId),
-                    Arg<T>.Is.NotNull));
+                    Arg<TAccessObject>.Is.NotNull));
         }
-        protected static IMethodCallOccurrence EnforcedInitiatorTo<T>(Expression<Predicate<T>> accessObjectPredicate)
+        protected static IMethodCallOccurrence enforceInitiatorTo<TAccessObject>(Expression<Predicate<TAccessObject>> accessObjectPredicate) where TAccessObject : IAccessObject
         {
             return authorize.WasToldTo(x =>
                 x.Enforce(Arg<InitiatorId>.Is.Equal(theInitiatorId),
-                    Arg<T>.Matches(accessObjectPredicate)));
+                    Arg<TAccessObject>.Matches(accessObjectPredicate)));
         }
     }
 }
