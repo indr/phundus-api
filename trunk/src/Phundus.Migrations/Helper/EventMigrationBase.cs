@@ -5,6 +5,7 @@ namespace Phundus.Migrations
     using System.Data;
     using System.Data.SqlClient;
     using System.IO;
+    using System.Linq;
     using System.Reflection;
     using Common.Domain.Model;
     using ProtoBuf;
@@ -97,17 +98,31 @@ VALUES (@EventGuid, @TypeName, @OccuredOnUtc, @AggregateId, @Serialization)");
             _commands.Add(command);
         }
 
-        protected void UpdateStoredEvent(Guid eventGuid, MigratingDomainEvent domainEvent, Guid? aggregateId = null)
+        protected void UpdateStoredEvent(Guid eventGuid, MigratingDomainEvent domainEvent, Guid? aggregateId = null, string typeName = null)
         {
             var stream = new MemoryStream();
             Serializer.Serialize(stream, domainEvent);
 
-            var command = CreateCommand(
-                    @"UPDATE [dbo].[StoredEvents] SET [Serialization] = @Serialization, [AggregateId] = @AggregateId WHERE [EventGuid] = @EventGuid");
+            var setTypeNameSql = "";
+            SqlParameter setTypeNameParameter = null;
+            if (!String.IsNullOrWhiteSpace(typeName))
+            {
+                setTypeNameSql = ", [TypeName] = @TypeName";
+                setTypeNameParameter = new SqlParameter(@"TypeName", typeName);
+            }
+
+            var command = CreateCommand(@"
+UPDATE [dbo].[StoredEvents] SET
+  [Serialization] = @Serialization
+, [AggregateId] = @AggregateId
+" + setTypeNameSql + @"
+WHERE [EventGuid] = @EventGuid");
             command.Parameters.Add(new SqlParameter(@"EventGuid", eventGuid));
             command.Parameters.Add(new SqlParameter(@"Serialization", stream.ToArray()));
             command.Parameters.Add(new SqlParameter(@"AggregateId",
                 aggregateId.HasValue ? aggregateId.Value : Guid.Empty));
+            if (setTypeNameParameter != null)
+                command.Parameters.Add(setTypeNameParameter);
             _commands.Add(command);
         }
 
@@ -154,6 +169,11 @@ VALUES (@EventGuid, @TypeName, @OccuredOnUtc, @AggregateId, @Serialization)");
                     result.Add(reader.GetInt32(0), reader.GetGuid(1));
             return result;
         }
+
+        internal IList<TDomainEvent> FindStoredEvents<TDomainEvent>(string typeName) where TDomainEvent : MigratingDomainEvent
+        {
+            return FindStoredEvents(typeName).Select(s => Deserialize<TDomainEvent>(s)).ToList();
+        } 
 
         internal IList<StoredEvent> FindStoredEvents(string typeName)
         {

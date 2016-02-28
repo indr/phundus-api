@@ -28,8 +28,8 @@
                 .ForMember(d => d.LessorId, o => o.MapFrom(s => s.LessorId))
                 .ForMember(d => d.LessorName, o => o.MapFrom(s => s.LessorName))
                 .ForMember(d => d.Lessee, o => o.MapFrom(s => s))
-                .ForMember(d => d.TotalPrice, o => o.MapFrom(s => s.Items.Sum(i => i.LineTotal)))
-                .ForMember(d => d.Items, o => o.MapFrom(s => s.Items));
+                .ForMember(d => d.TotalPrice, o => o.MapFrom(s => s.Lines.Sum(i => i.LineTotal)))
+                .ForMember(d => d.Items, o => o.MapFrom(s => s.Lines));
 
             Mapper.CreateMap<OrderLineData, OrderItem>()
                 .ForMember(d => d.Amount, o => o.MapFrom(s => s.Quantity))

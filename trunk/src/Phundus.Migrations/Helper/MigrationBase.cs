@@ -29,7 +29,7 @@
             Delete.FromTable("ProcessedNotificationTracker").AllRows();
         }
 
-        protected void ResetProcessedNotififactionTracker(string trackerTypeName)
+        protected void ResetTracker(string trackerTypeName)
         {
             Execute.Sql(String.Format(@"DELETE FROM [ProcessedNotificationTracker] WHERE [TypeName] LIKE '%{0}'", trackerTypeName));            
         }
@@ -38,14 +38,18 @@
         {
             if (Schema.Table(tableName).Exists())
                 Delete.FromTable(tableName).AllRows();
-            ResetProcessedNotififactionTracker(trackerTypeName);
+            ResetTracker(trackerTypeName);
         }
 
-        protected void DeleteTableAndResetTracker(string tableName, string trackerTypeName)
+        protected void DeleteTable(string tableName)
         {
             if (Schema.Table(tableName).Exists())
                 Delete.Table(tableName);
-            ResetProcessedNotififactionTracker(trackerTypeName);
+        }
+        protected void DeleteTableAndResetTracker(string tableName, string trackerTypeName)
+        {
+            DeleteTable(tableName);
+            ResetTracker(trackerTypeName);
         }
     }
 

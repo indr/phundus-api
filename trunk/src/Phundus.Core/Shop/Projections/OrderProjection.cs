@@ -48,6 +48,8 @@
                 order.LessorCity = null;
                 order.LessorEmailAddress = null;
                 order.LessorPhoneNumber = null;
+
+                order.Lines = e.Lines.Select(s => CreateOrderLineData(order, s)).ToList();
             });
         }
 
@@ -72,15 +74,15 @@
         private void Process(OrderItemAdded e)
         {
             Update(e.OrderId, order =>
-                order.Items.Add(CreateOrderLineData(order, e.OrderLine)));
+                order.Lines.Add(CreateOrderLineData(order, e.OrderLine)));
         }
 
         private void Process(OrderItemRemoved e)
         {
             Update(e.OrderId, order =>
             {
-                var item = order.Items.Single(p => p.LineId == e.OrderLine.ItemId);
-                order.Items.Remove(item);
+                var item = order.Lines.Single(p => p.LineId == e.OrderLine.ItemId);
+                order.Lines.Remove(item);
             });
         }
 
@@ -120,12 +122,11 @@
             };
         }
 
-
         private void UpdateOrderLine(Guid orderId, Guid lineId, Action<OrderLineData> action)
         {
             Update(orderId, a =>
             {
-                var line = a.Items.Single(p => p.LineId == lineId);
+                var line = a.Lines.Single(p => p.LineId == lineId);
                 action(line);
             });
         }
@@ -133,7 +134,7 @@
 
     public class OrderData
     {
-        private ICollection<OrderLineData> _items = new Collection<OrderLineData>();
+        private ICollection<OrderLineData> _lines = new Collection<OrderLineData>();
 
         public enum OrderStatus
         {
@@ -167,10 +168,10 @@
         public virtual string LesseeEmailAddress { get; set; }
         public virtual string LesseePhoneNumber { get; set; }
 
-        public virtual ICollection<OrderLineData> Items
+        public virtual ICollection<OrderLineData> Lines
         {
-            get { return _items; }
-            set { _items = value; }
+            get { return _lines; }
+            set { _lines = value; }
         }
     }
 
