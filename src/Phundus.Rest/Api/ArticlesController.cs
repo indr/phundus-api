@@ -290,7 +290,7 @@ namespace Phundus.Rest.Api
         [JsonProperty("name")]
         public string Name { get; set; }
 
-        [JsonProperty("amount")]
+        [JsonProperty("quantity")]
         public int GrossStock { get; set; }
 
         [JsonProperty("publicPrice")]

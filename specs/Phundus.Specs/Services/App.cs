@@ -214,7 +214,7 @@
             article.OwnerId = ownerId;
             var response = _apiClient.ArticlesApi.Post<ArticlesPostOkResponseContent>(new ArticlesPostRequestContent
             {
-                Amount = article.GrossStock,
+                Quantity = article.GrossStock,
                 Name = article.Name,
                 OwnerId = article.OwnerId,
                 PublicPrice = article.PublicPrice,

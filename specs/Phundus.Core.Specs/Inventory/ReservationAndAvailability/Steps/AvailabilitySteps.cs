@@ -31,11 +31,11 @@
         }
 
         [Given(@"an article with gross stock of (.*)")]
-        public void GivenAnArticleWithGrossStockOf(int amount)
+        public void GivenAnArticleWithGrossStockOf(int quantity)
         {
             var owner = new Owner(new OwnerId(Guid.NewGuid()), "Owner", OwnerType.Organization);
             _article = new Article(owner, new StoreId(), new ArticleId(), "Name", 0, 1.11m, null);
-            _article.GrossStock = amount;
+            _article.GrossStock = quantity;
             _articleRepository.Stub(x => x.FindById(Arg<ArticleShortId>.Is.Equal(_article.ArticleShortId))).Return(_article);
         }
 

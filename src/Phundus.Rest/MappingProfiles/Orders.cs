@@ -32,16 +32,19 @@
                 .ForMember(d => d.Items, o => o.MapFrom(s => s.Lines));
 
             Mapper.CreateMap<OrderLineData, OrderItem>()
-                .ForMember(d => d.Amount, o => o.MapFrom(s => s.Quantity))
-                .ForMember(d => d.ArticleId, o => o.MapFrom(s => s.ArticleShortId))
-                .ForMember(d => d.FromUtc, o => o.MapFrom(s => s.FromUtc))
-                .ForMember(d => d.IsAvailable, o => o.MapFrom(s => s.IsAvailable))
-                .ForMember(d => d.ItemTotal, o => o.MapFrom(s => s.LineTotal))
-                .ForMember(d => d.OrderId, o => o.MapFrom(s => s.Order.OrderShortId))
+                .ForMember(d => d.OrderId, o => o.MapFrom(s => s.Order.OrderId))
+                .ForMember(d => d.OrderShortId, o => o.MapFrom(s => s.Order.OrderShortId))
                 .ForMember(d => d.OrderItemId, o => o.MapFrom(s => s.LineId))
+                .ForMember(d => d.ArticleId, o => o.MapFrom(s => s.ArticleId))
+                .ForMember(d => d.ArticleShortId, o => o.MapFrom(s => s.ArticleShortId))
+
+                .ForMember(d => d.IsAvailable, o => o.MapFrom(s => s.IsAvailable))
                 .ForMember(d => d.Text, o => o.MapFrom(s => s.Text))
+                .ForMember(d => d.FromUtc, o => o.MapFrom(s => s.FromUtc))
                 .ForMember(d => d.ToUtc, o => o.MapFrom(s => s.ToUtc))
-                .ForMember(d => d.UnitPrice, o => o.MapFrom(s => s.UnitPricePerWeek));
+                .ForMember(d => d.Quantity, o => o.MapFrom(s => s.Quantity))
+                .ForMember(d => d.UnitPrice, o => o.MapFrom(s => s.UnitPricePerWeek))
+                .ForMember(d => d.ItemTotal, o => o.MapFrom(s => s.LineTotal));
 
             Mapper.CreateMap<OrderData, Lessee>()
                 .ForMember(d => d.City, o => o.MapFrom(s => s.LesseeCity))

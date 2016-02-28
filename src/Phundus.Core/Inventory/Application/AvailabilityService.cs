@@ -14,8 +14,8 @@
     {
         bool IsArticleAvailable(int articleId, DateTime fromUtc, DateTime toUtc, int quantity);
         bool IsArticleAvailable(Guid articleGuid, DateTime fromUtc, DateTime toUtc, int quantity);
-        bool IsArticleAvailable(int articleId, DateTime fromUtc, DateTime toUtc, int amount, Guid orderItemToExclude);
-        bool IsArticleAvailable(Guid articleGuid, DateTime fromUtc, DateTime toUtc, int amount, Guid orderItemToExclude);
+        bool IsArticleAvailable(int articleId, DateTime fromUtc, DateTime toUtc, int quantity, Guid orderItemToExclude);
+        bool IsArticleAvailable(Guid articleGuid, DateTime fromUtc, DateTime toUtc, int quantity, Guid orderItemToExclude);
         
         IEnumerable<Availability> GetAvailabilityDetails(int articleId);
         IEnumerable<Availability> GetAvailabilityDetails(Guid articleGuid);
@@ -37,20 +37,20 @@
             return IsArticleAvailable(articleGuid, fromUtc, toUtc, quantity, new Guid());
         }
 
-        public bool IsArticleAvailable(int articleId, DateTime fromUtc, DateTime toUtc, int amount,
+        public bool IsArticleAvailable(int articleId, DateTime fromUtc, DateTime toUtc, int quantity,
             Guid orderItemToExclude)
         {
             var article = ArticleRepository.FindById(new ArticleShortId(articleId));
-            return IsArticleAvailable(article, new Period(fromUtc, toUtc), amount, orderItemToExclude);
+            return IsArticleAvailable(article, new Period(fromUtc, toUtc), quantity, orderItemToExclude);
         }
 
-        public bool IsArticleAvailable(Guid articleGuid, DateTime fromUtc, DateTime toUtc, int amount, Guid orderItemToExclude)
+        public bool IsArticleAvailable(Guid articleGuid, DateTime fromUtc, DateTime toUtc, int quantity, Guid orderItemToExclude)
         {
             var article = ArticleRepository.FindById(new ArticleId(articleGuid));
-            return IsArticleAvailable(article, new Period(fromUtc, toUtc), amount, orderItemToExclude);
+            return IsArticleAvailable(article, new Period(fromUtc, toUtc), quantity, orderItemToExclude);
         }
 
-        private bool IsArticleAvailable(Article article, Period period, int amount, Guid orderItemToExclude)
+        private bool IsArticleAvailable(Article article, Period period, int quantity, Guid orderItemToExclude)
         {
             if (article == null) throw new ArgumentNullException("article");
             if (period == null) throw new ArgumentNullException("period");
@@ -62,12 +62,12 @@
 
             foreach (var each in inRange)
             {
-                if ((each.FromUtc >= period.FromUtc) && (each.Amount < amount))
+                if ((each.FromUtc >= period.FromUtc) && (each.Quantity < quantity))
                     return false;
 
                 if ((each.FromUtc <= period.FromUtc))
                 {
-                    return each.Amount >= amount;
+                    return each.Quantity >= quantity;
                 }
             }
             return false;
@@ -102,17 +102,17 @@
             {
                 int diffAt;
                 diffsAt.TryGetValue(each.FromUtc, out diffAt);
-                diffsAt[each.FromUtc] = diffAt - each.Amount;
+                diffsAt[each.FromUtc] = diffAt - each.Quantity;
 
                 var toUtc = each.ToUtc.AddSeconds(1);
                 diffsAt.TryGetValue(toUtc, out diffAt);
-                diffsAt[toUtc] = diffAt + each.Amount;
+                diffsAt[toUtc] = diffAt + each.Quantity;
             }
 
             var diffsAtSorted = diffsAt.OrderBy(x => x.Key);
 
 
-            var currentAmount = 0;
+            var currentQuantity = 0;
 
             foreach (var each in diffsAtSorted)
             {
@@ -120,19 +120,19 @@
                     continue;
 
 
-                currentAmount = currentAmount + each.Value;
+                currentQuantity = currentQuantity + each.Value;
                 if (each.Key < localTodayUtc)
                     continue;
 
                 if ((result.Count == 0) && (each.Key > localTodayUtc))
-                    result.Add(new Availability {FromUtc = localTodayUtc, Amount = currentAmount - each.Value});
+                    result.Add(new Availability {FromUtc = localTodayUtc, Quantity = currentQuantity - each.Value});
 
 
-                result.Add(new Availability {FromUtc = each.Key, Amount = currentAmount});
+                result.Add(new Availability {FromUtc = each.Key, Quantity = currentQuantity});
             }
 
             if (result.Count == 0)
-                result.Insert(0, new Availability {FromUtc = localTodayUtc, Amount = article.GrossStock});
+                result.Insert(0, new Availability {FromUtc = localTodayUtc, Quantity = article.GrossStock});
 
             return result;
         }

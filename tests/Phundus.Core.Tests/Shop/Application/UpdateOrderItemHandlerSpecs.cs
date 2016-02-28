@@ -12,7 +12,7 @@
     public class when_update_order_command_item_is_handled :
         order_command_handler_concern<UpdateOrderItem, UpdateOrderItemHandler>
     {
-        private const int newAmount = 20;
+        private const int newQuantity = 20;
         private static Order theOrder;
         private static DateTime newFromUtc;
         private static DateTime newToUtc;
@@ -33,7 +33,7 @@
                 InitiatorId = theInitiatorId,
                 OrderId = theOrder.OrderId,
                 OrderItemId = theOrderItemId.Id,
-                Amount = newAmount,
+                Quantity = newQuantity,
                 FromUtc = newFromUtc,
                 ToUtc = newToUtc
             };
@@ -42,8 +42,8 @@
         private It should_save_to_repository = () =>
             orderRepository.received(x => x.Save(theOrder));
 
-        public It should_update_order_items_amount = () =>
-            theOrder.Lines.Single(p => p.LineId.Id == theOrderItemId.Id).Quantity.ShouldEqual(newAmount);
+        public It should_update_order_items_quantity = () =>
+            theOrder.Lines.Single(p => p.LineId.Id == theOrderItemId.Id).Quantity.ShouldEqual(newQuantity);
 
         public It should_update_order_items_period_from_to_midnight = () =>
             theOrder.Lines.Single(p => p.LineId.Id == theOrderItemId.Id)
