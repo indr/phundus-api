@@ -8,12 +8,12 @@ namespace Phundus.IdentityAccess.Projections
 
     public interface IUserAddressQueries
     {
-        UserAddress GetById(InitiatorId initiatorId, Guid userId);
+        UserAddressData GetById(InitiatorId initiatorId, Guid userId);
     }
 
-    public class UserAddressQueries : QueryBase<UserAddress>, IUserAddressQueries
+    public class UserAddressQueries : QueryBase<UserAddressData>, IUserAddressQueries
     {
-        public UserAddress GetById(InitiatorId initiatorId, Guid userId)
+        public UserAddressData GetById(InitiatorId initiatorId, Guid userId)
         {
             var query = QueryOver();
             AuthFilter(query, initiatorId);
@@ -25,7 +25,7 @@ namespace Phundus.IdentityAccess.Projections
             return result;
         }
 
-        private static void AuthFilter(IQueryOver<UserAddress, UserAddress> query, InitiatorId initiatorId)
+        private static void AuthFilter(IQueryOver<UserAddressData, UserAddressData> query, InitiatorId initiatorId)
         {
             query.Where(p => p.UserId == initiatorId.Id);
         }

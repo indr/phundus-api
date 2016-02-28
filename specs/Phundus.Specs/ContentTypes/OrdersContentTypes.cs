@@ -28,7 +28,7 @@
         public int Quantity { get; set; }
 
         [JsonProperty("articleId")]
-        public int ArticleId { get; set; }
+        public Guid ArticleId { get; set; }
 
         [JsonProperty("unitPricePerWeek")]
         public decimal UnitPricePerWeek { get; set; }
