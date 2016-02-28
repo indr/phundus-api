@@ -1,7 +1,7 @@
 ﻿namespace Phundus.Tests.IdentityAccess.Authorize
 {
     using Common;
-    using Machine.Fakes;
+    using developwithpassion.specifications.extensions;
     using Machine.Specifications;
     using Phundus.IdentityAccess.Authorization;
 
@@ -18,7 +18,7 @@
         public class and_the_user_is_an_admin
         {
             private Establish ctx = () =>
-                userInRole.WhenToldTo(x => x.IsAdmin(theUserId)).Return(true);
+                userInRole.setup(x => x.IsAdmin(theUserId)).Return(true);
 
             private It should_have_test_result_true = () =>
                 testResult.ShouldBeTrue();
@@ -30,7 +30,7 @@
         public class and_the_user_is_not_an_admin
         {
             private Establish ctx = () =>
-                userInRole.WhenToldTo(x => x.IsAdmin(theUserId)).Return(false);
+                userInRole.setup(x => x.IsAdmin(theUserId)).Return(false);
 
             private It should_have_test_result_false = () =>
                 testResult.ShouldBeFalse();

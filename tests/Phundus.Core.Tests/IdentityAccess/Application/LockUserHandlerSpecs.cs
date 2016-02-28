@@ -14,13 +14,13 @@
         private Establish ctx = () =>
         {
             theUser = make.User();
-            userRepository.WhenToldTo(x => x.GetByGuid(theUser.UserId)).Return(theUser);
+            userRepository.WhenToldTo(x => x.GetById(theUser.UserId)).Return(theUser);
 
             command = new LockUser(theInitiatorId, theUser.UserId);
         };
 
         private It should_enforce_initiator_to_manage_users = () =>
-            EnforcedInitiatorTo<ManageUsersAccessObject>();
+            enforceInitiatorTo<ManageUsersAccessObject>();
 
         private It should_tell_user_to_lock = () =>
             theUser.WasToldTo(x => x.Lock(theInitiator));
@@ -34,7 +34,7 @@
         private Establish ctx = () =>
         {
             theUser = make.User();
-            userRepository.WhenToldTo(x => x.GetByGuid(theUser.UserId)).Return(theUser);
+            userRepository.WhenToldTo(x => x.GetById(theUser.UserId)).Return(theUser);
 
             theUser.Lock(theInitiator);
 
@@ -42,7 +42,7 @@
         };
 
         private It should_enforce_initiator_to_manage_users = () =>
-            EnforcedInitiatorTo<ManageUsersAccessObject>();
+            enforceInitiatorTo<ManageUsersAccessObject>();
 
         private It should_tell_user_to_unlock = () =>
             theUser.WasToldTo(x => x.Unlock(theInitiator));

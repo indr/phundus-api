@@ -55,7 +55,7 @@
 
         public void Handle(AddArticleToCart command)
         {
-            var initiator = _initiatorService.GetActiveById(command.InitiatorId);
+            var initiator = _initiatorService.GetById(command.InitiatorId);
             var article = _articleService.GetById(command.ArticleId, command.UserId);
 
             _authorize.Enforce(initiator.InitiatorId, Rent.Article(article));

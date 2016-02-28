@@ -8,7 +8,6 @@ namespace Phundus.Rest.Api
     using AttributeRouting;
     using AttributeRouting.Web.Http;
     using Castle.Transactions;
-    using Common;
     using Common.Domain.Model;
     using ContentObjects;
     using IdentityAccess.Application;
@@ -27,9 +26,9 @@ namespace Phundus.Rest.Api
         public UsersController(IUsersQueries usersQueries, IMembershipQueries membershipQueries,
             IStoresQueries storesQueries)
         {
-            AssertionConcern.AssertArgumentNotNull(usersQueries, "UserQueries must be provided.");
-            AssertionConcern.AssertArgumentNotNull(membershipQueries, "MembershipQueries must be provided.");
-            AssertionConcern.AssertArgumentNotNull(storesQueries, "StoreQueries must be provided.");
+            if (usersQueries == null) throw new ArgumentNullException("usersQueries");
+            if (membershipQueries == null) throw new ArgumentNullException("membershipQueries");
+            if (storesQueries == null) throw new ArgumentNullException("storesQueries");
 
             _usersQueries = usersQueries;
             _membershipQueries = membershipQueries;
@@ -51,7 +50,8 @@ namespace Phundus.Rest.Api
 
             if (requestContent.OrganizationId.HasValue)
             {
-                Dispatcher.Dispatch(new ApplyForMembership(new InitiatorId(userId), new MembershipApplicationId(), userId,
+                Dispatcher.Dispatch(new ApplyForMembership(new InitiatorId(userId), new MembershipApplicationId(),
+                    userId,
                     new OrganizationId(requestContent.OrganizationId.Value)));
             }
 
@@ -72,7 +72,6 @@ namespace Phundus.Rest.Api
             return new UsersGetOkResponseContent(user, memberships, store);
         }
     }
-
 
     public class UsersPostOkResponseContent
     {

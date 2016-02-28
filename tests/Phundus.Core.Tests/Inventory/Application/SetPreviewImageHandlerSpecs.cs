@@ -22,7 +22,7 @@
         };
 
         private It should_enforce_initiator_to_manage_articles = () =>
-            EnforcedInitiatorTo<ManageArticlesAccessObject>(p => Equals(p.OwnerId, theArticle.Owner.OwnerId));
+            enforceInitiatorTo<ManageArticlesAccessObject>(p => Equals(p.OwnerId, theArticle.Owner.OwnerId));
 
         private It should_call_set_preview_image = () =>
             theArticle.WasToldTo(x => x.SetPreviewImage(theInitiator, theFileName));

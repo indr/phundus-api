@@ -4,6 +4,6 @@
 
     public interface IInitiatorService
     {
-        Initiator GetActiveById(InitiatorId initiatorId);
+        Initiator GetById(InitiatorId initiatorId);
     }
 }

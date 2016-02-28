@@ -1,9 +1,11 @@
 ﻿namespace Phundus.IdentityAccess.Application
 {
     using System;
+    using Authorization;
     using Common.Domain.Model;
     using Cqrs;
     using Integration.IdentityAccess;
+    using Phundus.Authorization;
     using Users.Repositories;
 
     public class ChangeUserAddress : ICommand
@@ -36,22 +38,27 @@
 
     public class ChangeUserAddressHandler : IHandleCommand<ChangeUserAddress>
     {
+        private readonly IAuthorize _authorize;
         private readonly IInitiatorService _initiatorService;
         private readonly IUserRepository _userRepository;
 
-        public ChangeUserAddressHandler(IInitiatorService initiatorService, IUserRepository userRepository)
+        public ChangeUserAddressHandler(IAuthorize authorize, IInitiatorService initiatorService, IUserRepository userRepository)
         {
+            if (authorize == null) throw new ArgumentNullException("authorize");
             if (initiatorService == null) throw new ArgumentNullException("initiatorService");
             if (userRepository == null) throw new ArgumentNullException("userRepository");
 
+            _authorize = authorize;
             _initiatorService = initiatorService;
             _userRepository = userRepository;
         }
 
         public void Handle(ChangeUserAddress command)
         {
-            var initiator = _initiatorService.GetActiveById(command.InitiatorId);
-            var user = _userRepository.GetByGuid(command.UserId);
+            _authorize.Enforce(command.InitiatorId, Manage.User(command.UserId));
+
+            var initiator = _initiatorService.GetById(command.InitiatorId);
+            var user = _userRepository.GetById(command.UserId);
 
             user.ChangeAddress(initiator, command.FirstName, command.LastName, command.Street, command.Postcode,
                 command.City, command.PhoneNumber);

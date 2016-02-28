@@ -35,7 +35,7 @@
 
         public Admin Admin(UserId userId)
         {
-            var user = _userRepository.GetByGuid(userId);
+            var user = _userRepository.GetById(userId);
             if (user.Role != UserRole.Admin)
                 throw new AuthorizationException("Sie müssen Administratorenrechte haben.");
 
@@ -44,7 +44,7 @@
 
         public Founder Founder(UserId userId)
         {
-            var user = _userRepository.GetByGuid(userId);
+            var user = _userRepository.GetById(userId);
 
             if (user.IsLocked)
                 throw new AuthorizationException(String.Format("User {0} is locked.", userId));
@@ -54,7 +54,7 @@
 
         public Manager Manager(UserId userId, OrganizationId organizationId)
         {
-            var user = _userRepository.GetByGuid(userId);
+            var user = _userRepository.GetById(userId);
             if (user.Role == UserRole.Admin)
                 return new Manager(user.UserId, user.EmailAddress, user.FullName);
 
@@ -78,7 +78,7 @@
 
         public bool IsAdmin(UserId userId)
         {
-            var user = _userRepository.GetByGuid(userId);
+            var user = _userRepository.GetById(userId);
             return user.Role == UserRole.Admin;
         }
     }

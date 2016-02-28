@@ -39,7 +39,7 @@
 
         public void Handle(ChangeEmailAddress command)
         {
-            var user = _userRepository.GetByGuid(command.UserId);
+            var user = _userRepository.GetById(command.UserId);
 
             var emailAddress = command.NewEmailAddress.ToLower(CultureInfo.CurrentCulture).Trim();
             if (_userRepository.FindByEmailAddress(emailAddress) != null)

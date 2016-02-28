@@ -10,7 +10,7 @@
 
     public class UsersProjection : ProjectionBase<UserData>, IUsersQueries, IInitiatorService
     {
-        public Initiator GetActiveById(InitiatorId initiatorId)
+        public Initiator GetById(InitiatorId initiatorId)
         {
             var user = GetByGuid(initiatorId.Id);
             return new Initiator(new InitiatorId(user.UserId), user.EmailAddress, user.FullName);

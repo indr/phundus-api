@@ -19,7 +19,7 @@
         private Establish ctx = () =>
         {
             depends.on<IUserRepository>()
-                .WhenToldTo(x => x.GetByGuid(theInitiatorId))
+                .WhenToldTo(x => x.GetById(theInitiatorId))
                 .Return(make.User(theInitiatorId));
             userInRole.setup(x => x.Founder(theInitiatorId)).Return(new Founder(theInitiatorId, "founder@test.phundus.ch", "The Founder"));
             command = new EstablishOrganization(theInitiatorId, theOrganizationGuid, "New Organization");
