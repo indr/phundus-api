@@ -3,22 +3,24 @@
     using System;
     using Common.Domain.Model;
     using Ddd;
+    using IdentityAccess.Model.Users;
 
     public class User : EntityBase
     {
         private Account _account;
         private string _city;
         private string _firstName;
-        private UserId _userId;
         private int? _jsNumber;
         private string _lastName;
-        private string _mobileNumber;
+        private string _phoneNumber;
         private string _postcode;
         private UserRole _role;
         private string _street;
+        private UserId _userId;
 
-        public User(UserId userId, string emailAddress, string password, string firstName, string lastName, string street,
-            string postcode, string city, string mobilePhone, int? jsNumber)
+        public User(UserId userId, string emailAddress, string password, string firstName, string lastName,
+            string street,
+            string postcode, string city, string phonePhone, int? jsNumber)
         {
             if (userId == null) throw new ArgumentNullException("userId");
 
@@ -28,7 +30,7 @@
             _street = street;
             _postcode = postcode;
             _city = city;
-            _mobileNumber = mobilePhone;
+            _phoneNumber = phonePhone;
             _jsNumber = jsNumber;
 
             _account = new Account();
@@ -102,10 +104,10 @@
             set { _city = value; }
         }
 
-        public virtual string MobileNumber
+        public virtual string PhoneNumber
         {
-            get { return _mobileNumber; }
-            set { _mobileNumber = value; }
+            get { return _phoneNumber; }
+            set { _phoneNumber = value; }
         }
 
         public virtual int? JsNumber
@@ -145,7 +147,7 @@
             if (!Account.Approve())
                 return;
 
-            EventPublisher.Publish(new UserApproved(admin.UserId, this.UserId));
+            EventPublisher.Publish(new UserApproved(admin.UserId, UserId));
         }
 
         public virtual void ChangeEmailAddress(UserId initiatorId, string password, string newEmailAddress)
@@ -168,6 +170,28 @@
             if (initiator == null) throw new ArgumentNullException("initiator");
 
             Account.Unlock(initiator);
+        }
+
+        public virtual void ChangeAddress(Initiator initiator, string firstName, string lastName, string street,
+            string postcode, string city, string phoneNumber)
+        {
+            Apply(new UserAddressChanged(initiator, UserId, firstName, lastName, street, postcode, city, phoneNumber));
+        }
+
+        private void When(UserAddressChanged e)
+        {
+            FirstName = e.FirstName;
+            LastName = e.LastName;
+            Street = e.Street;
+            Postcode = e.Postcode;
+            City = e.City;
+            PhoneNumber = e.PhoneNumber;
+        }
+
+        private void Apply<TDomainEvent>(TDomainEvent e) where TDomainEvent : DomainEvent
+        {
+            When((dynamic)e);
+            EventPublisher.Publish(e);
         }
     }
 }

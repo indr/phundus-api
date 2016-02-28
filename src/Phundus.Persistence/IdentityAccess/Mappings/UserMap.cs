@@ -17,13 +17,12 @@
             Component(x => x.UserId, a =>
                 a.Map(x => x.Id, "Guid"));
 
-
             Map(x => x.FirstName);
             Map(x => x.LastName);
             Map(x => x.Street);
             Map(x => x.Postcode);
             Map(x => x.City);
-            Map(x => x.MobileNumber);
+            Map(x => x.PhoneNumber, "MobileNumber");
             Map(x => x.JsNumber);
 
             HasOne(x => x.Account).Cascade.All();
