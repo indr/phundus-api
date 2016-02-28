@@ -11,6 +11,7 @@
             Table("Es_IdentityAccess_UserAddress");
 
             Id(x => x.UserId).GeneratedBy.Assigned();
+            Map(x => x.UserShortId).Unique();
             Map(x => x.FirstName);
             Map(x => x.LastName);
             Map(x => x.Street);
