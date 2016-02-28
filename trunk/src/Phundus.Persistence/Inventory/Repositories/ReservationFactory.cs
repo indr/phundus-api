@@ -14,7 +14,7 @@
                        {
                            FromUtc = orderLine.Period.FromUtc,
                            ToUtc = orderLine.Period.ToUtc,
-                           Amount = orderLine.Quantity,
+                           Quantity = orderLine.Quantity,
                            OrderItemId = orderLine.LineId.Id
                        };
         }

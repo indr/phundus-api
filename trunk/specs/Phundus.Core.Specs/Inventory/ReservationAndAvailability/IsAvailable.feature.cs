@@ -66,10 +66,10 @@ namespace Phundus.Core.Specs.Inventory.ReservationAndAvailability
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("No reservations available sufficient amount")]
-        public virtual void NoReservationsAvailableSufficientAmount()
+        [NUnit.Framework.DescriptionAttribute("No reservations available sufficient quantity")]
+        public virtual void NoReservationsAvailableSufficientQuantity()
         {
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("No reservations available sufficient amount", ((string[])(null)));
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("No reservations available sufficient quantity", ((string[])(null)));
 #line 7
 this.ScenarioSetup(scenarioInfo);
 #line 8
@@ -85,10 +85,10 @@ this.ScenarioSetup(scenarioInfo);
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("No reservations available insufficient amount")]
-        public virtual void NoReservationsAvailableInsufficientAmount()
+        [NUnit.Framework.DescriptionAttribute("No reservations available insufficient quantity")]
+        public virtual void NoReservationsAvailableInsufficientQuantity()
         {
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("No reservations available insufficient amount", ((string[])(null)));
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("No reservations available insufficient quantity", ((string[])(null)));
 #line 13
 this.ScenarioSetup(scenarioInfo);
 #line 14
@@ -104,10 +104,10 @@ this.ScenarioSetup(scenarioInfo);
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("One reservation in the future insufficient amount")]
-        public virtual void OneReservationInTheFutureInsufficientAmount()
+        [NUnit.Framework.DescriptionAttribute("One reservation in the future insufficient quantity")]
+        public virtual void OneReservationInTheFutureInsufficientQuantity()
         {
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("One reservation in the future insufficient amount", ((string[])(null)));
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("One reservation in the future insufficient quantity", ((string[])(null)));
 #line 19
 this.ScenarioSetup(scenarioInfo);
 #line 20
@@ -118,7 +118,7 @@ this.ScenarioSetup(scenarioInfo);
             TechTalk.SpecFlow.Table table1 = new TechTalk.SpecFlow.Table(new string[] {
                         "FromUtc",
                         "ToUtc",
-                        "Amount"});
+                        "Quantity"});
             table1.AddRow(new string[] {
                         "18.08.2014 00:00:00",
                         "19.08.2014 23:59:59",
@@ -134,10 +134,10 @@ this.ScenarioSetup(scenarioInfo);
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("One reservation in the future sufficient amount")]
-        public virtual void OneReservationInTheFutureSufficientAmount()
+        [NUnit.Framework.DescriptionAttribute("One reservation in the future sufficient quantity")]
+        public virtual void OneReservationInTheFutureSufficientQuantity()
         {
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("One reservation in the future sufficient amount", ((string[])(null)));
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("One reservation in the future sufficient quantity", ((string[])(null)));
 #line 28
 this.ScenarioSetup(scenarioInfo);
 #line 29
@@ -148,7 +148,7 @@ this.ScenarioSetup(scenarioInfo);
             TechTalk.SpecFlow.Table table2 = new TechTalk.SpecFlow.Table(new string[] {
                         "FromUtc",
                         "ToUtc",
-                        "Amount"});
+                        "Quantity"});
             table2.AddRow(new string[] {
                         "18.08.2014 00:00:00",
                         "19.08.2014 23:59:59",
@@ -178,7 +178,7 @@ this.ScenarioSetup(scenarioInfo);
             TechTalk.SpecFlow.Table table3 = new TechTalk.SpecFlow.Table(new string[] {
                         "FromUtc",
                         "ToUTc",
-                        "Amount"});
+                        "Quantity"});
             table3.AddRow(new string[] {
                         "13.08.2014 00:00:00",
                         "14:08:2014 23:59:59",
@@ -194,10 +194,10 @@ this.ScenarioSetup(scenarioInfo);
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("Multiple reservations insufficient amount")]
-        public virtual void MultipleReservationsInsufficientAmount()
+        [NUnit.Framework.DescriptionAttribute("Multiple reservations insufficient quantity")]
+        public virtual void MultipleReservationsInsufficientQuantity()
         {
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Multiple reservations insufficient amount", ((string[])(null)));
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Multiple reservations insufficient quantity", ((string[])(null)));
 #line 46
 this.ScenarioSetup(scenarioInfo);
 #line 47
@@ -208,7 +208,7 @@ this.ScenarioSetup(scenarioInfo);
             TechTalk.SpecFlow.Table table4 = new TechTalk.SpecFlow.Table(new string[] {
                         "FromUtc",
                         "ToUtc",
-                        "Amount"});
+                        "Quantity"});
             table4.AddRow(new string[] {
                         "14.08.2014 00:00:00",
                         "15.08.2014 23:59:59",
@@ -236,10 +236,10 @@ this.ScenarioSetup(scenarioInfo);
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("Multiple reservations sufficient amount")]
-        public virtual void MultipleReservationsSufficientAmount()
+        [NUnit.Framework.DescriptionAttribute("Multiple reservations sufficient quantity")]
+        public virtual void MultipleReservationsSufficientQuantity()
         {
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Multiple reservations sufficient amount", ((string[])(null)));
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Multiple reservations sufficient quantity", ((string[])(null)));
 #line 58
 this.ScenarioSetup(scenarioInfo);
 #line 59
@@ -250,7 +250,7 @@ this.ScenarioSetup(scenarioInfo);
             TechTalk.SpecFlow.Table table5 = new TechTalk.SpecFlow.Table(new string[] {
                         "FromUtc",
                         "ToUtc",
-                        "Amount"});
+                        "Quantity"});
             table5.AddRow(new string[] {
                         "14.08.2014 00:00:00",
                         "15.08.2014 23:59:59",

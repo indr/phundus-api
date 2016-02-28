@@ -3,9 +3,7 @@
     using System;
     using Common.Domain.Model;
     using Cqrs;
-    using IdentityAccess.Projections;
-    using Integration.IdentityAccess;
-    using Shop.Model;
+    using Model;
 
     public class UpdateOrderItem
     {
@@ -13,22 +11,22 @@
         public Guid OrderItemId { get; set; }
         public InitiatorId InitiatorId { get; set; }
 
-        public int Amount { get; set; }
         public DateTime FromUtc { get; set; }
         public DateTime ToUtc { get; set; }
+        public int Quantity { get; set; }
         public decimal ItemTotal { get; set; }
     }
 
     public class UpdateOrderItemHandler : IHandleCommand<UpdateOrderItem>
     {
-        private readonly IUserInRole _userInRole;
         private readonly IOrderRepository _orderRepository;
+        private readonly IUserInRole _userInRole;
 
         public UpdateOrderItemHandler(IUserInRole userInRole, IOrderRepository orderRepository)
         {
             if (userInRole == null) throw new ArgumentNullException("userInRole");
             if (orderRepository == null) throw new ArgumentNullException("orderRepository");
-            
+
             _userInRole = userInRole;
             _orderRepository = orderRepository;
         }
@@ -39,7 +37,7 @@
             var manager = _userInRole.Manager(command.InitiatorId, order.Lessor.LessorId);
 
 
-            order.ChangeAmount(manager, command.OrderItemId, command.Amount);
+            order.ChangeQuantity(manager, command.OrderItemId, command.Quantity);
             order.ChangeItemPeriod(manager, command.OrderItemId, command.FromUtc.ToLocalTime().Date.ToUniversalTime(),
                 command.ToUtc.ToLocalTime().Date.AddDays(1).AddSeconds(-1).ToUniversalTime());
 

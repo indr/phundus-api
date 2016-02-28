@@ -6,13 +6,19 @@ namespace Phundus.Rest.ContentObjects
     public class OrderItem
     {
         [JsonProperty("orderId")]
-        public int OrderId { get; set; }
+        public Guid OrderId { get; set; }
+
+        [JsonProperty("orderShortId")]
+        public int OrderShortId { get; set; }
 
         [JsonProperty("orderItemId")]
         public Guid OrderItemId { get; set; }
 
         [JsonProperty("articleId")]
-        public int ArticleId { get; set; }
+        public Guid ArticleId { get; set; }
+
+        [JsonProperty("articleShortId")]
+        public int ArticleShortId { get; set; }
 
         [JsonProperty("text")]
         public string Text { get; set; }
@@ -20,8 +26,8 @@ namespace Phundus.Rest.ContentObjects
         [JsonProperty("isAvailable")]
         public bool IsAvailable { get; set; }
 
-        [JsonProperty("amount")]
-        public int Amount { get; set; }
+        [JsonProperty("quantity")]
+        public int Quantity { get; set; }
 
         [JsonProperty("fromUtc")]
         public DateTime FromUtc { get; set; }

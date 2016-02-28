@@ -46,21 +46,9 @@ namespace Phundus.Rest.Api
             var item = order.Lines.FirstOrDefault(p => p.LineId == orderItemId);
             if (item == null)
                 return Request.CreateErrorResponse(HttpStatusCode.NotFound,
-                    string.Format("Die Position mit der Id {0} konnte nicht gefunden werden.", orderItemId.ToString("D")));
+                    string.Format("Order line item {0} not found.", orderItemId.ToString("D")));
 
-            return Request.CreateResponse(statusCode, new OrderItem
-            {
-                Amount = item.Quantity,
-                ArticleId = item.ArticleShortId,
-                FromUtc = item.FromUtc,
-                IsAvailable = item.IsAvailable,
-                ItemTotal = item.LineTotal,
-                OrderId = item.Order.OrderShortId,
-                OrderItemId = item.Id,
-                Text = item.Text,
-                ToUtc = item.ToUtc,
-                UnitPrice = item.UnitPricePerWeek
-            });
+            return Request.CreateResponse(statusCode, Map<OrderItem>(item));
         }
 
         [PATCH("{orderItemId}")]
@@ -70,7 +58,7 @@ namespace Phundus.Rest.Api
         {
             Dispatcher.Dispatch(new UpdateOrderItem
             {
-                Amount = requestContent.Amount,
+                Quantity = requestContent.Quantity,
                 FromUtc = requestContent.FromUtc,
                 InitiatorId = CurrentUserId,
                 OrderId = new OrderId(orderId),
@@ -105,8 +93,8 @@ namespace Phundus.Rest.Api
         [JsonProperty("toUtc")]
         public DateTime ToUtc { get; set; }
 
-        [JsonProperty("amount")]
-        public int Amount { get; set; }
+        [JsonProperty("quantity")]
+        public int Quantity { get; set; }
 
         [JsonProperty("itemTotal")]
         public decimal ItemTotal { get; set; }

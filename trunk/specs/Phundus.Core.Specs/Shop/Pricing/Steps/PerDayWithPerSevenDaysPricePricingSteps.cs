@@ -32,9 +32,9 @@
                 
                 var fromUtc = fromLocal.ToUniversalTime();
                 var toUtc = toLocal.ToUniversalTime();
-                var amount = Convert.ToInt32(each["Amount"]);
+                var quantity = Convert.ToInt32(each["Quantity"]);
 
-                _calculatedPrices.Add(new PerDayWithPerSevenDaysPricePricingStrategy().Calculate(new Period(fromUtc, toUtc), amount,
+                _calculatedPrices.Add(new PerDayWithPerSevenDaysPricePricingStrategy().Calculate(new Period(fromUtc, toUtc), quantity,
                     _unitPricePerWeek));
             }
         }

@@ -81,7 +81,7 @@ this.ScenarioSetup(scenarioInfo);
 #line hidden
             TechTalk.SpecFlow.Table table1 = new TechTalk.SpecFlow.Table(new string[] {
                         "FromUtc",
-                        "Amount"});
+                        "Quantity"});
             table1.AddRow(new string[] {
                         "15.08.2014 22:00:00",
                         "2"});
@@ -106,7 +106,7 @@ this.ScenarioSetup(scenarioInfo);
             TechTalk.SpecFlow.Table table2 = new TechTalk.SpecFlow.Table(new string[] {
                         "FromUtc",
                         "ToUtc",
-                        "Amount"});
+                        "Quantity"});
             table2.AddRow(new string[] {
                         "18.08.2014 00:00:00",
                         "19.08.2014 23:59:59",
@@ -118,7 +118,7 @@ this.ScenarioSetup(scenarioInfo);
 #line hidden
             TechTalk.SpecFlow.Table table3 = new TechTalk.SpecFlow.Table(new string[] {
                         "FromUtc",
-                        "Amount"});
+                        "Quantity"});
             table3.AddRow(new string[] {
                         "15.08.2014 22:00:00",
                         "1"});
@@ -149,7 +149,7 @@ this.ScenarioSetup(scenarioInfo);
             TechTalk.SpecFlow.Table table4 = new TechTalk.SpecFlow.Table(new string[] {
                         "FromUtc",
                         "ToUTc",
-                        "Amount"});
+                        "Quantity"});
             table4.AddRow(new string[] {
                         "13.08.2014 00:00:00",
                         "14:08:2014 23:59:59",
@@ -161,7 +161,7 @@ this.ScenarioSetup(scenarioInfo);
 #line hidden
             TechTalk.SpecFlow.Table table5 = new TechTalk.SpecFlow.Table(new string[] {
                         "FromUtc",
-                        "Amount"});
+                        "Quantity"});
             table5.AddRow(new string[] {
                         "15.08.2014 22:00:00",
                         "2"});
@@ -186,7 +186,7 @@ this.ScenarioSetup(scenarioInfo);
             TechTalk.SpecFlow.Table table6 = new TechTalk.SpecFlow.Table(new string[] {
                         "FromUtc",
                         "ToUtc",
-                        "Amount"});
+                        "Quantity"});
             table6.AddRow(new string[] {
                         "17.08.2014 22:00:00",
                         "18.08.2014 21:59:59",
@@ -198,7 +198,7 @@ this.ScenarioSetup(scenarioInfo);
 #line hidden
             TechTalk.SpecFlow.Table table7 = new TechTalk.SpecFlow.Table(new string[] {
                         "FromUtc",
-                        "Amount"});
+                        "Quantity"});
             table7.AddRow(new string[] {
                         "17.08.2014 22:00:00",
                         "19"});
@@ -226,7 +226,7 @@ this.ScenarioSetup(scenarioInfo);
             TechTalk.SpecFlow.Table table8 = new TechTalk.SpecFlow.Table(new string[] {
                         "FromUtc",
                         "ToUtc",
-                        "Amount"});
+                        "Quantity"});
             table8.AddRow(new string[] {
                         "14.08.2014 00:00:00",
                         "15.08.2014 23:59:59",
@@ -250,7 +250,7 @@ this.ScenarioSetup(scenarioInfo);
 #line hidden
             TechTalk.SpecFlow.Table table9 = new TechTalk.SpecFlow.Table(new string[] {
                         "FromUtc",
-                        "Amount"});
+                        "Quantity"});
             table9.AddRow(new string[] {
                         "15.08.2014 22:00:00",
                         "3"});

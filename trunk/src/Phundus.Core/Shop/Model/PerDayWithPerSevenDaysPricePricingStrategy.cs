@@ -16,11 +16,11 @@
             return Calculate(perdiod.FromUtc.ToLocalTime(), perdiod.ToUtc.ToLocalTime(), quantity, pricePerSevenDays);
         }
 
-        public PriceInfo Calculate(DateTime fromLocal, DateTime toLocal, int amount, decimal pricePerSevenDays)
+        public PriceInfo Calculate(DateTime fromLocal, DateTime toLocal, int quantity, decimal pricePerSevenDays)
         {
             var totalDays = (toLocal.Date.AddDays(1) - fromLocal.Date).TotalDays;
             var days = (int) Math.Ceiling(totalDays);
-            var price = Convert.ToDecimal(days)*amount*pricePerSevenDays/7;
+            var price = Convert.ToDecimal(days)*quantity*pricePerSevenDays/7;
 
             price = Math.Max(1, Math.Round(price, 0));
 

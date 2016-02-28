@@ -20,13 +20,13 @@
         public IEnumerable<AvailabilityData> GetAvailability(int id)
         {
             var availabilities = AvailabilityService.GetAvailabilityDetails(id);
-            return availabilities.Select(each => new AvailabilityData {FromUtc = each.FromUtc, Amount = each.Amount});
+            return availabilities.Select(each => new AvailabilityData {FromUtc = each.FromUtc, Quantity = each.Quantity});
         }
 
         public IEnumerable<AvailabilityData> GetAvailability(Guid guid)
         {
             var availabilities = AvailabilityService.GetAvailabilityDetails(guid);
-            return availabilities.Select(each => new AvailabilityData { FromUtc = each.FromUtc, Amount = each.Amount });
+            return availabilities.Select(each => new AvailabilityData { FromUtc = each.FromUtc, Quantity = each.Quantity });
         }
     }
 
@@ -38,6 +38,6 @@
         [DisplayFormat(DataFormatString = "{0:dd.MM.yyyy}")]
         public DateTime FromLocal { get { return FromUtc.ToLocalTime(); } }
 
-        public int Amount { get; set; }
+        public int Quantity { get; set; }
     }
 }

@@ -141,14 +141,14 @@
         }
 
 
-        public virtual void ChangeAmount(Manager manager, Guid orderItemId, int amount)
+        public virtual void ChangeQuantity(Manager manager, Guid orderItemId, int quantity)
         {
             AssertPending();
 
             var item = _orderLines.GetOrderLine(orderItemId);
 
             Apply(new OrderItemQuantityChanged(manager, OrderId, OrderShortId,
-                (int) Status, OrderTotal, item.LineId, item.Quantity, amount,
+                (int) Status, OrderTotal, item.LineId, item.Quantity, quantity,
                 CreateOrderEventItem(item)));
         }
 

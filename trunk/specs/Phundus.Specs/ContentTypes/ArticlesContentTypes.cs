@@ -20,8 +20,8 @@
         [JsonProperty("name")]
         public string Name { get; set; }
 
-        [JsonProperty("amount")]
-        public int Amount { get; set; }
+        [JsonProperty("quantity")]
+        public int Quantity { get; set; }
 
         [JsonProperty("publicPrice")]
         public decimal PublicPrice { get; set; }
