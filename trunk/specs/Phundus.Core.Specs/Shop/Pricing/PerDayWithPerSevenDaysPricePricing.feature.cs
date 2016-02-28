@@ -218,7 +218,7 @@ this.ScenarioSetup(scenarioInfo);
             TechTalk.SpecFlow.Table table7 = new TechTalk.SpecFlow.Table(new string[] {
                         "FromLocal",
                         "ToLocal",
-                        "Amount"});
+                        "Quantity"});
             table7.AddRow(new string[] {
                         "14.12.2014 00:00:00",
                         "14.12.2014 23:59:59",
