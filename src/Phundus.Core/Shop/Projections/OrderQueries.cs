@@ -105,7 +105,7 @@ namespace Phundus.Shop.Projections
             if (orderDto == null)
                 return;
 
-            foreach (var each in orderDto.Items)
+            foreach (var each in orderDto.Lines)
             {
                 each.IsAvailable = _availabilityService.IsArticleAvailable(each.ArticleId, each.FromUtc, each.ToUtc,
                     each.Quantity, each.Id);

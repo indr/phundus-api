@@ -15,9 +15,9 @@ namespace Phundus.Migrations
             if (Schema.Table("Es_Shop_Items").Exists())
                 Delete.FromTable("Es_Shop_Items").AllRows();
             
-            ResetProcessedNotififactionTracker("Phundus.Shop.Projections.ShopItemProjection");
-            ResetProcessedNotififactionTracker("Phundus.Shop.Projections.ShopItemImagesProjection");
-            ResetProcessedNotififactionTracker("Phundus.Shop.Projections.ShopItemFilesProjection");
+            ResetTracker("Phundus.Shop.Projections.ShopItemProjection");
+            ResetTracker("Phundus.Shop.Projections.ShopItemImagesProjection");
+            ResetTracker("Phundus.Shop.Projections.ShopItemFilesProjection");
         }
 
         public override void Down()

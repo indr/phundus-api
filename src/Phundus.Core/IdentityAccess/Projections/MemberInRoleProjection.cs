@@ -18,7 +18,6 @@ namespace Phundus.IdentityAccess.Projections
         bool IsActiveManager(OrganizationId organizationId, UserId userId);
         bool IsActiveManager(OwnerId ownerId, UserId userId);
 
-        bool IsActiveMember(OrganizationId organizationId, UserId userId);
         bool IsActiveMember(LessorId lessorId, UserId userId);
     }
 
@@ -67,12 +66,7 @@ namespace Phundus.IdentityAccess.Projections
         {
             return IsActiveMember(lessorId.Id, userId);
         }
-
-        public bool IsActiveMember(OrganizationId organizationId, UserId userId)
-        {
-            return IsActiveMember(organizationId.Id, userId);
-        }
-
+        
         private bool IsActiveManager(Guid organizationId, UserId userId)
         {
             // Hack für Material-Kontext: organizationId kann die Guid des Benutzers (Owners) sein.

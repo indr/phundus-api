@@ -43,7 +43,7 @@ namespace Phundus.Rest.Api
         private HttpResponseMessage Get(OrderId orderId, Guid orderItemId, HttpStatusCode statusCode)
         {
             var order = _orderQueries.GetById(CurrentUserId, orderId);
-            var item = order.Items.FirstOrDefault(p => p.LineId == orderItemId);
+            var item = order.Lines.FirstOrDefault(p => p.LineId == orderItemId);
             if (item == null)
                 return Request.CreateErrorResponse(HttpStatusCode.NotFound,
                     string.Format("Die Position mit der Id {0} konnte nicht gefunden werden.", orderItemId.ToString("D")));

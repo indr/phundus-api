@@ -35,7 +35,7 @@ namespace Phundus.Persistence.Shop.Mappings
             Map(x => x.LesseeEmailAddress);
             Map(x => x.LesseePhoneNumber);
 
-            HasMany(x => x.Items).KeyColumn("OrderId").Inverse().Cascade.AllDeleteOrphan();
+            HasMany(x => x.Lines).KeyColumn("OrderId").Inverse().Cascade.AllDeleteOrphan();
         }
     }
 

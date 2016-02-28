@@ -3,13 +3,14 @@ namespace Phundus.Migrations
     using System;
     using FluentMigrator;
 
-    [Migration(201602080812)]
-    public class M201602080812_Drop_Table_Es_Inventory_Articles : MigrationBase
+    [Migration(201602280547)]
+    public class M201602280547_Reset_Es_Shop_Orders : MigrationBase
     {
         public override void Up()
         {
-            Delete.Table("Es_Inventory_Articles");
-            ResetTracker(@"Phundus.Inventory.Projections.ArticlesProjection");
+            DeleteTable("Es_Shop_Orders_Lines");
+            DeleteTable("Es_Shop_Orders");
+            ResetTracker("OrderProjection");
         }
 
         public override void Down()
