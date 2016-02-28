@@ -66,7 +66,7 @@
                 user.Account.Email, user.Account.Password, user.Account.Salt,
                 user.Account.ValidationKey,
                 user.FirstName, user.LastName, user.Street, user.Postcode, user.City,
-                user.MobileNumber
+                user.PhoneNumber
                 ));
 
             ValidateAndSetRootUser(user);

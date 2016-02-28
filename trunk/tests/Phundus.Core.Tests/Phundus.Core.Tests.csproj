@@ -127,7 +127,7 @@
     <Compile Include="IdentityAccess\Application\SignUpUserHandlerSpecs.cs" />
     <Compile Include="domain_event_concern.cs" />
     <Compile Include="IdentityAccess\Events\UserApprovedSpecs.cs" />
-    <Compile Include="IdentityAccess\Model\UserSpecs.cs" />
+    <Compile Include="IdentityAccess\Model\Users\UserSpecs.cs" />
     <Compile Include="InstallerTests\installer_concern.cs" />
     <Compile Include="InstallerTests\QueriesInstaller.cs" />
     <Compile Include="aggregate_concern.cs" />

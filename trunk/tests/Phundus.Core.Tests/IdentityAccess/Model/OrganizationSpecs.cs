@@ -85,7 +85,7 @@
             sut.Plan.ShouldEqual(theNewOrganizationPlan);
 
         private It should_public_organization_plan_changed = () =>
-            Published<OrganizationPlanChanged>(p =>
+            wasPublished<OrganizationPlanChanged>(p =>
                 p.Initiator.InitiatorId.Id == theAdmin.UserId.Id
                 && p.OrganizationId == theOrganizationId.Id
                 && p.OldPlan == "free"
@@ -114,7 +114,7 @@
             theMembership.RecievesEmailNotifications.ShouldBeTrue();
 
         private It should_publish_member_recieve_email_notification_changed = () =>
-            Published<MemberRecieveEmailNotificationOptionChanged>(p =>
+            wasPublished<MemberRecieveEmailNotificationOptionChanged>(p =>
                 p.Initiator.InitiatorId.Id == theManager.UserId.Id
                 && p.OrganizationId == theOrganizationId.Id
                 && p.MemberId == theMember.UserId.Id
