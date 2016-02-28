@@ -11,7 +11,7 @@
     {
         public void Handle(DomainEvent e)
         {
-            Process((dynamic)e);
+            Process((dynamic) e);
         }
 
         private void Process(DomainEvent e)
@@ -23,14 +23,14 @@
         {
             Insert(x =>
             {
-                x.UserId = e.UserGuid;
+                x.UserId = e.UserId;
                 x.FirstName = e.FirstName;
                 x.LastName = e.LastName;
                 x.Street = e.Street;
                 x.Postcode = e.Postcode;
                 x.City = e.City;
                 x.EmailAddress = e.EmailAddress;
-                x.PhoneNumber = e.PhoneNumber;                
+                x.PhoneNumber = e.PhoneNumber;
             });
         }
 

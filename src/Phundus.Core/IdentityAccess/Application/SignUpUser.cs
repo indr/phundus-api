@@ -10,7 +10,8 @@
 
     public class SignUpUser
     {
-        public SignUpUser(UserId userId, string emailAddress, string password, string firstName, string lastName, string street,
+        public SignUpUser(UserId userId, string emailAddress, string password, string firstName, string lastName,
+            string street,
             string postcode, string city, string mobilePhone)
         {
             if (userId == null) throw new ArgumentNullException("userId");
@@ -57,17 +58,15 @@
             if (_userRepository.FindByEmailAddress(emailAddress) != null)
                 throw new EmailAlreadyTakenException();
 
-            var user = new User(command.UserId, emailAddress, command.Password, command.FirstName, command.LastName, command.Street,
+            var user = new User(command.UserId, emailAddress, command.Password, command.FirstName, command.LastName,
+                command.Street,
                 command.Postcode, command.City, command.MobilePhone, null);
 
             _userRepository.Add(user);
 
-            EventPublisher.Publish(new UserSignedUp(user.UserId,
-                user.Account.Email, user.Account.Password, user.Account.Salt,
-                user.Account.ValidationKey,
-                user.FirstName, user.LastName, user.Street, user.Postcode, user.City,
-                user.PhoneNumber
-                ));
+            EventPublisher.Publish(new UserSignedUp(user.UserId, new UserShortId(user.Id),
+                user.Account.Email, user.Account.Password, user.Account.Salt, user.Account.ValidationKey, user.FirstName,
+                user.LastName, user.Street, user.Postcode, user.City, user.PhoneNumber));
 
             ValidateAndSetRootUser(user);
         }

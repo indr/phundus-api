@@ -2,13 +2,13 @@
 {
     using System;
 
-    public class MembershipApplicationId : GuidIdentity
+    public class ArticleId : GuidIdentity
     {
-        public MembershipApplicationId()
+        public ArticleId()
         {
         }
 
-        public MembershipApplicationId(Guid id) : base(id)
+        public ArticleId(Guid id) : base(id)
         {
         }
     }
@@ -20,17 +20,6 @@
         }
 
         protected ArticleShortId()
-        {
-        }
-    }
-
-    public class ArticleId : GuidIdentity
-    {
-        public ArticleId()
-        {
-        }
-
-        public ArticleId(Guid guid) : base(guid)
         {
         }
     }
@@ -102,13 +91,13 @@
         }
     }
 
-    public class OrderShortId : Identity<int>
+    public class MembershipApplicationId : GuidIdentity
     {
-        public OrderShortId(int id) : base(id)
+        public MembershipApplicationId()
         {
         }
 
-        protected OrderShortId()
+        public MembershipApplicationId(Guid id) : base(id)
         {
         }
     }
@@ -120,6 +109,17 @@
         }
 
         public OrderId(Guid id) : base(id)
+        {
+        }
+    }
+
+    public class OrderShortId : Identity<int>
+    {
+        public OrderShortId(int id) : base(id)
+        {
+        }
+
+        protected OrderShortId()
         {
         }
     }
@@ -141,8 +141,7 @@
         {
         }
 
-        public OrganizationId(Guid id)
-            : base(id)
+        public OrganizationId(Guid id) : base(id)
         {
         }
     }
@@ -153,8 +152,7 @@
         {
         }
 
-        public OwnerId(Guid id)
-            : base(id)
+        public OwnerId(Guid id) : base(id)
         {
         }
     }
@@ -165,8 +163,7 @@
         {
         }
 
-        public StoreId(Guid value)
-            : base(value)
+        public StoreId(Guid value) : base(value)
         {
         }
     }
@@ -178,6 +175,17 @@
         }
 
         public UserId(Guid id) : base(id)
+        {
+        }
+    }
+
+    public class UserShortId : Identity<int>
+    {
+        public UserShortId(int id) : base(id)
+        {
+        }
+
+        protected UserShortId()
         {
         }
     }

@@ -202,6 +202,7 @@
     <Compile Include="2016\02\M201602270747_Alter_Table_Dm_Shop_Order.cs" />
     <Compile Include="2016\02\M201602280525_Generate_OrderCreated_from_OrderPlaced.cs" />
     <Compile Include="2016\02\M201602280547_Reset_Es_Shop_Orders.cs" />
+    <Compile Include="2016\02\M201602281728_Set_UserId_on_UserSignedUp_events.cs" />
     <Compile Include="Helper\EventMigrationBase.cs" />
     <Compile Include="2016\01\M201601151255AddUserGuidToApplicationAndMembership.cs" />
     <Compile Include="2016\01\M201501110544AlterTableNames.cs" />
