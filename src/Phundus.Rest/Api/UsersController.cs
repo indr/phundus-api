@@ -3,6 +3,7 @@ namespace Phundus.Rest.Api
     using System;
     using System.Collections.Generic;
     using System.Net;
+    using System.Net.Http;
     using System.Web;
     using System.Web.Http;
     using AttributeRouting;
@@ -21,18 +22,36 @@ namespace Phundus.Rest.Api
     {
         private readonly IMembershipQueries _membershipQueries;
         private readonly IStoresQueries _storesQueries;
+        private readonly IUserAddressQueries _userAddressQueries;
         private readonly IUsersQueries _usersQueries;
 
         public UsersController(IUsersQueries usersQueries, IMembershipQueries membershipQueries,
-            IStoresQueries storesQueries)
+            IStoresQueries storesQueries, IUserAddressQueries userAddressQueries)
         {
             if (usersQueries == null) throw new ArgumentNullException("usersQueries");
             if (membershipQueries == null) throw new ArgumentNullException("membershipQueries");
             if (storesQueries == null) throw new ArgumentNullException("storesQueries");
+            if (userAddressQueries == null) throw new ArgumentNullException("userAddressQueries");
 
             _usersQueries = usersQueries;
             _membershipQueries = membershipQueries;
             _storesQueries = storesQueries;
+            _userAddressQueries = userAddressQueries;
+        }
+
+        [GET("{userId}")]
+        [Transaction]
+        public virtual UsersGetOkResponseContent Get(Guid userId)
+        {
+            var user = _usersQueries.GetByGuid(new UserId(userId));
+            if ((user == null) || (user.UserId != CurrentUserId.Id))
+                throw new HttpException((int)HttpStatusCode.NotFound, "User not found.");
+
+            var memberships = _membershipQueries.FindByUserId(userId);
+            var store = _storesQueries.FindByOwnerId(new OwnerId(userId));
+            var address = _userAddressQueries.FindById(CurrentUserId, userId);
+
+            return new UsersGetOkResponseContent(user, memberships, store, address);
         }
 
         [POST("")]
@@ -44,33 +63,107 @@ namespace Phundus.Rest.Api
 
             var userId = new UserId();
 
-            Dispatcher.Dispatch(new SignUpUser(userId, requestContent.Email, requestContent.Password,
+            Dispatch(new SignUpUser(userId, requestContent.Email, requestContent.Password,
                 requestContent.FirstName, requestContent.LastName, requestContent.Street, requestContent.Postcode,
                 requestContent.City, requestContent.MobilePhone));
 
             if (requestContent.OrganizationId.HasValue)
             {
-                Dispatcher.Dispatch(new ApplyForMembership(new InitiatorId(userId), new MembershipApplicationId(),
-                    userId,
-                    new OrganizationId(requestContent.OrganizationId.Value)));
+                Dispatch(new ApplyForMembership(new InitiatorId(userId), new MembershipApplicationId(),
+                    userId, new OrganizationId(requestContent.OrganizationId.Value)));
             }
 
             return new UsersPostOkResponseContent {UserId = userId.Id};
         }
 
-        [GET("{userId}")]
+        [PUT("{userId}/address")]
         [Transaction]
-        public virtual UsersGetOkResponseContent Get(Guid userId)
+        public virtual HttpResponseMessage PutAddress(Guid userId, UsersAddressPutRequestContent requestContent)
         {
-            var user = _usersQueries.GetByGuid(new UserId(userId));
-            if ((user == null) || (user.UserId != CurrentUserId.Id))
-                throw new HttpException((int) HttpStatusCode.NotFound, "User not found.");
-
-            var memberships = _membershipQueries.FindByUserId(user.UserId);
-            var store = _storesQueries.FindByOwnerId(new OwnerId(user.UserId));
-
-            return new UsersGetOkResponseContent(user, memberships, store);
+            Dispatch(new ChangeUserAddress(CurrentUserId, new UserId(userId), requestContent.FirstName,
+                requestContent.LastName, requestContent.Street, requestContent.Postcode, requestContent.City,
+                requestContent.PhoneNumber));
+            return NoContent();
         }
+    }
+
+    public class UsersGetOkResponseContent
+    {
+        public UsersGetOkResponseContent()
+        {
+        }
+
+        public UsersGetOkResponseContent(IUser user, IEnumerable<MembershipData> memberships, StoreData store, UserAddressData address)
+        {
+            UserId = user.UserId;
+            Username = user.EmailAddress;
+            FullName = user.FirstName + " " + user.LastName;
+            EmailAddress = user.EmailAddress;
+
+            Memberships = new List<Memberships>();
+            foreach (var each in memberships)
+            {
+                Memberships.Add(new Memberships
+                {
+                    OrganizationId = each.OrganizationGuid,
+                    OrganizationName = each.OrganizationName,
+                    OrganizationUrl = each.OrganizationUrl
+                });
+            }
+
+            if (store != null)
+            {
+                Store = new Store
+                {
+                    StoreId = store.StoreId,
+                    Address = store.Address,
+                    OpeningHours = store.OpeningHours
+                };
+
+                if (store.Latitude.HasValue && store.Longitude.HasValue)
+                {
+                    Store.Coordinate = new Coordinate
+                    {
+                        Latitude = store.Latitude.Value,
+                        Longitude = store.Longitude.Value
+                    };
+                }
+            }
+
+            if (address != null)
+            {
+                Address = new UserAddressContentObject
+                {
+                    City = address.City,
+                    FirstName = address.FirstName,
+                    LastName = address.LastName,
+                    PhoneNumber = address.PhoneNumber,
+                    Postcode = address.Postcode,
+                    Street = address.Street
+                };
+            }
+        }
+
+        [JsonProperty("userId")]
+        public Guid UserId { get; set; }
+
+        [JsonProperty("username")]
+        public string Username { get; set; }
+
+        [JsonProperty("fullName")]
+        public string FullName { get; set; }
+
+        [JsonProperty("email")]
+        public string EmailAddress { get; set; }
+
+        [JsonProperty("memberships")]
+        public List<Memberships> Memberships { get; set; }
+
+        [JsonProperty("store")]
+        public Store Store { get; set; }
+
+        [JsonProperty("address")]
+        public UserAddressContentObject Address { get; set; }
     }
 
     public class UsersPostOkResponseContent
@@ -109,66 +202,45 @@ namespace Phundus.Rest.Api
         public Guid? OrganizationId { get; set; }
     }
 
-    public class UsersGetOkResponseContent
+    public class UsersAddressPutRequestContent
     {
-        public UsersGetOkResponseContent()
-        {
-        }
+        [JsonProperty("firstName")]
+        public string FirstName { get; set; }
 
-        public UsersGetOkResponseContent(IUser user, IEnumerable<MembershipData> memberships, StoreData store)
-        {
-            UserId = user.UserId;
-            Username = user.EmailAddress;
-            FullName = user.FirstName + " " + user.LastName;
-            EmailAddress = user.EmailAddress;
+        [JsonProperty("lastName")]
+        public string LastName { get; set; }
 
-            Memberships = new List<Memberships>();
-            foreach (var each in memberships)
-            {
-                Memberships.Add(new Memberships
-                {
-                    OrganizationId = each.OrganizationGuid,
-                    OrganizationName = each.OrganizationName,
-                    OrganizationUrl = each.OrganizationUrl
-                });
-            }
+        [JsonProperty("street")]
+        public string Street { get; set; }
 
-            if (store != null)
-            {
-                Store = new Store
-                {
-                    StoreId = store.StoreId,
-                    Address = store.Address,
-                    OpeningHours = store.OpeningHours
-                };
+        [JsonProperty("postcode")]
+        public string Postcode { get; set; }
 
-                if (store.Latitude.HasValue && store.Longitude.HasValue)
-                {
-                    Store.Coordinate = new Coordinate
-                    {
-                        Latitude = store.Latitude.Value,
-                        Longitude = store.Longitude.Value
-                    };
-                }
-            }
-        }
+        [JsonProperty("city")]
+        public string City { get; set; }
 
-        [JsonProperty("userId")]
-        public Guid UserId { get; set; }
+        [JsonProperty("phoneNumber")]
+        public string PhoneNumber { get; set; }
+    }
 
-        [JsonProperty("username")]
-        public string Username { get; set; }
+    public class UserAddressContentObject
+    {
+        [JsonProperty("firstName")]
+        public string FirstName { get; set; }
 
-        [JsonProperty("fullName")]
-        public string FullName { get; set; }
+        [JsonProperty("lastName")]
+        public string LastName { get; set; }
 
-        [JsonProperty("email")]
-        public string EmailAddress { get; set; }
+        [JsonProperty("street")]
+        public string Street { get; set; }
 
-        [JsonProperty("memberships")]
-        public List<Memberships> Memberships { get; set; }
+        [JsonProperty("postcode")]
+        public string Postcode { get; set; }
 
-        [JsonProperty("store")]
-        public Store Store { get; set; }
+        [JsonProperty("city")]
+        public string City { get; set; }
+
+        [JsonProperty("phoneNumber")]
+        public string PhoneNumber { get; set; }
     }
 }
