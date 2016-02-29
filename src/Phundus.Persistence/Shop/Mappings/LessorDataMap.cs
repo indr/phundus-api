@@ -15,7 +15,8 @@
             Map(x => x.Name, "Name");
             Map(x => x.PostalAddress, "PostalAddress");
             Map(x => x.PhoneNumber, "PhoneNumber");
-            Map(x => x.EmailAddress, "EmailAddress");            
+            Map(x => x.EmailAddress, "EmailAddress");
+            Map(x => x.Website, "Website");
             Map(x => x.PublicRental, "PublicRental");
         }
     }

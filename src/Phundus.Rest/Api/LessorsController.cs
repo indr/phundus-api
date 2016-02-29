@@ -41,9 +41,10 @@
                 LessorId = lessor.LessorId,
                 LessorType = lessor.Type.ToString().ToLowerInvariant(),
                 Name = lessor.Name,
-                Address = lessor.PostalAddress,
+                PostalAddress = lessor.PostalAddress,
                 PhoneNumber = lessor.PhoneNumber,
                 EmailAddress = lessor.EmailAddress,
+                Website = lessor.Website,
                 PublicRental = lessor.PublicRental
             };
         }
@@ -60,14 +61,17 @@
         [JsonProperty("name")]
         public string Name { get; set; }
 
-        [JsonProperty("address")]
-        public string Address { get; set; }
+        [JsonProperty("postalAddress")]
+        public string PostalAddress { get; set; }
 
         [JsonProperty("phoneNumber")]
         public string PhoneNumber { get; set; }
 
         [JsonProperty("emailAddress")]
         public string EmailAddress { get; set; }
+
+        [JsonProperty("website")]
+        public string Website { get; set; }
 
         [JsonProperty("publicRental")]
         public bool PublicRental { get; set; }
