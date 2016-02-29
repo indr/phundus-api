@@ -138,13 +138,16 @@
         private static string theNewStartpage = "<p>The new startpage</p>";
 
         private Because of = () =>
-            sut.ChangeStartpage(theInitiatorId, theNewStartpage);
+            sut.ChangeStartpage(theInitiator, theNewStartpage);
 
         private It should_have_new_startpage = () =>
             sut.Startpage.ShouldEqual(theNewStartpage);
 
         private It should_publish_startpage_changed = () =>
-            publisher.AssertWasCalled(x => x.Publish(Arg<StartpageChanged>.Is.NotNull));
+            published<StartpageChanged>(p =>
+                Equals(p.Initiator, theInitiator)
+                && p.OrganizationId == theOrganizationId.Id
+                && p.Startpage == theNewStartpage);            
     }
 
     [Subject(typeof (Organization))]
