@@ -83,10 +83,16 @@
 
             if (organization.ContactDetails != null)
             {
-                result.PostAddress = organization.ContactDetails.GetPostalAddress();
-                result.EmailAddress = organization.ContactDetails.EmailAddress;
-                result.Website = organization.ContactDetails.Website;
-                result.PhoneNumber = organization.ContactDetails.PhoneNumber;
+                var cd = organization.ContactDetails;
+                result.PostAddress = cd.GetPostalAddress();
+                result.Line1 = cd.Line1;
+                result.Line2 = cd.Line2;
+                result.Street = cd.Street;
+                result.Postcode = cd.Postcode;
+                result.City = cd.City;
+                result.EmailAddress = cd.EmailAddress;
+                result.Website = cd.Website;
+                result.PhoneNumber = cd.PhoneNumber;
             }
 
             return result;
@@ -103,6 +109,11 @@
         public string Url { get; set; }
 
         public string PostAddress { get; set; }
+        public string Line1 { get; set; }
+        public string Line2 { get; set; }
+        public string Street { get; set; }
+        public string Postcode { get; set; }
+        public string City { get; set; }
         public string PhoneNumber { get; set; }
         public string EmailAddress { get; set; }
 

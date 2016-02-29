@@ -92,12 +92,20 @@ this.ScenarioSetup(scenarioInfo);
 this.FeatureBackground();
 #line hidden
             TechTalk.SpecFlow.Table table2 = new TechTalk.SpecFlow.Table(new string[] {
-                        "Post address",
+                        "Line1",
+                        "Line2",
+                        "Street",
+                        "Postcode",
+                        "City",
                         "Phone number",
                         "Email address",
                         "Website"});
             table2.AddRow(new string[] {
+                        "Line1",
+                        "Line2",
                         "Street 123",
+                        "1234",
+                        "City",
                         "012 345 67 89",
                         "scouts@test.phundus.ch",
                         "http://www.scouts.com"});
@@ -107,12 +115,20 @@ this.FeatureBackground();
  testRunner.When("I try to get the organization details", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
             TechTalk.SpecFlow.Table table3 = new TechTalk.SpecFlow.Table(new string[] {
-                        "Post address",
+                        "Line1",
+                        "Line2",
+                        "Street",
+                        "Postcode",
+                        "City",
                         "Phone number",
                         "Email address",
                         "Website"});
             table3.AddRow(new string[] {
+                        "Line1",
+                        "Line2",
                         "Street 123",
+                        "1234",
+                        "City",
                         "012 345 67 89",
                         "scouts@test.phundus.ch",
                         "http://www.scouts.com"});

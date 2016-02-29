@@ -103,7 +103,8 @@
         public void GivenIChangedToOrganizationContactDetails(Table table)
         {
             var row = table.Rows[0];
-            App.ChangeOrganizationContactDetails(Ctx.Organization, row["Post address"],
+            App.ChangeOrganizationContactDetails(Ctx.Organization,
+                row["Line1"], row["Line2"], row["Street"], row["Postcode"], row["City"],
                 row["Phone number"], row["Email address"], row["Website"]);
         }
 

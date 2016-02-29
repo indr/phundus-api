@@ -9,6 +9,11 @@
         string Name { get; }
         string Url { get; }
         string PostAddress { get; }
+        string Line1 { get; }
+        string Line2 { get; }
+        string Street { get; }
+        string Postcode { get; }
+        string City { get; }
         string PhoneNumber { get; }
         string EmailAddress { get; }
         string Website { get; }

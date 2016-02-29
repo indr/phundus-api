@@ -391,13 +391,13 @@
             _apiClient.ArticlesFilesApi.Patch(new {articleId = article.ArticleShortId, fileName, isPreview = true});
         }
 
-        public void ChangeOrganizationContactDetails(Organization organization, string postAddress, string phoneNumber,
+        public void ChangeOrganizationContactDetails(Organization organization, string line1, string line2, string street, string postcode, string city, string phoneNumber,
             string emailAddress, string website)
         {
             _apiClient.OrganizationsApi.Patch(new
             {
                 organizationId = organization.OrganizationId,
-                contactDetails = new {postAddress, phoneNumber, emailAddress, website}
+                contactDetails = new {line1, line2, street, postcode, city, phoneNumber, emailAddress, website}
             });
         }
 
