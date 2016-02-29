@@ -167,6 +167,10 @@
             var membership = GetMembershipOfUser(memberId);
             membership.SetRecievesEmailNotification(value);
 
+            var count = Memberships.Count(p => p.MemberRole == MemberRole.Manager && p.RecievesEmailNotifications);
+            if (count == 0)
+                throw new NoManagerWithReceivesEmailNotificationException();
+
             EventPublisher.Publish(new MemberRecieveEmailNotificationOptionChanged(manager, Id, memberId, value));
         }
 
