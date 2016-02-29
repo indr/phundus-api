@@ -80,6 +80,12 @@ namespace Phundus.IdentityAccess.Projections
             Update(e.OrganizationId, x =>
                 x.PublicRental = e.Value);
         }
+
+        private void Process(StartpageChanged e)
+        {
+            Update(e.OrganizationId, x =>
+                x.Startpage = e.Startpage);
+        }
     }
 
     public class OrganizationData : IOrganization
