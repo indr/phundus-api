@@ -113,7 +113,7 @@
             sut.Street.ShouldEqual(theStreet);
 
         private It should_publish_user_address_changed = () =>
-            wasPublished<UserAddressChanged>(p =>
+            published<UserAddressChanged>(p =>
                 Equals(p.Initiator.InitiatorId, theInitiatorId)
                 && p.UserId == theUserId.Id
                 && p.FirstName == theFirstName
@@ -214,7 +214,7 @@
             sut.Account.LastLockoutDate.Value.ShouldBeCloseTo(DateTime.UtcNow, TimeSpan.FromSeconds(1));
 
         private It should_publish_user_locked = () =>
-            wasPublished<UserLocked>(p => p.InitiatorId == theInitiatorId.Id
+            published<UserLocked>(p => p.InitiatorId == theInitiatorId.Id
                                           && p.LockedAtUtc == sut.Account.LastLockoutDate
                                           && p.UserId == sut.UserId.Id);
     }
@@ -232,7 +232,7 @@
             sut.Account.IsLockedOut.ShouldBeFalse();
 
         private It should_publish_user_unlocked = () =>
-            wasPublished<UserUnlocked>(p => p.InitiatorId == theInitiatorId.Id
+            published<UserUnlocked>(p => p.InitiatorId == theInitiatorId.Id
                                             && p.LockedAtUtc == sut.Account.LastLockoutDate
                                             && p.UserId == sut.UserId.Id);
     }

@@ -122,6 +122,7 @@
     <Compile Include="IdentityAccess\Application\UpdateStartpageHandlerSpecs.cs" />
     <Compile Include="IdentityAccess\Events\MembershipApplicationFiledSpecs.cs" />
     <Compile Include="IdentityAccess\Model\OrganizationSpecs.cs" />
+    <Compile Include="IdentityAccess\Model\Organizations\OrganizationContactDetailsChangedSpecs.cs" />
     <Compile Include="IdentityAccess\Model\UserInRoleSpecs.cs" />
     <Compile Include="IdentityAccess\Model\Users\UserAddressChangedSpecs.cs" />
     <Compile Include="IdentityAccess\Model\Users\UserSignedUpSpecs.cs" />

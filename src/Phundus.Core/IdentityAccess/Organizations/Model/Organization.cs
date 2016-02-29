@@ -6,6 +6,7 @@
     using Common.Domain.Model;
     using Ddd;
     using IdentityAccess.Model;
+    using IdentityAccess.Model.Organizations;
     using Iesi.Collections.Generic;
     using Integration.IdentityAccess;
     using Users.Model;
@@ -168,7 +169,7 @@
 
             EventPublisher.Publish(new MemberRecieveEmailNotificationOptionChanged(manager, Id, memberId, value));
         }
-       
+
         public virtual void ChangeStartpage(UserId initiatorId, string startpage)
         {
             if (_startpage == startpage)
@@ -179,7 +180,7 @@
             EventPublisher.Publish(new StartpageChanged());
         }
 
-        public virtual void ChangeContactDetails(ContactDetails contactDetails)
+        public virtual void ChangeContactDetails(Initiator initiator, ContactDetails contactDetails)
         {
             if (contactDetails == null) throw new ArgumentNullException("contactDetails");
             if (Equals(_contactDetails, contactDetails))
@@ -187,7 +188,9 @@
 
             ContactDetails = contactDetails;
 
-            EventPublisher.Publish(new OrganizationContactDetailsChanged());
+            EventPublisher.Publish(new OrganizationContactDetailsChanged(initiator, Id, contactDetails.Line1,
+                contactDetails.Line2, contactDetails.Street, contactDetails.Postcode, contactDetails.City,
+                contactDetails.PhoneNumber, contactDetails.EmailAddress, contactDetails.Website));
         }
 
         public virtual void ChangeSettingPublicRental(Initiator initiator, bool value)

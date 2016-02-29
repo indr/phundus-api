@@ -26,7 +26,7 @@ namespace Phundus.Tests
             EventPublisher.Factory(() => publisher);
         };
 
-        protected static IMethodCallOccurrence wasPublished<T>(Expression<Predicate<T>> eventPredicate)
+        protected static IMethodCallOccurrence published<T>(Expression<Predicate<T>> eventPredicate)
             where T : DomainEvent
         {
             return publisher.WasToldTo(x =>

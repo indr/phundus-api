@@ -1,18 +1,28 @@
 namespace Phundus.IdentityAccess.Organizations.Model
 {
+    using System;
     using System.Collections.Generic;
-    using Common.Domain.Model;
+    using System.Text;
+    using Common.Domain.Model;    
 
     public class ContactDetails : ValueObject
     {
         private string _emailAddress;
+        private string _line1;
+        private string _line2;
+        private string _street;
+        private string _postcode;
+        private string _city;
         private string _phoneNumber;
-        private string _postAddress;
         private string _website;
 
-        public ContactDetails(string postAddress, string phoneNumber, string emailAddress, string website)
+        public ContactDetails(string line1, string line2, string street, string postcode, string city, string phoneNumber, string emailAddress, string website)
         {
-            _postAddress = postAddress;
+            _line1 = line1;
+            _line2 = line2;
+            _street = street;
+            _postcode = postcode;
+            _city = city;
             _phoneNumber = phoneNumber;
             _emailAddress = emailAddress;
             _website = website;
@@ -22,12 +32,36 @@ namespace Phundus.IdentityAccess.Organizations.Model
         {
         }
 
-        public virtual string PostAddress
+        public virtual string Line1
         {
-            get { return _postAddress; }
-            protected set { _postAddress = value; }
+            get { return _line1; }
+            protected set { _line1 = value; }
         }
 
+        public virtual string Line2
+        {
+            get { return _line2; }
+            protected set { _line2 = value; }
+        }
+
+        public virtual string Street
+        {
+            get { return _street; }
+            protected set { _street = value; }
+        }
+        
+        public virtual string Postcode
+        {
+            get { return _postcode; }
+            protected set { _postcode = value; }
+        }
+
+        public virtual string City
+        {
+            get { return _city; }
+            protected set { _city = value; }
+        }
+        
         public virtual string PhoneNumber
         {
             get { return _phoneNumber; }
@@ -48,10 +82,32 @@ namespace Phundus.IdentityAccess.Organizations.Model
 
         protected override IEnumerable<object> GetEqualityComponents()
         {
-            yield return PostAddress;
+            yield return Line1;
+            yield return Line2;
+            yield return Street;
+            yield return Postcode;
+            yield return City;
             yield return PhoneNumber;
             yield return EmailAddress;
             yield return Website;
+        }
+
+        public virtual string GetPostalAddress()
+        {
+            var sb = new StringBuilder();
+            if (!String.IsNullOrWhiteSpace(Line1))
+                sb.AppendLine(Line1);
+            if (!String.IsNullOrWhiteSpace(Line2))
+                sb.AppendLine(Line2);
+            if (!String.IsNullOrWhiteSpace(Street))
+                sb.AppendLine(Street);
+            if (!String.IsNullOrWhiteSpace(Postcode) && !String.IsNullOrWhiteSpace(City))
+                sb.AppendLine(Postcode + " " + City);
+            else if (!String.IsNullOrWhiteSpace(Postcode))
+                sb.AppendLine(Postcode);
+            else if (!String.IsNullOrWhiteSpace(City))
+                sb.AppendLine(City);
+            return sb.ToString();
         }
     }
 }
