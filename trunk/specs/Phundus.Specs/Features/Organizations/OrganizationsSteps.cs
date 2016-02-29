@@ -143,7 +143,7 @@
         [Then(@"I should see these organization contact details")]
         public void ThenIShouldSeeTheseOrganizationContactDetails(Table table)
         {
-            table.CompareToInstance(_organizationDetails.ContactDetails);
+            table.CompareToInstance(_organizationDetails.Contact);
         }
     }
 }
