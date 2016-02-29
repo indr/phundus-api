@@ -117,6 +117,7 @@
                 var membershipApplicationId = new MembershipApplicationId();
                 var application = sut.ApplyForMembership(theInitiatorId, membershipApplicationId, theMember);
                 sut.ApproveMembershipApplication(theInitiatorId, application, Guid.NewGuid());
+                sut.SetMembersRole(theMember, MemberRole.Manager);
                 theMembership = sut.Memberships.Single(p => p.UserId.Id == theMember.UserId.Id);
             });
 
