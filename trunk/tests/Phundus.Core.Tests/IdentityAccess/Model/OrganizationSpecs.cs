@@ -32,6 +32,17 @@
             sut_factory.create_using(() =>
                 new Organization(theOrganizationId, "The organization"));
         };
+
+        protected static User AddMember(Organization organization, MemberRole memberRole = MemberRole.Member)
+        {
+            var result = make.User();
+            var membershipApplicationId = new MembershipApplicationId();
+            var application = organization.ApplyForMembership(theInitiatorId, membershipApplicationId, result);
+            organization.ApproveMembershipApplication(theInitiatorId, application, Guid.NewGuid());
+            if (memberRole == MemberRole.Manager)
+                organization.SetMembersRole(result, MemberRole.Manager);
+            return result;
+        }
     }
 
     [Subject(typeof (Organization))]
@@ -113,11 +124,7 @@
         private Establish ctx = () =>
             sut_setup.run(sut =>
             {
-                theMember = make.User();
-                var membershipApplicationId = new MembershipApplicationId();
-                var application = sut.ApplyForMembership(theInitiatorId, membershipApplicationId, theMember);
-                sut.ApproveMembershipApplication(theInitiatorId, application, Guid.NewGuid());
-                sut.SetMembersRole(theMember, MemberRole.Manager);
+                theMember = AddMember(sut, MemberRole.Manager);
                 theMembership = sut.Memberships.Single(p => p.UserId.Id == theMember.UserId.Id);
             });
 
@@ -133,6 +140,8 @@
                 && p.OrganizationId == theOrganizationId.Id
                 && p.MemberId == theMember.UserId.Id
                 && p.Value);
+
+        
     }
 
     [Subject(typeof (Organization))]
@@ -143,10 +152,7 @@
         private Establish ctx = () =>
             sut_setup.run(sut =>
             {
-                theMember = make.User();
-                var applicationId = new MembershipApplicationId();
-                var application = sut.ApplyForMembership(theInitiatorId, applicationId, theMember);
-                sut.ApproveMembershipApplication(theInitiatorId, application, Guid.NewGuid());
+                theMember = AddMember(sut, MemberRole.Manager);
             });
 
         private Because of = () =>
