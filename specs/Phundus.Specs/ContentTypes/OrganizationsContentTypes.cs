@@ -32,8 +32,8 @@
         [JsonProperty("startpage")]
         public string Startpage { get; set; }
 
-        [JsonProperty("contactDetails")]
-        public ContactDetails ContactDetails { get; set; }
+        [JsonProperty("contact")]
+        public ContactDetails Contact { get; set; }
 
         public override string ToString()
         {
