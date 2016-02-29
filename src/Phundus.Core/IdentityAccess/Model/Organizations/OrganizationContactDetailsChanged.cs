@@ -30,33 +30,33 @@
         }
 
         [DataMember(Order = 1)]
-        public Initiator Initiator { get; set; }
+        public Initiator Initiator { get; protected set; }
 
         [DataMember(Order = 2)]
-        public Guid OrganizationId { get; set; }
+        public Guid OrganizationId { get; protected set; }
 
         [DataMember(Order = 3)]
-        public string Line1 { get; set; }
+        public string Line1 { get; protected set; }
 
         [DataMember(Order = 4)]
-        public string Line2 { get; set; }
+        public string Line2 { get; protected set; }
 
         [DataMember(Order = 5)]
-        public string Street { get; set; }
+        public string Street { get; protected set; }
 
         [DataMember(Order = 6)]
-        public string Postcode { get; set; }
+        public string Postcode { get; protected set; }
 
         [DataMember(Order = 7)]
-        public string City { get; set; }
+        public string City { get; protected set; }
 
         [DataMember(Order = 8)]
-        public string PhoneNumber { get; set; }
+        public string PhoneNumber { get; protected set; }
 
         [DataMember(Order = 9)]
-        public string EmailAddress { get; set; }
+        public string EmailAddress { get; protected set; }
 
         [DataMember(Order = 10)]
-        public string Website { get; set; }
+        public string Website { get; protected set; }
     }
 }

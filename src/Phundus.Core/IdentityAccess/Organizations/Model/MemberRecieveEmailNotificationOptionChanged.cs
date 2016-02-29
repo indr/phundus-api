@@ -27,15 +27,15 @@ namespace Phundus.IdentityAccess.Organizations.Model
         }
 
         [DataMember(Order = 1)]
-        public Initiator Initiator { get; set; }
+        public Initiator Initiator { get; protected set; }
 
         [DataMember(Order = 2)]
-        public Guid OrganizationId { get; set; }
+        public Guid OrganizationId { get; protected set; }
 
         [DataMember(Order = 3)]
-        public Guid MemberId { get; set; }
+        public Guid MemberId { get; protected set; }
 
         [DataMember(Order = 4)]
-        public bool Value { get; set; }
+        public bool Value { get; protected set; }
     }
 }

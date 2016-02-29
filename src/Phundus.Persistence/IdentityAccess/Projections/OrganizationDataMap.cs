@@ -27,6 +27,7 @@ namespace Phundus.Persistence.IdentityAccess.Projections
             Map(x => x.PostalAddress).WithMaxSize();
 
             Map(x => x.EmailAddress);
+            Map(x => x.PhoneNumber);
             Map(x => x.Website);
 
             Map(x => x.Startpage).WithMaxSize();

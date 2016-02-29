@@ -6,7 +6,7 @@ namespace Phundus.Tests.IdentityAccess.Model.Organizations
     using Phundus.IdentityAccess.Organizations.Model;
 
     [Subject(typeof (OrganizationEstablished))]
-    public class OrganizationEstablishSpecs : identityaccess_domain_event_concern<OrganizationEstablished>
+    public class OrganizationEstablishedSpecs : identityaccess_domain_event_concern<OrganizationEstablished>
     {
         private Establish ctx = () =>
         {

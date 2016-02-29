@@ -90,8 +90,8 @@ namespace Phundus.IdentityAccess.Projections
         private bool IsActiveMember(Guid organizationId, UserId userId)
         {
             // Hack für Material-Kontext: organizationId kann die Guid des Benutzers (Owners) sein.
-            var user = _usersQueries.FindActiveById(organizationId);
-            if ((user != null) && (user.UserId == userId.Id))
+            var user = _usersQueries.FindActiveById(userId.Id);
+            if ((user != null) && (user.UserId == organizationId))
                 return true;
 
             var membership = _membershipRepository.FindByUserId(userId.Id)

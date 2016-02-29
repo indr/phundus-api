@@ -25,15 +25,15 @@
         }
 
         [DataMember(Order = 1)]
-        public Manager Manager { get; set; }
+        public Manager Manager { get; protected set; }
 
         [DataMember(Order = 2)]
-        public Guid StoreId { get; set; }
+        public Guid StoreId { get; protected set; }
 
         [DataMember(Order = 3)]
-        public decimal Latitude { get; set; }
+        public decimal Latitude { get; protected set; }
 
         [DataMember(Order = 4)]
-        public decimal Longitude { get; set; }
+        public decimal Longitude { get; protected set; }
     }
 }

@@ -25,15 +25,15 @@
         }
 
         [DataMember(Order = 1)]
-        public Initiator Initiator { get; set; }
+        public Initiator Initiator { get; protected set; }
 
         [DataMember(Order = 2)]
-        public Guid OrganizationId { get; set; }
+        public Guid OrganizationId { get; protected set; }
 
         [DataMember(Order = 3)]
-        public string OldPlan { get; set; }
+        public string OldPlan { get; protected set; }
 
         [DataMember(Order = 4)]
-        public string NewPlan { get; set; }
+        public string NewPlan { get; protected set; }
     }
 }

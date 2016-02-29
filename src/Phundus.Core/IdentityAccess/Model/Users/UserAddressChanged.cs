@@ -12,6 +12,7 @@
         {
             if (initiator == null) throw new ArgumentNullException("initiator");
             if (userId == null) throw new ArgumentNullException("userId");
+
             Initiator = initiator;
             UserId = userId.Id;
             FirstName = firstName;
@@ -27,27 +28,27 @@
         }
 
         [DataMember(Order = 1)]
-        public Initiator Initiator { get; set; }
+        public Initiator Initiator { get; protected set; }
 
         [DataMember(Order = 2)]
-        public Guid UserId { get; set; }
+        public Guid UserId { get; protected set; }
 
         [DataMember(Order = 3)]
-        public string FirstName { get; set; }
+        public string FirstName { get; protected set; }
 
         [DataMember(Order = 4)]
-        public string LastName { get; set; }
+        public string LastName { get; protected set; }
 
         [DataMember(Order = 5)]
-        public string Street { get; set; }
+        public string Street { get; protected set; }
 
         [DataMember(Order = 6)]
-        public string Postcode { get; set; }
+        public string Postcode { get; protected set; }
 
         [DataMember(Order = 7)]
-        public string City { get; set; }
+        public string City { get; protected set; }
 
         [DataMember(Order = 8)]
-        public string PhoneNumber { get; set; }
+        public string PhoneNumber { get; protected set; }
     }
 }

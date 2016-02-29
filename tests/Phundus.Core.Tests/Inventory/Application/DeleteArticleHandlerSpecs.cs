@@ -28,7 +28,7 @@ namespace Phundus.Tests.Inventory.Application
             enforceInitiatorTo<ManageArticlesAccessObject>(p => Equals(p.OwnerId, theOwner.OwnerId));
 
         private It should_publish_article_deleted = () =>
-            Published<ArticleDeleted>(p =>
+            published<ArticleDeleted>(p =>
                 p.ArticleId == theArticle.ArticleId.Id
                 && Equals(p.Initiator, theInitiator)
                 && p.OwnerId == theOwner.OwnerId.Id);

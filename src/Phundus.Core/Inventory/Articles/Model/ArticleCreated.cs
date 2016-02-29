@@ -53,10 +53,10 @@
         public Guid ArticleId { get; protected set; }
 
         [DataMember(Order = 6)]
-        public string Name { get; set; }
+        public string Name { get; protected set; }
 
         [DataMember(Order = 7)]
-        public int GrossStock { get; set; }
+        public int GrossStock { get; protected set; }
 
         [DataMember(Order = 8)]
         public decimal PublicPrice { get; protected set; }

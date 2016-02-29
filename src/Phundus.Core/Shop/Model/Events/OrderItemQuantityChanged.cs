@@ -33,30 +33,30 @@ namespace Phundus.Shop.Orders.Model
         }
 
         [DataMember(Order = 1)]
-        public Manager Manager { get; set; }
+        public Manager Manager { get; protected set; }
 
         [DataMember(Order = 2)]
-        public Guid OrderId { get; set; }
+        public Guid OrderId { get; protected set; }
 
         [DataMember(Order = 3)]
-        public int OrderShortId { get; set; }
+        public int OrderShortId { get; protected set; }
 
         [DataMember(Order = 4)]
-        public int OrderStatus { get; set; }
+        public int OrderStatus { get; protected set; }
 
         [DataMember(Order = 5)]
-        public decimal OrderTotal { get; set; }
+        public decimal OrderTotal { get; protected set; }
 
         [DataMember(Order = 6)]
-        public Guid OrderItemId { get; set; }
+        public Guid OrderItemId { get; protected set; }
 
         [DataMember(Order = 7)]
-        public int OldQuantity { get; set; }
+        public int OldQuantity { get; protected set; }
 
         [DataMember(Order = 8)]
-        public int NewQuantity { get; set; }
+        public int NewQuantity { get; protected set; }
 
         [DataMember(Order = 9)]
-        public OrderEventLine OrderLine { get; set; }
+        public OrderEventLine OrderLine { get; protected set; }
     }
 }

@@ -36,24 +36,24 @@ namespace Phundus.Shop.Orders.Model
         public int OrderShortId { get; protected set; }
 
         [DataMember(Order = 2)]
-        public Guid OrderId { get; set; }
+        public Guid OrderId { get; protected set; }
 
         [DataMember(Order = 3)]
-        public Initiator Initiator { get; set; }
+        public Initiator Initiator { get; protected set; }
 
         [DataMember(Order = 4)]
-        public Lessor Lessor { get; set; }
+        public Lessor Lessor { get; protected set; }
 
         [DataMember(Order = 5)]
-        public Lessee Lessee { get; set; }
+        public Lessee Lessee { get; protected set; }
 
         [DataMember(Order = 6)]
-        public int OrderStatus { get; set; }
+        public int OrderStatus { get; protected set; }
 
         [DataMember(Order = 7)]
-        public decimal OrderTotal { get; set; }
+        public decimal OrderTotal { get; protected set; }
 
         [DataMember(Order = 8)]
-        public IList<OrderEventLine> Lines { get; set; }
+        public IList<OrderEventLine> Lines { get; protected set; }
     }
 }

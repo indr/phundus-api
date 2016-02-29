@@ -24,12 +24,12 @@
         }
 
         [DataMember(Order = 1)]
-        public Manager Manager { get; set; }
+        public Manager Manager { get; protected set; }
 
         [DataMember(Order = 2)]
-        public Guid StoreId { get; set; }
+        public Guid StoreId { get; protected set; }
 
         [DataMember(Order = 3)]
-        public Owner Owner { get; set; }
+        public Owner Owner { get; protected set; }
     }
 }

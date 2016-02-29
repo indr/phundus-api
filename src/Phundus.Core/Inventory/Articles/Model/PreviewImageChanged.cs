@@ -16,6 +16,7 @@
             if (ownerId == null) throw new ArgumentNullException("ownerId");
             if (fileName == null) throw new ArgumentNullException("fileName");
             if (fileType == null) throw new ArgumentNullException("fileType");
+
             Initiator = initiator;
             ArticleShortId = articleShortId.Id;
             ArticleId = articleId.Id;
@@ -30,24 +31,24 @@
         }
 
         [DataMember(Order = 1)]
-        public Initiator Initiator { get; set; }
+        public Initiator Initiator { get; protected set; }
 
         [DataMember(Order = 2)]
-        public int ArticleShortId { get; set; }
+        public int ArticleShortId { get; protected set; }
 
         [DataMember(Order = 3)]
-        public Guid ArticleId { get; set; }
+        public Guid ArticleId { get; protected set; }
 
         [DataMember(Order = 4)]
-        public Guid OwnerId { get; set; }
+        public Guid OwnerId { get; protected set; }
 
         [DataMember(Order = 5)]
-        public string FileName { get; set; }
+        public string FileName { get; protected set; }
 
         [DataMember(Order = 6)]
-        public string FileType { get; set; }
+        public string FileType { get; protected set; }
 
         [DataMember(Order = 7)]
-        public long FileLength { get; set; }
+        public long FileLength { get; protected set; }
     }
 }
