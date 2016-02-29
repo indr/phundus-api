@@ -159,11 +159,11 @@
     <Compile Include="IdentityAccess\Organizations\Repositories\IMembershipRequestRepository.cs" />
     <Compile Include="IdentityAccess\Organizations\Repositories\IOrganizationRepository.cs" />
     <Compile Include="IdentityAccess\Projections\OrganizationProjection.cs" />
+    <Compile Include="IdentityAccess\Projections\OrganizationQueries.cs" />
     <Compile Include="IdentityAccess\Projections\RelationshipProjection.cs" />
     <Compile Include="IdentityAccess\Projections\MemberInRoleProjection.cs" />
     <Compile Include="IdentityAccess\Projections\MembershipsProjection.cs" />
     <Compile Include="IdentityAccess\Projections\MembersProjection.cs" />
-    <Compile Include="IdentityAccess\Projections\OrganizationsProjection.cs" />
     <Compile Include="IdentityAccess\Projections\UserAddressProjection.cs" />
     <Compile Include="IdentityAccess\Projections\UserAddressQueries.cs" />
     <Compile Include="IdentityAccess\Projections\UsersProjection.cs" />
