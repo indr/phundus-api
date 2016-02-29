@@ -22,6 +22,9 @@ namespace Phundus.Migrations
             {
                 var address = each.Value.Split(new[] {"\n"}, StringSplitOptions.None).ToList();
 
+                if (address.Count == 0)
+                    continue;
+
                 if (address[1] == "")
                     address.RemoveAt(1);
                 if (address[2] == "")

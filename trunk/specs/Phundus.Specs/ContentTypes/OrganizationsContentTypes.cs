@@ -44,8 +44,20 @@
 
     public class ContactDetails
     {
-        [JsonProperty("postAddress")]
-        public string PostAddress { get; set; }
+        [JsonProperty("line1")]
+        public string Line1 { get; set; }
+
+        [JsonProperty("line2")]
+        public string Line2 { get; set; }
+
+        [JsonProperty("street")]
+        public string Street { get; set; }
+
+        [JsonProperty("postcode")]
+        public string Postcode { get; set; }
+
+        [JsonProperty("city")]
+        public string City { get; set; }
 
         [JsonProperty("phoneNumber")]
         public string PhoneNumber { get; set; }

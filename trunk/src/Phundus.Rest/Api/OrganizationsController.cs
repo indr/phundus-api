@@ -70,9 +70,14 @@
                 Url = organization.Url,
                 Website = organization.Website,
                 ContactDetails = new ContactDetails
-                {
+                {                    
                     EmailAddress = organization.EmailAddress,
                     PostAddress = organization.PostAddress,
+                    Line1 = organization.Line1,
+                    Line2 = organization.Line2,
+                    Street = organization.Street,
+                    Postcode = organization.Postcode,
+                    City = organization.City,
                     PhoneNumber = organization.PhoneNumber,
                     Website = organization.Website
                 }
