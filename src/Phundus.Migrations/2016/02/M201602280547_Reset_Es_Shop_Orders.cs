@@ -10,7 +10,7 @@ namespace Phundus.Migrations
         {
             DeleteTable("Es_Shop_Orders_Lines");
             DeleteTable("Es_Shop_Orders");
-            ResetTracker("OrderProjection");
+            DeleteTracker("OrderProjection");
         }
 
         public override void Down()

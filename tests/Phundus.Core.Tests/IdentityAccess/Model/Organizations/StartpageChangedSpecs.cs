@@ -2,7 +2,7 @@
 {
     using Events;
     using Machine.Specifications;
-    using Phundus.IdentityAccess.Organizations.Model;
+    using Phundus.IdentityAccess.Model.Organizations;
 
     [Subject(typeof (StartpageChanged))]
     public class StartpageChangedSpecs : identityaccess_domain_event_concern<StartpageChanged>
@@ -24,6 +24,6 @@
             dataMember(3).ShouldEqual("The new startpage");
 
         private It should_have_full_name = () =>
-            itsFullName.ShouldEqual("Phundus.IdentityAccess.Organizations.Model.StartpageChanged");
+            itsFullName.ShouldEqual("Phundus.IdentityAccess.Model.Organizations.StartpageChanged");
     }
 }

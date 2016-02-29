@@ -9,7 +9,7 @@ namespace Phundus.Migrations
         public override void Up()
         {
             Delete.Table("Es_Inventory_Articles");
-            ResetTracker(@"Phundus.Inventory.Projections.ArticlesProjection");
+            DeleteTracker(@"Phundus.Inventory.Projections.ArticlesProjection");
         }
 
         public override void Down()

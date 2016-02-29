@@ -72,7 +72,7 @@ namespace Phundus.Cqrs
                 return;
 
             var events = EventStore.AllStoredEventsBetween(tracker.MostRecentProcessedNotificationId + 1,
-                notificationId).OrderBy(p => p.OccuredOnUtc).ThenBy(p => p.EventId);
+                notificationId);
             foreach (var each in events)
             {
                 storedEventsConsumer.Handle(EventStore.Deserialize(each));

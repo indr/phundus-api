@@ -35,11 +35,8 @@ namespace Phundus.Cqrs
         {
             var row = Session.Get<TEntity>(id);
             if (row == null)
-            {
-                Logger.Warn(String.Format("Could not update projection {0}. Projection {1} not found.",
-                    typeof (TEntity).Name, id));
-                return;
-            }
+                throw new InvalidOperationException(String.Format("Could not update projection {0}. Projection {1} {2} not found.", this.GetType().Name, typeof(TEntity).Name, id));
+
             action(row);
             Session.Update(row);
         }

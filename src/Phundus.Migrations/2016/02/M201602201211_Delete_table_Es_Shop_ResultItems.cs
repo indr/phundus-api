@@ -12,8 +12,8 @@ namespace Phundus.Migrations
                 Delete.Table("Es_Shop_ShopItemsSortByPopularityProjection");
             if (Schema.Table("Es_Shop_ResultItems").Exists())
                 Delete.Table("Es_Shop_ResultItems");
-            ResetTracker("Phundus.Shop.Projections.ShopItemsSortByPopularityProjection");
-            ResetTracker("Phundus.Shop.Projections.ResultItemsProjection");
+            DeleteTracker("Phundus.Shop.Projections.ShopItemsSortByPopularityProjection");
+            DeleteTracker("Phundus.Shop.Projections.ResultItemsProjection");
         }
 
         public override void Down()

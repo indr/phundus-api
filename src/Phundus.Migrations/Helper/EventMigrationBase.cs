@@ -47,6 +47,7 @@ namespace Phundus.Migrations
         }
 
         private readonly IList<IDbCommand> _commands = new List<IDbCommand>();
+
         public override void Up()
         {
             Execute.WithConnection((connection, transaction) =>
@@ -57,9 +58,6 @@ namespace Phundus.Migrations
                 foreach (var eachCommand in _commands)
                     eachCommand.ExecuteNonQuery();
             });
-
-            
-
         }
 
         protected IDbCommand CreateCommand(string commandText)
@@ -72,18 +70,38 @@ namespace Phundus.Migrations
 
         protected abstract void Migrate();
 
-        
+        protected void Reinsert(string typeName)
+        {
+            var events = FindStoredEvents(typeName);
+            foreach (var se in events)
+            {
+                DeleteStoredEvent(se.EventGuid);
+                InsertStoredEvent(se.OccuredOnUtc, typeName, se.Serialization, se.AggregateId, se.EventGuid);
+            }
+        }
 
-        protected void InsertStoredEvent(DateTime occuredOnUtc, string typeName, object domainEvent, Guid? aggregateId = null)
+        protected void DeleteStoredEvent(Guid eventGuid)
+        {
+            var command = CreateCommand(@"DELETE FROM [StoredEvents] WHERE [EventGuid] = @EventGuid");
+            command.Parameters.Add(new SqlParameter("@EventGuid", eventGuid));
+            _commands.Add(command);
+        }
+
+        protected void InsertStoredEvent(DateTime occuredOnUtc, string typeName, object domainEvent, Guid? aggregateId = null, Guid? eventGuid = null)
+        {
+            InsertStoredEvent(occuredOnUtc, typeName, Serialize(domainEvent), aggregateId);
+        }
+
+        private void InsertStoredEvent(DateTime occuredOnUtc, string typeName, byte[] serialization, Guid? aggregateId = null, Guid? eventGuid = null)
         {
             var command = CreateCommand(@"
 INSERT INTO [StoredEvents] ([EventGuid], [TypeName], [OccuredOnUtc], [AggregateId], [Serialization])
 VALUES (@EventGuid, @TypeName, @OccuredOnUtc, @AggregateId, @Serialization)");
-            command.Parameters.Add(new SqlParameter("@EventGuid", Guid.NewGuid()));
+            command.Parameters.Add(new SqlParameter("@EventGuid", eventGuid == null ? Guid.NewGuid() : eventGuid.Value));
             command.Parameters.Add(new SqlParameter("@TypeName", typeName));
             command.Parameters.Add(new SqlParameter("@OccuredOnUtc", occuredOnUtc));
             command.Parameters.Add(new SqlParameter("@AggregateId", aggregateId.HasValue ? aggregateId.Value : Guid.Empty));
-            command.Parameters.Add(new SqlParameter("@Serialization", Serialize(domainEvent)));
+            command.Parameters.Add(new SqlParameter("@Serialization", serialization));
 
             _commands.Add(command);
         }

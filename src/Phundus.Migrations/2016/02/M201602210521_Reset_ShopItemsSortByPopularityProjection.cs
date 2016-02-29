@@ -10,7 +10,7 @@ namespace Phundus.Migrations
         {
             if (Schema.Table("Es_Shop_ShopItemsSortByPopularityProjection").Exists())
                 Delete.Table("Es_Shop_ShopItemsSortByPopularityProjection");
-            ResetTracker("Phundus.Shop.Projections.ShopItemsSortByPopularityProjection");
+            DeleteTracker("Phundus.Shop.Projections.ShopItemsSortByPopularityProjection");
         }
 
         public override void Down()
