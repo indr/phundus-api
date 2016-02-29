@@ -91,23 +91,5 @@ namespace Phundus.IdentityAccess.Organizations.Model
             yield return EmailAddress;
             yield return Website;
         }
-
-        public virtual string GetPostalAddress()
-        {
-            var sb = new StringBuilder();
-            if (!String.IsNullOrWhiteSpace(Line1))
-                sb.AppendLine(Line1);
-            if (!String.IsNullOrWhiteSpace(Line2))
-                sb.AppendLine(Line2);
-            if (!String.IsNullOrWhiteSpace(Street))
-                sb.AppendLine(Street);
-            if (!String.IsNullOrWhiteSpace(Postcode) && !String.IsNullOrWhiteSpace(City))
-                sb.AppendLine(Postcode + " " + City);
-            else if (!String.IsNullOrWhiteSpace(Postcode))
-                sb.AppendLine(Postcode);
-            else if (!String.IsNullOrWhiteSpace(City))
-                sb.AppendLine(City);
-            return sb.ToString();
-        }
     }
 }

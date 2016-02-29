@@ -61,7 +61,6 @@
             var result = new OrganizationsGetOkResponseContent
             {
                 Address = organization.PostalAddress,
-                DocumentTemplate = organization.DocumentTemplate,
                 EmailAddress = organization.EmailAddress,
                 Name = organization.Name,
                 OrganizationId = organization.OrganizationId,
@@ -201,9 +200,6 @@
 
         [JsonProperty("startpage")]
         public string Startpage { get; set; }
-
-        [JsonProperty("documentTemplate")]
-        public string DocumentTemplate { get; set; }
 
         [JsonProperty("stores")]
         public List<Store> Stores { get; set; }

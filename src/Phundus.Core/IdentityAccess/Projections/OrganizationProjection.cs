@@ -1,9 +1,12 @@
 namespace Phundus.IdentityAccess.Projections
 {
+    using System;
+    using System.Text;
     using Common;
     using Common.Domain.Model;
     using Common.Notifications;
     using Cqrs;
+    using Integration.IdentityAccess;
     using Model;
     using Model.Organizations;
     using Organizations.Model;
@@ -12,7 +15,7 @@ namespace Phundus.IdentityAccess.Projections
     {
         public void Handle(DomainEvent e)
         {
-            Process((dynamic)e);
+            Process((dynamic) e);
         }
 
         private void Process(DomainEvent e)
@@ -47,10 +50,29 @@ namespace Phundus.IdentityAccess.Projections
                 x.Street = e.Street;
                 x.Postcode = e.Postcode;
                 x.City = e.City;
+                x.PostalAddress = MakePostalAddress(e);
                 x.PhoneNumber = e.PhoneNumber;
                 x.EmailAddress = e.EmailAddress;
                 x.Website = e.Website;
             });
+        }
+
+        private string MakePostalAddress(OrganizationContactDetailsChanged e)
+        {
+            var sb = new StringBuilder();
+            if (!String.IsNullOrWhiteSpace(e.Line1))
+                sb.AppendLine(e.Line1);
+            if (!String.IsNullOrWhiteSpace(e.Line2))
+                sb.AppendLine(e.Line2);
+            if (!String.IsNullOrWhiteSpace(e.Street))
+                sb.AppendLine(e.Street);
+            if (!String.IsNullOrWhiteSpace(e.Postcode) && !String.IsNullOrWhiteSpace(e.City))
+                sb.AppendLine(e.Postcode + " " + e.City);
+            else if (!String.IsNullOrWhiteSpace(e.Postcode))
+                sb.AppendLine(e.Postcode);
+            else if (!String.IsNullOrWhiteSpace(e.City))
+                sb.AppendLine(e.City);
+            return sb.ToString();
         }
 
         private void Process(PublicRentalSettingChanged e)
@@ -58,5 +80,41 @@ namespace Phundus.IdentityAccess.Projections
             Update(e.OrganizationId, x =>
                 x.PublicRental = e.Value);
         }
+    }
+
+    public class OrganizationData : IOrganization
+    {
+        private string _website;
+
+        public virtual Guid OrganizationId { get; set; }
+        public virtual DateTime EstablishedAtUtc { get; set; }
+        public virtual string Name { get; set; }
+        public virtual string Url { get; set; }
+        public virtual string Plan { get; set; }
+        public virtual bool PublicRental { get; set; }
+
+        public virtual string Line1 { get; set; }
+        public virtual string Line2 { get; set; }
+        public virtual string Street { get; set; }
+        public virtual string Postcode { get; set; }
+        public virtual string City { get; set; }
+        public virtual string PostalAddress { get; set; }
+
+        public virtual string EmailAddress { get; set; }
+        public virtual string PhoneNumber { get; set; }
+
+        public virtual string Website
+        {
+            get
+            {
+                if (!String.IsNullOrEmpty(_website) && !_website.StartsWith("http"))
+                    return "http://" + _website;
+                return _website;
+            }
+            set { _website = value; }
+        }
+
+        public virtual string Startpage { get; set; }
+        public virtual string DocumentTemplate { get; set; }
     }
 }
