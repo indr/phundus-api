@@ -17,6 +17,7 @@
         {
             if (initiatorId == null) throw new ArgumentNullException("initiatorId");
             if (organizationId == null) throw new ArgumentNullException("organizationId");
+
             InitiatorId = initiatorId;
             OrganizationId = organizationId;
             Line1 = line1;
@@ -57,9 +58,7 @@
             var organization = Repository.GetById(command.OrganizationId);
 
             organization.ChangeContactDetails(initiator, new ContactDetails(command.Line1, command.Line2, command.Street,
-                command.Postcode, command.City, command.PhoneNumber, command.EmailAddress, command.Website));
-
-            EventPublisher.Publish(new OrganizationUpdated());
+                command.Postcode, command.City, command.PhoneNumber, command.EmailAddress, command.Website));            
         }
     }
 }
