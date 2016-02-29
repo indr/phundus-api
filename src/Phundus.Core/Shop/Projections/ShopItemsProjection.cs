@@ -22,73 +22,67 @@
 
         public void Process(ArticleCreated domainEvent)
         {
-            var row = new ShopItemsData();
-            row.ItemId = domainEvent.ArticleId;
-            row.ItemShortId = domainEvent.ArticleShortId;
-            row.CreatedAtUtc = domainEvent.OccuredOnUtc;
-            row.MemberPrice = domainEvent.MemberPrice;
-            row.Name = domainEvent.Name;
-            row.OwnerGuid = domainEvent.Owner.OwnerId.Id;
-            row.OwnerName = domainEvent.Owner.Name;
-            row.OwnerType = (int) domainEvent.Owner.Type;
-            row.StoreId = domainEvent.StoreId;
-            row.StoreName = domainEvent.StoreName;
-            row.PreviewImageFileName = "";
-            row.PublicPrice = domainEvent.PublicPrice;
-            Session.Save(row);
-            Session.Flush();
+            Insert(x =>
+            {
+                x.ItemId = domainEvent.ArticleId;
+                x.ItemShortId = domainEvent.ArticleShortId;
+                x.CreatedAtUtc = domainEvent.OccuredOnUtc;
+                x.MemberPrice = domainEvent.MemberPrice;
+                x.Name = domainEvent.Name;
+                x.OwnerGuid = domainEvent.Owner.OwnerId.Id;
+                x.OwnerName = domainEvent.Owner.Name;
+                x.OwnerType = (int) domainEvent.Owner.Type;
+                x.StoreId = domainEvent.StoreId;
+                x.StoreName = domainEvent.StoreName;
+                x.PreviewImageFileName = "";
+                x.PublicPrice = domainEvent.PublicPrice;
+            });
         }
 
-        public void Process(ArticleDetailsChanged domainEvent)
+        public void Process(ArticleDeleted e)
         {
-            var row = Find(domainEvent.ArticleId);
-            row.Name = domainEvent.Name;
+            Delete(e.ArticleId);
         }
 
-        public void Process(ArticleDeleted domainEvent)
+        public void Process(ArticleDetailsChanged e)
         {
-            Delete(domainEvent.ArticleId);
+            Update(e.ArticleId, x =>
+                x.Name = e.Name);
         }
 
-        public void Process(ImageAdded domainEvent)
+        public void Process(ImageAdded e)
         {
-            if (!domainEvent.IsPreviewImage)
+            if (!e.IsPreviewImage)
                 return;
 
-            var row = Find(domainEvent.ArticleId);
-            row.PreviewImageFileName = domainEvent.FileName;
+            Update(e.ArticleId, x =>
+                x.PreviewImageFileName = e.FileName);            
         }
 
-        public void Process(PreviewImageChanged domainEvent)
+        public void Process(PreviewImageChanged e)
         {
-            var row = Find(domainEvent.ArticleId);
-            row.PreviewImageFileName = domainEvent.FileName;
+            Update(e.ArticleId, x =>
+                x.PreviewImageFileName = e.FileName);
         }
 
-        public void Process(PricesChanged domainEvent)
+        public void Process(PricesChanged e)
         {
-            var row = Find(domainEvent.ArticleId);
-            row.MemberPrice = domainEvent.MemberPrice;
-            row.PublicPrice = domainEvent.PublicPrice;
+            Update(e.ArticleId, x =>
+            {
+                x.MemberPrice = e.MemberPrice;
+                x.PublicPrice = e.PublicPrice;
+            });
         }
 
         public void Process(StoreRenamed e)
         {
             Update(p => p.StoreId == e.StoreId, a =>
                 a.StoreName = e.Name);
-        }
-
-        private ShopItemsData Find(Guid articleGuid)
-        {
-            return Session.QueryOver<ShopItemsData>()
-                .Where(p => p.ItemId == articleGuid).SingleOrDefault();
-        }
+        }        
     }
 
     public class ShopItemsData
     {
-        public virtual Guid RowId { get; set; }
-
         public virtual Guid ItemId { get; set; }
         public virtual int ItemShortId { get; set; }
 
