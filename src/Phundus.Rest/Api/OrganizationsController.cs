@@ -42,7 +42,7 @@
             {
                 Results = result.Select(s => new Organization
                 {
-                    Address = s.PostAddress,
+                    PostalAddress = s.PostalAddress,
                     Name = s.Name,
                     OrganizationId = s.OrganizationId,
                     Url = s.Url
@@ -60,7 +60,7 @@
             var store = _storesQueries.FindByOwnerId(new OwnerId(organization.OrganizationId));
             var result = new OrganizationsGetOkResponseContent
             {
-                Address = organization.PostAddress,
+                Address = organization.PostalAddress,
                 DocumentTemplate = organization.DocumentTemplate,
                 EmailAddress = organization.EmailAddress,
                 Name = organization.Name,
@@ -72,7 +72,7 @@
                 ContactDetails = new ContactDetails
                 {                    
                     EmailAddress = organization.EmailAddress,
-                    PostAddress = organization.PostAddress,
+                    PostAddress = organization.PostalAddress,
                     Line1 = organization.Line1,
                     Line2 = organization.Line2,
                     Street = organization.Street,

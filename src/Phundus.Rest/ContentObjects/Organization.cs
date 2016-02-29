@@ -14,7 +14,7 @@ namespace Phundus.Rest.ContentObjects
         [JsonProperty("url")]
         public string Url { get; set; }
 
-        [JsonProperty("address")]
-        public string Address { get; set; }
+        [JsonProperty("postalAddress")]
+        public string PostalAddress { get; set; }
     }
 }

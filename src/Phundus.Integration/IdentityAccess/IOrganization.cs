@@ -8,7 +8,7 @@
         DateTime EstablishedAtUtc { get; }
         string Name { get; }
         string Url { get; }
-        string PostAddress { get; }
+        string PostalAddress { get; }
         string Line1 { get; }
         string Line2 { get; }
         string Street { get; }

@@ -84,7 +84,7 @@
             if (organization.ContactDetails != null)
             {
                 var cd = organization.ContactDetails;
-                result.PostAddress = cd.GetPostalAddress();
+                result.PostalAddress = cd.GetPostalAddress();
                 result.Line1 = cd.Line1;
                 result.Line2 = cd.Line2;
                 result.Street = cd.Street;
@@ -103,21 +103,24 @@
     {
         private string _website;
 
-        public Guid OrganizationId { get; set; }
-        public DateTime EstablishedAtUtc { get; set; }
-        public string Name { get; set; }
-        public string Url { get; set; }
+        public virtual Guid OrganizationId { get; set; }
+        public virtual DateTime EstablishedAtUtc { get; set; }
+        public virtual string Name { get; set; }
+        public virtual string Url { get; set; }
+        public virtual string Plan { get; set; }
+        public virtual bool PublicRental { get; set; }
 
-        public string PostAddress { get; set; }
-        public string Line1 { get; set; }
-        public string Line2 { get; set; }
-        public string Street { get; set; }
-        public string Postcode { get; set; }
-        public string City { get; set; }
-        public string PhoneNumber { get; set; }
-        public string EmailAddress { get; set; }
+        public virtual string Line1 { get; set; }
+        public virtual string Line2 { get; set; }
+        public virtual string Street { get; set; }
+        public virtual string Postcode { get; set; }
+        public virtual string City { get; set; }
+        public virtual string PostalAddress { get; set; }
+        
+        public virtual string EmailAddress { get; set; }
+        public virtual string PhoneNumber { get; set; }
 
-        public string Website
+        public virtual string Website
         {
             get
             {
@@ -128,9 +131,7 @@
             set { _website = value; }
         }
 
-        public string Startpage { get; set; }
-        public string DocumentTemplate { get; set; }
-        public bool PublicRental { get; set; }
-        public string Plan { get; set; }
+        public virtual string Startpage { get; set; }
+        public virtual string DocumentTemplate { get; set; }
     }
 }
