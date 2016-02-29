@@ -21,7 +21,7 @@
             storeRepository = depends.on<IStoreRepository>();
             @event = new OrganizationEstablished(
                 new Founder(new UserId(), "founder@test.phundus.ch", "The Founder"), theOrganizationGuid,
-                "Rocks and Scissors", OrganizationPlan.Free);
+                "Rocks and Scissors", OrganizationPlan.Free, true);
         };
 
         private It should_add_store_to_repository = () =>

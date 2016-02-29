@@ -171,7 +171,7 @@
             publisher.WasToldTo(
                 x => x.Publish(Arg<UserEmailAddressChanged>.Is.NotNull));
             publisher.WasToldTo(x => x.Publish(Arg<UserEmailAddressChanged>.Matches(p =>
-                p.UserGuid == sut.UserId.Id
+                p.UserId == sut.UserId.Id
                 && p.OldEmailAddress == theEmailAddress
                 && p.NewEmailAddress == theNewEmailAddress)));
         };

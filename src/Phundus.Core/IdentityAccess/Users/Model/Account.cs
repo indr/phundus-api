@@ -150,7 +150,7 @@
                 var oldEmailAddress = Email;
                 Email = RequestedEmail;
                 RequestedEmail = null;
-                EventPublisher.Publish(new UserEmailAddressChanged(User.UserId.Id, oldEmailAddress, Email));
+                EventPublisher.Publish(new UserEmailAddressChanged(null, User.UserId, oldEmailAddress, Email));
             }
 
             return true;

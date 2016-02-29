@@ -52,7 +52,7 @@
             _organizationRepository.Add(organization);
 
             EventPublisher.Publish(new OrganizationEstablished(founder, organization.Id,
-                organization.Name, organization.Plan));
+                organization.Name, organization.Plan, organization.Settings.PublicRental));
 
             var requestId = new MembershipApplicationId();
             var user = _userRepository.GetById(command.InitiatorId);

@@ -1,6 +1,5 @@
 namespace Phundus.Tests.IdentityAccess.Model.Organizations
 {
-    using Common.Domain.Model;
     using Events;
     using Integration.IdentityAccess;
     using Machine.Specifications;
@@ -13,7 +12,7 @@ namespace Phundus.Tests.IdentityAccess.Model.Organizations
         {
             var theFounder = new Founder(theInitiatorId, "founder@test.phundus.ch", "The Founder");
             sut_factory.create_using(() =>
-                new OrganizationEstablished(theFounder, theOrganizationId, "Name", OrganizationPlan.Membership));
+                new OrganizationEstablished(theFounder, theOrganizationId, "Name", OrganizationPlan.Membership, true));
         };
 
         private It should_be_in_assembly = () =>
@@ -30,6 +29,9 @@ namespace Phundus.Tests.IdentityAccess.Model.Organizations
 
         private It should_have_at_4_the_organization_plan = () =>
             dataMember(4).ShouldEqual("membership");
+
+        private It should_have_at_5_the_public_rental_setting = () =>
+            dataMember(5).ShouldEqual(true);
 
         private It should_have_full_name = () =>
             itsFullName.ShouldEqual("Phundus.IdentityAccess.Organizations.Model.OrganizationEstablished");

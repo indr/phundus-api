@@ -17,16 +17,17 @@
         public LessorsController(ILessorQueries lessorQueries)
         {
             if (lessorQueries == null) throw new ArgumentNullException("lessorQueries");
+
             _lessorQueries = lessorQueries;
         }
 
         [GET("")]
         [Transaction]
         [AllowAnonymous]
-        public virtual QueryOkResponseContent<LessorViewRow> Get()
+        public virtual QueryOkResponseContent<LessorData> Get()
         {
             var results = _lessorQueries.Query();
-            return new QueryOkResponseContent<LessorViewRow>(results);
+            return new QueryOkResponseContent<LessorData>(results);
         }
 
         [GET("{lessorId}")]
@@ -37,10 +38,10 @@
             var lessor = _lessorQueries.GetByGuid(lessorId);
             return new LessorsGetOkResponseContent
             {
-                LessorId = lessor.LessorGuid,
-                LessorType = lessor.LessorType,
+                LessorId = lessor.LessorId,
+                LessorType = lessor.Type.ToString().ToLowerInvariant(),
                 Name = lessor.Name,
-                Address = lessor.Address,
+                Address = lessor.PostalAddress,
                 PhoneNumber = lessor.PhoneNumber,
                 EmailAddress = lessor.EmailAddress,
                 PublicRental = lessor.PublicRental
@@ -54,7 +55,7 @@
         public Guid LessorId { get; set; }
 
         [JsonProperty("lessorType")]
-        public int LessorType { get; set; }
+        public string LessorType { get; set; }
 
         [JsonProperty("name")]
         public string Name { get; set; }
