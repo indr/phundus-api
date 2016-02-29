@@ -62,8 +62,6 @@ namespace Phundus.Migrations
 
         }
 
-        protected abstract void Migrate();
-
         protected IDbCommand CreateCommand(string commandText)
         {
             var command = Connection.CreateCommand();
@@ -71,6 +69,10 @@ namespace Phundus.Migrations
             command.CommandText = commandText;
             return command;
         }
+
+        protected abstract void Migrate();
+
+        
 
         protected void InsertStoredEvent(DateTime occuredOnUtc, string typeName, object domainEvent, Guid? aggregateId = null)
         {

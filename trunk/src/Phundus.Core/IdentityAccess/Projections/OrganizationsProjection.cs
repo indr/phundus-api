@@ -83,7 +83,7 @@
 
             if (organization.ContactDetails != null)
             {
-                result.PostAddress = organization.ContactDetails.PostAddress;
+                result.PostAddress = organization.ContactDetails.GetPostalAddress();
                 result.EmailAddress = organization.ContactDetails.EmailAddress;
                 result.Website = organization.ContactDetails.Website;
                 result.PhoneNumber = organization.ContactDetails.PhoneNumber;

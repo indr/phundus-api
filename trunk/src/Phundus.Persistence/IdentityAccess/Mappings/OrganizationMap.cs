@@ -20,7 +20,11 @@
 
             Component(x => x.ContactDetails, a =>
             {
-                a.Map(x => x.PostAddress, "Address");
+                a.Map(x => x.Line1);
+                a.Map(x => x.Line2);
+                a.Map(x => x.Street);
+                a.Map(x => x.Postcode);
+                a.Map(x => x.City);
                 a.Map(x => x.PhoneNumber, "PhoneNumber");
                 a.Map(x => x.EmailAddress, "EmailAddress");
                 a.Map(x => x.Website, "Website");

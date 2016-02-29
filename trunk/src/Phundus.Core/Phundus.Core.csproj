@@ -120,7 +120,7 @@
     <Compile Include="IdentityAccess\Application\ChangeUserAddress.cs" />
     <Compile Include="IdentityAccess\Authorization\Manage.cs" />
     <Compile Include="IdentityAccess\Application\ChangeMemberRecievesEmailNotification.cs" />
-    <Compile Include="IdentityAccess\Model\OrganizationContactDetailsChanged.cs" />
+    <Compile Include="IdentityAccess\Model\Organizations\OrganizationContactDetailsChanged.cs" />
     <Compile Include="IdentityAccess\Model\OrganizationPlanChanged.cs" />
     <Compile Include="IdentityAccess\Model\PublicRentalSettingChanged.cs" />
     <Compile Include="IdentityAccess\Application\ApplyForMembership.cs" />

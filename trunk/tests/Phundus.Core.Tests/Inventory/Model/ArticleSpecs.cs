@@ -102,7 +102,7 @@
             sut.Name.ShouldEqual(theNewName);
 
         private It should_public_details_changed = () =>
-            wasPublished<ArticleDetailsChanged>(p =>
+            published<ArticleDetailsChanged>(p =>
                 p.ArticleId == theArticleId.Id
                 && p.Brand == theNewBrand
                 && p.Color == theNewColor
@@ -164,7 +164,7 @@
             sut.GrossStock.ShouldEqual(theNewGrossStock);
 
         private It should_publish_gross_stock_changed = () =>
-            wasPublished<GrossStockChanged>(p =>
+            published<GrossStockChanged>(p =>
                 p.ArticleId == theArticleId.Id
                 && Equals(p.Initiator, theInitiator)
                 && p.NewGrossStock == theNewGrossStock
@@ -257,7 +257,7 @@
             sut.Images.ShouldNotBeEmpty();
 
         private It should_publish_image_added = () =>
-            wasPublished<ImageAdded>(p =>
+            published<ImageAdded>(p =>
                 p.IsPreviewImage == true
                 && p.ArticleId == theArticleId.Id
                 && p.FileLength == 123456
@@ -297,14 +297,14 @@
             sut.RemoveImage(theInitiator, "first.jpg");
 
         private It should_publish_image_removed = () =>
-            wasPublished<ImageRemoved>(p =>
+            published<ImageRemoved>(p =>
                 p.ArticleId == theArticleId.Id
                 && p.FileName == "first.jpg"
                 && p.Initiator == theInitiator
                 && p.OwnerId == theOwner.OwnerId.Id);
 
         private It should_publish_preview_image_changed = () =>
-            wasPublished<PreviewImageChanged>(p =>
+            published<PreviewImageChanged>(p =>
                 p.ArticleId == theArticleId.Id
                 && p.FileLength == 2345
                 && p.FileName == "second.jpg"
@@ -338,7 +338,7 @@
             sut.Images.Single(p => p.FileName == "second.jpg").IsPreview.ShouldBeTrue();
 
         private It should_publish_preview_image_changed = () =>
-            wasPublished<PreviewImageChanged>(p =>
+            published<PreviewImageChanged>(p =>
                 p.ArticleId == theArticleId.Id
                 && p.FileLength == 2345
                 && p.FileName == "second.jpg"

@@ -5,6 +5,37 @@
     using System.Data;
     using FluentMigrator;
 
+    public abstract class DataMigrationBase : MigrationBase
+    {
+        public override void Up()
+        {
+            Execute.WithConnection((conn, tx) =>
+            {
+                Connection = conn;
+                Transaction = tx;
+                Migrate();
+            });
+        }
+
+        protected IDbTransaction Transaction { get; set; }
+
+        protected IDbConnection Connection { get; set; }
+
+        protected abstract void Migrate();
+
+        protected IDbCommand CreateCommand(string commandText)
+        {
+            var command = Connection.CreateCommand();
+            command.Transaction = Transaction;
+            command.CommandText = commandText;
+            return command;
+        }
+
+        public override void Down()
+        {            
+        }
+    }
+
     public abstract class MigrationBase : Migration
     {
         protected const string SchemaName = "dbo";
@@ -23,6 +54,8 @@
             DateTime.SpecifyKind(dateTimeLocal, DateTimeKind.Local);
             return dateTimeLocal.ToUniversalTime();
         }
+
+        
 
         protected void ResetAllProcessedNotificationTrackers()
         {

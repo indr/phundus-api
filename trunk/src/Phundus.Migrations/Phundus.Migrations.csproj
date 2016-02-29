@@ -205,6 +205,8 @@
     <Compile Include="2016\02\M201602281728_Set_UserId_on_UserSignedUp_events.cs" />
     <Compile Include="2016\02\M201602281804_Generate_missing_UserSignedUp_events.cs" />
     <Compile Include="2016\02\M201602281813_Reset_UserAddress_projection.cs" />
+    <Compile Include="2016\02\M201602290431_Create_organization_contact_details_postal_address_columns.cs" />
+    <Compile Include="2016\02\M201602290442_Migrate_organization_postal_addresses.cs" />
     <Compile Include="Helper\EventMigrationBase.cs" />
     <Compile Include="2016\01\M201601151255AddUserGuidToApplicationAndMembership.cs" />
     <Compile Include="2016\01\M201501110544AlterTableNames.cs" />

@@ -112,9 +112,10 @@
 
             if (requestContent.ContactDetails != null)
             {
+                var contactDetails = requestContent.ContactDetails;
                 Dispatch(new ChangeOrganizationContactDetails(CurrentUserId, new OrganizationId(organizationId),
-                    requestContent.ContactDetails.PostAddress, requestContent.ContactDetails.PhoneNumber,
-                    requestContent.ContactDetails.EmailAddress, requestContent.ContactDetails.Website));
+                    contactDetails.Line1, contactDetails.Line2, contactDetails.Street, contactDetails.Postcode, contactDetails.City,
+                    contactDetails.PhoneNumber, contactDetails.EmailAddress, contactDetails.Website));
             }
 
             if (!String.IsNullOrWhiteSpace(requestContent.Startpage))
@@ -147,6 +148,21 @@
     {
         [JsonProperty("postAddress")]
         public string PostAddress { get; set; }
+
+        [JsonProperty("line1")]
+        public string Line1 { get; set; }
+
+        [JsonProperty("line2")]
+        public string Line2 { get; set; }
+
+        [JsonProperty("street")]
+        public string Street { get; set; }
+
+        [JsonProperty("postcode")]
+        public string Postcode { get; set; }
+
+        [JsonProperty("city")]
+        public string City { get; set; }
 
         [JsonProperty("phoneNumber")]
         public string PhoneNumber { get; set; }

@@ -7,6 +7,7 @@
     using Machine.Fakes;
     using Machine.Specifications;
     using Phundus.IdentityAccess.Model;
+    using Phundus.IdentityAccess.Model.Organizations;
     using Phundus.IdentityAccess.Organizations.Model;
     using Phundus.IdentityAccess.Users.Model;
     using Rhino.Mocks;
@@ -59,13 +60,23 @@
         private static ContactDetails theContactDetails;
 
         private Establish ctx = () =>
-            theContactDetails = new ContactDetails("Post address", "Phone number", "Email address", "Website");
+            theContactDetails = new ContactDetails("Line1", "Line2", "Street", "Postcode", "City", "Phone number", "Email address", "Website");
 
         private Because of = () =>
-            sut.ChangeContactDetails(theContactDetails);
+            sut.ChangeContactDetails(theInitiator, theContactDetails);
 
         private It should_publish_organization_contact_details_changed = () =>
-            publisher.WasToldTo(x => x.Publish(Arg<OrganizationContactDetailsChanged>.Is.NotNull));
+            published<OrganizationContactDetailsChanged>(p =>
+                Equals(p.Initiator, theInitiator)
+                && p.OrganizationId == theOrganizationId.Id
+                && p.Line1 == "Line1"
+                && p.Line2 == "Line2"
+                && p.Street == "Street"
+                && p.Postcode == "Postcode"
+                && p.City == "City"
+                && p.PhoneNumber == "Phone number"
+                && p.EmailAddress == "Email address"
+                && p.Website == "Website");
 
         private It should_update_contact_details = () =>
             sut.ContactDetails.ShouldEqual(theContactDetails);
@@ -85,7 +96,7 @@
             sut.Plan.ShouldEqual(theNewOrganizationPlan);
 
         private It should_public_organization_plan_changed = () =>
-            wasPublished<OrganizationPlanChanged>(p =>
+            published<OrganizationPlanChanged>(p =>
                 p.Initiator.InitiatorId.Id == theAdmin.UserId.Id
                 && p.OrganizationId == theOrganizationId.Id
                 && p.OldPlan == "free"
@@ -114,7 +125,7 @@
             theMembership.RecievesEmailNotifications.ShouldBeTrue();
 
         private It should_publish_member_recieve_email_notification_changed = () =>
-            wasPublished<MemberRecieveEmailNotificationOptionChanged>(p =>
+            published<MemberRecieveEmailNotificationOptionChanged>(p =>
                 p.Initiator.InitiatorId.Id == theManager.UserId.Id
                 && p.OrganizationId == theOrganizationId.Id
                 && p.MemberId == theMember.UserId.Id
