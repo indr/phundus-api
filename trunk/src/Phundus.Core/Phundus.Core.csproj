@@ -154,7 +154,7 @@
     <Compile Include="IdentityAccess\Organizations\Model\OrganizationPlan.cs" />
     <Compile Include="IdentityAccess\Organizations\Model\MemberRole.cs" />
     <Compile Include="IdentityAccess\Organizations\Model\Settings.cs" />
-    <Compile Include="IdentityAccess\Organizations\Model\StartpageChanged.cs" />
+    <Compile Include="IdentityAccess\Model\Organizations\StartpageChanged.cs" />
     <Compile Include="IdentityAccess\Organizations\Repositories\IMembershipRepository.cs" />
     <Compile Include="IdentityAccess\Organizations\Repositories\IMembershipRequestRepository.cs" />
     <Compile Include="IdentityAccess\Organizations\Repositories\IOrganizationRepository.cs" />

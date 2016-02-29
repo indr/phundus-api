@@ -3,6 +3,7 @@
     using System;
     using Common.Domain.Model;
     using Cqrs;
+    using Integration.IdentityAccess;
     using Organizations.Repositories;
     using Projections;
 
@@ -24,24 +25,29 @@
 
     public class UpdateStartpageHandler : IHandleCommand<UpdateStartpage>
     {
+        private readonly IInitiatorService _initiatorService;
         private readonly IMemberInRole _memberInRole;
         private readonly IOrganizationRepository _organizationRepository;
 
-        public UpdateStartpageHandler(IMemberInRole memberInRole, IOrganizationRepository organizationRepository)
+        public UpdateStartpageHandler(IInitiatorService initiatorService, IMemberInRole memberInRole, IOrganizationRepository organizationRepository)
         {
+            if (initiatorService == null) throw new ArgumentNullException("initiatorService");
             if (memberInRole == null) throw new ArgumentNullException("memberInRole");
             if (organizationRepository == null) throw new ArgumentNullException("organizationRepository");
+
+            _initiatorService = initiatorService;
             _memberInRole = memberInRole;
             _organizationRepository = organizationRepository;
         }
 
         public void Handle(UpdateStartpage command)
         {
+            var initiator = _initiatorService.GetById(command.InitiatorId);
             _memberInRole.ActiveManager(command.OrganizationId.Id, command.InitiatorId);
 
             var organization = _organizationRepository.GetById(command.OrganizationId.Id);
 
-            organization.ChangeStartpage(command.InitiatorId, command.Startpage);
+            organization.ChangeStartpage(initiator, command.Startpage);
         }
     }
 }

@@ -170,14 +170,14 @@
             EventPublisher.Publish(new MemberRecieveEmailNotificationOptionChanged(manager, Id, memberId, value));
         }
 
-        public virtual void ChangeStartpage(UserId initiatorId, string startpage)
+        public virtual void ChangeStartpage(Initiator initiator, string startpage)
         {
             if (_startpage == startpage)
                 return;
 
             Startpage = startpage;
 
-            EventPublisher.Publish(new StartpageChanged());
+            EventPublisher.Publish(new StartpageChanged(initiator, Id, startpage));
         }
 
         public virtual void ChangeContactDetails(Initiator initiator, ContactDetails contactDetails)
