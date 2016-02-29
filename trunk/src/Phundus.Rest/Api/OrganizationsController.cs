@@ -60,18 +60,16 @@
             var store = _storesQueries.FindByOwnerId(new OwnerId(organization.OrganizationId));
             var result = new OrganizationsGetOkResponseContent
             {
-                Address = organization.PostalAddress,
-                EmailAddress = organization.EmailAddress,
                 Name = organization.Name,
                 OrganizationId = organization.OrganizationId,
                 Startpage = organization.Startpage,
                 Stores = new List<Store>(),
                 Url = organization.Url,
-                Website = organization.Website,
-                ContactDetails = new ContactDetails
+                
+                Contact = new ContactDetails
                 {                    
                     EmailAddress = organization.EmailAddress,
-                    PostAddress = organization.PostalAddress,
+                    PostalAddress = organization.PostalAddress,
                     Line1 = organization.Line1,
                     Line2 = organization.Line2,
                     Street = organization.Street,
@@ -150,8 +148,8 @@
 
     public class ContactDetails
     {
-        [JsonProperty("postAddress")]
-        public string PostAddress { get; set; }
+        [JsonProperty("postalAddress")]
+        public string PostalAddress { get; set; }
 
         [JsonProperty("line1")]
         public string Line1 { get; set; }
@@ -189,23 +187,14 @@
         [JsonProperty("url")]
         public string Url { get; set; }
 
-        [JsonProperty("address")]
-        public string Address { get; set; }
-
-        [JsonProperty("emailAddress")]
-        public string EmailAddress { get; set; }
-
-        [JsonProperty("website")]
-        public string Website { get; set; }
-
         [JsonProperty("startpage")]
         public string Startpage { get; set; }
 
         [JsonProperty("stores")]
         public List<Store> Stores { get; set; }
 
-        [JsonProperty("contactDetails")]
-        public ContactDetails ContactDetails { get; set; }
+        [JsonProperty("contact")]
+        public ContactDetails Contact { get; set; }
     }
 
     public class OrganizationsPostOkResponseContent

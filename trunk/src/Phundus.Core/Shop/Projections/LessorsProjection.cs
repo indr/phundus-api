@@ -33,6 +33,7 @@
                 x.PostalAddress = null;
                 x.PhoneNumber = null;
                 x.EmailAddress = null;
+                x.Website = null;
                 x.PublicRental = e.PublicRental;
             });
         }
@@ -44,6 +45,7 @@
                 x.PostalAddress = MakeOrganizationPostalAddress(e.Line1, e.Line2, e.Street, e.Postcode, e.City);
                 x.PhoneNumber = e.PhoneNumber;
                 x.EmailAddress = e.EmailAddress;
+                x.Website = e.Website;
             });
         }
 
@@ -62,6 +64,7 @@
                 x.PostalAddress = MakeUserPostalAddress(e.FirstName, e.LastName, e.Street, e.Postcode, e.City);
                 x.PhoneNumber = e.PhoneNumber;
                 x.EmailAddress = e.EmailAddress;
+                x.Website = null;
                 x.PublicRental = true;
             });
         }
