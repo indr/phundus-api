@@ -78,7 +78,7 @@
             return new Lessor(new LessorId(user.UserId), user.FullName, true);
         }
 
-        private static Lessor ToLessor(IOrganization organization)
+        private static Lessor ToLessor(OrganizationData organization)
         {
             return new Lessor(new LessorId(organization.OrganizationId), organization.Name, organization.PublicRental);
         }

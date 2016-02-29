@@ -43,7 +43,6 @@
     <Compile Include="IdentityAccess\Founder.cs" />
     <Compile Include="IdentityAccess\IInitiatorService.cs" />
     <Compile Include="IdentityAccess\IMembersWithRole.cs" />
-    <Compile Include="IdentityAccess\IOrganization.cs" />
     <Compile Include="IdentityAccess\IUser.cs" />
     <Compile Include="IdentityAccess\IUsersQueries.cs" />
     <Compile Include="IdentityAccess\Manager.cs" />

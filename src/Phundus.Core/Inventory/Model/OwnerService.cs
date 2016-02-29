@@ -38,7 +38,7 @@
             throw new NotFoundException(String.Format("Owner {0} not found.", ownerId));
         }
 
-        private static Owner ToOwner(IOrganization organization)
+        private static Owner ToOwner(OrganizationData organization)
         {
             return new Owner(new OwnerId(organization.OrganizationId), organization.Name, OwnerType.Organization);
         }
