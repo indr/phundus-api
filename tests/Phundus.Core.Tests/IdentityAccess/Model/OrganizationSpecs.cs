@@ -4,7 +4,6 @@
     using System.Linq;
     using Common.Domain.Model;
     using Integration.IdentityAccess;
-    using Machine.Fakes;
     using Machine.Specifications;
     using Phundus.IdentityAccess.Model;
     using Phundus.IdentityAccess.Model.Organizations;
@@ -60,7 +59,9 @@
         private static ContactDetails theContactDetails;
 
         private Establish ctx = () =>
-            theContactDetails = new ContactDetails("Line1", "Line2", "Street", "Postcode", "City", "Phone number", "Email address", "Website");
+            theContactDetails =
+                new ContactDetails("Line1", "Line2", "Street", "Postcode", "City", "Phone number", "Email address",
+                    "Website");
 
         private Because of = () =>
             sut.ChangeContactDetails(theInitiator, theContactDetails);
@@ -109,14 +110,15 @@
         private static User theMember;
         private static Membership theMembership;
 
-        private Establish ctx = () => sut_setup.run(sut =>
-        {
-            theMember = make.User();
-            var membershipApplicationId = new MembershipApplicationId();
-            var application = sut.ApplyForMembership(theInitiatorId, membershipApplicationId, theMember);
-            sut.ApproveMembershipApplication(theInitiatorId, application, Guid.NewGuid());
-            theMembership = sut.Memberships.Single(p => p.UserId.Id == theMember.UserId.Id);
-        });
+        private Establish ctx = () =>
+            sut_setup.run(sut =>
+            {
+                theMember = make.User();
+                var membershipApplicationId = new MembershipApplicationId();
+                var application = sut.ApplyForMembership(theInitiatorId, membershipApplicationId, theMember);
+                sut.ApproveMembershipApplication(theInitiatorId, application, Guid.NewGuid());
+                theMembership = sut.Memberships.Single(p => p.UserId.Id == theMember.UserId.Id);
+            });
 
         private Because of = () =>
             sut.ChangeMembersRecieveEmailNotificationOption(theManager, theMember.UserId, true);
@@ -129,7 +131,32 @@
                 p.Initiator.InitiatorId.Id == theManager.UserId.Id
                 && p.OrganizationId == theOrganizationId.Id
                 && p.MemberId == theMember.UserId.Id
-                && p.Value == true);
+                && p.Value);
+    }
+
+    [Subject(typeof (Organization))]
+    public class when_disabling_last_members_receives_email_notification : organization_concern
+    {
+        private static User theMember;
+
+        private Establish ctx = () =>
+            sut_setup.run(sut =>
+            {
+                theMember = make.User();
+                var applicationId = new MembershipApplicationId();
+                var application = sut.ApplyForMembership(theInitiatorId, applicationId, theMember);
+                sut.ApproveMembershipApplication(theInitiatorId, application, Guid.NewGuid());
+            });
+
+        private Because of = () =>
+            spec.catch_exception(() =>
+                sut.ChangeMembersRecieveEmailNotificationOption(theManager, theMember.UserId, false));
+
+        private It should_throw_no_manager_with_receives_email_notification = () =>
+            spec.exception_thrown.ShouldBeOfExactType<NoManagerWithReceivesEmailNotificationException>();
+
+        private It should_throw_with_message = () =>
+            spec.exception_thrown.Message.ShouldEqual("Mindestens ein Manager muss E-Mail-Benachrichtigungen erhalten.");
     }
 
     [Subject(typeof (Organization))]
@@ -147,7 +174,7 @@
             published<StartpageChanged>(p =>
                 Equals(p.Initiator, theInitiator)
                 && p.OrganizationId == theOrganizationId.Id
-                && p.Startpage == theNewStartpage);            
+                && p.Startpage == theNewStartpage);
     }
 
     [Subject(typeof (Organization))]

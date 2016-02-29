@@ -149,6 +149,7 @@
     <Compile Include="IdentityAccess\Organizations\Model\MembershipApplicationFiled.cs" />
     <Compile Include="IdentityAccess\Organizations\Model\MembershipApplicationRejected.cs" />
     <Compile Include="IdentityAccess\Organizations\Model\MemberUnlocked.cs" />
+    <Compile Include="IdentityAccess\Organizations\Model\NoManagerWithReceivesEmailNotificationException.cs" />
     <Compile Include="IdentityAccess\Organizations\Model\Organization.cs" />
     <Compile Include="IdentityAccess\Organizations\Model\OrganizationEstablished.cs" />
     <Compile Include="IdentityAccess\Organizations\Model\OrganizationPlan.cs" />
