@@ -23,7 +23,7 @@
 
         public IList<LessorData> Query()
         {
-            return QueryOver().Where(p => p.Type >= 0).OrderBy(p => p.Name).Asc.List();
+            return QueryOver().Where(p => p.Type == LessorData.LessorType.Organization).OrderBy(p => p.Name).Asc.List();
         }
     }
 }
