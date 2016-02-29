@@ -8,7 +8,7 @@ namespace Phundus.IdentityAccess.Organizations.Model
     [DataContract]
     public class OrganizationEstablished : DomainEvent
     {
-        public OrganizationEstablished(Founder founder, OrganizationId organizationId, string name, OrganizationPlan plan)
+        public OrganizationEstablished(Founder founder, OrganizationId organizationId, string name, OrganizationPlan plan, bool publicRental)
         {
             if (founder == null) throw new ArgumentNullException("founder");
             if (organizationId == null) throw new ArgumentNullException("organizationId");
@@ -17,7 +17,8 @@ namespace Phundus.IdentityAccess.Organizations.Model
             Initiator = new Initiator(new InitiatorId(founder.UserId), founder.EmailAddress, founder.FullName);
             OrganizationId = organizationId.Id;
             Name = name;
-            Plan = plan.ToString().ToLowerInvariant();            
+            Plan = plan.ToString().ToLowerInvariant();
+            PublicRental = publicRental;
         }
 
         protected OrganizationEstablished()
@@ -35,5 +36,8 @@ namespace Phundus.IdentityAccess.Organizations.Model
 
         [DataMember(Order = 4)]
         public string Plan { get; set; }
+
+        [DataMember(Order = 5)]
+        public bool PublicRental { get; set; }
     }
 }

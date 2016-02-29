@@ -50,7 +50,7 @@
 
         private void Process(UserEmailAddressChanged e)
         {
-            Update(e.UserGuid, x =>
+            Update(e.UserId, x =>
                 x.EmailAddress = e.NewEmailAddress);
         }
     }

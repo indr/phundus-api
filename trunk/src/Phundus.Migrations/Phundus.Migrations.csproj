@@ -214,6 +214,8 @@
     <Compile Include="2016\02\M201602291001_Reset_OrganizationProjection.cs" />
     <Compile Include="2016\02\M201602291026_Reinsert_PublicRentalSettingChanged.cs" />
     <Compile Include="2016\02\M201602291038_Delete_OrganizationEstablished_Reserved.cs" />
+    <Compile Include="2016\02\M201602291147_Drop_View_Shop_Lessors.cs" />
+    <Compile Include="2016\02\M201602291155_Reinsert_User_events.cs" />
     <Compile Include="Helper\EventMigrationBase.cs" />
     <Compile Include="2016\01\M201601151255AddUserGuidToApplicationAndMembership.cs" />
     <Compile Include="2016\01\M201501110544AlterTableNames.cs" />

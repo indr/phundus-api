@@ -1,40 +1,130 @@
 ﻿namespace Phundus.Shop.Projections
 {
     using System;
-    using System.Collections.Generic;
-    using Common;
+    using System.Text;
+    using Common.Domain.Model;
+    using Common.Notifications;
     using Cqrs;
+    using IdentityAccess.Model;
+    using IdentityAccess.Model.Organizations;
+    using IdentityAccess.Model.Users;
+    using IdentityAccess.Organizations.Model;
+    using IdentityAccess.Users.Model;
 
-    public interface ILessorQueries
+    public class LessorsProjection : ProjectionBase<LessorData>, IStoredEventsConsumer
     {
-        LessorViewRow GetByGuid(Guid lessorId);
-        IList<LessorViewRow> Query();
-    }
-
-    public class LessorsProjection : ProjectionBase<LessorViewRow>, ILessorQueries
-    {
-        public LessorViewRow GetByGuid(Guid lessorId)
+        public void Handle(DomainEvent e)
         {
-            var result = SingleOrDefault(p => p.LessorGuid == lessorId);
-            if (result == null)
-                throw new NotFoundException("Lessor {0} not found.", lessorId);
-            return result;
+            Process((dynamic) e);
         }
 
-        public IList<LessorViewRow> Query()
+        private void Process(DomainEvent e)
         {
-            return QueryOver().Where(p => p.LessorType >= 0).OrderBy(p => p.Name).Asc.List();
+            // Noop
         }
-    }
 
-    public class LessorViewRow
-    {
-        public virtual Guid LessorGuid { get; protected set; }
-        public virtual int LessorType { get; protected set; }
-        public virtual string Name { get; protected set; }
-        public virtual string Address { get; protected set; }
-        public virtual string PhoneNumber { get; protected set; }
-        public virtual string EmailAddress { get; protected set; }
-        public virtual bool PublicRental { get; protected set; }
+        private void Process(OrganizationEstablished e)
+        {
+            Insert(x =>
+            {
+                x.LessorId = e.OrganizationId;
+                x.Type = LessorData.LessorType.Organization;
+                x.Name = e.Name;
+                x.PostalAddress = null;
+                x.PhoneNumber = null;
+                x.EmailAddress = null;
+                x.PublicRental = e.PublicRental;
+            });
+        }
+
+        private void Process(OrganizationContactDetailsChanged e)
+        {
+            Update(e.OrganizationId, x =>
+            {
+                x.PostalAddress = MakeOrganizationPostalAddress(e.Line1, e.Line2, e.Street, e.Postcode, e.City);
+                x.PhoneNumber = e.PhoneNumber;
+                x.EmailAddress = e.EmailAddress;
+            });
+        }
+
+        private void Process(PublicRentalSettingChanged e)
+        {
+            Update(e.OrganizationId, x => { x.PublicRental = e.Value; });
+        }
+
+        private void Process(UserSignedUp e)
+        {
+            Insert(x =>
+            {
+                x.LessorId = e.UserId;
+                x.Type = LessorData.LessorType.User;
+                x.Name = e.FirstName + " " + e.LastName;
+                x.PostalAddress = MakeUserPostalAddress(e.FirstName, e.LastName, e.Street, e.Postcode, e.City);
+                x.PhoneNumber = e.PhoneNumber;
+                x.EmailAddress = e.EmailAddress;
+                x.PublicRental = true;
+            });
+        }
+
+        private void Process(UserEmailAddressChanged e)
+        {
+            Update(e.UserId, x => { x.EmailAddress = e.NewEmailAddress; });
+        }
+
+        private void Process(UserAddressChanged e)
+        {
+            Update(e.UserId, x =>
+            {
+                x.PostalAddress = MakeUserPostalAddress(e.FirstName, e.LastName, e.Street, e.Postcode, e.City);
+                x.PhoneNumber = e.PhoneNumber;
+            });
+        }
+
+        private string MakeOrganizationPostalAddress(string line1, string line2, string street, string postcode,
+            string city)
+        {
+            var sb = new StringBuilder();
+
+            if (!String.IsNullOrWhiteSpace(line1))
+                sb.AppendLine(line1);
+            if (!String.IsNullOrWhiteSpace(line2))
+                sb.AppendLine(line2);
+            if (!String.IsNullOrWhiteSpace(street))
+                sb.AppendLine(street);
+
+            if (!String.IsNullOrWhiteSpace(postcode) && !String.IsNullOrWhiteSpace(city))
+                sb.AppendLine(postcode + " " + city);
+            else if (!String.IsNullOrWhiteSpace(postcode))
+                sb.AppendLine(postcode);
+            else
+                sb.AppendLine(city);
+
+            return sb.ToString();
+        }
+
+        private string MakeUserPostalAddress(string firstName, string lastName, string street, string postcode,
+            string city)
+        {
+            var sb = new StringBuilder();
+
+            if (!String.IsNullOrWhiteSpace(firstName) && !String.IsNullOrWhiteSpace(lastName))
+                sb.AppendLine(firstName + " " + lastName);
+            else if (!String.IsNullOrWhiteSpace(firstName))
+                sb.AppendLine(firstName);
+            else
+                sb.AppendLine(lastName);
+
+            if (!String.IsNullOrWhiteSpace(street))
+                sb.AppendLine(street);
+
+            if (!String.IsNullOrWhiteSpace(postcode) && !String.IsNullOrWhiteSpace(city))
+                sb.AppendLine(postcode + " " + city);
+            else if (!String.IsNullOrWhiteSpace(postcode))
+                sb.AppendLine(postcode);
+            else
+                sb.AppendLine(city);
+
+            return sb.ToString();
+        }
     }
 }

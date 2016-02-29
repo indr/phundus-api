@@ -7,11 +7,14 @@ namespace Phundus.IdentityAccess.Users.Model
     [DataContract]
     public class UserEmailAddressChanged : DomainEvent
     {
-        public UserEmailAddressChanged(Guid userGuid, string oldEmailAddress, string newEmailAddress)
+        public UserEmailAddressChanged(Initiator initiator, UserId userId, string oldEmailAddress,
+            string newEmailAddress)
         {
             if (oldEmailAddress == null) throw new ArgumentNullException("oldEmailAddress");
             if (newEmailAddress == null) throw new ArgumentNullException("newEmailAddress");
-            UserGuid = userGuid;
+
+            Initiator = initiator;
+            UserId = userId.Id;
             OldEmailAddress = oldEmailAddress;
             NewEmailAddress = newEmailAddress;
         }
@@ -21,12 +24,15 @@ namespace Phundus.IdentityAccess.Users.Model
         }
 
         [DataMember(Order = 1)]
-        public Guid UserGuid { get; set; }
+        public Guid UserId { get; protected set; }
 
         [DataMember(Order = 2)]
         public string OldEmailAddress { get; protected set; }
 
         [DataMember(Order = 3)]
         public string NewEmailAddress { get; protected set; }
+
+        [DataMember(Order = 4)]
+        public Initiator Initiator { get; protected set; }
     }
 }
