@@ -88,7 +88,7 @@ namespace Phundus.IdentityAccess.Projections
         }
     }
 
-    public class OrganizationData : IOrganization
+    public class OrganizationData
     {
         private string _website;
 
