@@ -209,6 +209,11 @@
     <Compile Include="2016\02\M201602290442_Migrate_organization_postal_addresses.cs" />
     <Compile Include="2016\02\M201602290608_Delete_StoredEvents_OrganizationUpdated.cs" />
     <Compile Include="2016\02\M201602290927_Remove_organization_Reserved.cs" />
+    <Compile Include="2016\02\M201602290942_Generate_StartpageChanged_events.cs" />
+    <Compile Include="2016\02\M201602290949_Generate_missing_OrganizationContactDetailsChanged_events.cs" />
+    <Compile Include="2016\02\M201602291001_Reset_OrganizationProjection.cs" />
+    <Compile Include="2016\02\M201602291026_Reinsert_PublicRentalSettingChanged.cs" />
+    <Compile Include="2016\02\M201602291038_Delete_OrganizationEstablished_Reserved.cs" />
     <Compile Include="Helper\EventMigrationBase.cs" />
     <Compile Include="2016\01\M201601151255AddUserGuidToApplicationAndMembership.cs" />
     <Compile Include="2016\01\M201501110544AlterTableNames.cs" />
@@ -240,6 +245,7 @@
     <Compile Include="Helper\DatedAttribute.cs" />
     <Compile Include="Helper\MigrationBase.cs" />
     <Compile Include="Helper\Runner.cs" />
+    <Compile Include="Helper\SqlReaderExtensions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Profiles\ResetDatabaseProfile.cs" />
   </ItemGroup>

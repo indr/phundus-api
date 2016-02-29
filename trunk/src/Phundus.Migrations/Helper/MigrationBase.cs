@@ -7,6 +7,10 @@
 
     public abstract class DataMigrationBase : MigrationBase
     {
+        protected IDbTransaction Transaction { get; set; }
+
+        protected IDbConnection Connection { get; set; }
+
         public override void Up()
         {
             Execute.WithConnection((conn, tx) =>
@@ -16,10 +20,6 @@
                 Migrate();
             });
         }
-
-        protected IDbTransaction Transaction { get; set; }
-
-        protected IDbConnection Connection { get; set; }
 
         protected abstract void Migrate();
 
@@ -32,7 +32,7 @@
         }
 
         public override void Down()
-        {            
+        {
         }
     }
 
@@ -55,23 +55,23 @@
             return dateTimeLocal.ToUniversalTime();
         }
 
-        
 
         protected void ResetAllProcessedNotificationTrackers()
         {
             Delete.FromTable("ProcessedNotificationTracker").AllRows();
         }
 
-        protected void ResetTracker(string trackerTypeName)
+        protected void DeleteTracker(string trackerTypeName)
         {
-            Execute.Sql(String.Format(@"DELETE FROM [ProcessedNotificationTracker] WHERE [TypeName] LIKE '%{0}'", trackerTypeName));            
+            Execute.Sql(String.Format(@"DELETE FROM [ProcessedNotificationTracker] WHERE [TypeName] LIKE '%{0}'",
+                trackerTypeName));
         }
 
         protected void EmptyTableAndResetTracker(string tableName, string trackerTypeName)
         {
             if (Schema.Table(tableName).Exists())
                 Delete.FromTable(tableName).AllRows();
-            ResetTracker(trackerTypeName);
+            DeleteTracker(trackerTypeName);
         }
 
         protected void DeleteTable(string tableName)
@@ -79,17 +79,24 @@
             if (Schema.Table(tableName).Exists())
                 Delete.Table(tableName);
         }
+
         protected void DeleteTableAndResetTracker(string tableName, string trackerTypeName)
         {
             DeleteTable(tableName);
-            ResetTracker(trackerTypeName);
+            DeleteTracker(trackerTypeName);
         }
     }
 
     public abstract class HydrationBase : MigrationBase
     {
+        private readonly IList<string> _commands = new List<string>();
         private IDbConnection _conn;
         private IDbTransaction _tx;
+
+        protected IList<string> Commands
+        {
+            get { return _commands; }
+        }
 
         public override void Up()
         {
@@ -117,10 +124,6 @@
             result.CommandText = sql;
             return result;
         }
-
-        private readonly IList<string> _commands = new List<string>();
-
-        protected IList<string> Commands { get { return _commands; } }
 
         protected void ExecuteCommands()
         {

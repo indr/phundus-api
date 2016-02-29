@@ -3,6 +3,7 @@
     using Machine.Fakes;
     using Machine.Specifications;
     using Phundus.IdentityAccess.Application;
+    using Phundus.IdentityAccess.Model.Organizations;
     using Phundus.IdentityAccess.Organizations.Model;
     using Phundus.IdentityAccess.Organizations.Repositories;
     using Rhino.Mocks;

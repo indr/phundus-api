@@ -10,7 +10,7 @@
         {
             if (Schema.Table("Es_Inventory_Stores").Exists())
                 Delete.Table("Es_Inventory_Stores");
-            ResetTracker("Phundus.Inventory.Projections.StoresProjection");
+            DeleteTracker("Phundus.Inventory.Projections.StoresProjection");
         }
 
         public override void Down()

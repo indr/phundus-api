@@ -9,7 +9,7 @@ namespace Phundus.Migrations
         public override void Up()
         {
             DeleteTable("Es_IdentityAccess_UserAddress");
-            ResetTracker("UserAddressProjection");
+            DeleteTracker("UserAddressProjection");
         }
 
         public override void Down()
