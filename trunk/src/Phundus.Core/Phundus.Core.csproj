@@ -121,8 +121,8 @@
     <Compile Include="IdentityAccess\Authorization\Manage.cs" />
     <Compile Include="IdentityAccess\Application\ChangeMemberRecievesEmailNotification.cs" />
     <Compile Include="IdentityAccess\Model\Organizations\OrganizationContactDetailsChanged.cs" />
-    <Compile Include="IdentityAccess\Model\OrganizationPlanChanged.cs" />
-    <Compile Include="IdentityAccess\Model\PublicRentalSettingChanged.cs" />
+    <Compile Include="IdentityAccess\Model\Organizations\OrganizationPlanChanged.cs" />
+    <Compile Include="IdentityAccess\Model\Organizations\PublicRentalSettingChanged.cs" />
     <Compile Include="IdentityAccess\Application\ApplyForMembership.cs" />
     <Compile Include="IdentityAccess\Application\ApproveMembershipApplication.cs" />
     <Compile Include="IdentityAccess\Application\ChangeMembersRole.cs" />
@@ -158,6 +158,7 @@
     <Compile Include="IdentityAccess\Organizations\Repositories\IMembershipRepository.cs" />
     <Compile Include="IdentityAccess\Organizations\Repositories\IMembershipRequestRepository.cs" />
     <Compile Include="IdentityAccess\Organizations\Repositories\IOrganizationRepository.cs" />
+    <Compile Include="IdentityAccess\Projections\OrganizationProjection.cs" />
     <Compile Include="IdentityAccess\Projections\RelationshipProjection.cs" />
     <Compile Include="IdentityAccess\Projections\MemberInRoleProjection.cs" />
     <Compile Include="IdentityAccess\Projections\MembershipsProjection.cs" />
