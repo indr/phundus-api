@@ -22,12 +22,12 @@ namespace Phundus.IdentityAccess.Model.Organizations
         }
 
         [DataMember(Order = 1)]
-        public Initiator Initiator { get; set; }
+        public Initiator Initiator { get; protected set; }
 
         [DataMember(Order = 2)]
-        public Guid OrganizationId { get; set; }
+        public Guid OrganizationId { get; protected set; }
 
         [DataMember(Order = 3)]
-        public string Startpage { get; set; }
+        public string Startpage { get; protected set; }
     }
 }

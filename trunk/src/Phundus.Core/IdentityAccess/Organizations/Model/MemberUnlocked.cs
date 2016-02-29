@@ -24,7 +24,7 @@ namespace Phundus.IdentityAccess.Organizations.Model
         public Guid UserGuid { get; protected set; }
 
         [DataMember(Order = 5)]
-        public Guid InitiatorId { get; private set; }
+        public Guid InitiatorId { get; protected set; }
 
         [Obsolete]
         [DataMember(Order = 1)]

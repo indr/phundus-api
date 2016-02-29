@@ -104,7 +104,7 @@
             () => orderRepository.WasToldTo(x => x.Add(Arg<Order>.Matches(p => p.Lines.Count == 2)));
 
         private It should_publish_order_placed = () =>
-            Published<OrderPlaced>(p =>
+            published<OrderPlaced>(p =>
                 Equals(p.Initiator.InitiatorId, theInitiatorId)
                 && p.LessorId == theLessor.LessorId.Id);
 

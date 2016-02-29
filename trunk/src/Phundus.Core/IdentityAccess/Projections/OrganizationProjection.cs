@@ -5,8 +5,7 @@ namespace Phundus.IdentityAccess.Projections
     using Common;
     using Common.Domain.Model;
     using Common.Notifications;
-    using Cqrs;
-    using Integration.IdentityAccess;
+    using Cqrs;    
     using Model;
     using Model.Organizations;
     using Organizations.Model;
@@ -32,6 +31,7 @@ namespace Phundus.IdentityAccess.Projections
                 x.Url = e.Name.ToFriendlyUrl();
                 x.Plan = e.Plan;
                 x.EstablishedAtUtc = e.OccuredOnUtc;
+                x.PublicRental = e.PublicRental;
             });
         }
 

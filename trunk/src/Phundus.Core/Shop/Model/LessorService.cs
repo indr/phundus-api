@@ -75,12 +75,14 @@
 
         private static Lessor ToLessor(IUser user)
         {
-            return new Lessor(new LessorId(user.UserId), user.FullName, true);
+            var lessorId = new LessorId(user.UserId);
+            return new Lessor(lessorId, user.FullName, true);
         }
 
         private static Lessor ToLessor(OrganizationData organization)
         {
-            return new Lessor(new LessorId(organization.OrganizationId), organization.Name, organization.PublicRental);
+            var lessorId = new LessorId(organization.OrganizationId);
+            return new Lessor(lessorId, organization.Name, organization.PublicRental);
         }
     }
 }

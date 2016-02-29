@@ -56,7 +56,7 @@
                     Arg<CreateArticleAccessObject>.Matches(p => Equals(p.OwnerId, theOwner.OwnerId))));
 
         public It should_publish_article_created = () =>
-            Published<ArticleCreated>(p =>
+            published<ArticleCreated>(p =>
                 p.ArticleId == theArticleId.Id
                 && p.GrossStock == theGrossStock
                 && Equals(p.Initiator.InitiatorId, theInitiatorId)

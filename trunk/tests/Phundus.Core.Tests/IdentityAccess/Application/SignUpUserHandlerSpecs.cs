@@ -27,7 +27,7 @@
             () => userRepository.WasToldTo(x => x.FindByEmailAddress(command.EmailAddress.ToLowerInvariant().Trim()));
 
         public It should_publish_user_signed_up = () =>
-            Published<UserSignedUp>(p => p.City == "City"
+            published<UserSignedUp>(p => p.City == "City"
                                          && p.EmailAddress == "mail@domain.com"
                                          && p.FirstName == "FirstName"
                                          && p.JsNumber == null

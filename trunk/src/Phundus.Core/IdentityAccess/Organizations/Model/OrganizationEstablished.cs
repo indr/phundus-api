@@ -26,18 +26,18 @@ namespace Phundus.IdentityAccess.Organizations.Model
         }
 
         [DataMember(Order = 1)]
-        public Initiator Initiator { get; set; }
+        public Initiator Initiator { get; protected set; }
 
         [DataMember(Order = 2)]
-        public Guid OrganizationId { get; set; }
+        public Guid OrganizationId { get; protected set; }
 
         [DataMember(Order = 3)]
-        public string Name { get; set; }
+        public string Name { get; protected set; }
 
         [DataMember(Order = 4)]
-        public string Plan { get; set; }
+        public string Plan { get; protected set; }
 
         [DataMember(Order = 5)]
-        public bool PublicRental { get; set; }
+        public bool PublicRental { get; protected set; }
     }
 }

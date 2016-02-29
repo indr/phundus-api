@@ -16,6 +16,7 @@
             if (initiatorId == null) throw new ArgumentNullException("initiatorId");
             if (organizationId == null) throw new ArgumentNullException("organizationId");
             if (name == null) throw new ArgumentNullException("name");
+
             InitiatorId = initiatorId;
             OrganizationId = organizationId;
             Name = name;

@@ -16,6 +16,6 @@
         }
 
         [DataMember(Order = 1)]
-        public int UserId { get; set; }
+        public int UserId { get; protected set; }
     }
 }
