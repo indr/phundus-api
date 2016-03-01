@@ -19,6 +19,7 @@ namespace Phundus.Web
         {
             if (logger == null) throw new ArgumentNullException("logger");
             if (dispatcher == null) throw new ArgumentNullException("dispatcher");
+
             _logger = logger;
             _dispatcher = dispatcher;
         }

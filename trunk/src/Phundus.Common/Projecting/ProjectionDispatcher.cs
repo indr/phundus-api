@@ -6,7 +6,7 @@ namespace Phundus.Common.Projecting
     using Eventing;
     using Notifications;
 
-    public class ReadModelUpdater : INotificationHandler
+    public class ProjectionDispatcher : INotificationConsumer
     {
         private static object _lock = new object();
 

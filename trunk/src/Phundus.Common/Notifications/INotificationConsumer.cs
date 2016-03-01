@@ -1,8 +1,9 @@
 namespace Phundus.Common.Notifications
 {
-    public interface INotificationHandler
+    public interface INotificationConsumer
     {
         void Handle(Notification notification);
+
         void ProcessMissedNotifications();
     }
 }

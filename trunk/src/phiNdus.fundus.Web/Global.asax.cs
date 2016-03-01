@@ -14,14 +14,10 @@
     {
         private static IWindsorContainer _container;
 
-        #region IContainerAccessor Members
-
         public IWindsorContainer Container
         {
             get { return _container; }
         }
-
-        #endregion
 
         protected void Application_Start()
         {
