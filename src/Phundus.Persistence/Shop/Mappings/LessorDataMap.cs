@@ -13,6 +13,7 @@
             Id(x => x.LessorId, "LessorId").GeneratedBy.Assigned();
             Map(x => x.Type, "LessorType").CustomType<LessorData.LessorType>();
             Map(x => x.Name, "Name");
+            Map(x => x.Url, "Url");
             Map(x => x.PostalAddress, "PostalAddress");
             Map(x => x.PhoneNumber, "PhoneNumber");
             Map(x => x.EmailAddress, "EmailAddress");
