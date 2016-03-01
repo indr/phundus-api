@@ -6,18 +6,18 @@
 
     public class ProcessMissedNotificationsStartupTask : IStartupTask
     {
-        private INotificationHandler _notificationHandler;
+        private INotificationConsumer _notificationConsumer;
 
-        public ProcessMissedNotificationsStartupTask(INotificationHandler notificationHandler)
+        public ProcessMissedNotificationsStartupTask(INotificationConsumer notificationConsumer)
         {
-            if (notificationHandler == null) throw new ArgumentNullException("notificationHandler");
-            _notificationHandler = notificationHandler;
+            if (notificationConsumer == null) throw new ArgumentNullException("notificationConsumer");
+            _notificationConsumer = notificationConsumer;
         }
 
         public void Run()
         {
-            _notificationHandler.ProcessMissedNotifications();
-            _notificationHandler = null;
+            _notificationConsumer.ProcessMissedNotifications();
+            _notificationConsumer = null;
         }
 
         public void Reset()

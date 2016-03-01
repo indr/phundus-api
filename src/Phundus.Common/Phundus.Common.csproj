@@ -64,6 +64,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="App_Start\NotificationConsumerInstaller.cs" />
+    <Compile Include="App_Start\NotificationPublisherInstaller.cs" />
     <Compile Include="AssertionConcern.cs" />
     <Compile Include="AuthorizationException.cs" />
     <Compile Include="Commanding\AutoReleaseCommandHandlerInterceptor.cs" />
@@ -96,7 +98,7 @@
     <Compile Include="Projecting\ProjectionBase.cs" />
     <Compile Include="Querying\QueryResult.cs" />
     <Compile Include="Projecting\RawJsonConverter.cs" />
-    <Compile Include="Projecting\ReadModelUpdater.cs" />
+    <Compile Include="Projecting\ProjectionDispatcher.cs" />
     <Compile Include="ProviderUserKey.cs" />
     <Compile Include="Domain.Model\StoreId.cs" />
     <Compile Include="Domain.Model\UserRole.cs" />
@@ -108,11 +110,11 @@
     <Compile Include="NotFoundException.cs" />
     <Compile Include="Notifications\IStoredEventsConsumer.cs" />
     <Compile Include="Notifications\IDomainEventHandlerFactory.cs" />
-    <Compile Include="Notifications\INotificationHandlerFactory.cs" />
+    <Compile Include="Notifications\INotificationConsumerFactory.cs" />
     <Compile Include="Notifications\INotificationPublisher.cs" />
     <Compile Include="Notifications\InThreadNotificationPublisher.cs" />
     <Compile Include="Notifications\IProcessedNotificationTrackerStore.cs" />
-    <Compile Include="Notifications\INotificationHandler.cs" />
+    <Compile Include="Notifications\INotificationConsumer.cs" />
     <Compile Include="Notifications\INotificationLogFactory.cs" />
     <Compile Include="Notifications\Notification.cs" />
     <Compile Include="Notifications\NotificationLog.cs" />
@@ -126,9 +128,7 @@
     <None Include="app.config" />
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="App_Start\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

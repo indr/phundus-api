@@ -7,15 +7,15 @@
     public class InThreadNotificationPublisher : INotificationPublisher
     {
         private readonly IEventStore _eventStore;
-        private readonly INotificationHandlerFactory _handlerFactory;
+        private readonly INotificationConsumerFactory _consumerFactory;
 
-        public InThreadNotificationPublisher(IEventStore eventStore, INotificationHandlerFactory handlerFactory)
+        public InThreadNotificationPublisher(IEventStore eventStore, INotificationConsumerFactory consumerFactory)
         {
             if (eventStore == null) throw new ArgumentNullException("eventStore");
-            if (handlerFactory == null) throw new ArgumentNullException("handlerFactory");
+            if (consumerFactory == null) throw new ArgumentNullException("consumerFactory");
 
             _eventStore = eventStore;
-            _handlerFactory = handlerFactory;
+            _consumerFactory = consumerFactory;
         }
 
         public void PublishNotification(StoredEvent storedEvent)
@@ -33,7 +33,7 @@
 
         private void PublishNotification(Notification notification)
         {
-            var handlers = _handlerFactory.GetNotificationHandlers();
+            var handlers = _consumerFactory.GetNotificationConsumers();
 
             foreach (var each in handlers)
             {
