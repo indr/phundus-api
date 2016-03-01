@@ -96,9 +96,9 @@
     <Compile Include="Inventory\Repositories\NhStoreRepository.cs" />
     <Compile Include="NHibernateProcessedNotificationTrackerStore.cs" />
     <Compile Include="Shop\Model\CartItemMap.cs" />
-    <Compile Include="Shop\Projections\CartItemViewRowMap.cs" />
+    <Compile Include="Shop\Projections\CartItemDataMap.cs" />
     <Compile Include="Shop\Model\CartMap.cs" />
-    <Compile Include="Shop\Projections\CartViewRowMap.cs" />
+    <Compile Include="Shop\Projections\CartDataMap.cs" />
     <Compile Include="Shop\Projections\LessorDataMap.cs" />
     <Compile Include="Shop\Projections\OrderDataMap.cs" />
     <Compile Include="Shop\Projections\ShopItemsDataMap.cs" />
