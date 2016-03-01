@@ -4,7 +4,6 @@
     using Common.Domain.Model;
     using Common.Notifications;
     using Common.Projecting;
-    using Cqrs;
     using Organizations.Model;
 
     public interface IRelationshipQueries

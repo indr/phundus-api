@@ -4,7 +4,6 @@
     using System.Collections.Generic;
     using System.Linq;
     using Common.Eventing;
-    using Ddd;
     using NHibernate.Criterion;
 
     public class NhStoredEventRepository : NhRepositoryBase<StoredEvent>, IStoredEventRepository

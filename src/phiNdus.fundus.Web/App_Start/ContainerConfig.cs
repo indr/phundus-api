@@ -8,7 +8,7 @@
     using Castle.MicroKernel.Registration;
     using Castle.MicroKernel.SubSystems.Configuration;
     using Castle.Windsor;
-    using Ddd;
+    using Common.Eventing;
     using Elmah.Mvc;
     using Persistence;
     using Plumbing;

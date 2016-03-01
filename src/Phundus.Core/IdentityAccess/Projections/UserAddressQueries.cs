@@ -3,7 +3,6 @@ namespace Phundus.IdentityAccess.Projections
     using System;
     using Common.Domain.Model;
     using Common.Querying;
-    using Cqrs;
     using NHibernate;
 
     public interface IUserAddressQueries

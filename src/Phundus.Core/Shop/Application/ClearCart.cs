@@ -1,8 +1,8 @@
 ﻿namespace Phundus.Shop.Application
 {
     using System;
+    using Common.Commanding;
     using Common.Domain.Model;
-    using Cqrs;
     using Shop.Model;
 
     public class ClearCart : ICommand

@@ -4,9 +4,9 @@
     using System.Linq;
     using Authorization;
     using Common;
+    using Common.Commanding;
     using Common.Domain.Model;
-    using Cqrs;
-    using Ddd;
+    using Common.Eventing;
     using Integration.IdentityAccess;
     using Model;
     using Orders.Model;

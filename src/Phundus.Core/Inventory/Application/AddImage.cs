@@ -3,8 +3,8 @@
     using System;
     using System.IO;
     using Articles.Repositories;
+    using Common.Commanding;
     using Common.Domain.Model;
-    using Cqrs;
     using IdentityAccess.Projections;
     using Integration.IdentityAccess;
 

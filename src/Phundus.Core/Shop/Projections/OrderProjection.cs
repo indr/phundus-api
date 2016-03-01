@@ -7,7 +7,6 @@
     using Common.Domain.Model;
     using Common.Notifications;
     using Common.Projecting;
-    using Cqrs;
     using Orders.Model;
 
     public class OrderProjection : ProjectionBase<OrderData>, IStoredEventsConsumer

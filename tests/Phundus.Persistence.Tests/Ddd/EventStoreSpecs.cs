@@ -4,7 +4,6 @@
     using Common.Eventing;
     using Machine.Fakes;
     using Machine.Specifications;
-    using Phundus.Ddd;
     using Rhino.Mocks;
     using StoredEvents;
 

@@ -8,7 +8,6 @@
     using Common.Notifications;
     using Common.Projecting;
     using Common.Projections;
-    using Cqrs;
     using Newtonsoft.Json;
 
     public interface IArticleActionsQueries

@@ -3,12 +3,12 @@ namespace Phundus.Tests
     using System;
     using System.Linq.Expressions;
     using Authorization;
+    using Common.Commanding;
     using Common.Domain.Model;
     using developwithpassion.specifications.extensions;
     using Integration.IdentityAccess;
     using Machine.Fakes;
     using Machine.Specifications;
-    using Phundus.Cqrs;
     using Rhino.Mocks;
 
     public abstract class command_handler_concern<TCommand, THandler> : concern<THandler>

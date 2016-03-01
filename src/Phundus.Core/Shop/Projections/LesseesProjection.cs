@@ -3,7 +3,6 @@
     using System;
     using Common;
     using Common.Projecting;
-    using Cqrs;
     using Integration.IdentityAccess;
 
     public interface ILesseeQueries

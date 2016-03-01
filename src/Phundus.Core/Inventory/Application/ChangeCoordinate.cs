@@ -1,8 +1,8 @@
 ﻿namespace Phundus.Inventory.Application
 {
     using System;
+    using Common.Commanding;
     using Common.Domain.Model;
-    using Cqrs;
     using Inventory.Model;
     using Stores.Model;
     using Stores.Repositories;

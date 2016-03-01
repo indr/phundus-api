@@ -106,13 +106,6 @@
     <Compile Include="Authorization\IAccessObjectHandlerFactory.cs" />
     <Compile Include="Authorization\IHandleAccessObject.cs" />
     <Compile Include="Dashboard\Projections\EventLogProjection.cs" />
-    <Compile Include="Ddd\AutoReleaseEventHandlerInterceptor.cs" />
-    <Compile Include="Ddd\EventHandlerSelector.cs" />
-    <Compile Include="Ddd\EventPublisherImpl.cs" />
-    <Compile Include="Ddd\IEventHandlerFactory.cs" />
-    <Compile Include="Ddd\IStoredEventRepository.cs" />
-    <Compile Include="Ddd\ISubscribeTo.cs" />
-    <Compile Include="Cqrs\AutoMappingReadModelBase.cs" />
     <Compile Include="IdentityAccess\Application\ChangeUserAddress.cs" />
     <Compile Include="IdentityAccess\Authorization\Manage.cs" />
     <Compile Include="IdentityAccess\Application\ChangeMemberRecievesEmailNotification.cs" />
@@ -242,7 +235,7 @@
     <Compile Include="Shop\Projections\OrderQueries.cs" />
     <Compile Include="Shop\Projections\ShopItemProjection.cs" />
     <Compile Include="Inventory\Projections\ArticlesProjection.cs" />
-    <Compile Include="Inventory\Projections\ImagesProjection.cs" />
+    <Compile Include="Inventory\Projections\ImageQueries.cs" />
     <Compile Include="Inventory\Model\Articles\IArticleRepository.cs" />
     <Compile Include="Inventory\Projections\AvailabilityProjection.cs" />
     <Compile Include="Inventory\Application\AvailabilityService.cs" />
@@ -303,15 +296,7 @@
     <Compile Include="Shop\Model\UserInRole.cs" />
     <Compile Include="Web\Projections\UrlMapProjection.cs" />
     <Compile Include="_Legacy\BaseMail.cs" />
-    <Compile Include="Cqrs\AutoReleaseCommandHandlerInterceptor.cs" />
-    <Compile Include="Cqrs\CommandDispatcher.cs" />
-    <Compile Include="Cqrs\CommandHandlerSelector.cs" />
     <Compile Include="App_Start\CoreInstaller.cs" />
-    <Compile Include="Cqrs\ICommand.cs" />
-    <Compile Include="Cqrs\ICommandDispatcher.cs" />
-    <Compile Include="Cqrs\IHandleCommand.cs" />
-    <Compile Include="Cqrs\ICommandHandlerFactory.cs" />
-    <Compile Include="Ddd\EventPublisher.cs" />
     <Compile Include="Inventory\Model\Articles\Article.cs" />
     <Compile Include="Shop\Model\Mails\Templates.Designer.cs">
       <AutoGen>True</AutoGen>

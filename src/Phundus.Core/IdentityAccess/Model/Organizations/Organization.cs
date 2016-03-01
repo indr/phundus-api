@@ -4,7 +4,7 @@
     using System.Linq;
     using Common;
     using Common.Domain.Model;
-    using Ddd;
+    using Common.Eventing;
     using IdentityAccess.Model;
     using IdentityAccess.Model.Organizations;
     using Iesi.Collections.Generic;

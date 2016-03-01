@@ -3,7 +3,7 @@
     using System;
     using System.Linq;
     using Common.Domain.Model;
-    using Ddd;
+    using Common.Eventing;
     using Iesi.Collections.Generic;
     using Inventory.Model;
 

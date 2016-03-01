@@ -66,6 +66,13 @@
   <ItemGroup>
     <Compile Include="AssertionConcern.cs" />
     <Compile Include="AuthorizationException.cs" />
+    <Compile Include="Commanding\AutoReleaseCommandHandlerInterceptor.cs" />
+    <Compile Include="Commanding\CommandDispatcher.cs" />
+    <Compile Include="Commanding\CommandHandlerSelector.cs" />
+    <Compile Include="Commanding\ICommand.cs" />
+    <Compile Include="Commanding\ICommandDispatcher.cs" />
+    <Compile Include="Commanding\ICommandHandlerFactory.cs" />
+    <Compile Include="Commanding\IHandleCommand.cs" />
     <Compile Include="Domain.Model\Aggregate.cs" />
     <Compile Include="Domain.Model\DomainEvent.cs" />
     <Compile Include="Domain.Model\Entity.cs" />
@@ -78,7 +85,14 @@
     <Compile Include="Domain.Model\Identities.cs" />
     <Compile Include="Domain.Model\Initiator.cs" />
     <Compile Include="Domain.Model\Period.cs" />
+    <Compile Include="Eventing\AutoReleaseEventHandlerInterceptor.cs" />
+    <Compile Include="Eventing\EventHandlerSelector.cs" />
+    <Compile Include="Eventing\EventPublisher.cs" />
+    <Compile Include="Eventing\EventPublisherImpl.cs" />
     <Compile Include="Eventing\EventStream.cs" />
+    <Compile Include="Eventing\IEventHandlerFactory.cs" />
+    <Compile Include="Eventing\IStoredEventRepository.cs" />
+    <Compile Include="Eventing\ISubscribeTo.cs" />
     <Compile Include="Projecting\ProjectionBase.cs" />
     <Compile Include="Querying\QueryResult.cs" />
     <Compile Include="Projecting\RawJsonConverter.cs" />
@@ -114,7 +128,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Start\" />
-    <Folder Include="Commanding\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />

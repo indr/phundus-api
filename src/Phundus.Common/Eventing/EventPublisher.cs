@@ -1,7 +1,7 @@
-﻿namespace Phundus.Ddd
+﻿namespace Phundus.Common.Eventing
 {
     using System;
-    using Common.Domain.Model;
+    using Domain.Model;
 
     public static class EventPublisher
     {

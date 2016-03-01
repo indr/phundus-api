@@ -1,7 +1,7 @@
 ﻿namespace Phundus.IdentityAccess.Application
 {
     using System;
-    using Cqrs;
+    using Common.Commanding;
     using Users.Repositories;
 
     public class ValidateKey

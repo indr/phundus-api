@@ -2,7 +2,7 @@
 {
     using System;
     using System.Linq;
-    using Ddd;
+    using Common.Eventing;
     using IdentityAccess.Model.Organizations.Mails;
     using Infrastructure;
     using Infrastructure.Gateways;

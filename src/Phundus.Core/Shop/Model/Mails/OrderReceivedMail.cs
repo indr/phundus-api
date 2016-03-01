@@ -4,7 +4,7 @@
     using System.Linq;
     using System.Net.Mail;
     using Common.Domain.Model;
-    using Ddd;
+    using Common.Eventing;
     using Infrastructure;
     using Infrastructure.Gateways;
     using Model;

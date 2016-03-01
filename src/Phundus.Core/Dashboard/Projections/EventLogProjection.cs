@@ -7,7 +7,6 @@ namespace Phundus.Dashboard.Projections
     using Common.Notifications;
     using Common.Projecting;
     using Common.Projections;
-    using Cqrs;
     using IdentityAccess.Organizations.Model;
     using IdentityAccess.Users.Model;
     using Newtonsoft.Json;

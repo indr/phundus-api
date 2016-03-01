@@ -2,7 +2,7 @@
 {
     using System;
     using Common.Domain.Model;
-    using Ddd;
+    using Common.Eventing;
     using IdentityAccess.Organizations.Model;
     using Inventory.Model;
     using Repositories;

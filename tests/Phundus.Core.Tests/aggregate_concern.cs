@@ -3,10 +3,10 @@ namespace Phundus.Tests
     using System;
     using System.Linq.Expressions;
     using Common.Domain.Model;
+    using Common.Eventing;
     using developwithpassion.specifications.rhinomocks;
     using Machine.Fakes;
     using Machine.Specifications;
-    using Phundus.Ddd;
     using Rhino.Mocks;
 
     public class aggregate_concern<TAggregate> : Observes<TAggregate> where TAggregate : class

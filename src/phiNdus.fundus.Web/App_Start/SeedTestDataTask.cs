@@ -5,8 +5,8 @@ namespace Phundus.Web
     using Bootstrap.Extensions.StartupTasks;
     using Castle.Core.Logging;
     using Castle.Transactions;
+    using Common.Commanding;
     using Common.Domain.Model;
-    using Cqrs;
     using IdentityAccess.Application;
     using IdentityAccess.Organizations.Model;
 

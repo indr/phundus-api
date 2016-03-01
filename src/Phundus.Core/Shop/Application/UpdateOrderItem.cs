@@ -1,8 +1,8 @@
 ﻿namespace Phundus.Shop.Application
 {
     using System;
+    using Common.Commanding;
     using Common.Domain.Model;
-    using Cqrs;
     using Model;
 
     public class UpdateOrderItem
