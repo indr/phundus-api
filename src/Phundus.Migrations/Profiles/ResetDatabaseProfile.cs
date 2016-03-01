@@ -23,9 +23,10 @@
             Delete.FromTable("Dm_Shop_Order").InSchema(SchemaName).AllRows();
 
             DropTable("Es_Shop_Item_Files");
+            DropTable("Es_Shop_Item_Documents");
             DropTable("Es_Shop_Item_Images");
             DropTable("Es_Shop_Item");
-            DropTable("Es_Shop_ShopItemsSortByPopularityProjection");
+            DropTable("Es_Shop_Items_Popularity");
             DropTable("Es_Shop_Items");
             DropTable("Es_Shop_Orders_Lines");
             DropTable("Es_Shop_Orders");

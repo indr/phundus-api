@@ -1,20 +1,19 @@
-namespace Phundus
+namespace Phundus.Common
 {
     using Castle.Facilities.TypedFactory;
     using Castle.MicroKernel.Registration;
     using Castle.MicroKernel.SubSystems.Configuration;
     using Castle.Windsor;
-    using Common.Eventing;
-    using Common.Notifications;
+    using Eventing;
+    using Notifications;
 
     public class CommonInstaller : IWindsorInstaller
     {
         public void Install(IWindsorContainer container, IConfigurationStore store)
         {
-            
             container.Register(Component.For<IDomainEventHandlerFactory>().AsFactory());
 
-            
+
             container.Register(Component.For<IEventSerializer>().ImplementedBy<EventSerializer>());
         }
     }
