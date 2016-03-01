@@ -1,8 +1,7 @@
-﻿namespace Phundus.Ddd
+﻿namespace Phundus.Common.Domain.Model
 {
     using System;
-    using Common;
-    
+
     public abstract class Aggregate<TIdentity>
     {
         private DateTime _createdAtUtc;

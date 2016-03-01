@@ -5,6 +5,7 @@ namespace Phundus.Cqrs
     using System.Data;
     using System.Linq;
     using AutoMapper;
+    using Common.Projecting;
 
     public abstract class AutoMappingReadModelBase : ProjectionBase
     {

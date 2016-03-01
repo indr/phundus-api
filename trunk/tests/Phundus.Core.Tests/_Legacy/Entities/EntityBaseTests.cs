@@ -5,7 +5,7 @@
     [TestFixture]
     public class EntityBaseTests
     {
-        private class EntityBase : Phundus.Ddd.EntityBase
+        private class EntityBase : Common.Domain.Model.EntityBase
         {
         }
 

@@ -1,4 +1,4 @@
-namespace Phundus.Cqrs
+namespace Phundus.Common.Projecting
 {
     using System;
     using System.Linq.Expressions;

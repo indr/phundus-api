@@ -105,11 +105,7 @@
     <Compile Include="Authorization\IAccessObject.cs" />
     <Compile Include="Authorization\IAccessObjectHandlerFactory.cs" />
     <Compile Include="Authorization\IHandleAccessObject.cs" />
-    <Compile Include="Cqrs\ProjectionBase.cs" />
-    <Compile Include="Cqrs\QueryBase.cs" />
     <Compile Include="Dashboard\Projections\EventLogProjection.cs" />
-    <Compile Include="Cqrs\ReadModelUpdater.cs" />
-    <Compile Include="Ddd\Aggregate.cs" />
     <Compile Include="Ddd\AutoReleaseEventHandlerInterceptor.cs" />
     <Compile Include="Ddd\EventHandlerSelector.cs" />
     <Compile Include="Ddd\EventPublisherImpl.cs" />
@@ -323,7 +319,6 @@
       <DependentUpon>Templates.resx</DependentUpon>
     </Compile>
     <Compile Include="Shop\Model\Cart.cs" />
-    <Compile Include="Ddd\EntityBase.cs" />
     <Compile Include="Inventory\Model\Articles\Image.cs" />
     <Compile Include="Shop\Model\Order.cs" />
     <Compile Include="Shop\Model\OrderLine.cs" />

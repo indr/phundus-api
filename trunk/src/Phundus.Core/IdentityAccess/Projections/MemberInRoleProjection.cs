@@ -4,6 +4,7 @@ namespace Phundus.IdentityAccess.Projections
     using System.Linq;
     using Common;
     using Common.Domain.Model;
+    using Common.Projecting;
     using Cqrs;
     using Integration.IdentityAccess;
     using Organizations.Model;

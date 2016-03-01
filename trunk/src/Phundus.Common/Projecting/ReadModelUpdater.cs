@@ -1,11 +1,10 @@
-namespace Phundus.Cqrs
+namespace Phundus.Common.Projecting
 {
     using System.Collections.Generic;
     using System.Linq;
     using Castle.Transactions;
-    using Common.Eventing;
-    using Common.Notifications;
-    using Shop.Projections;
+    using Eventing;
+    using Notifications;
 
     public class ReadModelUpdater : INotificationHandler
     {
@@ -44,23 +43,7 @@ namespace Phundus.Cqrs
 
         private IEnumerable<IStoredEventsConsumer> GetDomainEventHandlers()
         {
-            // Because of foreign key constraints, we need to update some projections first.
-            // This is totally annoying. I don't know how to tell SchemaAction.All to
-            // not create foreign keys...
-
-            var handlers = DomainEventHandlerFactory.GetDomainEventHandlers().ToList();
-
-            var result = new List<IStoredEventsConsumer>();
-            result.Add(handlers.Single(p => p.GetType() == typeof (ShopItemsProjection)));
-            result.Add(handlers.Single(p => p.GetType() == typeof (ShopItemProjection)));
-
-            foreach (var each in result)
-            {
-                handlers.Remove(each);
-            }
-            result.AddRange(handlers);
-
-            return result;
+            return DomainEventHandlerFactory.GetDomainEventHandlers().ToList();
         }
 
         private void UpdateReadModel(IStoredEventsConsumer storedEventsConsumer, long notificationId)
