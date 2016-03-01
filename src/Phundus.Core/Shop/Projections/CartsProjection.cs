@@ -9,12 +9,12 @@
 
     public interface ICartsQueries
     {
-        CartViewRow FindByUserGuid(InitiatorId initiatorId, UserId userId);
+        CartData FindByUserGuid(InitiatorId initiatorId, UserId userId);
     }
 
-    public class CartsProjection : ProjectionBase<CartViewRow>, ICartsQueries
+    public class CartsProjection : ProjectionBase<CartData>, ICartsQueries
     {
-        public CartViewRow FindByUserGuid(InitiatorId initiatorId, UserId userId)
+        public CartData FindByUserGuid(InitiatorId initiatorId, UserId userId)
         {
             if (initiatorId.Id != userId.Id)
                 throw new AuthorizationException();
@@ -23,11 +23,11 @@
         }
     }
 
-    public class CartViewRow
+    public class CartData
     {
         public virtual Guid CartId { get; protected set; }
         public virtual Guid UserId { get; protected set; }
-        public virtual IList<CartItemViewRow> Items { get; protected set; }
+        public virtual IList<CartItemData> Items { get; protected set; }
 
         public virtual decimal Total
         {
@@ -40,7 +40,7 @@
         }
     }
 
-    public class CartItemViewRow 
+    public class CartItemData 
     {
         public virtual Guid CartItemGuid { get; protected set; }
 

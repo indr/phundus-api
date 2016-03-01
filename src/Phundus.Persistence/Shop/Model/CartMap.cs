@@ -1,8 +1,7 @@
-namespace Phundus.Persistence.Shop.Mappings
+namespace Phundus.Persistence.Shop.Model
 {
     using FluentNHibernate.Mapping;
     using Phundus.Shop.Model;
-    using Phundus.Shop.Orders.Model;
 
     public class CartMap : ClassMap<Cart>
     {
