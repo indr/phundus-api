@@ -1,38 +1,35 @@
 ﻿namespace Phundus.IdentityAccess.Users.Mails
 {
     using System;
+    using IdentityAccess.Model.Users.Mails;
     using Infrastructure;
     using Infrastructure.Gateways;
     using Model;
 
-    public class UserAccountCreatedMail : BaseMail
+    public class UserResetPasswordMail : BaseMail
     {
-        public UserAccountCreatedMail(IMailGateway mailGateway) : base(mailGateway)
+        public UserResetPasswordMail(IMailGateway mailGateway) : base(mailGateway)
         {
         }
 
         public void Send(User user)
         {
-            Send(user.Account.Email, Templates.UserAccountCreatedSubject, null, Templates.UserAccountCreatedHtml);
+            Send(user.Account.Email, Templates.UserResetPasswordSubject, null, Templates.UserResetPasswordHtml);
         }
 
-        public UserAccountCreatedMail For(User user)
+        public UserResetPasswordMail For(User user, string password)
         {
             Guard.Against<ArgumentNullException>(user == null, "user");
 
             Model = new
             {
                 Urls = new Urls(Config.ServerUrl),
+                Password = password,
                 User = user,
                 Admins = Config.FeedbackRecipients
             };
 
             return this;
-        }
-
-        public void Send(string address)
-        {
-            base.Send(address, Templates.UserAccountCreatedSubject, null, Templates.UserAccountCreatedHtml);
         }
     }
 }
