@@ -12,15 +12,17 @@
 
     public interface IArticleActionsQueries
     {
-        IEnumerable<ArticleActionData> GetActions(Guid articleId);
+        IEnumerable<ArticleActionData> GetActions(ArticleId articleId);
     }
 
     public class ArticleActionsProjection : ProjectionBase<ArticleActionData>, IArticleActionsQueries,
         IStoredEventsConsumer
     {
-        public IEnumerable<ArticleActionData> GetActions(Guid articleId)
+        public IEnumerable<ArticleActionData> GetActions(ArticleId articleId)
         {
-            return QueryOver().Where(p => p.ArticleId == articleId).List();
+            if (articleId == null) throw new ArgumentNullException("articleId");
+
+            return QueryOver().Where(p => p.ArticleId == articleId.Id).OrderBy(p => p.OccuredOnUtc).Desc.List();
         }
 
         public void Handle(DomainEvent e)

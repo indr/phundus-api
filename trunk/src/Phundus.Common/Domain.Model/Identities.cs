@@ -1,7 +1,9 @@
 ﻿namespace Phundus.Common.Domain.Model
 {
     using System;
+    using System.ComponentModel;
 
+    [TypeConverter(typeof (GuidConverter<ArticleId>))]
     public class ArticleId : GuidIdentity
     {
         public ArticleId()
@@ -24,10 +26,12 @@
         }
     }
 
+    [TypeConverter(typeof(GuidConverter<CartId>))]
     public class CartId : GuidIdentity
     {
     }
 
+    [TypeConverter(typeof(GuidConverter<CartItemId>))]
     public class CartItemId : GuidIdentity
     {
         public CartItemId()
@@ -39,6 +43,7 @@
         }
     }
 
+    [TypeConverter(typeof(GuidConverter<CurrentUserId>))]
     public class CurrentUserId : InitiatorId
     {
         public CurrentUserId()
@@ -50,6 +55,7 @@
         }
     }
 
+    [TypeConverter(typeof(GuidConverter<InitiatorId>))]
     public class InitiatorId : UserId
     {
         public InitiatorId()
@@ -65,6 +71,7 @@
         }
     }
 
+    [TypeConverter(typeof(GuidConverter<LesseeId>))]
     public class LesseeId : GuidIdentity
     {
         public LesseeId()
@@ -80,6 +87,7 @@
         }
     }
 
+    [TypeConverter(typeof(GuidConverter<LessorId>))]
     public class LessorId : GuidIdentity
     {
         public LessorId()
@@ -91,6 +99,7 @@
         }
     }
 
+    [TypeConverter(typeof(GuidConverter<MembershipApplicationId>))]
     public class MembershipApplicationId : GuidIdentity
     {
         public MembershipApplicationId()
@@ -102,6 +111,7 @@
         }
     }
 
+    [TypeConverter(typeof(GuidConverter<OrderId>))]
     public class OrderId : GuidIdentity
     {
         public OrderId()
@@ -124,6 +134,7 @@
         }
     }
 
+    [TypeConverter(typeof(GuidConverter<OrderLineId>))]
     public class OrderLineId : GuidIdentity
     {
         public OrderLineId()
@@ -135,6 +146,7 @@
         }
     }
 
+    [TypeConverter(typeof(GuidConverter<OrganizationId>))]
     public class OrganizationId : GuidIdentity
     {
         public OrganizationId()
@@ -146,6 +158,7 @@
         }
     }
 
+    [TypeConverter(typeof(GuidConverter<OwnerId>))]
     public class OwnerId : GuidIdentity
     {
         public OwnerId()
@@ -157,6 +170,7 @@
         }
     }
 
+    [TypeConverter(typeof(GuidConverter<StoreId>))]
     public class StoreId : GuidIdentity
     {
         public StoreId()
@@ -168,6 +182,7 @@
         }
     }
 
+    [TypeConverter(typeof(GuidConverter<UserId>))]
     public class UserId : GuidIdentity
     {
         public UserId()
