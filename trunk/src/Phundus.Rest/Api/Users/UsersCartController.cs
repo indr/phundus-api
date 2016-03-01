@@ -109,7 +109,7 @@ namespace Phundus.Rest.Api.Users
 
     public class UsersCartGetOkResponseContent
     {
-        public UsersCartGetOkResponseContent(CartViewRow cart)
+        public UsersCartGetOkResponseContent(CartData cart)
         {
             if (cart == null)
             {

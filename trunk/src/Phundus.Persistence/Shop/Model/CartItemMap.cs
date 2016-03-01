@@ -1,4 +1,4 @@
-﻿namespace Phundus.Persistence.Shop.Mappings
+﻿namespace Phundus.Persistence.Shop.Model
 {
     using FluentNHibernate.Mapping;
     using NHibernate.Type;

@@ -1,12 +1,12 @@
-namespace Phundus.Persistence.Shop.Mappings
+namespace Phundus.Persistence.Shop.Projections
 {
     using FluentNHibernate.Mapping;
     using NHibernate.Type;
     using Phundus.Shop.Projections;
 
-    public class CartItemViewRowMap : ClassMap<CartItemViewRow>
+    public class CartItemDataMap : ClassMap<CartItemData>
     {
-        public CartItemViewRowMap()
+        public CartItemDataMap()
         {
             SchemaAction.Validate();
 
