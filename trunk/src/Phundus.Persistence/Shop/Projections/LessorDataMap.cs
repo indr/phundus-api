@@ -1,4 +1,4 @@
-﻿namespace Phundus.Persistence.Shop.Mappings
+﻿namespace Phundus.Persistence.Shop.Projections
 {
     using FluentNHibernate.Mapping;
     using Phundus.Shop.Projections;
@@ -11,7 +11,7 @@
             Table("Es_Shop_Lessors");
 
             Id(x => x.LessorId, "LessorId").GeneratedBy.Assigned();
-            Map(x => x.Type, "LessorType").CustomType<LessorData.LessorType>();
+            Map(x => x.Type, "Type").CustomType<LessorType>();
             Map(x => x.Name, "Name");
             Map(x => x.Url, "Url");
             Map(x => x.PostalAddress, "PostalAddress");

@@ -38,16 +38,16 @@
 
             return QueryOkResponseContent<ShopQueryItem>.Build(results, s => new ShopQueryItem
             {
-                ItemId = s.ItemId,
-                ItemShortId = s.ItemShortId,
+                ItemId = s.ArticleId,
+                ItemShortId = s.ArticleShortId,
                 Name = s.Name,
-                LessorId = s.OwnerGuid,
-                LessorName = s.OwnerName,
-                LessorType = s.OwnerType,
+                LessorId = s.LessorId,
+                LessorName = s.LessorName,
+                LessorType = s.LessorType.ToLowerString(),
                 StoreId = s.StoreId,
                 StoreName = s.StoreName,
                 MemberPrice = s.MemberPrice,
-                PreviewImageUrl = GetArticleFileUrl(s.ItemShortId, Path.GetFileName(s.PreviewImageFileName)),
+                PreviewImageUrl = GetArticleFileUrl(s.ArticleShortId, Path.GetFileName(s.PreviewImageFileName)),
                 PublicPrice = s.PublicPrice
             });
         }
@@ -61,7 +61,8 @@
             return new ShopItemGetOkResponseContent
             {
                 Description = item.Description,
-                ItemId = item.ArticleGuid,
+                ItemId = item.ArticleId,
+                ItemShortId = item.ArticleShortId,
                 MemberPrice = item.MemberPrice,
                 Name = item.Name,
                 PublicPrice = item.PublicPrice,
@@ -69,8 +70,9 @@
                 Lessor = new ShopItemGetOkResponseContent.LessorObject
                 {
                     LessorId = item.LessorId,
-                    Type = item.LessorType,
-                    Name = item.LessorName
+                    Type = item.LessorType.ToLowerString(),
+                    Name = item.LessorName,
+                    Url = item.LessorUrl
                 },
                 Store = new ShopItemGetOkResponseContent.StoreObject
                 {
@@ -82,14 +84,14 @@
                     FileLength = s.FileLength,
                     FileName = s.FileName,
                     FileType = s.FileType,
-                    Url = GetArticleFileUrl(s.ArticleId, s.FileName)
+                    Url = GetArticleFileUrl(item.ArticleShortId, s.FileName)
                 }).ToList(),
                 Images = item.Images.Select(s => new ShopItemGetOkResponseContent.ImageObject
                 {
                     FileLength = s.FileLength,
                     FileName = s.FileName,
                     FileType = s.FileType,
-                    Url = GetArticleFileUrl(s.ArticleId, s.FileName)
+                    Url = GetArticleFileUrl(item.ArticleShortId, s.FileName)
                 }).ToList()
             };
         }
@@ -130,6 +132,9 @@
     {
         [JsonProperty("itemId")]
         public Guid ItemId { get; set; }
+
+        [JsonProperty("itemShortId")]
+        public int ItemShortId { get; set; }
 
         [JsonProperty("name")]
         public string Name { get; set; }
@@ -194,7 +199,10 @@
             public Guid LessorId { get; set; }
 
             [JsonProperty("type")]
-            public int Type { get; set; }
+            public string Type { get; set; }
+
+            [JsonProperty("url")]
+            public string Url { get; set; }
 
             [JsonProperty("name")]
             public string Name { get; set; }

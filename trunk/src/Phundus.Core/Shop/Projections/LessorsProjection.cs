@@ -29,7 +29,7 @@
             Insert(x =>
             {
                 x.LessorId = e.OrganizationId;
-                x.Type = LessorData.LessorType.Organization;
+                x.Type = LessorType.Organization;
                 x.Name = e.Name;
                 x.Url = e.Name.ToFriendlyUrl();
                 x.PostalAddress = null;
@@ -61,7 +61,7 @@
             Insert(x =>
             {
                 x.LessorId = e.UserId;
-                x.Type = LessorData.LessorType.User;
+                x.Type = LessorType.User;
                 x.Name = e.FirstName + " " + e.LastName;
                 x.PostalAddress = MakeUserPostalAddress(e.FirstName, e.LastName, e.Street, e.Postcode, e.City);
                 x.PhoneNumber = e.PhoneNumber;

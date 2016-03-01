@@ -2,6 +2,7 @@ namespace Phundus.Shop.Projections
 {
     using System;
     using System.Collections.Generic;
+    using System.Linq;
     using Common;
     using Common.Domain.Model;
     using Common.Notifications;
@@ -21,78 +22,162 @@ namespace Phundus.Shop.Projections
             // Noop
         }
 
-        public void Process(ArticleCreated domainEvent)
+        public void Process(ArticleCreated e)
         {
-            if (domainEvent.ArticleId == Guid.Empty)
+            if (e.ArticleId == Guid.Empty)
                 return;
 
-            var row = new ShopItemData();
-            row.ArticleGuid = domainEvent.ArticleId;
-            row.ArticleId = domainEvent.ArticleShortId;
-            row.Name = domainEvent.Name;
-            row.LessorId = domainEvent.Owner.OwnerId.Id;
-            row.LessorName = domainEvent.Owner.Name;
-            row.LessorType = (int) domainEvent.Owner.Type;
-            row.PublicPrice = domainEvent.PublicPrice;
-            row.MemberPrice = domainEvent.MemberPrice;
+            Insert(x =>
+            {
+                x.ArticleId = e.ArticleId;
+                x.ArticleShortId = e.ArticleShortId;
+                x.CreatedAtUtc = e.OccuredOnUtc;
 
-            Insert(row);
+                x.LessorId = e.Owner.OwnerId.Id;
+                x.LessorType = LessorTypeConvertor.From(e.Owner.Type.ToString());
+                x.LessorName = e.Owner.Name;
+                x.LessorUrl = e.Owner.Name.ToFriendlyUrl();
+
+                x.StoreId = e.StoreId;
+                x.StoreName = e.StoreName;
+                x.StoreUrl = x.LessorUrl + "/" + x.StoreName.ToFriendlyUrl();
+
+                x.Name = e.Name;
+                x.PublicPrice = e.PublicPrice;
+                x.MemberPrice = e.MemberPrice;
+            });
         }
 
-        public void Process(ArticleDeleted domainEvent)
+        public void Process(ArticleDeleted e)
         {
-            var row = GetRow(domainEvent.ArticleId);
-            Session.Delete(row);
+            Delete(e.ArticleId);
         }
-        
+
         public void Process(ArticleDetailsChanged domainEvent)
         {
-            var row = GetRow(domainEvent.ArticleId);
-            row.Name = domainEvent.Name;
-            row.Brand = domainEvent.Brand;
-            row.Color = domainEvent.Color;
+            Update(domainEvent.ArticleId, x =>
+            {
+                x.Name = domainEvent.Name;
+                x.Brand = domainEvent.Brand;
+                x.Color = domainEvent.Color;
+            });
         }
 
-        public void Process(DescriptionChanged domainEvent)
+        public void Process(DescriptionChanged e)
         {
-            var row = GetRow(domainEvent.ArticleId);
-            row.Description = domainEvent.Description;
+            Update(e.ArticleId, x =>
+                x.Description = e.Description);
         }
 
-        public void Process(SpecificationChanged domainEvent)
+        public void Process(SpecificationChanged e)
         {
-            var row = GetRow(domainEvent.ArticleId);
-            row.Specification = domainEvent.Specification;
+            Update(e.ArticleId, x =>
+                x.Specification = e.Specification);
         }
 
-        public void Process(PricesChanged domainEvent)
+        public void Process(PricesChanged e)
         {
-            var row = GetRow(domainEvent.ArticleId);            
-            row.PublicPrice = domainEvent.PublicPrice;
-            row.MemberPrice = domainEvent.MemberPrice;
+            Update(e.ArticleId, x =>
+            {
+                x.PublicPrice = e.PublicPrice;
+                x.MemberPrice = e.MemberPrice;
+            });
         }
 
         public void Process(StoreRenamed e)
         {
-            Update(p => p.StoreId == e.StoreId, a =>
-                a.StoreName = e.Name);
+            Update(p => p.StoreId == e.StoreId, x =>
+            {
+                x.StoreName = e.Name;
+                x.StoreUrl = x.LessorUrl + "/" + e.Name.ToFriendlyUrl();
+            });
         }
 
-        private ShopItemData GetRow(Guid articleGuid)
+        public void Process(ImageAdded domainEvent)
         {
-            Session.Flush();
-            var result = Session.QueryOver<ShopItemData>().
-                Where(p => p.ArticleGuid == articleGuid).SingleOrDefault();
-            if (result == null)
-                throw new NotFoundException("Shop item projection row {0} not found.", articleGuid);
-            return result;
+            if (domainEvent.FileType.StartsWith("application/"))
+                ProcessDocumentAdded(domainEvent);
+            else
+                ProcessImageAdded(domainEvent);
+        }
+
+        private void ProcessDocumentAdded(ImageAdded e)
+        {
+            Update(e.ArticleId, x =>
+            {
+                if (x.Documents.SingleOrDefault(p => p.FileName == e.FileName) != null)
+                {
+                    throw new Exception(
+                        String.Format("Could not process event {0}. Document with file name {1} already exists.",
+                            e.EventGuid, e.FileName));
+                }
+
+                var document = new ShopItemDocumentData
+                {
+                    ShopItem = x,
+                    FileLength = e.FileLength,
+                    FileName = e.FileName,
+                    FileType = e.FileType
+                };
+
+                x.Documents.Add(document);
+            });
+        }
+
+        private void ProcessImageAdded(ImageAdded e)
+        {
+            Update(e.ArticleId, x =>
+            {
+                if (x.Images.SingleOrDefault(p => p.FileName == e.FileName) != null)
+                {
+                    throw new Exception(
+                        String.Format("Could not process event {0}. Image with file name {1} already exists.",
+                            e.EventGuid, e.FileName));
+                }
+
+                var image = new ShopItemImageData
+                {
+                    ShopItem = x,
+                    FileLength = e.FileLength,
+                    FileName = e.FileName,
+                    FileType = e.FileType
+                };
+
+                x.Images.Add(image);
+            });
+        }
+
+        public void Process(ImageRemoved e)
+        {
+            Update(e.ArticleId, x =>
+            {
+                var image = x.Images.SingleOrDefault(p => p.FileName == e.FileName);
+                if (image != null)
+                {
+                    image.ShopItem = null;
+                    x.Images.Remove(image);
+                    return;
+                }
+
+                var document = x.Documents.SingleOrDefault(p => p.FileName == e.FileName);
+                if (document != null)
+                {
+                    document.ShopItem = null;
+                    x.Documents.Remove(document);
+                }
+            });
         }
     }
 
     public class ShopItemData
     {
-        public virtual Guid ArticleGuid { get; set; }
-        public virtual int ArticleId { get; set; }
+        private ICollection<ShopItemDocumentData> _documents = new List<ShopItemDocumentData>();
+        private ICollection<ShopItemImageData> _images = new List<ShopItemImageData>();
+
+        public virtual Guid ArticleId { get; set; }
+        public virtual int ArticleShortId { get; set; }
+        public virtual DateTime CreatedAtUtc { get; set; }
+
         public virtual string Name { get; set; }
         public virtual string Brand { get; set; }
         public virtual string Color { get; set; }
@@ -100,13 +185,46 @@ namespace Phundus.Shop.Projections
         public virtual decimal? MemberPrice { get; set; }
         public virtual Guid LessorId { get; set; }
         public virtual string LessorName { get; set; }
-        public virtual int LessorType { get; set; }
+        public virtual string LessorUrl { get; set; }
+        public virtual LessorType LessorType { get; set; }
         public virtual Guid StoreId { get; set; }
         public virtual string StoreName { get; set; }
+        public virtual string StoreUrl { get; set; }
         public virtual string Description { get; set; }
         public virtual string Specification { get; set; }
 
-        public virtual ICollection<ShopItemFilesProjectionRow> Documents { get; set; }
-        public virtual ICollection<ShopItemImagesProjectionRow> Images { get; set; }
+        public virtual ICollection<ShopItemDocumentData> Documents
+        {
+            get { return _documents; }
+            protected set { _documents = value; }
+        }
+
+        public virtual ICollection<ShopItemImageData> Images
+        {
+            get { return _images; }
+            protected set { _images = value; }
+        }
+    }
+
+    public class ShopItemDocumentData
+    {
+        public virtual Guid DataId { get; set; }
+
+        public virtual ShopItemData ShopItem { get; set; }
+
+        public virtual string FileName { get; set; }
+        public virtual string FileType { get; set; }
+        public virtual long FileLength { get; set; }
+    }
+
+    public class ShopItemImageData
+    {
+        public virtual Guid DataId { get; set; }
+
+        public virtual ShopItemData ShopItem { get; set; }
+
+        public virtual string FileName { get; set; }
+        public virtual string FileType { get; set; }
+        public virtual long FileLength { get; set; }
     }
 }

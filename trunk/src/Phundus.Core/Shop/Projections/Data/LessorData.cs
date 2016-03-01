@@ -24,12 +24,6 @@
                 return _website;
             }
             set { _website = value; }
-        }
-
-        public enum LessorType
-        {
-            Organization,
-            User
-        }
+        }        
     }
 }
