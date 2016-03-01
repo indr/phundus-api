@@ -21,9 +21,9 @@ namespace Phundus.Tests.Inventory.Application
         {
             theArticle = make.Article();
             theOwner = theArticle.Owner;
-            articleRepository.WhenToldTo(x => x.GetById(theArticle.ArticleShortId)).Return(theArticle);
+            articleRepository.WhenToldTo(x => x.GetById(theArticle.ArticleId)).Return(theArticle);
 
-            command = new UpdateSpecification(theInitiatorId, theArticle.Id, theSpecification);
+            command = new UpdateSpecification(theInitiatorId, theArticle.ArticleId, theSpecification);
         };
 
         private It should_authorize_initiator_to_manage_articles = () =>

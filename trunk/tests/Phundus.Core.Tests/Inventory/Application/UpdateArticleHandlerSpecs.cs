@@ -22,9 +22,9 @@ namespace Phundus.Tests.Inventory.Application
         {
             theArticle = make.Article();
             theOwner = theArticle.Owner;
-            articleRepository.WhenToldTo(x => x.GetById(theArticle.ArticleShortId)).Return(theArticle);
+            articleRepository.WhenToldTo(x => x.GetById(theArticle.ArticleId)).Return(theArticle);
 
-            command = new UpdateArticle(theInitiatorId, theArticle.ArticleShortId.Id, theName, theBrand, theColor, theGrossStock);
+            command = new UpdateArticle(theInitiatorId, theArticle.ArticleId, theName, theBrand, theColor, theGrossStock);
         };
 
         private It should_enforce_initiator_to_manage_articles = () =>

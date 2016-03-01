@@ -10,17 +10,19 @@
 
     public class UpdateDescription
     {
-        public UpdateDescription(InitiatorId initiatorId, int articleId, string description)
+        public UpdateDescription(InitiatorId initiatorId, ArticleId articleId, string description)
         {
             if (initiatorId == null) throw new ArgumentNullException("initiatorId");
+            if (articleId == null) throw new ArgumentNullException("articleId");
             if (description == null) throw new ArgumentNullException("description");
+
             InitiatorId = initiatorId;
-            ArticleId = new ArticleShortId(articleId);
+            ArticleId = articleId;
             Description = description;
         }
 
         public InitiatorId InitiatorId { get; set; }
-        public ArticleShortId ArticleId { get; set; }
+        public ArticleId ArticleId { get; set; }
         public string Description { get; set; }
     }
 

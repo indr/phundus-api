@@ -3,6 +3,7 @@
     using System;
     using System.Collections.Generic;
     using System.Linq;
+    using Common.Domain.Model;
     using NHibernate;
     using NHibernate.Linq;
     using Phundus.Inventory.AvailabilityAndReservation.Model;
@@ -27,6 +28,21 @@
                 where oi.ArticleShortId.Id == articleId
                       && oi.LineId.Id != orderItemToExclude
                 select oi;
+
+            result.AddRange(factory.Create(query));
+
+            return result;
+        }
+
+        public IEnumerable<Reservation> Find(ArticleId articleId, Guid orderItemToExclude)
+        {
+            var factory = new ReservationFactory();
+            var result = new List<Reservation>();
+
+            var query = from oi in OrderItems
+                        where oi.ArticleId.Id == articleId.Id
+                              && oi.LineId.Id != orderItemToExclude
+                        select oi;
 
             result.AddRange(factory.Create(query));
 

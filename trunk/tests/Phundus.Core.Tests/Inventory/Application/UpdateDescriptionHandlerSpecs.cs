@@ -21,9 +21,9 @@
         {
             theArticle = make.Article();
             theOwner = theArticle.Owner;
-            articleRepository.WhenToldTo(x => x.GetById(theArticle.ArticleShortId)).Return(theArticle);
+            articleRepository.WhenToldTo(x => x.GetById(theArticle.ArticleId)).Return(theArticle);
 
-            command = new UpdateDescription(theInitiatorId, theArticle.Id, theDescription);
+            command = new UpdateDescription(theInitiatorId, theArticle.ArticleId, theDescription);
         };
 
         private It should_authorize_initiator_to_manage_articles = () =>

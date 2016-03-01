@@ -10,13 +10,14 @@
 
     public class UpdateArticle
     {
-        public UpdateArticle(InitiatorId initiatorId, int articleId, string name, string brand, string color,
+        public UpdateArticle(InitiatorId initiatorId, ArticleId articleId, string name, string brand, string color,
             int grossStock)
         {
             if (initiatorId == null) throw new ArgumentNullException("initiatorId");
             if (name == null) throw new ArgumentNullException("name");
+
             InitiatorId = initiatorId;
-            ArticleId = new ArticleShortId(articleId);
+            ArticleId = articleId;
             Name = name;
             Brand = brand;
             Color = color;
@@ -24,7 +25,7 @@
         }
 
         public InitiatorId InitiatorId { get; protected set; }
-        public ArticleShortId ArticleId { get; protected set; }
+        public ArticleId ArticleId { get; protected set; }
 
         public string Name { get; protected set; }
         public string Brand { get; protected set; }

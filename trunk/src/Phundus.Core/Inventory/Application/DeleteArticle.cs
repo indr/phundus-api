@@ -12,15 +12,17 @@
 
     public class DeleteArticle
     {
-        public DeleteArticle(InitiatorId initiatorId, int articleId)
+        public DeleteArticle(InitiatorId initiatorId, ArticleId articleId)
         {
             if (initiatorId == null) throw new ArgumentNullException("initiatorId");
+            if (articleId == null) throw new ArgumentNullException("articleId");
+
             InitiatorId = initiatorId;
-            ArticleId = new ArticleShortId(articleId);
+            ArticleId = articleId;
         }
 
         public InitiatorId InitiatorId { get; protected set; }
-        public ArticleShortId ArticleId { get; set; }
+        public ArticleId ArticleId { get; set; }
     }
 
     public class DeleteArticleHandler : IHandleCommand<DeleteArticle>
