@@ -19,9 +19,9 @@ namespace Phundus.Tests.Inventory.Application
         {
             theArticle = make.Article();
             theOwner = theArticle.Owner;
-            articleRepository.setup(x => x.GetById(theArticle.ArticleShortId)).Return(theArticle);
+            articleRepository.setup(x => x.GetById(theArticle.ArticleId)).Return(theArticle);
 
-            command = new DeleteArticle(theInitiatorId, theArticle.Id);
+            command = new DeleteArticle(theInitiatorId, theArticle.ArticleId);
         };
 
         private It should_enforce_initiator_to_manage_articles = () =>

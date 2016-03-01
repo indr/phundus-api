@@ -12,18 +12,18 @@
 
     public interface IArticleQueries
     {
-        ArticleData GetById(int id);
+        ArticleData GetById(ArticleId articleId);
 
         IEnumerable<ArticleData> Query(InitiatorId initiatorId, OwnerId queryOwnerId, string query);
     }
 
     public class ArticlesProjection : ProjectionBase<ArticleData>, IArticleQueries, IStoredEventsConsumer
     {
-        public ArticleData GetById(int id)
+        public ArticleData GetById(ArticleId articleId)
         {
-            var result = SingleOrDefault(p => p.ArticleShortId == id);
+            var result = Get(articleId);
             if (result == null)
-                throw new NotFoundException(String.Format("Article {0} not found.", id));
+                throw new NotFoundException(String.Format("Article {0} not found.", articleId));
             return result;
         }
 

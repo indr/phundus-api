@@ -11,7 +11,7 @@
         private static ConstructorInfo _ctor;
 
         public override bool CanConvertFrom(ITypeDescriptorContext context, Type sourceType)
-        {
+        {            
             if (sourceType == typeof (String) || sourceType == typeof (Guid))
             {
                 return true;

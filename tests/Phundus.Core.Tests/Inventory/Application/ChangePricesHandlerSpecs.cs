@@ -21,8 +21,8 @@
         {
             theOwner = make.Owner();
             theArticle = make.Article(theOwner);
-            articleRepository.WhenToldTo(x => x.GetById(theArticle.ArticleShortId)).Return(theArticle);
-            command = new ChangePrices(theInitiatorId, theArticle.Id, thePublicPrice, theMemberPrice);
+            articleRepository.WhenToldTo(x => x.GetById(theArticle.ArticleId)).Return(theArticle);
+            command = new ChangePrices(theInitiatorId, theArticle.ArticleId, thePublicPrice, theMemberPrice);
         };
 
         private It should_authorize_initiator_to_manage_articles = () =>

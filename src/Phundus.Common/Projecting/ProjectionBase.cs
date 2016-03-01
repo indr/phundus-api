@@ -3,6 +3,7 @@ namespace Phundus.Common.Projecting
     using System;
     using System.Linq.Expressions;
     using Castle.Core.Logging;
+    using Domain.Model;
     using NHibernate;
 
     public class ProjectionBase
@@ -19,6 +20,13 @@ namespace Phundus.Common.Projecting
 
     public class ProjectionBase<TEntity> : ProjectionBase where TEntity : class, new()
     {
+        protected TEntity Get(GuidIdentity id)
+        {
+            if (id == null) throw new ArgumentNullException("id");
+
+            return Session.Get<TEntity>(id.Id);
+        }
+
         protected void Insert(Action<TEntity> action)
         {
             var row = new TEntity();
