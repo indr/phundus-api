@@ -11,6 +11,7 @@
         public ProcessMissedNotificationsStartupTask(INotificationConsumer notificationConsumer)
         {
             if (notificationConsumer == null) throw new ArgumentNullException("notificationConsumer");
+
             _notificationConsumer = notificationConsumer;
         }
 

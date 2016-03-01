@@ -96,7 +96,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\ProcessMissedNotificationsStartupTask.cs" />
-    <Compile Include="App_Start\CommonInstaller.cs" />
     <Compile Include="App_Start\QueriesInstaller.cs" />
     <Compile Include="Authorization\AutoReleaseAccessObjectHandlerInterceptor.cs" />
     <Compile Include="Authorization\Authorize.cs" />

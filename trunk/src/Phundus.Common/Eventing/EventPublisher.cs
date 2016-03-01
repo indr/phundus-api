@@ -7,12 +7,12 @@
     {
         private static Func<IEventPublisher> _factory;
 
-        public static void Publish<TDomainEvent>(TDomainEvent @event) where TDomainEvent : DomainEvent
+        public static void Publish<TDomainEvent>(TDomainEvent e) where TDomainEvent : DomainEvent
         {
             if (_factory == null)
                 throw new InvalidOperationException("You need to provide a factory to the static EventPublisher class.");
             var publisher = _factory();
-            publisher.Publish(@event);
+            publisher.Publish(e);
         }
 
         public static void Factory(Func<IEventPublisher> factory)
