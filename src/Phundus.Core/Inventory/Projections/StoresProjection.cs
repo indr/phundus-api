@@ -4,6 +4,7 @@ namespace Phundus.Inventory.Projections
     using Common;
     using Common.Domain.Model;
     using Common.Notifications;
+    using Common.Projecting;
     using Cqrs;
     using Stores.Model;
 

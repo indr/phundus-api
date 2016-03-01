@@ -3,6 +3,7 @@
     using System;
     using System.Collections.Generic;
     using Common;
+    using Common.Querying;
     using Cqrs;
 
     public interface ILessorQueries

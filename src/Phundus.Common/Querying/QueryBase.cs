@@ -1,4 +1,4 @@
-namespace Phundus.Cqrs
+namespace Phundus.Common.Querying
 {
     using System;
     using Castle.Core.Logging;

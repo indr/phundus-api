@@ -5,6 +5,7 @@
     using System.ComponentModel.DataAnnotations;
     using System.Linq;
     using Application;
+    using Common.Projecting;
     using Cqrs;
 
     public interface IAvailabilityQueries

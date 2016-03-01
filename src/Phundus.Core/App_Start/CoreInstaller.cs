@@ -6,6 +6,8 @@
     using Castle.MicroKernel.Registration;
     using Castle.MicroKernel.SubSystems.Configuration;
     using Castle.Windsor;
+    using Common.Projecting;
+    using Common.Querying;
     using Cqrs;
     using Ddd;
     using IdentityAccess.Users.Services;

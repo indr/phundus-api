@@ -3,6 +3,7 @@ namespace Phundus.Shop.Projections
     using System;
     using Common;
     using Common.Projections;
+    using Common.Querying;
     using Cqrs;
     using NHibernate.Criterion;
     using NHibernate.SqlCommand;
