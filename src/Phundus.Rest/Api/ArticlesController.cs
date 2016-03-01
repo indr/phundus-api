@@ -119,7 +119,7 @@ namespace Phundus.Rest.Api
 
         [GET("{articleId}/actions")]
         [Transaction]
-        public virtual QueryOkResponseContent<ArticleActionData> GetActions(Guid articleId)
+        public virtual QueryOkResponseContent<ArticleActionData> GetActions(ArticleId articleId)
         {
             var result = _articleActionsQueries.GetActions(articleId);
             return new QueryOkResponseContent<ArticleActionData>(result);

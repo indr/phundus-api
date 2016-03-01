@@ -73,6 +73,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Domain.Model\GuidConverterSpecs.cs" />
     <Compile Include="Domain.Model\IdentitiesSpecs.cs" />
     <Compile Include="Domain.Model\InitiatorSpecs.cs" />
     <Compile Include="Domain.Model\PeriodSpecs.cs" />

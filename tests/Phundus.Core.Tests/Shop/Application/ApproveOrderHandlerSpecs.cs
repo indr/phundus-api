@@ -24,8 +24,6 @@
             };
         };
 
-        private OrderId orderId;
-
         public It should_approve_order =
             () => theOrder.received(x => x.Approve(theManager));
 
