@@ -1,5 +1,6 @@
 ﻿namespace Phundus.Tests.Inventory.Model
 {
+    using System;
     using System.Linq;
     using Common.Domain.Model;
     using Machine.Fakes;
@@ -251,14 +252,15 @@
     [Subject(typeof (Article))]
     public class when_adding_an_image : article_concern
     {
-        private Because of = () => sut.AddImage(theInitiator, "fileName", "fileType", 123456);
+        private Because of = () =>
+            sut.AddImage(theInitiator, "fileName", "fileType", 123456);
 
         private It should_add_to_images_collection = () =>
             sut.Images.ShouldNotBeEmpty();
 
         private It should_publish_image_added = () =>
             published<ImageAdded>(p =>
-                p.IsPreviewImage == true
+                p.IsPreviewImage
                 && p.ArticleId == theArticleId.Id
                 && p.FileLength == 123456
                 && p.FileName == "fileName"
@@ -273,14 +275,32 @@
     [Subject(typeof (Article))]
     public class when_adding_a_second_image : article_concern
     {
+        private Establish ctx = () => sut_setup.run(sut =>
+            sut.AddImage(theInitiator, "first.jpg", "image/jpeg", 1234));
+
         private Because of = () =>
-        {
-            sut.AddImage(theInitiator, "first.jpg", "image/jpeg", 1234);
             sut.AddImage(theInitiator, "second.jpg", "image/jpeg", 2345);
-        };
 
         private It should_not_set_is_preview = () =>
             sut.Images.Single(p => p.FileName == "second.jpg").IsPreview.ShouldBeFalse();
+    }
+
+    [Subject(typeof (Article))]
+    public class when_adding_a_second_image_with_same_name : article_concern
+    {
+        private static string theFileName = "file.jpg";
+
+        private Establish ctx = () => sut_setup.run(sut =>
+            sut.AddImage(theInitiator, theFileName, "image/jpeg", 1234));
+
+        private Because of = () => spec.catch_exception(() =>
+            sut.AddImage(theInitiator, theFileName, "image/jpeg", 1234));
+
+        private It should_throw_exception_with_message = () =>
+            spec.exception_thrown.Message.ShouldEqual("Image with file name file.jpg already exists.");
+
+        private It should_throw_invalid_operation_exception = () =>
+            spec.exception_thrown.ShouldBeOfExactType<InvalidOperationException>();
     }
 
     [Subject(typeof (Article))]
@@ -331,12 +351,6 @@
         private Because of = () =>
             sut.SetPreviewImage(theInitiator, "second.jpg");
 
-        private It should_remove_preview_flag = () =>
-            sut.Images.Single(p => p.FileName == "first.gif").IsPreview.ShouldBeFalse();
-
-        private It should_set_preview_flag = () =>
-            sut.Images.Single(p => p.FileName == "second.jpg").IsPreview.ShouldBeTrue();
-
         private It should_publish_preview_image_changed = () =>
             published<PreviewImageChanged>(p =>
                 p.ArticleId == theArticleId.Id
@@ -345,5 +359,11 @@
                 && p.FileType == "image/jpeg"
                 && Equals(p.Initiator, theInitiator)
                 && p.OwnerId == theOwner.OwnerId.Id);
+
+        private It should_remove_preview_flag = () =>
+            sut.Images.Single(p => p.FileName == "first.gif").IsPreview.ShouldBeFalse();
+
+        private It should_set_preview_flag = () =>
+            sut.Images.Single(p => p.FileName == "second.jpg").IsPreview.ShouldBeTrue();
     }
 }

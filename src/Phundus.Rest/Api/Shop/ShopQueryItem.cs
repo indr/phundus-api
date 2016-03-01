@@ -27,7 +27,7 @@
         public string LessorName { get; set; }
 
         [JsonProperty("lessorType")]
-        public int LessorType { get; set; }
+        public string LessorType { get; set; }
 
         [JsonProperty("storeId")]
         public Guid StoreId { get; set; }

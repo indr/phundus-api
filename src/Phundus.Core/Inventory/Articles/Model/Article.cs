@@ -139,6 +139,9 @@
 
         public virtual Image AddImage(Initiator initiator, string fileName, string type, long length)
         {
+            if (Images.Count(p => p.FileName == fileName) > 0)
+                throw new InvalidOperationException(String.Format("Image with file name {0} already exists.", fileName));
+
             var image = new Image
             {
                 FileName = fileName,

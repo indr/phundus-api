@@ -31,13 +31,13 @@ namespace Phundus.Shop.Projections
             }
             if (lessorId.HasValue)
             {
-                query = query.Where(p => p.OwnerGuid == lessorId);
+                query = query.Where(p => p.LessorId == lessorId);
             }
 
-            ShopItemsSortByPopularityProjectionRow popularity = null;
+            ShopItemsPopularityData popularity = null;
 
             query.JoinAlias(() => items.Popularities, () => popularity, JoinType.LeftOuterJoin,
-                Restrictions.Where<ShopItemsSortByPopularityProjectionRow>(p => p.Month == DateTime.Today.Month));
+                Restrictions.Where<ShopItemsPopularityData>(p => p.Month == DateTime.Today.Month));
 
 
             query = query.OrderBy(() => popularity.Value).Desc.ThenBy(p => p.CreatedAtUtc).Desc;
@@ -50,7 +50,7 @@ namespace Phundus.Shop.Projections
         public ShopItemData Get(Guid itemGuid)
         {
             var result = Session.QueryOver<ShopItemData>()
-                .Where(p => p.ArticleGuid == itemGuid)
+                .Where(p => p.ArticleId == itemGuid)
                 .SingleOrDefault();
             if (result == null)
                 throw new NotFoundException("Shop item {0} not found.", itemGuid);

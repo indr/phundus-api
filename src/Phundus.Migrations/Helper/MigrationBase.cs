@@ -85,6 +85,10 @@
             DeleteTable(tableName);
             DeleteTracker(trackerTypeName);
         }
+
+        public override void Down()
+        {
+        }
     }
 
     public abstract class HydrationBase : MigrationBase
