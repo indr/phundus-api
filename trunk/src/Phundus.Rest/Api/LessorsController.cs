@@ -39,8 +39,9 @@
             return new LessorsGetOkResponseContent
             {
                 LessorId = lessor.LessorId,
-                LessorType = lessor.Type.ToString().ToLowerInvariant(),
+                Type = lessor.Type.ToString().ToLowerInvariant(),
                 Name = lessor.Name,
+                Url = lessor.Url,
                 PostalAddress = lessor.PostalAddress,
                 PhoneNumber = lessor.PhoneNumber,
                 EmailAddress = lessor.EmailAddress,
@@ -55,11 +56,14 @@
         [JsonProperty("lessorId")]
         public Guid LessorId { get; set; }
 
-        [JsonProperty("lessorType")]
-        public string LessorType { get; set; }
+        [JsonProperty("type")]
+        public string Type { get; set; }
 
         [JsonProperty("name")]
         public string Name { get; set; }
+
+        [JsonProperty("url")]
+        public string Url { get; set; }
 
         [JsonProperty("postalAddress")]
         public string PostalAddress { get; set; }

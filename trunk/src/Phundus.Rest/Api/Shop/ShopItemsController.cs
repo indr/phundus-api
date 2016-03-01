@@ -69,7 +69,7 @@
                 Lessor = new ShopItemGetOkResponseContent.LessorObject
                 {
                     LessorId = item.LessorId,
-                    LessorType = item.LessorType,
+                    Type = item.LessorType,
                     Name = item.LessorName
                 },
                 Store = new ShopItemGetOkResponseContent.StoreObject
@@ -193,8 +193,8 @@
             [JsonProperty("lessorId")]
             public Guid LessorId { get; set; }
 
-            [JsonProperty("lessorType")]
-            public int LessorType { get; set; }
+            [JsonProperty("type")]
+            public int Type { get; set; }
 
             [JsonProperty("name")]
             public string Name { get; set; }

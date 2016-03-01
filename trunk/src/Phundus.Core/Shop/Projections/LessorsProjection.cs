@@ -2,6 +2,7 @@
 {
     using System;
     using System.Text;
+    using Common;
     using Common.Domain.Model;
     using Common.Notifications;
     using Cqrs;
@@ -30,6 +31,7 @@
                 x.LessorId = e.OrganizationId;
                 x.Type = LessorData.LessorType.Organization;
                 x.Name = e.Name;
+                x.Url = e.Name.ToFriendlyUrl();
                 x.PostalAddress = null;
                 x.PhoneNumber = null;
                 x.EmailAddress = null;
