@@ -6,7 +6,6 @@ namespace Phundus.Tests.Ddd
     using System.Reflection;
     using Common.Domain.Model;
     using Machine.Specifications;
-    using Phundus.Ddd;
 
     [Subject("DomainEntities")]
     public class all_subclasses_of_entity_base

@@ -2,7 +2,6 @@ namespace Phundus.Shop.Model
 {
     using System;
     using Common.Domain.Model;
-    using Ddd;
 
     public class CartItem : EntityBase
     {

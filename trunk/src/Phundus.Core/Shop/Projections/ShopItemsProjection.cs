@@ -7,7 +7,6 @@
     using Common.Domain.Model;
     using Common.Notifications;
     using Common.Projecting;
-    using Cqrs;
     using Inventory.Articles.Model;
     using Inventory.Stores.Model;
     using Orders.Model;

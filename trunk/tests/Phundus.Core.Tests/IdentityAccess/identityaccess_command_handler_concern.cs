@@ -1,10 +1,10 @@
 namespace Phundus.Tests.IdentityAccess
 {
+    using Common.Commanding;
     using Common.Domain.Model;
     using Integration.IdentityAccess;
     using Machine.Fakes;
     using Machine.Specifications;
-    using Phundus.Cqrs;
     using Phundus.IdentityAccess.Organizations.Repositories;
     using Phundus.IdentityAccess.Projections;
     using Phundus.IdentityAccess.Users.Model;

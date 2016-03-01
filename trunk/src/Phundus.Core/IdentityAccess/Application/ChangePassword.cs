@@ -1,8 +1,8 @@
 ﻿namespace Phundus.IdentityAccess.Application
 {
     using System;
+    using Common.Commanding;
     using Common.Domain.Model;
-    using Cqrs;
     using Users.Repositories;
 
     public class ChangePassword

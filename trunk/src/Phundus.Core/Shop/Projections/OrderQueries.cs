@@ -6,7 +6,6 @@ namespace Phundus.Shop.Projections
     using Common;
     using Common.Domain.Model;
     using Common.Querying;
-    using Cqrs;
     using IdentityAccess.Projections;
     using Inventory.Application;
     using NHibernate;

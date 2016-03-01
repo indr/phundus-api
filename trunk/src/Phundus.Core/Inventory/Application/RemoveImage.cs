@@ -4,8 +4,8 @@
     using System.IO;
     using Articles.Repositories;
     using Authorization;
+    using Common.Commanding;
     using Common.Domain.Model;
-    using Cqrs;
     using Integration.IdentityAccess;
     using Phundus.Authorization;
 

@@ -2,8 +2,8 @@
 {
     using System;
     using Castle.Transactions;
+    using Common.Commanding;
     using Common.Domain.Model;
-    using Cqrs;
     using Organizations.Repositories;
     using Users.Repositories;
 

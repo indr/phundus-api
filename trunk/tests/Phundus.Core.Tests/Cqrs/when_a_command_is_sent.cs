@@ -5,9 +5,9 @@
     using Castle.Facilities.TypedFactory;
     using Castle.MicroKernel.Registration;
     using Castle.Windsor;
+    using Common.Commanding;
     using developwithpassion.specifications.rhinomocks;
     using Machine.Specifications;
-    using Phundus.Cqrs;
 
     [Subject(typeof (CommandDispatcher))]
     public class when_a_command_is_sent : Observes

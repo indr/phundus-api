@@ -5,9 +5,9 @@
     using Articles.Repositories;
     using Authorization;
     using Common;
+    using Common.Commanding;
     using Common.Domain.Model;
-    using Cqrs;
-    using Ddd;
+    using Common.Eventing;
     using Integration.IdentityAccess;
     using Inventory.Model;
     using Phundus.Authorization;

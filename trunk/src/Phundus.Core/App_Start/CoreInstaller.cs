@@ -6,10 +6,10 @@
     using Castle.MicroKernel.Registration;
     using Castle.MicroKernel.SubSystems.Configuration;
     using Castle.Windsor;
+    using Common.Commanding;
+    using Common.Eventing;
     using Common.Projecting;
     using Common.Querying;
-    using Cqrs;
-    using Ddd;
     using IdentityAccess.Users.Services;
 
     public class CoreInstaller : IWindsorInstaller

@@ -1,8 +1,8 @@
 ﻿namespace Phundus.IdentityAccess.Application
 {
     using System;
+    using Common.Commanding;
     using Common.Domain.Model;
-    using Cqrs;    
     using Integration.IdentityAccess;
     using Organizations.Model;
     using Organizations.Repositories;

@@ -1,8 +1,8 @@
 namespace Phundus.Tests.Shop
 {
+    using Common.Commanding;
     using developwithpassion.specifications.extensions;
     using Machine.Specifications;
-    using Phundus.Cqrs;
     using Phundus.Shop.Model;
 
     public abstract class order_command_handler_concern<TCommand, THandler> :

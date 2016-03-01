@@ -4,7 +4,6 @@
     using System.Collections.Generic;
     using Common.Domain.Model;
     using Common.Projecting;
-    using Cqrs;
 
     public interface IMembershipApplicationQueries
     {

@@ -5,16 +5,16 @@
     using Articles.Repositories;
     using AutoMapper;
     using Common.Domain.Model;
-    using Cqrs;
+    using Common.Querying;
 
     public interface IImagesQueries
     {
         IEnumerable<ImageData> ByArticle(int articleId);
     }
 
-    public class ImagesReadModel : AutoMappingReadModelBase, IImagesQueries
+    public class ImageQueries : QueryBase, IImagesQueries
     {
-        static ImagesReadModel()
+        static ImageQueries()
         {
             Mapper.CreateMap<Image, ImageData>();
         }

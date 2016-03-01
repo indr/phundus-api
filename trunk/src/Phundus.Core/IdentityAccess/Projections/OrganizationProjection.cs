@@ -6,7 +6,6 @@ namespace Phundus.IdentityAccess.Projections
     using Common.Domain.Model;
     using Common.Notifications;
     using Common.Projecting;
-    using Cqrs;    
     using Model;
     using Model.Organizations;
     using Organizations.Model;

@@ -2,8 +2,8 @@
 {
     using System;
     using Authorization;
+    using Common.Commanding;
     using Common.Domain.Model;
-    using Cqrs;
     using Integration.IdentityAccess;
     using Model;
     using Phundus.Authorization;

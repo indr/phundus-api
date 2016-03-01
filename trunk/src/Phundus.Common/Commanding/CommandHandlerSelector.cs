@@ -1,23 +1,22 @@
-﻿namespace Phundus.Ddd
+﻿namespace Phundus.Common.Commanding
 {
     using System;
     using System.Reflection;
     using Castle.Facilities.TypedFactory;
-    using Common.Domain.Model;
 
-    public class EventHandlerSelector : DefaultTypedFactoryComponentSelector
+    public class CommandHandlerSelector : DefaultTypedFactoryComponentSelector
     {
-        public EventHandlerSelector()
+        public CommandHandlerSelector()
             : base(false)
         {
         }
 
         protected override Type GetComponentType(MethodInfo method, object[] arguments)
         {
-            if (arguments.Length > 0 && arguments[0] is DomainEvent)
+            if (arguments.Length > 0 && arguments[0] is ICommand)
             {
                 Type handlerType =
-                    typeof (ISubscribeTo<>).MakeGenericType(arguments[0].GetType());
+                    typeof (IHandleCommand<>).MakeGenericType(arguments[0].GetType());
 
                 if (method.ReturnType.IsArray)
                     return handlerType.MakeArrayType();

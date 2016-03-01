@@ -1,4 +1,4 @@
-﻿namespace Phundus.Ddd
+﻿namespace Phundus.Common.Eventing
 {
     using System.Reflection;
     using Castle.Core;

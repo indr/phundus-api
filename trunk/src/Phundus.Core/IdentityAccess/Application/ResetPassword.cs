@@ -1,7 +1,7 @@
 ﻿namespace Phundus.IdentityAccess.Application
 {
     using System;
-    using Cqrs;
+    using Common.Commanding;
     using Infrastructure.Gateways;
     using Users.Mails;
     using Users.Repositories;

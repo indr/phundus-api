@@ -2,8 +2,8 @@
 {
     using System;
     using System.Globalization;
+    using Common.Commanding;
     using Common.Domain.Model;
-    using Cqrs;
     using Users.Exceptions;
     using Users.Repositories;
 

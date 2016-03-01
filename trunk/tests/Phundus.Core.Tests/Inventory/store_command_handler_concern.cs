@@ -1,8 +1,8 @@
 namespace Phundus.Tests.Inventory
 {
+    using Common.Commanding;
     using developwithpassion.specifications.extensions;
     using Machine.Specifications;
-    using Phundus.Cqrs;
     using Phundus.Inventory.Model;
     using Phundus.Inventory.Stores.Repositories;
 

@@ -16,8 +16,8 @@
     using AutoMapper;
     using Castle.Core.Logging;
     using Common;
+    using Common.Commanding;
     using Common.Domain.Model;
-    using Cqrs;
     using Infrastructure;
 
     public class ApiControllerBase : ApiController

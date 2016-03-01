@@ -2,7 +2,7 @@
 {
     using System;
     using Common.Domain.Model;
-    using Ddd;
+    using Common.Eventing;
     using Exceptions;
     using Infrastructure;
     using Services;

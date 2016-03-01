@@ -1,4 +1,4 @@
-﻿namespace Phundus.Cqrs
+﻿namespace Phundus.Common.Commanding
 {
     public interface ICommandDispatcher
     {

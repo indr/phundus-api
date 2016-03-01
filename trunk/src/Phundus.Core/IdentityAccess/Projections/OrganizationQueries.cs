@@ -4,7 +4,6 @@ namespace Phundus.IdentityAccess.Projections
     using System.Collections.Generic;
     using Common;
     using Common.Querying;
-    using Cqrs;
 
     public interface IOrganizationQueries
     {
