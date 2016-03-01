@@ -2,22 +2,23 @@
 {
     using System;
     using Ddd;
-    using IdentityAccess.Users.Repositories;
+    using IdentityAccess.Model.Users.Mails;
     using Infrastructure;
     using Infrastructure.Gateways;
     using Model;
+    using Repositories;
 
-    public class UserAccountValidationMail : BaseMail, ISubscribeTo<UserSignedUp>
+    public class UserLockedMailNotifier : BaseMail, ISubscribeTo<UserLocked>
     {
         private readonly IUserRepository _userRepository;
 
-        public UserAccountValidationMail(IMailGateway mailGateway, IUserRepository userRepository) : base(mailGateway)
+        public UserLockedMailNotifier(IMailGateway mailGateway, IUserRepository userRepository) : base(mailGateway)
         {
             if (userRepository == null) throw new ArgumentNullException("userRepository");
             _userRepository = userRepository;
         }
 
-        public void Handle(UserSignedUp @event)
+        public void Handle(UserLocked @event)
         {
             var user = _userRepository.FindByGuid(@event.UserId);
             if (user == null)
@@ -30,7 +31,7 @@
                 Admins = Config.FeedbackRecipients
             };
 
-            Send(user.Account.Email, Templates.UserAccountValidationSubject, null, Templates.UserAccountValidationHtml);
+            Send(user.Account.Email, Templates.UserLockedSubject, null, Templates.UserLockedHtml);
         }
     }
 }
