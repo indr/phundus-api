@@ -11,9 +11,8 @@
         {
             container.Register(
                 Component.For<ITypedFactoryComponentSelector>().ImplementedBy<ProjectionSelector>(),
-                Component.For<IProjectionFactory>().AsFactory(c => c.SelectedWith<ProjectionSelector>())
-
-                );
+                Component.For<ITypedProjectionFactory>().AsFactory(c => c.SelectedWith<ProjectionSelector>()),
+                Component.For<IProjectionFactory>().ImplementedBy<ProjectionFactory>());
         }
     }
 }
