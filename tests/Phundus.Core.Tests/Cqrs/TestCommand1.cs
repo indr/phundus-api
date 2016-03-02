@@ -1,6 +1,8 @@
 ﻿namespace Phundus.Tests.Cqrs
 {
-    public class TestCommand1
+    using Common.Commanding;
+
+    public class TestCommand1 : ICommand
     {
     }
 }
