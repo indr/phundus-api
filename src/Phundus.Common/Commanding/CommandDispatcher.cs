@@ -20,9 +20,26 @@
         {
             _logger.Info("Dispatching command " + typeof(TCommand).Name);
 
-            IHandleCommand<TCommand> handler = _commandHandlerFactory.GetHandlerForCommand(command);
+            IHandleCommand<TCommand> handler = null;
+            try
+            {
+                handler = _commandHandlerFactory.GetHandlerForCommand(command);
+            }
+            catch (Exception ex)
+            {
+                _logger.Error("Could not resolve command handler for " + typeof(TCommand).Name, ex);
+                throw;
+            }
 
-            handler.Handle(command);
+            try
+            {
+                handler.Handle(command);
+            }
+            catch (Exception ex)
+            {
+                _logger.Error("Command handler threw exception", ex);
+                throw;
+            }
         }
     }
 }

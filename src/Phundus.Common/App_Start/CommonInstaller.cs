@@ -1,7 +1,5 @@
 namespace Phundus.Common
 {
-    using System;
-    using System.Reflection;
     using Castle.Facilities.TypedFactory;
     using Castle.MicroKernel.Registration;
     using Castle.MicroKernel.SubSystems.Configuration;

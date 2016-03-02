@@ -9,6 +9,7 @@
     using Common.Commanding;
     using Common.Eventing;
     using Common.Projecting;
+    using Common.Projecting.Application;
     using Common.Querying;
     using IdentityAccess.Users.Services;
 
@@ -32,6 +33,10 @@
                 Component.For<AutoReleaseCommandHandlerInterceptor>(),
                 Types.FromAssembly(_assemblyContainingCommandsAndHandlers)
                     .BasedOn(typeof (IHandleCommand<>))
+                    .WithServiceAllInterfaces()
+                    .Configure(c => c.LifeStyle.Transient.Interceptors<AutoReleaseCommandHandlerInterceptor>()),
+                    Types.FromAssemblyContaining<ForceProcessProjection>()
+                    .BasedOn(typeof(IHandleCommand<>))
                     .WithServiceAllInterfaces()
                     .Configure(c => c.LifeStyle.Transient.Interceptors<AutoReleaseCommandHandlerInterceptor>()),
                 Component.For<ICommandDispatcher>().ImplementedBy<CommandDispatcher>().LifestyleTransient(),

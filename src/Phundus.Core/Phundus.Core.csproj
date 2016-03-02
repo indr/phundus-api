@@ -104,6 +104,7 @@
     <Compile Include="Authorization\IAccessObjectHandlerFactory.cs" />
     <Compile Include="Authorization\IHandleAccessObject.cs" />
     <Compile Include="Dashboard\Projections\EventLogProjection.cs" />
+    <Compile Include="Dashboard\Projections\ProjectionMetaDataQueries.cs" />
     <Compile Include="IdentityAccess\Application\ChangeUserAddress.cs" />
     <Compile Include="IdentityAccess\Authorization\Manage.cs" />
     <Compile Include="IdentityAccess\Application\ChangeMemberRecievesEmailNotification.cs" />
