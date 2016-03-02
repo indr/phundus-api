@@ -4,7 +4,7 @@ namespace Phundus.Shop.Model
     using Common;
     using Common.Domain.Model;
     using IdentityAccess.Projections;
-    using Inventory.Articles.Repositories;
+    using Inventory.Model.Articles;
 
     public interface IArticleService
     {

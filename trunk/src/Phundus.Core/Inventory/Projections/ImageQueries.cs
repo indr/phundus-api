@@ -2,14 +2,14 @@
 {
     using System.Collections.Generic;
     using Articles.Model;
-    using Articles.Repositories;
     using AutoMapper;
     using Common.Domain.Model;
     using Common.Querying;
+    using Model.Articles;
 
     public interface IImagesQueries
     {
-        IEnumerable<ImageData> ByArticle(int articleId);
+        IEnumerable<ImageData> ByArticle(ArticleId articleId);
     }
 
     public class ImageQueries : QueryBase, IImagesQueries
@@ -21,9 +21,9 @@
 
         public IArticleRepository ArticleRepository { get; set; }
 
-        public IEnumerable<ImageData> ByArticle(int articleId)
+        public IEnumerable<ImageData> ByArticle(ArticleId articleId)
         {
-            var article = ArticleRepository.GetById(new ArticleShortId(articleId));
+            var article = ArticleRepository.GetById(articleId);
 
             return Mapper.Map<IEnumerable<ImageData>>(article.Images);
         }

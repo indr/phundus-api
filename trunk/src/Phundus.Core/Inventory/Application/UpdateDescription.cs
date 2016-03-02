@@ -1,11 +1,11 @@
 ﻿namespace Phundus.Inventory.Application
 {
     using System;
-    using Articles.Repositories;
     using Authorization;
     using Common.Commanding;
     using Common.Domain.Model;
     using Integration.IdentityAccess;
+    using Model.Articles;
     using Phundus.Authorization;
 
     public class UpdateDescription

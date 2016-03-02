@@ -1,14 +1,12 @@
-﻿namespace Phundus.Inventory.Articles.Repositories
+﻿namespace Phundus.Inventory.Model.Articles
 {
     using Common.Domain.Model;
     using Infrastructure;
-    using Model;
+    using Inventory.Articles.Model;
 
     public interface IArticleRepository : IRepository<Article>
     {
-        Article GetById(ArticleId articleId);
-        Article GetById(ArticleShortId articleShortId);
+        Article GetById(ArticleId articleId);        
         Article FindById(ArticleId articleId);
-        Article FindById(ArticleShortId articleShortId);
     }
 }
