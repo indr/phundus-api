@@ -8,7 +8,7 @@
     using Common.Domain.Model;
     using Common.Eventing;
     using Integration.IdentityAccess;
-    using Inventory.Model;
+    using Model;
     using Model.Articles;
     using Phundus.Authorization;
     using Stores.Repositories;
@@ -29,19 +29,20 @@
         }
 
         public CreateArticle(InitiatorId initiatorId, OwnerId ownerId, StoreId storeId, ArticleId articleId,
-            string name,
-            int grossStock, decimal publicPrice, decimal? memberPrice)
+            ArticleShortId articleShortId, string name, int grossStock, decimal publicPrice, decimal? memberPrice)
         {
             if (initiatorId == null) throw new ArgumentNullException("initiatorId");
             if (ownerId == null) throw new ArgumentNullException("ownerId");
             if (storeId == null) throw new ArgumentNullException("storeId");
             if (articleId == null) throw new ArgumentNullException("articleId");
+            if (articleShortId == null) throw new ArgumentNullException("articleShortId");
             if (name == null) throw new ArgumentNullException("name");
 
             InitiatorId = initiatorId;
             OwnerId = ownerId;
             StoreId = storeId;
             ArticleId = articleId;
+            ArticleShortId = articleShortId;
             Name = name;
             GrossStock = grossStock;
             MemberPrice = memberPrice;
@@ -50,14 +51,13 @@
 
         public InitiatorId InitiatorId { get; protected set; }
         public OwnerId OwnerId { get; protected set; }
-        public StoreId StoreId { get; set; }
-        public ArticleId ArticleId { get; set; }
+        public StoreId StoreId { get; protected set; }
+        public ArticleId ArticleId { get; protected set; }
+        public ArticleShortId ArticleShortId { get; protected set; }
         public string Name { get; protected set; }
         public int GrossStock { get; protected set; }
         public decimal PublicPrice { get; protected set; }
         public decimal? MemberPrice { get; protected set; }
-
-        public int ResultingArticleId { get; set; }
     }
 
     public class CreateArticleHandler : IHandleCommand<CreateArticle>
@@ -96,15 +96,13 @@
             if (!Equals(store.Owner.OwnerId, command.OwnerId))
                 throw new Exception("The store does not belong to the owner specified.");
 
-            var article = new Article(owner, store.StoreId, command.ArticleId, command.Name, command.GrossStock,
-                command.PublicPrice, command.MemberPrice);
+            var article = new Article(owner, store.StoreId, command.ArticleId, command.ArticleShortId, command.Name,
+                command.GrossStock, command.PublicPrice, command.MemberPrice);
 
             _articleRepository.Add(article);
 
-            command.ResultingArticleId = article.ArticleShortId.Id;
-
             EventPublisher.Publish(new ArticleCreated(initiator, article.Owner, article.StoreId, store.Name,
-                new ArticleShortId(command.ResultingArticleId), article.ArticleId,
+                article.ArticleShortId, article.ArticleId,
                 article.Name, article.GrossStock, article.PublicPrice, article.MemberPrice));
         }
     }

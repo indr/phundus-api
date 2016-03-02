@@ -20,18 +20,21 @@ namespace Phundus.Rest.Api
     [RoutePrefix("api/articles")]
     public class ArticlesController : ApiControllerBase
     {
+        private readonly IArticleActionsQueries _articleActionsQueries;
+        private readonly IShortIdGeneratorService _shortIdGeneratorService;
         private readonly IArticleQueries _articleQueries;
         private readonly IAvailabilityQueries _availabilityQueries;
         private readonly IMemberInRole _memberInRole;
         private readonly IReservationRepository _reservationRepository;
-        private readonly IArticleActionsQueries _articleActionsQueries;
         private readonly IStoresQueries _storesQueries;
 
         public ArticlesController(IMemberInRole memberInRole, IStoresQueries storesQueries,
             IArticleQueries articleQueries, IAvailabilityQueries availabilityQueries,
-            IReservationRepository reservationRepository, IUsersQueries usersQueries, IArticleActionsQueries articleActionsQueries)
+            IReservationRepository reservationRepository, IUsersQueries usersQueries,
+            IArticleActionsQueries articleActionsQueries, IShortIdGeneratorService shortIdGeneratorService)
         {
             if (articleActionsQueries == null) throw new ArgumentNullException("articleActionsQueries");
+            if (shortIdGeneratorService == null) throw new ArgumentNullException("shortIdGeneratorService");
             AssertionConcern.AssertArgumentNotNull(memberInRole, "MemberInRole must be provided.");
             AssertionConcern.AssertArgumentNotNull(storesQueries, "StoreQueries must be provided.");
             AssertionConcern.AssertArgumentNotNull(articleQueries, "ArticleQueries must be provided.");
@@ -45,6 +48,7 @@ namespace Phundus.Rest.Api
             _availabilityQueries = availabilityQueries;
             _reservationRepository = reservationRepository;
             _articleActionsQueries = articleActionsQueries;
+            _shortIdGeneratorService = shortIdGeneratorService;
         }
 
         private OwnerId GetOwnerId(string ownerId)
@@ -195,15 +199,16 @@ namespace Phundus.Rest.Api
         {
             var ownerId = GetOwnerId(requestContent.OwnerId);
             var storeId = _storesQueries.GetByOwnerId(ownerId).StoreId;
-            var articleGuid = new ArticleId();
-            var command = new CreateArticle(CurrentUserId, ownerId, new StoreId(storeId), articleGuid,
+            var articleId = new ArticleId();
+            var articleShortId = _shortIdGeneratorService.GetNext<ArticleShortId>();
+            var command = new CreateArticle(CurrentUserId, ownerId, new StoreId(storeId), articleId, articleShortId,
                 requestContent.Name, requestContent.GrossStock, requestContent.PublicPrice, requestContent.MemberPrice);
             Dispatch(command);
 
             return new ArticlesPostOkResponseContent
             {
-                ArticleShortId = command.ResultingArticleId,
-                ArticleId = articleGuid.Id
+                ArticleId = articleId.Id,
+                ArticleShortId = articleShortId.Id
             };
         }
 

@@ -15,8 +15,8 @@ namespace Phundus.Persistence.Shop.Projections
 
             Id(x => x.CartItemGuid, "CartItemGuid");
             Map(x => x.Position, "Position");
-            Map(x => x.ArticleId, "ArticleId");
-            Map(x => x.ArticleGuid, "ArticleGuid");
+            Map(x => x.ArticleId, "ArticleShortId");
+            Map(x => x.ArticleGuid, "ArticleId");
             Map(x => x.Text, "Text");
             Map(x => x.FromUtc, "FromUtc").CustomType<UtcDateTimeType>();
             Map(x => x.ToUtc, "ToUtc").CustomType<UtcDateTimeType>();

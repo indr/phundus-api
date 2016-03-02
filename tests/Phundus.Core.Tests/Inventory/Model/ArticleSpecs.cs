@@ -17,6 +17,7 @@
         protected static OwnerType theOwnerType;
         protected static StoreId theStoreId;
         protected static ArticleId theArticleId;
+        protected static ArticleShortId theArticleShortId;
         protected static string theName;
         protected static int theGrossStock;
         protected static decimal thePublicPrice;
@@ -30,6 +31,7 @@
             theOwner = null;
             theStoreId = new StoreId();
             theArticleId = new ArticleId();
+            theArticleShortId = new ArticleShortId(1234);
             theName = "The name";
             theGrossStock = 10;
             theMemberPrice = 11.11m;
@@ -37,7 +39,7 @@
             sut_factory.create_using(() =>
             {
                 theOwner = make.Owner(theOwnerType);
-                return new Article(theOwner, theStoreId, theArticleId,
+                return new Article(theOwner, theStoreId, theArticleId, theArticleShortId,
                     theName, theGrossStock, thePublicPrice, theMemberPrice);
             });
         };
@@ -46,8 +48,11 @@
     [Subject(typeof (Article))]
     public class when_instantiating : article_concern
     {
-        private It should_have_the_article_guid = () =>
+        private It should_have_the_article_id = () =>
             sut.ArticleId.ShouldEqual(theArticleId);
+
+        private It should_have_the_article_short_id = () =>
+            sut.ArticleShortId.ShouldEqual(theArticleShortId);
 
         private It should_have_the_gross_stock = () =>
             sut.GrossStock.ShouldEqual(theGrossStock);

@@ -1,19 +1,21 @@
 ﻿namespace Phundus.Inventory.Articles.Model
 {
     using System;
+    using System.Collections.Generic;
     using System.Linq;
     using Common.Domain.Model;
     using Common.Eventing;
     using Iesi.Collections.Generic;
     using Inventory.Model;
 
-    public class Article : Aggregate<int>
+    public class Article : EntityWithCompositeId
     {
         private ArticleId _articleId = new ArticleId();
+        private ArticleShortId _articleShortId;
         private DateTime _createDate = DateTime.UtcNow;
         private string _description;
         private int _grossStock;
-        private ISet<Image> _images = new HashedSet<Image>();
+        private Iesi.Collections.Generic.ISet<Image> _images = new HashedSet<Image>();
         private decimal? _memberPrice;
         private string _name;
         private Owner _owner;
@@ -25,32 +27,38 @@
         {
         }
 
-        public Article(Owner owner, StoreId storeId, ArticleId articleId, string name, int grossStock,
-            decimal publicPrice, decimal? memberPrice)
+        public Article(Owner owner, StoreId storeId, ArticleId articleId, ArticleShortId articleShortId, string name,
+            int grossStock, decimal publicPrice, decimal? memberPrice)
         {
             if (owner == null) throw new ArgumentNullException("owner");
             if (storeId == null) throw new ArgumentNullException("storeId");
             if (articleId == null) throw new ArgumentNullException("articleId");
+            if (articleShortId == null) throw new ArgumentNullException("articleShortId");
             if (name == null) throw new ArgumentNullException("name");
 
             _owner = owner;
             _storeId = storeId;
             _articleId = articleId;
+            _articleShortId = articleShortId;
             _name = name;
             _grossStock = grossStock;
             _memberPrice = _owner.Type == OwnerType.Organization ? memberPrice : null;
             _publicPrice = publicPrice;
         }
 
-        public virtual ArticleShortId ArticleShortId
-        {
-            get { return new ArticleShortId(Id); }            
-        }
-
         public virtual ArticleId ArticleId
         {
             get { return _articleId; }
+            protected set { _articleId = value; }
         }
+
+        public virtual ArticleShortId ArticleShortId
+        {
+            get { return _articleShortId; }
+            protected set { _articleShortId = value; }
+        }
+
+        public virtual int Version { get; protected set; }
 
         public virtual Owner Owner
         {
@@ -63,7 +71,7 @@
             get { return _storeId; }
         }
 
-        public virtual ISet<Image> Images
+        public virtual Iesi.Collections.Generic.ISet<Image> Images
         {
             get { return _images; }
             protected set { _images = value; }
@@ -123,7 +131,8 @@
 
             Description = description;
 
-            EventPublisher.Publish(new DescriptionChanged(initiator, ArticleShortId, ArticleId, Owner.OwnerId, Description));
+            EventPublisher.Publish(new DescriptionChanged(initiator, ArticleShortId, ArticleId, Owner.OwnerId,
+                Description));
         }
 
         public virtual void ChangeSpecification(Initiator initiator, string specification)
@@ -152,7 +161,8 @@
             };
             Images.Add(image);
 
-            EventPublisher.Publish(new ImageAdded(initiator, ArticleShortId, ArticleId, Owner.OwnerId, image.FileName, image.Type, image.Length, image.IsPreview));
+            EventPublisher.Publish(new ImageAdded(initiator, ArticleShortId, ArticleId, Owner.OwnerId, image.FileName,
+                image.Type, image.Length, image.IsPreview));
 
             return image;
         }
@@ -184,7 +194,8 @@
                 return;
 
             previewImage.IsPreview = true;
-            EventPublisher.Publish(new PreviewImageChanged(initiator, ArticleShortId, ArticleId, Owner.OwnerId, previewImage.FileName, previewImage.Type, previewImage.Length));
+            EventPublisher.Publish(new PreviewImageChanged(initiator, ArticleShortId, ArticleId, Owner.OwnerId,
+                previewImage.FileName, previewImage.Type, previewImage.Length));
         }
 
         public virtual void SetPreviewImage(Initiator initiator, string fileName)
@@ -200,7 +211,8 @@
             if ((oldPreviewImage == previewImage) || (previewImage == null))
                 return;
 
-            EventPublisher.Publish(new PreviewImageChanged(initiator, ArticleShortId, ArticleId, Owner.OwnerId, previewImage.FileName, previewImage.Type, previewImage.Length));
+            EventPublisher.Publish(new PreviewImageChanged(initiator, ArticleShortId, ArticleId, Owner.OwnerId,
+                previewImage.FileName, previewImage.Type, previewImage.Length));
         }
 
         public virtual void ChangePrices(Initiator initiator, decimal publicPrice, decimal? memberPrice)
@@ -213,7 +225,8 @@
             PublicPrice = publicPrice;
             MemberPrice = Owner.Type == OwnerType.Organization ? memberPrice : null;
 
-            EventPublisher.Publish(new PricesChanged(initiator, ArticleShortId, ArticleId, Owner.OwnerId, PublicPrice, MemberPrice));
+            EventPublisher.Publish(new PricesChanged(initiator, ArticleShortId, ArticleId, Owner.OwnerId, PublicPrice,
+                MemberPrice));
         }
 
         public virtual void ChangeDetails(Initiator initiator, string name, string brand, string color)
@@ -241,8 +254,14 @@
             var oldGrossStock = GrossStock;
             GrossStock = grossStock;
 
-            EventPublisher.Publish(new GrossStockChanged(initiator, ArticleShortId, ArticleId, Owner.OwnerId, oldGrossStock,
+            EventPublisher.Publish(new GrossStockChanged(initiator, ArticleShortId, ArticleId, Owner.OwnerId,
+                oldGrossStock,
                 GrossStock));
+        }
+
+        protected override IEnumerable<object> GetIdentityComponents()
+        {
+            yield return ArticleId;
         }
     }
 }

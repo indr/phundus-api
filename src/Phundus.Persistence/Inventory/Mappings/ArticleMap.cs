@@ -11,9 +11,10 @@
             SchemaAction.Validate();
 
             Table("Dm_Inventory_Article");
-            Id(x => x.Id).GeneratedBy.Native();
-            Component(x => x.ArticleId, a =>
-                a.Map(x => x.Id, "ArticleGuid")).Not.Update();
+            CompositeId(x => x.ArticleId)
+                .KeyProperty(x => x.Id, "ArticleId");            
+            Component(x => x.ArticleShortId, a =>
+                a.Map(x => x.Id, "ArticleShortId")).Not.Update();
             Version(x => x.Version);
 
             Map(x => x.CreateDate, "CreateDate").Not.Update();

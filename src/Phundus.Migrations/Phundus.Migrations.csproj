@@ -163,6 +163,7 @@
     <Compile Include="2016\01\M201601212344_Add_ArticleGuid_To_Dm_Inventory_Article.cs" />
     <Compile Include="2016\01\M201601220608_Add_MemberPrice_To_Dm_Inventory_Article.cs" />
     <Compile Include="2016\01\M201601221416_Add_Owner_Type_To_Dm_Inventory_Article.cs" />
+    <Compile Include="2016\03\M201603020229_Create_primary_and_foreign_keys.cs" />
     <Compile Include="2016\02\M201602020534_Create_or_populate_ArticleCreated.cs" />
     <Compile Include="2016\02\M201602020640_Create_table_Es_Inventory_Articles.cs" />
     <Compile Include="2016\02\M201602021247_Delete_stored_article_updated_events.cs" />
@@ -199,7 +200,8 @@
     <Compile Include="2016\02\M201602270319_Reset_Es_Shop_Orders.cs" />
     <Compile Include="2016\02\M201602270318_Generate_Missing_OrderStatus_Events.cs" />
     <Compile Include="2016\02\M201602270534_Create_Sequence_Generator.cs" />
-    <Compile Include="2016\02\M201602270747_Alter_Table_Dm_Shop_Order.cs" />
+    <Compile Include="2016\02\M201602270748_Alter_Table_Dm_Shop_Order.cs" />
+    <Compile Include="2016\02\M201602270759_Create_Primary_and_Foreign_Key.cs" />
     <Compile Include="2016\02\M201602280525_Generate_OrderCreated_from_OrderPlaced.cs" />
     <Compile Include="2016\02\M201602280547_Reset_Es_Shop_Orders.cs" />
     <Compile Include="2016\02\M201602281728_Set_UserId_on_UserSignedUp_events.cs" />
@@ -218,11 +220,15 @@
     <Compile Include="2016\02\M201602291155_Reinsert_User_events.cs" />
     <Compile Include="2016\02\M201602291228_Reset_OrganizationProjection.cs" />
     <Compile Include="2016\02\M201602291405_Reinsert_events.cs" />
+    <Compile Include="2016\03\M201603020225_Alter_Table_Dm_Inventory_Article.cs" />
     <Compile Include="2016\03\M201603010452_Reset_ShopItem_and_ShopItems_projections.cs" />
     <Compile Include="2016\03\M201603010628_Delete_dupliacte_image_added_events.cs" />
     <Compile Include="2016\03\M201603011114_Reset_Lessors_projection.cs" />
     <Compile Include="2016\03\M201603020127_Reset_Shop_Orders_projection.cs" />
     <Compile Include="2016\03\M201603020156_Migrate_article_images_directory_to_guids.cs" />
+    <Compile Include="2016\03\M201603020251_Delete_ArticleFile_ArticleShortId.cs" />
+    <Compile Include="2016\03\M201603020307_Create_unique_key_on_Article_ArticleShortId.cs" />
+    <Compile Include="2016\03\M201603020359_Recreate_View_Shop_CartItems.cs" />
     <Compile Include="Helper\EventMigrationBase.cs" />
     <Compile Include="2016\01\M201601151255AddUserGuidToApplicationAndMembership.cs" />
     <Compile Include="2016\01\M201501110544AlterTableNames.cs" />
