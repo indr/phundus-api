@@ -8,7 +8,6 @@
     using Common.Domain.Model;
     using Machine.Specifications;
 
-   
     public class all_types_which_are_assignable_to_iidentity_guid
     {
         protected static List<Type> types;
@@ -20,8 +19,6 @@
                 .Where(p => p != typeof (GuidIdentity))
                 .ToList();
         };
-
-        
     }
 
     [Subject("IIdentity<Guid>")]
@@ -29,23 +26,27 @@
     {
         private It should_have_a_converter_specified = () =>
             types.ShouldEachConformTo(c =>
-                c.IsDefined(typeof(TypeConverterAttribute), false));
+                c.IsDefined(typeof (TypeConverterAttribute), false));
     }
 
     [Subject("IIdentity<Guid>")]
     public class all_type_converter_attributes : all_types_which_are_assignable_to_iidentity_guid
     {
+        private static Dictionary<Type, TypeConverterAttribute> attributes;
+        private static string phundusCommonAssemblyFullName = typeof (GuidIdentity).Assembly.FullName;
+
         private Establish ctx = () =>
         {
             var attribute = typeof (TypeConverterAttribute);
 
-
             attributes = new Dictionary<Type, TypeConverterAttribute>();
             foreach (var each in types)
             {
-                var typeConverterAttribute = (TypeConverterAttribute) each.GetCustomAttributes(attribute, false).SingleOrDefault(p => p.GetType() == attribute);
-                if (typeConverterAttribute==null)continue;
-                
+                var typeConverterAttribute =
+                    (TypeConverterAttribute)
+                        each.GetCustomAttributes(attribute, false).SingleOrDefault(p => p.GetType() == attribute);
+                if (typeConverterAttribute == null) continue;
+
                 attributes.Add(each, typeConverterAttribute);
             }
         };
@@ -56,16 +57,12 @@
 
         private static string GetConverterType(Type idType)
         {
-            var fullName = idType.AssemblyQualifiedName;
+            var assemblyQualifiedName = idType.AssemblyQualifiedName;
             var result = String.Format(
-                    @"Phundus.Common.Domain.Model.GuidConverter`1[[{0}]], Phundus.Common, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null",
-                    fullName);
+                @"Phundus.Common.Domain.Model.GuidConverter`1[[{0}]], {1}",
+                assemblyQualifiedName, phundusCommonAssemblyFullName);
             return result;
         }
-
-        private static Dictionary<Type, TypeConverterAttribute> attributes;
-
-        
     }
 
     [Subject("IIdentity<Guid>")]
