@@ -65,8 +65,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\CommonInstaller.cs" />
+    <Compile Include="App_Start\MessagingInstaller.cs" />
     <Compile Include="App_Start\NotificationConsumerInstaller.cs" />
     <Compile Include="App_Start\NotificationPublisherInstaller.cs" />
+    <Compile Include="App_Start\ProjectingInstaller.cs" />
     <Compile Include="AssertionConcern.cs" />
     <Compile Include="AuthorizationException.cs" />
     <Compile Include="Commanding\AutoReleaseCommandHandlerInterceptor.cs" />
@@ -97,7 +99,14 @@
     <Compile Include="Eventing\IEventHandlerFactory.cs" />
     <Compile Include="Eventing\IStoredEventRepository.cs" />
     <Compile Include="Eventing\ISubscribeTo.cs" />
+    <Compile Include="Messaging\FakeBus.cs" />
+    <Compile Include="Messaging\IBus.cs" />
+    <Compile Include="Projecting\Application\ForceProcessProjection.cs" />
+    <Compile Include="Projecting\Application\RecreateProjection.cs" />
     <Compile Include="Projecting\ProjectionBase.cs" />
+    <Compile Include="Projecting\Application\ResetProjection.cs" />
+    <Compile Include="Projecting\ProjectionProcessor.cs" />
+    <Compile Include="Projecting\ProjectionResetter.cs" />
     <Compile Include="Querying\QueryResult.cs" />
     <Compile Include="Projecting\RawJsonConverter.cs" />
     <Compile Include="Projecting\ProjectionDispatcher.cs" />

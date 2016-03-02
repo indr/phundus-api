@@ -42,6 +42,11 @@ namespace Phundus.Persistence
             return new ProcessedNotificationTracker(typeName);
         }
 
+        public IList<ProcessedNotificationTracker> GetProcessedNotificationTrackers()
+        {
+            return Session.QueryOver<ProcessedNotificationTracker>().OrderBy(p => p.TypeName).Asc.List();
+        }
+
         public void TrackMostRecentProcessedNotification(ProcessedNotificationTracker tracker,
             IList<Notification> notifications)
         {

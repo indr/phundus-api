@@ -3,6 +3,7 @@
     using System;
     using System.Collections.Generic;
     using System.Linq;
+    using Castle.Transactions;
     using Common;
     using Common.Domain.Model;
     using Common.Projecting;
@@ -36,6 +37,7 @@
                 .List().SingleOrDefault();
         }
 
+        [Transaction]
         public IUser FindByUsername(string username)
         {
             if (username == null) throw new ArgumentNullException("username");

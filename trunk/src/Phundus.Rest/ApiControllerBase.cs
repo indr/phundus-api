@@ -18,6 +18,7 @@
     using Common;
     using Common.Commanding;
     using Common.Domain.Model;
+    using Common.Messaging;
     using Infrastructure;
 
     public class ApiControllerBase : ApiController
@@ -29,6 +30,8 @@
             get { return _log; }
             set { _log = value; }
         }
+
+        public IBus Bus { get; set; }
 
         public IIdentity Identity { get; set; }
 
@@ -55,6 +58,11 @@
         protected static TDestination Map<TDestination>(object source)
         {
             return Mapper.Map<TDestination>(source);
+        }
+
+        protected HttpResponseMessage Accepted()
+        {
+            return Request.CreateResponse(HttpStatusCode.Accepted);
         }
 
         protected HttpResponseMessage Ok(object content)
