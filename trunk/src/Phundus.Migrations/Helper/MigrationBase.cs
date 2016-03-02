@@ -55,6 +55,14 @@
             return dateTimeLocal.ToUniversalTime();
         }
 
+        protected void InsertSequence(string name, string selectSql)
+        {
+            Execute.Sql(String.Format(@"
+DECLARE @seed int
+SET @seed = ({1});
+EXEC CreateNewSeq @name=N'{0}', @seed=@seed
+", name, selectSql));
+        }
 
         protected void ResetAllProcessedNotificationTrackers()
         {

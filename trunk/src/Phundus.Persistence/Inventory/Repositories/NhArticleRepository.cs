@@ -7,12 +7,6 @@
 
     public class NhArticleRepository : NhRepositoryBase<Article>, IArticleRepository
     {
-        public new int Add(Article entity)
-        {
-            base.Add(entity);
-            return entity.Id;
-        }
-
         public Article GetById(ArticleId articleId)
         {
             var result = FindById(articleId);

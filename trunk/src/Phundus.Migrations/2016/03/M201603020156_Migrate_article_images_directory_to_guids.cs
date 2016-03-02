@@ -30,6 +30,10 @@ namespace Phundus.Migrations
         {
             var sourceDirName = Path.Combine(_basePath, shortId.ToString(CultureInfo.InvariantCulture));
             var destDirName = Path.Combine(_basePath, guid.ToString("D"));
+
+            if (!Directory.Exists(sourceDirName))
+                return;
+
             Directory.Move(sourceDirName, destDirName);
         }
     }

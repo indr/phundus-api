@@ -44,7 +44,7 @@
             depends.on<IStoreRepository>().setup(x => x.GetById(theStore.StoreId)).Return(theStore);
 
             command = new CreateArticle(theInitiatorId, theOwner.OwnerId, theStore.StoreId, theArticleId,
-                theName, theGrossStock, thePublicPrice, theMemberPrice);
+                theArticleShortId, theName, theGrossStock, thePublicPrice, theMemberPrice);
         };
 
         private It should_add_to_repository = () =>
@@ -58,6 +58,7 @@
         public It should_publish_article_created = () =>
             published<ArticleCreated>(p =>
                 p.ArticleId == theArticleId.Id
+                && p.ArticleShortId == theArticleShortId.Id
                 && p.GrossStock == theGrossStock
                 && Equals(p.Initiator.InitiatorId, theInitiatorId)
                 && p.MemberPrice == theMemberPrice
@@ -66,8 +67,5 @@
                 && p.PublicPrice == thePublicPrice
                 && p.StoreId == theStore.StoreId.Id
                 && p.StoreName == theStore.Name);
-
-        public It should_set_resulting_article_id = () =>
-            command.ResultingArticleId.ShouldEqual(theArticleShortId.Id);
     }
 }

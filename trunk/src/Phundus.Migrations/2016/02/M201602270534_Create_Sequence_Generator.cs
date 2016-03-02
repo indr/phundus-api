@@ -12,11 +12,7 @@
             CreateStoredProcedureCreateSequence();
             CreateStoredProcedureGetNextSeqValue();
 
-            Execute.Sql(@"
-DECLARE @seed int
-SET @seed = (SELECT MAX(Id) FROM [Dm_Shop_Order]);
-EXEC CreateNewSeq @name=N'OrderShortId', @seed=@seed
-");
+            InsertSequence("OrderShortId", "SELECT MAX(Id) FROM [Dm_Shop_Order]");
         }
 
         private void CreateStoredProcedureGetNextSeqValue()

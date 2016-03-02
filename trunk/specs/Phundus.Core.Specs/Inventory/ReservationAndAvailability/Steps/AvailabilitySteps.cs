@@ -34,7 +34,7 @@
         public void GivenAnArticleWithGrossStockOf(int quantity)
         {
             var owner = new Owner(new OwnerId(Guid.NewGuid()), "Owner", OwnerType.Organization);
-            _article = new Article(owner, new StoreId(), new ArticleId(), "Name", 0, 1.11m, null);
+            _article = new Article(owner, new StoreId(), new ArticleId(), new ArticleShortId(1234), "Name", 0, 1.11m, null);
             _article.GrossStock = quantity;
             _articleRepository.Stub(x => x.FindById(Arg<ArticleId>.Is.Equal(_article.ArticleId))).Return(_article);
         }
