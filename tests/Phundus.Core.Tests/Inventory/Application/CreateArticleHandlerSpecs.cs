@@ -36,10 +36,6 @@
             theMemberPrice = 11.10m;
             thePublicPrice = 12.20m;
 
-            var idProperty = typeof (Article).GetProperty("Id");
-            articleRepository.Expect(x => x.Add(Arg<Article>.Is.NotNull)).WhenCalled(a =>
-                idProperty.SetValue(a.Arguments[0], theArticleShortId.Id, null));
-
             ownerService.setup(x => x.GetById(theOwner.OwnerId)).Return(theOwner);
             depends.on<IStoreRepository>().setup(x => x.GetById(theStore.StoreId)).Return(theStore);
 
