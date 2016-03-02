@@ -13,6 +13,14 @@
     using Common.Querying;
     using IdentityAccess.Users.Services;
 
+    public class AssemblyInstaller : IWindsorInstaller
+    {
+        public void Install(IWindsorContainer container, IConfigurationStore store)
+        {
+            new ProjectionsInstaller().Install(container, GetType().Assembly);
+        }
+    }
+
     public class CoreInstaller : IWindsorInstaller
     {
         private readonly Assembly _assemblyContainingCommandsAndHandlers;
@@ -35,8 +43,8 @@
                     .BasedOn(typeof (IHandleCommand<>))
                     .WithServiceAllInterfaces()
                     .Configure(c => c.LifeStyle.Transient.Interceptors<AutoReleaseCommandHandlerInterceptor>()),
-                    Types.FromAssemblyContaining<ForceProcessProjection>()
-                    .BasedOn(typeof(IHandleCommand<>))
+                Types.FromAssemblyContaining<ForceProcessProjection>()
+                    .BasedOn(typeof (IHandleCommand<>))
                     .WithServiceAllInterfaces()
                     .Configure(c => c.LifeStyle.Transient.Interceptors<AutoReleaseCommandHandlerInterceptor>()),
                 Component.For<ICommandDispatcher>().ImplementedBy<CommandDispatcher>().LifestyleTransient(),

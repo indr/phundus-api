@@ -70,5 +70,16 @@ namespace Phundus.Persistence
 
             Session.SaveOrUpdate(tracker);
         }
+
+        public void DeleteTracker(string typeName)
+        {
+            var tracker = Session.QueryOver<ProcessedNotificationTracker>()
+                .Where(x => x.TypeName == typeName).SingleOrDefault();
+
+            if (tracker == null)
+                return;
+
+            Session.Delete(tracker);
+        }
     }
 }

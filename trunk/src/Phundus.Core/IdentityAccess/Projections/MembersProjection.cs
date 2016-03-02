@@ -76,6 +76,11 @@
 
             return result;
         }
+
+        public override void Reset()
+        {
+            throw new InvalidOperationException();
+        }
     }
 
     public class MemberData

@@ -6,7 +6,7 @@ namespace Phundus.Common.Projecting
     using Domain.Model;
     using NHibernate;
 
-    public class ProjectionBase
+    public abstract class ProjectionBase : IProjection
     {
         public ILogger Logger { get; set; }
 
@@ -16,7 +16,9 @@ namespace Phundus.Common.Projecting
         {
             get { return SessionFactory(); }
         }
-    }
+
+        public abstract void Reset();
+    }    
 
     public class ProjectionBase<TEntity> : ProjectionBase where TEntity : class, new()
     {
@@ -92,6 +94,12 @@ namespace Phundus.Common.Projecting
         protected IQueryOver<TEntity, TEntity> QueryOver()
         {
             return Session.QueryOver<TEntity>();
+        }
+
+        public override void Reset()
+        {
+            var sql = String.Format("FROM {0}", typeof (TEntity).Name);
+            Session.Delete(sql);
         }
     }
 }

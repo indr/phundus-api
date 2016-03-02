@@ -12,5 +12,6 @@ namespace Phundus.Common.Notifications
 
         void TrackMostRecentProcessedNotification(ProcessedNotificationTracker tracker, Notification notification);
         void TrackMostRecentProcessedNotificationId(ProcessedNotificationTracker tracker, long notificationId);
+        void DeleteTracker(string typeName);
     }
 }

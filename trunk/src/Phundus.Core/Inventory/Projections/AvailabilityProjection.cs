@@ -22,6 +22,11 @@
             var availabilities = AvailabilityService.GetAvailabilityDetails(guid);
             return availabilities.Select(each => new AvailabilityData { FromUtc = each.FromUtc, Quantity = each.Quantity });
         }
+
+        public override void Reset()
+        {
+            throw new InvalidOperationException();
+        }
     }
 
     public class AvailabilityData
