@@ -9,6 +9,7 @@
     using AttributeRouting;
     using AttributeRouting.Web.Http;
     using Castle.Transactions;
+    using Common.Domain.Model;
     using ContentObjects;
     using Inventory.Projections;
     using Newtonsoft.Json;
@@ -104,11 +105,11 @@
             return String.Format(format, articleId, fileName);
         }
 
-        [GET("{itemId}/availability")]
+        [GET("{articleId}/availability")]
         [Transaction]
-        public virtual HttpResponseMessage GetAvailability(Guid itemId)
+        public virtual HttpResponseMessage GetAvailability(ArticleId articleId)
         {
-            var result = _availabilityQueries.GetAvailability(itemId);
+            var result = _availabilityQueries.GetAvailability(articleId);
             return Ok(new {result});
         }
     }

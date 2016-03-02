@@ -13,7 +13,7 @@ namespace Phundus.Rest.Api
     using IdentityAccess.Projections;
     using Integration.IdentityAccess;
     using Inventory.Application;
-    using Inventory.AvailabilityAndReservation.Repositories;
+    using Inventory.Model.Reservations;
     using Inventory.Projections;
     using Newtonsoft.Json;
 
@@ -183,8 +183,8 @@ namespace Phundus.Rest.Api
             _memberInRole.ActiveManager(ownerId, CurrentUserId);
             // TODO: Prüfen ob Artikel dem Owner gehört   
 
-            var availabilities = _availabilityQueries.GetAvailability(articleId.Id).ToList();
-            var reservations = _reservationRepository.Find(articleId, Guid.Empty).ToList();
+            var availabilities = _availabilityQueries.GetAvailability(articleId).ToList();
+            var reservations = _reservationRepository.Find(articleId, null).ToList();
 
             return Request.CreateResponse(HttpStatusCode.OK, new {availabilities, reservations});
         }

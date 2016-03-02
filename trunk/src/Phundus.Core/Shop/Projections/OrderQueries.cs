@@ -99,7 +99,7 @@ namespace Phundus.Shop.Projections
                 query.And(p => p.LessorId == queryOrganizationId.Value);
             }
         }
-
+        
         private void CalculateAvailabilities(OrderData orderDto)
         {
             if (orderDto == null)
@@ -107,8 +107,8 @@ namespace Phundus.Shop.Projections
 
             foreach (var each in orderDto.Lines)
             {
-                each.IsAvailable = _availabilityService.IsArticleAvailable(each.ArticleId, each.FromUtc, each.ToUtc,
-                    each.Quantity, each.Id);
+                each.IsAvailable = _availabilityService.IsArticleAvailable(new ArticleId(each.ArticleId), each.FromUtc, each.ToUtc,
+                    each.Quantity, new OrderLineId(each.LineId));
             }
         }
     }

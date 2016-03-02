@@ -6,19 +6,15 @@
     using Articles.Model;
     using Articles.Repositories;
     using AvailabilityAndReservation.Model;
-    using AvailabilityAndReservation.Repositories;
     using Common.Domain.Model;
     using Infrastructure;
+    using Model.Reservations;
 
     public interface IAvailabilityService
     {
-        bool IsArticleAvailable(int articleId, DateTime fromUtc, DateTime toUtc, int quantity);
-        bool IsArticleAvailable(Guid articleGuid, DateTime fromUtc, DateTime toUtc, int quantity);
-        bool IsArticleAvailable(int articleId, DateTime fromUtc, DateTime toUtc, int quantity, Guid orderItemToExclude);
-        bool IsArticleAvailable(Guid articleGuid, DateTime fromUtc, DateTime toUtc, int quantity, Guid orderItemToExclude);
+        bool IsArticleAvailable(ArticleId articleId, DateTime fromUtc, DateTime toUtc, int quantity, OrderLineId orderItemToExclude = null);
         
-        IEnumerable<Availability> GetAvailabilityDetails(int articleId);
-        IEnumerable<Availability> GetAvailabilityDetails(Guid articleGuid);
+        IEnumerable<Availability> GetAvailabilityDetails(ArticleId articleId);
     }
 
     public class AvailabilityService : IAvailabilityService
@@ -27,36 +23,18 @@
 
         public IReservationRepository ReservationRepository { get; set; }
 
-        public bool IsArticleAvailable(int articleId, DateTime fromUtc, DateTime toUtc, int quantity)
+        public bool IsArticleAvailable(ArticleId articleId, DateTime fromUtc, DateTime toUtc, int quantity, OrderLineId orderLineIdToExclude)
         {
-            return IsArticleAvailable(articleId, fromUtc, toUtc, quantity, new Guid());
+            return IsArticleAvailable(articleId, new Period(fromUtc, toUtc), quantity, orderLineIdToExclude);
         }
 
-        public bool IsArticleAvailable(Guid articleGuid, DateTime fromUtc, DateTime toUtc, int quantity)
-        {
-            return IsArticleAvailable(articleGuid, fromUtc, toUtc, quantity, new Guid());
-        }
-
-        public bool IsArticleAvailable(int articleId, DateTime fromUtc, DateTime toUtc, int quantity,
-            Guid orderItemToExclude)
-        {
-            var article = ArticleRepository.FindById(new ArticleShortId(articleId));
-            return IsArticleAvailable(article, new Period(fromUtc, toUtc), quantity, orderItemToExclude);
-        }
-
-        public bool IsArticleAvailable(Guid articleGuid, DateTime fromUtc, DateTime toUtc, int quantity, Guid orderItemToExclude)
-        {
-            var article = ArticleRepository.FindById(new ArticleId(articleGuid));
-            return IsArticleAvailable(article, new Period(fromUtc, toUtc), quantity, orderItemToExclude);
-        }
-
-        private bool IsArticleAvailable(Article article, Period period, int quantity, Guid orderItemToExclude)
+        private bool IsArticleAvailable(ArticleId article, Period period, int quantity, OrderLineId orderLineIdToExclude)
         {
             if (article == null) throw new ArgumentNullException("article");
             if (period == null) throw new ArgumentNullException("period");
 
 
-            var availabilities = GetAvailabilityDetails(article.Id, orderItemToExclude);
+            var availabilities = GetAvailabilityDetails(article, orderLineIdToExclude);
 
             var inRange = availabilities.Where(p => p.FromUtc <= period.ToUtc).OrderByDescending(x => x.FromUtc);
 
@@ -73,28 +51,22 @@
             return false;
         }
 
-        public IEnumerable<Availability> GetAvailabilityDetails(int articleId)
+        public IEnumerable<Availability> GetAvailabilityDetails(ArticleId articleId)
         {
-            return GetAvailabilityDetails(articleId, Guid.Empty);
+            return GetAvailabilityDetails(articleId, null);
         }
 
-        public IEnumerable<Availability> GetAvailabilityDetails(Guid articleGuid)
-        {
-            var article = ArticleRepository.GetById(new ArticleId(articleGuid));
-            return GetAvailabilityDetails(article.Id);
-        }
-
-        private IEnumerable<Availability> GetAvailabilityDetails(int articleId, Guid orderItemToExclude)
+        private IEnumerable<Availability> GetAvailabilityDetails(ArticleId articleId, OrderLineId orderLineIdToExclude)
         {
             var localTodayUtc = DateTimeProvider.Today.ToUniversalTime();
             var utcNow = DateTimeProvider.UtcNow;
 
             var result = new List<Availability>();
-            var article = ArticleRepository.FindById(new ArticleShortId(articleId));
+            var article = ArticleRepository.FindById(articleId);
             if (article == null)
                 return result;
 
-            var reservations = ReservationRepository.Find(articleId, orderItemToExclude).OrderBy(x => x.FromUtc);
+            var reservations = ReservationRepository.Find(articleId, orderLineIdToExclude).OrderBy(x => x.FromUtc);
 
             var diffsAt = new Dictionary<DateTime, int>();
             diffsAt[DateTime.MinValue] = article.GrossStock;

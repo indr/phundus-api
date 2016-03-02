@@ -7,7 +7,7 @@
     using Common.Eventing;
     using Common.Notifications;
     using Inventory.Repositories;
-    using Phundus.Inventory.AvailabilityAndReservation.Repositories;
+    using Phundus.Inventory.Model.Reservations;
     using Shop.Repositories;
     using StoredEvents;
 

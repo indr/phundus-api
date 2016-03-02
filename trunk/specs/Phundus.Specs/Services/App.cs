@@ -410,7 +410,7 @@
 
         public Article GetArticle(Article article)
         {
-            return _apiClient.ArticlesApi.Get<Article>(new {articleId = article.ArticleShortId},
+            return _apiClient.ArticlesApi.Get<Article>(new {articleId = article.ArticleId},
                 new {ownerId = article.OwnerId}).Data;
         }
 
@@ -419,22 +419,22 @@
             return _apiClient.OrdersApi.Get<Order>(new {orderId}).Data;
         }
 
-        public void ChangeArticlePrice(int articleId, decimal publicPrice, decimal? memberPrice)
+        public void ChangeArticlePrice(Guid articleId, decimal publicPrice, decimal? memberPrice)
         {
             _apiClient.ArticlesApi.Patch(new {articleId, prices = new {publicPrice, memberPrice}});
         }
 
-        public void UpdateArticleDescription(int articleId, string description)
+        public void UpdateArticleDescription(Guid articleId, string description)
         {
             _apiClient.ArticlesApi.Patch(new {articleId, description = description});
         }
 
-        public void UpdateArticleSpecification(int articleId, string specification)
+        public void UpdateArticleSpecification(Guid articleId, string specification)
         {
             _apiClient.ArticlesApi.Patch(new { articleId, specification = specification });
         }
 
-        public void UpdateArticleDetails(int articleId, string name, string brand, string color, int grossStock)
+        public void UpdateArticleDetails(Guid articleId, string name, string brand, string color, int grossStock)
         {
             _apiClient.ArticlesApi.Patch(new {articleId, name, brand, color, grossStock});
         }

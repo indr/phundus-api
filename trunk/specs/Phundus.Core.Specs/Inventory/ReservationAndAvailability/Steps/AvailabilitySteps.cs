@@ -8,8 +8,8 @@
     using Phundus.Inventory.Articles.Model;
     using Phundus.Inventory.Articles.Repositories;
     using Phundus.Inventory.AvailabilityAndReservation.Model;
-    using Phundus.Inventory.AvailabilityAndReservation.Repositories;
     using Phundus.Inventory.Model;
+    using Phundus.Inventory.Model.Reservations;
     using Rhino.Mocks;
     using TechTalk.SpecFlow;
     using TechTalk.SpecFlow.Assist;
@@ -36,14 +36,14 @@
             var owner = new Owner(new OwnerId(Guid.NewGuid()), "Owner", OwnerType.Organization);
             _article = new Article(owner, new StoreId(), new ArticleId(), "Name", 0, 1.11m, null);
             _article.GrossStock = quantity;
-            _articleRepository.Stub(x => x.FindById(Arg<ArticleShortId>.Is.Equal(_article.ArticleShortId))).Return(_article);
+            _articleRepository.Stub(x => x.FindById(Arg<ArticleId>.Is.Equal(_article.ArticleId))).Return(_article);
         }
 
         [When(@"I ask for availability details")]
         public void WhenIAskForAvailabilityDetails()
         {
-            _reservationRepository.Stub(x => x.Find(_article.Id, Guid.Empty)).Return(_reservations);
-            _availabilities = Sut.GetAvailabilityDetails(_article.Id);
+            _reservationRepository.Stub(x => x.Find(_article.ArticleId, null)).Return(_reservations);
+            _availabilities = Sut.GetAvailabilityDetails(_article.ArticleId);
         }
 
         [Given(@"these reservations exists")]
@@ -61,8 +61,8 @@
         [When(@"I ask for availability from (.*?) to (.*?) of (.*)")]
         public void WhenIAskForAvailabilityFrom_To_Of(DateTime from, DateTime to, int of)
         {
-            _reservationRepository.Stub(x => x.Find(_article.Id, Guid.Empty)).Return(_reservations);
-            _isAvailable = Sut.IsArticleAvailable(_article.Id, from, to, of, Guid.Empty);
+            _reservationRepository.Stub(x => x.Find(_article.ArticleId, null)).Return(_reservations);
+            _isAvailable = Sut.IsArticleAvailable(_article.ArticleId, from, to, of, null);
         }
 
         [Then(@"the result should be (true|false)")]
