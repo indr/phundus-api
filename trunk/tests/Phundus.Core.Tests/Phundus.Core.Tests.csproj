@@ -172,7 +172,6 @@
     <Compile Include="concern.cs" />
     <Compile Include="Cqrs\TestCommand1.cs" />
     <Compile Include="Cqrs\TestCommand1Handler.cs" />
-    <Compile Include="Cqrs\when_all_handlers_are_resolved.cs" />
     <Compile Include="Cqrs\when_a_command_is_sent.cs" />
     <Compile Include="Inventory\Application\AddImageHandlerSpecs.cs" />
     <Compile Include="Inventory\Application\CreateArticleHandlerSpecs.cs" />
