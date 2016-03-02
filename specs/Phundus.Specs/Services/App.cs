@@ -371,24 +371,24 @@
 
         public FileUploadResponseContent UploadArticleImage(Article article, string fullFileName, string fileName = null)
         {
-            return _apiClient.ArticlesFilesApi.PostFile<FileUploadResponseContent>(new {articleId = article.ArticleShortId},
+            return _apiClient.ArticlesFilesApi.PostFile<FileUploadResponseContent>(new {articleId = article.ArticleId},
                 fullFileName, fileName);
         }
 
         public FileUploadResponseContent UploadArticleDocument(Article article, string fullFileName, string fileName = null)
         {
-            return _apiClient.ArticlesFilesApi.PostFile<FileUploadResponseContent>(new { articleId = article.ArticleShortId },
+            return _apiClient.ArticlesFilesApi.PostFile<FileUploadResponseContent>(new { articleId = article.ArticleId },
                 fullFileName, fileName);
         }
 
         public FileUploadResponseContent GetArticleFiles(Article article)
         {
-            return _apiClient.ArticlesFilesApi.Get<FileUploadResponseContent>(new {articleId = article.ArticleShortId}).Data;
+            return _apiClient.ArticlesFilesApi.Get<FileUploadResponseContent>(new {articleId = article.ArticleId}).Data;
         }
 
         public void SetArticlePreviewImage(Article article, string fileName)
         {
-            _apiClient.ArticlesFilesApi.Patch(new {articleId = article.ArticleShortId, fileName, isPreview = true});
+            _apiClient.ArticlesFilesApi.Patch(new {articleId = article.ArticleId, fileName, isPreview = true});
         }
 
         public void ChangeOrganizationContactDetails(Organization organization, string line1, string line2, string street, string postcode, string city, string phoneNumber,

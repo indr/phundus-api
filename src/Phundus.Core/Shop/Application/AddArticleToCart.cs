@@ -25,8 +25,7 @@
 
         public InitiatorId InitiatorId { get; protected set; }
         public ArticleId ArticleId { get; protected set; }
-        public UserId UserId { get; protected set; }
-        public ArticleShortId ArticleShortId { get; protected set; }
+        public UserId UserId { get; protected set; }        
         public DateTime FromUtc { get; protected set; }
         public DateTime ToUtc { get; protected set; }
         public int Quantity { get; protected set; }

@@ -138,8 +138,8 @@
     <Compile Include="InstallerTests\installer_concern.cs" />
     <Compile Include="InstallerTests\QueriesInstaller.cs" />
     <Compile Include="aggregate_concern.cs" />
-    <Compile Include="Inventory\Application\AddImageCommandSpecs.cs" />
-    <Compile Include="Inventory\Application\RemoveImageCommandSpecs.cs" />
+    <Compile Include="Inventory\Application\AddImageSpecs.cs" />
+    <Compile Include="Inventory\Application\RemoveImageSpecs.cs" />
     <Compile Include="Inventory\Application\RenameStoreHandlerSpecs.cs" />
     <Compile Include="Inventory\Application\SetPreviewImageHandlerSpecs.cs" />
     <Compile Include="Inventory\Authorize\ManageArticleAccessObjectHandlerSpecs.cs" />

@@ -4,10 +4,10 @@
     using System.Collections.Generic;
     using System.Linq;
     using Articles.Model;
-    using Articles.Repositories;
     using AvailabilityAndReservation.Model;
     using Common.Domain.Model;
     using Infrastructure;
+    using Model.Articles;
     using Model.Reservations;
 
     public interface IAvailabilityService

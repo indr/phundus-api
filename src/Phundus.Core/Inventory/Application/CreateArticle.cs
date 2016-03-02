@@ -2,7 +2,6 @@
 {
     using System;
     using Articles.Model;
-    using Articles.Repositories;
     using Authorization;
     using Common;
     using Common.Commanding;
@@ -10,6 +9,7 @@
     using Common.Eventing;
     using Integration.IdentityAccess;
     using Inventory.Model;
+    using Model.Articles;
     using Phundus.Authorization;
     using Stores.Repositories;
 

@@ -6,9 +6,9 @@
     using NUnit.Framework;
     using Phundus.Inventory.Application;
     using Phundus.Inventory.Articles.Model;
-    using Phundus.Inventory.Articles.Repositories;
     using Phundus.Inventory.AvailabilityAndReservation.Model;
     using Phundus.Inventory.Model;
+    using Phundus.Inventory.Model.Articles;
     using Phundus.Inventory.Model.Reservations;
     using Rhino.Mocks;
     using TechTalk.SpecFlow;

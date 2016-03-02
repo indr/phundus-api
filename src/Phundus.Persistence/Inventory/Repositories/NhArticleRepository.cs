@@ -3,7 +3,7 @@
     using Common;
     using Common.Domain.Model;
     using Phundus.Inventory.Articles.Model;
-    using Phundus.Inventory.Articles.Repositories;
+    using Phundus.Inventory.Model.Articles;
 
     public class NhArticleRepository : NhRepositoryBase<Article>, IArticleRepository
     {
@@ -21,22 +21,9 @@
             return result;
         }
 
-        public Article GetById(ArticleShortId articleShortId)
-        {
-            var result = FindById(articleShortId);
-            if (result == null)
-                throw new NotFoundException("Article {0} not found.", articleShortId);
-            return result;
-        }
-
         public Article FindById(ArticleId articleId)
         {
             return Session.QueryOver<Article>().Where(p => p.ArticleId.Id == articleId.Id).SingleOrDefault();
-        }
-
-        public Article FindById(ArticleShortId articleShortId)
-        {
-            return FindById(articleShortId.Id);
         }
     }
 }

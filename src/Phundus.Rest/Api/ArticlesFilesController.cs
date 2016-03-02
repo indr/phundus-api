@@ -22,17 +22,18 @@ namespace Phundus.Rest.Api
         public ArticlesFilesController(IImagesQueries imagesQueries)
         {
             if (imagesQueries == null) throw new ArgumentNullException("imagesQueries");
+
             _imagesQueries = imagesQueries;
         }
 
-        private string GetPath(int articleId)
+        private string GetPath(ArticleId articleId)
         {
-            return String.Format(@"~\Content\Images\Articles\{0}", articleId);
+            return String.Format(@"~\Content\Images\Articles\{0}", articleId.Id.ToString("D"));
         }
 
-        private string GetBaseFilesUrl(int articleId)
+        private string GetBaseFilesUrl(ArticleId articleId)
         {
-            return String.Format(@"/Content/Images/Articles/{0}", articleId);
+            return String.Format(@"/Content/Images/Articles/{0}", articleId.Id.ToString("D"));
         }
 
         private ImageStore CreateImageStore(string path)
@@ -40,17 +41,17 @@ namespace Phundus.Rest.Api
             return new ImageStore(path);
         }
 
-        private BlueImpFileUploadJsonResultFactory CreateFactory(string path, int articleId)
+        private BlueImpFileUploadJsonResultFactory CreateFactory(string path, ArticleId articleId)
         {
             var factory = new BlueImpFileUploadJsonResultFactory();
             factory.ImageUrl = path;
-            factory.DeleteUrl = "/api/articles/" + articleId + "/files";
+            factory.DeleteUrl = "/api/articles/" + articleId.Id.ToString("D") + "/files";
             return factory;
         }
 
         [GET("")]
         [Transaction]
-        public virtual object Get(int articleId)
+        public virtual object Get(ArticleId articleId)
         {
             // TODO: Auth filtering
             var factory = CreateFactory(GetBaseFilesUrl(articleId), articleId);
@@ -61,7 +62,7 @@ namespace Phundus.Rest.Api
 
         [POST("")]
         [Transaction]
-        public virtual object Post(int articleId)
+        public virtual object Post(ArticleId articleId)
         {
             var path = GetPath(articleId);
             var store = CreateImageStore(path);
@@ -70,7 +71,7 @@ namespace Phundus.Rest.Api
             var images = handler.Handle(HttpContext.Current.Request.Files);
             foreach (var each in images)
             {
-                var command = new AddImage(CurrentUserId, new ArticleShortId(articleId), Path.GetFileName(each.FileName),
+                var command = new AddImage(CurrentUserId, articleId, Path.GetFileName(each.FileName),
                     each.Type,
                     each.Length);
                 Dispatcher.Dispatch(command);
@@ -81,21 +82,21 @@ namespace Phundus.Rest.Api
 
         [PATCH("{fileName}")]
         [Transaction]
-        public virtual HttpResponseMessage Patch(int articleId, string fileName,
+        public virtual HttpResponseMessage Patch(ArticleId articleId, string fileName,
             ArticlesFilesPatchRequestContent requestContent)
         {
-            Dispatch(new SetPreviewImage(CurrentUserId, new ArticleShortId(articleId), fileName));
+            Dispatch(new SetPreviewImage(CurrentUserId, articleId, fileName));
 
             return NoContent();
         }
 
         [DELETE("{fileName}")]
         [Transaction]
-        public virtual HttpResponseMessage Delete(int articleId, string fileName)
+        public virtual HttpResponseMessage Delete(ArticleId articleId, string fileName)
         {
             var path = GetPath(articleId);
             var store = CreateImageStore(path);
-            Dispatcher.Dispatch(new RemoveImage(CurrentUserId, new ArticleShortId(articleId), fileName));
+            Dispatcher.Dispatch(new RemoveImage(CurrentUserId, articleId, fileName));
             store.Delete(fileName);
             return Request.CreateResponse(HttpStatusCode.NoContent);
         }

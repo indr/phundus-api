@@ -1,8 +1,6 @@
 ﻿namespace Phundus.Tests.Inventory.Application
 {
-    using Common.Domain.Model;
     using developwithpassion.specifications.extensions;
-    using Machine.Fakes;
     using Machine.Specifications;
     using Phundus.Inventory.Application;
     using Phundus.Inventory.Articles.Model;
@@ -20,15 +18,15 @@
         {
             theOwner = make.Owner();
             theArticle = make.Article(theOwner);
-            articleRepository.setup(x => x.GetById(theArticle.ArticleShortId)).Return(theArticle);
+            articleRepository.setup(x => x.GetById(theArticle.ArticleId)).Return(theArticle);
 
-            command = new RemoveImage(theInitiatorId, new ArticleShortId(theArticle.Id), theFileName);
+            command = new RemoveImage(theInitiatorId, theArticle.ArticleId, theFileName);
         };
 
         private It should_enforce_initiator_to_manage_articles = () =>
             enforceInitiatorTo<ManageArticlesAccessObject>(p => Equals(p.OwnerId, theOwner.OwnerId));
 
         private It should_tell_article_to_remove_image = () =>
-            theArticle.WasToldTo(x => x.RemoveImage(theInitiator, theFileName));
+            theArticle.received(x => x.RemoveImage(theInitiator, theFileName));
     }
 }

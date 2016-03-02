@@ -2,20 +2,21 @@
 {
     using System;
     using System.IO;
-    using Articles.Repositories;
     using Common.Commanding;
     using Common.Domain.Model;
     using IdentityAccess.Projections;
     using Integration.IdentityAccess;
+    using Model.Articles;
 
     public class AddImage : ICommand
     {
-        public AddImage(InitiatorId initiatorId, ArticleShortId articleShortId, string fileName, string fileType, long length)
+        public AddImage(InitiatorId initiatorId, ArticleId articleId, string fileName, string fileType, long fileSize)
         {
             if (initiatorId == null) throw new ArgumentNullException("initiatorId");
-            if (articleShortId == null) throw new ArgumentNullException("articleShortId");
+            if (articleId == null) throw new ArgumentNullException("articleId");
             if (fileName == null) throw new ArgumentNullException("fileName");
             if (fileType == null) throw new ArgumentNullException("fileType");
+            if (fileSize <= 0) throw new ArgumentOutOfRangeException("fileSize");
 
             if (fileName.IndexOfAny(Path.GetInvalidFileNameChars()) >= 0)
                 throw new ArgumentException(
@@ -24,15 +25,15 @@
                         fileName), "fileName");
 
             InitiatorId = initiatorId;
-            ArticleShortId = articleShortId;
+            ArticleId = articleId;
             FileName = fileName;
             FileType = fileType;
-            Length = length;
+            FileSize = fileSize;
         }
 
         public InitiatorId InitiatorId { get; protected set; }
-        public ArticleShortId ArticleShortId { get; protected set; }
-        public long Length { get; protected set; }
+        public ArticleId ArticleId { get; protected set; }
+        public long FileSize { get; protected set; }
         public string FileName { get; protected set; }
         public string FileType { get; protected set; }
 
@@ -59,11 +60,11 @@
         public void Handle(AddImage command)
         {
             var initiator = _initiatorService.GetById(command.InitiatorId);
-            var article = _articleRepository.GetById(command.ArticleShortId);
+            var article = _articleRepository.GetById(command.ArticleId);
 
             _memberInRole.ActiveManager(article.Owner.OwnerId.Id, command.InitiatorId);
 
-            var image = article.AddImage(initiator, command.FileName, command.FileType, command.Length);
+            var image = article.AddImage(initiator, command.FileName, command.FileType, command.FileSize);
             command.ResultingImageId = image.Id;
         }
     }

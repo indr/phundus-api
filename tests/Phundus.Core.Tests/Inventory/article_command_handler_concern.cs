@@ -3,8 +3,8 @@ namespace Phundus.Tests.Inventory
     using Common.Commanding;
     using Machine.Specifications;
     using Phundus.IdentityAccess.Projections;
-    using Phundus.Inventory.Articles.Repositories;
     using Phundus.Inventory.Model;
+    using Phundus.Inventory.Model.Articles;
 
     public abstract class article_command_handler_concern<TCommand, THandler> :
         command_handler_concern<TCommand, THandler>

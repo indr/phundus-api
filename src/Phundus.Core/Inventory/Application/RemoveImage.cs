@@ -2,19 +2,19 @@
 {
     using System;
     using System.IO;
-    using Articles.Repositories;
     using Authorization;
     using Common.Commanding;
     using Common.Domain.Model;
     using Integration.IdentityAccess;
+    using Model.Articles;
     using Phundus.Authorization;
 
-    public class RemoveImage
+    public class RemoveImage : ICommand
     {
-        public RemoveImage(InitiatorId initiatorId, ArticleShortId articleShortId, string fileName)
+        public RemoveImage(InitiatorId initiatorId, ArticleId articleId, string fileName)
         {
             if (initiatorId == null) throw new ArgumentNullException("initiatorId");
-            if (articleShortId == null) throw new ArgumentNullException("articleShortId");
+            if (articleId == null) throw new ArgumentNullException("articleId");
             if (fileName == null) throw new ArgumentNullException("fileName");
 
             if (fileName.IndexOfAny(Path.GetInvalidFileNameChars()) >= 0)
@@ -24,13 +24,13 @@
                         fileName), "fileName");
 
             InitiatorId = initiatorId;
-            ArticleShortId = articleShortId;
+            ArticleId = articleId;
             FileName = fileName;
         }
 
-        public InitiatorId InitiatorId { get; set; }
-        public ArticleShortId ArticleShortId { get; set; }
-        public string FileName { get; set; }
+        public InitiatorId InitiatorId { get; protected set; }
+        public ArticleId ArticleId { get; protected set; }
+        public string FileName { get; protected set; }
     }
 
     public class RemoveImageHandler : IHandleCommand<RemoveImage>
@@ -53,7 +53,7 @@
         public void Handle(RemoveImage command)
         {
             var initiator = _initiatorService.GetById(command.InitiatorId);
-            var article = _articleRepository.GetById(command.ArticleShortId);
+            var article = _articleRepository.GetById(command.ArticleId);
 
             _authorize.Enforce(initiator.InitiatorId, Manage.Articles(article.Owner.OwnerId));
 
