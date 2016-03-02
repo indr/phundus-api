@@ -48,7 +48,7 @@
                 StoreId = s.StoreId,
                 StoreName = s.StoreName,
                 MemberPrice = s.MemberPrice,
-                PreviewImageUrl = GetArticleFileUrl(s.ArticleShortId, Path.GetFileName(s.PreviewImageFileName)),
+                PreviewImageUrl = GetArticleFileUrl(s.ArticleId, Path.GetFileName(s.PreviewImageFileName)),
                 PublicPrice = s.PublicPrice
             });
         }
@@ -85,24 +85,24 @@
                     FileLength = s.FileLength,
                     FileName = s.FileName,
                     FileType = s.FileType,
-                    Url = GetArticleFileUrl(item.ArticleShortId, s.FileName)
+                    Url = GetArticleFileUrl(item.ArticleId, s.FileName)
                 }).ToList(),
                 Images = item.Images.Select(s => new ShopItemGetOkResponseContent.ImageObject
                 {
                     FileLength = s.FileLength,
                     FileName = s.FileName,
                     FileType = s.FileType,
-                    Url = GetArticleFileUrl(item.ArticleShortId, s.FileName)
+                    Url = GetArticleFileUrl(item.ArticleId, s.FileName)
                 }).ToList()
             };
         }
 
-        private string GetArticleFileUrl(int articleId, string fileName)
+        private string GetArticleFileUrl(Guid articleId, string fileName)
         {
             if (String.IsNullOrWhiteSpace(fileName))
                 return null;
             const string format = @"/Content/Images/Articles/{0}/{1}";
-            return String.Format(format, articleId, fileName);
+            return String.Format(format, articleId.ToString("D"), fileName);
         }
 
         [GET("{articleId}/availability")]
