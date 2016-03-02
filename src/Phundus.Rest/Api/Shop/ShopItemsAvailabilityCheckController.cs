@@ -5,6 +5,7 @@
     using AttributeRouting;
     using AttributeRouting.Web.Http;
     using Castle.Transactions;
+    using Common.Domain.Model;
     using Inventory.Application;
     using Newtonsoft.Json;
 
@@ -25,7 +26,7 @@
         public virtual ShopItemsAvailabilityCheckOkResponseContent Post(Guid itemId,
             ShopItemsAvailabilityCheckRequestContent requestContent)
         {
-            var isAvailable = _availabilityService.IsArticleAvailable(requestContent.ItemId, requestContent.FromUtc,
+            var isAvailable = _availabilityService.IsArticleAvailable(new ArticleId(requestContent.ItemId), requestContent.FromUtc,
                 requestContent.ToUtc, requestContent.Quantity);
 
             return new ShopItemsAvailabilityCheckOkResponseContent {IsAvailable = isAvailable};

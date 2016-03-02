@@ -1,6 +1,7 @@
 namespace Phundus.Persistence.Shop.Projections
 {
     using FluentNHibernate.Mapping;
+    using NHibernate.Linq;
     using NHibernate.Type;
     using Phundus.Shop.Projections;
 
@@ -35,7 +36,9 @@ namespace Phundus.Persistence.Shop.Projections
             Map(x => x.LesseeEmailAddress);
             Map(x => x.LesseePhoneNumber);
 
-            HasMany(x => x.Lines).KeyColumn("OrderId").Inverse().Cascade.AllDeleteOrphan();
+            HasMany(x => x.Lines).KeyColumn("OrderId")
+                .Inverse().Cascade.AllDeleteOrphan()
+                .ForeignKeyCascadeOnDelete();
         }
     }
 
@@ -46,11 +49,10 @@ namespace Phundus.Persistence.Shop.Projections
             SchemaAction.All();
             Table("Es_Shop_Orders_Lines");
 
-            Id(x => x.Id).GeneratedBy.GuidComb();
-
-            Map(x => x.LineId);
+            Id(x => x.DataId).GeneratedBy.GuidComb();
+            
             References(x => x.Order, "OrderId");
-
+            Map(x => x.LineId);
             Map(x => x.ArticleId);
             Map(x => x.ArticleShortId);
 

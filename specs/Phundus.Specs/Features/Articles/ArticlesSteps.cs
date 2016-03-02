@@ -80,7 +80,7 @@
         [When(@"I try to change the price to (.*) and (.*)")]
         public void WhenITryToChangeThePriceToAnd(decimal publicPrice, decimal memberPrice)
         {
-            App.ChangeArticlePrice(Ctx.Article.ArticleShortId, publicPrice, memberPrice);
+            App.ChangeArticlePrice(Ctx.Article.ArticleId, publicPrice, memberPrice);
         }
 
         [When(@"I try to query all my articles")]
@@ -99,7 +99,7 @@
         public void WhenITryToUpdateTheArticleDetails(Table table)
         {
             var row = table.Rows[0];
-            App.UpdateArticleDetails(Ctx.Article.ArticleShortId, row["Name"], row["Brand"], row["Color"],
+            App.UpdateArticleDetails(Ctx.Article.ArticleId, row["Name"], row["Brand"], row["Color"],
                 Convert.ToInt32(row["Gross stock"]));
         }
 
@@ -128,7 +128,7 @@
         [When(@"I try to update the article description:")]
         public void WhenITryToUpdateTheArticleDescription(string multilineText)
         {
-            App.UpdateArticleDescription(Ctx.Article.ArticleShortId, multilineText);
+            App.UpdateArticleDescription(Ctx.Article.ArticleId, multilineText);
         }
 
         [Then(@"the article description is:")]
@@ -142,7 +142,7 @@
         [When(@"I try to update the article specification:")]
         public void WhenITryToUpdateTheArticleSpecification(string multilineText)
         {
-            App.UpdateArticleSpecification(Ctx.Article.ArticleShortId, multilineText);
+            App.UpdateArticleSpecification(Ctx.Article.ArticleId, multilineText);
         }
 
         [Then(@"the article specification is:")]

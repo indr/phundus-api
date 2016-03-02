@@ -221,6 +221,7 @@
     <Compile Include="2016\03\M201603010452_Reset_ShopItem_and_ShopItems_projections.cs" />
     <Compile Include="2016\03\M201603010628_Delete_dupliacte_image_added_events.cs" />
     <Compile Include="2016\03\M201603011114_Reset_Lessors_projection.cs" />
+    <Compile Include="2016\03\M201603020127_Reset_Shop_Orders_projection.cs" />
     <Compile Include="Helper\EventMigrationBase.cs" />
     <Compile Include="2016\01\M201601151255AddUserGuidToApplicationAndMembership.cs" />
     <Compile Include="2016\01\M201501110544AlterTableNames.cs" />
