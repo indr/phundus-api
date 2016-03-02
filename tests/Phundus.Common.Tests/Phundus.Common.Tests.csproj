@@ -87,6 +87,8 @@
     <Compile Include="Domain.Model\PeriodSpecs.cs" />
     <Compile Include="Eventing\EventSerializerSpecs.cs" />
     <Compile Include="installer_concern.cs" />
+    <Compile Include="Projecting\Application\RecreateProjectionHandlerSpecs.cs" />
+    <Compile Include="Projecting\Application\ResetProjectionHandlerSpecs.cs" />
     <Compile Include="Projecting\ProjectingInstallerSpecs.cs" />
     <Compile Include="Projecting\ProjectionFactorySpecs.cs" />
     <Compile Include="Projecting\ProjectionsInstallerSpecs.cs" />

@@ -81,5 +81,14 @@ namespace Phundus.Persistence
 
             Session.Delete(tracker);
         }
+
+        public void ResetTracker(string typeName)
+        {
+            var tracker = GetProcessedNotificationTracker(typeName);
+            if (tracker == null)
+                return;
+
+            TrackMostRecentProcessedNotificationId(tracker, 0);
+        }
     }
 }

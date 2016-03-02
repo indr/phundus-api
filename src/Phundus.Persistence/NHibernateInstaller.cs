@@ -9,6 +9,7 @@ namespace Phundus.Persistence
     using FluentNHibernate.Cfg;
     using NHibernate;
     using NHibernate.Cfg;
+    using NHibernate.Dialect;
     using NHibernate.Tool.hbm2ddl;
 
     public class NHibernateInstaller : INHibernateInstaller
@@ -22,9 +23,10 @@ namespace Phundus.Persistence
 
         public FluentConfiguration BuildFluent()
         {
-            return Fluently.Configure(new NHibernate.Cfg.Configuration())
+            var result = Fluently.Configure(new NHibernate.Cfg.Configuration())
                 .Mappings(m => m.FluentMappings.AddFromAssembly(Assembly.GetExecutingAssembly()))
                 .ExposeConfiguration(WriteConfiguration);
+            return result;
         }
 
         public void Registered(ISessionFactory factory)

@@ -1,5 +1,6 @@
 ﻿namespace Phundus.Common.Projecting
 {
+    using System;
     using System.Reflection;
     using Castle.MicroKernel.Registration;
     using Castle.Windsor;
@@ -17,6 +18,7 @@
 
     public interface IProjection
     {
-        void Reset();
+        void Reset();        
+        Type GetEntityType();
     }
 }

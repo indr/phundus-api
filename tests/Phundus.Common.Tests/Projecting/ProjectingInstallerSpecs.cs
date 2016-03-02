@@ -8,5 +8,8 @@
     {
         private It should_resolve_IProjectionFactory = () =>
             resolve<IProjectionFactory>().ShouldNotBeNull();
+
+        private It should_resolve_ITypedProjectionFactory = () =>
+            resolve<ITypedProjectionFactory>().ShouldNotBeNull();
     }
 }

@@ -3,10 +3,39 @@
     using System;
     using System.Reflection;
     using Castle.Facilities.TypedFactory;
+    using Castle.MicroKernel;
 
     public interface IProjectionFactory
     {
-        IProjection GetProjection(string fullName);
+        IProjection FindProjection(string fullName);
+    }
+
+    public class ProjectionFactory : IProjectionFactory
+    {
+        private readonly ITypedProjectionFactory _projectionFactory;
+
+        public ProjectionFactory(ITypedProjectionFactory projectionFactory)
+        {
+            if (projectionFactory == null) throw new ArgumentNullException("projectionFactory");
+            _projectionFactory = projectionFactory;
+        }
+
+        public IProjection FindProjection(string fullName)
+        {
+            try
+            {
+                return _projectionFactory.GetProjection(fullName);
+            }
+            catch (ComponentNotFoundException)
+            {
+                return null;
+            }
+        }
+    }
+
+    public interface ITypedProjectionFactory
+    {
+        IProjection GetProjection(string fullName);        
     }
 
     public class ProjectionSelector : DefaultTypedFactoryComponentSelector

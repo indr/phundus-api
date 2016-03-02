@@ -22,68 +22,39 @@
         public string ProjectionTypeName { get; protected set; }
     }
 
-    public class ResetProjectionHandler : IHandleCommand<ResetProjection>
+    public class ResetProjectionHandler : ProjectionHandlerBase, IHandleCommand<ResetProjection>
     {
         private readonly IProjectionFactory _projectionFactory;
         private readonly IProcessedNotificationTrackerStore _trackerStore;
-        private IProjection _projection;
-        private string _typeName;
 
-        public ResetProjectionHandler(IProcessedNotificationTrackerStore trackerStore,
-            IProjectionFactory projectionFactory)
+        public ResetProjectionHandler(IProjectionFactory projectionFactory,
+            IProcessedNotificationTrackerStore trackerStore)
         {
-            if (trackerStore == null) throw new ArgumentNullException("trackerStore");
             if (projectionFactory == null) throw new ArgumentNullException("projectionFactory");
-            _trackerStore = trackerStore;
+            if (trackerStore == null) throw new ArgumentNullException("trackerStore");
             _projectionFactory = projectionFactory;
+            _trackerStore = trackerStore;
         }
 
         [Transaction]
         public void Handle(ResetProjection command)
         {
-            _typeName = command.ProjectionTypeName;
+            var typeName = command.ProjectionTypeName;
+            var projection = _projectionFactory.FindProjection(typeName);
 
-            if (FindProjection())
+            if (projection != null)
             {
-                ResetProjection();
-                ResetTracker();
+                projection.Reset();
+                _trackerStore.ResetTracker(typeName);
             }
             else
             {
-                DeleteTracker();
+                _trackerStore.DeleteTracker(typeName);
             }
         }
+    }
 
-        private bool FindProjection()
-        {
-            try
-            {
-                _projection = _projectionFactory.GetProjection(_typeName);
-            }
-            catch (ComponentNotFoundException)
-            {
-                _projection = null;
-            }
-
-            return _projection != null;
-        }
-
-        private void DeleteTracker()
-        {
-            _trackerStore.DeleteTracker(_typeName);
-        }
-
-        private void ResetProjection()
-        {
-            _projection.Reset();
-        }
-
-        private void ResetTracker()
-        {
-            var tracker = _trackerStore.GetProcessedNotificationTracker(_typeName);
-            if (tracker == null)
-                return;
-            _trackerStore.TrackMostRecentProcessedNotificationId(tracker, 0);
-        }
+    public class ProjectionHandlerBase
+    {
     }
 }
