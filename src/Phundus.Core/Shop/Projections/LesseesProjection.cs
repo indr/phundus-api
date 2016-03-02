@@ -29,6 +29,11 @@
             return new LesseeViewRow(user.UserId, user.FullName, user.Street + "\n" + user.Postcode + " " + user.City,
                 user.MobilePhone, user.EmailAddress);
         }
+
+        public override void Reset()
+        {
+            throw new InvalidOperationException();
+        }
     }
 
     public class LesseeViewRow

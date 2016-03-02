@@ -49,6 +49,11 @@
                 RecievesEmailNotifications = each.RecievesEmailNotifications
             };
         }
+
+        public override void Reset()
+        {
+            throw new InvalidOperationException();
+        }
     }
 
     public class MembershipData
