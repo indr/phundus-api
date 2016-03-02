@@ -7,6 +7,7 @@
     using Phundus.Inventory.AvailabilityAndReservation.Model;
     using Phundus.Inventory.Model.Reservations;
     using Phundus.Shop.Model;
+    using Phundus.Shop.Projections;
 
     public class NhReservationsBasedOnOrdersRepository : IReservationRepository
     {
@@ -17,11 +18,11 @@
             var factory = new ReservationFactory();
             var result = new List<Reservation>();
 
-            var query = SessionFactory().QueryOver<OrderLine>()
-                .Where(p => p.ArticleId.Id == articleId.Id);
+            var query = SessionFactory().QueryOver<OrderLineData>()
+                .Where(p => p.ArticleId == articleId.Id);
 
             if (orderLineIdToExclude != null)
-                query = query.AndNot(p => p.LineId.Id == orderLineIdToExclude.Id);
+                query = query.AndNot(p => p.LineId == orderLineIdToExclude.Id);
 
 
             result.AddRange(factory.Create(query.List()));
