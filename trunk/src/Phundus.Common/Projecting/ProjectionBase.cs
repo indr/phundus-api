@@ -66,7 +66,8 @@ namespace Phundus.Common.Projecting
         protected void Update(Expression<Func<TEntity, bool>> expression, Action<TEntity> action)
         {
             Session.Flush();
-            var entities = Session.QueryOver<TEntity>().Where(expression).Future();
+            var queryOver = Session.QueryOver<TEntity>();
+            var entities = queryOver.Where(expression).Future();
             foreach (var entity in entities)
             {
                 action(entity);

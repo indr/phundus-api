@@ -6,18 +6,16 @@
 
     public interface IAssemblyInstaller
     {
-        void Install(IWindsorContainer container, Type assemblyOfType);
+        void Install(IWindsorContainer container);
         void Install(IWindsorContainer container, Assembly assembly);
     }
 
     public abstract class AssemblyInstallerBase : IAssemblyInstaller
     {
-        public void Install(IWindsorContainer container, Type assemblyOfType)
+        public void Install(IWindsorContainer container)
         {
             if (container == null) throw new ArgumentNullException("container");
-            if (assemblyOfType == null) throw new ArgumentNullException("assemblyOfType");
-
-            Install(container, assemblyOfType.Assembly);
+            Install(container, Assembly.GetExecutingAssembly());
         }
 
         public abstract void Install(IWindsorContainer container, Assembly assembly);
