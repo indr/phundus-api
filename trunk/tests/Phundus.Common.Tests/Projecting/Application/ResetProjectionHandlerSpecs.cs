@@ -1,13 +1,12 @@
 ﻿namespace Phundus.Common.Tests.Projecting.Application
 {
-    using Castle.MicroKernel;
     using Common.Domain.Model;
+    using Common.Notifications;
     using Common.Projecting;
     using Common.Projecting.Application;
     using developwithpassion.specifications.extensions;
     using developwithpassion.specifications.rhinomocks;
     using Machine.Specifications;
-    using Notifications;
 
     [Subject(typeof (ResetProjectionHandler))]
     public class when_handling_reset_projection : Observes<ResetProjectionHandler>
@@ -28,7 +27,7 @@
         public class when_projection_does_not_exist
         {
             private Establish ctx = () =>
-                projectionFactory.setup(x => x.FindProjection(projectionTypeName)).Return((IProjection)null);
+                projectionFactory.setup(x => x.FindProjection(projectionTypeName)).Return((IProjection) null);
 
             private It should_delete_tracker = () =>
                 trackerStore.received(x => x.DeleteTracker(projectionTypeName));

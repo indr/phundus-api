@@ -2,14 +2,13 @@ namespace Phundus.Rest.Api
 {
     using System;
     using System.Collections.Generic;
-    using System.Net;
     using System.Net.Http;
     using System.Web.Http;
     using AttributeRouting;
     using AttributeRouting.Web.Http;
+    using Castle.Core.Internal;
     using Castle.Transactions;
     using Common.Eventing;
-    using Common.Projecting;
     using Common.Projecting.Application;
     using ContentObjects;
     using Dashboard.Projections;
@@ -19,8 +18,8 @@ namespace Phundus.Rest.Api
     [Authorize(Roles = "Admin")]
     public class ProjectionsController : ApiControllerBase
     {
-        private readonly IProjectionsMetaDataQueries _projectionsMetaDataQueries;
         private readonly IEventStore _eventStore;
+        private readonly IProjectionsMetaDataQueries _projectionsMetaDataQueries;
 
         public ProjectionsController(IProjectionsMetaDataQueries projectionsMetaDataQueries, IEventStore eventStore)
         {
@@ -67,9 +66,14 @@ namespace Phundus.Rest.Api
 
     public class ProjectionsQueryOkResponseContent : QueryOkResponseContent<ProjectionMetaData>
     {
-        public ProjectionsQueryOkResponseContent(long maxEventId, IEnumerable<ProjectionMetaData> results) : base(results)
+        public ProjectionsQueryOkResponseContent(long maxEventId, IEnumerable<ProjectionMetaData> results)
+            : base(results)
         {
             MaxEventId = maxEventId;
+            Results.ForEach(metaData =>
+            {
+                metaData.SetBehind(MaxEventId);
+            });
         }
 
         [JsonProperty("MaxEventId")]

@@ -2,12 +2,12 @@
 {
     using System;
     using Common.Domain.Model;
+    using Common.Notifications;
     using Common.Projecting;
     using Common.Projecting.Application;
     using developwithpassion.specifications.extensions;
     using developwithpassion.specifications.rhinomocks;
     using Machine.Specifications;
-    using Notifications;
 
     [Subject(typeof (RecreateProjectionHandler))]
     public class RecreateProjectionHandlerSpecs : Observes<RecreateProjectionHandler>

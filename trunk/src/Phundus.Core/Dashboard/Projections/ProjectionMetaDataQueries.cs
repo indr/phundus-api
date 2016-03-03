@@ -37,13 +37,34 @@ namespace Phundus.Dashboard.Projections
 
     public class ProjectionMetaData
     {
+        private string _status = "success";
+
         [JsonProperty("projectionId")]
         public string ProjectionId { get; set; }
+
+        [JsonProperty("status")]
+        public string Status
+        {
+            get { return _status; }
+            set { _status = value; }
+        }
 
         [JsonProperty("name")]
         public string Name { get; set; }
 
         [JsonProperty("processedEventId")]
         public long ProcessedEventId { get; set; }
+
+        [JsonProperty("behind")]
+        public long Behind { get; set; }
+
+        public void SetBehind(long maxEventId)
+        {
+            Behind = maxEventId - ProcessedEventId;
+            if (Status == "success" && Behind > 0)
+            {
+                Status = "warning";
+            }
+        }
     }
 }

@@ -7,6 +7,7 @@
     using Common.Eventing;
     using Common.Notifications;
     using Inventory.Repositories;
+    using Notifications;
     using Phundus.Inventory.Model.Reservations;
     using Shop.Repositories;
     using StoredEvents;
@@ -16,7 +17,7 @@
         public void Install(IWindsorContainer container, IConfigurationStore store)
         {
             container.Register(Component.For<IProcessedNotificationTrackerStore>()
-                .ImplementedBy<NHibernateProcessedNotificationTrackerStore>()
+                .ImplementedBy<ProcessedNotificationTrackerStore>()
                 .LifestyleTransient());
         }
     }
