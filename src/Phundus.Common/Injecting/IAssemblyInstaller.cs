@@ -15,7 +15,7 @@
         public void Install(IWindsorContainer container)
         {
             if (container == null) throw new ArgumentNullException("container");
-            Install(container, Assembly.GetExecutingAssembly());
+            Install(container, Assembly.GetCallingAssembly());
         }
 
         public abstract void Install(IWindsorContainer container, Assembly assembly);
