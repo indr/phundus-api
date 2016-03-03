@@ -12,7 +12,7 @@ namespace Phundus.Shop.Projections
 
     public class ShopItemProjection : ProjectionBase<ShopItemData>, IStoredEventsConsumer
     {
-        public void Handle(DomainEvent e)
+        public override void Handle(DomainEvent e)
         {
             Process((dynamic) e);
         }

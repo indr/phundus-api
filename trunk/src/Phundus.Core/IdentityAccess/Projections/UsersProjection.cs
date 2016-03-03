@@ -76,6 +76,10 @@
         {
             return FindById(userId.Id);
         }
+
+        public override void Handle(DomainEvent e)
+        {
+        }
     }
 
     public class UserData : IUser

@@ -6,7 +6,6 @@
     using Common.Notifications;
     using Common.Projecting;
     using IdentityAccess.Organizations.Model;
-    using Inventory.Stores.Model;
 
     public interface IUrlMapQueries
     {
@@ -15,7 +14,7 @@
 
     public class UrlMapProjection : ProjectionBase<UrlMapData>, IUrlMapQueries, IStoredEventsConsumer
     {
-        public void Handle(DomainEvent e)
+        public override void Handle(DomainEvent e)
         {
             Process((dynamic) e);
         }

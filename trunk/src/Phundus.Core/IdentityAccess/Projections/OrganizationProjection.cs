@@ -12,7 +12,7 @@ namespace Phundus.IdentityAccess.Projections
 
     public class OrganizationProjection : ProjectionBase<OrganizationData>, IStoredEventsConsumer
     {
-        public void Handle(DomainEvent e)
+        public override void Handle(DomainEvent e)
         {
             Process((dynamic) e);
         }

@@ -23,9 +23,11 @@ namespace Phundus.Common.Projecting
         {
             return null;
         }
+
+        public abstract void Handle(DomainEvent e);
     }    
 
-    public class ProjectionBase<TEntity> : ProjectionBase where TEntity : class, new()
+    public abstract class ProjectionBase<TEntity> : ProjectionBase where TEntity : class, new()
     {
         public override Type GetEntityType()
         {

@@ -129,6 +129,7 @@
     <Compile Include="Projecting\Application\ResetProjection.cs" />
     <Compile Include="Projecting\ProjectionProcessor.cs" />
     <Compile Include="Projecting\IProjection.cs" />
+    <Compile Include="Projecting\ProjectionUpdater.cs" />
     <Compile Include="Querying\QueryResult.cs" />
     <Compile Include="Projecting\RawJsonConverter.cs" />
     <Compile Include="Projecting\ProjectionDispatcher.cs" />

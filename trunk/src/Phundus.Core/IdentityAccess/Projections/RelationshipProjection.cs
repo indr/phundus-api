@@ -31,7 +31,7 @@
             };
         }
 
-        public void Handle(DomainEvent e)
+        public override void Handle(DomainEvent e)
         {
             Process((dynamic) e);
         }

@@ -21,6 +21,10 @@
 
             return SingleOrDefault(p => p.UserId == userId.Id);
         }
+
+        public override void Handle(DomainEvent e)
+        {            
+        }
     }
 
     public class CartData

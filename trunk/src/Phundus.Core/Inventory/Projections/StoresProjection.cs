@@ -15,7 +15,7 @@ namespace Phundus.Inventory.Projections
 
     public class StoresProjection : ProjectionBase<StoreData>, IStoresQueries, IStoredEventsConsumer
     {
-        public void Handle(DomainEvent e)
+        public override void Handle(DomainEvent e)
         {
             Process((dynamic) e);
         }

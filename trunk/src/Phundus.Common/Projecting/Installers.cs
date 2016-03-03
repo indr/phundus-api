@@ -16,14 +16,16 @@
                 Component.For<ITypedProjectionFactory>().AsFactory(c => c.SelectedWith<ProjectionSelector>()),
                 Component.For<IProjectionFactory>().ImplementedBy<ProjectionFactory>());
 
-            container.Register(Component.For<IProjectionProcessor>()
-                .ImplementedBy<ProjectionProcessor>());
+
+            container.Register(                
+                Component.For<IProjectionUpdater>().ImplementedBy<ProjectionUpdater>(),
+                Component.For<IProjectionProcessor>().ImplementedBy<ProjectionProcessor>());
         }
     }
 
-    public class ProjectionsInstaller : IAssemblyInstaller
+    public class ProjectionsInstaller : AssemblyInstallerBase
     {
-        public void Install(IWindsorContainer container, Assembly assembly)
+        public override void Install(IWindsorContainer container, Assembly assembly)
         {
             container.Register(Types.FromAssembly(assembly)
                 .BasedOn<ProjectionBase>()
