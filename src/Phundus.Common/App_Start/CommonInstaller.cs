@@ -1,5 +1,6 @@
 namespace Phundus.Common
 {
+    using System.Reflection;
     using Castle.Facilities.TypedFactory;
     using Castle.MicroKernel.Registration;
     using Castle.MicroKernel.SubSystems.Configuration;
@@ -16,7 +17,7 @@ namespace Phundus.Common
 
             container.Register(Component.For<IEventSerializer>().ImplementedBy<EventSerializer>());
 
-            new CommandHandlerInstaller().Install(container, GetType().Assembly);
+            new CommandHandlerInstaller().Install(container, Assembly.GetExecutingAssembly());
         }
     }
 }

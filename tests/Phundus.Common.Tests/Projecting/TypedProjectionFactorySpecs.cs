@@ -12,7 +12,7 @@
         private static IProjection[] resolved;
 
         private Establish ctx = () =>
-            new ProjectionsInstaller().Install(container, typeof(get_projections_from_typed_projection_factory));
+            new ProjectionsInstaller().Install(container);
 
         private Because of = () =>
             resolved = resolve<ITypedProjectionFactory>()
@@ -28,7 +28,7 @@
         private static IProjection resolved;
 
         private Establish ctx = () =>
-            new ProjectionsInstaller().Install(container, typeof (get_projection));
+            new ProjectionsInstaller().Install(container);
 
         private Because of = () =>
             resolved = resolve<ITypedProjectionFactory>()
