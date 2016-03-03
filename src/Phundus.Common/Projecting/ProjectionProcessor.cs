@@ -9,7 +9,7 @@ namespace Phundus.Common.Projecting
 
     public interface IProjectionProcessor
     {
-        void Force(string typeName);
+        void Update(string typeName);
         void Handle(Notification notification);
         void ProcessMissedNotifications();        
     }
@@ -37,7 +37,7 @@ namespace Phundus.Common.Projecting
         }
 
         [Transaction]
-        public void Force(string typeName)
+        public void Update(string typeName)
         {
             var domainEventHandler = GetDomainEventHandler(typeName);
             UpdateProjection(domainEventHandler, EventStore.GetMaxNotificationId());
