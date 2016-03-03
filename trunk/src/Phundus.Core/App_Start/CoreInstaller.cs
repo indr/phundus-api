@@ -43,7 +43,7 @@
                     .BasedOn(typeof (IHandleCommand<>))
                     .WithServiceAllInterfaces()
                     .Configure(c => c.LifeStyle.Transient.Interceptors<AutoReleaseCommandHandlerInterceptor>()),
-                Types.FromAssemblyContaining<ForceProcessProjection>()
+                Types.FromAssemblyContaining<UpdateProjection>()
                     .BasedOn(typeof (IHandleCommand<>))
                     .WithServiceAllInterfaces()
                     .Configure(c => c.LifeStyle.Transient.Interceptors<AutoReleaseCommandHandlerInterceptor>()),

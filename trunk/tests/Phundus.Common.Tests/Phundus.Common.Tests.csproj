@@ -92,6 +92,7 @@
     <Compile Include="Projecting\ProjectingInstallerSpecs.cs" />
     <Compile Include="Projecting\ProjectionFactorySpecs.cs" />
     <Compile Include="Projecting\ProjectionsInstallerSpecs.cs" />
+    <Compile Include="Projecting\TypedProjectionFactorySpecs.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ProviderUserKeySpecs.cs" />
     <Compile Include="serialization_object_concern.cs" />

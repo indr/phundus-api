@@ -102,7 +102,7 @@
     <Compile Include="Injecting\IAssemblyInstaller.cs" />
     <Compile Include="Messaging\FakeBus.cs" />
     <Compile Include="Messaging\IBus.cs" />
-    <Compile Include="Projecting\Application\ForceProcessProjection.cs" />
+    <Compile Include="Projecting\Application\UpdateProjection.cs" />
     <Compile Include="Projecting\Application\RecreateProjection.cs" />
     <Compile Include="Projecting\ProjectionFactory.cs" />
     <Compile Include="Projecting\ProjectingInstaller.cs" />

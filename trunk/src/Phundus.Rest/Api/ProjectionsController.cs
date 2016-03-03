@@ -51,7 +51,7 @@ namespace Phundus.Rest.Api
         [PATCH("{projectionId}")]
         public virtual HttpResponseMessage Patch(string projectionId)
         {
-            Bus.Send(new ForceProcessProjection(CurrentUserId, projectionId));
+            Bus.Send(new UpdateProjection(CurrentUserId, projectionId));
 
             return Accepted();
         }

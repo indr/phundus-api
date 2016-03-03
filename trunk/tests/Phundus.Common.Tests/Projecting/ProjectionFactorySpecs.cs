@@ -11,56 +11,43 @@
     {
     }
 
-    [Subject(typeof (ITypedProjectionFactory))]
-    public class when_getting_projection_by_full_name : windsor_installer_concern<ProjectingInstaller>
-    {
-        private static IProjection resolved;
-
-        private Establish ctx = () =>
-            new ProjectionsInstaller().Install(container, typeof (ProjectionFactorySpecsTestProjection).Assembly);
-
-        private Because of = () =>
-            resolved =
-                resolve<ITypedProjectionFactory>().GetProjection(typeof (ProjectionFactorySpecsTestProjection).FullName);
-
-        private It should_return_test_projection = () =>
-            resolved.ShouldBeOfExactType<ProjectionFactorySpecsTestProjection>();
-    }
-
+    
     [Subject(typeof (ProjectionFactory))]
     public class when_finding_projection_by_full_name : Observes<ProjectionFactory>
     {
-        private static ITypedProjectionFactory typedProjectionFactory;
-        private static IProjection returnValue;
+        protected static ITypedProjectionFactory typedProjectionFactory;
+        protected static IProjection returnValue;
 
         private Establish ctx = () =>
             typedProjectionFactory = depends.on<ITypedProjectionFactory>();
 
         private Because of = () =>
             returnValue = sut.FindProjection("fullName");
+    }
 
-        public class when_typed_projection_factory_returns_projection
+    [Subject(typeof(ProjectionFactory))]
+    public class when_projection_factory_returns_projection : when_finding_projection_by_full_name
+    {
+        private static IProjection projection;
+
+        private Establish ctx = () =>
         {
-            private static IProjection projection;
+            projection = fake.an<IProjection>();
+            typedProjectionFactory.setup(x => x.GetProjection("fullName")).Return(projection);
+        };
 
-            private Establish ctx = () =>
-            {
-                projection = fake.an<IProjection>();
-                typedProjectionFactory.setup(x => x.GetProjection("fullName")).Return(projection);
-            };
+        private It should_return_projection = () =>
+            returnValue.ShouldBeTheSameAs(projection);
+    }
 
-            private It should_return_projection = () =>
-                returnValue.ShouldBeTheSameAs(projection);
-        }
+    [Subject(typeof(ProjectionFactory))]
+    public class when_typed_projection_factory_throws_component_not_found_exception : when_finding_projection_by_full_name
+    {
+        private Establish ctx = () =>
+            typedProjectionFactory.setup(x => x.GetProjection("fullName"))
+                .Throw(new ComponentNotFoundException("", ""));
 
-        public class when_typed_projection_factory_throws_component_not_found_exception
-        {
-            private Establish ctx = () =>
-                typedProjectionFactory.setup(x => x.GetProjection("fullName"))
-                    .Throw(new ComponentNotFoundException("", ""));
-
-            private It should_return_null = () =>
-                returnValue.ShouldBeNull();
-        }
+        private It should_return_null = () =>
+            returnValue.ShouldBeNull();
     }
 }
