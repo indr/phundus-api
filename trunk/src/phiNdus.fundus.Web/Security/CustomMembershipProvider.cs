@@ -8,7 +8,7 @@
     using Common;
     using Common.Commanding;
     using IdentityAccess.Application;
-    using IdentityAccess.Users.Repositories;
+    using IdentityAccess.Model.Users;
     using IdentityAccess.Users.Services;
     using Integration.IdentityAccess;
 

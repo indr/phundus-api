@@ -3,8 +3,8 @@
     using System;
     using Common.Commanding;
     using Common.Domain.Model;
+    using Model.Organizations;
     using Organizations.Model;
-    using Organizations.Repositories;
     using Users.Services;
 
     public class ChangeOrganizationPlan : ICommand

@@ -1,10 +1,9 @@
-﻿namespace Phundus.IdentityAccess.Users.Repositories
+﻿namespace Phundus.IdentityAccess.Model.Users
 {
     using System;
     using Common;
     using Common.Domain.Model;
-    using Infrastructure;
-    using Model;
+    using IdentityAccess.Users.Model;
 
     public interface IUserRepository : IRepository<User>
     {

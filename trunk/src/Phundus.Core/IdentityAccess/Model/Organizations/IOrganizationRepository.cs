@@ -1,11 +1,10 @@
-﻿namespace Phundus.IdentityAccess.Organizations.Repositories
+﻿namespace Phundus.IdentityAccess.Model.Organizations
 {
     using System;
     using System.Collections.Generic;
     using Common;
     using Common.Domain.Model;
-    using Infrastructure;
-    using Model;
+    using IdentityAccess.Organizations.Model;
 
     public interface IOrganizationRepository : IRepository<Organization>
     {

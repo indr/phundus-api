@@ -4,7 +4,7 @@
     using Castle.Transactions;
     using Common.Commanding;
     using Common.Domain.Model;
-    using Organizations.Repositories;
+    using Model.Organizations;
     using Projections;
 
     public class RejectMembershipApplication

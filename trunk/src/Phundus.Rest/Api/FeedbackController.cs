@@ -5,8 +5,8 @@ namespace Phundus.Rest.Api
     using System.Web.Http;
     using AttributeRouting;
     using AttributeRouting.Web.Http;
-    using Infrastructure;
-    using Infrastructure.Gateways;
+    using Common;
+    using Common.Mailing;    
     using Newtonsoft.Json;
 
     [RoutePrefix("api/feedback")]

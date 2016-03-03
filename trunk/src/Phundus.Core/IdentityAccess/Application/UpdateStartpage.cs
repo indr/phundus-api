@@ -4,7 +4,7 @@
     using Common.Commanding;
     using Common.Domain.Model;
     using Integration.IdentityAccess;
-    using Organizations.Repositories;
+    using Model.Organizations;
     using Projections;
 
     public class UpdateStartpage

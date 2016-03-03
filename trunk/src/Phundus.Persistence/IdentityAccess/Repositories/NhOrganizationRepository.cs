@@ -6,8 +6,8 @@
     using Castle.Transactions;
     using Common;
     using Common.Domain.Model;
+    using Phundus.IdentityAccess.Model.Organizations;
     using Phundus.IdentityAccess.Organizations.Model;
-    using Phundus.IdentityAccess.Organizations.Repositories;
 
     public class NhOrganizationRepository : NhRepositoryBase<Organization>, IOrganizationRepository
     {

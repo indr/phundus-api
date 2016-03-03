@@ -4,9 +4,9 @@
     using Common.Commanding;
     using Common.Domain.Model;
     using Common.Eventing;
+    using Model.Organizations;
+    using Model.Users;
     using Organizations.Model;
-    using Organizations.Repositories;
-    using Users.Repositories;
     using Users.Services;
 
     public class EstablishOrganization

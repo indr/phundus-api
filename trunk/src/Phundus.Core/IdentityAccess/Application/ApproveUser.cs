@@ -3,7 +3,7 @@
     using System;
     using Common.Commanding;
     using Common.Domain.Model;
-    using Users.Repositories;
+    using Model.Users;
     using Users.Services;
 
     public class ApproveUser

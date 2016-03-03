@@ -2,10 +2,10 @@
 {
     using System;
     using System.Linq;
+    using Common;
     using Common.Eventing;
-    using IdentityAccess.Model.Organizations.Mails;
-    using Infrastructure;
-    using Infrastructure.Gateways;
+    using Common.Mailing;
+    using IdentityAccess.Model.Organizations.Mails;   
     using Integration.IdentityAccess;
     using Model;
     using Projections;

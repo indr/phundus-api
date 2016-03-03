@@ -5,8 +5,8 @@
     using System.Web.Http;
     using AttributeRouting;
     using AttributeRouting.Web.Http;
-    using ContentObjects;
-    using Infrastructure;
+    using Common;
+    using ContentObjects;    
 
     [RoutePrefix("api/status")]
     public class StatusController : ApiControllerBase

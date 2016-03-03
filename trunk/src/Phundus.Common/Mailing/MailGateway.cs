@@ -1,9 +1,9 @@
-﻿namespace Phundus.Infrastructure.Gateways
+﻿namespace Phundus.Common.Mailing
 {
     using System;
     using System.Net.Mail;
     using System.Text.RegularExpressions;
-    using System.Web;
+    using System.Web.Hosting;
 
     public class MailGateway : IMailGateway
     {
@@ -76,7 +76,7 @@
 
         private static string MapPath(string path)
         {
-            return HttpContext.Current.Server.MapPath(path);
+            return HostingEnvironment.MapPath(path);
         }
     }
 }

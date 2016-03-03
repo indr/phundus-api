@@ -4,7 +4,7 @@
     using System.Collections.Generic;
     using System.Net.Mail;
     using System.Net.Mime;
-    using Infrastructure.Gateways;
+    using Common.Mailing;
     using RazorEngine;
 
     public abstract class BaseMail

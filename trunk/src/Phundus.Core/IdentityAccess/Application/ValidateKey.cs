@@ -2,7 +2,7 @@
 {
     using System;
     using Common.Commanding;
-    using Users.Repositories;
+    using Model.Users;
 
     public class ValidateKey
     {

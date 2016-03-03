@@ -1,7 +1,6 @@
 ﻿namespace Phundus.Shop.Model
 {
-    using Common.Domain.Model;
-    using Infrastructure;
+    using Common.Domain.Model;    
 
     public interface ICartRepository : IRepository<Cart>
     {

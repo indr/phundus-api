@@ -4,9 +4,9 @@
     using Common.Commanding;
     using Common.Domain.Model;
     using Common.Eventing;
+    using Model.Users;
     using Users.Exceptions;
     using Users.Model;
-    using Users.Repositories;
 
     public class SignUpUser
     {

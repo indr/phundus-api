@@ -6,8 +6,8 @@ namespace Phundus.IdentityAccess.Projections
     using Common.Domain.Model;
     using Common.Projecting;
     using Integration.IdentityAccess;
+    using Model.Organizations;
     using Organizations.Model;
-    using Organizations.Repositories;
 
     public interface IMemberInRole
     {

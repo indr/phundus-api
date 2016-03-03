@@ -1,8 +1,7 @@
-﻿namespace Phundus.IdentityAccess.Organizations.Repositories
+﻿namespace Phundus.IdentityAccess.Model.Organizations
 {
     using Common.Domain.Model;
-    using Infrastructure;
-    using Model;
+    using IdentityAccess.Organizations.Model;
 
     public interface IMembershipRequestRepository : IRepository<MembershipApplication>
     {

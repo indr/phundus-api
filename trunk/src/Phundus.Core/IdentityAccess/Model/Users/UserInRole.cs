@@ -4,11 +4,11 @@
     using System.Linq;
     using Common;
     using Common.Domain.Model;
+    using IdentityAccess.Model.Organizations;
+    using IdentityAccess.Model.Users;
     using Integration.IdentityAccess;
     using Model;
     using Organizations.Model;
-    using Organizations.Repositories;
-    using Repositories;
 
     public interface IUserInRole
     {

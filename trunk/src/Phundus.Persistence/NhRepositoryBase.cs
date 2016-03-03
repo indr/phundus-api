@@ -2,9 +2,9 @@
 {
     using System;
     using System.Linq;
+    using Common.Domain.Model;
     using NHibernate;
     using NHibernate.Linq;
-    using Phundus.Infrastructure;
 
     public abstract class NhRepositoryBase<TEntity> : IRepository<TEntity> where TEntity : class
     {

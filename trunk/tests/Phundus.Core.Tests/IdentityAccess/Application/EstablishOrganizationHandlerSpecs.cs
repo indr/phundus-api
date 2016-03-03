@@ -5,8 +5,8 @@
     using Machine.Fakes;
     using Machine.Specifications;
     using Phundus.IdentityAccess.Application;
+    using Phundus.IdentityAccess.Model.Users;
     using Phundus.IdentityAccess.Organizations.Model;
-    using Phundus.IdentityAccess.Users.Repositories;
     using Rhino.Mocks;
 
     [Subject(typeof (EstablishOrganizationHandler))]

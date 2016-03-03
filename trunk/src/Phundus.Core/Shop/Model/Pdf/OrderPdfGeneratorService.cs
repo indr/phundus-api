@@ -4,7 +4,7 @@
     using System.IO;
     using System.Linq;
     using System.Web.Hosting;
-    using IdentityAccess.Organizations.Repositories;
+    using IdentityAccess.Model.Organizations;
     using iTextSharp.text;
     using iTextSharp.text.exceptions;
     using iTextSharp.text.pdf;
