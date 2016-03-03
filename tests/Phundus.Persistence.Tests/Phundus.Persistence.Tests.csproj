@@ -107,6 +107,7 @@
     <Compile Include="Ddd\EventStoreSpecs.cs" />
     <Compile Include="concern.cs" />
     <Compile Include="MappedEntitiesSpecs.cs" />
+    <Compile Include="Notifications\ProcessedNotificationTrackerStoreSpecs.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -127,6 +128,7 @@
       <Name>Phundus.Persistence</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

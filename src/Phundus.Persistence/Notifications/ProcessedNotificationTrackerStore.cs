@@ -1,28 +1,13 @@
-namespace Phundus.Persistence
+namespace Phundus.Persistence.Notifications
 {
     using System;
     using System.Collections.Generic;
     using System.Linq;
     using Common;
     using Common.Notifications;
-    using FluentNHibernate.Mapping;
     using NHibernate;
 
-    public class ProcessedNotificationTrackerMap : ClassMap<ProcessedNotificationTracker>
-    {
-        public ProcessedNotificationTrackerMap()
-        {
-            SchemaAction.None();
-
-            Id(x => x.Id, "TrackerId").GeneratedBy.Assigned();
-            Version(x => x.ConcurrencyVersion);
-
-            Map(x => x.TypeName);
-            Map(x => x.MostRecentProcessedNotificationId);
-        }
-    }
-
-    public class NHibernateProcessedNotificationTrackerStore : IProcessedNotificationTrackerStore
+    public class ProcessedNotificationTrackerStore : IProcessedNotificationTrackerStore
     {
         public Func<ISession> SessionFactory { get; set; }
 
@@ -33,13 +18,19 @@ namespace Phundus.Persistence
 
         public ProcessedNotificationTracker GetProcessedNotificationTracker(string typeName)
         {
-            var tracker = Session.QueryOver<ProcessedNotificationTracker>()
-                .Where(x => x.TypeName == typeName).SingleOrDefault();
+            var tracker = FindProcessedNotificationTracker(typeName);
 
             if (tracker != null)
                 return tracker;
 
             return new ProcessedNotificationTracker(typeName);
+        }
+
+        private ProcessedNotificationTracker FindProcessedNotificationTracker(string typeName)
+        {
+            var tracker = Session.QueryOver<ProcessedNotificationTracker>()
+                .Where(x => x.TypeName == typeName).SingleOrDefault();
+            return tracker;
         }
 
         public IList<ProcessedNotificationTracker> GetProcessedNotificationTrackers()
@@ -59,23 +50,21 @@ namespace Phundus.Persistence
 
         public void TrackMostRecentProcessedNotification(ProcessedNotificationTracker tracker, Notification notification)
         {
-            tracker.MostRecentProcessedNotificationId = notification.NotificationId;
+            tracker.Track(notification.NotificationId);            
 
             Session.SaveOrUpdate(tracker);
         }
 
         public void TrackMostRecentProcessedNotificationId(ProcessedNotificationTracker tracker, long notificationId)
         {
-            tracker.MostRecentProcessedNotificationId = notificationId;
+            tracker.Track(notificationId);
 
             Session.SaveOrUpdate(tracker);
         }
 
         public void DeleteTracker(string typeName)
         {
-            var tracker = Session.QueryOver<ProcessedNotificationTracker>()
-                .Where(x => x.TypeName == typeName).SingleOrDefault();
-
+            var tracker = FindProcessedNotificationTracker(typeName);
             if (tracker == null)
                 return;
 
@@ -84,11 +73,13 @@ namespace Phundus.Persistence
 
         public void ResetTracker(string typeName)
         {
-            var tracker = GetProcessedNotificationTracker(typeName);
+            var tracker = FindProcessedNotificationTracker(typeName);
             if (tracker == null)
                 return;
 
-            TrackMostRecentProcessedNotificationId(tracker, 0);
+            tracker.Reset();
+
+            Session.SaveOrUpdate(tracker);
         }
     }
 }

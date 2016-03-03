@@ -134,7 +134,7 @@
     <Compile Include="Notifications\NotificationLog.cs" />
     <Compile Include="Notifications\NotificationLogId.cs" />
     <Compile Include="Notifications\NotificationLogFactory.cs" />
-    <Compile Include="ProcessedNotificationTracker.cs" />
+    <Compile Include="Notifications\ProcessedNotificationTracker.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Querying\QueryBase.cs" />
   </ItemGroup>
