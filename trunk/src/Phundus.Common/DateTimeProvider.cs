@@ -19,6 +19,11 @@
             }
         }
 
+        public static void Set(IDateTimeProvider provider)
+        {
+            Current = provider;
+        }
+
         public static DateTime UtcNow
         {
             get { return _current.UtcNow; }

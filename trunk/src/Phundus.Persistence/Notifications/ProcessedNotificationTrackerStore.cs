@@ -2,8 +2,6 @@ namespace Phundus.Persistence.Notifications
 {
     using System;
     using System.Collections.Generic;
-    using System.Linq;
-    using Common;
     using Common.Notifications;
     using NHibernate;
 
@@ -26,33 +24,14 @@ namespace Phundus.Persistence.Notifications
             return new ProcessedNotificationTracker(typeName);
         }
 
-        private ProcessedNotificationTracker FindProcessedNotificationTracker(string typeName)
-        {
-            var tracker = Session.QueryOver<ProcessedNotificationTracker>()
-                .Where(x => x.TypeName == typeName).SingleOrDefault();
-            return tracker;
-        }
-
         public IList<ProcessedNotificationTracker> GetProcessedNotificationTrackers()
         {
             return Session.QueryOver<ProcessedNotificationTracker>().OrderBy(p => p.TypeName).Asc.List();
         }
 
-        public void TrackMostRecentProcessedNotification(ProcessedNotificationTracker tracker,
-            IList<Notification> notifications)
-        {
-            var last = notifications.LastOrDefault();
-            if (last == null)
-                return;
-
-            TrackMostRecentProcessedNotification(tracker, last);
-        }
-
         public void TrackMostRecentProcessedNotification(ProcessedNotificationTracker tracker, Notification notification)
         {
-            tracker.Track(notification.NotificationId);            
-
-            Session.SaveOrUpdate(tracker);
+            TrackMostRecentProcessedNotificationId(tracker, notification.NotificationId);
         }
 
         public void TrackMostRecentProcessedNotificationId(ProcessedNotificationTracker tracker, long notificationId)
@@ -80,6 +59,13 @@ namespace Phundus.Persistence.Notifications
             tracker.Reset();
 
             Session.SaveOrUpdate(tracker);
+        }
+
+        private ProcessedNotificationTracker FindProcessedNotificationTracker(string typeName)
+        {
+            var tracker = Session.QueryOver<ProcessedNotificationTracker>()
+                .Where(x => x.TypeName == typeName).SingleOrDefault();
+            return tracker;
         }
     }
 }
