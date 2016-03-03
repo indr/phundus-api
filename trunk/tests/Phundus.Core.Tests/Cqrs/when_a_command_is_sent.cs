@@ -19,7 +19,8 @@
         {
             var container = new WindsorContainer();
             container.AddFacility<TypedFactoryFacility>();
-            container.Install(new CoreInstaller(typeof (when_a_command_is_sent).Assembly));
+            container.Install(new CommandingInstaller());
+            new CommandHandlerInstaller().Install(container, typeof (TestCommand1).Assembly);
             container.Register(Component.For<ILogger>().Instance(fake.an<ILogger>()));
 
             dispatcher = container.Resolve<ICommandDispatcher>();

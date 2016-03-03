@@ -96,7 +96,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\ProcessMissedNotificationsStartupTask.cs" />
-    <Compile Include="App_Start\QueriesInstaller.cs" />
     <Compile Include="Authorization\AutoReleaseAccessObjectHandlerInterceptor.cs" />
     <Compile Include="Authorization\Authorize.cs" />
     <Compile Include="Authorization\AccessObjectHandlerSelector.cs" />
@@ -295,7 +294,6 @@
     <Compile Include="Shop\Model\LessorService.cs" />
     <Compile Include="Shop\Model\UserInRole.cs" />
     <Compile Include="Web\Projections\UrlMapProjection.cs" />
-    <Compile Include="_Legacy\BaseMail.cs" />
     <Compile Include="App_Start\CoreInstaller.cs" />
     <Compile Include="Inventory\Model\Articles\Article.cs" />
     <Compile Include="Shop\Model\Mails\Templates.Designer.cs">

@@ -17,7 +17,9 @@
     {
         public void Install(IWindsorContainer container, IConfigurationStore store)
         {
-            new ProjectionsInstaller().Install(container, GetType().Assembly);
+            var assembly = GetType().Assembly;
+            new CommandHandlerInstaller().Install(container, assembly);
+            new ProjectionsInstaller().Install(container, assembly);
         }
     }
 
@@ -36,20 +38,7 @@
 
         public void Install(IWindsorContainer container, IConfigurationStore store)
         {
-            container.Register(
-                Component.For<ITypedFactoryComponentSelector>().ImplementedBy<CommandHandlerSelector>(),
-                Component.For<AutoReleaseCommandHandlerInterceptor>(),
-                Types.FromAssembly(_assemblyContainingCommandsAndHandlers)
-                    .BasedOn(typeof (IHandleCommand<>))
-                    .WithServiceAllInterfaces()
-                    .Configure(c => c.LifeStyle.Transient.Interceptors<AutoReleaseCommandHandlerInterceptor>()),
-                Types.FromAssemblyContaining<UpdateProjection>()
-                    .BasedOn(typeof (IHandleCommand<>))
-                    .WithServiceAllInterfaces()
-                    .Configure(c => c.LifeStyle.Transient.Interceptors<AutoReleaseCommandHandlerInterceptor>()),
-                Component.For<ICommandDispatcher>().ImplementedBy<CommandDispatcher>().LifestyleTransient(),
-                Component.For<ICommandHandlerFactory>().AsFactory(c => c.SelectedWith<CommandHandlerSelector>())
-                );
+            
 
             container.Register(
                 Component.For<ITypedFactoryComponentSelector>().ImplementedBy<AccessObjectHandlerSelector>(),
@@ -97,6 +86,13 @@
                     .ImplementedBy<Shop.Model.UserInRole>());
 
             EventPublisher.Factory(container.Resolve<IEventPublisher>);
+
+            container.Register(Component.For<IWindsorContainer>().Instance(container));
+
+            container.Register(
+                Classes.FromThisAssembly().Where(p => p.Name.EndsWith("Service")).WithServiceDefaultInterfaces());
+            container.Register(
+                Classes.FromThisAssembly().Where(p => p.Name.EndsWith("Store")).WithServiceDefaultInterfaces());
         }
     }
 }
