@@ -1,10 +1,9 @@
-﻿namespace Phundus
+﻿namespace Phundus.Common.Mailing
 {
     using System;
     using System.Collections.Generic;
     using System.Net.Mail;
     using System.Net.Mime;
-    using Common.Mailing;
     using RazorEngine;
 
     public abstract class BaseMail

@@ -1,9 +1,8 @@
-﻿namespace Phundus.Common
+﻿namespace Phundus.Common.Messaging
 {
     using Castle.MicroKernel.Registration;
     using Castle.MicroKernel.SubSystems.Configuration;
     using Castle.Windsor;
-    using Messaging;
 
     public class MessagingInstaller : IWindsorInstaller
     {
