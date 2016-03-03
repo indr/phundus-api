@@ -7,9 +7,6 @@ namespace Phundus.Common.Notifications
         ProcessedNotificationTracker GetProcessedNotificationTracker(string typeName);
         IList<ProcessedNotificationTracker> GetProcessedNotificationTrackers();
 
-        void TrackMostRecentProcessedNotification(ProcessedNotificationTracker tracker,
-            IList<Notification> notifications);
-
         void TrackMostRecentProcessedNotification(ProcessedNotificationTracker tracker, Notification notification);
         void TrackMostRecentProcessedNotificationId(ProcessedNotificationTracker tracker, long notificationId);
         

@@ -30,7 +30,10 @@ namespace Phundus.Dashboard.Projections
             {
                 ProjectionId = s.TypeName,
                 Name = s.TypeName,
-                ProcessedEventId = s.MostRecentProcessedNotificationId
+                ProcessedEventId = s.MostRecentProcessedNotificationId,
+                ProcessedAtUtc = s.MostRecentProcessedAtUtc,
+                ErrorMessage = s.ErrorMessage,
+                ErrorAtUtc = s.ErrorAtUtc
             }).ToList();
         }
     }
@@ -38,6 +41,7 @@ namespace Phundus.Dashboard.Projections
     public class ProjectionMetaData
     {
         private string _status = "success";
+        private string _errorMessage;
 
         [JsonProperty("projectionId")]
         public string ProjectionId { get; set; }
@@ -55,8 +59,26 @@ namespace Phundus.Dashboard.Projections
         [JsonProperty("processedEventId")]
         public long ProcessedEventId { get; set; }
 
+        [JsonProperty("processedAtUtc")]
+        public DateTime? ProcessedAtUtc { get; set; }
+
         [JsonProperty("behind")]
         public long Behind { get; set; }
+
+        [JsonProperty("errorMessage")]
+        public string ErrorMessage
+        {
+            get { return _errorMessage; }
+            set
+            {
+                _errorMessage = value;
+                if (_errorMessage != null)
+                    _status = "danger";
+            }
+        }
+
+        [JsonProperty("errorAtUtc")]
+        public DateTime? ErrorAtUtc { get; set; }
 
         public void SetBehind(long maxEventId)
         {

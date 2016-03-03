@@ -1,6 +1,5 @@
 namespace Phundus.Persistence.Notifications
 {
-    using Common;
     using Common.Notifications;
     using Extensions;
     using FluentNHibernate.Mapping;
@@ -10,16 +9,17 @@ namespace Phundus.Persistence.Notifications
     {
         public ProcessedNotificationTrackerMap()
         {
-            SchemaAction.None();
+            SchemaAction.Validate();
 
             Id(x => x.Id, "TrackerId").GeneratedBy.Assigned();
             Version(x => x.ConcurrencyVersion);
 
             Map(x => x.TypeName);
             Map(x => x.MostRecentProcessedNotificationId);
+            Map(x => x.MostRecentProcessedAtUtc).CustomType<UtcDateTimeType>();
 
-            Map(x => x.LastProcessingAtUtc).CustomType<UtcDateTimeType>();
-            Map(x => x.ErrorMessage).WithMaxSize();
+            Map(x => x.ErrorMessage).Nullable().WithMaxSize();
+            Map(x => x.ErrorAtUtc).Nullable().CustomType<UtcDateTimeType>();
         }
     }
 }

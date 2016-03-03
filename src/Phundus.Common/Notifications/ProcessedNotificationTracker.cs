@@ -33,27 +33,31 @@ namespace Phundus.Common.Notifications
 
         public virtual long MostRecentProcessedNotificationId { get; protected set; }
 
-        public virtual DateTime LastProcessingAtUtc { get; protected set; }
+        public virtual DateTime? MostRecentProcessedAtUtc { get; protected set; }
 
         public virtual string ErrorMessage { get; protected set; }
+
+        public virtual DateTime? ErrorAtUtc { get; protected set; }
 
         public virtual void Reset()
         {
             MostRecentProcessedNotificationId = 0;
-            //LastProcessingAtUtc = DateTime.UtcNow;
+            MostRecentProcessedAtUtc = DateTimeProvider.UtcNow;
             ErrorMessage = null;
+            ErrorAtUtc = null;
         }
 
         public virtual void Track(long notificationId)
         {
             MostRecentProcessedNotificationId = notificationId;
-            //LastProcessingAtUtc = DateTime.UtcNow;
+            MostRecentProcessedAtUtc = DateTimeProvider.UtcNow;
             ErrorMessage = null;
+            ErrorAtUtc = null;
         }
 
         public virtual void Track(Exception exception)
         {
-            LastProcessingAtUtc = DateTime.UtcNow;
+            ErrorAtUtc = DateTimeProvider.UtcNow;
             ErrorMessage = exception.Message;
         }
     }

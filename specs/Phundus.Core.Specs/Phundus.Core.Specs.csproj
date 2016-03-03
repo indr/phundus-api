@@ -116,6 +116,10 @@
       <Project>{B4C597FF-EF4C-4F33-B2C8-172C1F3E9A56}</Project>
       <Name>Phundus.Core</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\tests\Phundus.Common.Tests\Phundus.Common.Tests.csproj">
+      <Project>{EA63A3FD-6A3E-46CA-BA9D-1FDFD362C470}</Project>
+      <Name>Phundus.Common.Tests</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />

@@ -2,7 +2,6 @@
 {
     using System;
     using System.Linq.Expressions;
-    using Common;
     using Common.Notifications;
     using developwithpassion.specifications.extensions;
     using Machine.Specifications;
@@ -26,6 +25,61 @@
     }
 
     [Subject(typeof (ProcessedNotificationTrackerStore))]
+    public class get_processed_notification_tracker : processed_notification_tracker_store_concern
+    {
+        private static ProcessedNotificationTracker tracker;
+        private static ProcessedNotificationTracker returnValue;
+
+        private Establish ctx = () =>
+        {
+            tracker = fake.an<ProcessedNotificationTracker>();
+            query.setup(x => x.SingleOrDefault()).Return(tracker);
+        };
+
+        private Because of = () =>
+            returnValue = sut.GetProcessedNotificationTracker("typeName");
+
+        private It should_return_tracker = () =>
+            returnValue.ShouldBeTheSameAs(tracker);
+    }
+
+    [Subject(typeof(ProcessedNotificationTrackerStore))]
+    public class get_processed_notification_tracker_when_tracker_does_not_exist : processed_notification_tracker_store_concern
+    {       
+        private static ProcessedNotificationTracker returnValue;
+
+        private Establish ctx = () =>
+            query.setup(x => x.SingleOrDefault()).Return((ProcessedNotificationTracker)null);
+
+        private Because of = () =>
+            returnValue = sut.GetProcessedNotificationTracker("typeName");
+
+        private It should_return_tracker_with_type_name = () =>
+            returnValue.TypeName.ShouldEqual("typeName");
+    }
+
+    [Subject(typeof (ProcessedNotificationTrackerStore))]
+    public class track_notification_id : processed_notification_tracker_store_concern
+    {
+        private static ProcessedNotificationTracker tracker;
+
+        private Establish ctx = () =>
+        {
+            tracker = fake.an<ProcessedNotificationTracker>();
+            query.setup(x => x.SingleOrDefault()).Return(tracker);
+        };
+
+        private Because of = () =>
+            sut.TrackMostRecentProcessedNotificationId(tracker, 1234);
+
+        private It should_save_or_update = () =>
+            session.received(x => x.SaveOrUpdate(tracker));
+
+        private It should_track = () =>
+            tracker.received(x => x.Track(1234));
+    }
+
+    [Subject(typeof (ProcessedNotificationTrackerStore))]
     public class delete_tracker : processed_notification_tracker_store_concern
     {
         private static ProcessedNotificationTracker tracker;
@@ -33,7 +87,6 @@
         private Establish ctx = () =>
         {
             tracker = new ProcessedNotificationTracker("typeName");
-
             query.setup(x => x.SingleOrDefault()).Return(tracker);
         };
 
@@ -48,12 +101,12 @@
     public class delete_non_existing_tracker : processed_notification_tracker_store_concern
     {
         private Establish ctx = () =>
-            query.setup(x => x.SingleOrDefault()).Return((ProcessedNotificationTracker)null);
+            query.setup(x => x.SingleOrDefault()).Return((ProcessedNotificationTracker) null);
 
         private Because of = () =>
             spec.catch_exception(() =>
                 sut.DeleteTracker("NonExisting"));
-        
+
         private It should_not_throw_exception = () =>
             spec.exception_thrown.ShouldBeNull();
     }
@@ -66,21 +119,21 @@
         private Establish ctx = () =>
         {
             tracker = fake.an<ProcessedNotificationTracker>();
-            
+
             query.setup(x => x.SingleOrDefault()).Return(tracker);
         };
 
         private Because of = () =>
             sut.ResetTracker("typeName");
 
-        private It should_save_or_update_tracker = () =>
-            session.received(x => x.SaveOrUpdate(Arg<ProcessedNotificationTracker>.Is.Equal(tracker)));
+        private It should_clear_error_message = () =>
+            tracker.ErrorMessage.ShouldBeNull();
 
         private It should_reset_tracker = () =>
             tracker.received(x => x.Reset());
 
-        private It should_clear_error_message = () =>
-            tracker.ErrorMessage.ShouldBeNull();
+        private It should_save_or_update_tracker = () =>
+            session.received(x => x.SaveOrUpdate(Arg<ProcessedNotificationTracker>.Is.Equal(tracker)));
     }
 
     [Subject(typeof (ProcessedNotificationTrackerStore))]

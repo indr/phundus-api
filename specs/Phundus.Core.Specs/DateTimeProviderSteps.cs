@@ -1,33 +1,9 @@
 ﻿namespace Phundus.Core.Specs
 {
     using System;
-    using Common;    
+    using Common;
+    using Common.Tests;
     using TechTalk.SpecFlow;
-
-    public class InstrumentedDateTimeProvider : IDateTimeProvider
-    {
-        private readonly DateTime _utcNow;
-
-        public InstrumentedDateTimeProvider(DateTime utcNow)
-        {
-            _utcNow = utcNow;
-        }
-
-        public DateTime UtcNow
-        {
-            get { return _utcNow; }
-        }
-
-        public DateTime Today
-        {
-            get
-            {
-                var local = _utcNow.ToLocalTime();
-
-                return new DateTime(local.Year, local.Month, local.Day, 0, 0, 0, DateTimeKind.Local);
-            }
-        }
-    }
 
     [Binding]
     public class DateTimeProviderSteps
