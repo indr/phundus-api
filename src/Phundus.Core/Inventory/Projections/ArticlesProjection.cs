@@ -21,7 +21,7 @@
     {
         public ArticleData GetById(ArticleId articleId)
         {
-            var result = Get(articleId);
+            var result = Find(articleId);
             if (result == null)
                 throw new NotFoundException(String.Format("Article {0} not found.", articleId));
             return result;

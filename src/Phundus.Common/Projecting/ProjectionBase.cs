@@ -34,7 +34,7 @@ namespace Phundus.Common.Projecting
             return typeof (TEntity);
         }
 
-        protected TEntity Get(GuidIdentity id)
+        protected TEntity Find(GuidIdentity id)
         {
             if (id == null) throw new ArgumentNullException("id");
 
@@ -90,7 +90,7 @@ namespace Phundus.Common.Projecting
 
         protected void Delete(object id)
         {
-            var row = Session.Get<TEntity>(id);
+            var row = Session.Get<TEntity>(id);            
             Session.Delete(row);
         }
 
@@ -101,7 +101,7 @@ namespace Phundus.Common.Projecting
 
         protected TEntity SingleOrDefault(Expression<Func<TEntity, bool>> expression)
         {
-            return Session.QueryOver<TEntity>().Where(expression).SingleOrDefault();
+            return QueryOver().Where(expression).SingleOrDefault();
         }
 
         protected IQueryOver<TEntity, TEntity> QueryOver()
