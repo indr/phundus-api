@@ -32,7 +32,7 @@ namespace Phundus.Rest.Api
             if (!ownerId.HasValue)
                 return result;
 
-            var store = _storesQueries.FindByOwnerId(new OwnerId(ownerId.Value));
+            var store = _storesQueries.FindByOwnerId(ownerId.Value);
             if (store != null)
                 result.Stores.Add(ToStore(store));
 

@@ -14,6 +14,9 @@ namespace Phundus.IdentityAccess.Projections
     {
         public UserAddressData FindById(InitiatorId initiatorId, Guid userId)
         {
+            if (initiatorId == null)
+                return null;
+
             var query = QueryOver();
             AuthFilter(query, initiatorId);
             query.Where(p => p.UserId == userId);

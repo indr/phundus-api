@@ -1,6 +1,7 @@
 namespace Phundus.Common.Querying
 {
     using System;
+    using System.Linq.Expressions;
     using Castle.Core.Logging;
     using NHibernate;
 
@@ -21,6 +22,11 @@ namespace Phundus.Common.Querying
         protected IQueryOver<TEntity, TEntity> QueryOver()
         {
             return Session.QueryOver<TEntity>();
+        }
+
+        protected TEntity SingleOrDefault(Expression<Func<TEntity, bool>> expression)
+        {
+            return QueryOver().Where(expression).SingleOrDefault();
         }
     }
 }

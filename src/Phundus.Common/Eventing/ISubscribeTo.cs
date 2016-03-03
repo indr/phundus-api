@@ -6,6 +6,6 @@
 
     public interface ISubscribeTo<in TDomainEvent> : ISubscribeTo
     {
-        void Handle(TDomainEvent @event);
+        void Handle(TDomainEvent e);
     }
 }

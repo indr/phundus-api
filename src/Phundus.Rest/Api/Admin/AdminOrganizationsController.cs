@@ -25,7 +25,7 @@
         [Transaction]
         public virtual QueryOkResponseContent<AdminOrganization> Get()
         {
-            var results = _organizationQueries.All();
+            var results = _organizationQueries.Query();
             return new QueryOkResponseContent<AdminOrganization>
             {
                 Results = results.Select(s => new AdminOrganization

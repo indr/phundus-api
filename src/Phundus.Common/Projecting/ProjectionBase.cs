@@ -19,21 +19,11 @@ namespace Phundus.Common.Projecting
 
         public abstract void Reset();
 
-        public virtual Type GetEntityType()
-        {
-            return null;
-        }
-
         public abstract void Handle(DomainEvent e);
     }    
 
     public abstract class ProjectionBase<TEntity> : ProjectionBase where TEntity : class, new()
     {
-        public override Type GetEntityType()
-        {
-            return typeof (TEntity);
-        }
-
         protected TEntity Find(GuidIdentity id)
         {
             if (id == null) throw new ArgumentNullException("id");

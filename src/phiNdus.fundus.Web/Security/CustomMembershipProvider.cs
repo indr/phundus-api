@@ -237,9 +237,8 @@
         {
             return new MembershipUser(Name, user.EmailAddress,
                 new ProviderUserKey(user.UserId).ToString(), user.EmailAddress, null, null,
-                user.IsApproved,
-                user.IsLockedOut, user.SignedUpAtUtc, DateTime.MinValue, DateTime.MinValue, DateTime.MinValue,
-                DateTime.MinValue);
+                user.IsApproved, user.IsLockedOut, user.SignedUpAtUtc, DateTime.MinValue, DateTime.MinValue,
+                DateTime.MinValue, DateTime.MinValue);
         }
     }
 }

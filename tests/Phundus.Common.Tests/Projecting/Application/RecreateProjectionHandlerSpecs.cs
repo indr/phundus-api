@@ -42,7 +42,7 @@
             private Establish ctx = () =>
             {
                 projection = fake.an<IProjection>();
-                projection.setup(x => x.GetEntityType()).Return(typeof (Object));
+                //projection.setup(x => x.GetEntityType()).Return(typeof (Object));
                 projectionFactory.setup(x => x.FindProjection(projectionTypeName)).Return(projection);
             };
 

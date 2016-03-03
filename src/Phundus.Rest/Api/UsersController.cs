@@ -40,16 +40,15 @@ namespace Phundus.Rest.Api
         }
 
         [GET("{userId}")]
+        [AllowAnonymous]
         [Transaction]
         public virtual UsersGetOkResponseContent Get(Guid userId)
         {
-            var user = _usersQueries.GetByGuid(new UserId(userId));
-            if ((user == null) || (user.UserId != CurrentUserId.Id))
-                throw new HttpException((int)HttpStatusCode.NotFound, "User not found.");
-
+            var user = _usersQueries.GetById(userId);
+            
             var memberships = _membershipQueries.FindByUserId(userId);
-            var store = _storesQueries.FindByOwnerId(new OwnerId(userId));
-            var address = _userAddressQueries.FindById(CurrentUserId, userId);
+            var store = _storesQueries.FindByOwnerId(userId);
+            var address = _userAddressQueries.FindById(CurrentUserIdOrNull, userId);
 
             return new UsersGetOkResponseContent(user, memberships, store, address);
         }

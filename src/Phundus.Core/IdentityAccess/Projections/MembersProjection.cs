@@ -54,7 +54,7 @@
             var result = new List<MemberData>();
             foreach (var each in memberships)
             {
-                var user = _userQueries.GetByGuid(each.UserGuid);
+                var user = _userQueries.GetById(each.UserGuid);
                 if (!String.IsNullOrWhiteSpace(queryFullName) &&
                     (!user.FirstName.ToLowerInvariant().Contains(queryFullName) &&
                      !user.LastName.ToLowerInvariant().Contains(queryFullName)))

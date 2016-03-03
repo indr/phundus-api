@@ -37,7 +37,7 @@
         [AllowAnonymous]
         public virtual QueryOkResponseContent<Organization> Get()
         {
-            var result = _organizationQueries.All();
+            var result = _organizationQueries.Query();
             return new QueryOkResponseContent<Organization>
             {
                 Results = result.Select(s => new Organization
@@ -57,7 +57,7 @@
         {
             var organization = _organizationQueries.GetById(organizationId);
 
-            var store = _storesQueries.FindByOwnerId(new OwnerId(organization.OrganizationId));
+            var store = _storesQueries.FindByOwnerId(organization.OrganizationId);
             var result = new OrganizationsGetOkResponseContent
             {
                 Name = organization.Name,

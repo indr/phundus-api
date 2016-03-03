@@ -26,12 +26,12 @@
         }
     }
 
-    [TypeConverter(typeof(GuidConverter<CartId>))]
+    [TypeConverter(typeof (GuidConverter<CartId>))]
     public class CartId : GuidIdentity
     {
     }
 
-    [TypeConverter(typeof(GuidConverter<CartItemId>))]
+    [TypeConverter(typeof (GuidConverter<CartItemId>))]
     public class CartItemId : GuidIdentity
     {
         public CartItemId()
@@ -43,7 +43,7 @@
         }
     }
 
-    [TypeConverter(typeof(GuidConverter<CurrentUserId>))]
+    [TypeConverter(typeof (GuidConverter<CurrentUserId>))]
     public class CurrentUserId : InitiatorId
     {
         public CurrentUserId()
@@ -55,7 +55,7 @@
         }
     }
 
-    [TypeConverter(typeof(GuidConverter<InitiatorId>))]
+    [TypeConverter(typeof (GuidConverter<InitiatorId>))]
     public class InitiatorId : UserId
     {
         public InitiatorId()
@@ -71,7 +71,7 @@
         }
     }
 
-    [TypeConverter(typeof(GuidConverter<LesseeId>))]
+    [TypeConverter(typeof (GuidConverter<LesseeId>))]
     public class LesseeId : GuidIdentity
     {
         public LesseeId()
@@ -87,7 +87,7 @@
         }
     }
 
-    [TypeConverter(typeof(GuidConverter<LessorId>))]
+    [TypeConverter(typeof (GuidConverter<LessorId>))]
     public class LessorId : GuidIdentity
     {
         public LessorId()
@@ -99,7 +99,7 @@
         }
     }
 
-    [TypeConverter(typeof(GuidConverter<MembershipApplicationId>))]
+    [TypeConverter(typeof (GuidConverter<MembershipApplicationId>))]
     public class MembershipApplicationId : GuidIdentity
     {
         public MembershipApplicationId()
@@ -111,7 +111,7 @@
         }
     }
 
-    [TypeConverter(typeof(GuidConverter<OrderId>))]
+    [TypeConverter(typeof (GuidConverter<OrderId>))]
     public class OrderId : GuidIdentity
     {
         public OrderId()
@@ -134,7 +134,7 @@
         }
     }
 
-    [TypeConverter(typeof(GuidConverter<OrderLineId>))]
+    [TypeConverter(typeof (GuidConverter<OrderLineId>))]
     public class OrderLineId : GuidIdentity
     {
         public OrderLineId()
@@ -146,7 +146,7 @@
         }
     }
 
-    [TypeConverter(typeof(GuidConverter<OrganizationId>))]
+    [TypeConverter(typeof (GuidConverter<OrganizationId>))]
     public class OrganizationId : GuidIdentity
     {
         public OrganizationId()
@@ -158,7 +158,7 @@
         }
     }
 
-    [TypeConverter(typeof(GuidConverter<OwnerId>))]
+    [TypeConverter(typeof (GuidConverter<OwnerId>))]
     public class OwnerId : GuidIdentity
     {
         public OwnerId()
@@ -170,7 +170,7 @@
         }
     }
 
-    [TypeConverter(typeof(GuidConverter<StoreId>))]
+    [TypeConverter(typeof (GuidConverter<StoreId>))]
     public class StoreId : GuidIdentity
     {
         public StoreId()
@@ -182,7 +182,7 @@
         }
     }
 
-    [TypeConverter(typeof(GuidConverter<UserId>))]
+    [TypeConverter(typeof (GuidConverter<UserId>))]
     public class UserId : GuidIdentity
     {
         public UserId()

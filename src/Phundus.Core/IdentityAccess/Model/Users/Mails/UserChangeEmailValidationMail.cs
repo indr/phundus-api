@@ -18,9 +18,9 @@ namespace Phundus.IdentityAccess.Users.Mails
             _userRepository = userRepository;
         }
        
-        public void Handle(UserEmailAddressChangeRequested @event)
+        public void Handle(UserEmailAddressChangeRequested e)
         {
-            var user = _userRepository.FindByGuid(@event.UserGuid);
+            var user = _userRepository.FindByGuid(e.UserGuid);
             if (user == null)
                 return;
 

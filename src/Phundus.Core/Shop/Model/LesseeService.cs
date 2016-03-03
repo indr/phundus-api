@@ -30,7 +30,7 @@
         {
             if (lesseeId == null) throw new ArgumentNullException("lesseeId");
 
-            var user = _usersQueries.GetByGuid(new UserId(lesseeId.Id));
+            var user = _usersQueries.GetById(lesseeId.Id);
             if (user == null)
                 throw new NotFoundException(string.Format("Lessee {0} not found.", lesseeId));
 
