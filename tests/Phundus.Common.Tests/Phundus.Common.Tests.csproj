@@ -88,6 +88,7 @@
     <Compile Include="Eventing\EventSerializerSpecs.cs" />
     <Compile Include="installer_concern.cs" />
     <Compile Include="InstrumentedDateTimeProvider.cs" />
+    <Compile Include="Notifications\App_Start\NotificationConsumersInstallerSpecs.cs" />
     <Compile Include="Notifications\ProcessedNotificationTrackerSpecs.cs" />
     <Compile Include="Projecting\ProjectionProcessorSpecs.cs" />
     <Compile Include="Projecting\Application\RecreateProjectionHandlerSpecs.cs" />

@@ -11,7 +11,7 @@ namespace Phundus.Common.Projecting
         void ProcessMissedNotifications();
     }
 
-    public class ProjectionProcessor : IProjectionProcessor, INotificationConsumer
+    public class ProjectionProcessor : IProjectionProcessor
     {
         private static readonly object Lock = new object();
         private readonly IProjectionFactory _projectionFactory;

@@ -17,6 +17,11 @@
         private Establish ctx = () =>
             container = new WindsorContainer();
 
+        protected static void register<T>() where T : class
+        {
+            container.Register(Component.For(typeof(T)).Instance(fake.an<T>()));
+        }
+
         protected static T resolve<T>()
         {
             return container.Resolve<T>();
