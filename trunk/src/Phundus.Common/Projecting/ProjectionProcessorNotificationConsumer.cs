@@ -3,14 +3,13 @@ namespace Phundus.Common.Projecting
     using System;
     using Notifications;
 
-    public class ProjectionDispatcher : INotificationConsumer
+    public class ProjectionProcessorNotificationConsumer : INotificationConsumer
     {
         private readonly IProjectionProcessor _projectionProcessor;
 
-        public ProjectionDispatcher(IProjectionProcessor projectionProcessor)
+        public ProjectionProcessorNotificationConsumer(IProjectionProcessor projectionProcessor)
         {
             if (projectionProcessor == null) throw new ArgumentNullException("projectionProcessor");
-
             _projectionProcessor = projectionProcessor;
         }
 

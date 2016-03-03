@@ -16,10 +16,9 @@
                 Component.For<ITypedProjectionFactory>().AsFactory(c => c.SelectedWith<ProjectionSelector>()),
                 Component.For<IProjectionFactory>().ImplementedBy<ProjectionFactory>());
 
-
-            container.Register(                
-                Component.For<IProjectionUpdater>().ImplementedBy<ProjectionUpdater>(),
-                Component.For<IProjectionProcessor>().ImplementedBy<ProjectionProcessor>());
+            container.Register(
+                Component.For<IProjectionProcessor>().ImplementedBy<ProjectionProcessor>(),
+                Component.For<IProjectionUpdater>().ImplementedBy<ProjectionUpdater>());
         }
     }
 
