@@ -20,6 +20,10 @@
                 .Where(p => p.OrganizationId == organizationId.Id && p.ApprovedAtUtc == null && p.RejectedAtUtc == null)
                 .List<IMembershipApplication>();
         }
+
+        public override void Handle(DomainEvent e)
+        {            
+        }
     }
 
     public interface IMembershipApplication

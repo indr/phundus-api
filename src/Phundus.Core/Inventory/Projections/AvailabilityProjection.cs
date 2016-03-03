@@ -27,6 +27,10 @@
         {
             throw new InvalidOperationException();
         }
+
+        public override void Handle(DomainEvent e)
+        {
+        }
     }
 
     public class AvailabilityData

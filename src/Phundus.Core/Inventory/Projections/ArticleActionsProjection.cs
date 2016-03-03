@@ -25,7 +25,7 @@
             return QueryOver().Where(p => p.ArticleId == articleId.Id).OrderBy(p => p.OccuredOnUtc).Desc.List();
         }
 
-        public void Handle(DomainEvent e)
+        public override void Handle(DomainEvent e)
         {
             Process((dynamic) e);
         }

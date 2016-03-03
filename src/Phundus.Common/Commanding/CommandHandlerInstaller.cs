@@ -5,9 +5,9 @@
     using Castle.Windsor;
     using Injecting;
 
-    public class CommandHandlerInstaller : IAssemblyInstaller
+    public class CommandHandlerInstaller : AssemblyInstallerBase
     {
-        public void Install(IWindsorContainer container, Assembly assembly)
+        public override void Install(IWindsorContainer container, Assembly assembly)
         {
             container.Register(
                 Types.FromAssembly(assembly)

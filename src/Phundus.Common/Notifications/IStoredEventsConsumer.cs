@@ -6,4 +6,13 @@ namespace Phundus.Common.Notifications
     {
         void Handle(DomainEvent e);
     }
+
+    public interface IConsumes
+    {
+    }
+
+    public interface IConsumes<in TDomainEvent> : IConsumes
+    {
+        void Handle(TDomainEvent e);
+    }
 }

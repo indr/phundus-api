@@ -2,6 +2,7 @@
 {
     using System;
     using Common;
+    using Common.Domain.Model;
     using Common.Projecting;
     using Integration.IdentityAccess;
 
@@ -33,6 +34,10 @@
         public override void Reset()
         {
             throw new InvalidOperationException();
+        }
+
+        public override void Handle(DomainEvent e)
+        {
         }
     }
 

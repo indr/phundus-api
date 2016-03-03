@@ -17,14 +17,14 @@ namespace Phundus.Dashboard.Projections
     }
 
     public class EventLogProjection : ProjectionBase<EventLogData>, IEventLogQueries,
-        IStoredEventsConsumer
+        IStoredEventsConsumer, IConsumes<UserLoggedIn>
     {
         public IEnumerable<EventLogData> FindMostRecent20()
         {
             return QueryOver().OrderBy(p => p.OccuredOnUtc).Desc.Take(20).List();
         }
 
-        public void Handle(DomainEvent e)
+        public override void Handle(DomainEvent e)
         {
             Process((dynamic) e);
         }
@@ -45,10 +45,10 @@ namespace Phundus.Dashboard.Projections
             Insert(record);
         }
 
-        public void Process(UserLoggedIn domainEvent)
+        public void Handle(UserLoggedIn e)
         {
-            var record = CreateRow(domainEvent);
-            record.Text = "Benutzer hat sich eingeloggt: " + domainEvent.UserId;
+            var record = CreateRow(e);
+            record.Text = "Benutzer hat sich eingeloggt: " + e.UserId;
             Insert(record);
         }
 

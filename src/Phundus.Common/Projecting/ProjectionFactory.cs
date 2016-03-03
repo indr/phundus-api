@@ -8,6 +8,7 @@
     public interface IProjectionFactory
     {
         IProjection FindProjection(string fullName);
+        IProjection[] GetProjections();
     }
 
     public class ProjectionFactory : IProjectionFactory
@@ -18,6 +19,11 @@
         {
             if (projectionFactory == null) throw new ArgumentNullException("projectionFactory");
             _projectionFactory = projectionFactory;
+        }
+
+        public IProjection[] GetProjections()
+        {
+            return _projectionFactory.GetProjections();
         }
 
         public IProjection FindProjection(string fullName)
@@ -35,7 +41,8 @@
 
     public interface ITypedProjectionFactory
     {
-        IProjection GetProjection(string fullName);        
+        IProjection GetProjection(string fullName);
+        IProjection[] GetProjections();
     }
 
     public class ProjectionSelector : DefaultTypedFactoryComponentSelector

@@ -110,5 +110,9 @@ namespace Phundus.IdentityAccess.Projections
         {
             throw new InvalidOperationException();
         }
+
+        public override void Handle(DomainEvent e)
+        {
+        }
     }
 }

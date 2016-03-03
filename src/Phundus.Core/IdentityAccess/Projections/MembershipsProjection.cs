@@ -3,6 +3,7 @@
     using System;
     using System.Collections.Generic;
     using System.Linq;
+    using Common.Domain.Model;
     using Common.Projecting;
     using Model.Organizations;
     using Organizations.Model;
@@ -53,6 +54,10 @@
         public override void Reset()
         {
             throw new InvalidOperationException();
+        }
+
+        public override void Handle(DomainEvent e)
+        {
         }
     }
 
