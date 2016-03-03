@@ -54,9 +54,11 @@
       <HintPath>..\..\packages\protobuf-net.2.0.0.668\lib\net40\protobuf-net.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Transactions" />
+    <Reference Include="System.Web" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -78,6 +80,9 @@
     <Compile Include="Commanding\ICommandDispatcher.cs" />
     <Compile Include="Commanding\ICommandHandlerFactory.cs" />
     <Compile Include="Commanding\IHandleCommand.cs" />
+    <Compile Include="Config.cs" />
+    <Compile Include="DateTimeProvider.cs" />
+    <Compile Include="DefaultDateTimeProvider.cs" />
     <Compile Include="Domain.Model\Aggregate.cs" />
     <Compile Include="Domain.Model\DomainEvent.cs" />
     <Compile Include="Domain.Model\Entity.cs" />
@@ -91,6 +96,7 @@
     <Compile Include="Domain.Model\Identities.cs" />
     <Compile Include="Domain.Model\Initiator.cs" />
     <Compile Include="Domain.Model\Period.cs" />
+    <Compile Include="Domain.Model\Repositories.cs" />
     <Compile Include="Eventing\AutoReleaseEventHandlerInterceptor.cs" />
     <Compile Include="Eventing\EventHandlerSelector.cs" />
     <Compile Include="Eventing\EventPublisher.cs" />
@@ -99,7 +105,11 @@
     <Compile Include="Eventing\IEventHandlerFactory.cs" />
     <Compile Include="Eventing\IStoredEventRepository.cs" />
     <Compile Include="Eventing\ISubscribeTo.cs" />
+    <Compile Include="IDateTimeProvider.cs" />
     <Compile Include="Injecting\IAssemblyInstaller.cs" />
+    <Compile Include="Mailing\IMailGateway.cs" />
+    <Compile Include="Mailing\MailGateway.cs" />
+    <Compile Include="Mailing\MailingInstaller.cs" />
     <Compile Include="Messaging\FakeBus.cs" />
     <Compile Include="Messaging\IBus.cs" />
     <Compile Include="Projecting\Application\UpdateProjection.cs" />

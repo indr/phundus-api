@@ -3,7 +3,7 @@
     using System;
     using Common.Commanding;
     using Common.Domain.Model;
-    using Organizations.Repositories;
+    using Model.Organizations;
     using Users.Services;
 
     public class LockMember : ICommand

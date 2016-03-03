@@ -3,10 +3,10 @@
     using System;
     using Common.Commanding;
     using Common.Domain.Model;
+    using Model.Organizations;
+    using Model.Users;
     using Organizations.Model;
-    using Organizations.Repositories;
     using Projections;
-    using Users.Repositories;
 
     public class ChangeMembersRole
     {

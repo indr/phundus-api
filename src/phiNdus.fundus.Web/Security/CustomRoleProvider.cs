@@ -5,7 +5,7 @@
     using System.Collections.Specialized;
     using System.Web.Security;
     using Castle.Transactions;
-    using IdentityAccess.Users.Repositories;
+    using IdentityAccess.Model.Users;
 
     public class CustomRoleProvider : RoleProvider
     {

@@ -2,9 +2,9 @@
 {
     using System;
     using Common.Commanding;
-    using Infrastructure.Gateways;
+    using Common.Mailing;
+    using Model.Users;
     using Users.Mails;
-    using Users.Repositories;
 
     public class ResetPassword
     {

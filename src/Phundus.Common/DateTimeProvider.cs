@@ -1,4 +1,4 @@
-﻿namespace Phundus.Infrastructure
+﻿namespace Phundus.Common
 {
     using System;
 

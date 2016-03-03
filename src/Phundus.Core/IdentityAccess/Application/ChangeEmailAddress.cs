@@ -4,8 +4,8 @@
     using System.Globalization;
     using Common.Commanding;
     using Common.Domain.Model;
+    using Model.Users;
     using Users.Exceptions;
-    using Users.Repositories;
 
     public class ChangeEmailAddress
     {

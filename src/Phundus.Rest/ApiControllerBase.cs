@@ -19,7 +19,6 @@
     using Common.Commanding;
     using Common.Domain.Model;
     using Common.Messaging;
-    using Infrastructure;
 
     public class ApiControllerBase : ApiController
     {

@@ -4,8 +4,8 @@ namespace Phundus.Persistence.IdentityAccess.Repositories
     using System.Collections.Generic;
     using System.Linq;
     using NHibernate.Linq;
+    using Phundus.IdentityAccess.Model.Organizations;
     using Phundus.IdentityAccess.Organizations.Model;
-    using Phundus.IdentityAccess.Organizations.Repositories;
 
     public class NhMembershipRepository : NhRepositoryBase<Membership>, IMembershipRepository
     {

@@ -5,8 +5,8 @@
     using Common;
     using Common.Domain.Model;
     using NHibernate.Linq;
+    using Phundus.IdentityAccess.Model.Users;
     using Phundus.IdentityAccess.Users.Model;
-    using Phundus.IdentityAccess.Users.Repositories;
 
     public class NhUserRepository : NhRepositoryBase<User>, IUserRepository
     {

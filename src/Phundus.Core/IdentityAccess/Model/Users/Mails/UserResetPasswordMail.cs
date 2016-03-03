@@ -1,9 +1,9 @@
 ﻿namespace Phundus.IdentityAccess.Users.Mails
 {
     using System;
-    using IdentityAccess.Model.Users.Mails;
-    using Infrastructure;
-    using Infrastructure.Gateways;
+    using Common;
+    using Common.Mailing;
+    using IdentityAccess.Model.Users.Mails;    
     using Model;
 
     public class UserResetPasswordMail : BaseMail

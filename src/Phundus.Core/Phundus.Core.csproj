@@ -105,6 +105,7 @@
     <Compile Include="Authorization\IHandleAccessObject.cs" />
     <Compile Include="Dashboard\Projections\EventLogProjection.cs" />
     <Compile Include="Dashboard\Projections\ProjectionMetaDataQueries.cs" />
+    <Compile Include="Guard.cs" />
     <Compile Include="IdentityAccess\Application\ChangeUserAddress.cs" />
     <Compile Include="IdentityAccess\Authorization\Manage.cs" />
     <Compile Include="IdentityAccess\Application\ChangeMemberRecievesEmailNotification.cs" />
@@ -318,10 +319,6 @@
     <ProjectReference Include="..\Phundus.Common\Phundus.Common.csproj">
       <Project>{0ba282a6-fea2-44a2-9748-1de0e4e32018}</Project>
       <Name>Phundus.Common</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Phundus.Infrastructure\Phundus.Infrastructure.csproj">
-      <Project>{9d30515e-5d3c-4fe5-8aa4-b8352328ef25}</Project>
-      <Name>Phundus.Infrastructure</Name>
     </ProjectReference>
     <ProjectReference Include="..\Phundus.Integration\Phundus.Integration.csproj">
       <Project>{91c1a2a6-65d2-44ba-9985-c35f1705888a}</Project>

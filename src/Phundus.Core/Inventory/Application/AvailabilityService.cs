@@ -3,10 +3,9 @@
     using System;
     using System.Collections.Generic;
     using System.Linq;
-    using Articles.Model;
     using AvailabilityAndReservation.Model;
-    using Common.Domain.Model;
-    using Infrastructure;
+    using Common;
+    using Common.Domain.Model;    
     using Model.Articles;
     using Model.Reservations;
 

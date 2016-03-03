@@ -1,12 +1,12 @@
 namespace Phundus.IdentityAccess.Users.Mails
 {
     using System;
+    using Common;
     using Common.Eventing;
-    using IdentityAccess.Model.Users.Mails;
-    using Infrastructure;
-    using Infrastructure.Gateways;
+    using Common.Mailing;
+    using IdentityAccess.Model.Users;
+    using IdentityAccess.Model.Users.Mails;    
     using Model;
-    using Repositories;
 
     public class UserChangeEmailValidationMail : BaseMail, ISubscribeTo<UserEmailAddressChangeRequested>
     {

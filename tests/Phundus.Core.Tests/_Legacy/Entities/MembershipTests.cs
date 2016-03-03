@@ -3,6 +3,7 @@
     using System;
     using System.Threading;
     using NUnit.Framework;
+    using Phundus.IdentityAccess.Model.Users;
     using Phundus.IdentityAccess.Users.Exceptions;
     using Phundus.IdentityAccess.Users.Model;
 

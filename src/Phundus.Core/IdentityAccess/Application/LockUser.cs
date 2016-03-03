@@ -5,8 +5,8 @@
     using Common.Commanding;
     using Common.Domain.Model;
     using Integration.IdentityAccess;
+    using Model.Users;
     using Phundus.Authorization;
-    using Users.Repositories;
 
     public class LockUser
     {

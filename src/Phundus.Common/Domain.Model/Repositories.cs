@@ -1,4 +1,4 @@
-﻿namespace Phundus.Infrastructure
+﻿namespace Phundus.Common.Domain.Model
 {
     public interface IRepository<T> where T : class
     {

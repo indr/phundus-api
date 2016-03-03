@@ -5,10 +5,10 @@ namespace Phundus.Tests.IdentityAccess
     using Integration.IdentityAccess;
     using Machine.Fakes;
     using Machine.Specifications;
-    using Phundus.IdentityAccess.Organizations.Repositories;
+    using Phundus.IdentityAccess.Model.Organizations;
+    using Phundus.IdentityAccess.Model.Users;
     using Phundus.IdentityAccess.Projections;
     using Phundus.IdentityAccess.Users.Model;
-    using Phundus.IdentityAccess.Users.Repositories;
     using Phundus.IdentityAccess.Users.Services;
 
     public class identityaccess_command_handler_concern<TCommand, THandler> :

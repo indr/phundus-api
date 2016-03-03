@@ -9,13 +9,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{9C4BD9
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Phundus.Web", "src\phiNdus.fundus.Web\Phundus.Web.csproj", "{08F0E680-EAD6-4698-90C4-111C16620424}"
-	ProjectSection(ProjectDependencies) = postProject
-		{9D30515E-5D3C-4FE5-8AA4-B8352328EF25} = {9D30515E-5D3C-4FE5-8AA4-B8352328EF25}
-	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Phundus.Specs", "specs\Phundus.Specs\Phundus.Specs.csproj", "{F9E6C7B9-2B94-4B34-A212-AE096C4CF4C2}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Phundus.Infrastructure", "src\Phundus.Infrastructure\Phundus.Infrastructure.csproj", "{9D30515E-5D3C-4FE5-8AA4-B8352328EF25}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Phundus.Core", "src\Phundus.Core\Phundus.Core.csproj", "{B4C597FF-EF4C-4F33-B2C8-172C1F3E9A56}"
 EndProject
@@ -66,16 +61,6 @@ Global
 		{F9E6C7B9-2B94-4B34-A212-AE096C4CF4C2}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{F9E6C7B9-2B94-4B34-A212-AE096C4CF4C2}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{F9E6C7B9-2B94-4B34-A212-AE096C4CF4C2}.Release|x86.ActiveCfg = Release|Any CPU
-		{9D30515E-5D3C-4FE5-8AA4-B8352328EF25}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{9D30515E-5D3C-4FE5-8AA4-B8352328EF25}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{9D30515E-5D3C-4FE5-8AA4-B8352328EF25}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
-		{9D30515E-5D3C-4FE5-8AA4-B8352328EF25}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
-		{9D30515E-5D3C-4FE5-8AA4-B8352328EF25}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{9D30515E-5D3C-4FE5-8AA4-B8352328EF25}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{9D30515E-5D3C-4FE5-8AA4-B8352328EF25}.Release|Any CPU.Build.0 = Release|Any CPU
-		{9D30515E-5D3C-4FE5-8AA4-B8352328EF25}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
-		{9D30515E-5D3C-4FE5-8AA4-B8352328EF25}.Release|Mixed Platforms.Build.0 = Release|Any CPU
-		{9D30515E-5D3C-4FE5-8AA4-B8352328EF25}.Release|x86.ActiveCfg = Release|Any CPU
 		{B4C597FF-EF4C-4F33-B2C8-172C1F3E9A56}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{B4C597FF-EF4C-4F33-B2C8-172C1F3E9A56}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B4C597FF-EF4C-4F33-B2C8-172C1F3E9A56}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU

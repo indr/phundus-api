@@ -4,8 +4,8 @@
     using Common.Commanding;
     using Common.Domain.Model;
     using Integration.IdentityAccess;
+    using Model.Organizations;
     using Organizations.Model;
-    using Organizations.Repositories;
     using Projections;
 
     public class ChangeOrganizationContactDetails : ICommand

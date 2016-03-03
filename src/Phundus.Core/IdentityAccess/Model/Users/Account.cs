@@ -1,11 +1,11 @@
-﻿namespace Phundus.IdentityAccess.Users.Model
+﻿namespace Phundus.IdentityAccess.Model.Users
 {
     using System;
     using Common.Domain.Model;
     using Common.Eventing;
-    using Exceptions;
-    using Infrastructure;
-    using Services;
+    using IdentityAccess.Users.Exceptions;
+    using IdentityAccess.Users.Model;
+    using IdentityAccess.Users.Services;
 
     public class Account : EntityBase
     {

@@ -2,10 +2,10 @@
 {
     using System;
     using System.Net.Mail;
+    using Common;
     using Common.Domain.Model;
     using Common.Eventing;
-    using Infrastructure;
-    using Infrastructure.Gateways;
+    using Common.Mailing;    
     using Model;
     using Services;
     using Shop.Model;

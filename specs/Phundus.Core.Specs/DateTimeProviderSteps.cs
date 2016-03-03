@@ -1,7 +1,7 @@
 ﻿namespace Phundus.Core.Specs
 {
     using System;
-    using Infrastructure;
+    using Common;    
     using TechTalk.SpecFlow;
 
     public class InstrumentedDateTimeProvider : IDateTimeProvider

@@ -6,8 +6,8 @@ namespace Phundus.Persistence.IdentityAccess.Repositories
     using Common;
     using Common.Domain.Model;
     using NHibernate.Linq;
+    using Phundus.IdentityAccess.Model.Organizations;
     using Phundus.IdentityAccess.Organizations.Model;
-    using Phundus.IdentityAccess.Organizations.Repositories;
 
     public class NhMembershipRequestRepository : NhRepositoryBase<MembershipApplication>, IMembershipRequestRepository
     {

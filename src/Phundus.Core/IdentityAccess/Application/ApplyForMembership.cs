@@ -4,8 +4,8 @@
     using Castle.Transactions;
     using Common.Commanding;
     using Common.Domain.Model;
-    using Organizations.Repositories;
-    using Users.Repositories;
+    using Model.Organizations;
+    using Model.Users;
 
     public class ApplyForMembership
     {
