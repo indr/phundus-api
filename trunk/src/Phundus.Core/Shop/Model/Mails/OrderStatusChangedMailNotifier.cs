@@ -21,9 +21,9 @@
 
         public IOrderPdfGeneratorService OrderPdfGeneratorService { get; set; }
 
-        public void Handle(OrderApproved @event)
+        public void Handle(OrderApproved e)
         {
-            var order = OrderRepository.GetById(new OrderId(@event.OrderId));
+            var order = OrderRepository.GetById(new OrderId(e.OrderId));
 
             Model = new
             {
@@ -40,9 +40,9 @@
             Send(order.Lessee.EmailAddress, Templates.OrderApprovedSubject, null, Templates.OrderApprovedHtml);
         }
 
-        public void Handle(OrderRejected @event)
+        public void Handle(OrderRejected e)
         {
-            var order = OrderRepository.GetById(new OrderId(@event.OrderId));
+            var order = OrderRepository.GetById(new OrderId(e.OrderId));
 
             Model = new
             {

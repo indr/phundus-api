@@ -196,12 +196,11 @@ namespace Phundus.Rest.Api
         [POST("")]
         [Transaction]
         public virtual ArticlesPostOkResponseContent Post(ArticlesPostRequestContent requestContent)
-        {
-            var ownerId = GetOwnerId(requestContent.OwnerId);
-            var storeId = _storesQueries.GetByOwnerId(ownerId).StoreId;
+        {            
+            var storeId = _storesQueries.GetByOwnerId(requestContent.OwnerId).StoreId;
             var articleId = new ArticleId();
             var articleShortId = _shortIdGeneratorService.GetNext<ArticleShortId>();
-            var command = new CreateArticle(CurrentUserId, ownerId, new StoreId(storeId), articleId, articleShortId,
+            var command = new CreateArticle(CurrentUserId, new OwnerId(requestContent.OwnerId), new StoreId(storeId), articleId, articleShortId,
                 requestContent.Name, requestContent.GrossStock, requestContent.PublicPrice, requestContent.MemberPrice);
             Dispatch(command);
 
@@ -287,7 +286,7 @@ namespace Phundus.Rest.Api
     public class ArticlesPostRequestContent
     {
         [JsonProperty("ownerId")]
-        public string OwnerId { get; set; }
+        public Guid OwnerId { get; set; }
 
         [JsonProperty("name")]
         public string Name { get; set; }

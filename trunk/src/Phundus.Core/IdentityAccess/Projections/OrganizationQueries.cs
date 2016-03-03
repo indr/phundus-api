@@ -7,26 +7,13 @@ namespace Phundus.IdentityAccess.Projections
 
     public interface IOrganizationQueries
     {
-        IEnumerable<OrganizationData> All();
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="organizationId"></param>
-        /// <returns></returns>
-        /// <exception cref="NotFoundException"></exception>
         OrganizationData GetById(Guid organizationId);
-
         OrganizationData FindById(Guid organizationId);
+        IEnumerable<OrganizationData> Query();
     }
 
     public class OrganizationQueries : QueryBase<OrganizationData>, IOrganizationQueries
     {
-        public IEnumerable<OrganizationData> All()
-        {
-            return QueryOver().OrderBy(p => p.Name).Asc.List();
-        }
-
         public OrganizationData GetById(Guid organizationId)
         {
             var result = FindById(organizationId);
@@ -37,7 +24,12 @@ namespace Phundus.IdentityAccess.Projections
 
         public OrganizationData FindById(Guid organizationId)
         {
-            return QueryOver().Where(p => p.OrganizationId == organizationId).SingleOrDefault();
+            return SingleOrDefault(p => p.OrganizationId == organizationId);
+        }
+
+        public IEnumerable<OrganizationData> Query()
+        {
+            return QueryOver().OrderBy(p => p.Name).Asc.List();
         }
     }
 }

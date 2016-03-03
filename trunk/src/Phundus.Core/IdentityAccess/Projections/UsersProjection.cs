@@ -13,13 +13,13 @@
     {
         public Initiator GetById(InitiatorId initiatorId)
         {
-            var user = GetByGuid(initiatorId.Id);
+            var user = GetById(initiatorId.Id);
             return new Initiator(new InitiatorId(user.UserId), user.EmailAddress, user.FullName);
         }
 
-        public IUser GetByGuid(Guid guid)
+        public IUser GetById(Guid userId)
         {
-            return GetByGuid(new UserId(guid));
+            return GetByGuid(new UserId(userId));
         }
 
         public IUser GetByGuid(UserId userId)
@@ -30,10 +30,10 @@
             return result;
         }
 
-        public IUser FindById(Guid userGuid)
+        public IUser FindById(Guid userId)
         {
             return QueryOver()
-                .Where(p => p.UserId == userGuid)
+                .Where(p => p.UserId == userId)
                 .List().SingleOrDefault();
         }
 
@@ -54,10 +54,10 @@
                 .List<IUser>();
         }
 
-        public IUser FindActiveById(Guid userGuid)
+        public IUser FindActiveById(Guid userId)
         {
             return QueryOver()
-                .Where(p => p.UserId == userGuid)
+                .Where(p => p.UserId == userId)
                 .And(p => p.IsApproved && !p.IsLockedOut)
                 .List().SingleOrDefault();
         }

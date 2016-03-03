@@ -9,8 +9,8 @@ namespace Phundus.Inventory.Projections
 
     public interface IStoresQueries
     {
-        StoreData GetByOwnerId(OwnerId ownerId);
-        StoreData FindByOwnerId(OwnerId ownerId);
+        StoreData GetByOwnerId(Guid ownerId);
+        StoreData FindByOwnerId(Guid ownerId);
     }
 
     public class StoresProjection : ProjectionBase<StoreData>, IStoresQueries, IStoredEventsConsumer
@@ -20,17 +20,17 @@ namespace Phundus.Inventory.Projections
             Process((dynamic) e);
         }
 
-        public StoreData GetByOwnerId(OwnerId ownerId)
+        public StoreData GetByOwnerId(Guid ownerId)
         {
             var result = FindByOwnerId(ownerId);
             if (result == null)
-                throw new NotFoundException("Store with {0} not found.", ownerId);
+                throw new NotFoundException("Store with owner {0} not found.", ownerId);
             return result;
         }
 
-        public StoreData FindByOwnerId(OwnerId ownerId)
+        public StoreData FindByOwnerId(Guid ownerId)
         {
-            return SingleOrDefault(p => p.OwnerId == ownerId.Id);
+            return SingleOrDefault(p => p.OwnerId == ownerId);
         }
 
         private void Process(DomainEvent domainEvent)

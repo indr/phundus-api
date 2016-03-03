@@ -29,10 +29,10 @@
             _orderPdfGeneratorService = orderPdfGeneratorService;
         }
 
-        public void Handle(OrderPlaced @event)
+        public void Handle(OrderPlaced e)
         {
-            var order = _orderRepository.GetById(new OrderId(@event.OrderId));
-            var managers = _lessorService.GetManagersForEmailNotification(new LessorId(@event.LessorId));
+            var order = _orderRepository.GetById(new OrderId(e.OrderId));
+            var managers = _lessorService.GetManagersForEmailNotification(new LessorId(e.LessorId));
 
             Model = new
             {

@@ -1,6 +1,5 @@
 ﻿namespace Phundus.Rest
 {
-    using System;
     using System.Collections.Generic;
     using System.IO;
     using System.Linq;
@@ -38,15 +37,24 @@
 
         protected CurrentUserId CurrentUserId
         {
-            get { return GetCurrentProviderUserKey().UserId; }
+            get
+            {
+                var user = Membership.GetUser();
+                if (user == null)
+                    throw new AuthenticationException();
+                return new ProviderUserKey(user.ProviderUserKey).UserId;
+            }
         }
 
-        private ProviderUserKey GetCurrentProviderUserKey()
+        protected CurrentUserId CurrentUserIdOrNull
         {
-            var user = Membership.GetUser();
-            if (user == null)
-                throw new AuthenticationException();
-            return new ProviderUserKey(user.ProviderUserKey);
+            get
+            {
+                var user = Membership.GetUser();
+                if (user == null)
+                    return null;
+                return new ProviderUserKey(user.ProviderUserKey).UserId;
+            }
         }
 
         protected void Dispatch<TCommand>(TCommand command)
@@ -99,7 +107,8 @@
 
         protected void CheckForMaintenanceMode(string emailAddress)
         {
-            if ((Config.InMaintenance) && (!Regex.Match(emailAddress, @"@(test\.)?phundus\.ch$", RegexOptions.IgnoreCase).Success))
+            if ((Config.InMaintenance) &&
+                (!Regex.Match(emailAddress, @"@(test\.)?phundus\.ch$", RegexOptions.IgnoreCase).Success))
                 throw new MaintenanceModeException("Das System befindet sich im Wartungsmodus.");
         }
     }

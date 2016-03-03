@@ -18,9 +18,9 @@
             _userRepository = userRepository;
         }
 
-        public void Handle(UserLocked @event)
+        public void Handle(UserLocked e)
         {
-            var user = _userRepository.FindByGuid(@event.UserId);
+            var user = _userRepository.FindByGuid(e.UserId);
             if (user == null)
                 return;
 

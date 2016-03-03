@@ -41,7 +41,8 @@
 
             if (projection != null)
             {
-                Recreate(projection.GetEntityType());
+                //Recreate(projection.GetEntityType());
+                Recreate(GetType());
             }
             else
             {

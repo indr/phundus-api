@@ -2,20 +2,14 @@
 {
     using System;
     using System.Collections.Generic;
-    using Common.Domain.Model;
 
     public interface IUsersQueries
     {
-        IUser GetByGuid(Guid guid);
-        IUser GetByGuid(UserId userId);
-
-        IUser FindById(Guid userGuid);
-
+        IUser GetById(Guid userId);
+        IUser FindById(Guid userId);
         IUser FindByUsername(string username);
-        IList<IUser> Query();
-        IUser FindActiveById(Guid userGuid);
-
-
+        IUser FindActiveById(Guid userId);
         bool IsEmailAddressTaken(string emailAddress);
+        IList<IUser> Query();
     }
 }

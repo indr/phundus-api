@@ -3,11 +3,13 @@
     using System;
     using System.Linq;
     using Common;
+    using Common.Domain.Model;
     using Common.Eventing;
     using Common.Mailing;
     using IdentityAccess.Model.Organizations.Mails;   
     using Integration.IdentityAccess;
     using Model;
+    using NHibernate.Criterion;
     using Projections;
 
     public class MembershipApplicationMailNotifier : BaseMail, ISubscribeTo<MembershipApplicationFiled>,
@@ -31,10 +33,10 @@
             _memberWithRole = memberWithRole;
         }
 
-        public void Handle(MemberLocked @event)
+        public void Handle(MemberLocked e)
         {
-            var user = _usersQueries.GetByGuid(@event.UserGuid);
-            var organization = _organizationQueries.GetById(@event.OrganizationGuid);
+            var user = _usersQueries.GetById(e.UserGuid);
+            var organization = _organizationQueries.GetById(e.OrganizationGuid);
 
             Model = new
             {
@@ -48,10 +50,10 @@
                 null, Templates.MemberLockedBodyHtml);
         }
 
-        public void Handle(MembershipApplicationApproved @event)
+        public void Handle(MembershipApplicationApproved e)
         {
-            var user = _usersQueries.GetByGuid(@event.UserGuid);
-            var organization = _organizationQueries.GetById(@event.OrganizationGuid);
+            var user = _usersQueries.GetById(e.UserGuid);
+            var organization = _organizationQueries.GetById(e.OrganizationGuid);
 
             Model = new
             {
@@ -65,11 +67,11 @@
                 null, Templates.MembershipApplicationApprovedBodyHtml);
         }
 
-        public void Handle(MembershipApplicationFiled @event)
+        public void Handle(MembershipApplicationFiled e)
         {
-            var user = _usersQueries.GetByGuid(@event.UserGuid);
-            var organization = _organizationQueries.GetById(@event.OrganizationGuid);
-            var managers = _memberWithRole.Manager(@event.OrganizationGuid, true);
+            var user = _usersQueries.GetById(e.UserGuid);
+            var organization = _organizationQueries.GetById(e.OrganizationGuid);
+            var managers = _memberWithRole.Manager(e.OrganizationGuid, true);
 
             var recipients = managers.Select(p => p.EmailAddress).ToList();
 
@@ -85,10 +87,10 @@
                 null, Templates.MembershipApplicationFiledBodyHtml);
         }
 
-        public void Handle(MembershipApplicationRejected @event)
+        public void Handle(MembershipApplicationRejected e)
         {
-            var user = _usersQueries.GetByGuid(@event.UserGuid);
-            var organization = _organizationQueries.GetById(@event.OrganizationGuid);
+            var user = _usersQueries.GetById(e.UserGuid);
+            var organization = _organizationQueries.GetById(e.OrganizationGuid);
 
             Model = new
             {
@@ -102,10 +104,10 @@
                 null, Templates.MembershipApplicationRejectedBodyHtml);
         }
 
-        public void Handle(MemberUnlocked @event)
+        public void Handle(MemberUnlocked e)
         {
-            var user = _usersQueries.GetByGuid(@event.UserGuid);
-            var organization = _organizationQueries.GetById(@event.OrganizationGuid);
+            var user = _usersQueries.GetById(e.UserGuid);
+            var organization = _organizationQueries.GetById(e.OrganizationGuid);
 
             Model = new
             {
