@@ -10,7 +10,7 @@
     {
         public void Install(IWindsorContainer container, IConfigurationStore store)
         {
-            container.Register(Types.FromThisAssembly().BasedOn<IController>()
+            container.Register(Classes.FromThisAssembly().BasedOn<IController>()
                 .If(t => t.Name.EndsWith("Controller", StringComparison.InvariantCulture))
                 .LifestyleTransient());
         }

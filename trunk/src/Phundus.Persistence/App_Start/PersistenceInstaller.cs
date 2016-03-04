@@ -28,12 +28,12 @@
         {
             container.Register(Component.For<IEventStore>().ImplementedBy<EventStore>());
 
-            container.Register(Types.FromThisAssembly()
+            container.Register(Classes.FromThisAssembly()
                 .BasedOn(typeof (NhRepositoryBase<>))
                 .WithServiceAllInterfaces()
                 .LifestyleTransient());
 
-            container.Register(Types.FromThisAssembly()
+            container.Register(Classes.FromThisAssembly()
                 .BasedOn<EventSourcedRepositoryBase>()
                 .WithServiceAllInterfaces()
                 .LifestyleTransient());
