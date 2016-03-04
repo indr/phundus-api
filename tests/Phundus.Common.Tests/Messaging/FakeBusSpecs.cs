@@ -21,21 +21,21 @@
         };
     }
 
-    [Subject(typeof (FakeBus))]
-    public class when_sending_command_that_throws_an_error : fake_bus_concern
-    {
-        private static ICommand command;
+    //[Subject(typeof (FakeBus))]
+    //public class when_sending_command_that_throws_an_error : fake_bus_concern
+    //{
+    //    private static ICommand command;
 
-        private Establish ctx = () =>
-        {
-            command = fake.an<ICommand>();
-            dispatcher.setup(x => x.Dispatch(command)).Throw(new ApplicationException());
-        };
+    //    private Establish ctx = () =>
+    //    {
+    //        command = fake.an<ICommand>();
+    //        dispatcher.setup(x => x.Dispatch(command)).Throw(new ApplicationException());
+    //    };
 
-        private Because of = () =>
-            sut.Send(command);
+    //    private Because of = () =>
+    //        sut.Send(command);
 
-        private It should_log_fatal = () =>
-            logger.received(x => x.Fatal(Arg<string>.Is.Anything, Arg<Exception>.Is.NotNull));
-    }
+    //    private It should_log_fatal = () =>
+    //        logger.received(x => x.Fatal(Arg<string>.Is.Anything, Arg<Exception>.Is.NotNull));
+    //}
 }
