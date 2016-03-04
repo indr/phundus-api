@@ -1,16 +1,19 @@
 ﻿namespace Phundus.Common.Tests.Projecting
 {
+    using System;
     using Common.Domain.Model;
     using Common.Notifications;
     using Common.Projecting;
     using developwithpassion.specifications.extensions;
     using developwithpassion.specifications.rhinomocks;
+    using Machine.Fakes;
     using Machine.Specifications;
 
     public class projection_processor_concern : Observes<ProjectionProcessor>
     {
         protected static IProjectionFactory projectionFactory;
         protected static IProjectionUpdater projectionUpdater;
+        protected static IProcessedNotificationTrackerStore trackerStore;
 
         protected static IProjection projection1;
         protected static IProjection projection2;
@@ -24,9 +27,10 @@
             projectionFactory.setup(x => x.GetProjections()).Return(new[] {projection1, projection2});
 
             projectionUpdater = depends.on<IProjectionUpdater>();
+            trackerStore = depends.on<IProcessedNotificationTrackerStore>();
         };
     }
-    
+
     [Subject(typeof (ProjectionProcessor))]
     public class when_updating : projection_processor_concern
     {
@@ -38,6 +42,43 @@
 
         private It should_tell_projection_update = () =>
             projectionUpdater.received(x => x.Update(projection1));
+    }
+
+    [Subject(typeof (ProjectionProcessor))]
+    public class when_projection_updater_updates_returns_false : projection_processor_concern
+    {
+        private static int calls;
+
+        private Establish ctx = () =>
+        {
+            projectionFactory.setup(x => x.FindProjection("typeName")).Return(projection1);
+            projectionUpdater.WhenToldTo(x => x.Update(projection1)).Return(() => ++calls == 2);
+        };
+
+        private Because of = () =>
+            sut.Update("typeName");
+
+        private It should_call_update_twice = () =>
+            projectionUpdater.received(x => x.Update(projection1)).Twice();
+    }
+
+    [Subject(typeof (ProjectionProcessor))]
+    public class when_projection_update_throws_exception : projection_processor_concern
+    {
+        private static Exception exception;
+
+        private Establish ctx = () =>
+        {
+            exception = new Exception("Error message");
+            projectionFactory.setup(x => x.FindProjection(projection1.GetType().FullName)).Return(projection1);
+            projectionUpdater.setup(x => x.Update(projection1)).Throw(exception);
+        };
+
+        private Because of = () =>
+            sut.Update(projection1.GetType().FullName);
+
+        private It should_track_exception = () =>
+            trackerStore.received(x => x.TrackException(projection1.GetType().FullName, exception));
     }
 
     [Subject(typeof (ProjectionProcessor))]

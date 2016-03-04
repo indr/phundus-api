@@ -1,7 +1,6 @@
 ﻿namespace Phundus.Common.Tests.Projecting
 {
     using System;
-    using System.Collections.Generic;
     using Common.Domain.Model;
     using Common.Eventing;
     using Common.Notifications;
@@ -28,14 +27,15 @@
         {
             domainEvent1 = new DomainEvent();
             domainEvent2 = new DomainEvent();
-            tracker = new ProcessedNotificationTracker("typeName");            
+            tracker = new ProcessedNotificationTracker("typeName");
             tracker.Track(lowNotificationId);
             projection = fake.an<IProjection>();
-            
+
             eventStore = depends.on<IEventStore>();
             eventStore.setup(x => x.GetMaxNotificationId()).Return(maxNotificationId);
             var storedEvents = new[] {makeStoredEvent(domainEvent1), makeStoredEvent(domainEvent2)};
-            eventStore.setup(x => x.AllStoredEventsBetween(lowNotificationId + 1, maxNotificationId)).Return(storedEvents);
+            eventStore.setup(x => x.AllStoredEventsBetween(lowNotificationId + 1, maxNotificationId))
+                .Return(storedEvents);
             eventStore.setup(x => x.Deserialize(storedEvents[0])).Return(domainEvent1);
             eventStore.setup(x => x.Deserialize(storedEvents[1])).Return(domainEvent2);
 
@@ -45,10 +45,12 @@
 
         private static StoredEvent makeStoredEvent(DomainEvent domainEvent)
         {
-            return new StoredEvent(Guid.NewGuid(), DateTime.UtcNow, domainEvent.GetType().AssemblyQualifiedName, new byte[0], Guid.Empty);
+            return new StoredEvent(Guid.NewGuid(), DateTime.UtcNow, domainEvent.GetType().AssemblyQualifiedName,
+                new byte[0], Guid.Empty);
         }
     }
 
+    [Subject(typeof (ProjectionUpdater))]
     public class when_projection_updater_updates_projection : projection_updater_concern
     {
         private Because of = () =>
@@ -62,5 +64,60 @@
 
         private It should_track_processed_notification_id = () =>
             trackerStore.received(x => x.TrackMostRecentProcessedNotificationId(tracker, maxNotificationId));
+    }
+
+    [Subject(typeof (ProjectionUpdater))]
+    public class when_max_notification_id_is_equal_to_most_recent_processed_notification_id : projection_updater_concern
+    {
+        private static bool returnValue;
+
+        private Establish ctx = () =>
+            tracker.Track(maxNotificationId);
+
+        private Because of = () =>
+            returnValue = sut.Update(projection);
+
+        private It should_return_false = () =>
+            returnValue.ShouldBeTrue();
+    }
+
+    [Subject(typeof (ProjectionUpdater))]
+    public class when_difference_to_max_notification_id_is_greater_than_notifications_per_update :
+        projection_updater_concern
+    {
+        private static bool returnValue;
+
+        private Establish ctx = () =>
+        {
+            tracker.Track(0);
+            eventStore.setup(x => x.AllStoredEventsBetween(Arg<long>.Is.Anything, Arg<long>.Is.Anything))
+                .Return(new StoredEvent[0]);
+        };
+
+        private Because of = () =>
+            returnValue = sut.Update(projection);
+
+        private It should_return_false = () =>
+            returnValue.ShouldBeFalse();
+    }
+
+    [Subject(typeof (ProjectionUpdater))]
+    public class when_difference_to_max_notification_id_is_equal_to_notifications_per_update :
+        projection_updater_concern
+    {
+        private static bool returnValue;
+
+        private Establish ctx = () =>
+        {
+            tracker.Track(maxNotificationId - ProjectionUpdater.NotificationsPerUpdate);
+            eventStore.setup(x => x.AllStoredEventsBetween(Arg<long>.Is.Anything, Arg<long>.Is.Anything))
+                .Return(new StoredEvent[0]);
+        };
+
+        private Because of = () =>
+            returnValue = sut.Update(projection);
+
+        private It should_return_true = () =>
+            returnValue.ShouldBeTrue();
     }
 }

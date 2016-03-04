@@ -16,13 +16,17 @@ namespace Phundus.Common.Projecting
         private static readonly object Lock = new object();
         private readonly IProjectionFactory _projectionFactory;
         private readonly IProjectionUpdater _projectionUpdater;
+        private readonly IProcessedNotificationTrackerStore _trackerStore;
 
-        public ProjectionProcessor(IProjectionFactory projectionFactory, IProjectionUpdater projectionUpdater)
+        public ProjectionProcessor(IProjectionFactory projectionFactory, IProjectionUpdater projectionUpdater,
+            IProcessedNotificationTrackerStore trackerStore)
         {
             if (projectionFactory == null) throw new ArgumentNullException("projectionFactory");
             if (projectionUpdater == null) throw new ArgumentNullException("projectionUpdater");
+            if (trackerStore == null) throw new ArgumentNullException("trackerStore");
             _projectionFactory = projectionFactory;
             _projectionUpdater = projectionUpdater;
+            _trackerStore = trackerStore;
         }
 
         public void Update(string typeName)
@@ -57,100 +61,19 @@ namespace Phundus.Common.Projecting
         {
             lock (Lock)
             {
-                _projectionUpdater.Update(projection);
+                try
+                {
+                    var done = false;
+                    while (!done)
+                    {
+                        done = _projectionUpdater.Update(projection);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    _trackerStore.TrackException(projection.GetType().FullName, ex);
+                }
             }
         }
     }
-
-    //public class ProjectionProcessor : IProjectionProcessor
-    //{
-    //    private static object _lock = new object();
-
-    //    public IProcessedNotificationTrackerStore ProcessedNotificationTrackerStore { get; set; }
-
-    //    public IDomainEventHandlerFactory DomainEventHandlerFactory { get; set; }
-
-    //    public IEventStore EventStore { get; set; }
-
-    //    public void Handle(Notification notification)
-    //    {
-    //        lock (_lock)
-    //        {
-    //            var domainEventHandler = GetDomainEventHandlers();
-    //            foreach (var handler in domainEventHandler)
-    //            {
-    //                UpdateReadModel(handler, notification);
-    //            }
-    //        }
-    //    }
-
-    //    [Transaction]
-    //    public void Update(string typeName)
-    //    {
-    //        var domainEventHandler = GetDomainEventHandler(typeName);
-    //        UpdateProjection(domainEventHandler, EventStore.GetMaxNotificationId());
-    //    }
-
-    //    [Transaction]
-    //    public void ProcessMissedNotifications()
-    //    {
-    //        lock (_lock)
-    //        {
-    //            var domainEventHandler = GetDomainEventHandlers();
-    //            foreach (var handler in domainEventHandler)
-    //            {
-    //                UpdateProjection(handler, EventStore.GetMaxNotificationId());
-    //            }
-    //        }
-    //    }
-
-    //    private IStoredEventsConsumer GetDomainEventHandler(string typeName)
-    //    {
-    //        var result = GetDomainEventHandlers().SingleOrDefault(p => p.GetType().FullName == typeName);
-    //        if (result == null)
-    //            throw new Exception("Could not find domain event handler " + typeName);
-    //        return result;
-    //    }
-
-    //    private IEnumerable<IStoredEventsConsumer> GetDomainEventHandlers()
-    //    {
-    //        return DomainEventHandlerFactory.GetDomainEventHandlers().ToList();
-    //    }
-
-    //    private void UpdateProjection(IStoredEventsConsumer storedEventsConsumer, long notificationId)
-    //    {
-    //        var tracker =
-    //            ProcessedNotificationTrackerStore.GetProcessedNotificationTracker(
-    //                storedEventsConsumer.GetType().FullName);
-    //        if (tracker.MostRecentProcessedNotificationId >= notificationId)
-    //            return;
-
-    //        var events = EventStore.AllStoredEventsBetween(tracker.MostRecentProcessedNotificationId + 1,
-    //            notificationId);
-    //        foreach (var each in events)
-    //        {
-    //            storedEventsConsumer.Handle(EventStore.Deserialize(each));
-    //        }
-
-    //        ProcessedNotificationTrackerStore.TrackMostRecentProcessedNotificationId(tracker, notificationId);
-    //    }
-
-    //    private void UpdateReadModel(IStoredEventsConsumer storedEventsConsumer, Notification notification)
-    //    {
-    //        var tracker =
-    //            ProcessedNotificationTrackerStore.GetProcessedNotificationTracker(
-    //                storedEventsConsumer.GetType().FullName);
-    //        if (tracker.MostRecentProcessedNotificationId >= notification.NotificationId)
-    //            return;
-
-    //        var events = EventStore.AllStoredEventsBetween(tracker.MostRecentProcessedNotificationId + 1,
-    //            notification.NotificationId);
-    //        foreach (var each in events)
-    //        {
-    //            storedEventsConsumer.Handle(EventStore.Deserialize(each));
-    //        }
-
-    //        ProcessedNotificationTrackerStore.TrackMostRecentProcessedNotification(tracker, notification);
-    //    }
-    //}
 }
