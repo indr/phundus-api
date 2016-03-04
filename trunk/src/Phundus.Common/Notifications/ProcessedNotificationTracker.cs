@@ -7,14 +7,14 @@ namespace Phundus.Common.Notifications
         private Guid _id;
         private string _typeName;
 
-        protected ProcessedNotificationTracker()
-        {
-        }
-
         public ProcessedNotificationTracker(string typeName)
         {
             _id = Guid.NewGuid();
             _typeName = typeName;
+        }
+
+        protected ProcessedNotificationTracker()
+        {
         }
 
         public virtual Guid Id

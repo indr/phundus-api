@@ -2,6 +2,7 @@ namespace Phundus.Persistence.Notifications
 {
     using System;
     using System.Collections.Generic;
+    using Castle.Transactions;
     using Common.Notifications;
     using NHibernate;
 
@@ -27,6 +28,14 @@ namespace Phundus.Persistence.Notifications
         public IList<ProcessedNotificationTracker> GetProcessedNotificationTrackers()
         {
             return Session.QueryOver<ProcessedNotificationTracker>().OrderBy(p => p.TypeName).Asc.List();
+        }
+
+        [Transaction]
+        public void TrackException(string typeName, Exception ex)
+        {
+            var tracker = GetProcessedNotificationTracker(typeName);
+            tracker.Track(ex);
+            Session.SaveOrUpdate(tracker);
         }
 
         public void TrackMostRecentProcessedNotification(ProcessedNotificationTracker tracker, Notification notification)

@@ -1,5 +1,6 @@
 namespace Phundus.Common.Notifications
 {
+    using System;
     using System.Collections.Generic;
 
     public interface IProcessedNotificationTrackerStore
@@ -7,6 +8,7 @@ namespace Phundus.Common.Notifications
         ProcessedNotificationTracker GetProcessedNotificationTracker(string typeName);
         IList<ProcessedNotificationTracker> GetProcessedNotificationTrackers();
 
+        void TrackException(string typeName, Exception ex);
         void TrackMostRecentProcessedNotification(ProcessedNotificationTracker tracker, Notification notification);
         void TrackMostRecentProcessedNotificationId(ProcessedNotificationTracker tracker, long notificationId);
         
