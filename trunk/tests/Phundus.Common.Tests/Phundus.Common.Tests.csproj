@@ -97,6 +97,7 @@
     <Compile Include="installer_concern.cs" />
     <Compile Include="InstrumentedDateTimeProvider.cs" />
     <Compile Include="Notifications\App_Start\NotificationConsumersInstallerSpecs.cs" />
+    <Compile Include="Notifications\NotificationLogFactorySpecs.cs" />
     <Compile Include="Notifications\ProcessedNotificationTrackerSpecs.cs" />
     <Compile Include="Projecting\ProjectionBaseSpecs.cs" />
     <Compile Include="Projecting\ProjectionProcessorSpecs.cs" />
