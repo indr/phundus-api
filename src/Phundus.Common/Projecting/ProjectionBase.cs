@@ -17,13 +17,26 @@ namespace Phundus.Common.Projecting
             get { return SessionFactory(); }
         }
 
-        public abstract void Reset();
+        public virtual bool CanReset
+        {
+            get { return false; }
+        }
+
+        public virtual void Reset()
+        {
+            throw new InvalidOperationException();
+        }
 
         public abstract void Handle(DomainEvent e);
-    }    
+    }
 
     public abstract class ProjectionBase<TEntity> : ProjectionBase where TEntity : class, new()
     {
+        public override bool CanReset
+        {
+            get { return true; }
+        }
+
         protected TEntity Find(GuidIdentity id)
         {
             if (id == null) throw new ArgumentNullException("id");
@@ -47,7 +60,9 @@ namespace Phundus.Common.Projecting
         {
             var row = Session.Get<TEntity>(id);
             if (row == null)
-                throw new InvalidOperationException(String.Format("Could not update projection {0}. Projection {1} {2} not found.", this.GetType().Name, typeof(TEntity).Name, id));
+                throw new InvalidOperationException(
+                    String.Format("Could not update projection {0}. Projection {1} {2} not found.", GetType().Name,
+                        typeof (TEntity).Name, id));
 
             action(row);
             Session.Update(row);
@@ -80,7 +95,7 @@ namespace Phundus.Common.Projecting
 
         protected void Delete(object id)
         {
-            var row = Session.Get<TEntity>(id);            
+            var row = Session.Get<TEntity>(id);
             Session.Delete(row);
         }
 

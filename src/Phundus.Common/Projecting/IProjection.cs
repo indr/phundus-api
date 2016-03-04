@@ -4,6 +4,7 @@
 
     public interface IProjection
     {
+        bool CanReset { get; }
         void Reset();
         void Handle(DomainEvent e);
     }

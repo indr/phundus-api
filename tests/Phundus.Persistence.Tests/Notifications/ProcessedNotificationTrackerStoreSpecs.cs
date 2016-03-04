@@ -84,8 +84,7 @@
 
     [Subject(typeof(ProcessedNotificationTrackerStore))]
     public class track_exception_for_non_existing_tracker : processed_notification_tracker_store_concern
-    {
-        private static ProcessedNotificationTracker tracker;
+    {        
         private static Exception exception = new Exception("Exception message");
 
         private Establish ctx = () =>

@@ -63,10 +63,10 @@ namespace Phundus.Common.Projecting
             {
                 try
                 {
-                    var done = false;
-                    while (!done)
+                    var notDone = true;
+                    while (notDone)
                     {
-                        done = _projectionUpdater.Update(projection);
+                        notDone = _projectionUpdater.Update(projection);
                     }
                 }
                 catch (Exception ex)

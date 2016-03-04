@@ -70,10 +70,7 @@ namespace Phundus.Rest.Api
             : base(results)
         {
             MaxEventId = maxEventId;
-            Results.ForEach(metaData =>
-            {
-                metaData.SetBehind(MaxEventId);
-            });
+            Results.ForEach(metaData => metaData.SetBehind(MaxEventId));
         }
 
         [JsonProperty("MaxEventId")]

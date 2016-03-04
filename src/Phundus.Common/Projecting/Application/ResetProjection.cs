@@ -42,15 +42,19 @@
             var typeName = command.ProjectionTypeName;
             var projection = _projectionFactory.FindProjection(typeName);
 
-            if (projection != null)
-            {
-                projection.Reset();
-                _trackerStore.ResetTracker(typeName);
-            }
-            else
+            if (projection == null)
             {
                 _trackerStore.DeleteTracker(typeName);
+                return;
             }
+
+            if (!projection.CanReset)
+            {
+                return;
+            }
+
+            projection.Reset();
+            _trackerStore.ResetTracker(typeName);
         }
     }
 

@@ -3,6 +3,7 @@ namespace Phundus.Dashboard.Projections
     using System;
     using System.Collections.Generic;
     using System.Linq;
+    using System.Runtime.InteropServices;
     using Common.Notifications;
     using Common.Querying;
     using Newtonsoft.Json;
@@ -29,7 +30,7 @@ namespace Phundus.Dashboard.Projections
             return trackers.Select(s => new ProjectionMetaData
             {
                 ProjectionId = s.TypeName,
-                Name = s.TypeName,
+                TypeName = s.TypeName,
                 ProcessedEventId = s.MostRecentProcessedNotificationId,
                 ProcessedAtUtc = s.MostRecentProcessedAtUtc,
                 ErrorMessage = s.ErrorMessage,
@@ -42,6 +43,7 @@ namespace Phundus.Dashboard.Projections
     {
         private string _status = "success";
         private string _errorMessage;
+        private string _typeName;
 
         [JsonProperty("projectionId")]
         public string ProjectionId { get; set; }
@@ -52,6 +54,26 @@ namespace Phundus.Dashboard.Projections
             get { return _status; }
             set { _status = value; }
         }
+
+        [JsonProperty("typeName")]
+        public string TypeName
+        {
+            get { return _typeName; }
+            set
+            {
+                _typeName = value;
+                if (String.IsNullOrWhiteSpace(_typeName))
+                    return;
+                var parts = _typeName.Split('.');
+                if (parts.Length < 3)
+                    return;
+                Context = parts[1];
+                Name = parts.LastOrDefault();
+            }
+        }
+
+        [JsonProperty("context")]
+        public string Context { get; set; }
 
         [JsonProperty("name")]
         public string Name { get; set; }
