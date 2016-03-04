@@ -72,6 +72,7 @@ namespace Phundus.Persistence.Notifications
 
         private ProcessedNotificationTracker FindProcessedNotificationTracker(string typeName)
         {
+            Session.Flush();
             var tracker = Session.QueryOver<ProcessedNotificationTracker>()
                 .Where(x => x.TypeName == typeName).SingleOrDefault();
             return tracker;
