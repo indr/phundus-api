@@ -31,7 +31,7 @@ namespace Phundus.Common.Projecting
             var tracker = _trackerStore.GetProcessedNotificationTracker(projection.GetType().FullName);
             var maxNotificationId = _eventStore.GetMaxNotificationId();
             if (tracker.MostRecentProcessedNotificationId >= maxNotificationId)
-                return true;
+                return false;
 
             var lowNotificationId = tracker.MostRecentProcessedNotificationId + 1;
             var highNotificationId = Math.Min(maxNotificationId, lowNotificationId + NotificationsPerUpdate - 1);
@@ -45,7 +45,7 @@ namespace Phundus.Common.Projecting
 
             _trackerStore.TrackMostRecentProcessedNotificationId(tracker, highNotificationId);
 
-            return highNotificationId >= maxNotificationId;
+            return highNotificationId < maxNotificationId;
         }
     }
 }

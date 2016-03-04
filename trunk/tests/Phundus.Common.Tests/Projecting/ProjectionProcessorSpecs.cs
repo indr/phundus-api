@@ -8,6 +8,7 @@
     using developwithpassion.specifications.rhinomocks;
     using Machine.Fakes;
     using Machine.Specifications;
+    using Rhino.Mocks;
 
     public class projection_processor_concern : Observes<ProjectionProcessor>
     {
@@ -20,13 +21,13 @@
 
         private Establish ctx = () =>
         {
-            projection1 = fake.an<IProjection>();
+            projection1 = fake.an<IProjection>();            
             projection2 = fake.an<IProjection>();
 
             projectionFactory = depends.on<IProjectionFactory>();
             projectionFactory.setup(x => x.GetProjections()).Return(new[] {projection1, projection2});
 
-            projectionUpdater = depends.on<IProjectionUpdater>();
+            projectionUpdater = depends.on<IProjectionUpdater>();            
             trackerStore = depends.on<IProcessedNotificationTrackerStore>();
         };
     }
@@ -45,14 +46,14 @@
     }
 
     [Subject(typeof (ProjectionProcessor))]
-    public class when_projection_updater_updates_returns_false : projection_processor_concern
+    public class when_projection_updater_updates_returns_true_as_not_done : projection_processor_concern
     {
         private static int calls;
 
         private Establish ctx = () =>
         {
             projectionFactory.setup(x => x.FindProjection("typeName")).Return(projection1);
-            projectionUpdater.WhenToldTo(x => x.Update(projection1)).Return(() => ++calls == 2);
+            projectionUpdater.WhenToldTo(x => x.Update(projection1)).Return(() => ++calls < 2);
         };
 
         private Because of = () =>

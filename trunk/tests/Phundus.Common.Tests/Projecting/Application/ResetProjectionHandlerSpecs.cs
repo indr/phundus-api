@@ -7,9 +7,8 @@
     using developwithpassion.specifications.extensions;
     using developwithpassion.specifications.rhinomocks;
     using Machine.Specifications;
-
-    [Subject(typeof (ResetProjectionHandler))]
-    public class when_handling_reset_projection : Observes<ResetProjectionHandler>
+    
+    public abstract class when_handling_reset_projection : Observes<ResetProjectionHandler>
     {
         protected static IProcessedNotificationTrackerStore trackerStore;
         protected static IProjectionFactory projectionFactory;
@@ -23,31 +22,53 @@
 
         private Because of = () =>
             sut.Handle(new ResetProjection(new InitiatorId(), projectionTypeName));
+    }
 
-        public class when_projection_does_not_exist
+    [Subject(typeof(ResetProjectionHandler))]
+    public class when_projection_does_not_exist : when_handling_reset_projection
+    {
+        private Establish ctx = () =>
+            projectionFactory.setup(x => x.FindProjection(projectionTypeName)).Return((IProjection) null);
+
+        private It should_delete_tracker = () =>
+            trackerStore.received(x => x.DeleteTracker(projectionTypeName));
+    }
+
+    [Subject(typeof(ResetProjectionHandler))]
+    public class when_projection_exists_and_can_reset_is_true : when_handling_reset_projection
+    {
+        private static IProjection projection;
+
+        private Establish ctx = () =>
         {
-            private Establish ctx = () =>
-                projectionFactory.setup(x => x.FindProjection(projectionTypeName)).Return((IProjection) null);
+            projection = fake.an<IProjection>();
+            projectionFactory.setup(x => x.FindProjection(projectionTypeName)).Return(projection);
+            projection.setup(x => x.CanReset).Return(true);
+        };
 
-            private It should_delete_tracker = () =>
-                trackerStore.received(x => x.DeleteTracker(projectionTypeName));
-        }
+        private It should_reset_projection = () =>
+            projection.received(x => x.Reset());
 
-        public class when_projection_exists
+        private It should_reset_tracker = () =>
+            trackerStore.received(x => x.ResetTracker(projectionTypeName));
+    }
+
+    [Subject(typeof(ResetProjectionHandler))]
+    public class when_projection_exists_but_can_reset_is_false : when_handling_reset_projection
+    {
+        private static IProjection projection;
+
+        private Establish ctx = () =>
         {
-            private static IProjection projection;
+            projection = fake.an<IProjection>();
+            projectionFactory.setup(x => x.FindProjection(projectionTypeName)).Return(projection);
+            projection.setup(x => x.CanReset).Return(false);
+        };
 
-            private Establish ctx = () =>
-            {
-                projection = fake.an<IProjection>();
-                projectionFactory.setup(x => x.FindProjection(projectionTypeName)).Return(projection);
-            };
+        private It should_not_reset_projection = () =>
+            projection.never_received(x => x.Reset());
 
-            private It should_reset_projection = () =>
-                projection.received(x => x.Reset());
-
-            private It should_reset_tracker = () =>
-                trackerStore.received(x => x.ResetTracker(projectionTypeName));
-        }
+        private It should_not_reset_tracker = () =>
+            trackerStore.never_received(x => x.ResetTracker(projectionTypeName));
     }
 }

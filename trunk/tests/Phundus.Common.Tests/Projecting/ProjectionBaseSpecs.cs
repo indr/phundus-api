@@ -363,6 +363,6 @@
             sut.Reset();
 
         private It should_delete_from = () =>
-            session.received(x => x.Delete("FROM TestEntity"));
+            session.received(x => x.Delete("FROM TestEntity"));        
     }
 }

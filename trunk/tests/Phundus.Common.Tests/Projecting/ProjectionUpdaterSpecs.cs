@@ -78,7 +78,7 @@
             returnValue = sut.Update(projection);
 
         private It should_return_false = () =>
-            returnValue.ShouldBeTrue();
+            returnValue.ShouldBeFalse();
     }
 
     [Subject(typeof (ProjectionUpdater))]
@@ -97,8 +97,8 @@
         private Because of = () =>
             returnValue = sut.Update(projection);
 
-        private It should_return_false = () =>
-            returnValue.ShouldBeFalse();
+        private It should_return_true = () =>
+            returnValue.ShouldBeTrue();
     }
 
     [Subject(typeof (ProjectionUpdater))]
@@ -117,7 +117,7 @@
         private Because of = () =>
             returnValue = sut.Update(projection);
 
-        private It should_return_true = () =>
-            returnValue.ShouldBeTrue();
+        private It should_return_false = () =>
+            returnValue.ShouldBeFalse();
     }
 }

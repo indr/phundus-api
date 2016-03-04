@@ -23,11 +23,6 @@
             return availabilities.Select(each => new AvailabilityData { FromUtc = each.FromUtc, Quantity = each.Quantity });
         }
 
-        public override void Reset()
-        {
-            throw new InvalidOperationException();
-        }
-
         public override void Handle(DomainEvent e)
         {
         }

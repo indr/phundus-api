@@ -106,11 +106,6 @@ namespace Phundus.IdentityAccess.Projections
             return true;
         }
 
-        public override void Reset()
-        {
-            throw new InvalidOperationException();
-        }
-
         public override void Handle(DomainEvent e)
         {
         }

@@ -31,11 +31,6 @@
                 user.MobilePhone, user.EmailAddress);
         }
 
-        public override void Reset()
-        {
-            throw new InvalidOperationException();
-        }
-
         public override void Handle(DomainEvent e)
         {
         }
