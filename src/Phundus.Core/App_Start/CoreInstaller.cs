@@ -43,7 +43,7 @@
             container.Register(
                 Component.For<ITypedFactoryComponentSelector>().ImplementedBy<AccessObjectHandlerSelector>(),
                 Component.For<AutoReleaseAccessObjectHandlerInterceptor>(),
-                Types.FromAssembly(_assemblyContainingCommandsAndHandlers)
+                Classes.FromAssembly(_assemblyContainingCommandsAndHandlers)
                     .BasedOn(typeof (IHandleAccessObject<>))
                     .WithServiceAllInterfaces()
                     .Configure(c => c.LifeStyle.Transient.Interceptors<AutoReleaseAccessObjectHandlerInterceptor>()),

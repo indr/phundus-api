@@ -10,7 +10,7 @@
         public override void Install(IWindsorContainer container, Assembly assembly)
         {
             container.Register(
-                Types.FromAssembly(assembly)
+                Classes.FromAssembly(assembly)
                     .BasedOn(typeof (IHandleCommand<>))
                     .WithServiceAllInterfaces()
                     .Configure(c => c.LifeStyle.Transient.Interceptors<AutoReleaseCommandHandlerInterceptor>()));

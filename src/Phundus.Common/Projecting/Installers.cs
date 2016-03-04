@@ -26,7 +26,7 @@
     {
         public override void Install(IWindsorContainer container, Assembly assembly)
         {
-            container.Register(Types.FromAssembly(assembly)
+            container.Register(Classes.FromAssembly(assembly)
                 .BasedOn<ProjectionBase>()
                 .WithServiceAllInterfaces());
         }
