@@ -7,21 +7,29 @@
     using Machine.Specifications;
     using NHibernate;
     using Persistence.Notifications;
-    using Phundus.Inventory.Stores.Model;
     using Rhino.Mocks;
 
     public class processed_notification_tracker_store_concern : concern<ProcessedNotificationTrackerStore>
     {
         protected static IQueryOver<ProcessedNotificationTracker, ProcessedNotificationTracker> query;
 
+        protected static bool flushCalledBeforeQueryOver;
+        protected static bool flushCalled;
+
         private Establish ctx = () =>
         {
+            flushCalled = false;
+            flushCalledBeforeQueryOver = false;
             query = fake.an<IQueryOver<ProcessedNotificationTracker, ProcessedNotificationTracker>>();
             query.setup(x => x.Where(Arg<Expression<Func<ProcessedNotificationTracker, bool>>>.Is.Anything))
                 .Return(query);
 
-
-            session.setup(x => x.QueryOver<ProcessedNotificationTracker>()).Return(query);
+            session.setup(x => x.Flush()).Callback(() => flushCalled = true);
+            session.setup(x => x.QueryOver<ProcessedNotificationTracker>()).Return(() =>
+            {
+                flushCalledBeforeQueryOver = flushCalled;
+                return query;
+            });
         };
     }
 
@@ -42,6 +50,9 @@
 
         private It should_return_tracker = () =>
             returnValue.ShouldBeTheSameAs(tracker);
+
+        private It should_flush_session_before_query_over = () =>
+            flushCalledBeforeQueryOver.ShouldBeTrue();
     }
 
     [Subject(typeof (ProcessedNotificationTrackerStore))]
@@ -58,6 +69,9 @@
 
         private It should_return_tracker_with_type_name = () =>
             returnValue.TypeName.ShouldEqual("typeName");
+
+        private It should_flush_session_before_quer_over = () =>
+            flushCalledBeforeQueryOver.ShouldBeTrue();
     }
 
     [Subject(typeof (ProcessedNotificationTrackerStore))]
@@ -75,20 +89,20 @@
         private Because of = () =>
             sut.TrackException("typeName", exception);
 
-        private It should_track_exception = () =>
-            tracker.received(x => x.Track(exception));
-
         private It should_save_or_update = () =>
             session.received(x => x.SaveOrUpdate(tracker));
+
+        private It should_track_exception = () =>
+            tracker.received(x => x.Track(exception));
     }
 
-    [Subject(typeof(ProcessedNotificationTrackerStore))]
+    [Subject(typeof (ProcessedNotificationTrackerStore))]
     public class track_exception_for_non_existing_tracker : processed_notification_tracker_store_concern
-    {        
+    {
         private static Exception exception = new Exception("Exception message");
 
         private Establish ctx = () =>
-            query.setup(x => x.SingleOrDefault()).Return((ProcessedNotificationTracker)null);
+            query.setup(x => x.SingleOrDefault()).Return((ProcessedNotificationTracker) null);
 
         private Because of = () =>
             sut.TrackException("typeName", exception);

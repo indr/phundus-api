@@ -36,6 +36,8 @@
 
             Delete.FromTable("ProcessedNotificationTracker").InSchema(SchemaName).AllRows();
             Delete.FromTable("StoredEvents").InSchema(SchemaName).AllRows();
+            
+            Reseed("StoredEvents", 0);
         }
 
         private void DropTable(string tableName)
