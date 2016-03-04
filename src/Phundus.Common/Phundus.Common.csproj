@@ -145,8 +145,7 @@
     <Compile Include="Notifications\IStoredEventsConsumer.cs" />
     <Compile Include="Notifications\IDomainEventHandlerFactory.cs" />
     <Compile Include="Notifications\INotificationConsumerFactory.cs" />
-    <Compile Include="Notifications\INotificationPublisher.cs" />
-    <Compile Include="Notifications\InThreadNotificationPublisher.cs" />
+    <Compile Include="Notifications\NotificationPublisher.cs" />
     <Compile Include="Notifications\IProcessedNotificationTrackerStore.cs" />
     <Compile Include="Notifications\INotificationConsumer.cs" />
     <Compile Include="Notifications\INotificationLogFactory.cs" />

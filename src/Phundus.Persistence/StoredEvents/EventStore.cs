@@ -9,41 +9,51 @@
 
     public class EventStore : IEventStore
     {
-        public IEventSerializer Serializer { get; set; }
+        private readonly IEventSerializer _eventSerializer;
+        private readonly INotificationPublisher _notificationPublisher;
+        private readonly IStoredEventRepository _storedEventRepository;
 
-        public IStoredEventRepository Repository { get; set; }
+        public EventStore(INotificationPublisher notificationPublisher, IStoredEventRepository storedEventRepository,
+            IEventSerializer eventSerializer)
+        {
+            if (notificationPublisher == null) throw new ArgumentNullException("notificationPublisher");
+            if (storedEventRepository == null) throw new ArgumentNullException("storedEventRepository");
+            if (eventSerializer == null) throw new ArgumentNullException("eventSerializer");
+            _notificationPublisher = notificationPublisher;
+            _storedEventRepository = storedEventRepository;
+            _eventSerializer = eventSerializer;
+        }
 
-        public INotificationPublisher NotificationPublisher { get; set; }
 
         public void Append(DomainEvent domainEvent)
         {
             var storedEvent = Serialize(domainEvent);
-            Repository.Append(storedEvent);
+            _storedEventRepository.Append(storedEvent);
 
-            NotificationPublisher.PublishNotification(storedEvent);
+            _notificationPublisher.PublishNotification(storedEvent, Deserialize);
         }
 
         public void AppendToStream(GuidIdentity id, int version, ICollection<IDomainEvent> events)
         {
             var storedEvents = Serialize(events, id.Id, version);
-            Repository.Append(storedEvents, id.Id, version - 1);
+            _storedEventRepository.Append(storedEvents, id.Id, version - 1);
 
-            NotificationPublisher.PublishNotification(storedEvents);
+            _notificationPublisher.PublishNotification(storedEvents, Deserialize);
         }
 
         public IEnumerable<StoredEvent> AllStoredEventsBetween(long lowStoredEventId, long highStoredEventId)
         {
-            return Repository.AllStoredEventsBetween(lowStoredEventId, highStoredEventId);
+            return _storedEventRepository.AllStoredEventsBetween(lowStoredEventId, highStoredEventId);
         }
 
         public long CountStoredEvents()
         {
-            return Repository.CountStoredEvents();
+            return _storedEventRepository.CountStoredEvents();
         }
 
         public long GetMaxNotificationId()
         {
-            return Repository.GetMaxNotificationId();
+            return _storedEventRepository.GetMaxNotificationId();
         }
 
         public DomainEvent Deserialize(StoredEvent storedEvent)
@@ -52,7 +62,7 @@
 
             try
             {
-                return (DomainEvent) Serializer.Deserialize(domainEventType, storedEvent.EventGuid,
+                return (DomainEvent) _eventSerializer.Deserialize(domainEventType, storedEvent.EventGuid,
                     storedEvent.OccuredOnUtc, storedEvent.Serialization);
             }
             catch (Exception ex)
@@ -67,7 +77,7 @@
 
         public EventStream LoadEventStream(GuidIdentity id)
         {
-            var storedEvents = Repository.GetStoredEvents(id.Id);
+            var storedEvents = _storedEventRepository.GetStoredEvents(id.Id);
             var domainEvents = new List<IDomainEvent>();
             var version = 0;
             foreach (var storedEvent in storedEvents)
@@ -81,7 +91,7 @@
 
         protected StoredEvent Serialize(IDomainEvent domainEvent, Guid? streamId = null, int version = 0)
         {
-            var serialization = Serializer.Serialize(domainEvent);
+            var serialization = _eventSerializer.Serialize(domainEvent);
 
             var domainEventType = domainEvent.GetType();
             var typeName = domainEventType.FullName + ", " + domainEventType.Assembly.GetName().Name;

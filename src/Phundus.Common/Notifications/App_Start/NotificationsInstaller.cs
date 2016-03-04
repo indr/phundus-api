@@ -14,7 +14,8 @@ namespace Phundus.Common.Notifications.App_Start
                 .ImplementedBy<NotificationLogFactory>());
 
             container.Register(Component.For<INotificationPublisher>()
-                .ImplementedBy<InThreadNotificationPublisher>());
+                //.ImplementedBy<InThreadNotificationPublisher>());
+                .ImplementedBy<BusNotificationPublisher>());
 
             container.Register(Component.For<INotificationConsumerFactory>()
                 .AsFactory());
