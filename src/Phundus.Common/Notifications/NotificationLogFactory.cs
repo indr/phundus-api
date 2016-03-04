@@ -28,6 +28,8 @@
             //var count = EventStore.CountStoredEvents();
             //var remainder = count%NotificationsPerLog;
             var max = EventStore.GetMaxNotificationId();
+            if (max == 0)
+                max = 1;
             var remainder = max%NotificationsPerLog;
 
             if (remainder == 0)
