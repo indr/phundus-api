@@ -12,7 +12,8 @@
     using Shop.Model;
     using Shop.Model.Mails;
 
-    public class OrderReceivedMail : BaseMail, ISubscribeTo<OrderPlaced>
+    public class OrderReceivedMail : BaseMail,
+        ISubscribeTo<OrderPlaced>
     {
         private readonly ILessorService _lessorService;
         private readonly IOrderPdfGeneratorService _orderPdfGeneratorService;

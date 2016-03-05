@@ -5,10 +5,11 @@
     using Common.Eventing;
     using Common.Mailing;
     using IdentityAccess.Model.Users;
-    using IdentityAccess.Model.Users.Mails;   
+    using IdentityAccess.Model.Users.Mails;
     using Model;
 
-    public class UserAccountValidationMail : BaseMail, ISubscribeTo<UserSignedUp>
+    public class UserAccountValidationMail : BaseMail,
+        ISubscribeTo<UserSignedUp>
     {
         private readonly IUserRepository _userRepository;
 

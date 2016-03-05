@@ -11,7 +11,9 @@
     using Shop.Model;
     using Shop.Model.Mails;
 
-    public class OrderStatusChangedMailNotifier : BaseMail, ISubscribeTo<OrderApproved>, ISubscribeTo<OrderRejected>
+    public class OrderStatusChangedMailNotifier : BaseMail,
+        ISubscribeTo<OrderApproved>,
+        ISubscribeTo<OrderRejected>
     {
         public OrderStatusChangedMailNotifier(IMailGateway mailGateway) : base(mailGateway)
         {

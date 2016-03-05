@@ -8,7 +8,8 @@ namespace Phundus.IdentityAccess.Users.Mails
     using IdentityAccess.Model.Users.Mails;    
     using Model;
 
-    public class UserChangeEmailValidationMail : BaseMail, ISubscribeTo<UserEmailAddressChangeRequested>
+    public class UserChangeEmailValidationMail : BaseMail,
+        ISubscribeTo<UserEmailAddressChangeRequested>
     {
         private readonly IUserRepository _userRepository;
 

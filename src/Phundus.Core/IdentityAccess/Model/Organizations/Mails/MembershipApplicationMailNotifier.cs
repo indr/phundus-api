@@ -3,18 +3,19 @@
     using System;
     using System.Linq;
     using Common;
-    using Common.Domain.Model;
     using Common.Eventing;
     using Common.Mailing;
-    using IdentityAccess.Model.Organizations.Mails;   
+    using IdentityAccess.Model.Organizations.Mails;
     using Integration.IdentityAccess;
     using Model;
-    using NHibernate.Criterion;
     using Projections;
 
-    public class MembershipApplicationMailNotifier : BaseMail, ISubscribeTo<MembershipApplicationFiled>,
-        ISubscribeTo<MembershipApplicationApproved>, ISubscribeTo<MembershipApplicationRejected>,
-        ISubscribeTo<MemberLocked>, ISubscribeTo<MemberUnlocked>
+    public class MembershipApplicationMailNotifier : BaseMail,
+        ISubscribeTo<MembershipApplicationFiled>,
+        ISubscribeTo<MembershipApplicationApproved>,
+        ISubscribeTo<MembershipApplicationRejected>,
+        ISubscribeTo<MemberLocked>,
+        ISubscribeTo<MemberUnlocked>
     {
         private readonly IMembersWithRole _memberWithRole;
         private readonly IOrganizationQueries _organizationQueries;

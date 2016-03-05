@@ -8,7 +8,8 @@
     using IdentityAccess.Model.Users.Mails;    
     using Model;
 
-    public class UserUnlockedMailNotifier : BaseMail, ISubscribeTo<UserUnlocked>
+    public class UserUnlockedMailNotifier : BaseMail,
+        ISubscribeTo<UserUnlocked>
     {
         private readonly IUserRepository _userRepository;
 
