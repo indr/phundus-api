@@ -7,7 +7,7 @@
     using Model.Organizations;
     using Projections;
 
-    public class ApproveMembershipApplication
+    public class ApproveMembershipApplication : ICommand
     {
         public ApproveMembershipApplication(InitiatorId initiatorId, MembershipApplicationId applicationId)
         {
@@ -21,6 +21,7 @@
         public MembershipApplicationId ApplicationId { get; protected set; }
     }
 
+    [Obsolete("Use constructor!")]
     public class ApproveMembershipApplicationHandler : IHandleCommand<ApproveMembershipApplication>
     {
         public IMembershipRequestRepository Requests { get; set; }

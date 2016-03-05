@@ -21,13 +21,11 @@ namespace Phundus.Rest.Api
 
         public OrdersItemsController(IOrderQueries orderQueries)
         {
-            AssertionConcern.AssertArgumentNotNull(orderQueries, "OrderQueries must be provided.");
-
+            if (orderQueries == null) throw new ArgumentNullException("orderQueries");
             _orderQueries = orderQueries;
         }
 
-        [POST("")]
-        [Transaction]
+        [POST("")]        
         public virtual HttpResponseMessage Post(Guid orderId, OrdersItemsPostRequestContent requestContent)
         {
             var orderItemId = new OrderLineId();
@@ -37,7 +35,7 @@ namespace Phundus.Rest.Api
 
             Dispatch(command);
 
-            return Get(new OrderId(orderId), orderItemId.Id, HttpStatusCode.Created);
+            return Accepted();
         }
 
         private HttpResponseMessage Get(OrderId orderId, Guid orderItemId, HttpStatusCode statusCode)
@@ -51,37 +49,21 @@ namespace Phundus.Rest.Api
             return Request.CreateResponse(statusCode, Map<OrderItem>(item));
         }
 
-        [PATCH("{orderItemId}")]
-        [Transaction]
+        [PATCH("{orderItemId}")]        
         public virtual HttpResponseMessage Patch(Guid orderId, Guid orderItemId,
-            OrdersItemsPatchRequestContent requestContent)
+            OrdersItemsPatchRequestContent rq)
         {
-            Dispatcher.Dispatch(new UpdateOrderItem
-            {
-                Quantity = requestContent.Quantity,
-                FromUtc = requestContent.FromUtc,
-                InitiatorId = CurrentUserId,
-                OrderId = new OrderId(orderId),
-                OrderItemId = orderItemId,
-                ToUtc = requestContent.ToUtc,
-                ItemTotal = requestContent.ItemTotal
-            });
+            Dispatch(new UpdateOrderItem(CurrentUserId, new OrderId(orderId), orderItemId, new Period(rq.FromUtc, rq.ToUtc), rq.Quantity, rq.ItemTotal));
 
-            return Get(new OrderId(orderId), orderItemId, HttpStatusCode.OK);
+            return Accepted();
         }
 
-        [DELETE("{orderItemId}")]
-        [Transaction]
+        [DELETE("{orderItemId}")]        
         public virtual HttpResponseMessage Delete(Guid orderId, Guid orderItemId)
         {
-            Dispatcher.Dispatch(new RemoveOrderItem
-            {
-                InitiatorId = CurrentUserId,
-                OrderId = new OrderId(orderId),
-                OrderItemId = orderItemId
-            });
+            Dispatch(new RemoveOrderItem(CurrentUserId, new OrderId(orderId), orderItemId));
 
-            return Request.CreateResponse(HttpStatusCode.NoContent);
+            return Accepted();
         }
     }
 

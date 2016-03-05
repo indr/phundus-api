@@ -20,6 +20,8 @@
         protected static readonly OwnerId theOwnerId = new OwnerId();
         protected static ICartRepository cartRepository;
 
+        private static CartItemId theCartItemId;
+
         private Establish ctx = () =>
         {
             theArticle = make.Article();
@@ -28,7 +30,8 @@
             depends.on<IArticleService>()
                 .WhenToldTo(x => x.GetById(theArticle.ArticleId, theInitiatorId))
                 .Return(theArticle);
-            command = new AddArticleToCart(theInitiatorId, theArticle.ArticleId, theFromUtc, theToUtc, theQuantity);
+            theCartItemId = new CartItemId();
+            command = new AddArticleToCart(theInitiatorId, theCartItemId, theArticle.ArticleId, theFromUtc, theToUtc, theQuantity);
         };
     }
 

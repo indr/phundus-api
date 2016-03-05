@@ -4,7 +4,6 @@
     using System.Net.Http;
     using AttributeRouting;
     using AttributeRouting.Web.Http;
-    using Castle.Transactions;
     using IdentityAccess.Application;
     using Newtonsoft.Json;
 
@@ -12,7 +11,6 @@
     public class ChangePasswordController : ApiControllerBase
     {
         [POST("")]
-        [Transaction]
         public virtual HttpResponseMessage Post(ChangePasswordPostRequestContent requestContent)
         {
             if (requestContent == null) throw new ArgumentNullException("requestContent");

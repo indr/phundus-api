@@ -3,7 +3,6 @@
     using System;
     using AttributeRouting;
     using AttributeRouting.Web.Http;
-    using Castle.Transactions;
     using Common.Domain.Model;
     using Newtonsoft.Json;
     using Phundus.Shop.Application;
@@ -20,7 +19,6 @@
         }
 
         [POST("")]
-        [Transaction]
         public virtual ShopOrdersPostOkResponseContent Post(ShopOrdersPostRequestContent requestContent)
         {
             var orderId = new OrderId();

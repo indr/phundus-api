@@ -2,29 +2,29 @@
 {
     using System;
     using Authorization;
+    using Castle.Transactions;
     using Common.Commanding;
     using Common.Domain.Model;
     using Integration.IdentityAccess;
     using Model.Articles;
     using Phundus.Authorization;
 
-    public class ChangePrices
+    public class ChangePrices : ICommand
     {
         public ChangePrices(InitiatorId initiatorId, ArticleId articleId, decimal publicPrice, decimal? memberPrice)
         {
             if (initiatorId == null) throw new ArgumentNullException("initiatorId");
             if (articleId == null) throw new ArgumentNullException("articleId");
-
             InitiatorId = initiatorId;
             ArticleId = articleId;
             PublicPrice = publicPrice;
             MemberPrice = memberPrice;
         }
 
-        public InitiatorId InitiatorId { get; set; }
-        public ArticleId ArticleId { get; set; }
-        public decimal PublicPrice { get; set; }
-        public decimal? MemberPrice { get; set; }
+        public InitiatorId InitiatorId { get; protected set; }
+        public ArticleId ArticleId { get; protected set; }
+        public decimal PublicPrice { get; protected set; }
+        public decimal? MemberPrice { get; protected set; }
     }
 
     public class ChangePricesHandler : IHandleCommand<ChangePrices>
@@ -44,6 +44,7 @@
             _articleRepository = articleRepository;
         }
 
+        [Transaction]
         public void Handle(ChangePrices command)
         {
             var initiator = _initiatorService.GetById(command.InitiatorId);

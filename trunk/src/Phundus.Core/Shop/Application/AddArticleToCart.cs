@@ -2,6 +2,7 @@
 {
     using System;
     using Authorization;
+    using Castle.Transactions;
     using Common.Commanding;
     using Common.Domain.Model;
     using Integration.IdentityAccess;
@@ -10,12 +11,14 @@
 
     public class AddArticleToCart : ICommand
     {
-        public AddArticleToCart(InitiatorId initiatorId, ArticleId articleId, DateTime fromUtc,
+        public AddArticleToCart(InitiatorId initiatorId, CartItemId cartItemId, ArticleId articleId, DateTime fromUtc,
             DateTime toUtc, int quantity)
         {
             if (initiatorId == null) throw new ArgumentNullException("initiatorId");
+            if (cartItemId == null) throw new ArgumentNullException("cartItemId");
             if (articleId == null) throw new ArgumentNullException("articleId");
             InitiatorId = initiatorId;
+            CartItemId = cartItemId;
             ArticleId = articleId;
             UserId = new UserId(initiatorId.Id);            
             FromUtc = fromUtc;
@@ -24,12 +27,12 @@
         }
 
         public InitiatorId InitiatorId { get; protected set; }
+        public CartItemId CartItemId { get; protected set; }
         public ArticleId ArticleId { get; protected set; }
         public UserId UserId { get; protected set; }        
         public DateTime FromUtc { get; protected set; }
         public DateTime ToUtc { get; protected set; }
         public int Quantity { get; protected set; }
-        public CartItemId ResultingCartItemId { get; set; }
     }
 
     public class AddArticleToCartHandler : IHandleCommand<AddArticleToCart>
@@ -52,6 +55,7 @@
             _articleService = articleService;
         }
 
+        [Transaction]
         public void Handle(AddArticleToCart command)
         {
             var initiator = _initiatorService.GetById(command.InitiatorId);
@@ -61,9 +65,7 @@
 
             var cart = GetCart(command);
 
-            var itemId = cart.AddItem(article, command.FromUtc, command.ToUtc, command.Quantity);
-
-            command.ResultingCartItemId = itemId;
+            cart.AddItem(article, command.FromUtc, command.ToUtc, command.Quantity);
         }
 
         private Cart GetCart(AddArticleToCart command)

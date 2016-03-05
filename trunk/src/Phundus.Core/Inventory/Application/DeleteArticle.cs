@@ -3,6 +3,7 @@
     using System;
     using Articles.Model;
     using Authorization;
+    using Castle.Transactions;
     using Common.Commanding;
     using Common.Domain.Model;
     using Common.Eventing;
@@ -10,19 +11,18 @@
     using Model.Articles;
     using Phundus.Authorization;
 
-    public class DeleteArticle
+    public class DeleteArticle : ICommand
     {
         public DeleteArticle(InitiatorId initiatorId, ArticleId articleId)
         {
             if (initiatorId == null) throw new ArgumentNullException("initiatorId");
             if (articleId == null) throw new ArgumentNullException("articleId");
-
             InitiatorId = initiatorId;
             ArticleId = articleId;
         }
 
         public InitiatorId InitiatorId { get; protected set; }
-        public ArticleId ArticleId { get; set; }
+        public ArticleId ArticleId { get; protected set; }
     }
 
     public class DeleteArticleHandler : IHandleCommand<DeleteArticle>
@@ -42,6 +42,7 @@
             _articleRepository = articleRepository;
         }
 
+        [Transaction]
         public void Handle(DeleteArticle command)
         {
             var initiator = _initiatorService.GetById(command.InitiatorId);

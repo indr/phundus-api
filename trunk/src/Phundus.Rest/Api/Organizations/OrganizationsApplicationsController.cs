@@ -30,8 +30,7 @@
             return new OrganizationsApplicationsGetOkResponseContent(results);
         }
 
-        [POST("")]
-        [Transaction]
+        [POST("")]        
         public virtual OrganizationsApplicationsPostOkResponseContent Post(Guid organizationId)
         {
             var applicationId = new MembershipApplicationId();
@@ -43,8 +42,7 @@
             };
         }
 
-        [DELETE("{applicationId}")]
-        [Transaction]
+        [DELETE("{applicationId}")]        
         public virtual HttpResponseMessage Delete(Guid organizationId, Guid applicationId)
         {
             Dispatch(new RejectMembershipApplication(CurrentUserId, new MembershipApplicationId(applicationId)));

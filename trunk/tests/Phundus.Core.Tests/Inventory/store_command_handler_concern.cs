@@ -8,6 +8,7 @@ namespace Phundus.Tests.Inventory
 
     public abstract class store_command_handler_concern<TCommand, THandler> :
         command_handler_concern<TCommand, THandler> where THandler : class, IHandleCommand<TCommand>
+        where TCommand : ICommand
     {
         protected static inventory_factory make;
 

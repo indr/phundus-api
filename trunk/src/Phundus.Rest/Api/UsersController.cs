@@ -32,7 +32,6 @@ namespace Phundus.Rest.Api
             if (membershipQueries == null) throw new ArgumentNullException("membershipQueries");
             if (storesQueries == null) throw new ArgumentNullException("storesQueries");
             if (userAddressQueries == null) throw new ArgumentNullException("userAddressQueries");
-
             _usersQueries = usersQueries;
             _membershipQueries = membershipQueries;
             _storesQueries = storesQueries;
@@ -54,8 +53,7 @@ namespace Phundus.Rest.Api
         }
 
         [POST("")]
-        [AllowAnonymous]
-        [Transaction]
+        [AllowAnonymous]        
         public virtual UsersPostOkResponseContent Post(UsersPostRequestContent requestContent)
         {
             CheckForMaintenanceMode(requestContent.Email);
@@ -75,14 +73,13 @@ namespace Phundus.Rest.Api
             return new UsersPostOkResponseContent {UserId = userId.Id};
         }
 
-        [PUT("{userId}/address")]
-        [Transaction]
+        [PUT("{userId}/address")]        
         public virtual HttpResponseMessage PutAddress(Guid userId, UsersAddressPutRequestContent requestContent)
         {
             Dispatch(new ChangeUserAddress(CurrentUserId, new UserId(userId), requestContent.FirstName,
                 requestContent.LastName, requestContent.Street, requestContent.Postcode, requestContent.City,
                 requestContent.PhoneNumber));
-            return NoContent();
+            return Accepted();
         }
     }
 

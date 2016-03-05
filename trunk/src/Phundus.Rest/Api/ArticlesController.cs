@@ -25,28 +25,26 @@ namespace Phundus.Rest.Api
         private readonly IArticleQueries _articleQueries;
         private readonly IAvailabilityQueries _availabilityQueries;
         private readonly IMemberInRole _memberInRole;
-        private readonly IReservationRepository _reservationRepository;
+        private readonly IReservationRepository _reservationRepository;        
         private readonly IStoresQueries _storesQueries;
 
         public ArticlesController(IMemberInRole memberInRole, IStoresQueries storesQueries,
             IArticleQueries articleQueries, IAvailabilityQueries availabilityQueries,
-            IReservationRepository reservationRepository, IUsersQueries usersQueries,
-            IArticleActionsQueries articleActionsQueries, IShortIdGeneratorService shortIdGeneratorService)
+            IReservationRepository reservationRepository, IArticleActionsQueries articleActionsQueries,
+            IShortIdGeneratorService shortIdGeneratorService)
         {
+            if (memberInRole == null) throw new ArgumentNullException("memberInRole");
+            if (storesQueries == null) throw new ArgumentNullException("storesQueries");
+            if (articleQueries == null) throw new ArgumentNullException("articleQueries");
+            if (availabilityQueries == null) throw new ArgumentNullException("availabilityQueries");
+            if (reservationRepository == null) throw new ArgumentNullException("reservationRepository");            
             if (articleActionsQueries == null) throw new ArgumentNullException("articleActionsQueries");
             if (shortIdGeneratorService == null) throw new ArgumentNullException("shortIdGeneratorService");
-            AssertionConcern.AssertArgumentNotNull(memberInRole, "MemberInRole must be provided.");
-            AssertionConcern.AssertArgumentNotNull(storesQueries, "StoreQueries must be provided.");
-            AssertionConcern.AssertArgumentNotNull(articleQueries, "ArticleQueries must be provided.");
-            AssertionConcern.AssertArgumentNotNull(availabilityQueries, "AvailabilityQueries must be provided.");
-            AssertionConcern.AssertArgumentNotNull(reservationRepository, "ReservationRepository must be provided.");
-            AssertionConcern.AssertArgumentNotNull(usersQueries, "UserQueries must be provided.");
-
             _memberInRole = memberInRole;
             _storesQueries = storesQueries;
             _articleQueries = articleQueries;
             _availabilityQueries = availabilityQueries;
-            _reservationRepository = reservationRepository;
+            _reservationRepository = reservationRepository;            
             _articleActionsQueries = articleActionsQueries;
             _shortIdGeneratorService = shortIdGeneratorService;
         }
@@ -193,8 +191,7 @@ namespace Phundus.Rest.Api
             return Request.CreateResponse(HttpStatusCode.OK, new {availabilities, reservations});
         }
 
-        [POST("")]
-        [Transaction]
+        [POST("")]        
         public virtual ArticlesPostOkResponseContent Post(ArticlesPostRequestContent requestContent)
         {            
             var storeId = _storesQueries.GetByOwnerId(requestContent.OwnerId).StoreId;
@@ -211,8 +208,7 @@ namespace Phundus.Rest.Api
             };
         }
 
-        [PATCH("{articleId}")]
-        [Transaction]
+        [PATCH("{articleId}")]        
         public virtual HttpResponseMessage Patch(ArticleId articleId, ArticlesPatchRequestContent requestContent)
         {
             if (!String.IsNullOrWhiteSpace(requestContent.Name))
@@ -237,8 +233,7 @@ namespace Phundus.Rest.Api
             return NoContent();
         }
 
-        [DELETE("{articleId}")]
-        [Transaction]
+        [DELETE("{articleId}")]        
         public virtual HttpResponseMessage Delete(ArticleId articleId)
         {
             Dispatcher.Dispatch(new DeleteArticle(CurrentUserId, articleId));

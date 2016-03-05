@@ -1,12 +1,13 @@
 ﻿namespace Phundus.IdentityAccess.Application
 {
     using System;
+    using Castle.Transactions;
     using Common.Commanding;
     using Common.Domain.Model;
     using Model.Users;
     using Users.Services;
 
-    public class ChangeUserRole
+    public class ChangeUserRole : ICommand
     {
         public ChangeUserRole(InitiatorId initiatorId, UserId userId, UserRole userRole)
         {
@@ -31,11 +32,11 @@
         {
             if (userInRole == null) throw new ArgumentNullException("userInRole");
             if (userRepository == null) throw new ArgumentNullException("userRepository");
-
             _userInRole = userInRole;
             _userRepository = userRepository;
         }
-
+        
+        [Transaction]
         public void Handle(ChangeUserRole command)
         {
             var initiator = _userInRole.Admin(command.InitiatorId);

@@ -71,8 +71,7 @@
             return CreatePdfResponse(result, string.Format("Bestellung-{0}.pdf", order.OrderShortId));
         }
 
-        [POST("")]
-        [Transaction]
+        [POST("")]        
         public virtual OrdersPostOkResponseContent Post(OrdersPostRequestContent requestContent)
         {
             var orderId = new OrderId();
@@ -92,16 +91,15 @@
             };
         }
 
-        [PATCH("{orderId}")]
-        [Transaction]
+        [PATCH("{orderId}")]        
         public virtual HttpResponseMessage Patch(Guid orderId, OrdersPatchRequestContent requestContent)
         {
             if (requestContent.Status == "Rejected")
-                Dispatch(new RejectOrder {InitiatorId = CurrentUserId, OrderId = new OrderId(orderId)});
+                Dispatch(new RejectOrder(CurrentUserId, new OrderId(orderId)));
             else if (requestContent.Status == "Approved")
-                Dispatch(new ApproveOrder {InitiatorId = CurrentUserId, OrderId = new OrderId(orderId)});
+                Dispatch(new ApproveOrder(CurrentUserId, new OrderId(orderId)));
             else if (requestContent.Status == "Closed")
-                Dispatch(new CloseOrder {InitiatorId = CurrentUserId, OrderId = new OrderId(orderId)});
+                Dispatch(new CloseOrder(CurrentUserId, new OrderId(orderId)));
             else
                 return Request.CreateErrorResponse(HttpStatusCode.BadRequest,
                     "Unbekannter Status \"" + requestContent.Status + "\"");

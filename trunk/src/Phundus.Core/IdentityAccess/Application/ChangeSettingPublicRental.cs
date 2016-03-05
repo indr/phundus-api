@@ -2,6 +2,7 @@
 {
     using System;
     using Authorization;
+    using Castle.Transactions;
     using Common.Commanding;
     using Common.Domain.Model;
     using Integration.IdentityAccess;
@@ -40,6 +41,7 @@
             _organizationRepository = organizationRepository;
         }
 
+        [Transaction]
         public void Handle(ChangeSettingPublicRental command)
         {
             var organization = _organizationRepository.GetById(command.OrganizationId);

@@ -34,8 +34,7 @@
             };
         }
 
-        [PATCH("")]
-        [Transaction]
+        [PATCH("")]        
         public virtual HttpResponseMessage Patch(Guid organizationId,
             OrganizationsSettingsPatchRequestContent requestContent)
         {

@@ -5,7 +5,7 @@ namespace Phundus.Tests.Shop
     using Phundus.Shop.Model;
 
     public abstract class shop_command_handler_concern<TCommand, THandler> : command_handler_concern<TCommand, THandler>
-        where THandler : class, IHandleCommand<TCommand>
+        where THandler : class, IHandleCommand<TCommand> where TCommand : ICommand
     {
         protected static shop_factory make;
 

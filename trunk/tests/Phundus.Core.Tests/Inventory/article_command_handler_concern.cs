@@ -7,9 +7,8 @@ namespace Phundus.Tests.Inventory
     using Phundus.Inventory.Model.Articles;
 
     public abstract class article_command_handler_concern<TCommand, THandler> :
-        command_handler_concern<TCommand, THandler>
-        where THandler : class,
-            IHandleCommand<TCommand>
+        command_handler_concern<TCommand, THandler> where THandler : class, IHandleCommand<TCommand>
+        where TCommand : ICommand
     {
         protected static IMemberInRole memberInRole;
 

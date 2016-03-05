@@ -9,7 +9,7 @@
     using Organizations.Model;
     using Projections;
 
-    public class ChangeMembersRole
+    public class ChangeMembersRole : ICommand
     {
         public ChangeMembersRole(InitiatorId initiatorId, OrganizationId organizationId, UserId memberId,
             MemberRole memberRole)
@@ -17,7 +17,6 @@
             if (initiatorId == null) throw new ArgumentNullException("initiatorId");
             if (organizationId == null) throw new ArgumentNullException("organizationId");
             if (memberId == null) throw new ArgumentNullException("memberId");
-
             InitiatorId = initiatorId;
             OrganizationId = organizationId;
             MemberId = memberId;

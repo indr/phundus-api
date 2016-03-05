@@ -12,7 +12,7 @@ namespace Phundus.Tests
     using Rhino.Mocks;
 
     public abstract class command_handler_concern<TCommand, THandler> : concern<THandler>
-        where THandler : class, IHandleCommand<TCommand>
+        where THandler : class, IHandleCommand<TCommand> where TCommand : ICommand
     {
         protected static InitiatorId theInitiatorId;
         protected static Initiator theInitiator;

@@ -9,9 +9,9 @@ namespace Phundus.Tests.Inventory.Application
     using Phundus.Inventory.Model;
     using Rhino.Mocks;
 
-    [Subject(typeof (UpdateArticleSpecificationHandler))]
+    [Subject(typeof (UpdateSpecificationHandler))]
     public class when_handling_update_specification :
-        article_command_handler_concern<UpdateSpecification, UpdateArticleSpecificationHandler>
+        article_command_handler_concern<UpdateSpecification, UpdateSpecificationHandler>
     {
         private static Article theArticle;
         private static string theSpecification = "The description";

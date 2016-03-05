@@ -1,11 +1,12 @@
 ﻿namespace Phundus.Shop.Application
 {
     using System;
+    using Castle.Transactions;
     using Common.Commanding;
     using Common.Domain.Model;
     using Model;
 
-    public class CreateEmptyOrder
+    public class CreateEmptyOrder : ICommand
     {
         public CreateEmptyOrder(InitiatorId initiatorId, OrderId orderId, OrderShortId orderShortId, LessorId lessorId,
             LesseeId lesseeId)
@@ -43,13 +44,13 @@
             if (orderRepository == null) throw new ArgumentNullException("orderRepository");
             if (lessorService == null) throw new ArgumentNullException("lessorService");
             if (lesseeService == null) throw new ArgumentNullException("lesseeService");
-
             _userInRole = userInRole;
             _orderRepository = orderRepository;
             _lessorService = lessorService;
             _lesseeService = lesseeService;
         }
 
+        [Transaction]
         public void Handle(CreateEmptyOrder command)
         {
             var manager = _userInRole.Manager(command.InitiatorId, command.LessorId);

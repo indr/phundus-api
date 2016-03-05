@@ -63,7 +63,7 @@ namespace Phundus.Web
             return ConfigurationManager.AppSettings["MigrationProfile"] == "ResetDatabase";
         }
 
-        private void Dispatch<TCommand>(TCommand command)
+        private void Dispatch<TCommand>(TCommand command) where TCommand : ICommand
         {
             _dispatcher.Dispatch(command);
             Thread.Sleep(300);

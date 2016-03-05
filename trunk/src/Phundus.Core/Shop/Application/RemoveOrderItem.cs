@@ -1,15 +1,25 @@
 ﻿namespace Phundus.Shop.Application
 {
     using System;
+    using Castle.Transactions;
     using Common.Commanding;
     using Common.Domain.Model;
     using Model;
 
-    public class RemoveOrderItem
+    public class RemoveOrderItem : ICommand
     {
-        public OrderId OrderId { get; set; }
-        public Guid OrderItemId { get; set; }
-        public InitiatorId InitiatorId { get; set; }
+        public RemoveOrderItem(InitiatorId initiatorId, OrderId orderId, Guid orderItemId)
+        {
+            if (initiatorId == null) throw new ArgumentNullException("initiatorId");
+            if (orderId == null) throw new ArgumentNullException("orderId");
+            InitiatorId = initiatorId;
+            OrderId = orderId;
+            OrderItemId = orderItemId;
+        }
+
+        public InitiatorId InitiatorId { get; protected set; }
+        public OrderId OrderId { get; protected set; }
+        public Guid OrderItemId { get; protected set; }
     }
 
     public class RemoveOrderItemHandler : IHandleCommand<RemoveOrderItem>
@@ -25,6 +35,7 @@
             _orderRepository = orderRepository;
         }
 
+        [Transaction]
         public void Handle(RemoveOrderItem command)
         {
             var order = _orderRepository.GetById(command.OrderId);

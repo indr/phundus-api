@@ -1,6 +1,7 @@
 ﻿namespace Phundus.IdentityAccess.Application
 {
     using System;
+    using Castle.Transactions;
     using Common.Commanding;
     using Common.Domain.Model;
     using Model.Organizations;
@@ -20,7 +21,7 @@
         }
 
         public InitiatorId InitiatorId { get; protected set; }
-        public OrganizationId OrganizationId { get; set; }
+        public OrganizationId OrganizationId { get; protected set; }
         public UserId MemberId { get; protected set; }
         public bool Value { get; protected set; }
     }
@@ -38,6 +39,7 @@
             _organizationRepository = organizationRepository;
         }
 
+        [Transaction]
         public void Handle(ChangeMemberRecievesEmailNotification command)
         {
             var manager = _userInRole.Manager(command.InitiatorId, command.OrganizationId);

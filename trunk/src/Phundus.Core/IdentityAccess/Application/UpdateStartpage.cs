@@ -1,13 +1,14 @@
 ﻿namespace Phundus.IdentityAccess.Application
 {
     using System;
+    using Castle.Transactions;
     using Common.Commanding;
     using Common.Domain.Model;
     using Integration.IdentityAccess;
     using Model.Organizations;
     using Projections;
 
-    public class UpdateStartpage
+    public class UpdateStartpage : ICommand
     {
         public UpdateStartpage(InitiatorId initiatorId, OrganizationId organizationId, string startpage)
         {
@@ -39,7 +40,8 @@
             _memberInRole = memberInRole;
             _organizationRepository = organizationRepository;
         }
-
+                             
+        [Transaction]
         public void Handle(UpdateStartpage command)
         {
             var initiator = _initiatorService.GetById(command.InitiatorId);

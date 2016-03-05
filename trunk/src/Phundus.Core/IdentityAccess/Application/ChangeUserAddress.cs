@@ -2,6 +2,7 @@
 {
     using System;
     using Authorization;
+    using Castle.Transactions;
     using Common.Commanding;
     using Common.Domain.Model;
     using Integration.IdentityAccess;
@@ -53,6 +54,7 @@
             _userRepository = userRepository;
         }
 
+        [Transaction]
         public void Handle(ChangeUserAddress command)
         {
             _authorize.Enforce(command.InitiatorId, Manage.User(command.UserId));

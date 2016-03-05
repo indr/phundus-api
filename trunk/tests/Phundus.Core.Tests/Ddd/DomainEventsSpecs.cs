@@ -2,7 +2,6 @@
 {
     using System;
     using System.Collections.Generic;
-    using System.Diagnostics;
     using System.Linq;
     using System.Reflection;
     using System.Runtime.Serialization;
@@ -15,8 +14,8 @@
 
         public Establish c = () =>
         {
-            domainEventTypes = Assembly.GetAssembly(typeof(CoreInstaller))
-                .GetTypes().Where(p => p.IsSubclassOf(typeof(DomainEvent)));
+            domainEventTypes = Assembly.GetAssembly(typeof (CoreInstaller))
+                .GetTypes().Where(p => p.IsSubclassOf(typeof (DomainEvent)));
         };
     }
 

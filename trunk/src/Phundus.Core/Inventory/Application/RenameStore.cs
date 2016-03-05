@@ -1,12 +1,13 @@
 namespace Phundus.Inventory.Application
 {
     using System;
+    using Castle.Transactions;
     using Common.Commanding;
     using Common.Domain.Model;
-    using Inventory.Model;
+    using Model;
     using Stores.Repositories;
 
-    public class RenameStore
+    public class RenameStore : ICommand
     {
         public RenameStore(InitiatorId initiatorId, StoreId storeId, string name)
         {
@@ -32,11 +33,11 @@ namespace Phundus.Inventory.Application
         {
             if (storeRepository == null) throw new ArgumentNullException("storeRepository");
             if (userInRole == null) throw new ArgumentNullException("userInRole");
-
             _storeRepository = storeRepository;
             _userInRole = userInRole;
         }
 
+        [Transaction]
         public void Handle(RenameStore command)
         {
             var store = _storeRepository.GetById(command.StoreId);

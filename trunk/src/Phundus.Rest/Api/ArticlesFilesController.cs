@@ -60,8 +60,7 @@ namespace Phundus.Rest.Api
             return new {files = result};
         }
 
-        [POST("")]
-        [Transaction]
+        [POST("")]        
         public virtual object Post(ArticleId articleId)
         {
             var path = GetPath(articleId);
@@ -72,16 +71,13 @@ namespace Phundus.Rest.Api
             foreach (var each in images)
             {
                 var command = new AddImage(CurrentUserId, articleId, Path.GetFileName(each.FileName),
-                    each.Type,
-                    each.Length);
+                    each.Type, each.Length);
                 Dispatcher.Dispatch(command);
-                each.Id = command.ResultingImageId;
             }
             return new {files = factory.Create(images)};
         }
 
-        [PATCH("{fileName}")]
-        [Transaction]
+        [PATCH("{fileName}")]        
         public virtual HttpResponseMessage Patch(ArticleId articleId, string fileName,
             ArticlesFilesPatchRequestContent requestContent)
         {
@@ -90,8 +86,7 @@ namespace Phundus.Rest.Api
             return NoContent();
         }
 
-        [DELETE("{fileName}")]
-        [Transaction]
+        [DELETE("{fileName}")]        
         public virtual HttpResponseMessage Delete(ArticleId articleId, string fileName)
         {
             var path = GetPath(articleId);

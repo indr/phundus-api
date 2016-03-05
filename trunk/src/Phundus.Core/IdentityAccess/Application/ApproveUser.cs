@@ -7,13 +7,12 @@
     using Model.Users;
     using Users.Services;
 
-    public class ApproveUser
+    public class ApproveUser : ICommand
     {
         public ApproveUser(InitiatorId initiatorId, UserId userId)
         {
             if (initiatorId == null) throw new ArgumentNullException("initiatorId");
             if (userId == null) throw new ArgumentNullException("userId");
-
             InitiatorId = initiatorId;
             UserId = userId;
         }
@@ -31,7 +30,6 @@
         {
             if (userInRole == null) throw new ArgumentNullException("userInRole");
             if (userRepository == null) throw new ArgumentNullException("userRepository");
-
             _userInRole = userInRole;
             _userRepository = userRepository;
         }

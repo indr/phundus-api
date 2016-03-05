@@ -2,13 +2,14 @@
 {
     using System;
     using Authorization;
+    using Castle.Transactions;
     using Common.Commanding;
     using Common.Domain.Model;
     using Integration.IdentityAccess;
     using Model.Users;
     using Phundus.Authorization;
 
-    public class LockUser
+    public class LockUser : ICommand
     {
         public LockUser(InitiatorId initiatorId, UserId userId)
         {
@@ -40,6 +41,7 @@
             _userRepository = userRepository;
         }
 
+        [Transaction]
         public void Handle(LockUser command)
         {
             var initiator = _initiatorService.GetById(command.InitiatorId);

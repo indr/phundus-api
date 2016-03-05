@@ -20,8 +20,7 @@
             _availabilityService = availabilityService;
         }
 
-        [POST("")]
-        [Transaction]
+        [POST("")]        
         [AllowAnonymous]
         public virtual ShopItemsAvailabilityCheckOkResponseContent Post(Guid itemId,
             ShopItemsAvailabilityCheckRequestContent requestContent)

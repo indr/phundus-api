@@ -33,9 +33,6 @@
         private It should_ask_for_chief_privilegs = () =>
             memberInRole.received(x => x.ActiveManager(theOwner.OwnerId.Id, theInitiatorId));
 
-        private It should_set_image_id = () =>
-            command.ResultingImageId.ShouldEqual(theImageId);
-
         private It tell_article_to_add_image = () =>
             theArticle.received(x => x.AddImage(theInitiator, "file.jpg", "image/jpeg", 12345));
     }

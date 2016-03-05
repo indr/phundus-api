@@ -1,10 +1,11 @@
 ﻿namespace Phundus.IdentityAccess.Application
 {
     using System;
+    using Castle.Transactions;
     using Common.Commanding;
     using Model.Users;
 
-    public class ValidateKey
+    public class ValidateKey : ICommand
     {
         public ValidateKey(string validationKey)
         {
@@ -22,13 +23,14 @@
         public ValidateKeyHandler(IUserRepository userRepository)
         {
             if (userRepository == null) throw new ArgumentNullException("userRepository");
-
             _userRepository = userRepository;
         }
 
+        [Transaction]
         public void Handle(ValidateKey command)
         {
             var user = _userRepository.FindByValidationKey(command.ValidationKey);
+
             user.Account.ValidateKey(command.ValidationKey);
         }
     }

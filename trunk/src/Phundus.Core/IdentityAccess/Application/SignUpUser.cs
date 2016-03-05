@@ -9,18 +9,16 @@
     using Users.Exceptions;
     using Users.Model;
 
-    public class SignUpUser
+    public class SignUpUser : ICommand
     {
         public SignUpUser(UserId userId, string emailAddress, string password, string firstName, string lastName,
-            string street,
-            string postcode, string city, string mobilePhone)
+            string street, string postcode, string city, string mobilePhone)
         {
             if (userId == null) throw new ArgumentNullException("userId");
             if (emailAddress == null) throw new ArgumentNullException("emailAddress");
             if (password == null) throw new ArgumentNullException("password");
             if (firstName == null) throw new ArgumentNullException("firstName");
             if (lastName == null) throw new ArgumentNullException("lastName");
-
             UserId = userId;
             FirstName = firstName;
             LastName = lastName;
@@ -75,11 +73,11 @@
 
         private static void ValidateAndSetRootUser(User user)
         {
-            if (user.EmailAddress == "admin@test.phundus.ch")
-            {
-                user.Account.ValidateKey(user.Account.ValidationKey);
-                user.ChangeRole(new Admin(user.UserId, user.EmailAddress, user.FullName), UserRole.Admin);
-            }
+            if (user.EmailAddress != "admin@test.phundus.ch")
+                return;
+
+            user.Account.ValidateKey(user.Account.ValidationKey);
+            user.ChangeRole(new Admin(user.UserId, user.EmailAddress, user.FullName), UserRole.Admin);
         }
     }
 }

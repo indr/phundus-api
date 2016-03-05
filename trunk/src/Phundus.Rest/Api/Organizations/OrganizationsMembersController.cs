@@ -52,29 +52,26 @@
             }).ToList());
         }
 
-        [POST("")]
-        [Transaction]
+        [POST("")]        
         public virtual HttpResponseMessage Post(Guid organizationId,
             OrganizationsMembersPostRequestContent requestContent)
         {
             Dispatch(new ApproveMembershipApplication(CurrentUserId, new MembershipApplicationId(requestContent.ApplicationId)));
 
-            return NoContent();
+            return Accepted();
         }
 
-        [PUT("{memberId}")]
-        [Transaction]
+        [PUT("{memberId}")]        
         public virtual HttpResponseMessage Put(Guid organizationId, Guid memberId,
             OrganizationsMembersPutRequestContent requestContent)
         {
             Dispatch(new ChangeMembersRole(CurrentUserId, new OrganizationId(organizationId),
                 new UserId(memberId), (MemberRole) requestContent.Role));
 
-            return NoContent();
+            return Accepted();
         }
 
-        [PATCH("{memberId}")]
-        [Transaction]
+        [PATCH("{memberId}")]        
         public virtual HttpResponseMessage Patch(Guid organizationId, Guid memberId,
             OrganizationsMembersPatchRequestContent requestContent)
         {
@@ -101,7 +98,7 @@
                     requestContent.RecievesEmailNotifications.Value));
             }
 
-            return NoContent();
+            return Accepted();
         }
     }
 

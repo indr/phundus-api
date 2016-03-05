@@ -1,16 +1,17 @@
 ﻿namespace Phundus.Shop.Application
 {
     using System;
+    using Castle.Transactions;
     using Common.Commanding;
     using Common.Domain.Model;
-    using Shop.Model;
+    using Model;
 
     public class UpdateCartItem : ICommand
     {
         public UpdateCartItem(InitiatorId initiatorId, Guid itemGuid, int quantity,
             DateTime fromUtc, DateTime toUtc)
         {
-            if (initiatorId == null) throw new ArgumentNullException("initiatorId");            
+            if (initiatorId == null) throw new ArgumentNullException("initiatorId");
             InitiatorId = initiatorId;
             ItemGuid = itemGuid;
             Quantity = quantity;
@@ -35,6 +36,7 @@
             _cartRepository = cartRepository;
         }
 
+        [Transaction]
         public void Handle(UpdateCartItem command)
         {
             var cart = _cartRepository.FindByUserGuid(new UserId(command.InitiatorId.Id));

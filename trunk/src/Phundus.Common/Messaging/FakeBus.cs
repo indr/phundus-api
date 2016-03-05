@@ -3,6 +3,7 @@
     using System;
     using System.Threading;
     using Castle.Core.Logging;
+    using Castle.MicroKernel.ModelBuilder.Descriptors;
     using Castle.Windsor;
     using Commanding;
     using Notifications;
@@ -21,7 +22,7 @@
         {
             if (message is ICommand)
             {
-                SendCommand(message);
+                SendCommand(message as ICommand);
                 return;
             }
             if (message is Notification)
@@ -53,7 +54,7 @@
             });
         }
 
-        private void SendCommand<T>(T message)
+        private void SendCommand<T>(T message) where T : ICommand
         {
             ThreadPool.QueueUserWorkItem(o =>
             {
