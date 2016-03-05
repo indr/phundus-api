@@ -2,6 +2,7 @@ namespace Phundus.Web
 {
     using System;
     using System.Configuration;
+    using System.Threading;
     using Bootstrap.Extensions.StartupTasks;
     using Castle.Core.Logging;
     using Castle.Transactions;
@@ -24,7 +25,6 @@ namespace Phundus.Web
             _dispatcher = dispatcher;
         }
 
-        [Transaction]
         public virtual void Run()
         {
             _logger.Info("Running task SeedTestDataTask.");
@@ -34,30 +34,31 @@ namespace Phundus.Web
                 return;
             }
 
-            var adminId = new UserId();
-            var managerId = new UserId();
-            var memberId = new UserId();
+            
+            var adminId = new InitiatorId();
+            var managerId = new InitiatorId();
+            var memberId = new InitiatorId();
             var organizationId = new OrganizationId();
             MembershipApplicationId applicationId = null;
 
-            Dispatch(new SignUpUser(adminId, "admin@test.phundus.ch", "1234", "John", "Root", "", "", "", ""));            
-            Dispatch(new EstablishOrganization(new InitiatorId(adminId), organizationId, "Scouts"));
+            Dispatch(new SignUpUser(adminId, "admin@test.phundus.ch", "1234", "John", "Root", "", "", "", ""));
+            Dispatch(new EstablishOrganization(adminId, organizationId, "Scouts"));
 
             applicationId = new MembershipApplicationId();
             Dispatch(new SignUpUser(managerId, "manager@test.phundus.ch", "1234", "Greg", "Manager", "", "", "", ""));
-            Dispatch(new ApproveUser(new InitiatorId(adminId), managerId));
-            Dispatch(new ApplyForMembership(new InitiatorId(managerId), applicationId, managerId, organizationId));
-            Dispatch(new ApproveMembershipApplication(new InitiatorId(adminId), applicationId));
-            Dispatch(new ChangeMembersRole(new InitiatorId(adminId), organizationId, managerId, MemberRole.Manager));
+            Dispatch(new ApproveUser(adminId, managerId));
+            Dispatch(new ApplyForMembership(managerId, applicationId, managerId, organizationId));            
+            Dispatch(new ApproveMembershipApplication(adminId, applicationId));
+            Dispatch(new ChangeMembersRole(adminId, organizationId, managerId, MemberRole.Manager));
 
             applicationId = new MembershipApplicationId();
             Dispatch(new SignUpUser(memberId, "member@test.phundus.ch", "1234", "Alice", "Member", "", "", "", ""));
-            Dispatch(new ApproveUser(new InitiatorId(adminId), memberId));
-            Dispatch(new ApplyForMembership(new InitiatorId(memberId), applicationId, memberId, organizationId));
-            Dispatch(new ApproveMembershipApplication(new InitiatorId(managerId), applicationId));
+            Dispatch(new ApproveUser(adminId, memberId));
+            Dispatch(new ApplyForMembership(memberId, applicationId, memberId, organizationId));            
+            Dispatch(new ApproveMembershipApplication(managerId, applicationId));
         }
 
-        private bool IsResetDatabaseProfileSpecified()
+        private static bool IsResetDatabaseProfileSpecified()
         {
             return ConfigurationManager.AppSettings["MigrationProfile"] == "ResetDatabase";
         }
@@ -65,6 +66,7 @@ namespace Phundus.Web
         private void Dispatch<TCommand>(TCommand command)
         {
             _dispatcher.Dispatch(command);
+            Thread.Sleep(300);
         }
 
         public virtual void Reset()

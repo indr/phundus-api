@@ -11,11 +11,77 @@ namespace Phundus.Dashboard.Projections
     using Newtonsoft.Json;
 
     public class EventLogProjection : ProjectionBase<EventLogData>,
-        IConsumes<DomainEvent>
+        IConsumes<DomainEvent>,
+        IConsumes<UserLoggedIn>,
+        IConsumes<UserSignedUp>,
+        IConsumes<MembershipApplicationFiled>,
+        IConsumes<MembershipApplicationApproved>,
+        IConsumes<MembershipApplicationRejected>,
+        IConsumes<MemberLocked>,
+        IConsumes<MemberUnlocked>
     {
-        public void Consume(DomainEvent e)
+        public void Consume(DomainEvent domainEvent)
         {
-            Process((dynamic) e);
+            var record = CreateRow(domainEvent);
+            record.Text = "Unformatiertes Ereignis: " + domainEvent.GetType().Name;
+            Insert(record);
+        }
+
+        public void Consume(MemberLocked domainEvent)
+        {
+            var record = CreateRow(domainEvent);
+            record.Text = string.Format("Benutzer {2} hat Mitglied {0} bei Organization {1} gesperrt.",
+                domainEvent.UserGuid, domainEvent.OrganizationGuid, domainEvent.InitiatorId);
+            Insert(record);
+        }
+
+        public void Consume(MembershipApplicationApproved domainEvent)
+        {
+            var record = CreateRow(domainEvent);
+            record.Text =
+                string.Format("Benutzer {2} hat Mitgliedschaft für Benutzer {0} bei Organization {1} bestätigt.",
+                    domainEvent.UserGuid, domainEvent.OrganizationGuid, domainEvent.InitiatorId);
+            Insert(record);
+        }
+
+        public void Consume(MembershipApplicationFiled domainEvent)
+        {
+            var record = CreateRow(domainEvent);
+            record.Text =
+                string.Format("Benutzer {2} hat Mitgliedschaft für Benutzer {0} bei Organization {1} beantragt.",
+                    domainEvent.UserGuid, domainEvent.OrganizationGuid, domainEvent.InitiatorId);
+            Insert(record);
+        }
+
+        public void Consume(MembershipApplicationRejected domainEvent)
+        {
+            var record = CreateRow(domainEvent);
+            record.Text =
+                string.Format("Benutzer {2} hat Mitgliedschaft für Benutzer {0} bei Organization {1} abgelehnt.",
+                    domainEvent.UserGuid, domainEvent.OrganizationGuid, domainEvent.InitiatorId);
+            Insert(record);
+        }
+
+        public void Consume(MemberUnlocked domainEvent)
+        {
+            var record = CreateRow(domainEvent);
+            record.Text = string.Format("Benutzer {2} hat Mitglied {0} bei Organization {1} entsperrt.",
+                domainEvent.UserGuid, domainEvent.OrganizationGuid, domainEvent.InitiatorId);
+            Insert(record);
+        }
+
+        public void Consume(UserLoggedIn e)
+        {
+            var record = CreateRow(e);
+            record.Text = "Benutzer hat sich eingeloggt: " + e.UserId;
+            Insert(record);
+        }
+
+        public void Consume(UserSignedUp domainEvent)
+        {
+            var record = CreateRow(domainEvent);
+            record.Text = "Benutzer hat sich registriert: " + domainEvent.EmailAddress;
+            Insert(record);
         }
 
         private EventLogData CreateRow(DomainEvent @event)
@@ -25,70 +91,6 @@ namespace Phundus.Dashboard.Projections
             row.Name = @event.GetType().Name;
             row.OccuredOnUtc = @event.OccuredOnUtc;
             return row;
-        }
-
-        public void Process(DomainEvent domainEvent)
-        {
-            var record = CreateRow(domainEvent);
-            record.Text = "Unformatiertes Ereignis: " + domainEvent.GetType().Name;
-            Insert(record);
-        }
-
-        public void Handle(UserLoggedIn e)
-        {
-            var record = CreateRow(e);
-            record.Text = "Benutzer hat sich eingeloggt: " + e.UserId;
-            Insert(record);
-        }
-
-        public void Process(UserSignedUp domainEvent)
-        {
-            var record = CreateRow(domainEvent);
-            record.Text = "Benutzer hat sich registriert: " + domainEvent.EmailAddress;
-            Insert(record);
-        }
-
-        public void Process(MembershipApplicationFiled domainEvent)
-        {
-            var record = CreateRow(domainEvent);
-            record.Text =
-                string.Format("Benutzer {2} hat Mitgliedschaft für Benutzer {0} bei Organization {1} beantragt.",
-                    domainEvent.UserGuid, domainEvent.OrganizationGuid, domainEvent.InitiatorId);
-            Insert(record);
-        }
-
-        public void Process(MembershipApplicationApproved domainEvent)
-        {
-            var record = CreateRow(domainEvent);
-            record.Text =
-                string.Format("Benutzer {2} hat Mitgliedschaft für Benutzer {0} bei Organization {1} bestätigt.",
-                    domainEvent.UserGuid, domainEvent.OrganizationGuid, domainEvent.InitiatorId);
-            Insert(record);
-        }
-
-        public void Process(MembershipApplicationRejected domainEvent)
-        {
-            var record = CreateRow(domainEvent);
-            record.Text =
-                string.Format("Benutzer {2} hat Mitgliedschaft für Benutzer {0} bei Organization {1} abgelehnt.",
-                    domainEvent.UserGuid, domainEvent.OrganizationGuid, domainEvent.InitiatorId);
-            Insert(record);
-        }
-
-        public void Process(MemberLocked domainEvent)
-        {
-            var record = CreateRow(domainEvent);
-            record.Text = string.Format("Benutzer {2} hat Mitglied {0} bei Organization {1} gesperrt.",
-                domainEvent.UserGuid, domainEvent.OrganizationGuid, domainEvent.InitiatorId);
-            Insert(record);
-        }
-
-        public void Process(MemberUnlocked domainEvent)
-        {
-            var record = CreateRow(domainEvent);
-            record.Text = string.Format("Benutzer {2} hat Mitglied {0} bei Organization {1} entsperrt.",
-                domainEvent.UserGuid, domainEvent.OrganizationGuid, domainEvent.InitiatorId);
-            Insert(record);
         }
     }
 

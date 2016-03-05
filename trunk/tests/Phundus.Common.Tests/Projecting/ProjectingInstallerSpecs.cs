@@ -3,6 +3,7 @@
     using Common.Eventing;
     using Common.Notifications;
     using Common.Projecting;
+    using Common.Projecting.Installers;
     using Machine.Specifications;
 
     [Subject(typeof (ProjectingInstaller))]

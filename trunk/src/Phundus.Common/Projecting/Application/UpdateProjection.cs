@@ -3,6 +3,7 @@
     using System;
     using Commanding;
     using Domain.Model;
+    using Notifications;
 
     public class UpdateProjection : ICommand
     {

@@ -8,8 +8,9 @@
     using Castle.Windsor;
     using Common.Commanding;
     using Common.Eventing;
+    using Common.Notifications.Installers;
     using Common.Projecting;
-    using Common.Projecting.Application;
+    using Common.Projecting.Installers;
     using Common.Querying;
     using IdentityAccess.Users.Services;
 
@@ -17,9 +18,10 @@
     {
         public void Install(IWindsorContainer container, IConfigurationStore store)
         {
-            var assembly = GetType().Assembly;
+            var assembly = Assembly.GetExecutingAssembly();
             new CommandHandlerInstaller().Install(container, assembly);
             new ProjectionsInstaller().Install(container, assembly);
+            new EventConsumerInstaller().Install(container, assembly);
         }
     }
 
@@ -38,8 +40,6 @@
 
         public void Install(IWindsorContainer container, IConfigurationStore store)
         {
-            
-
             container.Register(
                 Component.For<ITypedFactoryComponentSelector>().ImplementedBy<AccessObjectHandlerSelector>(),
                 Component.For<AutoReleaseAccessObjectHandlerInterceptor>(),

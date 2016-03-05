@@ -4,7 +4,6 @@
     using System.Reflection;
     using Castle.Facilities.TypedFactory;
     using Castle.MicroKernel;
-    using Notifications;
 
     public interface IProjectionFactory
     {
@@ -38,32 +37,12 @@
                 return null;
             }
         }
-
-        public IEventConsumer FindConsumer(string fullName)
-        {
-            try
-            {
-                return _projectionFactory.GetConsumer(fullName);
-            }
-            catch (ComponentNotFoundException)
-            {
-                return null;
-            }
-        }
-
-        public IEventConsumer[] GetConsumers()
-        {
-            return _projectionFactory.GetConsumers();
-        }
     }
 
     public interface ITypedProjectionFactory
     {
         IProjection GetProjection(string fullName);
         IProjection[] GetProjections();
-
-        IEventConsumer GetConsumer(string fullName);
-        IEventConsumer[] GetConsumers();
     }
 
     public class ProjectionSelector : DefaultTypedFactoryComponentSelector

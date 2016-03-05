@@ -5,13 +5,15 @@
     using Common;
     using Common.Eventing;
     using Common.Mailing;
+    using Common.Notifications;
     using IdentityAccess.Model.Organizations.Mails;
     using Integration.IdentityAccess;
     using Model;
     using Projections;
 
     public class MembershipApplicationMailNotifier : BaseMail,
-        ISubscribeTo<MembershipApplicationFiled>,
+        //ISubscribeTo<MembershipApplicationFiled>,
+        IConsumes<MembershipApplicationFiled>,
         ISubscribeTo<MembershipApplicationApproved>,
         ISubscribeTo<MembershipApplicationRejected>,
         ISubscribeTo<MemberLocked>,
@@ -68,7 +70,7 @@
                 null, Templates.MembershipApplicationApprovedBodyHtml);
         }
 
-        public void Handle(MembershipApplicationFiled e)
+        public void Consume(MembershipApplicationFiled e)
         {
             var user = _usersQueries.GetById(e.UserGuid);
             var organization = _organizationQueries.GetById(e.OrganizationGuid);

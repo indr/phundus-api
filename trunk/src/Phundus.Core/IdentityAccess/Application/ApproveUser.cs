@@ -1,6 +1,7 @@
 ﻿namespace Phundus.IdentityAccess.Application
 {
     using System;
+    using Castle.Transactions;
     using Common.Commanding;
     using Common.Domain.Model;
     using Model.Users;
@@ -35,6 +36,7 @@
             _userRepository = userRepository;
         }
 
+        [Transaction]
         public void Handle(ApproveUser command)
         {
             var initiator = _userInRole.Admin(command.InitiatorId);

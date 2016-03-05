@@ -1,6 +1,7 @@
 ﻿namespace Phundus.IdentityAccess.Application
 {
     using System;
+    using Castle.Transactions;
     using Common.Commanding;
     using Common.Domain.Model;
     using Model.Organizations;
@@ -37,6 +38,7 @@
 
         public IMemberInRole MemberInRole { get; set; }
 
+        [Transaction]
         public void Handle(ChangeMembersRole command)
         {
             var organization = OrganizationRepository.GetById(command.OrganizationId);

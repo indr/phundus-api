@@ -1,4 +1,4 @@
-namespace Phundus.Common.Notifications.App_Start
+namespace Phundus.Common.Notifications.Installers
 {
     using System.Reflection;
     using Castle.Facilities.TypedFactory;
@@ -17,10 +17,18 @@ namespace Phundus.Common.Notifications.App_Start
                 //.ImplementedBy<InThreadNotificationPublisher>());
                 .ImplementedBy<BusNotificationPublisher>());
 
-            container.Register(Component.For<INotificationConsumerFactory>()
-                .AsFactory());
+            container.Register(
+                Component.For<INotificationConsumerFactory>().AsFactory(),
+                Component.For<IEventConsumerFactory>().AsFactory());
 
-            new NotificationConsumersInstaller().Install(container, Assembly.GetExecutingAssembly());
+
+
+            container.Register(
+                Component.For<INotificationToConsumersDispatcher>().ImplementedBy<NotificationToConsumersDispatcher>(),
+                Component.For<IStoredEventsProcessor>().ImplementedBy<StoredEventsProcessor>());
+
+            new NotificationHandlerInstaller().Install(container, Assembly.GetExecutingAssembly());
+            new EventConsumerInstaller().Install(container, Assembly.GetExecutingAssembly());
         }
     }
 }
