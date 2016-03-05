@@ -3,18 +3,16 @@
     using System;
     using System.Collections.Generic;
     using System.Configuration;
-    using System.Diagnostics;
     using System.Globalization;
     using System.IO;
     using System.Linq;
     using System.Net;
-    using System.Net.Configuration;
     using System.Text.RegularExpressions;
+    using System.Threading;
     using ContentTypes;
     using Newtonsoft.Json;
     using NUnit.Framework;
     using RestSharp;
-    using RestSharp.Deserializers;
 
     public class Resource
     {
@@ -23,8 +21,6 @@
         private static readonly IDictionary<string, string> Cookies = new Dictionary<string, string>();
         private readonly string _resource;
         private bool _assertHttpStatusCode;
-
-        public static IRestResponse LastResponse { get; private set; }
 
         static Resource()
         {
@@ -43,13 +39,15 @@
             _assertHttpStatusCode = assertHttpStatusCode;
         }
 
+        public static IRestResponse LastResponse { get; private set; }
+
         public static void DeleteSessionCookies()
         {
             Cookies.Clear();
         }
 
         public IRestResponse<T> Get<T>(object requestContent, object queryParams = null) where T : new()
-        {
+        {            
             var request = CreateRequest(requestContent, Method.GET, queryParams);
             return Execute<T>(request);
         }
@@ -78,146 +76,6 @@
             return Execute(request);
         }
 
-        #region PostFile
-        public TResponseContent PostFile<TResponseContent>(object requestContent, string fullFileName, string fileName)
-        {
-            // https://stackoverflow.com/questions/14143630/upload-file-through-c-sharp-using-json-request-and-restsharp
-
-            fileName = fileName ?? Path.GetFileName(fullFileName);
-
-            //string path = @"C:\Projectos\My Training Samples\Adobe Sample\RBO1574.pdf";
-            string path = fullFileName;
-            //localhost settings
-            //string requestHost = @"http://localhost:3000/receipts";
-            string requestHost = BaseUrl + ReplaceUrlSegments(_resource, requestContent);
-            //string tagnr = "p94tt7w";
-            //string machinenr = "2803433";
-            //string safe_token = "123";
-
-            FileStream fs1 = File.OpenRead(path);
-            long filesize = fs1.Length;
-            fs1.Close();
-
-            //Debug.WriteLine(path + " is " + filesize + " bytes");
-
-            // Create a http request to the server endpoint that will pick up the
-            // file and file description.
-            HttpWebRequest requestToServerEndpoint =
-                (HttpWebRequest)WebRequest.Create(requestHost);
-
-            //string boundaryString = "FFF3F395A90B452BB8BEDC878DDBD152";
-            string boundaryString = "---------------------------82158952720152522822137219797";
-            string fileUrl = path;
-
-            // Set the http request header \\
-            // multipart/form-data; boundary=---------------------------82158952720152522822137219797
-            requestToServerEndpoint.Method = WebRequestMethods.Http.Post;
-            requestToServerEndpoint.ContentType = "multipart/form-data; boundary=" + boundaryString;
-            requestToServerEndpoint.KeepAlive = true;
-            //requestToServerEndpoint.Credentials = System.Net.CredentialCache.DefaultCredentials;
-            requestToServerEndpoint.Accept = "application/json";
-
-            var cookies = Cookies.Select(p => p.Key + "=" + p.Value);
-            var cookie = String.Join("=", cookies);
-            requestToServerEndpoint.Headers["Cookie"] = cookie;
-
-
-            // Use a MemoryStream to form the post data request,
-            // so that we can get the content-length attribute.
-            MemoryStream postDataStream = new MemoryStream();
-            StreamWriter postDataWriter = new StreamWriter(postDataStream);
-
-            //// Include value from the tag_number text area in the post data
-            //postDataWriter.Write("\r\n--" + boundaryString + "\r\n");
-            //postDataWriter.Write("Content-Disposition: form-data; name=\"{0}\"\r\n\r\n{1}",
-            //                        "receipt[tag_number]",
-            //                        tagnr);
-
-            //// Include ispaperduplicate text area in the post data
-            //postDataWriter.Write("\r\n--" + boundaryString + "\r\n");
-            //postDataWriter.Write("Content-Disposition: form-data; name=\"{0}\"\r\n\r\n{1}",
-            //                        "receipt[ispaperduplicate]",
-            //                        0);
-
-            //// Include value from the machine number in the post data
-            //postDataWriter.Write("\r\n--" + boundaryString + "\r\n");
-            //postDataWriter.Write("Content-Disposition: form-data; name=\"{0}\"\r\n\r\n{1}",
-            //                        "machine[serial_number]",
-            //                        machinenr);
-
-            //// Include value from the machine token in the post data
-            //postDataWriter.Write("\r\n--" + boundaryString + "\r\n");
-            //postDataWriter.Write("Content-Disposition: form-data; name=\"{0}\"\r\n\r\n{1}",
-            //                        "machine[safe_token]",
-            //                        safe_token);
-
-            // Include the file in the post data
-            /*
-             Content-Disposition: form-data; name="files[]"; filename="12365935_1736670393241540_1626625293305475497_o.jpg"
-             Content-Type: image/jpeg
-             */
-
-            var contentType = "";
-            var extension = Path.GetExtension(fileName).Trim('.').ToLowerInvariant();
-            if (extension == "jpg")
-                contentType = "image/jpeg";
-            else if (extension == "pdf")
-                contentType = "application/pdf";
-            else
-                throw new Exception("Unknown content type of the file to upload.");
-
-            postDataWriter.Write("--" + boundaryString + "\r\n");
-            postDataWriter.Write("Content-Disposition: form-data; name=\"{0}\"; filename=\"{1}\"\r\n"
-                //+ "Content-Length: \"{2}\"\r\n"
-                                    + "Content-Type: {2}\r\n"
-                //+ "Content-Transfer-Encoding: binary\r\n\r\n"
-                                    , "files[]"
-                                    , fileName
-                                    , contentType
-                                    );
-            postDataWriter.Write("\r\n");
-            postDataWriter.Flush();
-
-
-            // Read the file
-            FileStream fileStream = new FileStream(fileUrl, FileMode.Open, FileAccess.Read);
-            byte[] buffer = new byte[1024];
-            int bytesRead = 0;
-            while ((bytesRead = fileStream.Read(buffer, 0, buffer.Length)) != 0)
-            {
-                postDataStream.Write(buffer, 0, bytesRead);
-            }
-            fileStream.Close();
-
-            postDataWriter.Write("\r\n--" + boundaryString + "--\r\n");
-            postDataWriter.Flush();
-
-            // Set the http request body content length
-            requestToServerEndpoint.ContentLength = postDataStream.Length;
-            //Debug.WriteLine("ContentLength: " + postDataStream.Length);
-
-            // Dump the post data from the memory stream to the request stream
-            Stream s = requestToServerEndpoint.GetRequestStream();
-
-            postDataStream.WriteTo(s);
-            postDataStream.Flush();
-            postDataStream.Close();
-
-
-            var response = (HttpWebResponse)requestToServerEndpoint.GetResponse();
-            Assert.That(response.StatusCode, Is.EqualTo(HttpStatusCode.OK));
-            var stream = response.GetResponseStream();
-            var streamReader = new StreamReader(stream);
-            var jsonTextReader = new JsonTextReader(streamReader);
-
-        
-            var settings = new JsonSerializerSettings();
-            
-            return JsonSerializer.Create(settings).Deserialize<TResponseContent>(jsonTextReader);
-
-        } 
-        #endregion
-
         public IRestResponse<T> Post<T>(object requestContent) where T : new()
         {
             var request = CreateRequest(requestContent, Method.POST);
@@ -225,13 +83,16 @@
         }
 
         public IRestResponse<QueryOkResponseContent<T>> Query<T>(object queryParams = null) where T : new()
-        {
+        {            
             var request = CreateQueryRequest(queryParams, Method.GET);
             return Execute<QueryOkResponseContent<T>>(request);
         }
 
         protected RestRequest CreateRequest(object requestContent, Method method, object queryString = null)
         {
+            if (method == Method.GET)
+                Thread.Sleep(200);
+
             var request = new RestRequest(method);
             request.Resource = _resource;
             request.RequestFormat = DataFormat.Json;
@@ -247,7 +108,7 @@
             return request;
         }
 
-        
+
         private string ReplaceUrlSegments(string url, object requestContent)
         {
             var regex = new Regex(@"\/\{([a-z]+)\}", RegexOptions.IgnoreCase);
@@ -259,7 +120,7 @@
                 url = url.Remove(match.Groups[0].Index, match.Groups[0].Length);
                 if (value != null)
                     url = url.Insert(match.Groups[0].Index, "/" + value);
-                
+
                 var startAt = match.Groups[0].Index + (value != null ? value.Length : 0);
                 match = regex.Match(url, startAt);
             }
@@ -293,7 +154,7 @@
                 return false;
             var value = GetParamValue(requestContent, name);
             if (value != null)
-                request.AddUrlSegment(name, value);            
+                request.AddUrlSegment(name, value);
             return value != null;
         }
 
@@ -338,7 +199,7 @@
 
         protected RestRequest CreateQueryRequest(object queryParams, Method method)
         {
-            var request = CreateRequest(queryParams, Method.GET);            
+            var request = CreateRequest(queryParams, Method.GET);
             AddQueryParameters(request, queryParams);
             return request;
         }
@@ -365,7 +226,6 @@
             return response;
         }
 
-        
 
         private IRestResponse<T> Execute<T>(RestRequest request) where T : new()
         {
@@ -394,7 +254,7 @@
         private void AssertHttpStatusCodeIs2xx(IRestResponse response)
         {
             var message = TryGetErrorMessage(response);
-            Assert.That((int)response.StatusCode, Is.InRange(200, 299), message);
+            Assert.That((int) response.StatusCode, Is.InRange(200, 299), message);
         }
 
         private static void ReadCookies(IRestResponse response)
@@ -421,5 +281,145 @@
             return errorContent.Msg;
         }
 
+        #region PostFile
+
+        public TResponseContent PostFile<TResponseContent>(object requestContent, string fullFileName, string fileName)
+        {
+            // https://stackoverflow.com/questions/14143630/upload-file-through-c-sharp-using-json-request-and-restsharp
+
+            fileName = fileName ?? Path.GetFileName(fullFileName);
+
+            //string path = @"C:\Projectos\My Training Samples\Adobe Sample\RBO1574.pdf";
+            string path = fullFileName;
+            //localhost settings
+            //string requestHost = @"http://localhost:3000/receipts";
+            string requestHost = BaseUrl + ReplaceUrlSegments(_resource, requestContent);
+            //string tagnr = "p94tt7w";
+            //string machinenr = "2803433";
+            //string safe_token = "123";
+
+            FileStream fs1 = File.OpenRead(path);
+            long filesize = fs1.Length;
+            fs1.Close();
+
+            //Debug.WriteLine(path + " is " + filesize + " bytes");
+
+            // Create a http request to the server endpoint that will pick up the
+            // file and file description.
+            var requestToServerEndpoint =
+                (HttpWebRequest) WebRequest.Create(requestHost);
+
+            //string boundaryString = "FFF3F395A90B452BB8BEDC878DDBD152";
+            string boundaryString = "---------------------------82158952720152522822137219797";
+            string fileUrl = path;
+
+            // Set the http request header \\
+            // multipart/form-data; boundary=---------------------------82158952720152522822137219797
+            requestToServerEndpoint.Method = WebRequestMethods.Http.Post;
+            requestToServerEndpoint.ContentType = "multipart/form-data; boundary=" + boundaryString;
+            requestToServerEndpoint.KeepAlive = true;
+            //requestToServerEndpoint.Credentials = System.Net.CredentialCache.DefaultCredentials;
+            requestToServerEndpoint.Accept = "application/json";
+
+            var cookies = Cookies.Select(p => p.Key + "=" + p.Value);
+            var cookie = String.Join("=", cookies);
+            requestToServerEndpoint.Headers["Cookie"] = cookie;
+
+
+            // Use a MemoryStream to form the post data request,
+            // so that we can get the content-length attribute.
+            var postDataStream = new MemoryStream();
+            var postDataWriter = new StreamWriter(postDataStream);
+
+            //// Include value from the tag_number text area in the post data
+            //postDataWriter.Write("\r\n--" + boundaryString + "\r\n");
+            //postDataWriter.Write("Content-Disposition: form-data; name=\"{0}\"\r\n\r\n{1}",
+            //                        "receipt[tag_number]",
+            //                        tagnr);
+
+            //// Include ispaperduplicate text area in the post data
+            //postDataWriter.Write("\r\n--" + boundaryString + "\r\n");
+            //postDataWriter.Write("Content-Disposition: form-data; name=\"{0}\"\r\n\r\n{1}",
+            //                        "receipt[ispaperduplicate]",
+            //                        0);
+
+            //// Include value from the machine number in the post data
+            //postDataWriter.Write("\r\n--" + boundaryString + "\r\n");
+            //postDataWriter.Write("Content-Disposition: form-data; name=\"{0}\"\r\n\r\n{1}",
+            //                        "machine[serial_number]",
+            //                        machinenr);
+
+            //// Include value from the machine token in the post data
+            //postDataWriter.Write("\r\n--" + boundaryString + "\r\n");
+            //postDataWriter.Write("Content-Disposition: form-data; name=\"{0}\"\r\n\r\n{1}",
+            //                        "machine[safe_token]",
+            //                        safe_token);
+
+            // Include the file in the post data
+            /*
+             Content-Disposition: form-data; name="files[]"; filename="12365935_1736670393241540_1626625293305475497_o.jpg"
+             Content-Type: image/jpeg
+             */
+
+            var contentType = "";
+            var extension = Path.GetExtension(fileName).Trim('.').ToLowerInvariant();
+            if (extension == "jpg")
+                contentType = "image/jpeg";
+            else if (extension == "pdf")
+                contentType = "application/pdf";
+            else
+                throw new Exception("Unknown content type of the file to upload.");
+
+            postDataWriter.Write("--" + boundaryString + "\r\n");
+            postDataWriter.Write("Content-Disposition: form-data; name=\"{0}\"; filename=\"{1}\"\r\n"
+                //+ "Content-Length: \"{2}\"\r\n"
+                                 + "Content-Type: {2}\r\n"
+                //+ "Content-Transfer-Encoding: binary\r\n\r\n"
+                , "files[]"
+                , fileName
+                , contentType
+                );
+            postDataWriter.Write("\r\n");
+            postDataWriter.Flush();
+
+
+            // Read the file
+            var fileStream = new FileStream(fileUrl, FileMode.Open, FileAccess.Read);
+            var buffer = new byte[1024];
+            int bytesRead = 0;
+            while ((bytesRead = fileStream.Read(buffer, 0, buffer.Length)) != 0)
+            {
+                postDataStream.Write(buffer, 0, bytesRead);
+            }
+            fileStream.Close();
+
+            postDataWriter.Write("\r\n--" + boundaryString + "--\r\n");
+            postDataWriter.Flush();
+
+            // Set the http request body content length
+            requestToServerEndpoint.ContentLength = postDataStream.Length;
+            //Debug.WriteLine("ContentLength: " + postDataStream.Length);
+
+            // Dump the post data from the memory stream to the request stream
+            Stream s = requestToServerEndpoint.GetRequestStream();
+
+            postDataStream.WriteTo(s);
+            postDataStream.Flush();
+            postDataStream.Close();
+
+
+            var response = (HttpWebResponse) requestToServerEndpoint.GetResponse();
+            Assert.That(response.StatusCode, Is.EqualTo(HttpStatusCode.OK));
+            var stream = response.GetResponseStream();
+            var streamReader = new StreamReader(stream);
+            var jsonTextReader = new JsonTextReader(streamReader);
+
+
+            var settings = new JsonSerializerSettings();
+
+            return JsonSerializer.Create(settings).Deserialize<TResponseContent>(jsonTextReader);
+        }
+
+        #endregion
     }
 }
