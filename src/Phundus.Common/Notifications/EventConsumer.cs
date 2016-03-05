@@ -1,10 +1,10 @@
 namespace Phundus.Common.Notifications
 {
-    public interface IConsumer
+    public interface IEventConsumer
     {
     }
 
-    public interface IConsumes<in TDomainEvent> : IConsumer
+    public interface IConsumes<in TDomainEvent> : IEventConsumer
     {
         void Consume(TDomainEvent e);
     }

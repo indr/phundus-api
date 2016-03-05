@@ -74,6 +74,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\CommonInstaller.cs" />
+    <Compile Include="Projecting\IEventConsumerFactory.cs" />
     <Compile Include="RedirectToConsume.cs" />
     <Compile Include="RedirectToWhen.cs" />
     <Compile Include="Messaging\MessagingInstaller.cs" />
@@ -129,10 +130,10 @@
     <Compile Include="Projecting\Installers.cs" />
     <Compile Include="Projecting\ProjectionBase.cs" />
     <Compile Include="Projecting\Application\ResetProjection.cs" />
-    <Compile Include="Projecting\ProjectionProcessorNotificationConsumer.cs" />
-    <Compile Include="Projecting\ProjectionProcessor.cs" />
+    <Compile Include="Projecting\EventConsumerNotificationListener.cs" />
+    <Compile Include="Projecting\NotificationToConsumersDispatcher.cs" />
     <Compile Include="Projecting\IProjection.cs" />
-    <Compile Include="Projecting\ProjectionUpdater.cs" />
+    <Compile Include="Projecting\StoredEventsProcessor.cs" />
     <Compile Include="Querying\QueryResult.cs" />
     <Compile Include="Projecting\RawJsonConverter.cs" />
     <Compile Include="ProviderUserKey.cs" />
@@ -144,11 +145,11 @@
     <Compile Include="Eventing\StoredEvent.cs" />
     <Compile Include="FriendlyUrl.cs" />
     <Compile Include="NotFoundException.cs" />
-    <Compile Include="Notifications\IConsumes.cs" />
+    <Compile Include="Notifications\EventConsumer.cs" />
     <Compile Include="Notifications\INotificationConsumerFactory.cs" />
     <Compile Include="Notifications\NotificationPublisher.cs" />
     <Compile Include="Notifications\IProcessedNotificationTrackerStore.cs" />
-    <Compile Include="Notifications\INotificationConsumer.cs" />
+    <Compile Include="Notifications\INotificationHandler.cs" />
     <Compile Include="Notifications\INotificationLogFactory.cs" />
     <Compile Include="Notifications\Notification.cs" />
     <Compile Include="Notifications\NotificationLog.cs" />

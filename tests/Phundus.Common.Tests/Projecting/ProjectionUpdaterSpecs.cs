@@ -32,7 +32,7 @@
         }
     }
 
-    public class projection_updater_concern : Observes<ProjectionUpdater>
+    public class projection_updater_concern : Observes<StoredEventsProcessor>
     {
         protected static IEventStore eventStore;
         protected static IProcessedNotificationTrackerStore trackerStore;
@@ -76,11 +76,11 @@
         }
     }
 
-    [Subject(typeof (ProjectionUpdater))]
+    [Subject(typeof (StoredEventsProcessor))]
     public class when_projection_updater_updates_projection : projection_updater_concern
     {
         private Because of = () =>
-            sut.Update(consumer);
+            sut.Process(consumer);
 
         private It should_tell_consumer_to_consume = () =>
         {
@@ -92,7 +92,7 @@
             trackerStore.received(x => x.TrackMostRecentProcessedNotificationId(tracker, maxNotificationId));
     }
 
-    [Subject(typeof (ProjectionUpdater))]
+    [Subject(typeof (StoredEventsProcessor))]
     public class when_max_notification_id_is_equal_to_most_recent_processed_notification_id : projection_updater_concern
     {
         private static bool returnValue;
@@ -101,13 +101,13 @@
             tracker.Track(maxNotificationId);
 
         private Because of = () =>
-            returnValue = sut.Update(consumer);
+            returnValue = sut.Process(consumer);
 
         private It should_return_false = () =>
             returnValue.ShouldBeFalse();
     }
 
-    [Subject(typeof (ProjectionUpdater))]
+    [Subject(typeof (StoredEventsProcessor))]
     public class when_difference_to_max_notification_id_is_greater_than_notifications_per_update :
         projection_updater_concern
     {
@@ -121,13 +121,13 @@
         };
 
         private Because of = () =>
-            returnValue = sut.Update(consumer);
+            returnValue = sut.Process(consumer);
 
         private It should_return_true = () =>
             returnValue.ShouldBeTrue();
     }
 
-    [Subject(typeof (ProjectionUpdater))]
+    [Subject(typeof (StoredEventsProcessor))]
     public class when_difference_to_max_notification_id_is_equal_to_notifications_per_update :
         projection_updater_concern
     {
@@ -135,13 +135,13 @@
 
         private Establish ctx = () =>
         {
-            tracker.Track(maxNotificationId - ProjectionUpdater.NotificationsPerUpdate);
+            tracker.Track(maxNotificationId - StoredEventsProcessor.NotificationsPerUpdate);
             eventStore.setup(x => x.AllStoredEventsBetween(Arg<long>.Is.Anything, Arg<long>.Is.Anything))
                 .Return(new StoredEvent[0]);
         };
 
         private Because of = () =>
-            returnValue = sut.Update(consumer);
+            returnValue = sut.Process(consumer);
 
         private It should_return_false = () =>
             returnValue.ShouldBeFalse();

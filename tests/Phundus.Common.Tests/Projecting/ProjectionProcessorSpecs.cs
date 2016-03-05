@@ -8,62 +8,61 @@
     using developwithpassion.specifications.rhinomocks;
     using Machine.Fakes;
     using Machine.Specifications;
-    using Rhino.Mocks;
 
-    public class projection_processor_concern : Observes<ProjectionProcessor>
+    public class projection_processor_concern : Observes<NotificationToConsumersDispatcher>
     {
-        protected static IProjectionFactory projectionFactory;
-        protected static IProjectionUpdater projectionUpdater;
+        protected static IEventConsumerFactory consumerFactory;
+        protected static IStoredEventsProcessor projectionUpdater;
         protected static IProcessedNotificationTrackerStore trackerStore;
 
-        protected static IConsumer projection1;
-        protected static IConsumer projection2;
+        protected static IEventConsumer consumer1;
+        protected static IEventConsumer consumer2;
 
         private Establish ctx = () =>
         {
-            projection1 = fake.an<IConsumer>();
-            projection2 = fake.an<IConsumer>();
+            consumer1 = fake.an<IEventConsumer>();
+            consumer2 = fake.an<IEventConsumer>();
 
-            projectionFactory = depends.on<IProjectionFactory>();
-            projectionFactory.setup(x => x.GetConsumers()).Return(new[] {projection1, projection2});
+            consumerFactory = depends.on<IEventConsumerFactory>();
+            consumerFactory.setup(x => x.GetConsumers()).Return(new[] {consumer1, consumer2});
 
-            projectionUpdater = depends.on<IProjectionUpdater>();            
+            projectionUpdater = depends.on<IStoredEventsProcessor>();
             trackerStore = depends.on<IProcessedNotificationTrackerStore>();
         };
     }
 
-    [Subject(typeof (ProjectionProcessor))]
+    [Subject(typeof (NotificationToConsumersDispatcher))]
     public class when_updating : projection_processor_concern
     {
         private Establish ctx = () =>
-            projectionFactory.setup(x => x.FindConsumer("typeName")).Return(projection1);
+            consumerFactory.setup(x => x.FindConsumer("typeName")).Return(consumer1);
 
         private Because of = () =>
             sut.Update("typeName");
 
         private It should_tell_projection_update = () =>
-            projectionUpdater.received(x => x.Update(projection1));
+            projectionUpdater.received(x => x.Process(consumer1));
     }
 
-    [Subject(typeof (ProjectionProcessor))]
+    [Subject(typeof (NotificationToConsumersDispatcher))]
     public class when_projection_updater_updates_returns_true_as_not_done : projection_processor_concern
     {
         private static int calls;
 
         private Establish ctx = () =>
         {
-            projectionFactory.setup(x => x.FindConsumer("typeName")).Return(projection1);
-            projectionUpdater.WhenToldTo(x => x.Update(projection1)).Return(() => ++calls < 2);
+            consumerFactory.setup(x => x.FindConsumer("typeName")).Return(consumer1);
+            projectionUpdater.WhenToldTo(x => x.Process(consumer1)).Return(() => ++calls < 2);
         };
 
         private Because of = () =>
             sut.Update("typeName");
 
         private It should_call_update_twice = () =>
-            projectionUpdater.received(x => x.Update(projection1)).Twice();
+            projectionUpdater.received(x => x.Process(consumer1)).Twice();
     }
 
-    [Subject(typeof (ProjectionProcessor))]
+    [Subject(typeof (NotificationToConsumersDispatcher))]
     public class when_projection_update_throws_exception : projection_processor_concern
     {
         private static Exception exception;
@@ -71,32 +70,32 @@
         private Establish ctx = () =>
         {
             exception = new Exception("Error message");
-            projectionFactory.setup(x => x.FindConsumer(projection1.GetType().FullName)).Return(projection1);
-            projectionUpdater.setup(x => x.Update(projection1)).Throw(exception);
+            consumerFactory.setup(x => x.FindConsumer(consumer1.GetType().FullName)).Return(consumer1);
+            projectionUpdater.setup(x => x.Process(consumer1)).Throw(exception);
         };
 
         private Because of = () =>
-            sut.Update(projection1.GetType().FullName);
+            sut.Update(consumer1.GetType().FullName);
 
         private It should_track_exception = () =>
-            trackerStore.received(x => x.TrackException(projection1.GetType().FullName, exception));
+            trackerStore.received(x => x.TrackException(consumer1.GetType().FullName, exception));
     }
 
-    [Subject(typeof (ProjectionProcessor))]
+    [Subject(typeof (NotificationToConsumersDispatcher))]
     public class when_handling_notification : projection_processor_concern
     {
         private Because of = () =>
-            sut.Handle(new Notification(1234, new DomainEvent(), 1));
+            sut.Process(new Notification(1234, new DomainEvent(), 1));
 
         private It should_tell_projection_update = () =>
         {
-            projectionUpdater.received(x => x.Update(projection1));
-            projectionUpdater.received(x => x.Update(projection2));
+            projectionUpdater.received(x => x.Process(consumer1));
+            projectionUpdater.received(x => x.Process(consumer2));
         };
     }
 
 
-    [Subject(typeof (ProjectionProcessor))]
+    [Subject(typeof (NotificationToConsumersDispatcher))]
     public class when_projection_processor_processes_missed_notification_ : projection_processor_concern
     {
         private Because of = () =>
@@ -104,8 +103,8 @@
 
         private It should_tell_projection_update = () =>
         {
-            projectionUpdater.received(x => x.Update(projection1));
-            projectionUpdater.received(x => x.Update(projection2));
+            projectionUpdater.received(x => x.Process(consumer1));
+            projectionUpdater.received(x => x.Process(consumer2));
         };
     }
 }

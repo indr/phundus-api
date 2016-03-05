@@ -2,6 +2,6 @@
 {
     public interface INotificationConsumerFactory
     {
-        INotificationConsumer[] GetNotificationConsumers();
+        INotificationHandler[] GetNotificationConsumers();
     }
 }

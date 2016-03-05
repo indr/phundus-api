@@ -1,6 +1,6 @@
 namespace Phundus.Common.Notifications
 {
-    public interface INotificationConsumer
+    public interface INotificationHandler
     {
         void Handle(Notification notification);
 
