@@ -16,14 +16,20 @@ namespace Phundus.Common
 
         public static void InvokeEventOptional(object instance, object e)
         {
-            MethodInfo info;
-            var type = e.GetType();
-
             var cache = GetCache(instance.GetType());
-            if (!cache.TryGetValue(type, out info))
+
+            MethodInfo info = null;
+            var type = e.GetType();
+            while (type != null && type != typeof(Object))
             {
-                return;
+                if (cache.TryGetValue(type, out info))
+                    break;
+                type = type.BaseType;
             }
+
+            if (info == null)
+                return;
+
             try
             {
                 info.Invoke(instance, new[] {e});
