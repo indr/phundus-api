@@ -1,13 +1,13 @@
-namespace Phundus.Common.Projecting
+namespace Phundus.Common.Notifications
 {
     using System;
     using Castle.Core.Internal;
-    using Notifications;
 
     public interface INotificationToConsumersDispatcher
     {
         [Obsolete]
         void Update(string typeName);
+
         void Process(Notification notification);
         void ProcessMissedNotifications();
     }
@@ -19,7 +19,8 @@ namespace Phundus.Common.Projecting
         private readonly IStoredEventsProcessor _storedEventsProcessor;
         private readonly IProcessedNotificationTrackerStore _trackerStore;
 
-        public NotificationToConsumersDispatcher(IEventConsumerFactory consumerFactory, IStoredEventsProcessor storedEventsProcessor,
+        public NotificationToConsumersDispatcher(IEventConsumerFactory consumerFactory,
+            IStoredEventsProcessor storedEventsProcessor,
             IProcessedNotificationTrackerStore trackerStore)
         {
             if (consumerFactory == null) throw new ArgumentNullException("consumerFactory");

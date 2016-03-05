@@ -1,7 +1,6 @@
-namespace Phundus.Common.Projecting
+namespace Phundus.Common.Notifications
 {
     using System;
-    using Notifications;
 
     public class EventConsumerNotificationListener : INotificationHandler
     {

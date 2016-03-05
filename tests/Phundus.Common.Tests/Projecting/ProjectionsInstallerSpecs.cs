@@ -1,6 +1,7 @@
 ﻿namespace Phundus.Common.Tests.Projecting
 {
     using Common.Projecting;
+    using Common.Projecting.Installers;
     using Machine.Specifications;
 
     [Subject(typeof (ProjectionsInstaller))]

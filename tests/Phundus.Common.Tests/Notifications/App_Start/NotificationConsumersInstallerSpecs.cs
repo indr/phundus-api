@@ -2,7 +2,7 @@
 {
     using System;
     using Common.Notifications;
-    using Common.Notifications.App_Start;
+    using Common.Notifications.Installers;
     using Machine.Specifications;
 
     public class TestNotificationHandler : INotificationHandler
@@ -18,9 +18,9 @@
         }
     }
 
-    [Subject(typeof (NotificationConsumersInstaller))]
+    [Subject(typeof (NotificationHandlerInstaller))]
     public class NotificationConsumersInstallerSpecs :
-        assembly_installer_concern<NotificationConsumersInstaller, NotificationConsumersInstallerSpecs>
+        assembly_installer_concern<NotificationHandlerInstaller, NotificationConsumersInstallerSpecs>
     {
         private It should_resolve_to_TestNotificationConsumer = () =>
             resolve<INotificationHandler>().ShouldBeOfExactType<TestNotificationHandler>();

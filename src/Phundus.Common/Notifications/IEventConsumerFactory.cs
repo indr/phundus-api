@@ -1,7 +1,5 @@
-﻿namespace Phundus.Common.Projecting
+﻿namespace Phundus.Common.Notifications
 {
-    using Notifications;
-
     public interface IEventConsumerFactory
     {
         IEventConsumer FindConsumer(string fullName);

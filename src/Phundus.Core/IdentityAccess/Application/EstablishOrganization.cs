@@ -1,6 +1,7 @@
 ﻿namespace Phundus.IdentityAccess.Application
 {
     using System;
+    using Castle.Transactions;
     using Common.Commanding;
     using Common.Domain.Model;
     using Common.Eventing;
@@ -45,6 +46,7 @@
             _userRepository = userRepository;
         }
 
+        [Transaction]
         public void Handle(EstablishOrganization command)
         {
             var founder = _userInRole.Founder(command.InitiatorId);

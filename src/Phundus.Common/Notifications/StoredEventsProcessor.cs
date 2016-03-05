@@ -1,9 +1,8 @@
-namespace Phundus.Common.Projecting
+namespace Phundus.Common.Notifications
 {
     using System;
     using Castle.Transactions;
     using Eventing;
-    using Notifications;
 
     public interface IStoredEventsProcessor
     {

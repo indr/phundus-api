@@ -3,6 +3,7 @@
     using System.Linq;
     using Castle.MicroKernel;
     using Common.Projecting;
+    using Common.Projecting.Installers;
     using developwithpassion.specifications.extensions;
     using Machine.Specifications;
 

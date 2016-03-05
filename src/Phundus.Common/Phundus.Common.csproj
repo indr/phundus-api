@@ -74,11 +74,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\CommonInstaller.cs" />
-    <Compile Include="Projecting\IEventConsumerFactory.cs" />
+    <Compile Include="Notifications\IEventConsumerFactory.cs" />
+    <Compile Include="Notifications\Installers\EventConsumerInstaller.cs" />
+    <Compile Include="Projecting\Installers\ProjectingInstaller.cs" />
     <Compile Include="RedirectToConsume.cs" />
     <Compile Include="RedirectToWhen.cs" />
     <Compile Include="Messaging\MessagingInstaller.cs" />
-    <Compile Include="Notifications\App_Start\NotificationConsumersInstaller.cs" />
+    <Compile Include="Notifications\Installers\NotificationHandlerInstaller.cs" />
     <Compile Include="AssertionConcern.cs" />
     <Compile Include="AuthorizationException.cs" />
     <Compile Include="Commanding\AutoReleaseCommandHandlerInterceptor.cs" />
@@ -123,17 +125,17 @@
     <Compile Include="Mailing\MailingInstaller.cs" />
     <Compile Include="Messaging\FakeBus.cs" />
     <Compile Include="Messaging\IBus.cs" />
-    <Compile Include="Notifications\App_Start\NotificationsInstaller.cs" />
+    <Compile Include="Notifications\Installers\NotificationsInstaller.cs" />
     <Compile Include="Projecting\Application\UpdateProjection.cs" />
     <Compile Include="Projecting\Application\RecreateProjection.cs" />
     <Compile Include="Projecting\ProjectionFactory.cs" />
-    <Compile Include="Projecting\Installers.cs" />
+    <Compile Include="Projecting\Installers\ProjectionsInstaller.cs" />
     <Compile Include="Projecting\ProjectionBase.cs" />
     <Compile Include="Projecting\Application\ResetProjection.cs" />
-    <Compile Include="Projecting\EventConsumerNotificationListener.cs" />
-    <Compile Include="Projecting\NotificationToConsumersDispatcher.cs" />
+    <Compile Include="Notifications\EventConsumerNotificationListener.cs" />
+    <Compile Include="Notifications\NotificationToConsumersDispatcher.cs" />
     <Compile Include="Projecting\IProjection.cs" />
-    <Compile Include="Projecting\StoredEventsProcessor.cs" />
+    <Compile Include="Notifications\StoredEventsProcessor.cs" />
     <Compile Include="Querying\QueryResult.cs" />
     <Compile Include="Projecting\RawJsonConverter.cs" />
     <Compile Include="ProviderUserKey.cs" />
