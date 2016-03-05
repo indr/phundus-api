@@ -3,6 +3,7 @@
     using System;
     using System.IO;
     using Authorization;
+    using Castle.Transactions;
     using Common.Commanding;
     using Common.Domain.Model;
     using Integration.IdentityAccess;
@@ -50,6 +51,7 @@
             _articleRepository = articleRepository;
         }
 
+        [Transaction]
         public void Handle(RemoveImage command)
         {
             var initiator = _initiatorService.GetById(command.InitiatorId);

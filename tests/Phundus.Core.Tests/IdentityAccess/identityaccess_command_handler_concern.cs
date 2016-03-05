@@ -12,8 +12,8 @@ namespace Phundus.Tests.IdentityAccess
     using Phundus.IdentityAccess.Users.Services;
 
     public class identityaccess_command_handler_concern<TCommand, THandler> :
-        command_handler_concern<TCommand, THandler>
-        where THandler : class, IHandleCommand<TCommand>
+        command_handler_concern<TCommand, THandler> where THandler : class, IHandleCommand<TCommand>
+        where TCommand : ICommand
     {
         protected static identityaccess_factory make;
 

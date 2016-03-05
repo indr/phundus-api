@@ -57,7 +57,7 @@
             }
         }
 
-        protected void Dispatch<TCommand>(TCommand command)
+        protected void Dispatch<TCommand>(TCommand command) where TCommand : ICommand
         {
             Dispatcher.Dispatch(command);
         }
@@ -72,7 +72,12 @@
             return Request.CreateResponse(HttpStatusCode.Accepted);
         }
 
-        protected HttpResponseMessage Ok(object content)
+        protected HttpResponseMessage Created<T>(T content)
+        {
+            return Request.CreateResponse(HttpStatusCode.Created, content);
+        }
+
+        protected HttpResponseMessage Ok<T>(T content)
         {
             return Request.CreateResponse(HttpStatusCode.OK, content);
         }

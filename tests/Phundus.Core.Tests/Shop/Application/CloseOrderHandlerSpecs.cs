@@ -15,11 +15,7 @@
             theOrder = make.Order(theLessor);
             orderRepository.setup(x => x.GetById(theOrder.OrderId)).Return(theOrder);
 
-            command = new CloseOrder
-            {
-                InitiatorId = theInitiatorId,
-                OrderId = theOrder.OrderId
-            };
+            command = new CloseOrder(theInitiatorId, theOrder.OrderId);
         };
 
         public It should_close_order =

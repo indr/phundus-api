@@ -2,20 +2,20 @@
 {
     using System;
     using Authorization;
+    using Castle.Transactions;
     using Common.Commanding;
     using Common.Domain.Model;
     using Integration.IdentityAccess;
     using Model.Articles;
     using Phundus.Authorization;
 
-    public class UpdateArticle
+    public class UpdateArticle : ICommand
     {
         public UpdateArticle(InitiatorId initiatorId, ArticleId articleId, string name, string brand, string color,
             int grossStock)
         {
             if (initiatorId == null) throw new ArgumentNullException("initiatorId");
             if (name == null) throw new ArgumentNullException("name");
-
             InitiatorId = initiatorId;
             ArticleId = articleId;
             Name = name;
@@ -26,7 +26,6 @@
 
         public InitiatorId InitiatorId { get; protected set; }
         public ArticleId ArticleId { get; protected set; }
-
         public string Name { get; protected set; }
         public string Brand { get; protected set; }
         public string Color { get; protected set; }
@@ -50,6 +49,7 @@
             _articleRepository = articleRepository;
         }
 
+        [Transaction]
         public void Handle(UpdateArticle command)
         {
             var initiator = _initiatorService.GetById(command.InitiatorId);

@@ -5,7 +5,6 @@
     using System.Web.Http;
     using AttributeRouting;
     using AttributeRouting.Web.Http;
-    using Castle.Transactions;
     using IdentityAccess.Application;
     using Newtonsoft.Json;
 
@@ -14,7 +13,6 @@
     {
         [POST("")]
         [AllowAnonymous]
-        [Transaction]
         public virtual HttpResponseMessage Post(ValidatePostRequestContent requestContent)
         {
             if (requestContent == null) throw new ArgumentNullException("requestContent");

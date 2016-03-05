@@ -1,6 +1,7 @@
 ﻿namespace Phundus.IdentityAccess.Application
 {
     using System;
+    using Castle.Transactions;
     using Common.Commanding;
     using Common.Domain.Model;
     using Model.Organizations;
@@ -26,15 +27,15 @@
                 throw new ArgumentOutOfRangeException("plan");
         }
 
-        public InitiatorId InitiatorId { get; set; }
-        public OrganizationId OrganizationId { get; set; }
-        public OrganizationPlan Plan { get; set; }
+        public InitiatorId InitiatorId { get; protected set; }
+        public OrganizationId OrganizationId { get; protected set; }
+        public OrganizationPlan Plan { get; protected set; }
     }
 
     public class ChangeOrganizationPlanHandler : IHandleCommand<ChangeOrganizationPlan>
     {
-        private readonly IUserInRole _userInRole;
         private readonly IOrganizationRepository _organizationRepository;
+        private readonly IUserInRole _userInRole;
 
         public ChangeOrganizationPlanHandler(IUserInRole userInRole, IOrganizationRepository organizationRepository)
         {
@@ -44,6 +45,7 @@
             _organizationRepository = organizationRepository;
         }
 
+        [Transaction]
         public void Handle(ChangeOrganizationPlan command)
         {
             var admin = _userInRole.Admin(command.InitiatorId);

@@ -1,13 +1,14 @@
 ﻿namespace Phundus.Inventory.Application
 {
     using System;
+    using Castle.Transactions;
     using Common.Commanding;
     using Common.Domain.Model;
-    using Inventory.Model;
+    using Model;
     using Stores.Model;
     using Stores.Repositories;
 
-    public class OpenStore
+    public class OpenStore : ICommand
     {
         public OpenStore(InitiatorId initiatorId, OwnerId ownerId, StoreId storeId)
         {
@@ -20,9 +21,9 @@
             StoreId = storeId;
         }
 
-        public InitiatorId InitiatorId { get; private set; }
-        public OwnerId OwnerId { get; private set; }
-        public StoreId StoreId { get; private set; }
+        public InitiatorId InitiatorId { get; protected set; }
+        public OwnerId OwnerId { get; protected set; }
+        public StoreId StoreId { get; protected set; }
     }
 
     public class OpenStoreHandler : IHandleCommand<OpenStore>
@@ -36,12 +37,12 @@
             if (storeRepository == null) throw new ArgumentNullException("storeRepository");
             if (userInRole == null) throw new ArgumentNullException("userInRole");
             if (ownerService == null) throw new ArgumentNullException("ownerService");
-
             _storeRepository = storeRepository;
             _userInRole = userInRole;
             _ownerService = ownerService;
         }
 
+        [Transaction]
         public void Handle(OpenStore command)
         {
             var manager = _userInRole.Manager(command.InitiatorId, command.OwnerId);

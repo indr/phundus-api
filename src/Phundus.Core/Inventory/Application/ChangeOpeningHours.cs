@@ -1,12 +1,13 @@
 namespace Phundus.Inventory.Application
 {
     using System;
+    using Castle.Transactions;
     using Common.Commanding;
     using Common.Domain.Model;
-    using Inventory.Model;
+    using Model;
     using Stores.Repositories;
 
-    public class ChangeOpeningHours
+    public class ChangeOpeningHours : ICommand
     {
         public ChangeOpeningHours(InitiatorId initiatorId, StoreId storeId, string openingHours)
         {
@@ -33,11 +34,11 @@ namespace Phundus.Inventory.Application
         {
             if (storeRepository == null) throw new ArgumentNullException("storeRepository");
             if (userInRole == null) throw new ArgumentNullException("userInRole");
-
             _storeRepository = storeRepository;
             _userInRole = userInRole;
         }
 
+        [Transaction]
         public void Handle(ChangeOpeningHours command)
         {
             var store = _storeRepository.GetById(command.StoreId);

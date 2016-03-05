@@ -7,7 +7,7 @@
     using Model.Organizations;
     using Model.Users;
 
-    public class ApplyForMembership
+    public class ApplyForMembership : ICommand
     {
         public ApplyForMembership(InitiatorId initiatorId, MembershipApplicationId applicationId, UserId applicantId,
             OrganizationId organizationId)
@@ -16,7 +16,6 @@
             if (applicationId == null) throw new ArgumentNullException("applicationId");
             if (applicantId == null) throw new ArgumentNullException("applicantId");
             if (organizationId == null) throw new ArgumentNullException("organizationId");
-
             InitiatorId = initiatorId;
             ApplicationId = applicationId;
             ApplicantId = applicantId;

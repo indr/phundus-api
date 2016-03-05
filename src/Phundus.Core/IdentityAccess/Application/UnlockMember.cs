@@ -1,12 +1,13 @@
 ﻿namespace Phundus.IdentityAccess.Application
 {
     using System;
+    using Castle.Transactions;
     using Common.Commanding;
     using Common.Domain.Model;
     using Model.Organizations;
     using Users.Services;
 
-    public class UnlockMember
+    public class UnlockMember : ICommand
     {
         public UnlockMember(InitiatorId initiatorId, OrganizationId organizationId, UserId memberId)
         {
@@ -36,6 +37,7 @@
             _organizationRepository = organizationRepository;
         }
 
+        [Transaction]
         public void Handle(UnlockMember command)
         {
             var manager = _userInRole.Manager(command.InitiatorId, command.OrganizationId);

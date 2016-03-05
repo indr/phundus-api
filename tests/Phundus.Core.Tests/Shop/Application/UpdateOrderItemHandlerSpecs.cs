@@ -28,15 +28,9 @@
 
             newFromUtc = DateTime.UtcNow.AddDays(1);
             newToUtc = DateTime.UtcNow.AddDays(2);
-            command = new UpdateOrderItem
-            {
-                InitiatorId = theInitiatorId,
-                OrderId = theOrder.OrderId,
-                OrderItemId = theOrderItemId.Id,
-                Quantity = newQuantity,
-                FromUtc = newFromUtc,
-                ToUtc = newToUtc
-            };
+
+            command = new UpdateOrderItem(theInitiatorId, theOrder.OrderId, theOrderItemId.Id,
+                new Period(newFromUtc, newToUtc), newQuantity, 0.0m);
         };
 
         private It should_save_to_repository = () =>

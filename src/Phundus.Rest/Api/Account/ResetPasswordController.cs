@@ -4,7 +4,6 @@
     using System.Web.Http;
     using AttributeRouting;
     using AttributeRouting.Web.Http;
-    using Castle.Transactions;
     using IdentityAccess.Application;
     using Newtonsoft.Json;
 
@@ -13,12 +12,11 @@
     {
         [POST("")]
         [AllowAnonymous]
-        [Transaction]
         public virtual HttpResponseMessage Post(ResetPasswordPostRequestContent requestContent)
         {
             Dispatch(new ResetPassword(requestContent.EmailAddress));
 
-            return NoContent();
+            return Accepted();
         }
     }
 

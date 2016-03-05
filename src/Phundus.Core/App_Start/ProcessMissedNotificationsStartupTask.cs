@@ -11,13 +11,12 @@
         public ProcessMissedNotificationsStartupTask(INotificationHandler notificationHandler)
         {
             if (notificationHandler == null) throw new ArgumentNullException("notificationHandler");
-
             _notificationHandler = notificationHandler;
         }
 
         public void Run()
         {
-            //_notificationConsumer.ProcessMissedNotifications();
+            _notificationHandler.ProcessMissedNotifications();
             _notificationHandler = null;
         }
 

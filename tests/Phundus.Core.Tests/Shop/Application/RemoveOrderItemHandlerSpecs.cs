@@ -22,12 +22,7 @@
             theOrder.AddItem(theManager, orderLineId, article, Period.FromNow(1), 1);
             orderRepository.setup(x => x.GetById(theOrder.OrderId)).Return(theOrder);
 
-            command = new RemoveOrderItem
-            {
-                InitiatorId = theInitiatorId,
-                OrderId = theOrder.OrderId,
-                OrderItemId = orderLineId.Id
-            };
+            command = new RemoveOrderItem(theInitiatorId, theOrder.OrderId, orderLineId.Id);
         };
 
         public It should_remove_order_item =

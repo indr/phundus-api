@@ -1,9 +1,10 @@
 namespace Phundus.Shop.Application
 {
     using System;
+    using Castle.Transactions;
     using Common.Commanding;
     using Common.Domain.Model;
-    using Shop.Model;
+    using Model;
 
     public class RemoveCartItem : ICommand
     {
@@ -28,6 +29,7 @@ namespace Phundus.Shop.Application
             _cartRepository = cartRepository;
         }
 
+        [Transaction]
         public void Handle(RemoveCartItem command)
         {
             var cart = _cartRepository.FindByUserGuid(new UserId(command.InitiatorId.Id));

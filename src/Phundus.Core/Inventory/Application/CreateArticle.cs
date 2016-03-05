@@ -3,6 +3,7 @@
     using System;
     using Articles.Model;
     using Authorization;
+    using Castle.Transactions;
     using Common;
     using Common.Commanding;
     using Common.Domain.Model;
@@ -13,7 +14,7 @@
     using Phundus.Authorization;
     using Stores.Repositories;
 
-    public class CreateArticle
+    public class CreateArticle : ICommand
     {
         public CreateArticle(InitiatorId initiatorId, OwnerId ownerId, StoreId storeId, string name, int grossStock)
         {
@@ -21,7 +22,6 @@
             AssertionConcern.AssertArgumentNotNull(ownerId, "OwnerId must be provided.");
             AssertionConcern.AssertArgumentNotNull(storeId, "StoreId must be provided.");
             AssertionConcern.AssertArgumentNotNull(name, "Name must be provided.");
-
             InitiatorId = initiatorId;
             OwnerId = ownerId;
             Name = name;
@@ -37,7 +37,6 @@
             if (articleId == null) throw new ArgumentNullException("articleId");
             if (articleShortId == null) throw new ArgumentNullException("articleShortId");
             if (name == null) throw new ArgumentNullException("name");
-
             InitiatorId = initiatorId;
             OwnerId = ownerId;
             StoreId = storeId;
@@ -77,7 +76,6 @@
             if (articleRepository == null) throw new ArgumentNullException("articleRepository");
             if (storeRepository == null) throw new ArgumentNullException("storeRepository");
             if (ownerService == null) throw new ArgumentNullException("ownerService");
-
             _authorize = authorize;
             _initiatorService = initiatorService;
             _articleRepository = articleRepository;
@@ -85,6 +83,7 @@
             _ownerService = ownerService;
         }
 
+        [Transaction]
         public void Handle(CreateArticle command)
         {
             var initiator = _initiatorService.GetById(command.InitiatorId);

@@ -2,6 +2,7 @@
 {
     using System;
     using System.IO;
+    using Castle.Transactions;
     using Common.Commanding;
     using Common.Domain.Model;
     using IdentityAccess.Projections;
@@ -18,11 +19,7 @@
             if (fileType == null) throw new ArgumentNullException("fileType");
             if (fileSize <= 0) throw new ArgumentOutOfRangeException("fileSize");
 
-            if (fileName.IndexOfAny(Path.GetInvalidFileNameChars()) >= 0)
-                throw new ArgumentException(
-                    String.Format(
-                        @"The file name ""{0}"" contains invalid characters. Did you mistakenly provide path information?",
-                        fileName), "fileName");
+            AssertNoInvalidFileNameChars(fileName);
 
             InitiatorId = initiatorId;
             ArticleId = articleId;
@@ -37,26 +34,33 @@
         public string FileName { get; protected set; }
         public string FileType { get; protected set; }
 
-        public int ResultingImageId { get; set; }
+        private void AssertNoInvalidFileNameChars(string fileName)
+        {
+            if (fileName.IndexOfAny(Path.GetInvalidFileNameChars()) >= 0)
+                throw new ArgumentException(String.Format(
+                    @"The file name ""{0}"" contains invalid characters. Did you mistakenly provide path information?",
+                    fileName), "fileName");
+        }
     }
 
     public class AddImageHandler : IHandleCommand<AddImage>
     {
         private readonly IArticleRepository _articleRepository;
-        private readonly IMemberInRole _memberInRole;
         private readonly IInitiatorService _initiatorService;
+        private readonly IMemberInRole _memberInRole;
 
-        public AddImageHandler(IMemberInRole memberInRole, IInitiatorService initiatorService, IArticleRepository articleRepository)
+        public AddImageHandler(IMemberInRole memberInRole, IInitiatorService initiatorService,
+            IArticleRepository articleRepository)
         {
             if (memberInRole == null) throw new ArgumentNullException("memberInRole");
             if (initiatorService == null) throw new ArgumentNullException("initiatorService");
             if (articleRepository == null) throw new ArgumentNullException("articleRepository");
-
             _memberInRole = memberInRole;
             _initiatorService = initiatorService;
             _articleRepository = articleRepository;
         }
 
+        [Transaction]
         public void Handle(AddImage command)
         {
             var initiator = _initiatorService.GetById(command.InitiatorId);
@@ -64,8 +68,7 @@
 
             _memberInRole.ActiveManager(article.Owner.OwnerId.Id, command.InitiatorId);
 
-            var image = article.AddImage(initiator, command.FileName, command.FileType, command.FileSize);
-            command.ResultingImageId = image.Id;
+            article.AddImage(initiator, command.FileName, command.FileType, command.FileSize);
         }
     }
 }

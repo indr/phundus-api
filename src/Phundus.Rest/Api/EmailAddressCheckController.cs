@@ -4,7 +4,6 @@ namespace Phundus.Rest.Api
     using System.Web.Http;
     using AttributeRouting;
     using AttributeRouting.Web.Http;
-    using Castle.Transactions;
     using Integration.IdentityAccess;
     using Newtonsoft.Json;
 
@@ -22,7 +21,6 @@ namespace Phundus.Rest.Api
 
         [POST("")]
         [AllowAnonymous]
-        [Transaction]
         public virtual EmailAddressCheckPostOkResponseContent Post(EmailAddressCheckPostRequestContent requestContent)
         {
             var isTaken = _usersQueries.IsEmailAddressTaken(requestContent.EmailAddress);

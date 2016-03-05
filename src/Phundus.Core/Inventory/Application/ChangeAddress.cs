@@ -1,19 +1,19 @@
 namespace Phundus.Inventory.Application
 {
     using System;
+    using Castle.Transactions;
     using Common.Commanding;
     using Common.Domain.Model;
-    using Inventory.Model;
+    using Model;
     using Stores.Repositories;
 
-    public class ChangeAddress
+    public class ChangeAddress : ICommand
     {
         public ChangeAddress(InitiatorId initiatorId, StoreId storeId, string address)
         {
             if (initiatorId == null) throw new ArgumentNullException("initiatorId");
             if (storeId == null) throw new ArgumentNullException("storeId");
             if (address == null) throw new ArgumentNullException("address");
-
             InitatorId = initiatorId;
             StoreId = storeId;
             Address = address;
@@ -33,11 +33,11 @@ namespace Phundus.Inventory.Application
         {
             if (storeRepository == null) throw new ArgumentNullException("storeRepository");
             if (userInRole == null) throw new ArgumentNullException("userInRole");
-
             _storeRepository = storeRepository;
             _userInRole = userInRole;
         }
 
+        [Transaction]
         public void Handle(ChangeAddress command)
         {
             var store = _storeRepository.GetById(command.StoreId);

@@ -1,6 +1,7 @@
 ﻿namespace Phundus.Shop.Application
 {
     using System;
+    using Castle.Transactions;
     using Common.Commanding;
     using Common.Domain.Model;
     using Shop.Model;
@@ -26,6 +27,7 @@
             _cartRepository = cartRepository;
         }
 
+        [Transaction]
         public void Handle(ClearCart command)
         {
             var cart = _cartRepository.FindByUserGuid(new UserId(command.InitiatorId.Id));

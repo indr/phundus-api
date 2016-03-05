@@ -1,6 +1,7 @@
 ﻿namespace Phundus.IdentityAccess.Application
 {
     using System;
+    using Castle.Transactions;
     using Common.Commanding;
     using Common.Domain.Model;
     using Integration.IdentityAccess;
@@ -49,6 +50,7 @@
 
         public IOrganizationRepository Repository { get; set; }
 
+        [Transaction]
         public void Handle(ChangeOrganizationContactDetails command)
         {
             var initiator = InitiatorService.GetById(command.InitiatorId);

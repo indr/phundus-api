@@ -17,11 +17,7 @@
             theOrder = make.Order(theLessor);
             orderRepository.setup(x => x.GetById(theOrder.OrderId)).Return(theOrder);
 
-            command = new ApproveOrder
-            {
-                InitiatorId = theInitiatorId,
-                OrderId = theOrder.OrderId
-            };
+            command = new ApproveOrder(theInitiatorId, theOrder.OrderId);
         };
 
         public It should_approve_order =

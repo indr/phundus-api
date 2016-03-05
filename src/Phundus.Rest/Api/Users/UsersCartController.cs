@@ -37,7 +37,6 @@ namespace Phundus.Rest.Api.Users
         }
 
         [DELETE("")]
-        [Transaction]
         public virtual HttpResponseMessage Delete(Guid userId)
         {
             if (userId != CurrentUserId.Id)
@@ -48,27 +47,24 @@ namespace Phundus.Rest.Api.Users
             return NoContent();
         }
 
-        [POST("items")]
-        [Transaction]
+        [POST("items")]        
         public virtual UsersCartItemsPostOkResponseContent Post(Guid userId,
-            UsersCartItemsPostRequestContent requestContent)
+            UsersCartItemsPostRequestContent rq)
         {
             if (userId != CurrentUserId.Id)
                 throw new ArgumentException("userId");
 
-            var command = new AddArticleToCart(CurrentUserId, new ArticleId(requestContent.ArticleGuid),
-                requestContent.FromUtc, requestContent.ToUtc,
-                requestContent.Quantity);
-            Dispatch(command);
+            var cartItemId = new CartItemId();
+            Dispatch(new AddArticleToCart(CurrentUserId, cartItemId, new ArticleId(rq.ArticleGuid),
+                rq.FromUtc, rq.ToUtc, rq.Quantity));
 
             return new UsersCartItemsPostOkResponseContent
             {
-                CartItemId = command.ResultingCartItemId.Id
+                CartItemId = cartItemId.Id
             };
         }
 
-        [PATCH("items/{itemId}")]
-        [Transaction]
+        [PATCH("items/{itemId}")]        
         public virtual HttpResponseMessage Patch(Guid userId, Guid itemId,
             UsersCartPatchRequestContent requestContent)
         {
@@ -81,9 +77,8 @@ namespace Phundus.Rest.Api.Users
 
             return NoContent();
         }
-
-        [DELETE("items/{itemId}")]
-        [Transaction]
+        
+        [DELETE("items/{itemId}")]        
         public virtual HttpResponseMessage Delete(Guid userId, Guid itemId)
         {
             if (userId != CurrentUserId.Id)

@@ -21,8 +21,7 @@ namespace Phundus.Rest.Api
         }
 
         [POST("")]
-        [AllowAnonymous]
-        [Transaction]
+        [AllowAnonymous]        
         public virtual UsernameCheckPostOkResponseContent Post(UsernameCheckPostRequestContent requestContent)
         {
             var user = _usersQueries.FindByUsername(requestContent.Username);

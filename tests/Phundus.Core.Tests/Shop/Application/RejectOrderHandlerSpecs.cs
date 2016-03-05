@@ -15,11 +15,7 @@
             theOrder = make.Order(theLessor);
             orderRepository.setup(x => x.GetById(theOrder.OrderId)).Return(theOrder);
 
-            command = new RejectOrder
-            {
-                InitiatorId = theInitiatorId,
-                OrderId = theOrder.OrderId
-            };
+            command = new RejectOrder(theInitiatorId, theOrder.OrderId);
         };
 
         public It should_reject_order =

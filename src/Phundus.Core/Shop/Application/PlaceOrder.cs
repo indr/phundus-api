@@ -3,6 +3,7 @@
     using System;
     using System.Linq;
     using Authorization;
+    using Castle.Transactions;
     using Common;
     using Common.Commanding;
     using Common.Domain.Model;
@@ -54,7 +55,6 @@
             if (lessorService == null) throw new ArgumentNullException("lessorService");
             if (lesseeService == null) throw new ArgumentNullException("lesseeService");
             if (articleService == null) throw new ArgumentNullException("articleService");
-
             _authorize = authorize;
             _initiatorService = initiatorService;
             _cartRepository = cartRepository;
@@ -64,6 +64,7 @@
             _articleService = articleService;
         }
 
+        [Transaction]
         public void Handle(PlaceOrder command)
         {
             var cart = _cartRepository.GetByUserGuid(new UserId(command.InitiatorId.Id));

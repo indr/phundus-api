@@ -25,9 +25,8 @@
 
         public OrganizationsController(IOrganizationQueries organizationQueries, IStoresQueries storesQueries)
         {
-            AssertionConcern.AssertArgumentNotNull(organizationQueries, "OrganizationQueries must be provided.");
-            AssertionConcern.AssertArgumentNotNull(storesQueries, "StoreQueries must be provided.");
-
+            if (organizationQueries == null) throw new ArgumentNullException("organizationQueries");
+            if (storesQueries == null) throw new ArgumentNullException("storesQueries");
             _organizationQueries = organizationQueries;
             _storesQueries = storesQueries;
         }
@@ -92,8 +91,7 @@
             return result;
         }
 
-        [POST("")]
-        [Transaction]
+        [POST("")]        
         [Authorize(Roles = "Admin")]
         public virtual HttpResponseMessage Post(OrganizationsPostRequestContent requestContent)
         {
@@ -102,12 +100,10 @@
             var organizationGuid = new OrganizationId();
             Dispatch(new EstablishOrganization(CurrentUserId, organizationGuid, requestContent.Name));
 
-            return Request.CreateResponse(HttpStatusCode.OK,
-                new OrganizationsPostOkResponseContent {OrganizationId = organizationGuid.Id});
+            return Created(new OrganizationsPostOkResponseContent {OrganizationId = organizationGuid.Id});
         }
 
-        [PATCH("{organizationId}")]
-        [Transaction]
+        [PATCH("{organizationId}")]        
         public virtual HttpResponseMessage Patch(Guid organizationId, OrganizationsPatchRequestContent requestContent)
         {
             if (requestContent == null) throw new ArgumentNullException("requestContent");
@@ -130,7 +126,7 @@
                 Dispatch(new ChangeOrganizationPlan(CurrentUserId, new OrganizationId(organizationId),
                     requestContent.Plan));
             }
-            return NoContent();
+            return Accepted();
         }
     }
 

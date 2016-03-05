@@ -1,19 +1,19 @@
 ﻿namespace Phundus.Inventory.Application
 {
     using System;
+    using Castle.Transactions;
     using Common.Commanding;
     using Common.Domain.Model;
-    using Inventory.Model;
+    using Model;
     using Stores.Model;
     using Stores.Repositories;
 
-    public class ChangeCoordinate
+    public class ChangeCoordinate : ICommand
     {
         public ChangeCoordinate(InitiatorId initiatorId, StoreId storeId, decimal latitude, decimal longitude)
         {
             if (initiatorId == null) throw new ArgumentNullException("initiatorId");
             if (storeId == null) throw new ArgumentNullException("storeId");
-
             InitiatorId = initiatorId;
             StoreId = storeId;
             Latitude = latitude;
@@ -35,11 +35,11 @@
         {
             if (storeRepository == null) throw new ArgumentNullException("storeRepository");
             if (userInRole == null) throw new ArgumentNullException("userInRole");
-
             _storeRepository = storeRepository;
             _userInRole = userInRole;
         }
 
+        [Transaction]
         public void Handle(ChangeCoordinate command)
         {
             var store = _storeRepository.GetById(command.StoreId);

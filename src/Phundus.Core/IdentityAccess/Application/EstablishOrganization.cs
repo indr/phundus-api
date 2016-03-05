@@ -10,14 +10,13 @@
     using Organizations.Model;
     using Users.Services;
 
-    public class EstablishOrganization
+    public class EstablishOrganization : ICommand
     {
         public EstablishOrganization(InitiatorId initiatorId, OrganizationId organizationId, string name)
         {
             if (initiatorId == null) throw new ArgumentNullException("initiatorId");
             if (organizationId == null) throw new ArgumentNullException("organizationId");
             if (name == null) throw new ArgumentNullException("name");
-
             InitiatorId = initiatorId;
             OrganizationId = organizationId;
             Name = name;
@@ -40,7 +39,6 @@
             if (userInRole == null) throw new ArgumentNullException("userInRole");
             if (organizationRepository == null) throw new ArgumentNullException("organizationRepository");
             if (userRepository == null) throw new ArgumentNullException("userRepository");
-
             _userInRole = userInRole;
             _organizationRepository = organizationRepository;
             _userRepository = userRepository;

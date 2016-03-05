@@ -1,14 +1,11 @@
 ﻿namespace Phundus.Common.Commanding
 {
-    using Castle.Transactions;
-
     public interface IHandleCommand
     {
     }
 
-    public interface IHandleCommand<in TCommand> : IHandleCommand
+    public interface IHandleCommand<in TCommand> : IHandleCommand where TCommand : ICommand
     {
-        [Transaction]
         void Handle(TCommand command);
     }
 }

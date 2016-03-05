@@ -9,9 +9,9 @@
     using Phundus.Inventory.Model;
     using Rhino.Mocks;
 
-    [Subject(typeof (UpdateArticleDescriptionHandler))]
+    [Subject(typeof (UpdateDescriptionHandler))]
     public class when_handling_change_description :
-        article_command_handler_concern<UpdateDescription, UpdateArticleDescriptionHandler>
+        article_command_handler_concern<UpdateDescription, UpdateDescriptionHandler>
     {
         private static Article theArticle;
         private static string theDescription = "The description";

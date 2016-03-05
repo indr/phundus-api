@@ -2,19 +2,19 @@
 {
     using System;
     using Authorization;
+    using Castle.Transactions;
     using Common.Commanding;
     using Common.Domain.Model;
     using Integration.IdentityAccess;
     using Model.Users;
     using Phundus.Authorization;
 
-    public class UnlockUser
+    public class UnlockUser : ICommand
     {
         public UnlockUser(InitiatorId initiatorId, UserId userId)
         {
             if (initiatorId == null) throw new ArgumentNullException("initiatorId");
             if (userId == null) throw new ArgumentNullException("userId");
-
             InitiatorId = initiatorId;
             UserId = userId;
         }
@@ -39,6 +39,7 @@
             _userRepository = userRepository;
         }
 
+        [Transaction]
         public void Handle(UnlockUser command)
         {
             var initiator = _initiatorService.GetById(command.InitiatorId);

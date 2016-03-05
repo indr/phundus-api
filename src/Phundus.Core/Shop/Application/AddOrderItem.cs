@@ -1,6 +1,7 @@
 ﻿namespace Phundus.Shop.Application
 {
     using System;
+    using Castle.Transactions;
     using Common.Commanding;
     using Common.Domain.Model;
     using Model;
@@ -50,6 +51,7 @@
             _articleService = articleService;
         }
 
+        [Transaction]
         public void Handle(AddOrderItem command)
         {
             var order = _orderRepository.GetById(command.OrderId);

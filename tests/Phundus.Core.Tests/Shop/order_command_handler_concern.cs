@@ -7,7 +7,7 @@ namespace Phundus.Tests.Shop
 
     public abstract class order_command_handler_concern<TCommand, THandler> :
         shop_command_handler_concern<TCommand, THandler>
-        where THandler : class, IHandleCommand<TCommand>
+        where THandler : class, IHandleCommand<TCommand> where TCommand : ICommand
     {
         protected static IOrderRepository orderRepository;
         protected static IArticleService articleService;

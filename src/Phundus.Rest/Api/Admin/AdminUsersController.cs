@@ -47,29 +47,28 @@
             };
         }
 
-        [PATCH("{userId}")]
-        [Transaction]
-        public virtual HttpResponseMessage Patch(Guid userId, AdminUsersPatchRequestContent requestContent)
+        [PATCH("{userId}")]        
+        public virtual HttpResponseMessage Patch(Guid userId, AdminUsersPatchRequestContent rq)
         {
-            if (requestContent.IsLocked.HasValue)
+            if (rq.IsLocked.HasValue)
             {
-                if (requestContent.IsLocked.Value)
+                if (rq.IsLocked.Value)
                 {
-                    Dispatch(new LockUser(CurrentUserId, new UserId(requestContent.UserId)));
+                    Dispatch(new LockUser(CurrentUserId, new UserId(rq.UserId)));
                 }
                 else
                 {
-                    Dispatch(new UnlockUser(CurrentUserId, new UserId(requestContent.UserId)));
+                    Dispatch(new UnlockUser(CurrentUserId, new UserId(rq.UserId)));
                 }
             }
-            if (requestContent.IsAdmin.HasValue)
+            if (rq.IsAdmin.HasValue)
             {
-                Dispatch(new ChangeUserRole(CurrentUserId, new UserId(requestContent.UserId),
-                    requestContent.IsAdmin.Value ? UserRole.Admin : UserRole.User));
+                Dispatch(new ChangeUserRole(CurrentUserId, new UserId(rq.UserId),
+                    rq.IsAdmin.Value ? UserRole.Admin : UserRole.User));
             }
-            if (requestContent.IsApproved.HasValue && requestContent.IsApproved.Value)
+            if (rq.IsApproved.HasValue && rq.IsApproved.Value)
             {
-                Dispatch(new ApproveUser(CurrentUserId, new UserId(requestContent.UserId)));
+                Dispatch(new ApproveUser(CurrentUserId, new UserId(rq.UserId)));
             }
             return NoContent();
         }

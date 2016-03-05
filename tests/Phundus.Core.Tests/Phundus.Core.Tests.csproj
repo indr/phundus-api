@@ -37,6 +37,10 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\packages\Castle.Core.3.3.1\lib\net40-client\Castle.Core.dll</HintPath>
     </Reference>
+    <Reference Include="Castle.Transactions, Version=3.2.207.2207, Culture=neutral, PublicKeyToken=407dd0808d44fbdc, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\Castle.Transactions.3.2.207.2207\lib\net40\Castle.Transactions.dll</HintPath>
+    </Reference>
     <Reference Include="Castle.Windsor, Version=3.3.0.0, Culture=neutral, PublicKeyToken=407dd0808d44fbdc, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\packages\Castle.Windsor.3.3.0\lib\net40\Castle.Windsor.dll</HintPath>
@@ -88,6 +92,7 @@
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Transactions" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -96,6 +101,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="aggregate_root_concern.cs" />
+    <Compile Include="Commanding\CommandHandlerSpecs.cs" />
+    <Compile Include="Commanding\CommandSpecs.cs" />
     <Compile Include="Ddd\DomainEntitesSpecs.cs" />
     <Compile Include="Ddd\DomainEventsSpecs.cs" />
     <Compile Include="factory_base.cs" />

@@ -2,19 +2,19 @@
 {
     using System;
     using System.Globalization;
+    using Castle.Transactions;
     using Common.Commanding;
     using Common.Domain.Model;
     using Model.Users;
     using Users.Exceptions;
 
-    public class ChangeEmailAddress
+    public class ChangeEmailAddress : ICommand
     {
         public ChangeEmailAddress(InitiatorId initiatorId, string password, string newEmailAddress)
         {
             if (initiatorId == null) throw new ArgumentNullException("initiatorId");
             if (password == null) throw new ArgumentNullException("password");
             if (newEmailAddress == null) throw new ArgumentNullException("newEmailAddress");
-
             InitiatorId = initiatorId;
             UserId = new UserId(initiatorId.Id);
             Password = password;
@@ -37,6 +37,7 @@
             _userRepository = userRepository;
         }
 
+        [Transaction]
         public void Handle(ChangeEmailAddress command)
         {
             var user = _userRepository.GetById(command.UserId);

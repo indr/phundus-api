@@ -60,7 +60,6 @@ namespace Phundus.Rest.Api
         }
 
         [POST("")]
-        [Transaction]
         public virtual StoresPostOkResponseContent Post(StoresPostRequestContent requestContent)
         {
             var storeId = new StoreId();
@@ -72,8 +71,7 @@ namespace Phundus.Rest.Api
             };
         }
 
-        [PATCH("{storeId}")]
-        [Transaction]
+        [PATCH("{storeId}")]        
         public virtual HttpResponseMessage Patch(Guid storeId, StoresPatchRequestContent requestContent)
         {
             if (requestContent.Name != null)
