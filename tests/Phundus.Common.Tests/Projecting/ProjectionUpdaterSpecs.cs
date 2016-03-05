@@ -10,6 +10,28 @@
     using Machine.Specifications;
     using Rhino.Mocks;
 
+    public interface ITestConsumer : IConsumes<DomainEvent>
+    {
+    }
+
+
+    public class TestConsumerAdapter : ITestConsumer
+    {
+        // RedirectToWhen does not work with castle proxies
+
+        private readonly IConsumes<DomainEvent> _mock;
+
+        public TestConsumerAdapter(IConsumes<DomainEvent> mock)
+        {
+            _mock = mock;
+        }
+
+        public void Consume(DomainEvent e)
+        {
+            _mock.Consume(e);
+        }
+    }
+
     public class projection_updater_concern : Observes<ProjectionUpdater>
     {
         protected static IEventStore eventStore;
@@ -20,8 +42,11 @@
         protected static long lowNotificationId = 123;
         protected static long maxNotificationId = lowNotificationId + 2;
         protected static ProcessedNotificationTracker tracker;
-        protected static IProjection projection;
+        protected static ITestConsumer consumer;
+        protected static ITestConsumer consumerMock;
         protected static IEventSerializer eventSerializer = new EventSerializer();
+
+        
 
         private Establish ctx = () =>
         {
@@ -29,7 +54,8 @@
             domainEvent2 = new DomainEvent();
             tracker = new ProcessedNotificationTracker("typeName");
             tracker.Track(lowNotificationId);
-            projection = fake.an<IProjection>();
+            consumerMock = fake.an<ITestConsumer>();
+            consumer = new TestConsumerAdapter(consumerMock);
 
             eventStore = depends.on<IEventStore>();
             eventStore.setup(x => x.GetMaxNotificationId()).Return(maxNotificationId);
@@ -40,7 +66,7 @@
             eventStore.setup(x => x.Deserialize(storedEvents[1])).Return(domainEvent2);
 
             trackerStore = depends.on<IProcessedNotificationTrackerStore>();
-            trackerStore.setup(x => x.GetProcessedNotificationTracker(projection.GetType().FullName)).Return(tracker);
+            trackerStore.setup(x => x.GetProcessedNotificationTracker(consumer.GetType().FullName)).Return(tracker);
         };
 
         private static StoredEvent makeStoredEvent(DomainEvent domainEvent)
@@ -54,12 +80,12 @@
     public class when_projection_updater_updates_projection : projection_updater_concern
     {
         private Because of = () =>
-            sut.Update(projection);
+            sut.Update(consumer);
 
-        private It should_tell_projection_to_handle_events = () =>
+        private It should_tell_consumer_to_consume = () =>
         {
-            projection.received(x => x.Handle(domainEvent1));
-            projection.received(x => x.Handle(domainEvent2));
+            consumerMock.received(x => x.Consume(domainEvent1));
+            consumerMock.received(x => x.Consume(domainEvent2));
         };
 
         private It should_track_processed_notification_id = () =>
@@ -75,7 +101,7 @@
             tracker.Track(maxNotificationId);
 
         private Because of = () =>
-            returnValue = sut.Update(projection);
+            returnValue = sut.Update(consumer);
 
         private It should_return_false = () =>
             returnValue.ShouldBeFalse();
@@ -95,7 +121,7 @@
         };
 
         private Because of = () =>
-            returnValue = sut.Update(projection);
+            returnValue = sut.Update(consumer);
 
         private It should_return_true = () =>
             returnValue.ShouldBeTrue();
@@ -115,7 +141,7 @@
         };
 
         private Because of = () =>
-            returnValue = sut.Update(projection);
+            returnValue = sut.Update(consumer);
 
         private It should_return_false = () =>
             returnValue.ShouldBeFalse();

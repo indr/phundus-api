@@ -1,7 +1,6 @@
 namespace Phundus.Dashboard.Projections
 {
     using System;
-    using System.Collections.Generic;
     using System.IO;
     using Common.Domain.Model;
     using Common.Notifications;
@@ -11,20 +10,10 @@ namespace Phundus.Dashboard.Projections
     using IdentityAccess.Users.Model;
     using Newtonsoft.Json;
 
-    public interface IEventLogQueries
+    public class EventLogProjection : ProjectionBase<EventLogData>,
+        IConsumes<DomainEvent>
     {
-        IEnumerable<EventLogData> FindMostRecent20();
-    }
-
-    public class EventLogProjection : ProjectionBase<EventLogData>, IEventLogQueries,
-        IStoredEventsConsumer, IConsumes<UserLoggedIn>
-    {
-        public IEnumerable<EventLogData> FindMostRecent20()
-        {
-            return QueryOver().OrderBy(p => p.OccuredOnUtc).Desc.Take(20).List();
-        }
-
-        public override void Handle(DomainEvent e)
+        public void Consume(DomainEvent e)
         {
             Process((dynamic) e);
         }

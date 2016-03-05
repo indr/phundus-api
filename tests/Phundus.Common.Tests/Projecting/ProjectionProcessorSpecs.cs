@@ -16,16 +16,16 @@
         protected static IProjectionUpdater projectionUpdater;
         protected static IProcessedNotificationTrackerStore trackerStore;
 
-        protected static IProjection projection1;
-        protected static IProjection projection2;
+        protected static IConsumer projection1;
+        protected static IConsumer projection2;
 
         private Establish ctx = () =>
         {
-            projection1 = fake.an<IProjection>();            
-            projection2 = fake.an<IProjection>();
+            projection1 = fake.an<IConsumer>();
+            projection2 = fake.an<IConsumer>();
 
             projectionFactory = depends.on<IProjectionFactory>();
-            projectionFactory.setup(x => x.GetProjections()).Return(new[] {projection1, projection2});
+            projectionFactory.setup(x => x.GetConsumers()).Return(new[] {projection1, projection2});
 
             projectionUpdater = depends.on<IProjectionUpdater>();            
             trackerStore = depends.on<IProcessedNotificationTrackerStore>();
@@ -36,7 +36,7 @@
     public class when_updating : projection_processor_concern
     {
         private Establish ctx = () =>
-            projectionFactory.setup(x => x.FindProjection("typeName")).Return(projection1);
+            projectionFactory.setup(x => x.FindConsumer("typeName")).Return(projection1);
 
         private Because of = () =>
             sut.Update("typeName");
@@ -52,7 +52,7 @@
 
         private Establish ctx = () =>
         {
-            projectionFactory.setup(x => x.FindProjection("typeName")).Return(projection1);
+            projectionFactory.setup(x => x.FindConsumer("typeName")).Return(projection1);
             projectionUpdater.WhenToldTo(x => x.Update(projection1)).Return(() => ++calls < 2);
         };
 
@@ -71,7 +71,7 @@
         private Establish ctx = () =>
         {
             exception = new Exception("Error message");
-            projectionFactory.setup(x => x.FindProjection(projection1.GetType().FullName)).Return(projection1);
+            projectionFactory.setup(x => x.FindConsumer(projection1.GetType().FullName)).Return(projection1);
             projectionUpdater.setup(x => x.Update(projection1)).Throw(exception);
         };
 

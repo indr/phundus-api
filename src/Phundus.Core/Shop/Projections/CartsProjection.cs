@@ -5,14 +5,14 @@
     using System.Linq;
     using Common;
     using Common.Domain.Model;
-    using Common.Projecting;
+    using Common.Querying;
 
     public interface ICartsQueries
     {
         CartData FindByUserGuid(InitiatorId initiatorId, UserId userId);
     }
 
-    public class CartsProjection : ProjectionBase<CartData>, ICartsQueries
+    public class CartsProjection : QueryBase<CartData>, ICartsQueries
     {
         public CartData FindByUserGuid(InitiatorId initiatorId, UserId userId)
         {
@@ -20,10 +20,6 @@
                 throw new AuthorizationException();
 
             return SingleOrDefault(p => p.UserId == userId.Id);
-        }
-
-        public override void Handle(DomainEvent e)
-        {            
         }
     }
 
@@ -44,7 +40,7 @@
         }
     }
 
-    public class CartItemData 
+    public class CartItemData
     {
         public virtual Guid CartItemGuid { get; protected set; }
 

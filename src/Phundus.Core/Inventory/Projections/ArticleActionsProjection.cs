@@ -1,7 +1,6 @@
 ﻿namespace Phundus.Inventory.Projections
 {
     using System;
-    using System.Collections.Generic;
     using System.IO;
     using Articles.Model;
     using Common.Domain.Model;
@@ -10,41 +9,19 @@
     using Common.Projections;
     using Newtonsoft.Json;
 
-    public interface IArticleActionsQueries
+    public class ArticleActionsProjection : ProjectionBase<ArticleActionData>,
+        IConsumes<ArticleCreated>,
+        IConsumes<ArticleDeleted>,
+        IConsumes<ArticleDetailsChanged>,
+        IConsumes<DescriptionChanged>,
+        IConsumes<SpecificationChanged>,
+        IConsumes<PricesChanged>,
+        IConsumes<GrossStockChanged>,
+        IConsumes<ImageAdded>,
+        IConsumes<ImageRemoved>,
+        IConsumes<PreviewImageChanged>
     {
-        IEnumerable<ArticleActionData> GetActions(ArticleId articleId);
-    }
-
-    public class ArticleActionsProjection : ProjectionBase<ArticleActionData>, IArticleActionsQueries,
-        IStoredEventsConsumer
-    {
-        public IEnumerable<ArticleActionData> GetActions(ArticleId articleId)
-        {
-            if (articleId == null) throw new ArgumentNullException("articleId");
-
-            return QueryOver().Where(p => p.ArticleId == articleId.Id).OrderBy(p => p.OccuredOnUtc).Desc.List();
-        }
-
-        public override void Handle(DomainEvent e)
-        {
-            Process((dynamic) e);
-        }
-
-        private ArticleActionData Create(DomainEvent @event)
-        {
-            var row = new ArticleActionData();
-            row.EventGuid = @event.EventGuid;
-            row.Name = @event.GetType().Name;
-            row.OccuredOnUtc = @event.OccuredOnUtc;
-            return row;
-        }
-
-        private void Process(DomainEvent e)
-        {
-            // Noop
-        }
-
-        private void Process(ArticleCreated e)
+        public void Consume(ArticleCreated e)
         {
             var row = Create(e);
             row.OwnerId = e.Owner.OwnerId.Id;
@@ -65,7 +42,7 @@
             Insert(row);
         }
 
-        private void Process(ArticleDeleted e)
+        public void Consume(ArticleDeleted e)
         {
             var row = Create(e);
             row.OwnerId = e.OwnerId;
@@ -80,7 +57,7 @@
             Insert(row);
         }
 
-        private void Process(ArticleDetailsChanged e)
+        public void Consume(ArticleDetailsChanged e)
         {
             var row = Create(e);
             row.OwnerId = e.OwnerId;
@@ -98,7 +75,7 @@
             Insert(row);
         }
 
-        private void Process(DescriptionChanged e)
+        public void Consume(DescriptionChanged e)
         {
             var row = Create(e);
             row.OwnerId = e.OwnerId;
@@ -114,23 +91,7 @@
             Insert(row);
         }
 
-        private void Process(SpecificationChanged e)
-        {
-            var row = Create(e);
-            row.OwnerId = e.OwnerId;
-            row.StoreId = Guid.Empty;
-            row.ArticleId = e.ArticleId;
-            row.SetData(new
-            {
-                initiator = e.Initiator,
-                articleId = e.ArticleId,
-                articleShortId = e.ArticleShortId,
-                specification = e.Specification
-            });
-            Insert(row);
-        }
-
-        private void Process(GrossStockChanged e)
+        public void Consume(GrossStockChanged e)
         {
             var row = Create(e);
             row.OwnerId = e.OwnerId;
@@ -147,7 +108,55 @@
             Insert(row);
         }
 
-        private void Process(PricesChanged e)
+        public void Consume(ImageAdded e)
+        {
+            var row = Create(e);
+            row.OwnerId = e.OwnerId;
+            row.StoreId = Guid.Empty;
+            row.ArticleId = e.ArticleId;
+            row.SetData(new
+            {
+                initiator = e.Initiator,
+                articleId = e.ArticleId,
+                articleShortId = e.ArticleShortId,
+                fileName = e.FileName
+            });
+            Insert(row);
+        }
+
+        public void Consume(ImageRemoved e)
+        {
+            var row = Create(e);
+            row.OwnerId = e.OwnerId;
+            row.StoreId = Guid.Empty;
+            row.ArticleId = e.ArticleId;
+            row.SetData(new
+            {
+                initiator = e.Initiator,
+                articleId = e.ArticleId,
+                articleShortId = e.ArticleShortId,
+                fileName = e.FileName
+            });
+            Insert(row);
+        }
+
+        public void Consume(PreviewImageChanged e)
+        {
+            var row = Create(e);
+            row.OwnerId = e.OwnerId;
+            row.StoreId = Guid.Empty;
+            row.ArticleId = e.ArticleId;
+            row.SetData(new
+            {
+                initiator = e.Initiator,
+                articleId = e.ArticleId,
+                articleShortId = e.ArticleShortId,
+                fileName = e.FileName
+            });
+            Insert(row);
+        }
+
+        public void Consume(PricesChanged e)
         {
             var row = Create(e);
             row.OwnerId = Guid.Empty;
@@ -164,7 +173,7 @@
             Insert(row);
         }
 
-        private void Process(ImageAdded e)
+        public void Consume(SpecificationChanged e)
         {
             var row = Create(e);
             row.OwnerId = e.OwnerId;
@@ -175,41 +184,18 @@
                 initiator = e.Initiator,
                 articleId = e.ArticleId,
                 articleShortId = e.ArticleShortId,
-                fileName = e.FileName
+                specification = e.Specification
             });
             Insert(row);
         }
 
-        private void Process(ImageRemoved e)
+        private static ArticleActionData Create(DomainEvent @event)
         {
-            var row = Create(e);
-            row.OwnerId = e.OwnerId;
-            row.StoreId = Guid.Empty;
-            row.ArticleId = e.ArticleId;
-            row.SetData(new
-            {
-                initiator = e.Initiator,
-                articleId = e.ArticleId,
-                articleShortId = e.ArticleShortId,
-                fileName = e.FileName
-            });
-            Insert(row);
-        }
-
-        private void Process(PreviewImageChanged e)
-        {
-            var row = Create(e);
-            row.OwnerId = e.OwnerId;
-            row.StoreId = Guid.Empty;
-            row.ArticleId = e.ArticleId;
-            row.SetData(new
-            {
-                initiator = e.Initiator,
-                articleId = e.ArticleId,
-                articleShortId = e.ArticleShortId,
-                fileName = e.FileName
-            });
-            Insert(row);
+            var row = new ArticleActionData();
+            row.EventGuid = @event.EventGuid;
+            row.Name = @event.GetType().Name;
+            row.OccuredOnUtc = @event.OccuredOnUtc;
+            return row;
         }
     }
 

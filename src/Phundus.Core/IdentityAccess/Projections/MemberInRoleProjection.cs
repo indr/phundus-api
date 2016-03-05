@@ -5,6 +5,7 @@ namespace Phundus.IdentityAccess.Projections
     using Common;
     using Common.Domain.Model;
     using Common.Projecting;
+    using Common.Querying;
     using Integration.IdentityAccess;
     using Model.Organizations;
     using Organizations.Model;
@@ -21,7 +22,7 @@ namespace Phundus.IdentityAccess.Projections
         bool IsActiveMember(LessorId lessorId, UserId userId);
     }
 
-    public class MemberInRoleProjection : ProjectionBase, IMemberInRole
+    public class MemberInRoleProjection : QueryBase, IMemberInRole
     {
         private readonly IMembershipRepository _membershipRepository;
         private readonly IUsersQueries _usersQueries;
@@ -104,10 +105,6 @@ namespace Phundus.IdentityAccess.Projections
                 return false;
 
             return true;
-        }
-
-        public override void Handle(DomainEvent e)
-        {
         }
     }
 }

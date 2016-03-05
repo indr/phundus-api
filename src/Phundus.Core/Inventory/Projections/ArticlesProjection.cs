@@ -1,51 +1,21 @@
 ﻿namespace Phundus.Inventory.Projections
 {
     using System;
-    using System.Collections.Generic;
     using Articles.Model;
-    using Common;
-    using Common.Domain.Model;
     using Common.Notifications;
     using Common.Projecting;
     using Model;
-    using NHibernate.Criterion;
 
-    public interface IArticleQueries
+    public class ArticlesProjection : ProjectionBase<ArticleData>,
+        IConsumes<ArticleCreated>,
+        IConsumes<ArticleDeleted>,
+        IConsumes<ArticleDetailsChanged>,
+        IConsumes<GrossStockChanged>,
+        IConsumes<DescriptionChanged>,
+        IConsumes<SpecificationChanged>,
+        IConsumes<PricesChanged>
     {
-        ArticleData GetById(ArticleId articleId);
-
-        IEnumerable<ArticleData> Query(InitiatorId initiatorId, OwnerId queryOwnerId, string query);
-    }
-
-    public class ArticlesProjection : ProjectionBase<ArticleData>, IArticleQueries, IStoredEventsConsumer
-    {
-        public ArticleData GetById(ArticleId articleId)
-        {
-            var result = Find(articleId);
-            if (result == null)
-                throw new NotFoundException(String.Format("Article {0} not found.", articleId));
-            return result;
-        }
-
-        public IEnumerable<ArticleData> Query(InitiatorId initiatorId, OwnerId queryOwnerId, string query)
-        {
-            query = query == null ? "" : query.ToLowerInvariant();
-            return QueryOver().Where(p => p.OwnerGuid == queryOwnerId.Id)
-                .AndRestrictionOn(p => p.Name).IsInsensitiveLike(query, MatchMode.Anywhere)
-                .List();
-        }
-
-        public override void Handle(DomainEvent e)
-        {
-            Process((dynamic) e);
-        }
-
-        private void Process(DomainEvent e)
-        {
-            // Noop
-        }
-
-        private void Process(ArticleCreated e)
+        public void Consume(ArticleCreated e)
         {
             if (e.ArticleId == Guid.Empty)
                 return;
@@ -66,12 +36,12 @@
             });
         }
 
-        private void Process(ArticleDeleted e)
+        public void Consume(ArticleDeleted e)
         {
             Delete(e.ArticleId);
         }
 
-        private void Process(ArticleDetailsChanged e)
+        public void Consume(ArticleDetailsChanged e)
         {
             Update(e.ArticleId, r =>
             {
@@ -81,28 +51,28 @@
             });
         }
 
-        private void Process(GrossStockChanged e)
-        {
-            Update(e.ArticleId, r => { r.GrossStock = e.NewGrossStock; });
-        }
-
-        private void Process(DescriptionChanged e)
+        public void Consume(DescriptionChanged e)
         {
             Update(e.ArticleId, r => { r.Description = e.Description; });
         }
 
-        private void Process(SpecificationChanged e)
+        public void Consume(GrossStockChanged e)
         {
-            Update(e.ArticleId, r => { r.Specification = e.Specification; });
+            Update(e.ArticleId, r => { r.GrossStock = e.NewGrossStock; });
         }
 
-        private void Process(PricesChanged e)
+        public void Consume(PricesChanged e)
         {
             Update(e.ArticleId, r =>
             {
                 r.PublicPrice = e.PublicPrice;
                 r.MemberPrice = e.MemberPrice;
             });
+        }
+
+        public void Consume(SpecificationChanged e)
+        {
+            Update(e.ArticleId, r => { r.Specification = e.Specification; });
         }
     }
 

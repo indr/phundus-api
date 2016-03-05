@@ -74,6 +74,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\CommonInstaller.cs" />
+    <Compile Include="RedirectToConsume.cs" />
+    <Compile Include="RedirectToWhen.cs" />
     <Compile Include="Messaging\MessagingInstaller.cs" />
     <Compile Include="Notifications\App_Start\NotificationConsumersInstaller.cs" />
     <Compile Include="AssertionConcern.cs" />
@@ -142,8 +144,7 @@
     <Compile Include="Eventing\StoredEvent.cs" />
     <Compile Include="FriendlyUrl.cs" />
     <Compile Include="NotFoundException.cs" />
-    <Compile Include="Notifications\IStoredEventsConsumer.cs" />
-    <Compile Include="Notifications\IDomainEventHandlerFactory.cs" />
+    <Compile Include="Notifications\IConsumes.cs" />
     <Compile Include="Notifications\INotificationConsumerFactory.cs" />
     <Compile Include="Notifications\NotificationPublisher.cs" />
     <Compile Include="Notifications\IProcessedNotificationTrackerStore.cs" />

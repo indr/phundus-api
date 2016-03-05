@@ -3,45 +3,20 @@ namespace Phundus.IdentityAccess.Projections
     using System;
     using System.Text;
     using Common;
-    using Common.Domain.Model;
     using Common.Notifications;
     using Common.Projecting;
     using Model;
     using Model.Organizations;
     using Organizations.Model;
 
-    public class OrganizationProjection : ProjectionBase<OrganizationData>, IStoredEventsConsumer
+    public class OrganizationProjection : ProjectionBase<OrganizationData>,
+        IConsumes<OrganizationEstablished>,
+        IConsumes<OrganizationContactDetailsChanged>,
+        IConsumes<OrganizationPlanChanged>,
+        IConsumes<PublicRentalSettingChanged>,
+        IConsumes<StartpageChanged>
     {
-        public override void Handle(DomainEvent e)
-        {
-            Process((dynamic) e);
-        }
-
-        private void Process(DomainEvent e)
-        {
-            // Noop
-        }
-
-        private void Process(OrganizationEstablished e)
-        {
-            Insert(x =>
-            {
-                x.OrganizationId = e.OrganizationId;
-                x.Name = e.Name;
-                x.Url = e.Name.ToFriendlyUrl();
-                x.Plan = e.Plan;
-                x.EstablishedAtUtc = e.OccuredOnUtc;
-                x.PublicRental = e.PublicRental;
-            });
-        }
-
-        private void Process(OrganizationPlanChanged e)
-        {
-            Update(e.OrganizationId, x =>
-                x.Plan = e.NewPlan);
-        }
-
-        private void Process(OrganizationContactDetailsChanged e)
+        public void Consume(OrganizationContactDetailsChanged e)
         {
             Update(e.OrganizationId, x =>
             {
@@ -57,7 +32,38 @@ namespace Phundus.IdentityAccess.Projections
             });
         }
 
-        private string MakePostalAddress(OrganizationContactDetailsChanged e)
+        public void Consume(OrganizationEstablished e)
+        {
+            Insert(x =>
+            {
+                x.OrganizationId = e.OrganizationId;
+                x.Name = e.Name;
+                x.Url = e.Name.ToFriendlyUrl();
+                x.Plan = e.Plan;
+                x.EstablishedAtUtc = e.OccuredOnUtc;
+                x.PublicRental = e.PublicRental;
+            });
+        }
+
+        public void Consume(OrganizationPlanChanged e)
+        {
+            Update(e.OrganizationId, x =>
+                x.Plan = e.NewPlan);
+        }
+
+        public void Consume(PublicRentalSettingChanged e)
+        {
+            Update(e.OrganizationId, x =>
+                x.PublicRental = e.Value);
+        }
+
+        public void Consume(StartpageChanged e)
+        {
+            Update(e.OrganizationId, x =>
+                x.Startpage = e.Startpage);
+        }
+
+        private static string MakePostalAddress(OrganizationContactDetailsChanged e)
         {
             var sb = new StringBuilder();
             if (!String.IsNullOrWhiteSpace(e.Line1))
@@ -73,18 +79,6 @@ namespace Phundus.IdentityAccess.Projections
             else if (!String.IsNullOrWhiteSpace(e.City))
                 sb.AppendLine(e.City);
             return sb.ToString();
-        }
-
-        private void Process(PublicRentalSettingChanged e)
-        {
-            Update(e.OrganizationId, x =>
-                x.PublicRental = e.Value);
-        }
-
-        private void Process(StartpageChanged e)
-        {
-            Update(e.OrganizationId, x =>
-                x.Startpage = e.Startpage);
         }
     }
 

@@ -3,7 +3,6 @@
     using System;
     using System.Text;
     using Common;
-    using Common.Domain.Model;
     using Common.Notifications;
     using Common.Projecting;
     using IdentityAccess.Model;
@@ -12,19 +11,15 @@
     using IdentityAccess.Organizations.Model;
     using IdentityAccess.Users.Model;
 
-    public class LessorsProjection : ProjectionBase<LessorData>, IStoredEventsConsumer
+    public class LessorsProjection : ProjectionBase<LessorData>,
+        IConsumes<OrganizationEstablished>,
+        IConsumes<OrganizationContactDetailsChanged>,
+        IConsumes<PublicRentalSettingChanged>,
+        IConsumes<UserSignedUp>,
+        IConsumes<UserEmailAddressChanged>,
+        IConsumes<UserAddressChanged>
     {
-        public override void Handle(DomainEvent e)
-        {
-            Process((dynamic) e);
-        }
-
-        private void Process(DomainEvent e)
-        {
-            // Noop
-        }
-
-        private void Process(OrganizationEstablished e)
+        public void Consume(OrganizationEstablished e)
         {
             Insert(x =>
             {
@@ -40,7 +35,7 @@
             });
         }
 
-        private void Process(OrganizationContactDetailsChanged e)
+        public void Consume(OrganizationContactDetailsChanged e)
         {
             Update(e.OrganizationId, x =>
             {
@@ -51,12 +46,12 @@
             });
         }
 
-        private void Process(PublicRentalSettingChanged e)
+        public void Consume(PublicRentalSettingChanged e)
         {
             Update(e.OrganizationId, x => { x.PublicRental = e.Value; });
         }
 
-        private void Process(UserSignedUp e)
+        public void Consume(UserSignedUp e)
         {
             Insert(x =>
             {
@@ -71,12 +66,12 @@
             });
         }
 
-        private void Process(UserEmailAddressChanged e)
+        public void Consume(UserEmailAddressChanged e)
         {
             Update(e.UserId, x => { x.EmailAddress = e.NewEmailAddress; });
         }
 
-        private void Process(UserAddressChanged e)
+        public void Consume(UserAddressChanged e)
         {
             Update(e.UserId, x =>
             {

@@ -31,7 +31,7 @@ namespace Phundus.Common.Projecting
 
         public void Update(string typeName)
         {
-            var projection = _projectionFactory.FindProjection(typeName);
+            var projection = _projectionFactory.FindConsumer(typeName);
             if (projection == null)
                 return;
 
@@ -52,12 +52,12 @@ namespace Phundus.Common.Projecting
         {
             lock (Lock)
             {
-                var projections = _projectionFactory.GetProjections();
+                var projections = _projectionFactory.GetConsumers();
                 projections.ForEach(UpdateProjection);
             }
         }
 
-        private void UpdateProjection(IProjection projection)
+        private void UpdateProjection(IConsumer projection)
         {
             lock (Lock)
             {

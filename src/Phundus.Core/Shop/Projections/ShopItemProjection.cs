@@ -4,25 +4,24 @@ namespace Phundus.Shop.Projections
     using System.Collections.Generic;
     using System.Linq;
     using Common;
-    using Common.Domain.Model;
     using Common.Notifications;
     using Common.Projecting;
     using Inventory.Articles.Model;
     using Inventory.Stores.Model;
 
-    public class ShopItemProjection : ProjectionBase<ShopItemData>, IStoredEventsConsumer
+    public class ShopItemProjection : ProjectionBase<ShopItemData>,
+        IConsumes<ArticleCreated>,
+        IConsumes<ArticleDeleted>,
+        IConsumes<ArticleDetailsChanged>,
+        IConsumes<DescriptionChanged>,
+        IConsumes<SpecificationChanged>,
+        IConsumes<PricesChanged>,
+        IConsumes<StoreRenamed>,
+        IConsumes<ImageAdded>,
+        IConsumes<ImageRemoved>
+
     {
-        public override void Handle(DomainEvent e)
-        {
-            Process((dynamic) e);
-        }
-
-        public void Process(DomainEvent domainEvent)
-        {
-            // Noop
-        }
-
-        public void Process(ArticleCreated e)
+        public void Consume(ArticleCreated e)
         {
             if (e.ArticleId == Guid.Empty)
                 return;
@@ -48,12 +47,12 @@ namespace Phundus.Shop.Projections
             });
         }
 
-        public void Process(ArticleDeleted e)
+        public void Consume(ArticleDeleted e)
         {
             Delete(e.ArticleId);
         }
 
-        public void Process(ArticleDetailsChanged domainEvent)
+        public void Consume(ArticleDetailsChanged domainEvent)
         {
             Update(domainEvent.ArticleId, x =>
             {
@@ -63,19 +62,42 @@ namespace Phundus.Shop.Projections
             });
         }
 
-        public void Process(DescriptionChanged e)
+        public void Consume(DescriptionChanged e)
         {
             Update(e.ArticleId, x =>
                 x.Description = e.Description);
         }
 
-        public void Process(SpecificationChanged e)
+        public void Consume(ImageAdded domainEvent)
         {
-            Update(e.ArticleId, x =>
-                x.Specification = e.Specification);
+            if (domainEvent.FileType.StartsWith("application/"))
+                ProcessDocumentAdded(domainEvent);
+            else
+                ProcessImageAdded(domainEvent);
         }
 
-        public void Process(PricesChanged e)
+        public void Consume(ImageRemoved e)
+        {
+            Update(e.ArticleId, x =>
+            {
+                var image = x.Images.SingleOrDefault(p => p.FileName == e.FileName);
+                if (image != null)
+                {
+                    image.ShopItem = null;
+                    x.Images.Remove(image);
+                    return;
+                }
+
+                var document = x.Documents.SingleOrDefault(p => p.FileName == e.FileName);
+                if (document != null)
+                {
+                    document.ShopItem = null;
+                    x.Documents.Remove(document);
+                }
+            });
+        }
+
+        public void Consume(PricesChanged e)
         {
             Update(e.ArticleId, x =>
             {
@@ -84,21 +106,19 @@ namespace Phundus.Shop.Projections
             });
         }
 
-        public void Process(StoreRenamed e)
+        public void Consume(SpecificationChanged e)
+        {
+            Update(e.ArticleId, x =>
+                x.Specification = e.Specification);
+        }
+
+        public void Consume(StoreRenamed e)
         {
             Update(p => p.StoreId == e.StoreId, x =>
             {
                 x.StoreName = e.Name;
                 x.StoreUrl = x.LessorUrl + "/" + e.Name.ToFriendlyUrl();
             });
-        }
-
-        public void Process(ImageAdded domainEvent)
-        {
-            if (domainEvent.FileType.StartsWith("application/"))
-                ProcessDocumentAdded(domainEvent);
-            else
-                ProcessImageAdded(domainEvent);
         }
 
         private void ProcessDocumentAdded(ImageAdded e)
@@ -144,27 +164,6 @@ namespace Phundus.Shop.Projections
                 };
 
                 x.Images.Add(image);
-            });
-        }
-
-        public void Process(ImageRemoved e)
-        {
-            Update(e.ArticleId, x =>
-            {
-                var image = x.Images.SingleOrDefault(p => p.FileName == e.FileName);
-                if (image != null)
-                {
-                    image.ShopItem = null;
-                    x.Images.Remove(image);
-                    return;
-                }
-
-                var document = x.Documents.SingleOrDefault(p => p.FileName == e.FileName);
-                if (document != null)
-                {
-                    document.ShopItem = null;
-                    x.Documents.Remove(document);
-                }
             });
         }
     }

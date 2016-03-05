@@ -6,10 +6,10 @@
     using Castle.Transactions;
     using Common;
     using Common.Domain.Model;
-    using Common.Projecting;
+    using Common.Querying;
     using Integration.IdentityAccess;
 
-    public class UsersProjection : ProjectionBase<UserData>, IUsersQueries, IInitiatorService
+    public class UsersProjection : QueryBase<UserData>, IUsersQueries, IInitiatorService
     {
         public Initiator GetById(InitiatorId initiatorId)
         {
@@ -20,14 +20,6 @@
         public IUser GetById(Guid userId)
         {
             return GetByGuid(new UserId(userId));
-        }
-
-        public IUser GetByGuid(UserId userId)
-        {
-            var result = FindByGuid(userId);
-            if (result == null)
-                throw new NotFoundException("User {0} not found.", userId);
-            return result;
         }
 
         public IUser FindById(Guid userId)
@@ -72,13 +64,17 @@
                 .List().SingleOrDefault() != null;
         }
 
+        public IUser GetByGuid(UserId userId)
+        {
+            var result = FindByGuid(userId);
+            if (result == null)
+                throw new NotFoundException("User {0} not found.", userId);
+            return result;
+        }
+
         public IUser FindByGuid(UserId userId)
         {
             return FindById(userId.Id);
-        }
-
-        public override void Handle(DomainEvent e)
-        {
         }
     }
 

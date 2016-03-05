@@ -2,34 +2,14 @@
 {
     using System;
     using Common;
-    using Common.Domain.Model;
     using Common.Notifications;
     using Common.Projecting;
     using IdentityAccess.Organizations.Model;
 
-    public interface IUrlMapQueries
+    public class UrlMapProjection : ProjectionBase<UrlMapData>,
+        IConsumes<OrganizationEstablished>
     {
-        UrlMapData FindByUrl(string url);
-    }
-
-    public class UrlMapProjection : ProjectionBase<UrlMapData>, IUrlMapQueries, IStoredEventsConsumer
-    {
-        public override void Handle(DomainEvent e)
-        {
-            Process((dynamic) e);
-        }
-
-        public UrlMapData FindByUrl(string url)
-        {
-            return SingleOrDefault(p => p.Url == url);
-        }
-
-        private void Process(DomainEvent e)
-        {
-            // Noop
-        }
-
-        private void Process(OrganizationEstablished e)
+        public void Consume(OrganizationEstablished e)
         {
             var url = e.Name.ToFriendlyUrl();
 
@@ -40,7 +20,6 @@
             });
         }
     }
-
 
     public class UrlMapData
     {

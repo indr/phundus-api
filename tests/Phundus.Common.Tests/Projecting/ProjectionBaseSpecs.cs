@@ -3,86 +3,19 @@
     using System;
     using System.Collections.Generic;
     using System.Linq.Expressions;
-    using Common.Domain.Model;
-    using Common.Projecting;
     using developwithpassion.specifications.extensions;
     using developwithpassion.specifications.rhinomocks;
     using Machine.Specifications;
     using NHibernate;
     using Rhino.Mocks;
 
-    public class TestEntity
-    {
-        public int Id { get; set; }
-        public Guid Value { get; set; }
-    }
-
-    public class TestProjection : ProjectionBase<TestEntity>
-    {
-        public override void Handle(DomainEvent e)
-        {
-            throw new NotImplementedException();
-        }
-
-        public TestEntity FindByGuidIdentity(GuidIdentity identity)
-        {
-            return Find(identity);
-        }
-
-        public void InsertEntity(TestEntity entity)
-        {
-            Insert(entity);
-        }
-
-        public void InsertWithAction(Guid value)
-        {
-            Insert(a => a.Value = value);
-        }
-
-        public void UpdateSingleEntity(int id, Guid value)
-        {
-            Update(id, a => a.Value = value);
-        }
-
-        public void UpdateEntities(Expression<Func<TestEntity, bool>> expression, Guid value)
-        {
-            Update(expression, a =>
-                a.Value = value);
-        }
-
-        public void InsertOrUpdate(Expression<Func<TestEntity, bool>> expression, Guid value)
-        {
-            InsertOrUpdate(expression, a =>
-                a.Value = value);
-        }
-
-        public void InsertOrUpdateEntity(TestEntity entity)
-        {
-            InsertOrUpdate(entity);
-        }
-
-        public void DeleteById(int id)
-        {
-            Delete(id);
-        }
-
-        public void DeleteEntity(TestEntity entity)
-        {
-            Delete(entity);
-        }
-    }
-
     public class projection_base_concern : Observes<TestProjection>
     {
         protected static ISession session;
-
-        private static int nextId = 1;
-        protected static TestEntity entity;
-
-
-        private static List<TestEntity> entities;
-
         protected static IQueryOver<TestEntity, TestEntity> query;
+
+        protected static TestEntity entity;
+        private static List<TestEntity> entities;
 
         private Establish ctx = () =>
         {
@@ -91,7 +24,6 @@
             query = fake.an<IQueryOver<TestEntity, TestEntity>>();
             session = depends.on<ISession>();
             session.setup(x => x.QueryOver<TestEntity>()).Return(query);
-
 
             sut_factory.create_using(() =>
             {
@@ -105,55 +37,10 @@
 
         protected static TestEntity makeEntity()
         {
-            var result = new TestEntity();
-            result.Id = nextId++;
+            var result = TestEntity.Create();
             entities.Add(result);
             return result;
         }
-    }
-
-    public class TestGuidIdentity : GuidIdentity
-    {
-    }
-
-    public class when_finding_entity_by_guid_identiy : projection_base_concern
-    {
-        private static GuidIdentity identity;
-        private static TestEntity returnValue;
-
-        private Establish ctx = () =>
-        {
-            identity = new TestGuidIdentity();
-            session.setup(x => x.Get<TestEntity>(identity.Id)).Return(entity);
-        };
-
-        private Because of = () =>
-            returnValue = sut.FindByGuidIdentity(identity);
-
-        private It should_return_entity = () =>
-            returnValue.ShouldBeTheSameAs(entity);
-    }
-
-    public class when_finding_entity_by_guid_identity_and_entity_does_not_exist : projection_base_concern
-    {
-        private static TestGuidIdentity identity;
-        private static TestEntity returnValue;
-
-        private Establish ctx = () =>
-        {
-            identity = new TestGuidIdentity();
-            session.setup(x => x.Get<TestEntity>(identity)).Return((TestEntity) null);
-        };
-
-        private Because of = () =>
-            spec.catch_exception(() =>
-                returnValue = sut.FindByGuidIdentity(identity));
-
-        private It should_not_throw_exception = () =>
-            spec.exception_thrown.ShouldBeNull();
-
-        private It should_return_null = () =>
-            returnValue.ShouldBeNull();
     }
 
     public class when_inserting_entity : projection_base_concern
@@ -363,6 +250,6 @@
             sut.Reset();
 
         private It should_delete_from = () =>
-            session.received(x => x.Delete("FROM TestEntity"));        
+            session.received(x => x.Delete("FROM TestEntity"));
     }
 }

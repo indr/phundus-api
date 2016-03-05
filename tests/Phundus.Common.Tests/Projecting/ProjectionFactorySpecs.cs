@@ -2,7 +2,6 @@
 {
     using System;
     using Castle.MicroKernel;
-    using Common.Domain.Model;
     using Common.Projecting;
     using developwithpassion.specifications.extensions;
     using developwithpassion.specifications.rhinomocks;
@@ -10,10 +9,6 @@
 
     public class ProjectionFactorySpecsTestProjection : ProjectionBase<Object>
     {
-        public override void Handle(DomainEvent e)
-        {
-            throw new NotImplementedException();
-        }
     }
 
     [Subject(typeof (ProjectionFactory))]

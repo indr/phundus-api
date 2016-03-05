@@ -6,6 +6,7 @@
     using Castle.MicroKernel.SubSystems.Configuration;
     using Castle.Windsor;
     using Injecting;
+    using Notifications;
 
     public class ProjectingInstaller : IWindsorInstaller
     {
@@ -26,6 +27,11 @@
     {
         public override void Install(IWindsorContainer container, Assembly assembly)
         {
+            container.Register(Classes.FromAssembly(assembly)
+                .BasedOn<IConsumer>()
+                .WithServiceBase()
+                .LifestyleTransient());
+
             container.Register(Classes.FromAssembly(assembly)
                 .BasedOn<ProjectionBase>()
                 .WithServiceAllInterfaces());
