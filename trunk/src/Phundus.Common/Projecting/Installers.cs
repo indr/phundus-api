@@ -18,8 +18,8 @@
                 Component.For<IProjectionFactory>().ImplementedBy<ProjectionFactory>());
 
             container.Register(
-                Component.For<IProjectionProcessor>().ImplementedBy<ProjectionProcessor>(),
-                Component.For<IProjectionUpdater>().ImplementedBy<ProjectionUpdater>());
+                Component.For<INotificationToConsumersDispatcher>().ImplementedBy<NotificationToConsumersDispatcher>(),
+                Component.For<IStoredEventsProcessor>().ImplementedBy<StoredEventsProcessor>());
         }
     }
 
@@ -28,7 +28,7 @@
         public override void Install(IWindsorContainer container, Assembly assembly)
         {
             container.Register(Classes.FromAssembly(assembly)
-                .BasedOn<IConsumer>()
+                .BasedOn<IEventConsumer>()
                 .WithServiceBase()
                 .LifestyleTransient());
 

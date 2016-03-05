@@ -21,17 +21,17 @@
 
     public class UpdateProjectionHandler : IHandleCommand<UpdateProjection>
     {
-        private readonly IProjectionProcessor _projectionProcessor;
+        private readonly INotificationToConsumersDispatcher _notificationToConsumersDispatcher;
 
-        public UpdateProjectionHandler(IProjectionProcessor projectionProcessor)
+        public UpdateProjectionHandler(INotificationToConsumersDispatcher notificationToConsumersDispatcher)
         {
-            if (projectionProcessor == null) throw new ArgumentNullException("projectionProcessor");
-            _projectionProcessor = projectionProcessor;
+            if (notificationToConsumersDispatcher == null) throw new ArgumentNullException("notificationToConsumersDispatcher");
+            _notificationToConsumersDispatcher = notificationToConsumersDispatcher;
         }
 
         public void Handle(UpdateProjection command)
         {
-            _projectionProcessor.Update(command.ProjectionTypeName);
+            _notificationToConsumersDispatcher.Update(command.ProjectionTypeName);
         }
     }
 }

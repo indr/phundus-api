@@ -10,9 +10,6 @@
     {
         IProjection FindProjection(string fullName);
         IProjection[] GetProjections();
-
-        IConsumer FindConsumer(string fullName);
-        IConsumer[] GetConsumers();
     }
 
     public class ProjectionFactory : IProjectionFactory
@@ -30,23 +27,6 @@
             return _projectionFactory.GetProjections();
         }
 
-        public IConsumer FindConsumer(string fullName)
-        {
-            try
-            {
-                return _projectionFactory.GetConsumer(fullName);
-            }
-            catch (ComponentNotFoundException)
-            {
-                return null;
-            }
-        }
-
-        public IConsumer[] GetConsumers()
-        {
-            return _projectionFactory.GetConsumers();
-        }
-
         public IProjection FindProjection(string fullName)
         {
             try
@@ -58,6 +38,23 @@
                 return null;
             }
         }
+
+        public IEventConsumer FindConsumer(string fullName)
+        {
+            try
+            {
+                return _projectionFactory.GetConsumer(fullName);
+            }
+            catch (ComponentNotFoundException)
+            {
+                return null;
+            }
+        }
+
+        public IEventConsumer[] GetConsumers()
+        {
+            return _projectionFactory.GetConsumers();
+        }
     }
 
     public interface ITypedProjectionFactory
@@ -65,8 +62,8 @@
         IProjection GetProjection(string fullName);
         IProjection[] GetProjections();
 
-        IConsumer GetConsumer(string fullName);
-        IConsumer[] GetConsumers();
+        IEventConsumer GetConsumer(string fullName);
+        IEventConsumer[] GetConsumers();
     }
 
     public class ProjectionSelector : DefaultTypedFactoryComponentSelector

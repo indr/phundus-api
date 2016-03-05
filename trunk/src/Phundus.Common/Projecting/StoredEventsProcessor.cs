@@ -5,17 +5,17 @@ namespace Phundus.Common.Projecting
     using Eventing;
     using Notifications;
 
-    public interface IProjectionUpdater
+    public interface IStoredEventsProcessor
     {
-        bool Update(IConsumer projection);
+        bool Process(IEventConsumer consumer);
     }
 
-    public class ProjectionUpdater : IProjectionUpdater
+    public class StoredEventsProcessor : IStoredEventsProcessor
     {
         private readonly IEventStore _eventStore;
         private readonly IProcessedNotificationTrackerStore _trackerStore;
 
-        public ProjectionUpdater(IEventStore eventStore, IProcessedNotificationTrackerStore trackerStore)
+        public StoredEventsProcessor(IEventStore eventStore, IProcessedNotificationTrackerStore trackerStore)
         {
             if (eventStore == null) throw new ArgumentNullException("eventStore");
             if (trackerStore == null) throw new ArgumentNullException("trackerStore");
@@ -26,9 +26,9 @@ namespace Phundus.Common.Projecting
         public static int NotificationsPerUpdate = 20;
 
         [Transaction]
-        public bool Update(IConsumer projection)
+        public bool Process(IEventConsumer consumer)
         {
-            var tracker = _trackerStore.GetProcessedNotificationTracker(projection.GetType().FullName);
+            var tracker = _trackerStore.GetProcessedNotificationTracker(consumer.GetType().FullName);
             var maxNotificationId = _eventStore.GetMaxNotificationId();
             if (tracker.MostRecentProcessedNotificationId >= maxNotificationId)
                 return false;
@@ -40,7 +40,7 @@ namespace Phundus.Common.Projecting
             foreach (var each in storedEvents)
             {
                 var e = _eventStore.Deserialize(each);
-                RedirectToConsume.InvokeEventOptional(projection, e);                
+                RedirectToConsume.InvokeEventOptional(consumer, e);                
             }
 
             _trackerStore.TrackMostRecentProcessedNotificationId(tracker, highNotificationId);

@@ -5,7 +5,7 @@
     using Common.Notifications.App_Start;
     using Machine.Specifications;
 
-    public class TestNotificationConsumer : INotificationConsumer
+    public class TestNotificationHandler : INotificationHandler
     {
         public void Handle(Notification notification)
         {
@@ -23,6 +23,6 @@
         assembly_installer_concern<NotificationConsumersInstaller, NotificationConsumersInstallerSpecs>
     {
         private It should_resolve_to_TestNotificationConsumer = () =>
-            resolve<INotificationConsumer>().ShouldBeOfExactType<TestNotificationConsumer>();
+            resolve<INotificationHandler>().ShouldBeOfExactType<TestNotificationHandler>();
     }
 }
