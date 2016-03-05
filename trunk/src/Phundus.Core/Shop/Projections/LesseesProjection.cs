@@ -2,8 +2,7 @@
 {
     using System;
     using Common;
-    using Common.Domain.Model;
-    using Common.Projecting;
+    using Common.Querying;
     using Integration.IdentityAccess;
 
     public interface ILesseeQueries
@@ -11,7 +10,7 @@
         LesseeViewRow GetByGuid(Guid lesseeId);
     }
 
-    public class LesseesProjection : ProjectionBase, ILesseeQueries
+    public class LesseesProjection : QueryBase, ILesseeQueries
     {
         private readonly IUsersQueries _usersQueries;
 
@@ -29,10 +28,6 @@
 
             return new LesseeViewRow(user.UserId, user.FullName, user.Street + "\n" + user.Postcode + " " + user.City,
                 user.MobilePhone, user.EmailAddress);
-        }
-
-        public override void Handle(DomainEvent e)
-        {
         }
     }
 

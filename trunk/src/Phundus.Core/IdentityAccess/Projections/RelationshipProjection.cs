@@ -1,57 +1,26 @@
 ﻿namespace Phundus.IdentityAccess.Projections
 {
     using System;
-    using Common.Domain.Model;
     using Common.Notifications;
     using Common.Projecting;
     using Organizations.Model;
 
-    public interface IRelationshipQueries
+    public class RelationshipProjection : ProjectionBase<RelationshipData>,
+        IConsumes<MembershipApplicationApproved>,
+        IConsumes<MembershipApplicationFiled>,
+        IConsumes<MembershipApplicationRejected>
     {
-        RelationshipData ByMemberIdForOrganizationId(UserId memberId, Guid organizationId);
-    }
-
-    public class RelationshipProjection : ProjectionBase<RelationshipData>, IRelationshipQueries,
-        IStoredEventsConsumer
-    {
-        public RelationshipData ByMemberIdForOrganizationId(UserId memberId, Guid organizationId)
-        {
-            var result = QueryOver().Where(p =>
-                p.OrganizationGuid == organizationId && p.UserGuid == memberId.Id).SingleOrDefault();
-
-            if (result != null)
-                return result;
-
-            return new RelationshipData
-            {
-                OrganizationGuid = organizationId,
-                UserGuid = memberId.Id,
-                Status = null,
-                Timestamp = DateTime.UtcNow
-            };
-        }
-
-        public override void Handle(DomainEvent e)
-        {
-            Process((dynamic) e);
-        }
-
-        private void Process(DomainEvent domainEvent)
-        {
-            // Noop
-        }
-
-        private void Process(MembershipApplicationFiled domainEvent)
-        {
-            UpdateOrInsert(domainEvent.UserGuid, domainEvent.OrganizationGuid, domainEvent.OccuredOnUtc, "application");
-        }
-
-        private void Process(MembershipApplicationApproved domainEvent)
+        public void Consume(MembershipApplicationApproved domainEvent)
         {
             UpdateOrInsert(domainEvent.UserGuid, domainEvent.OrganizationGuid, domainEvent.OccuredOnUtc, "member");
         }
 
-        private void Process(MembershipApplicationRejected domainEvent)
+        public void Consume(MembershipApplicationFiled domainEvent)
+        {
+            UpdateOrInsert(domainEvent.UserGuid, domainEvent.OrganizationGuid, domainEvent.OccuredOnUtc, "application");
+        }
+
+        public void Consume(MembershipApplicationRejected domainEvent)
         {
             UpdateOrInsert(domainEvent.UserGuid, domainEvent.OrganizationGuid, domainEvent.OccuredOnUtc, "rejected");
         }

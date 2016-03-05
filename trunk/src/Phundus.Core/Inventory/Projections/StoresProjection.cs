@@ -1,44 +1,39 @@
 namespace Phundus.Inventory.Projections
 {
     using System;
-    using Common;
-    using Common.Domain.Model;
     using Common.Notifications;
     using Common.Projecting;
     using Stores.Model;
 
-    public interface IStoresQueries
+    public class StoresProjection : ProjectionBase<StoreData>,
+        IConsumes<StoreOpened>,
+        IConsumes<StoreRenamed>,
+        IConsumes<AddressChanged>,
+        IConsumes<OpeningHoursChanged>,
+        IConsumes<CoordinateChanged>
     {
-        StoreData GetByOwnerId(Guid ownerId);
-        StoreData FindByOwnerId(Guid ownerId);
-    }
-
-    public class StoresProjection : ProjectionBase<StoreData>, IStoresQueries, IStoredEventsConsumer
-    {
-        public override void Handle(DomainEvent e)
+        public void Consume(AddressChanged e)
         {
-            Process((dynamic) e);
+            Update(e.StoreId, x =>
+                x.Address = e.Address);
         }
 
-        public StoreData GetByOwnerId(Guid ownerId)
+        public void Consume(CoordinateChanged e)
         {
-            var result = FindByOwnerId(ownerId);
-            if (result == null)
-                throw new NotFoundException("Store with owner {0} not found.", ownerId);
-            return result;
+            Update(e.StoreId, x =>
+            {
+                x.Latitude = e.Latitude;
+                x.Longitude = e.Longitude;
+            });
         }
 
-        public StoreData FindByOwnerId(Guid ownerId)
+        public void Consume(OpeningHoursChanged e)
         {
-            return SingleOrDefault(p => p.OwnerId == ownerId);
+            Update(e.StoreId, x =>
+                x.OpeningHours = e.OpeningHours);
         }
 
-        private void Process(DomainEvent domainEvent)
-        {
-            // Noop
-        }
-
-        private void Process(StoreOpened e)
+        public void Consume(StoreOpened e)
         {
             Insert(x =>
             {
@@ -48,31 +43,10 @@ namespace Phundus.Inventory.Projections
             });
         }
 
-        private void Process(StoreRenamed e)
+        public void Consume(StoreRenamed e)
         {
             Update(e.StoreId, x =>
                 x.Name = e.Name);
-        }
-
-        private void Process(AddressChanged e)
-        {
-            Update(e.StoreId, x =>
-                x.Address = e.Address);
-        }
-
-        private void Process(OpeningHoursChanged e)
-        {
-            Update(e.StoreId, x =>
-                x.OpeningHours = e.OpeningHours);
-        }
-
-        private void Process(CoordinateChanged e)
-        {
-            Update(e.StoreId, x =>
-            {
-                x.Latitude = e.Latitude;
-                x.Longitude = e.Longitude;
-            });
         }
     }
 

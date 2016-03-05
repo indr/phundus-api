@@ -1,25 +1,36 @@
 ﻿namespace Phundus.IdentityAccess.Projections
 {
     using System;
-    using Common.Domain.Model;
     using Common.Notifications;
     using Common.Projecting;
     using Model.Users;
     using Users.Model;
 
-    public class UserAddressProjection : ProjectionBase<UserAddressData>, IStoredEventsConsumer
+    public class UserAddressProjection : ProjectionBase<UserAddressData>,
+        IConsumes<UserAddressChanged>,
+        IConsumes<UserEmailAddressChanged>,
+        IConsumes<UserSignedUp>
     {
-        public override void Handle(DomainEvent e)
+        public void Consume(UserAddressChanged e)
         {
-            Process((dynamic) e);
+            Update(e.UserId, x =>
+            {
+                x.FirstName = e.FirstName;
+                x.LastName = e.LastName;
+                x.Street = e.Street;
+                x.Postcode = e.Postcode;
+                x.City = e.City;
+                x.PhoneNumber = e.PhoneNumber;
+            });
         }
 
-        private void Process(DomainEvent e)
+        public void Consume(UserEmailAddressChanged e)
         {
-            // Noop
+            Update(e.UserId, x =>
+                x.EmailAddress = e.NewEmailAddress);
         }
 
-        private void Process(UserSignedUp e)
+        public void Consume(UserSignedUp e)
         {
             Insert(x =>
             {
@@ -33,25 +44,6 @@
                 x.EmailAddress = e.EmailAddress;
                 x.PhoneNumber = e.PhoneNumber;
             });
-        }
-
-        private void Process(UserAddressChanged e)
-        {
-            Update(e.UserId, x =>
-            {
-                x.FirstName = e.FirstName;
-                x.LastName = e.LastName;
-                x.Street = e.Street;
-                x.Postcode = e.Postcode;
-                x.City = e.City;
-                x.PhoneNumber = e.PhoneNumber;
-            });
-        }
-
-        private void Process(UserEmailAddressChanged e)
-        {
-            Update(e.UserId, x =>
-                x.EmailAddress = e.NewEmailAddress);
         }
     }
 

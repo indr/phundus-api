@@ -103,6 +103,7 @@
     <Compile Include="Authorization\IAccessObjectHandlerFactory.cs" />
     <Compile Include="Authorization\IHandleAccessObject.cs" />
     <Compile Include="Dashboard\Projections\EventLogProjection.cs" />
+    <Compile Include="Dashboard\Projections\EventLogQueries.cs" />
     <Compile Include="Dashboard\Projections\ProjectionMetaDataQueries.cs" />
     <Compile Include="Guard.cs" />
     <Compile Include="IdentityAccess\Application\ChangeUserAddress.cs" />
@@ -153,6 +154,7 @@
     <Compile Include="IdentityAccess\Projections\MemberInRoleProjection.cs" />
     <Compile Include="IdentityAccess\Projections\MembershipsProjection.cs" />
     <Compile Include="IdentityAccess\Projections\MembersProjection.cs" />
+    <Compile Include="IdentityAccess\Projections\RelationshipQueries.cs" />
     <Compile Include="IdentityAccess\Projections\UserAddressProjection.cs" />
     <Compile Include="IdentityAccess\Projections\UserAddressQueries.cs" />
     <Compile Include="IdentityAccess\Projections\UsersProjection.cs" />
@@ -222,10 +224,13 @@
     <Compile Include="Inventory\Model\Collaborators\Manager.cs" />
     <Compile Include="Inventory\Model\Collaborators\Owner.cs" />
     <Compile Include="Inventory\Projections\ArticleActionsProjection.cs" />
+    <Compile Include="Inventory\Projections\ArticleActionsQueries.cs" />
+    <Compile Include="Inventory\Projections\ArticleQueries.cs" />
     <Compile Include="Inventory\Projections\StoresProjection.cs" />
     <Compile Include="Inventory\Model\Collaborators\UserInRole.cs" />
     <Compile Include="Inventory\Application\RenameStore.cs" />
     <Compile Include="Inventory\Model\Stores\StoreRenamed.cs" />
+    <Compile Include="Inventory\Projections\StoresQueries.cs" />
     <Compile Include="Shop\Model\Manager.cs" />
     <Compile Include="Shop\Model\OrderLines.cs" />
     <Compile Include="Shop\Projections\Data\LessorData.cs" />
@@ -312,6 +317,7 @@
     <Compile Include="Shop\Model\ICartRepository.cs" />
     <Compile Include="Shop\Model\IOrderRepository.cs" />
     <Compile Include="Inventory\Model\Reservations\IReservationRepository.cs" />
+    <Compile Include="Web\Projections\UrlMapQueries.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Phundus.Common\Phundus.Common.csproj">

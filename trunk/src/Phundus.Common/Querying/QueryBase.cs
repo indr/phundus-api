@@ -3,6 +3,7 @@ namespace Phundus.Common.Querying
     using System;
     using System.Linq.Expressions;
     using Castle.Core.Logging;
+    using Domain.Model;
     using NHibernate;
 
     public class QueryBase
@@ -19,14 +20,26 @@ namespace Phundus.Common.Querying
 
     public class QueryBase<TEntity> : QueryBase where TEntity : class
     {
-        protected IQueryOver<TEntity, TEntity> QueryOver()
+        protected TEntity Find(object id)
         {
-            return Session.QueryOver<TEntity>();
+            if (id == null) throw new ArgumentNullException("id");
+
+            return Session.Get<TEntity>(id);
+        }
+
+        protected TEntity Find(GuidIdentity identity)
+        {
+            return Find(identity.Id);
         }
 
         protected TEntity SingleOrDefault(Expression<Func<TEntity, bool>> expression)
         {
             return QueryOver().Where(expression).SingleOrDefault();
+        }
+
+        protected IQueryOver<TEntity, TEntity> QueryOver()
+        {
+            return Session.QueryOver<TEntity>();
         }
     }
 }

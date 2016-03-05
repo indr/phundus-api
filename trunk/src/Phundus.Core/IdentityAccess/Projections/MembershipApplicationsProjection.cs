@@ -3,14 +3,14 @@
     using System;
     using System.Collections.Generic;
     using Common.Domain.Model;
-    using Common.Projecting;
+    using Common.Querying;
 
     public interface IMembershipApplicationQueries
     {
         IList<IMembershipApplication> FindPending(CurrentUserId currentUserId, OrganizationId organizationId);
     }
 
-    public class MembershipApplicationQueries : ProjectionBase<MembershipApplicationData>,
+    public class MembershipApplicationQueries : QueryBase<MembershipApplicationData>,
         IMembershipApplicationQueries
     {
         public IList<IMembershipApplication> FindPending(CurrentUserId currentUserId, OrganizationId organizationId)
@@ -19,10 +19,6 @@
             return QueryOver()
                 .Where(p => p.OrganizationId == organizationId.Id && p.ApprovedAtUtc == null && p.RejectedAtUtc == null)
                 .List<IMembershipApplication>();
-        }
-
-        public override void Handle(DomainEvent e)
-        {            
         }
     }
 

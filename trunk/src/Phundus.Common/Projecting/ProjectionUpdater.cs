@@ -7,7 +7,7 @@ namespace Phundus.Common.Projecting
 
     public interface IProjectionUpdater
     {
-        bool Update(IProjection projection);
+        bool Update(IConsumer projection);
     }
 
     public class ProjectionUpdater : IProjectionUpdater
@@ -26,7 +26,7 @@ namespace Phundus.Common.Projecting
         public static int NotificationsPerUpdate = 20;
 
         [Transaction]
-        public bool Update(IProjection projection)
+        public bool Update(IConsumer projection)
         {
             var tracker = _trackerStore.GetProcessedNotificationTracker(projection.GetType().FullName);
             var maxNotificationId = _eventStore.GetMaxNotificationId();
@@ -40,7 +40,7 @@ namespace Phundus.Common.Projecting
             foreach (var each in storedEvents)
             {
                 var e = _eventStore.Deserialize(each);
-                projection.Handle(e);
+                RedirectToConsume.InvokeEventOptional(projection, e);                
             }
 
             _trackerStore.TrackMostRecentProcessedNotificationId(tracker, highNotificationId);

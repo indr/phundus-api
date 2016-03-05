@@ -3,18 +3,18 @@
     using System;
     using System.Collections.Generic;
     using System.Linq;
-    using Common.Domain.Model;
-    using Common.Projecting;
+    using Common.Querying;
     using Model.Organizations;
     using Organizations.Model;
 
     public interface IMembershipQueries
+
     {
         ICollection<MembershipData> FindByOrganizationId(Guid organizationId);
         ICollection<MembershipData> FindByUserId(Guid userId);
     }
 
-    public class MembershipsProjection : ProjectionBase, IMembershipQueries
+    public class MembershipsProjection : QueryBase, IMembershipQueries
     {
         private readonly IMembershipRepository _membershipRepository;
 
@@ -49,10 +49,6 @@
                 IsLocked = each.IsLocked,
                 RecievesEmailNotifications = each.RecievesEmailNotifications
             };
-        }
-
-        public override void Handle(DomainEvent e)
-        {
         }
     }
 

@@ -4,26 +4,23 @@
     using System.Collections.Generic;
     using System.Linq;
     using Common;
-    using Common.Domain.Model;
     using Common.Notifications;
     using Common.Projecting;
     using Inventory.Articles.Model;
     using Inventory.Stores.Model;
     using Orders.Model;
 
-    public class ShopItemsProjection : ProjectionBase<ShopItemsData>, IStoredEventsConsumer
+    public class ShopItemsProjection : ProjectionBase<ShopItemsData>,
+        IConsumes<ArticleCreated>,
+        IConsumes<ArticleDeleted>,
+        IConsumes<ArticleDetailsChanged>,
+        IConsumes<ImageAdded>,
+        IConsumes<PreviewImageChanged>,
+        IConsumes<PricesChanged>,
+        IConsumes<StoreRenamed>,
+        IConsumes<OrderPlaced>
     {
-        public override void Handle(DomainEvent e)
-        {
-            Process((dynamic) e);
-        }
-
-        public void Process(DomainEvent domainEvent)
-        {
-            // Noop
-        }
-
-        public void Process(ArticleCreated e)
+        public void Consume(ArticleCreated e)
         {
             Insert(x =>
             {
@@ -47,18 +44,18 @@
             });
         }
 
-        public void Process(ArticleDeleted e)
+        public void Consume(ArticleDeleted e)
         {
             Delete(e.ArticleId);
         }
 
-        public void Process(ArticleDetailsChanged e)
+        public void Consume(ArticleDetailsChanged e)
         {
             Update(e.ArticleId, x =>
                 x.Name = e.Name);
         }
 
-        public void Process(ImageAdded e)
+        public void Consume(ImageAdded e)
         {
             if (!e.IsPreviewImage)
                 return;
@@ -67,13 +64,21 @@
                 x.PreviewImageFileName = e.FileName);
         }
 
-        public void Process(PreviewImageChanged e)
+        public void Consume(OrderPlaced domainEvent)
+        {
+            if (domainEvent.Items == null)
+                return;
+
+            ProcessItems(domainEvent.Items);
+        }
+
+        public void Consume(PreviewImageChanged e)
         {
             Update(e.ArticleId, x =>
                 x.PreviewImageFileName = e.FileName);
         }
 
-        public void Process(PricesChanged e)
+        public void Consume(PricesChanged e)
         {
             Update(e.ArticleId, x =>
             {
@@ -82,21 +87,13 @@
             });
         }
 
-        public void Process(StoreRenamed e)
+        public void Consume(StoreRenamed e)
         {
             Update(p => p.StoreId == e.StoreId, x =>
             {
                 x.StoreName = e.Name;
                 x.StoreUrl = x.LessorUrl + "/" + e.Name.ToFriendlyUrl();
             });
-        }
-
-        public void Process(OrderPlaced domainEvent)
-        {
-            if (domainEvent.Items == null)
-                return;
-
-            ProcessItems(domainEvent.Items);
         }
 
         private void ProcessItems(IEnumerable<OrderEventLine> items)
@@ -126,7 +123,7 @@
                     var popularity = x.Popularities.SingleOrDefault(p => p.Month == month);
                     if (popularity == null)
                     {
-                        popularity  = new ShopItemsPopularityData(x, articleId, month);
+                        popularity = new ShopItemsPopularityData(x, articleId, month);
                         x.Popularities.Add(popularity);
                     }
                     popularity.Value += 1;

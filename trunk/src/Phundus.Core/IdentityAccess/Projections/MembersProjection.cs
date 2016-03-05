@@ -4,7 +4,7 @@
     using System.Collections.Generic;
     using System.Linq;
     using Common.Domain.Model;
-    using Common.Projecting;
+    using Common.Querying;
     using Integration.IdentityAccess;
 
     public interface IMemberQueries
@@ -13,7 +13,7 @@
         IEnumerable<MemberData> Query(CurrentUserId currentUserId, Guid queryOrganizationId, string queryFullName);
     }
 
-    public class MembersProjection : ProjectionBase, IMemberQueries, IMembersWithRole
+    public class MembersProjection : QueryBase, IMemberQueries, IMembersWithRole
     {
         private readonly IMembershipQueries _membershipQueries;
         private readonly IUsersQueries _userQueries;
@@ -33,7 +33,7 @@
         }
 
         public IEnumerable<MemberData> Query(CurrentUserId currentUserId, Guid queryOrganizationId, string queryFullName)
-        {            
+        {
             var memberships = _membershipQueries.FindByOrganizationId(queryOrganizationId);
             return ToMemberData(memberships, queryFullName);
         }
@@ -75,10 +75,6 @@
             }
 
             return result;
-        }
-
-        public override void Handle(DomainEvent e)
-        {
         }
     }
 

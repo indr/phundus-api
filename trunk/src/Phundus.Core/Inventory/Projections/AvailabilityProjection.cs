@@ -6,25 +6,21 @@
     using System.Linq;
     using Application;
     using Common.Domain.Model;
-    using Common.Projecting;
+    using Common.Querying;
 
     public interface IAvailabilityQueries
     {
         IEnumerable<AvailabilityData> GetAvailability(ArticleId guid);
     }
 
-    public class AvailabilityProjection : ProjectionBase, IAvailabilityQueries
+    public class AvailabilityProjection : QueryBase, IAvailabilityQueries
     {
-        public IAvailabilityService AvailabilityService { get; set; }        
+        public IAvailabilityService AvailabilityService { get; set; }
 
         public IEnumerable<AvailabilityData> GetAvailability(ArticleId guid)
         {
             var availabilities = AvailabilityService.GetAvailabilityDetails(guid);
-            return availabilities.Select(each => new AvailabilityData { FromUtc = each.FromUtc, Quantity = each.Quantity });
-        }
-
-        public override void Handle(DomainEvent e)
-        {
+            return availabilities.Select(each => new AvailabilityData {FromUtc = each.FromUtc, Quantity = each.Quantity});
         }
     }
 
@@ -34,7 +30,10 @@
         public DateTime FromUtc { get; set; }
 
         [DisplayFormat(DataFormatString = "{0:dd.MM.yyyy}")]
-        public DateTime FromLocal { get { return FromUtc.ToLocalTime(); } }
+        public DateTime FromLocal
+        {
+            get { return FromUtc.ToLocalTime(); }
+        }
 
         public int Quantity { get; set; }
     }

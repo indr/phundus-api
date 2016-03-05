@@ -4,24 +4,34 @@
     using System.Collections.Generic;
     using System.Collections.ObjectModel;
     using System.Linq;
-    using Common.Domain.Model;
     using Common.Notifications;
     using Common.Projecting;
     using Orders.Model;
 
-    public class OrderProjection : ProjectionBase<OrderData>, IStoredEventsConsumer
+    public class OrderProjection : ProjectionBase<OrderData>,
+        IConsumes<OrderCreated>,
+        IConsumes<OrderApproved>,
+        IConsumes<OrderClosed>,
+        IConsumes<OrderRejected>,
+        IConsumes<OrderItemAdded>,
+        IConsumes<OrderItemPeriodChanged>,
+        IConsumes<OrderItemQuantityChanged>,
+        IConsumes<OrderItemRemoved>,
+        IConsumes<OrderItemTotalChanged>
     {
-        public override void Handle(DomainEvent e)
+        public void Consume(OrderApproved e)
         {
-            Process((dynamic) e);
+            Update(e.OrderId, order =>
+                order.Status = OrderData.OrderStatus.Approved);
         }
 
-        private void Process(DomainEvent e)
+        public void Consume(OrderClosed e)
         {
-            // Noop
+            Update(e.OrderId, order =>
+                order.Status = OrderData.OrderStatus.Closed);
         }
 
-        private void Process(OrderCreated e)
+        public void Consume(OrderCreated e)
         {
             Insert(order =>
             {
@@ -54,40 +64,13 @@
             });
         }
 
-        private void Process(OrderApproved e)
-        {
-            Update(e.OrderId, order =>
-                order.Status = OrderData.OrderStatus.Approved);
-        }
-
-        private void Process(OrderClosed e)
-        {
-            Update(e.OrderId, order =>
-                order.Status = OrderData.OrderStatus.Closed);
-        }
-
-        private void Process(OrderRejected e)
-        {
-            Update(e.OrderId, order =>
-                order.Status = OrderData.OrderStatus.Rejected);
-        }
-
-        private void Process(OrderItemAdded e)
+        public void Consume(OrderItemAdded e)
         {
             Update(e.OrderId, order =>
                 order.Lines.Add(CreateOrderLineData(order, e.OrderLine)));
         }
 
-        private void Process(OrderItemRemoved e)
-        {
-            Update(e.OrderId, order =>
-            {
-                var item = order.Lines.Single(p => p.LineId == e.OrderLine.ItemId);
-                order.Lines.Remove(item);
-            });
-        }
-
-        private void Process(OrderItemPeriodChanged e)
+        public void Consume(OrderItemPeriodChanged e)
         {
             UpdateOrderLine(e.OrderId, e.OrderItemId, line =>
             {
@@ -96,14 +79,29 @@
             });
         }
 
-        private void Process(OrderItemQuantityChanged e)
+        public void Consume(OrderItemQuantityChanged e)
         {
             UpdateOrderLine(e.OrderId, e.OrderItemId, line => { line.Quantity = e.NewQuantity; });
         }
 
-        private void Process(OrderItemTotalChanged e)
+        public void Consume(OrderItemRemoved e)
+        {
+            Update(e.OrderId, order =>
+            {
+                var item = order.Lines.Single(p => p.LineId == e.OrderLine.ItemId);
+                order.Lines.Remove(item);
+            });
+        }
+
+        public void Consume(OrderItemTotalChanged e)
         {
             UpdateOrderLine(e.OrderId, e.OrderItemId, line => { line.LineTotal = e.NewItemTotal; });
+        }
+
+        public void Consume(OrderRejected e)
+        {
+            Update(e.OrderId, order =>
+                order.Status = OrderData.OrderStatus.Rejected);
         }
 
         private static OrderLineData CreateOrderLineData(OrderData order, OrderEventLine s)
@@ -135,8 +133,6 @@
 
     public class OrderData
     {
-        private ICollection<OrderLineData> _lines = new Collection<OrderLineData>();
-
         public enum OrderStatus
         {
             Pending = 1,
@@ -144,6 +140,8 @@
             Rejected,
             Closed
         }
+
+        private ICollection<OrderLineData> _lines = new Collection<OrderLineData>();
 
         public virtual Guid OrderId { get; set; }
         public virtual int OrderShortId { get; set; }

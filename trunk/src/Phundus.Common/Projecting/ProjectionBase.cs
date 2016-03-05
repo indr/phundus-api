@@ -3,7 +3,6 @@ namespace Phundus.Common.Projecting
     using System;
     using System.Linq.Expressions;
     using Castle.Core.Logging;
-    using Domain.Model;
     using NHibernate;
 
     public abstract class ProjectionBase : IProjection
@@ -26,8 +25,6 @@ namespace Phundus.Common.Projecting
         {
             throw new InvalidOperationException();
         }
-
-        public abstract void Handle(DomainEvent e);
     }
 
     public abstract class ProjectionBase<TEntity> : ProjectionBase where TEntity : class, new()
@@ -35,13 +32,6 @@ namespace Phundus.Common.Projecting
         public override bool CanReset
         {
             get { return true; }
-        }
-
-        protected TEntity Find(GuidIdentity id)
-        {
-            if (id == null) throw new ArgumentNullException("id");
-
-            return Session.Get<TEntity>(id.Id);
         }
 
         protected void Insert(Action<TEntity> action)

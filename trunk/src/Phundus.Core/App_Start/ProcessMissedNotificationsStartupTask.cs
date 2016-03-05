@@ -17,7 +17,7 @@
 
         public void Run()
         {
-            _notificationConsumer.ProcessMissedNotifications();
+            //_notificationConsumer.ProcessMissedNotifications();
             _notificationConsumer = null;
         }
 
