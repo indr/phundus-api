@@ -2,6 +2,7 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.Data.Odbc;
     using System.Linq;
     using System.Net;
     using System.Net.Http;
@@ -10,6 +11,7 @@
     using Castle.Transactions;
     using Common.Domain.Model;
     using ContentObjects;
+    using IdentityAccess.Projections;
     using Newtonsoft.Json;
     using Phundus.Shop.Application;
     using Phundus.Shop.Model.Pdf;
@@ -18,20 +20,23 @@
     [RoutePrefix("api/orders")]
     public class OrdersController : ApiControllerBase
     {
+        public IMembershipQueries MembershipQueries { get; set; }
         private readonly IOrderQueries _orderQueries;
         private readonly IPdfStore _pdfStore;
         private readonly IShortIdGeneratorService _shortIdGeneratorService;
+        private readonly IMembershipQueries _membershipQueries;
 
         public OrdersController(IOrderQueries orderQueries, IPdfStore pdfStore,
-            IShortIdGeneratorService shortIdGeneratorService)
-        {
+            IShortIdGeneratorService shortIdGeneratorService, IMembershipQueries membershipQueries)
+        {            
             if (orderQueries == null) throw new ArgumentNullException("orderQueries");
             if (pdfStore == null) throw new ArgumentNullException("pdfStore");
             if (shortIdGeneratorService == null) throw new ArgumentNullException("shortIdGeneratorService");
-
+            if (membershipQueries == null) throw new ArgumentNullException("membershipQueries");
             _orderQueries = orderQueries;
             _pdfStore = pdfStore;
             _shortIdGeneratorService = shortIdGeneratorService;
+            _membershipQueries = membershipQueries;
         }
 
         [GET("")]
@@ -56,7 +61,11 @@
         public virtual HttpResponseMessage Get(Guid orderId)
         {
             var order = _orderQueries.GetById(CurrentUserId, new OrderId(orderId));
-            return Request.CreateResponse(HttpStatusCode.OK, Map<OrderDetail>(order));
+            var membership = _membershipQueries.Find(order.LessorId, order.LesseeId);
+
+            var result = Map<OrderDetail>(order);
+            result.IsMember = membership != null;
+            return Request.CreateResponse(HttpStatusCode.OK, result);
         }
 
         [GET("{orderId}/pdf")]

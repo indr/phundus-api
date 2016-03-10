@@ -11,5 +11,6 @@ namespace Phundus.IdentityAccess.Model.Organizations
 
         IEnumerable<Membership> FindByOrganizationId(Guid organizationId);
         IEnumerable<Membership> FindByUserId(Guid userId);
+        Membership Find(Guid organizationId, Guid userId);
     }
 }

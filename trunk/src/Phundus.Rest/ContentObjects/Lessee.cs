@@ -28,5 +28,8 @@
 
         [JsonProperty("memberNumber")]
         public string MemberNumber { get; set; }
+
+        [JsonProperty("isMember")]
+        public bool IsMember { get; set; }
     }
 }

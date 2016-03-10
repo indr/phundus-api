@@ -16,5 +16,8 @@ namespace Phundus.Rest.ContentObjects
 
         [JsonProperty("totalPrice")]
         public decimal TotalPrice { get; set; }
+
+        [JsonProperty("isMember")]
+        public bool IsMember { get; set; }
     }
 }
