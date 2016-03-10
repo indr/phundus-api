@@ -82,6 +82,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="App_Start\RepositoryInstaller.cs" />
+    <Compile Include="App_Start\TrackerStoreInstaller.cs" />
     <Compile Include="Dashboard\EventLogDataMap.cs" />
     <Compile Include="IdentityAccess\Mappings\MembershipApplicationViewRowMap.cs" />
     <Compile Include="IdentityAccess\Mappings\RelationshipProjectionRowMap.cs" />
@@ -93,7 +95,9 @@
     <Compile Include="Inventory\Mappings\ArticleDataMap.cs" />
     <Compile Include="Extensions\FluentMappingExtensions.cs" />
     <Compile Include="Inventory\Mappings\StoreDataMap.cs" />
+    <Compile Include="Inventory\Repositories\EventSourcedRepositoryBase.cs" />
     <Compile Include="Inventory\Repositories\NhStoreRepository.cs" />
+    <Compile Include="Notifications\NhTrackerRepository.cs" />
     <Compile Include="Notifications\ProcessedNotificationTrackerStore.cs" />
     <Compile Include="Notifications\ProcessedNotificationTrackerMap.cs" />
     <Compile Include="Shop\Model\CartItemMap.cs" />

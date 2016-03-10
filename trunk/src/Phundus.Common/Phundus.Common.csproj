@@ -77,6 +77,7 @@
     <Compile Include="Notifications\Application\ProcessMissedNotifications.cs" />
     <Compile Include="Notifications\IEventConsumerFactory.cs" />
     <Compile Include="Notifications\Installers\EventConsumerInstaller.cs" />
+    <Compile Include="Notifications\ITrackerRepository.cs" />
     <Compile Include="Projecting\Installers\ProjectingInstaller.cs" />
     <Compile Include="RedirectToConsume.cs" />
     <Compile Include="RedirectToWhen.cs" />
