@@ -5,7 +5,6 @@
     using Castle.Windsor;
     using Common.Notifications;
     using Inventory.Repositories;
-    using Notifications;
     using Notifications.Repositories;
     using Phundus.Inventory.Model.Reservations;
 
@@ -15,17 +14,14 @@
         {
             container.Register(Classes.FromThisAssembly()
                 .BasedOn(typeof (NhRepositoryBase<>))
-                .WithServiceAllInterfaces()
-                .LifestyleTransient());
+                .WithServiceAllInterfaces());
 
             container.Register(Classes.FromThisAssembly()
                 .BasedOn<EventSourcedRepositoryBase>()
-                .WithServiceAllInterfaces()
-                .LifestyleTransient());
+                .WithServiceAllInterfaces());
 
             container.Register(Component.For<IReservationRepository>()
-                .ImplementedBy<NhReservationsBasedOnOrdersRepository>()
-                .LifestyleTransient());
+                .ImplementedBy<NhReservationsBasedOnOrdersRepository>());
 
             container.Register(Component.For<ITrackerRepository>()
                 .ImplementedBy<NhTrackerRepository>());

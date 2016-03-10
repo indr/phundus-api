@@ -1,4 +1,4 @@
-﻿namespace Phundus.Common.Tests.Notifications.App_Start
+﻿namespace Phundus.Common.Tests.Notifications.Installers
 {
     using System;
     using Common.Notifications;

@@ -20,7 +20,7 @@
     }
 
     [Subject(typeof (ProcessedNotificationTracker))]
-    public class track_notification_id : processed_notification_tracker_concern
+    public class when_tracker_tracks_notification_id : processed_notification_tracker_concern
     {
         private Establish ctx = () =>
             sut_setup.run(sut =>
@@ -46,7 +46,7 @@
     }
 
     [Subject(typeof (ProcessedNotificationTracker))]
-    public class track_exception : processed_notification_tracker_concern
+    public class when_tracker_tracks_exception : processed_notification_tracker_concern
     {
         private static DateTime mostRecentProcssedAtUtc;
 
@@ -75,7 +75,7 @@
     }
 
     [Subject(typeof (ProcessedNotificationTracker))]
-    public class reset_tracker : processed_notification_tracker_concern
+    public class when_tracker_resets_tracker : processed_notification_tracker_concern
     {
         private Establish ctx = () =>
             sut_setup.run(sut =>

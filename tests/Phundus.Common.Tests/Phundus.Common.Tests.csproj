@@ -97,7 +97,7 @@
     <Compile Include="installer_concern.cs" />
     <Compile Include="InstrumentedDateTimeProvider.cs" />
     <Compile Include="Messaging\FakeBusSpecs.cs" />
-    <Compile Include="Notifications\App_Start\NotificationConsumersInstallerSpecs.cs" />
+    <Compile Include="Notifications\Installers\NotificationConsumersInstallerSpecs.cs" />
     <Compile Include="Notifications\NotificationLogFactorySpecs.cs" />
     <Compile Include="Notifications\ProcessedNotificationTrackerSpecs.cs" />
     <Compile Include="Notifications\ProcessedNotificationTrackerStoreSpecs.cs" />

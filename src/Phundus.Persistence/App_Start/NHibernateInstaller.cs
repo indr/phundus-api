@@ -3,13 +3,11 @@ namespace Phundus.Persistence
     using System.IO;
     using System.Reflection;
     using System.Web;
-    using System.Web.Hosting;
     using Castle.Facilities.NHibernate;
     using Castle.Transactions;
     using FluentNHibernate.Cfg;
     using NHibernate;
     using NHibernate.Cfg;
-    using NHibernate.Dialect;
     using NHibernate.Tool.hbm2ddl;
 
     public class NHibernateInstaller : INHibernateInstaller
@@ -23,7 +21,7 @@ namespace Phundus.Persistence
 
         public FluentConfiguration BuildFluent()
         {
-            var result = Fluently.Configure(new NHibernate.Cfg.Configuration())
+            var result = Fluently.Configure(new Configuration())
                 .Mappings(m => m.FluentMappings.AddFromAssembly(Assembly.GetExecutingAssembly()))
                 .ExposeConfiguration(WriteConfiguration);
             return result;
@@ -52,7 +50,7 @@ namespace Phundus.Persistence
         {
             //var fileName = HostingEnvironment.MapPath(@"~\App_Data\SchemaUpdate.sql") ?? @".\SchemaUpdate.sql";
             var fileName = HttpContext.Current.Server.MapPath(@"~\App_Data\SchemaUpdate.sql");
-            
+
             var writer = new StreamWriter(fileName, false);
             new SchemaUpdate(cfg).Execute(writer.WriteLine, true);
         }

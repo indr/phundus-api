@@ -1,10 +1,8 @@
-namespace Phundus.Persistence
+namespace Phundus.Common.Notifications.Installers
 {
     using Castle.MicroKernel.Registration;
     using Castle.MicroKernel.SubSystems.Configuration;
     using Castle.Windsor;
-    using Common.Notifications;
-    using Notifications;
 
     public class TrackerStoreInstaller : IWindsorInstaller
     {
