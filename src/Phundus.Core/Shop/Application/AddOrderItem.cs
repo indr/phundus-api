@@ -9,20 +9,20 @@
     public class AddOrderItem : ICommand
     {
         public AddOrderItem(InitiatorId initiatorId, OrderId orderId, OrderLineId orderLineId, ArticleId articleId,
-            Period period, int quantity)
+            Period period, int quantity, decimal lineTotal)
         {
             if (initiatorId == null) throw new ArgumentNullException("initiatorId");
             if (orderId == null) throw new ArgumentNullException("orderId");
             if (orderLineId == null) throw new ArgumentNullException("orderLineId");
             if (articleId == null) throw new ArgumentNullException("articleId");
             if (period == null) throw new ArgumentNullException("period");
-
             InitiatorId = initiatorId;
             OrderId = orderId;
             OrderLineId = orderLineId;
             ArticleId = articleId;
             Period = period;
             Quantity = quantity;
+            LineTotal = lineTotal;
         }
 
         public InitiatorId InitiatorId { get; protected set; }
@@ -31,6 +31,7 @@
         public ArticleId ArticleId { get; protected set; }
         public Period Period { get; protected set; }
         public int Quantity { get; protected set; }
+        public decimal LineTotal { get; protected set; }
     }
 
     public class AddOrderItemHandler : IHandleCommand<AddOrderItem>
@@ -58,7 +59,7 @@
             var manager = _userInRole.Manager(command.InitiatorId, order.Lessor.LessorId);
             var article = _articleService.GetById(order.Lessor.LessorId, command.ArticleId, order.Lessee.LesseeId);
 
-            order.AddItem(manager, command.OrderLineId, article, command.Period, command.Quantity);
+            order.AddItem(manager, command.OrderLineId, article, command.Period, command.Quantity, command.LineTotal);
 
             _orderRepository.Save(order);
         }

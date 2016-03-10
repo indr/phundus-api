@@ -63,6 +63,7 @@
         private static Period thePeriod;
         private static int theQuantity;
         private static OrderLineId theOrderItemId;
+        private static decimal theLineTotal;
 
         private Establish ctx = () =>
         {
@@ -70,10 +71,11 @@
             theArticle = make.Article();
             thePeriod = Period.FromNow(6);
             theQuantity = 10;
+            theLineTotal = 1.23m;
         };
 
         private Because of = () =>
-            sut.AddItem(theManager, theOrderItemId, theArticle, thePeriod, theQuantity);
+            sut.AddItem(theManager, theOrderItemId, theArticle, thePeriod, theQuantity, theLineTotal);
 
         private It should_have_an_order_item = () =>
             sut.Lines.ShouldContain(p =>
@@ -83,8 +85,8 @@
         private It should_have_mutating_event_order_item_added = () =>
             mutatingEvent<OrderItemAdded>(p =>
                 p.OrderId == theOrderId.Id
-                && p.OrderTotal == 70.0m
+                && p.OrderTotal == theLineTotal
                 && p.OrderLine.ItemId == theOrderItemId.Id
-                && p.OrderLine.LineTotal == 70.0m);
+                && p.OrderLine.LineTotal == theLineTotal);
     }
 }

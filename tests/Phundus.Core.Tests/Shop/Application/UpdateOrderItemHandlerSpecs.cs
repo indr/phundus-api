@@ -23,7 +23,7 @@
             var article = make.Article();
             theOrder = new Order(theInitiator, new OrderId(), new OrderShortId(1234), theLessor, theLessee);
             theOrderItemId = new OrderLineId();
-            theOrder.AddItem(theManager, theOrderItemId, article, Period.FromNow(1), 1);
+            theOrder.AddItem(theManager, theOrderItemId, article, Period.FromNow(1), 1, 1);
             orderRepository.setup(x => x.GetById(theOrder.OrderId)).Return(theOrder);
 
             newFromUtc = DateTime.UtcNow.AddDays(1);

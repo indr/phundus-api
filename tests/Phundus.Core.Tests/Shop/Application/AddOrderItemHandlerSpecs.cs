@@ -28,12 +28,12 @@
             theOrderItemId = new OrderLineId();
 
             command = new AddOrderItem(theInitiatorId, theOrder.OrderId, theOrderItemId, theArticle.ArticleId,
-                thePeriod, 10);
+                thePeriod, 10, 1.23m);
         };
 
         public It should_add_item_to_order = () =>
             theOrder.received(x =>
-                x.AddItem(theManager, theOrderItemId, theArticle, thePeriod, 10));
+                x.AddItem(theManager, theOrderItemId, theArticle, thePeriod, 10, 1.23m));
 
         private It should_save_to_repository = () =>
             orderRepository.received(x => x.Save(theOrder));
