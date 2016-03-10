@@ -10,7 +10,7 @@
     {
         private string _city;
         private string _emailAddress;
-        private string _firstName;
+        private string _firstName;        
         private string _lastName;
         private LesseeId _lesseeId;
         private string _memberNumber;
@@ -31,7 +31,7 @@
             _city = city;
             _emailAddress = emailAddress;
             _phoneNumber = phoneNumber;
-            _memberNumber = memberNumber;
+            _memberNumber = memberNumber;            
         }
 
         protected Lessee()

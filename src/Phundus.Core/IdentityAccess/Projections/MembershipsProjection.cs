@@ -8,8 +8,8 @@
     using Organizations.Model;
 
     public interface IMembershipQueries
-
     {
+        MembershipData Find(Guid organizationId, Guid userId);
         ICollection<MembershipData> FindByOrganizationId(Guid organizationId);
         ICollection<MembershipData> FindByUserId(Guid userId);
     }
@@ -23,6 +23,14 @@
             if (membershipRepository == null) throw new ArgumentNullException("membershipRepository");
 
             _membershipRepository = membershipRepository;
+        }
+
+        public MembershipData Find(Guid organizationId, Guid userId)
+        {
+            var result = _membershipRepository.Find(organizationId, userId);
+            if (result == null)
+                return null;
+            return ToMembershipData(result);
         }
 
         public ICollection<MembershipData> FindByOrganizationId(Guid organizationId)
