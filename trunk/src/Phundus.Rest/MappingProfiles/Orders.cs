@@ -44,7 +44,7 @@
                 .ForMember(d => d.ToUtc, o => o.MapFrom(s => s.ToUtc))
                 .ForMember(d => d.Quantity, o => o.MapFrom(s => s.Quantity))
                 .ForMember(d => d.UnitPrice, o => o.MapFrom(s => s.UnitPricePerWeek))
-                .ForMember(d => d.ItemTotal, o => o.MapFrom(s => s.LineTotal));
+                .ForMember(d => d.LineTotal, o => o.MapFrom(s => s.LineTotal));
 
             Mapper.CreateMap<OrderData, Lessee>()
                 .ForMember(d => d.City, o => o.MapFrom(s => s.LesseeCity))

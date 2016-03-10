@@ -38,7 +38,7 @@ namespace Phundus.Rest.ContentObjects
         [JsonProperty("unitPrice")]
         public decimal UnitPrice { get; set; }
 
-        [JsonProperty("itemTotal")]
-        public decimal ItemTotal { get; set; }
+        [JsonProperty("lineTotal")]
+        public decimal LineTotal { get; set; }
     }
 }

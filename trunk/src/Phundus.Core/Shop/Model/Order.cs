@@ -107,17 +107,15 @@
 
 
         public virtual void AddItem(Manager manager, OrderLineId orderLineId, Article article, Period period,
-            int quantity)
+            int quantity, decimal lineTotal)
         {
             AssertPending();
 
-            var unitPricePerWeek = article.Price;
-            var priceInfo = new PerDayWithPerSevenDaysPricePricingStrategy()
-                .Calculate(period, quantity, unitPricePerWeek);
+            var unitPricePerWeek = article.Price;            
 
-            Apply(new OrderItemAdded(manager, OrderId, OrderShortId, (int) Status, OrderTotal + priceInfo.Price,
+            Apply(new OrderItemAdded(manager, OrderId, OrderShortId, (int) Status, OrderTotal + lineTotal,
                 new OrderEventLine(orderLineId, article.ArticleId, article.ArticleShortId,
-                    article.Name, unitPricePerWeek, period, quantity, priceInfo.Price)));
+                    article.Name, unitPricePerWeek, period, quantity, lineTotal)));
         }
 
         protected void When(OrderItemAdded e)

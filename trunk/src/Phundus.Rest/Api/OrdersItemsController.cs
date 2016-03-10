@@ -26,12 +26,12 @@ namespace Phundus.Rest.Api
         }
 
         [POST("")]        
-        public virtual HttpResponseMessage Post(Guid orderId, OrdersItemsPostRequestContent requestContent)
+        public virtual HttpResponseMessage Post(Guid orderId, OrdersItemsPostRequestContent rq)
         {
             var orderItemId = new OrderLineId();
             var command = new AddOrderItem(CurrentUserId, new OrderId(orderId), orderItemId,
-                new ArticleId(requestContent.ArticleId), new Period(requestContent.FromUtc, requestContent.ToUtc),
-                requestContent.Quantity);
+                new ArticleId(rq.ArticleId), new Period(rq.FromUtc, rq.ToUtc),
+                rq.Quantity, rq.LineTotal);
 
             Dispatch(command);
 
@@ -53,7 +53,7 @@ namespace Phundus.Rest.Api
         public virtual HttpResponseMessage Patch(Guid orderId, Guid orderItemId,
             OrdersItemsPatchRequestContent rq)
         {
-            Dispatch(new UpdateOrderItem(CurrentUserId, new OrderId(orderId), orderItemId, new Period(rq.FromUtc, rq.ToUtc), rq.Quantity, rq.ItemTotal));
+            Dispatch(new UpdateOrderItem(CurrentUserId, new OrderId(orderId), orderItemId, new Period(rq.FromUtc, rq.ToUtc), rq.Quantity, rq.LineTotal));
 
             return Accepted();
         }
@@ -78,8 +78,8 @@ namespace Phundus.Rest.Api
         [JsonProperty("quantity")]
         public int Quantity { get; set; }
 
-        [JsonProperty("itemTotal")]
-        public decimal ItemTotal { get; set; }
+        [JsonProperty("lineTotal")]
+        public decimal LineTotal { get; set; }
     }
 
     public class OrdersItemsPostRequestContent
@@ -95,5 +95,8 @@ namespace Phundus.Rest.Api
 
         [JsonProperty("quantity")]
         public int Quantity { get; set; }
+
+        [JsonProperty("lineTotal")]
+        public decimal LineTotal { get; set; }
     }
 }
