@@ -84,7 +84,7 @@ If you think it was sent incorrectly contact the administrators at lukas.mueller
             return Razor.Parse(HtmlHeader + htmlBody + HtmlFooter, Model);
         }
 
-        protected void Send(string recipients, string subject, string plain, string html)
+        protected void Send(DateTime date, string recipients, string subject, string plain, string html)
         {
             if (String.IsNullOrWhiteSpace(recipients))
                 return;
@@ -93,7 +93,7 @@ If you think it was sent incorrectly contact the administrators at lukas.mueller
             var textBody = GenerateTextBody(plain);
             var htmlBody = GenerateHtmlBody(html);
 
-            var message = new MailMessage {Subject = GenerateSubject(subject)};
+            var message = new MailMessage {Subject = GenerateSubject(subject)};            
 
             message.To.Add(recipients);
 
@@ -118,7 +118,7 @@ If you think it was sent incorrectly contact the administrators at lukas.mueller
             foreach (var each in Attachments)
                 message.Attachments.Add(each);
 
-            _gateway.Send(message);
+            _gateway.Send(date, message);
         }
 
         public class Urls

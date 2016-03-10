@@ -12,9 +12,9 @@
         {
         }
 
-        public void Send(User user)
+        public void Send(DateTime date, User user)
         {
-            Send(user.Account.Email, Templates.UserAccountCreatedSubject, null, Templates.UserAccountCreatedHtml);
+            Send(date, user.Account.Email, Templates.UserAccountCreatedSubject, null, Templates.UserAccountCreatedHtml);
         }
 
         public UserAccountCreatedMail For(User user)
@@ -31,9 +31,9 @@
             return this;
         }
 
-        public void Send(string address)
+        public void Send(DateTime date, string address)
         {
-            base.Send(address, Templates.UserAccountCreatedSubject, null, Templates.UserAccountCreatedHtml);
+            base.Send(date, address, Templates.UserAccountCreatedSubject, null, Templates.UserAccountCreatedHtml);
         }
     }
 }

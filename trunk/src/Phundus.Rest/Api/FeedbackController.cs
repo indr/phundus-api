@@ -26,12 +26,12 @@ namespace Phundus.Rest.Api
         {
             if (requestContent == null) throw new ArgumentNullException("requestContent");
 
-            _mailGateway.Send(Config.FeedbackRecipients,
+            _mailGateway.Send(DateTime.UtcNow, Config.FeedbackRecipients,
                @"[phundus] Feedback",
                @"Feedback von " + requestContent.EmailAddress + Environment.NewLine + Environment.NewLine +
                requestContent.Comment + BaseMail.TextSignature);
 
-            _mailGateway.Send(requestContent.EmailAddress,
+            _mailGateway.Send(DateTime.UtcNow, requestContent.EmailAddress,
                @"Vielen Dank fürs Feedback",
                @"Wir haben dein Feedback erhalten und werden dir baldmöglichst darauf antworten.
 

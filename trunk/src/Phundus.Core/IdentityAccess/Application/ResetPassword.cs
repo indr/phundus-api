@@ -40,7 +40,7 @@
                 throw new Exception("Die E-Mail-Adresse konnte nicht gefunden werden.");
             var password = user.Account.ResetPassword();
 
-            new UserResetPasswordMail(_mailGateway).For(user, password).Send(user);
+            new UserResetPasswordMail(_mailGateway).For(user, password).Send(DateTime.UtcNow, user);
         }
     }
 }

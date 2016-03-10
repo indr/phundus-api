@@ -32,7 +32,7 @@ namespace Phundus.IdentityAccess.Users.Mails
                 Admins = Config.FeedbackRecipients
             };
 
-            Send(user.Account.RequestedEmail, Templates.UserChangeEmailValidationSubject, null,
+            Send(e.OccuredOnUtc, user.Account.RequestedEmail, Templates.UserChangeEmailValidationSubject, null,
                 Templates.UserChangeEmailValidationHtml);
         }
     }

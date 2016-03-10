@@ -12,9 +12,9 @@
         {
         }
 
-        public void Send(User user)
+        public void Send(DateTime date, User user)
         {
-            Send(user.Account.Email, Templates.UserResetPasswordSubject, null, Templates.UserResetPasswordHtml);
+            Send(date, user.Account.Email, Templates.UserResetPasswordSubject, null, Templates.UserResetPasswordHtml);
         }
 
         public UserResetPasswordMail For(User user, string password)

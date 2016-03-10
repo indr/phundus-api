@@ -48,7 +48,7 @@
 
             var toAddresses = String.Join(",", managers.Select(s => s.EmailAddress));
 
-            Send(toAddresses, Templates.OrderReceivedSubject, null, Templates.OrderReceivedHtml);
+            Send(e.OccuredOnUtc, toAddresses, Templates.OrderReceivedSubject, null, Templates.OrderReceivedHtml);
         }
     }
 }
