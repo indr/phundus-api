@@ -2,6 +2,7 @@
 {
     using System;
     using System.Diagnostics;
+    using Castle.Transactions;
     using Common.Domain.Model;
     using NHibernate;
 
@@ -14,6 +15,7 @@
             get { return SessionFactory(); }
         }
 
+        [Transaction]
         public TShortId GetNext<TShortId>() where TShortId : Identity<int>
         {
             return GetNextShortId<TShortId>();

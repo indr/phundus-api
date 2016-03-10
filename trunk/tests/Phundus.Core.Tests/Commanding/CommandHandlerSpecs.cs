@@ -5,6 +5,7 @@
     using System.Linq;
     using System.Reflection;
     using Castle.Transactions;
+    using Common;
     using Common.Commanding;
     using Machine.Specifications;
 
@@ -15,7 +16,7 @@
 
         private Establish ctx = () =>
         {
-            var handlers = Assembly.GetAssembly(typeof (CoreInstaller)).GetTypes()
+            var handlers = GetTypes()
                 .Where(p => !p.IsAbstract)
                 .Where(p => typeof (IHandleCommand).IsAssignableFrom(p));
 
@@ -24,6 +25,14 @@
 
             methodsWithoutTransactionAttribute = methods.Where(HasNoTransactionAttribute).ToDictionary(ks => ks.Key, ks => ks.Value);
         };
+
+        private static IEnumerable<Type> GetTypes()
+        {
+            var result = new List<Type>();
+            result.AddRange(Assembly.GetAssembly(typeof(CoreInstaller)).GetTypes());
+            //result.AddRange(Assembly.GetAssembly(typeof(CommonInstaller)).GetTypes());
+            return result;
+        }
 
         private static bool HasNoTransactionAttribute(KeyValuePair<MethodInfo, Type> arg)
         {

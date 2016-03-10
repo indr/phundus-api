@@ -74,6 +74,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\CommonInstaller.cs" />
+    <Compile Include="Notifications\Application\ProcessMissedNotifications.cs" />
     <Compile Include="Notifications\IEventConsumerFactory.cs" />
     <Compile Include="Notifications\Installers\EventConsumerInstaller.cs" />
     <Compile Include="Projecting\Installers\ProjectingInstaller.cs" />

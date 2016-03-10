@@ -25,7 +25,7 @@
                 return;
 
             App.OpenUserStore(Ctx.User);
-            Ctx.Stores[storeAlias] = Ctx.User.StoreId;
+            Ctx.Stores[storeAlias] = Ctx.User.StoreId;            
         }
 
         [When(@"I try to open my store")]

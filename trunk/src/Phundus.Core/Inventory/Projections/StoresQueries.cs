@@ -1,6 +1,7 @@
 namespace Phundus.Inventory.Projections
 {
     using System;
+    using Castle.Transactions;
     using Common;
     using Common.Querying;
 
@@ -12,6 +13,7 @@ namespace Phundus.Inventory.Projections
 
     public class StoresQueries : QueryBase<StoreData>, IStoresQueries
     {
+        [Transaction]
         public StoreData GetByOwnerId(Guid ownerId)
         {
             var result = FindByOwnerId(ownerId);
@@ -20,6 +22,7 @@ namespace Phundus.Inventory.Projections
             return result;
         }
 
+        [Transaction]
         public StoreData FindByOwnerId(Guid ownerId)
         {
             return SingleOrDefault(p => p.OwnerId == ownerId);
