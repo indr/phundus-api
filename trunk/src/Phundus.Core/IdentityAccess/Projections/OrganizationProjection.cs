@@ -16,7 +16,7 @@ namespace Phundus.IdentityAccess.Projections
         IConsumes<PublicRentalSettingChanged>,
         IConsumes<StartpageChanged>
     {
-        public void Consume(OrganizationContactDetailsChanged e)
+        public void Handle(OrganizationContactDetailsChanged e)
         {
             Update(e.OrganizationId, x =>
             {
@@ -32,7 +32,7 @@ namespace Phundus.IdentityAccess.Projections
             });
         }
 
-        public void Consume(OrganizationEstablished e)
+        public void Handle(OrganizationEstablished e)
         {
             Insert(x =>
             {
@@ -45,19 +45,19 @@ namespace Phundus.IdentityAccess.Projections
             });
         }
 
-        public void Consume(OrganizationPlanChanged e)
+        public void Handle(OrganizationPlanChanged e)
         {
             Update(e.OrganizationId, x =>
                 x.Plan = e.NewPlan);
         }
 
-        public void Consume(PublicRentalSettingChanged e)
+        public void Handle(PublicRentalSettingChanged e)
         {
             Update(e.OrganizationId, x =>
                 x.PublicRental = e.Value);
         }
 
-        public void Consume(StartpageChanged e)
+        public void Handle(StartpageChanged e)
         {
             Update(e.OrganizationId, x =>
                 x.Startpage = e.Startpage);

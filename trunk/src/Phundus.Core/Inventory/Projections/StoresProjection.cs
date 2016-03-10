@@ -12,13 +12,13 @@ namespace Phundus.Inventory.Projections
         IConsumes<OpeningHoursChanged>,
         IConsumes<CoordinateChanged>
     {
-        public void Consume(AddressChanged e)
+        public void Handle(AddressChanged e)
         {
             Update(e.StoreId, x =>
                 x.Address = e.Address);
         }
 
-        public void Consume(CoordinateChanged e)
+        public void Handle(CoordinateChanged e)
         {
             Update(e.StoreId, x =>
             {
@@ -27,13 +27,13 @@ namespace Phundus.Inventory.Projections
             });
         }
 
-        public void Consume(OpeningHoursChanged e)
+        public void Handle(OpeningHoursChanged e)
         {
             Update(e.StoreId, x =>
                 x.OpeningHours = e.OpeningHours);
         }
 
-        public void Consume(StoreOpened e)
+        public void Handle(StoreOpened e)
         {
             Insert(x =>
             {
@@ -43,7 +43,7 @@ namespace Phundus.Inventory.Projections
             });
         }
 
-        public void Consume(StoreRenamed e)
+        public void Handle(StoreRenamed e)
         {
             Update(e.StoreId, x =>
                 x.Name = e.Name);

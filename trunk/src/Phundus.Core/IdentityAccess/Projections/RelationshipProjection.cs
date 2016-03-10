@@ -10,17 +10,17 @@
         IConsumes<MembershipApplicationFiled>,
         IConsumes<MembershipApplicationRejected>
     {
-        public void Consume(MembershipApplicationApproved domainEvent)
+        public void Handle(MembershipApplicationApproved domainEvent)
         {
             UpdateOrInsert(domainEvent.UserGuid, domainEvent.OrganizationGuid, domainEvent.OccuredOnUtc, "member");
         }
 
-        public void Consume(MembershipApplicationFiled domainEvent)
+        public void Handle(MembershipApplicationFiled domainEvent)
         {
             UpdateOrInsert(domainEvent.UserGuid, domainEvent.OrganizationGuid, domainEvent.OccuredOnUtc, "application");
         }
 
-        public void Consume(MembershipApplicationRejected domainEvent)
+        public void Handle(MembershipApplicationRejected domainEvent)
         {
             UpdateOrInsert(domainEvent.UserGuid, domainEvent.OrganizationGuid, domainEvent.OccuredOnUtc, "rejected");
         }

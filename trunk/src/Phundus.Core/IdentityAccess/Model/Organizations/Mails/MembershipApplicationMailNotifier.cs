@@ -70,7 +70,7 @@
                 null, Templates.MembershipApplicationApprovedBodyHtml);
         }
 
-        public void Consume(MembershipApplicationFiled e)
+        public void Handle(MembershipApplicationFiled e)
         {
             var user = _usersQueries.GetById(e.UserGuid);
             var organization = _organizationQueries.GetById(e.OrganizationGuid);

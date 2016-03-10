@@ -7,6 +7,7 @@
     using Common.Domain.Model;
     using Common.Eventing;
     using Common.Mailing;
+    using Common.Notifications;
     using Model;
     using Services;
     using Shop.Model;

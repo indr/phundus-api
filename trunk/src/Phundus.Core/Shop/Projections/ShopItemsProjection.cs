@@ -20,7 +20,7 @@
         IConsumes<StoreRenamed>,
         IConsumes<OrderPlaced>
     {
-        public void Consume(ArticleCreated e)
+        public void Handle(ArticleCreated e)
         {
             Insert(x =>
             {
@@ -44,18 +44,18 @@
             });
         }
 
-        public void Consume(ArticleDeleted e)
+        public void Handle(ArticleDeleted e)
         {
             Delete(e.ArticleId);
         }
 
-        public void Consume(ArticleDetailsChanged e)
+        public void Handle(ArticleDetailsChanged e)
         {
             Update(e.ArticleId, x =>
                 x.Name = e.Name);
         }
 
-        public void Consume(ImageAdded e)
+        public void Handle(ImageAdded e)
         {
             if (!e.IsPreviewImage)
                 return;
@@ -64,7 +64,7 @@
                 x.PreviewImageFileName = e.FileName);
         }
 
-        public void Consume(OrderPlaced domainEvent)
+        public void Handle(OrderPlaced domainEvent)
         {
             if (domainEvent.Items == null)
                 return;
@@ -72,13 +72,13 @@
             ProcessItems(domainEvent.Items);
         }
 
-        public void Consume(PreviewImageChanged e)
+        public void Handle(PreviewImageChanged e)
         {
             Update(e.ArticleId, x =>
                 x.PreviewImageFileName = e.FileName);
         }
 
-        public void Consume(PricesChanged e)
+        public void Handle(PricesChanged e)
         {
             Update(e.ArticleId, x =>
             {
@@ -87,7 +87,7 @@
             });
         }
 
-        public void Consume(StoreRenamed e)
+        public void Handle(StoreRenamed e)
         {
             Update(p => p.StoreId == e.StoreId, x =>
             {

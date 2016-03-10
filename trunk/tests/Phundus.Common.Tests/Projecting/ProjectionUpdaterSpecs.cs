@@ -26,9 +26,9 @@
             _mock = mock;
         }
 
-        public void Consume(DomainEvent e)
+        public void Handle(DomainEvent e)
         {
-            _mock.Consume(e);
+            _mock.Handle(e);
         }
     }
 
@@ -84,8 +84,8 @@
 
         private It should_tell_consumer_to_consume = () =>
         {
-            consumerMock.received(x => x.Consume(domainEvent1));
-            consumerMock.received(x => x.Consume(domainEvent2));
+            consumerMock.received(x => x.Handle(domainEvent1));
+            consumerMock.received(x => x.Handle(domainEvent2));
         };
 
         private It should_track_processed_notification_id = () =>

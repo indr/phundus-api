@@ -21,7 +21,7 @@
         IConsumes<ImageRemoved>,
         IConsumes<PreviewImageChanged>
     {
-        public void Consume(ArticleCreated e)
+        public void Handle(ArticleCreated e)
         {
             var row = Create(e);
             row.OwnerId = e.Owner.OwnerId.Id;
@@ -42,7 +42,7 @@
             Insert(row);
         }
 
-        public void Consume(ArticleDeleted e)
+        public void Handle(ArticleDeleted e)
         {
             var row = Create(e);
             row.OwnerId = e.OwnerId;
@@ -57,7 +57,7 @@
             Insert(row);
         }
 
-        public void Consume(ArticleDetailsChanged e)
+        public void Handle(ArticleDetailsChanged e)
         {
             var row = Create(e);
             row.OwnerId = e.OwnerId;
@@ -75,7 +75,7 @@
             Insert(row);
         }
 
-        public void Consume(DescriptionChanged e)
+        public void Handle(DescriptionChanged e)
         {
             var row = Create(e);
             row.OwnerId = e.OwnerId;
@@ -91,7 +91,7 @@
             Insert(row);
         }
 
-        public void Consume(GrossStockChanged e)
+        public void Handle(GrossStockChanged e)
         {
             var row = Create(e);
             row.OwnerId = e.OwnerId;
@@ -108,7 +108,7 @@
             Insert(row);
         }
 
-        public void Consume(ImageAdded e)
+        public void Handle(ImageAdded e)
         {
             var row = Create(e);
             row.OwnerId = e.OwnerId;
@@ -124,7 +124,7 @@
             Insert(row);
         }
 
-        public void Consume(ImageRemoved e)
+        public void Handle(ImageRemoved e)
         {
             var row = Create(e);
             row.OwnerId = e.OwnerId;
@@ -140,7 +140,7 @@
             Insert(row);
         }
 
-        public void Consume(PreviewImageChanged e)
+        public void Handle(PreviewImageChanged e)
         {
             var row = Create(e);
             row.OwnerId = e.OwnerId;
@@ -156,7 +156,7 @@
             Insert(row);
         }
 
-        public void Consume(PricesChanged e)
+        public void Handle(PricesChanged e)
         {
             var row = Create(e);
             row.OwnerId = Guid.Empty;
@@ -173,7 +173,7 @@
             Insert(row);
         }
 
-        public void Consume(SpecificationChanged e)
+        public void Handle(SpecificationChanged e)
         {
             var row = Create(e);
             row.OwnerId = e.OwnerId;
