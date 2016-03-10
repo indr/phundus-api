@@ -65,7 +65,7 @@
 
             var cart = GetCart(command);
 
-            cart.AddItem(article, command.FromUtc, command.ToUtc, command.Quantity);
+            cart.AddItem(command.CartItemId, article, command.FromUtc, command.ToUtc, command.Quantity);
         }
 
         private Cart GetCart(AddArticleToCart command)

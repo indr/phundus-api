@@ -16,7 +16,7 @@
             _commandHandlerFactory = commandHandlerFactory;
         }
 
-        public void Dispatch<TCommand>(TCommand command) where TCommand : ICommand
+        public void Dispatch<TCommand>(TCommand command)
         {
             _logger.Info("Dispatching command " + typeof(TCommand).Name);
 

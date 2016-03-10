@@ -4,15 +4,17 @@
     using System.Collections.Generic;
     using System.Linq;
     using AvailabilityAndReservation.Model;
+    using Castle.Transactions;
     using Common;
-    using Common.Domain.Model;    
+    using Common.Domain.Model;
     using Model.Articles;
     using Model.Reservations;
 
     public interface IAvailabilityService
     {
-        bool IsArticleAvailable(ArticleId articleId, DateTime fromUtc, DateTime toUtc, int quantity, OrderLineId orderItemToExclude = null);
-        
+        bool IsArticleAvailable(ArticleId articleId, DateTime fromUtc, DateTime toUtc, int quantity,
+            OrderLineId orderItemToExclude = null);
+
         IEnumerable<Availability> GetAvailabilityDetails(ArticleId articleId);
     }
 
@@ -22,9 +24,17 @@
 
         public IReservationRepository ReservationRepository { get; set; }
 
-        public bool IsArticleAvailable(ArticleId articleId, DateTime fromUtc, DateTime toUtc, int quantity, OrderLineId orderLineIdToExclude)
+        [Transaction]
+        public bool IsArticleAvailable(ArticleId articleId, DateTime fromUtc, DateTime toUtc, int quantity,
+            OrderLineId orderLineIdToExclude)
         {
             return IsArticleAvailable(articleId, new Period(fromUtc, toUtc), quantity, orderLineIdToExclude);
+        }
+
+        [Transaction]
+        public IEnumerable<Availability> GetAvailabilityDetails(ArticleId articleId)
+        {
+            return GetAvailabilityDetails(articleId, null);
         }
 
         private bool IsArticleAvailable(ArticleId article, Period period, int quantity, OrderLineId orderLineIdToExclude)
@@ -48,11 +58,6 @@
                 }
             }
             return false;
-        }
-
-        public IEnumerable<Availability> GetAvailabilityDetails(ArticleId articleId)
-        {
-            return GetAvailabilityDetails(articleId, null);
         }
 
         private IEnumerable<Availability> GetAvailabilityDetails(ArticleId articleId, OrderLineId orderLineIdToExclude)

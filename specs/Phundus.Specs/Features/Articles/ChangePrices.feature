@@ -14,7 +14,7 @@ Scenario: Change organization article prices
 
 Scenario: Change user article prices
 	Given I am logged in as a user
-	And I opened my store
+	And I opened my store	
 	And I created an article in my store
 	When I try to change the price to 11.00 and 9.00
 	Then the article should equal

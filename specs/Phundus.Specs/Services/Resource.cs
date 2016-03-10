@@ -223,6 +223,9 @@
                 AssertHttpStatusCodeIs2xx(response);
             ReadCookies(response);
             SetLastResponse(response);
+
+            if (request.Method != Method.GET)
+                Thread.Sleep(200);
             return response;
         }
 
@@ -235,6 +238,9 @@
                 AssertHttpStatusCodeIs2xx(response);
             ReadCookies(response);
             SetLastResponse(response);
+
+            if (request.Method != Method.GET)
+                Thread.Sleep(200);
             return response;
         }
 

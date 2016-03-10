@@ -39,6 +39,12 @@
             AssertLastStatusCode(HttpStatusCode.InternalServerError);
         }
 
+        [Then(@"I should see accepted")]
+        public void ThenIShouldSeeAccepted()
+        {
+            AssertLastStatusCode(HttpStatusCode.Accepted);
+        }
+
         [Then(@"I should see ok")]
         public void ThenIShouldSeeOk()
         {

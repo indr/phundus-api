@@ -7,6 +7,15 @@ namespace Phundus.Shop.Model
     {
         private CartItemId _cartItemId = new CartItemId();
 
+        public CartItem(CartItemId cartItemId)
+        {
+            _cartItemId = cartItemId;
+        }
+
+        protected CartItem()
+        {
+        }
+
         public virtual Cart Cart { get; set; }
 
         public virtual CartItemId CartItemId
@@ -32,7 +41,7 @@ namespace Phundus.Shop.Model
         public virtual int Quantity { get; set; }
 
         public virtual DateTime From { get; set; }
-        
+
         public virtual DateTime To { get; set; }
 
         public virtual int Days

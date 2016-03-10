@@ -2,22 +2,22 @@
 {
     using System;
     using Bootstrap.Extensions.StartupTasks;
-    using Common.Notifications;
+    using Common.Messaging;
+    using Common.Notifications.Application;
 
     public class ProcessMissedNotificationsStartupTask : IStartupTask
     {
-        private INotificationHandler _notificationHandler;
+        private readonly IBus _bus;
 
-        public ProcessMissedNotificationsStartupTask(INotificationHandler notificationHandler)
+        public ProcessMissedNotificationsStartupTask(IBus bus)
         {
-            if (notificationHandler == null) throw new ArgumentNullException("notificationHandler");
-            _notificationHandler = notificationHandler;
+            if (bus == null) throw new ArgumentNullException("bus");
+            _bus = bus;
         }
 
         public void Run()
         {
-            _notificationHandler.ProcessMissedNotifications();
-            _notificationHandler = null;
+            _bus.Send(new ProcessMissedNotifications());
         }
 
         public void Reset()

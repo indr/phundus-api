@@ -22,7 +22,7 @@
         {
             if (message is ICommand)
             {
-                SendCommand(message as ICommand);
+                SendCommand(message);
                 return;
             }
             if (message is Notification)
@@ -54,7 +54,7 @@
             });
         }
 
-        private void SendCommand<T>(T message) where T : ICommand
+        private void SendCommand<T>(T message)
         {
             ThreadPool.QueueUserWorkItem(o =>
             {

@@ -38,9 +38,9 @@
             protected set { _userId = value; }
         }
 
-        public virtual CartItemId AddItem(Article article, DateTime fromUtc, DateTime toUtc, int quantity)
+        public virtual CartItemId AddItem(CartItemId cartItemId, Article article, DateTime fromUtc, DateTime toUtc, int quantity)
         {
-            var item = new CartItem();
+            var item = new CartItem(cartItemId);
             item.Position = 1;
             if (Items.Count > 0)
                 item.Position = Items.Max(s => s.Position) + 1;

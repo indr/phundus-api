@@ -33,6 +33,7 @@
             DateTime? toUtc = null, int? quantity = null)
         {
             return sut.AddItem(
+                new CartItemId(), 
                 article ?? make.Article(),
                 fromUtc ?? DateTime.UtcNow,
                 toUtc ?? DateTime.UtcNow.AddDays(1),
