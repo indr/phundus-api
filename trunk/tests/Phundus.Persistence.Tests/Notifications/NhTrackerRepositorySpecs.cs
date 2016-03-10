@@ -6,7 +6,7 @@
     using developwithpassion.specifications.extensions;
     using Machine.Specifications;
     using NHibernate;
-    using Persistence.Notifications;
+    using Persistence.Notifications.Repositories;
     using Rhino.Mocks;
 
     public class nh_tracker_repository_concern : concern<NhTrackerRepository>

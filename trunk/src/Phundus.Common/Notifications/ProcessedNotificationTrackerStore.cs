@@ -1,9 +1,8 @@
-namespace Phundus.Persistence.Notifications
+namespace Phundus.Common.Notifications
 {
     using System;
     using System.Collections.Generic;
     using Castle.Transactions;
-    using Common.Notifications;
 
     public class ProcessedNotificationTrackerStore : IProcessedNotificationTrackerStore
     {

@@ -1,4 +1,4 @@
-namespace Phundus.Persistence.Notifications
+namespace Phundus.Persistence.Notifications.Repositories
 {
     using System;
     using System.Collections.Generic;

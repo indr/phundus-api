@@ -1,4 +1,4 @@
-﻿namespace Phundus.Persistence.Tests.Notifications
+﻿namespace Phundus.Common.Tests.Notifications
 {
     using System;
     using System.Collections.Generic;
@@ -6,7 +6,6 @@
     using developwithpassion.specifications.extensions;
     using developwithpassion.specifications.rhinomocks;
     using Machine.Specifications;
-    using Persistence.Notifications;
     using Rhino.Mocks;
 
     public class processed_notification_tracker_store_concern : Observes<ProcessedNotificationTrackerStore>
@@ -43,7 +42,7 @@
         private static ProcessedNotificationTracker returnValue;
 
         private Establish ctx = () =>
-        {            
+        {
             tracker = fake.an<ProcessedNotificationTracker>();
             trackerRepository.setup(x => x.Find("typeName")).Return(tracker);
         };

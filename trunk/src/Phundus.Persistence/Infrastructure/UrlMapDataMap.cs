@@ -3,9 +3,9 @@
     using FluentNHibernate.Mapping;
     using Web.Projections;
 
-    public class UrlMapData : ClassMap<Web.Projections.UrlMapData>
+    public class UrlMapDataMap : ClassMap<UrlMapData>
     {
-        public UrlMapData()
+        public UrlMapDataMap()
         {
             SchemaAction.All();
             Table("Es_Web_FriendlyUrls");
