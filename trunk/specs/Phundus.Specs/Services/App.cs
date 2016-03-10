@@ -341,7 +341,7 @@
             return _apiClient.OrdersApi.Query<Order>(new {organizationId}).Data.Results;
         }
 
-        public void AddOrderItem(Guid orderId, Guid articleId)
+        public void AddOrderItem(Guid orderId, Guid articleId, decimal lineTotal)
         {
             _apiClient.OrdersItemsApi.Post(new OrdersItemsPostRequestContent
             {
@@ -349,7 +349,8 @@
                 ArticleId = articleId,
                 FromUtc = DateTime.Today.Date.ToUniversalTime(),
                 ToUtc = DateTime.Today.Date.AddDays(1).AddSeconds(-1).ToUniversalTime(),
-                Quantity = 1
+                Quantity = 1,
+                LineTotal = lineTotal
             });
         }
 

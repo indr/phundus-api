@@ -16,11 +16,11 @@
         {
         }
 
-        [When(@"I try to add the article (.+) to the order")]
-        public void WhenITryToAddTheArticleFootballToTheOrder(string alias)
+        [When(@"I try to add the article (.+) for (.+) to the order")]
+        public void WhenITryToAddTheArticleFootballToTheOrder(string alias, decimal lineTotal)
         {
             var article = Ctx.Articles[alias];
-            App.AddOrderItem(Ctx.Order.OrderId, article.ArticleId);
+            App.AddOrderItem(Ctx.Order.OrderId, article.ArticleId, lineTotal);
         }
     }
 

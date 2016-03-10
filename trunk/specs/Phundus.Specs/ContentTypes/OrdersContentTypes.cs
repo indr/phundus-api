@@ -30,11 +30,11 @@
         [JsonProperty("articleId")]
         public Guid ArticleId { get; set; }
 
-        [JsonProperty("unitPricePerWeek")]
-        public decimal UnitPricePerWeek { get; set; }
+        [JsonProperty("unitPrice")]
+        public decimal UnitPrice { get; set; }
 
-        [JsonProperty("itemTotal")]
-        public decimal ItemTotal { get; set; }
+        [JsonProperty("lineTotal")]
+        public decimal LineTotal { get; set; }
     }
 
     internal class OrdersPostOkResponseContent
@@ -62,5 +62,8 @@
 
         [JsonProperty("quantity")]
         public int Quantity { get; set; }
+
+        [JsonProperty("lineTotal")]
+        public decimal LineTotal { get; set; }
     }
 }
