@@ -2,11 +2,6 @@
 {
     using System;
 
-    public interface IShortIdGeneratorService
-    {
-        TShortId GetNext<TShortId>() where TShortId : Identity<int>;
-    }
-
     public interface IIdentity<out T>
     {
         T Id { get; }

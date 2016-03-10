@@ -3,6 +3,7 @@
     using System;
     using System.Runtime.Serialization;
     using Common.Domain.Model;
+    using IdentityAccess.Model.Users;
 
     [DataContract]
     public class UserRoleChanged : DomainEvent

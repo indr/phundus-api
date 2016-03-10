@@ -1,4 +1,4 @@
-﻿namespace Phundus.Common.Domain.Model
+﻿namespace Phundus.IdentityAccess.Model.Users
 {
     public enum UserRole
     {

@@ -74,6 +74,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\CommonInstaller.cs" />
+    <Compile Include="Domain.Model\IShortIdGeneratorService.cs" />
     <Compile Include="Eventing\EventStore.cs" />
     <Compile Include="Notifications\Application\ProcessMissedNotifications.cs" />
     <Compile Include="Notifications\IEventConsumerFactory.cs" />
@@ -84,7 +85,7 @@
     <Compile Include="Projecting\Installers\ProjectingInstaller.cs" />
     <Compile Include="RedirectToConsume.cs" />
     <Compile Include="RedirectToWhen.cs" />
-    <Compile Include="Messaging\MessagingInstaller.cs" />
+    <Compile Include="Messaging\Installers\MessagingInstaller.cs" />
     <Compile Include="Notifications\Installers\NotificationHandlerInstaller.cs" />
     <Compile Include="AssertionConcern.cs" />
     <Compile Include="AuthorizationException.cs" />
@@ -127,7 +128,7 @@
     <Compile Include="Mailing\BaseMail.cs" />
     <Compile Include="Mailing\IMailGateway.cs" />
     <Compile Include="Mailing\MailGateway.cs" />
-    <Compile Include="Mailing\MailingInstaller.cs" />
+    <Compile Include="Mailing\Installers\MailingInstaller.cs" />
     <Compile Include="Messaging\FakeBus.cs" />
     <Compile Include="Messaging\IBus.cs" />
     <Compile Include="Notifications\Installers\NotificationsInstaller.cs" />
@@ -144,11 +145,8 @@
     <Compile Include="Querying\QueryResult.cs" />
     <Compile Include="Projecting\RawJsonConverter.cs" />
     <Compile Include="ProviderUserKey.cs" />
-    <Compile Include="Domain.Model\StoreId.cs" />
-    <Compile Include="Domain.Model\UserRole.cs" />
     <Compile Include="Domain.Model\ValueObject.cs" />
     <Compile Include="Eventing\EventSerializer.cs" />
-    <Compile Include="Eventing\IEventStore.cs" />
     <Compile Include="Eventing\StoredEvent.cs" />
     <Compile Include="FriendlyUrl.cs" />
     <Compile Include="NotFoundException.cs" />

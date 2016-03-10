@@ -148,6 +148,7 @@
     <Compile Include="IdentityAccess\Model\Organizations\IMembershipRepository.cs" />
     <Compile Include="IdentityAccess\Model\Organizations\IMembershipRequestRepository.cs" />
     <Compile Include="IdentityAccess\Model\Organizations\IOrganizationRepository.cs" />
+    <Compile Include="IdentityAccess\Model\Users\UserRole.cs" />
     <Compile Include="IdentityAccess\Projections\OrganizationProjection.cs" />
     <Compile Include="IdentityAccess\Projections\OrganizationQueries.cs" />
     <Compile Include="IdentityAccess\Projections\RelationshipProjection.cs" />
