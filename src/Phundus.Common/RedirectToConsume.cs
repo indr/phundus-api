@@ -54,7 +54,7 @@ namespace Phundus.Common
                     return infos;
 
                 infos = type.GetMethods(BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance)
-                    .Where(m => m.Name == "Consume")
+                    .Where(m => m.Name == "Handle")
                     .Where(m => m.GetParameters().Length == 1)
                     .ToDictionary(m => m.GetParameters().First().ParameterType, m => m);
 
