@@ -6,6 +6,18 @@
     using Domain.Model;
     using Notifications;
 
+    public interface IEventStore
+    {
+        void Append(DomainEvent domainEvent);
+        void AppendToStream(GuidIdentity id, int version, ICollection<IDomainEvent> events);
+        IEnumerable<StoredEvent> AllStoredEventsBetween(long lowStoredEventId, long highStoredEventId);
+        long CountStoredEvents();
+        long GetMaxNotificationId();
+        DomainEvent Deserialize(StoredEvent storedEvent);
+
+        EventStream LoadEventStream(GuidIdentity id);
+    }
+
     public class EventStore : IEventStore
     {
         private readonly IEventSerializer _eventSerializer;

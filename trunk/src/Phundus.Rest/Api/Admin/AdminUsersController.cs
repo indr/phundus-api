@@ -10,6 +10,7 @@
     using Common.Domain.Model;
     using ContentObjects;
     using IdentityAccess.Application;
+    using IdentityAccess.Model.Users;
     using Integration.IdentityAccess;
     using Newtonsoft.Json;
 

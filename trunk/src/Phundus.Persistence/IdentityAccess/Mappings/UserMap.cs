@@ -2,6 +2,7 @@
 {
     using Common.Domain.Model;
     using FluentNHibernate.Mapping;
+    using Phundus.IdentityAccess.Model.Users;
     using Phundus.IdentityAccess.Users.Model;
 
     public class UserMap : ClassMap<User>

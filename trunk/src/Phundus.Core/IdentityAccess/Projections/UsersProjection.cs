@@ -8,6 +8,7 @@
     using Common.Domain.Model;
     using Common.Querying;
     using Integration.IdentityAccess;
+    using Model.Users;
 
     public class UsersProjection : QueryBase<UserData>, IUsersQueries, IInitiatorService
     {

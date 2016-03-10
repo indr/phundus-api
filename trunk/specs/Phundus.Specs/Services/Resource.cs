@@ -17,10 +17,12 @@
     public class Resource
     {
         private static readonly string BaseUrl;
+        private const int TimeoutBeforeGetRequests = 500;
+        private const int TimeoutAfterNoneGetRequests = 500;
 
         private static readonly IDictionary<string, string> Cookies = new Dictionary<string, string>();
         private readonly string _resource;
-        private bool _assertHttpStatusCode;
+        private readonly bool _assertHttpStatusCode;
 
         static Resource()
         {
@@ -91,7 +93,7 @@
         protected RestRequest CreateRequest(object requestContent, Method method, object queryString = null)
         {
             if (method == Method.GET)
-                Thread.Sleep(200);
+                Thread.Sleep(TimeoutBeforeGetRequests);
 
             var request = new RestRequest(method);
             request.Resource = _resource;
@@ -225,7 +227,7 @@
             SetLastResponse(response);
 
             if (request.Method != Method.GET)
-                Thread.Sleep(200);
+                Thread.Sleep(TimeoutAfterNoneGetRequests);
             return response;
         }
 
