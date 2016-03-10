@@ -104,22 +104,24 @@ namespace Phundus.Specs.Features.Orders
         public virtual void AddArticleToOrderForMemberPicksMemberPrice()
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Add article to order for member picks member price", ((string[])(null)));
-#line 15
+#line 14
 this.ScenarioSetup(scenarioInfo);
 #line 3
 this.FeatureBackground();
-#line 16
+#line 15
  testRunner.Given("I created a new empty order for Alice", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
-#line 17
- testRunner.When("I try to add the article Apple to the order", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 16
+ testRunner.When("I try to add the article Apple for 20.00 to the order", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
             TechTalk.SpecFlow.Table table3 = new TechTalk.SpecFlow.Table(new string[] {
                         "Text",
-                        "Item Total"});
+                        "Unit price",
+                        "Line total"});
             table3.AddRow(new string[] {
                         "Apple",
-                        "1.00"});
-#line 18
+                        "7.00",
+                        "20.00"});
+#line 17
  testRunner.Then("the order should have these items:", ((string)(null)), table3, "Then ");
 #line hidden
             this.ScenarioCleanup();
@@ -130,22 +132,24 @@ this.FeatureBackground();
         public virtual void AddArticleToOrderForNonMemberPicksPublicPrice()
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Add article to order for non member picks public price", ((string[])(null)));
-#line 22
+#line 21
 this.ScenarioSetup(scenarioInfo);
 #line 3
 this.FeatureBackground();
-#line 23
+#line 22
  testRunner.Given("I created a new empty order for John", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
-#line 24
- testRunner.When("I try to add the article Apple to the order", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 23
+ testRunner.When("I try to add the article Apple for 30.00 to the order", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
             TechTalk.SpecFlow.Table table4 = new TechTalk.SpecFlow.Table(new string[] {
                         "Text",
-                        "Item Total"});
+                        "Unit price",
+                        "Line total"});
             table4.AddRow(new string[] {
                         "Apple",
-                        "2.00"});
-#line 25
+                        "14.00",
+                        "30.00"});
+#line 24
  testRunner.Then("the order should have these items:", ((string)(null)), table4, "Then ");
 #line hidden
             this.ScenarioCleanup();
