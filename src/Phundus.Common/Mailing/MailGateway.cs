@@ -4,10 +4,13 @@
     using System.Net.Mail;
     using System.Text.RegularExpressions;
     using System.Web.Hosting;
+    using Castle.Core.Logging;
 
     public class MailGateway : IMailGateway
     {
-        public void Send(string recipients, string subject, string body)
+        public ILogger Logger { get; set; }
+
+        public void Send(DateTime date, string recipients, string subject, string body)
         {
             if (recipients == null) throw new ArgumentNullException("recipients");
 
@@ -15,11 +18,16 @@
             message.To.Add(recipients);
             message.Subject = subject;
             message.Body = body;
-            Send(message);
+            Send(date, message);
         }
 
-        public void Send(MailMessage message)
+        public void Send(DateTime date, MailMessage message)
         {
+            if (date < DateTimeProvider.UtcNow.AddDays(-1))
+            {
+                Logger.Warn("Skipped sending mail message because it is too old.");
+            }
+
             if (Config.InMaintenance)
             {
                 RemoveUnallowedRecipients(message);

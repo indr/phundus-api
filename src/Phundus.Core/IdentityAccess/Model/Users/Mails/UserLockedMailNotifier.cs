@@ -32,7 +32,7 @@
                 Admins = Config.FeedbackRecipients
             };
 
-            Send(user.Account.Email, Templates.UserLockedSubject, null, Templates.UserLockedHtml);
+            Send(e.OccuredOnUtc, user.Account.Email, Templates.UserLockedSubject, null, Templates.UserLockedHtml);
         }
     }
 }

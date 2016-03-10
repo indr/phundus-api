@@ -49,7 +49,7 @@
                 Admins = Config.FeedbackRecipients
             };
 
-            Send(user.EmailAddress, Templates.MemberLockedSubject,
+            Send(e.OccuredOnUtc, user.EmailAddress, Templates.MemberLockedSubject,
                 null, Templates.MemberLockedBodyHtml);
         }
 
@@ -66,7 +66,7 @@
                 Admins = Config.FeedbackRecipients
             };
 
-            Send(user.EmailAddress, Templates.MembershipApplicationApprovedSubject,
+            Send(e.OccuredOnUtc, user.EmailAddress, Templates.MembershipApplicationApprovedSubject,
                 null, Templates.MembershipApplicationApprovedBodyHtml);
         }
 
@@ -86,7 +86,7 @@
                 Admins = Config.FeedbackRecipients
             };
 
-            Send(String.Join(",", recipients), Templates.MembershipApplicationFiledSubject,
+            Send(e.OccuredOnUtc, String.Join(",", recipients), Templates.MembershipApplicationFiledSubject,
                 null, Templates.MembershipApplicationFiledBodyHtml);
         }
 
@@ -103,7 +103,7 @@
                 Admins = Config.FeedbackRecipients
             };
 
-            Send(user.EmailAddress, Templates.MembershipApplicationRejectedSubject,
+            Send(e.OccuredOnUtc, user.EmailAddress, Templates.MembershipApplicationRejectedSubject,
                 null, Templates.MembershipApplicationRejectedBodyHtml);
         }
 
@@ -120,7 +120,7 @@
                 Admins = Config.FeedbackRecipients
             };
 
-            Send(user.EmailAddress, Templates.MemberUnlockedSubject,
+            Send(e.OccuredOnUtc, user.EmailAddress, Templates.MemberUnlockedSubject,
                 null, Templates.MemberUnlockedBodyHtml);
         }
     }

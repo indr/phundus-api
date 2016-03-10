@@ -5,7 +5,7 @@
     using Common;
     using Common.Domain.Model;
     using Common.Eventing;
-    using Common.Mailing;    
+    using Common.Mailing;
     using Model;
     using Services;
     using Shop.Model;
@@ -30,7 +30,7 @@
             Model = new
             {
                 Urls = new Urls(Config.ServerUrl),
-                Lessee = order.Lessee,
+                order.Lessee,
                 Order = order,
                 Admins = Config.FeedbackRecipients
             };
@@ -39,7 +39,8 @@
                 String.Format("Bestellung-{0}.pdf", order.OrderShortId.Id),
                 "application/pdf"));
 
-            Send(order.Lessee.EmailAddress, Templates.OrderApprovedSubject, null, Templates.OrderApprovedHtml);
+            Send(e.OccuredOnUtc, order.Lessee.EmailAddress, Templates.OrderApprovedSubject, null,
+                Templates.OrderApprovedHtml);
         }
 
         public void Handle(OrderRejected e)
@@ -58,7 +59,8 @@
                 String.Format("Bestellung-{0}.pdf", order.OrderShortId.Id),
                 "application/pdf"));
 
-            Send(order.Lessee.EmailAddress, Templates.OrderRejectedSubject, null, Templates.OrderRejectedHtml);
+            Send(e.OccuredOnUtc, order.Lessee.EmailAddress, Templates.OrderRejectedSubject, null,
+                Templates.OrderRejectedHtml);
         }
     }
 }
