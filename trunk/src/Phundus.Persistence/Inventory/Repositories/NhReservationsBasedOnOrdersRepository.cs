@@ -6,7 +6,6 @@
     using NHibernate;
     using Phundus.Inventory.AvailabilityAndReservation.Model;
     using Phundus.Inventory.Model.Reservations;
-    using Phundus.Shop.Model;
     using Phundus.Shop.Projections;
 
     public class NhReservationsBasedOnOrdersRepository : IReservationRepository

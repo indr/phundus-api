@@ -16,7 +16,7 @@
     }
 
     [Subject(typeof (ProcessedNotificationTrackerStore))]
-    public class get_processed_notification_trackers : processed_notification_tracker_store_concern
+    public class when_store_gets_processed_notification_trackers : processed_notification_tracker_store_concern
     {
         private static IList<ProcessedNotificationTracker> returnValue;
         private static IList<ProcessedNotificationTracker> trackers = new List<ProcessedNotificationTracker>();
@@ -36,7 +36,7 @@
     }
 
     [Subject(typeof (ProcessedNotificationTrackerStore))]
-    public class get_processed_notification_tracker : processed_notification_tracker_store_concern
+    public class when_store_gets_processed_notification_tracker : processed_notification_tracker_store_concern
     {
         private static ProcessedNotificationTracker tracker;
         private static ProcessedNotificationTracker returnValue;
@@ -55,7 +55,7 @@
     }
 
     [Subject(typeof (ProcessedNotificationTrackerStore))]
-    public class get_processed_notification_tracker_when_tracker_does_not_exist :
+    public class when_store_gets_processed_notification_tracker_when_tracker_does_not_exist :
         processed_notification_tracker_store_concern
     {
         private static ProcessedNotificationTracker returnValue;
@@ -71,7 +71,7 @@
     }
 
     [Subject(typeof (ProcessedNotificationTrackerStore))]
-    public class track_exception_for_existing_tracker : processed_notification_tracker_store_concern
+    public class when_store_tracks_exception_for_existing_tracker : processed_notification_tracker_store_concern
     {
         private static ProcessedNotificationTracker tracker;
         private static Exception exception = new Exception("Exception message");
@@ -93,7 +93,7 @@
     }
 
     [Subject(typeof (ProcessedNotificationTrackerStore))]
-    public class track_exception_for_non_existing_tracker : processed_notification_tracker_store_concern
+    public class when_store_tracks_exception_for_non_existing_tracker : processed_notification_tracker_store_concern
     {
         private static Exception exception = new Exception("Exception message");
 
@@ -110,7 +110,7 @@
     }
 
     [Subject(typeof (ProcessedNotificationTrackerStore))]
-    public class track_notification_id : processed_notification_tracker_store_concern
+    public class when_store_tracks_notification_id : processed_notification_tracker_store_concern
     {
         private static ProcessedNotificationTracker tracker;
 
@@ -131,7 +131,7 @@
     }
 
     [Subject(typeof (ProcessedNotificationTrackerStore))]
-    public class delete_tracker : processed_notification_tracker_store_concern
+    public class when_store_deletes_tracker : processed_notification_tracker_store_concern
     {
         private static ProcessedNotificationTracker tracker;
 
@@ -149,7 +149,7 @@
     }
 
     [Subject(typeof (ProcessedNotificationTrackerStore))]
-    public class delete_non_existing_tracker : processed_notification_tracker_store_concern
+    public class when_store_deletes_non_existing_tracker : processed_notification_tracker_store_concern
     {
         private Establish ctx = () =>
             trackerRepository.setup(x => x.Find("typeName")).Return((ProcessedNotificationTracker) null);
@@ -163,7 +163,7 @@
     }
 
     [Subject(typeof (ProcessedNotificationTrackerStore))]
-    public class reset_tracker : processed_notification_tracker_store_concern
+    public class when_store_resets_tracker : processed_notification_tracker_store_concern
     {
         private static ProcessedNotificationTracker tracker;
 
@@ -187,7 +187,7 @@
     }
 
     [Subject(typeof (ProcessedNotificationTrackerStore))]
-    public class reset_non_existing_tracker : processed_notification_tracker_store_concern
+    public class when_store_resets_non_existing_tracker : processed_notification_tracker_store_concern
     {
         private Establish ctx = () =>
             trackerRepository.setup(x => x.Find("typeName")).Return((ProcessedNotificationTracker) null);

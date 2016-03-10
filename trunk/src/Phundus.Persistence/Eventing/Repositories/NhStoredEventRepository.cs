@@ -1,4 +1,4 @@
-﻿namespace Phundus.Persistence.StoredEvents
+﻿namespace Phundus.Persistence.Eventing.Repositories
 {
     using System;
     using System.Collections.Generic;

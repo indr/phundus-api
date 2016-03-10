@@ -1,4 +1,4 @@
-namespace Phundus.Persistence.Notifications.Mappings
+namespace Phundus.Persistence.Notifications.Model
 {
     using Common.Notifications;
     using Extensions;

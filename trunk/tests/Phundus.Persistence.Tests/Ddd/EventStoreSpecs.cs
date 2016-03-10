@@ -5,7 +5,6 @@
     using Machine.Fakes;
     using Machine.Specifications;
     using Rhino.Mocks;
-    using StoredEvents;
 
     public class TestDomainEvent : DomainEvent
     {

@@ -1,4 +1,4 @@
-﻿namespace Phundus.Persistence.StoredEvents
+﻿namespace Phundus.Persistence.Eventing.Mappings
 {
     using Common.Eventing;
     using FluentNHibernate.Mapping;

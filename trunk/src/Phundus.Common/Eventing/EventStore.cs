@@ -1,11 +1,10 @@
-﻿namespace Phundus.Persistence.StoredEvents
+﻿namespace Phundus.Common.Eventing
 {
     using System;
     using System.Collections.Generic;
     using System.Linq;
-    using Common.Domain.Model;
-    using Common.Eventing;
-    using Common.Notifications;
+    using Domain.Model;
+    using Notifications;
 
     public class EventStore : IEventStore
     {
@@ -104,7 +103,7 @@
 
         protected ICollection<StoredEvent> Serialize(ICollection<IDomainEvent> domainEvents, Guid streamId, int version)
         {
-            return domainEvents.Select(s => Serialize(s, streamId, version)).ToList();
+            return domainEvents.Select(s => Serialize((IDomainEvent) s, streamId, version)).ToList();
         }
     }
 }
