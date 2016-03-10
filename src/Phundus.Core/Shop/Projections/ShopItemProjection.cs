@@ -21,7 +21,7 @@ namespace Phundus.Shop.Projections
         IConsumes<ImageRemoved>
 
     {
-        public void Consume(ArticleCreated e)
+        public void Handle(ArticleCreated e)
         {
             if (e.ArticleId == Guid.Empty)
                 return;
@@ -47,12 +47,12 @@ namespace Phundus.Shop.Projections
             });
         }
 
-        public void Consume(ArticleDeleted e)
+        public void Handle(ArticleDeleted e)
         {
             Delete(e.ArticleId);
         }
 
-        public void Consume(ArticleDetailsChanged domainEvent)
+        public void Handle(ArticleDetailsChanged domainEvent)
         {
             Update(domainEvent.ArticleId, x =>
             {
@@ -62,13 +62,13 @@ namespace Phundus.Shop.Projections
             });
         }
 
-        public void Consume(DescriptionChanged e)
+        public void Handle(DescriptionChanged e)
         {
             Update(e.ArticleId, x =>
                 x.Description = e.Description);
         }
 
-        public void Consume(ImageAdded domainEvent)
+        public void Handle(ImageAdded domainEvent)
         {
             if (domainEvent.FileType.StartsWith("application/"))
                 ProcessDocumentAdded(domainEvent);
@@ -76,7 +76,7 @@ namespace Phundus.Shop.Projections
                 ProcessImageAdded(domainEvent);
         }
 
-        public void Consume(ImageRemoved e)
+        public void Handle(ImageRemoved e)
         {
             Update(e.ArticleId, x =>
             {
@@ -97,7 +97,7 @@ namespace Phundus.Shop.Projections
             });
         }
 
-        public void Consume(PricesChanged e)
+        public void Handle(PricesChanged e)
         {
             Update(e.ArticleId, x =>
             {
@@ -106,13 +106,13 @@ namespace Phundus.Shop.Projections
             });
         }
 
-        public void Consume(SpecificationChanged e)
+        public void Handle(SpecificationChanged e)
         {
             Update(e.ArticleId, x =>
                 x.Specification = e.Specification);
         }
 
-        public void Consume(StoreRenamed e)
+        public void Handle(StoreRenamed e)
         {
             Update(p => p.StoreId == e.StoreId, x =>
             {

@@ -20,14 +20,14 @@ namespace Phundus.Dashboard.Projections
         IConsumes<MemberLocked>,
         IConsumes<MemberUnlocked>
     {
-        public void Consume(DomainEvent domainEvent)
+        public void Handle(DomainEvent domainEvent)
         {
             var record = CreateRow(domainEvent);
             record.Text = "Unformatiertes Ereignis: " + domainEvent.GetType().Name;
             Insert(record);
         }
 
-        public void Consume(MemberLocked domainEvent)
+        public void Handle(MemberLocked domainEvent)
         {
             var record = CreateRow(domainEvent);
             record.Text = string.Format("Benutzer {2} hat Mitglied {0} bei Organization {1} gesperrt.",
@@ -35,7 +35,7 @@ namespace Phundus.Dashboard.Projections
             Insert(record);
         }
 
-        public void Consume(MembershipApplicationApproved domainEvent)
+        public void Handle(MembershipApplicationApproved domainEvent)
         {
             var record = CreateRow(domainEvent);
             record.Text =
@@ -44,7 +44,7 @@ namespace Phundus.Dashboard.Projections
             Insert(record);
         }
 
-        public void Consume(MembershipApplicationFiled domainEvent)
+        public void Handle(MembershipApplicationFiled domainEvent)
         {
             var record = CreateRow(domainEvent);
             record.Text =
@@ -53,7 +53,7 @@ namespace Phundus.Dashboard.Projections
             Insert(record);
         }
 
-        public void Consume(MembershipApplicationRejected domainEvent)
+        public void Handle(MembershipApplicationRejected domainEvent)
         {
             var record = CreateRow(domainEvent);
             record.Text =
@@ -62,7 +62,7 @@ namespace Phundus.Dashboard.Projections
             Insert(record);
         }
 
-        public void Consume(MemberUnlocked domainEvent)
+        public void Handle(MemberUnlocked domainEvent)
         {
             var record = CreateRow(domainEvent);
             record.Text = string.Format("Benutzer {2} hat Mitglied {0} bei Organization {1} entsperrt.",
@@ -70,14 +70,14 @@ namespace Phundus.Dashboard.Projections
             Insert(record);
         }
 
-        public void Consume(UserLoggedIn e)
+        public void Handle(UserLoggedIn e)
         {
             var record = CreateRow(e);
             record.Text = "Benutzer hat sich eingeloggt: " + e.UserId;
             Insert(record);
         }
 
-        public void Consume(UserSignedUp domainEvent)
+        public void Handle(UserSignedUp domainEvent)
         {
             var record = CreateRow(domainEvent);
             record.Text = "Benutzer hat sich registriert: " + domainEvent.EmailAddress;

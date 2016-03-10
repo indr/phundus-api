@@ -19,19 +19,19 @@
         IConsumes<OrderItemRemoved>,
         IConsumes<OrderItemTotalChanged>
     {
-        public void Consume(OrderApproved e)
+        public void Handle(OrderApproved e)
         {
             Update(e.OrderId, order =>
                 order.Status = OrderData.OrderStatus.Approved);
         }
 
-        public void Consume(OrderClosed e)
+        public void Handle(OrderClosed e)
         {
             Update(e.OrderId, order =>
                 order.Status = OrderData.OrderStatus.Closed);
         }
 
-        public void Consume(OrderCreated e)
+        public void Handle(OrderCreated e)
         {
             Insert(order =>
             {
@@ -64,13 +64,13 @@
             });
         }
 
-        public void Consume(OrderItemAdded e)
+        public void Handle(OrderItemAdded e)
         {
             Update(e.OrderId, order =>
                 order.Lines.Add(CreateOrderLineData(order, e.OrderLine)));
         }
 
-        public void Consume(OrderItemPeriodChanged e)
+        public void Handle(OrderItemPeriodChanged e)
         {
             UpdateOrderLine(e.OrderId, e.OrderItemId, line =>
             {
@@ -79,12 +79,12 @@
             });
         }
 
-        public void Consume(OrderItemQuantityChanged e)
+        public void Handle(OrderItemQuantityChanged e)
         {
             UpdateOrderLine(e.OrderId, e.OrderItemId, line => { line.Quantity = e.NewQuantity; });
         }
 
-        public void Consume(OrderItemRemoved e)
+        public void Handle(OrderItemRemoved e)
         {
             Update(e.OrderId, order =>
             {
@@ -93,12 +93,12 @@
             });
         }
 
-        public void Consume(OrderItemTotalChanged e)
+        public void Handle(OrderItemTotalChanged e)
         {
             UpdateOrderLine(e.OrderId, e.OrderItemId, line => { line.LineTotal = e.NewItemTotal; });
         }
 
-        public void Consume(OrderRejected e)
+        public void Handle(OrderRejected e)
         {
             Update(e.OrderId, order =>
                 order.Status = OrderData.OrderStatus.Rejected);

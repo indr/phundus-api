@@ -9,7 +9,7 @@
     public class UrlMapProjection : ProjectionBase<UrlMapData>,
         IConsumes<OrganizationEstablished>
     {
-        public void Consume(OrganizationEstablished e)
+        public void Handle(OrganizationEstablished e)
         {
             var url = e.Name.ToFriendlyUrl();
 

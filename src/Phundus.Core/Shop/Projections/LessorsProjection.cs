@@ -19,7 +19,7 @@
         IConsumes<UserEmailAddressChanged>,
         IConsumes<UserAddressChanged>
     {
-        public void Consume(OrganizationEstablished e)
+        public void Handle(OrganizationEstablished e)
         {
             Insert(x =>
             {
@@ -35,7 +35,7 @@
             });
         }
 
-        public void Consume(OrganizationContactDetailsChanged e)
+        public void Handle(OrganizationContactDetailsChanged e)
         {
             Update(e.OrganizationId, x =>
             {
@@ -46,12 +46,12 @@
             });
         }
 
-        public void Consume(PublicRentalSettingChanged e)
+        public void Handle(PublicRentalSettingChanged e)
         {
             Update(e.OrganizationId, x => { x.PublicRental = e.Value; });
         }
 
-        public void Consume(UserSignedUp e)
+        public void Handle(UserSignedUp e)
         {
             Insert(x =>
             {
@@ -66,12 +66,12 @@
             });
         }
 
-        public void Consume(UserEmailAddressChanged e)
+        public void Handle(UserEmailAddressChanged e)
         {
             Update(e.UserId, x => { x.EmailAddress = e.NewEmailAddress; });
         }
 
-        public void Consume(UserAddressChanged e)
+        public void Handle(UserAddressChanged e)
         {
             Update(e.UserId, x =>
             {

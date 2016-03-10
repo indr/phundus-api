@@ -11,7 +11,7 @@
         IConsumes<UserEmailAddressChanged>,
         IConsumes<UserSignedUp>
     {
-        public void Consume(UserAddressChanged e)
+        public void Handle(UserAddressChanged e)
         {
             Update(e.UserId, x =>
             {
@@ -24,13 +24,13 @@
             });
         }
 
-        public void Consume(UserEmailAddressChanged e)
+        public void Handle(UserEmailAddressChanged e)
         {
             Update(e.UserId, x =>
                 x.EmailAddress = e.NewEmailAddress);
         }
 
-        public void Consume(UserSignedUp e)
+        public void Handle(UserSignedUp e)
         {
             Insert(x =>
             {

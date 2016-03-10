@@ -15,7 +15,7 @@
         IConsumes<SpecificationChanged>,
         IConsumes<PricesChanged>
     {
-        public void Consume(ArticleCreated e)
+        public void Handle(ArticleCreated e)
         {
             if (e.ArticleId == Guid.Empty)
                 return;
@@ -36,12 +36,12 @@
             });
         }
 
-        public void Consume(ArticleDeleted e)
+        public void Handle(ArticleDeleted e)
         {
             Delete(e.ArticleId);
         }
 
-        public void Consume(ArticleDetailsChanged e)
+        public void Handle(ArticleDetailsChanged e)
         {
             Update(e.ArticleId, r =>
             {
@@ -51,17 +51,17 @@
             });
         }
 
-        public void Consume(DescriptionChanged e)
+        public void Handle(DescriptionChanged e)
         {
             Update(e.ArticleId, r => { r.Description = e.Description; });
         }
 
-        public void Consume(GrossStockChanged e)
+        public void Handle(GrossStockChanged e)
         {
             Update(e.ArticleId, r => { r.GrossStock = e.NewGrossStock; });
         }
 
-        public void Consume(PricesChanged e)
+        public void Handle(PricesChanged e)
         {
             Update(e.ArticleId, r =>
             {
@@ -70,7 +70,7 @@
             });
         }
 
-        public void Consume(SpecificationChanged e)
+        public void Handle(SpecificationChanged e)
         {
             Update(e.ArticleId, r => { r.Specification = e.Specification; });
         }
