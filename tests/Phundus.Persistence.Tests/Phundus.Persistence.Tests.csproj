@@ -108,6 +108,7 @@
     <Compile Include="concern.cs" />
     <Compile Include="MappedEntitiesSpecs.cs" />
     <Compile Include="Notifications\ProcessedNotificationTrackerStoreSpecs.cs" />
+    <Compile Include="Notifications\NhTrackerRepositorySpecs.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
