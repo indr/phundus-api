@@ -6,6 +6,7 @@
     using Common.Notifications;
     using Inventory.Repositories;
     using Notifications;
+    using Notifications.Repositories;
     using Phundus.Inventory.Model.Reservations;
 
     public class RepositoryInstaller : IWindsorInstaller
