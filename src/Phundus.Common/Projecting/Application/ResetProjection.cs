@@ -29,9 +29,7 @@
 
         public ResetProjectionHandler(IProjectionFactory projectionFactory,
             IProcessedNotificationTrackerStore trackerStore)
-        {
-            if (projectionFactory == null) throw new ArgumentNullException("projectionFactory");
-            if (trackerStore == null) throw new ArgumentNullException("trackerStore");
+        {            
             _projectionFactory = projectionFactory;
             _trackerStore = trackerStore;
         }
