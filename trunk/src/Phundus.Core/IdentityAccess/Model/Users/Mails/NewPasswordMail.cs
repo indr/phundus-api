@@ -2,6 +2,7 @@
 {
     using Common.Mailing;
     using Common.Notifications;
+    using Resources;
 
     public class NewPasswordMail : IConsumes<PasswordResetted>
     {
@@ -23,8 +24,7 @@
                 Password = e.NewPassword
             };
 
-            var message = _factory.MakeMessage(model, Resources.Templates.NewPasswordSubject, null,
-                Resources.Templates.NewPasswordHtml);
+            var message = _factory.MakeMessage(model, Templates.NewPasswordSubject, null, Templates.NewPasswordHtml);
             message.To.Add(e.EmailAddress);
 
             _gateway.Send(e.OccuredOnUtc, message);

@@ -109,6 +109,9 @@
     <Compile Include="IdentityAccess\Application\ChangeUserAddress.cs" />
     <Compile Include="IdentityAccess\Authorization\Manage.cs" />
     <Compile Include="IdentityAccess\Application\ChangeMemberRecievesEmailNotification.cs" />
+    <Compile Include="IdentityAccess\Model\Organizations\Mails\MemberLockedMail.cs" />
+    <Compile Include="IdentityAccess\Model\Organizations\Mails\MembershipApplicationStatusMail.cs" />
+    <Compile Include="IdentityAccess\Model\Organizations\Mails\MemberUnlockedMail.cs" />
     <Compile Include="IdentityAccess\Model\Organizations\OrganizationContactDetailsChanged.cs" />
     <Compile Include="IdentityAccess\Model\Organizations\OrganizationPlanChanged.cs" />
     <Compile Include="IdentityAccess\Model\Organizations\PublicRentalSettingChanged.cs" />
@@ -123,7 +126,6 @@
     <Compile Include="IdentityAccess\Application\UnlockMember.cs" />
     <Compile Include="IdentityAccess\Application\UpdateStartpage.cs" />
     <Compile Include="IdentityAccess\Application\ChangeOrganizationContactDetails.cs" />
-    <Compile Include="IdentityAccess\Model\Organizations\Mails\MembershipApplicationMailNotifier.cs" />
     <Compile Include="IdentityAccess\Model\Organizations\Mails\Templates.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -196,7 +198,7 @@
     <Compile Include="IdentityAccess\Model\Users\PasswordGenerator.cs" />
     <Compile Include="IdentityAccess\Model\Users\SessionKeyGenerator.cs" />
     <Compile Include="IdentityAccess\Model\Users\UserInRole.cs" />
-    <Compile Include="IdentityAccess\Resources\Templates.Designer.cs">
+    <Compile Include="IdentityAccess\Model\Users\Mails\Resources\Templates.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Templates.resx</DependentUpon>
@@ -341,7 +343,7 @@
       <LastGenOutput>Templates.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="IdentityAccess\Resources\Templates.resx">
+    <EmbeddedResource Include="IdentityAccess\Model\Users\Mails\Resources\Templates.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <SubType>Designer</SubType>
       <LastGenOutput>Templates.Designer.cs</LastGenOutput>
@@ -353,16 +355,16 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="IdentityAccess\Model\Organizations\Mails\Resources\MemberLockedBodyHtml.txt" />
-    <Content Include="IdentityAccess\Model\Organizations\Mails\Resources\MembershipApplicationApprovedBodyHtml.txt" />
-    <Content Include="IdentityAccess\Model\Organizations\Mails\Resources\MembershipApplicationFiledBodyHtml.txt" />
-    <Content Include="IdentityAccess\Model\Organizations\Mails\Resources\MembershipApplicationRejectedBodyHtml.txt" />
-    <Content Include="IdentityAccess\Model\Organizations\Mails\Resources\MemberUnlockedBodyHtml.txt" />
-    <Content Include="IdentityAccess\Resources\AccountValidation.html" />
-    <Content Include="IdentityAccess\Resources\EmailAddressValidation.html" />
-    <Content Include="IdentityAccess\Resources\AccountLocked.html" />
-    <Content Include="IdentityAccess\Resources\NewPassword.html" />
-    <Content Include="IdentityAccess\Resources\AccountUnlocked.html" />
+    <Content Include="IdentityAccess\Model\Organizations\Mails\Resources\MemberLocked.html" />
+    <Content Include="IdentityAccess\Model\Organizations\Mails\Resources\MembershipApplicationApproved.html" />
+    <Content Include="IdentityAccess\Model\Organizations\Mails\Resources\MembershipApplicationFiled.html" />
+    <Content Include="IdentityAccess\Model\Organizations\Mails\Resources\MembershipApplicationRejected.html" />
+    <Content Include="IdentityAccess\Model\Organizations\Mails\Resources\MemberUnlocked.html" />
+    <Content Include="IdentityAccess\Model\Users\Mails\Resources\AccountValidation.html" />
+    <Content Include="IdentityAccess\Model\Users\Mails\Resources\EmailAddressValidation.html" />
+    <Content Include="IdentityAccess\Model\Users\Mails\Resources\AccountLocked.html" />
+    <Content Include="IdentityAccess\Model\Users\Mails\Resources\NewPassword.html" />
+    <Content Include="IdentityAccess\Model\Users\Mails\Resources\AccountUnlocked.html" />
     <Content Include="Shop\Model\Mails\Resources\OrderApprovedHtml.txt" />
     <Content Include="Shop\Model\Mails\Resources\OrderReceivedHtml.txt" />
     <Content Include="Shop\Model\Mails\Resources\OrderRejectedHtml.txt" />

@@ -120,6 +120,9 @@
     <Compile Include="IdentityAccess\Events\MembershipApplicationRejectedSpecs.cs" />
     <Compile Include="IdentityAccess\identityaccess_factory.cs" />
     <Compile Include="IdentityAccess\Authorize\ManageOrganizationAccessObjectHandlerSpecs.cs" />
+    <Compile Include="IdentityAccess\Model\Organizations\Mails\MemberLockedMailSpecs.cs" />
+    <Compile Include="IdentityAccess\Model\Organizations\Mails\MembershipApplicationStatusMailSpecs.cs" />
+    <Compile Include="IdentityAccess\Model\Organizations\Mails\MemberUnlockedMailSpecs.cs" />
     <Compile Include="IdentityAccess\Model\Users\Mails\AccountLockedMailSpecs.cs" />
     <Compile Include="IdentityAccess\Model\Users\Mails\AccountUnlockedMailSpecs.cs" />
     <Compile Include="IdentityAccess\Model\Users\Mails\AccountValidationMailSpecs.cs" />

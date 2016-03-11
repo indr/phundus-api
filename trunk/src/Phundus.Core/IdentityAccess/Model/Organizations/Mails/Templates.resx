@@ -121,31 +121,31 @@
     <value>Zugriff gesperrt</value>
   </data>
   <data name="MembershipApplicationApprovedSubject" xml:space="preserve">
-    <value>Mitgliedschaft bei @Model.Organization.Name bestätigt</value>
+    <value>Mitgliedschaft bei @Model.OrganizationName bestätigt</value>
   </data>
   <data name="MembershipApplicationFiledSubject" xml:space="preserve">
-    <value>Mitgliedschaft bei @Model.Organization.Name beantragt</value>
+    <value>Mitgliedschaft bei @Model.OrganizationName beantragt</value>
   </data>
   <data name="MembershipApplicationRejectedSubject" xml:space="preserve">
-    <value>Mitgliedschaft bei @Model.Organization.Name abgelehnt</value>
+    <value>Mitgliedschaft bei @Model.OrganizationName abgelehnt</value>
   </data>
   <data name="MemberUnlockedSubject" xml:space="preserve">
     <value>Zugriff entsperrt</value>
   </data>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="MemberLockedBodyHtml" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>Resources\MemberLockedBodyHtml.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
+  <data name="MemberLockedHtml" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>resources\memberlocked.html;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
   </data>
-  <data name="MembershipApplicationApprovedBodyHtml" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>Resources\MembershipApplicationApprovedBodyHtml.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
+  <data name="MembershipApplicationApprovedHtml" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>resources\membershipapplicationapproved.html;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
   </data>
-  <data name="MembershipApplicationFiledBodyHtml" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>Resources\MembershipApplicationFiledBodyHtml.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
+  <data name="MembershipApplicationFiledHtml" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>resources\membershipapplicationfiled.html;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
   </data>
-  <data name="MembershipApplicationRejectedBodyHtml" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>Resources\MembershipApplicationRejectedBodyHtml.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
+  <data name="MembershipApplicationRejectedHtml" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>resources\membershipapplicationrejected.html;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
   </data>
-  <data name="MemberUnlockedBodyHtml" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>Resources\MemberUnlockedBodyHtml.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
+  <data name="MemberUnlockedHtml" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>resources\memberunlocked.html;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
   </data>
 </root>

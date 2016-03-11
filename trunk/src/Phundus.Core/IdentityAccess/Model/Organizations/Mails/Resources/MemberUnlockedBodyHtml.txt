@@ -1,3 +1,0 @@
-﻿<p>Hallo @Model.User.FirstName</p>
-
-<p>Das hat geklappt. Dein phundus Benutzerkonto mit der E-Mail Adresse @Model.User.Email wurde soeben wieder entsperrt. Du kannst nun von deinen Organisationen wieder Material reservieren.</p>

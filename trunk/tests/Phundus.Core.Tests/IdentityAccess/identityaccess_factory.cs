@@ -1,11 +1,13 @@
 ﻿namespace Phundus.Tests.IdentityAccess
 {
+    using System;
     using Common.Domain.Model;
     using developwithpassion.specifications.core;
     using developwithpassion.specifications.extensions;
     using Integration.IdentityAccess;
     using Phundus.IdentityAccess.Model.Users;
     using Phundus.IdentityAccess.Organizations.Model;
+    using Phundus.IdentityAccess.Projections;
     using Phundus.IdentityAccess.Users.Model;
 
     public class identityaccess_factory : factory_base
@@ -60,6 +62,21 @@
         public Manager Manager(UserId userId)
         {
             return new Manager(userId, "manager@test.phundus.ch", "The Manager");
+        }
+
+        public IUser UserData()
+        {
+            var result = fake.an<IUser>();
+            result.setup(x => x.UserId).Return(Guid.NewGuid());
+            result.setup(x => x.EmailAddress).Return("user@test.phundus.ch");
+            return result;
+        }
+
+        public OrganizationData OrganizationData()
+        {
+            var result = fake.an<OrganizationData>();
+            result.setup(x => x.OrganizationId).Return(Guid.NewGuid());
+            return result;
         }
     }
 }
