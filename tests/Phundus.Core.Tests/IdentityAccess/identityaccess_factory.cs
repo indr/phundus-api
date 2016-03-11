@@ -4,7 +4,7 @@
     using developwithpassion.specifications.core;
     using developwithpassion.specifications.extensions;
     using Integration.IdentityAccess;
-    using Machine.Fakes;
+    using Phundus.IdentityAccess.Model.Users;
     using Phundus.IdentityAccess.Organizations.Model;
     using Phundus.IdentityAccess.Users.Model;
 
@@ -39,10 +39,16 @@
 
         public User User(UserId userId)
         {
+            var account = fake.an<Account>();
+            account.setup(x => x.RequestedEmail).Return("requested@test.phundus.ch");
+
             var result = fake.an<User>();
             result.setup(x => x.UserId).Return(userId);
             result.setup(x => x.FullName).Return("The User");
             result.setup(x => x.EmailAddress).Return("user@test.phundus.ch");
+            result.setup(x => x.FirstName).Return("The");
+            result.setup(x => x.LastName).Return("User");
+            result.setup(x => x.Account).Return(account);
             return result;
         }
 

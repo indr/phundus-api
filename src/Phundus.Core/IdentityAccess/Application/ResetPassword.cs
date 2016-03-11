@@ -3,10 +3,9 @@
     using System;
     using Castle.Transactions;
     using Common.Commanding;
-    using Common.Mailing;
-    using Integration.IdentityAccess;
-    using Model.Users;
-    using Users.Mails;
+    using Common.Eventing;
+    using Common.Mailing;    
+    using Model.Users;    
 
     public class ResetPassword : ICommand
     {
@@ -40,7 +39,7 @@
                 throw new Exception("Die E-Mail-Adresse konnte nicht gefunden werden.");
             var password = user.Account.ResetPassword();
 
-            new UserResetPasswordMail(_mailGateway).For(user, password).Send(DateTime.UtcNow, user);
+            EventPublisher.Publish(new PasswordResetted(user.UserId, user.FirstName, user.LastName, user.EmailAddress, password));
         }
     }
 }

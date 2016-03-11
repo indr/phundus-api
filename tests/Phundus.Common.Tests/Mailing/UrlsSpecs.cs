@@ -6,37 +6,60 @@
 
     public class urls_concern : Observes<Urls>
     {
-        protected static string serverUrl;
+        protected static string baseUrl = "http://host/";
+        protected static string result;
 
         private Establish ctx = () =>
-            sut_factory.create_using(() => new Urls(serverUrl));
+            sut_factory.create_using(() => new Urls(baseUrl));
     }
 
-    public class when_server_url_is_phundus_ch : urls_concern
+    [Subject(typeof (Urls))]
+    public class when_make : urls_concern
     {
-        private Establish ctx = () => serverUrl = @"phundus.ch";
+        private Because of = () =>
+            result = sut.Make("/index.html");
 
-        private It should_have_email_address_validation_with_https = () =>
-            sut.UserEmailValidation.ShouldEqual(@"https://www.phundus.ch/#/validate/email-address");
-
-        private It should_have_server_url_with_https = () =>
-            sut.ServerUrl.ShouldEqual(@"https://www.phundus.ch/");
-
-        private It should_have_user_account_validation_with_https = () =>
-            sut.UserAccountValidation.ShouldEqual(@"https://www.phundus.ch/#/validate/account");
+        private It should_return_url_with_base_url = () =>
+            result.ShouldEqual("http://host/index.html");
     }
 
-    public class when_server_url_is_localhost : urls_concern
+    [Subject(typeof (Urls))]
+    public class when_query_account_validation_without_key : urls_concern
     {
-        private Establish ctx = () => serverUrl = @"localhost";
+        private Because of = () =>
+            result = sut.AccountValidation();
 
-        private It should_have_email_address_validation_without_https = () =>
-            sut.UserEmailValidation.ShouldEqual(@"http://localhost/#/validate/email-address");
+        private It should_return_url_without_key_param = () =>
+            result.ShouldEqual("http://host/#/validate/account");
+    }
 
-        private It should_have_server_url_without_https = () =>
-            sut.ServerUrl.ShouldEqual("http://localhost/");
+    [Subject(typeof (Urls))]
+    public class when_query_account_validation_with_key : urls_concern
+    {
+        private Because of = () =>
+            result = sut.AccountValidation("123qwe");
 
-        private It should_have_user_account_Validation_without_https = () =>
-            sut.UserAccountValidation.ShouldEqual(@"http://localhost/#/validate/account");
+        private It should_return_url_with_key_param = () =>
+            result.ShouldEqual("http://host/#/validate/account?key=123qwe");
+    }
+
+    [Subject(typeof (Urls))]
+    public class when_query_email_address_validation_without_key : urls_concern
+    {
+        private Because of = () =>
+            result = sut.EmailAddressValidation();
+
+        private It should_return_url_without_key_param = () =>
+            result.ShouldEqual("http://host/#/validate/email-address");
+    }
+
+    [Subject(typeof (Urls))]
+    public class when_query_email_address_validation_with_key : urls_concern
+    {
+        private Because of = () =>
+            result = sut.EmailAddressValidation("123qwe");
+
+        private It should_return_url_with_key_param = () =>
+            result.ShouldEqual("http://host/#/validate/email-address?key=123qwe");
     }
 }

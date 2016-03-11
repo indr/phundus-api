@@ -1,0 +1,9 @@
+﻿<p>Hallo @Model.FirstName</p>
+
+<p>Du hast deine E-Mailadresse bei der Materialverleihanwendung phundus geändert. Bitte bestätige deine E-Mail Adresse durch das anwählen des nachfolgenden Linkes:<br /><a href="@Model.Urls.EmailAddressValidation(@Model.ValidationKey)">@Model.Urls.EmailAddressValidation(@Model.ValidationKey)</a></p>
+
+<p>Sollte deinen Webbrowser, diese Webseite nicht korrekt anzeigen kannst du auch @Model.Urls.EmailAddressValidation() in der Adresszeile eingeben und deine Mailadresse mit der Eingabe dieses Codes bestätigen: @Model.ValidationKey</p>
+
+<p>Sollten Sie sich nicht bei der Materialverleihanwendung phundus angemeldet haben, betrachten Sie diese Mitteilung als gegenstandslos. Ihre fälschlicherweise erfasste E-Mailadresse wird vom System ohne Bestätigung automatisch wieder gelöscht.</p>
+
+<p>Bei Fragen helfen wir dir über phundus@piNuts.ch gerne weiter.</p>

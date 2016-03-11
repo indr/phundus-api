@@ -118,40 +118,34 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="UserAccountCreatedHtml" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>Resources\UserAccountCreatedHtml.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
+  <data name="AccountLockedHtml" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>AccountLocked.html;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
   </data>
-  <data name="UserAccountCreatedSubject" xml:space="preserve">
-    <value>Benutzeraccount erstellt</value>
-  </data>
-  <data name="UserAccountValidationHtml" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>Resources\UserAccountValidationHtml.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
-  </data>
-  <data name="UserAccountValidationSubject" xml:space="preserve">
-    <value>Validierung der E-Mail-Adresse</value>
-  </data>
-  <data name="UserChangeEmailValidationHtml" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>Resources\UserChangeEmailValidationHtml.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
-  </data>
-  <data name="UserChangeEmailValidationSubject" xml:space="preserve">
-    <value>Validierung der geänderten E-Mail-Adresse</value>
-  </data>
-  <data name="UserLockedHtml" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>Resources\UserLockedHtml.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
-  </data>
-  <data name="UserLockedSubject" xml:space="preserve">
+  <data name="AccountLockedSubject" xml:space="preserve">
     <value>Account gesperrt</value>
   </data>
-  <data name="UserResetPasswordHtml" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>Resources\UserResetPasswordHtml.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
+  <data name="AccountUnlockedHtml" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>AccountUnlocked.html;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
   </data>
-  <data name="UserResetPasswordSubject" xml:space="preserve">
+  <data name="AccountUnlockedSubject" xml:space="preserve">
+    <value>Account freigeschaltet</value>
+  </data>
+  <data name="AccountValidationHtml" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>AccountValidation.html;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
+  </data>
+  <data name="AccountValidationSubject" xml:space="preserve">
+    <value>Validierung der E-Mail-Adresse</value>
+  </data>
+  <data name="EmailAddressValidationHtml" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>EmailAddressValidation.html;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
+  </data>
+  <data name="EmailAddressValidationSubject" xml:space="preserve">
+    <value>Validierung der geänderten E-Mail-Adresse</value>
+  </data>
+  <data name="NewPasswordHtml" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>NewPassword.html;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
+  </data>
+  <data name="NewPasswordSubject" xml:space="preserve">
     <value>Neues Passwort</value>
-  </data>
-  <data name="UserUnlockedHtml" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>Resources\UserUnlockedHtml.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
-  </data>
-  <data name="UserUnlockedSubject" xml:space="preserve">
-    <value>Account freigeschalten</value>
   </data>
 </root>
