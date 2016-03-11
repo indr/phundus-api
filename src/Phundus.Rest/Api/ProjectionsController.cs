@@ -56,9 +56,9 @@ namespace Phundus.Rest.Api
         }
 
         [DELETE("{projectionId}")]
-        public virtual HttpResponseMessage Delete(string projection)
+        public virtual HttpResponseMessage Delete(string projectionId)
         {
-            Bus.Send(new RecreateProjection(CurrentUserId, projection));
+            Bus.Send(new RecreateProjection(CurrentUserId, projectionId));
 
             return Accepted();
         }

@@ -20,15 +20,12 @@
 
     public class ResetPasswordHandler : IHandleCommand<ResetPassword>
     {
-        private readonly IUserRepository _userRepository;
-        private readonly IMailGateway _mailGateway;
+        private readonly IUserRepository _userRepository;        
 
-        public ResetPasswordHandler(IUserRepository userRepository, IMailGateway mailGateway)
+        public ResetPasswordHandler(IUserRepository userRepository)
         {
-            if (userRepository == null) throw new ArgumentNullException("userRepository");
-            if (mailGateway == null) throw new ArgumentNullException("mailGateway");
-            _userRepository = userRepository;
-            _mailGateway = mailGateway;
+            if (userRepository == null) throw new ArgumentNullException("userRepository");            
+            _userRepository = userRepository;            
         }
 
         [Transaction]

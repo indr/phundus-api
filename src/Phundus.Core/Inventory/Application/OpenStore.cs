@@ -15,7 +15,6 @@
             if (initiatorId == null) throw new ArgumentNullException("initiatorId");
             if (ownerId == null) throw new ArgumentNullException("ownerId");
             if (storeId == null) throw new ArgumentNullException("storeId");
-
             InitiatorId = initiatorId;
             OwnerId = ownerId;
             StoreId = storeId;
@@ -33,10 +32,7 @@
         private readonly IUserInRole _userInRole;
 
         public OpenStoreHandler(IStoreRepository storeRepository, IUserInRole userInRole, IOwnerService ownerService)
-        {
-            if (storeRepository == null) throw new ArgumentNullException("storeRepository");
-            if (userInRole == null) throw new ArgumentNullException("userInRole");
-            if (ownerService == null) throw new ArgumentNullException("ownerService");
+        {            
             _storeRepository = storeRepository;
             _userInRole = userInRole;
             _ownerService = ownerService;

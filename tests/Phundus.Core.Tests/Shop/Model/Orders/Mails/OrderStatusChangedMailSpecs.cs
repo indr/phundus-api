@@ -1,22 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-namespace Phundus.Tests.Shop.Model.Orders.Mails
+﻿namespace Phundus.Tests.Shop.Model.Orders.Mails
 {
+    using System;
+    using System.Collections.Generic;
     using System.IO;
     using System.Net.Mail;
     using Common.Domain.Model;
     using developwithpassion.specifications.extensions;
-    using developwithpassion.specifications.rhinomocks;
     using Machine.Specifications;
     using Phundus.Shop.Model;
     using Phundus.Shop.Orders.Mails;
     using Phundus.Shop.Orders.Model;
     using Phundus.Shop.Orders.Services;
     using Rhino.Mocks;
-    using Manager = Integration.IdentityAccess.Manager;
 
     public class order_status_changed_mail_concern : mail_concern<OrderStatusChangedMail>
     {
