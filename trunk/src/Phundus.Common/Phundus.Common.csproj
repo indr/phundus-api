@@ -154,9 +154,7 @@
     <Compile Include="NotFoundException.cs" />
     <Compile Include="Notifications\INotificationHandlerFactory.cs" />
     <Compile Include="Notifications\NotificationPublisher.cs" />
-    <Compile Include="Notifications\IProcessedNotificationTrackerStore.cs" />
     <Compile Include="Notifications\INotificationHandler.cs" />
-    <Compile Include="Notifications\INotificationLogFactory.cs" />
     <Compile Include="Notifications\Notification.cs" />
     <Compile Include="Notifications\NotificationLog.cs" />
     <Compile Include="Notifications\NotificationLogId.cs" />

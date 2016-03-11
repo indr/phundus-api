@@ -4,13 +4,25 @@ namespace Phundus.Common.Notifications
     using System.Collections.Generic;
     using Castle.Transactions;
 
+    public interface IProcessedNotificationTrackerStore
+    {
+        ProcessedNotificationTracker GetProcessedNotificationTracker(string typeName);
+        IList<ProcessedNotificationTracker> GetProcessedNotificationTrackers();
+
+        void TrackException(string typeName, Exception ex);
+        void TrackMostRecentProcessedNotification(ProcessedNotificationTracker tracker, Notification notification);
+        void TrackMostRecentProcessedNotificationId(ProcessedNotificationTracker tracker, long notificationId);
+
+        void DeleteTracker(string typeName);
+        void ResetTracker(string typeName);
+    }
+
     public class ProcessedNotificationTrackerStore : IProcessedNotificationTrackerStore
     {
         private readonly ITrackerRepository _trackerRepository;
 
         public ProcessedNotificationTrackerStore(ITrackerRepository trackerRepository)
         {
-            if (trackerRepository == null) throw new ArgumentNullException("trackerRepository");
             _trackerRepository = trackerRepository;
         }
 

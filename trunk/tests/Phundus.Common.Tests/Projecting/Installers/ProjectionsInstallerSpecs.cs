@@ -1,4 +1,4 @@
-﻿namespace Phundus.Common.Tests.Projecting
+﻿namespace Phundus.Common.Tests.Projecting.Installers
 {
     using Common.Projecting;
     using Common.Projecting.Installers;
