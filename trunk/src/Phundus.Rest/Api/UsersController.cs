@@ -27,11 +27,7 @@ namespace Phundus.Rest.Api
 
         public UsersController(IUsersQueries usersQueries, IMembershipQueries membershipQueries,
             IStoresQueries storesQueries, IUserAddressQueries userAddressQueries)
-        {
-            if (usersQueries == null) throw new ArgumentNullException("usersQueries");
-            if (membershipQueries == null) throw new ArgumentNullException("membershipQueries");
-            if (storesQueries == null) throw new ArgumentNullException("storesQueries");
-            if (userAddressQueries == null) throw new ArgumentNullException("userAddressQueries");
+        {            
             _usersQueries = usersQueries;
             _membershipQueries = membershipQueries;
             _storesQueries = storesQueries;
@@ -79,7 +75,8 @@ namespace Phundus.Rest.Api
             Dispatch(new ChangeUserAddress(CurrentUserId, new UserId(userId), requestContent.FirstName,
                 requestContent.LastName, requestContent.Street, requestContent.Postcode, requestContent.City,
                 requestContent.PhoneNumber));
-            return Accepted();
+
+            return NoContent();
         }
     }
 

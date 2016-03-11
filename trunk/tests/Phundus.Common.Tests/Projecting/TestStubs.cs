@@ -2,33 +2,26 @@
 {
     using System;
     using System.Linq.Expressions;
-    using Common.Domain.Model;
-    using Common.Notifications;
     using Common.Projecting;
-    using Querying;
 
-    public class TestGuidIdentity : GuidIdentity
-    {
-    }
-
-    public class TestEntity
+    public class TestProjectionEntity
     {
         private static int _nextId = 1;
 
         public int Id { get; set; }
         public Guid Value { get; set; }
 
-        public static TestEntity Create()
+        public static TestProjectionEntity Create()
         {
-            var result = new TestEntity();
+            var result = new TestProjectionEntity();
             result.Id = _nextId++;
             return result;
         }
     }
 
-    public class TestProjection : ProjectionBase<TestEntity>        
+    public class TestProjection : ProjectionBase<TestProjectionEntity>
     {
-        public void InsertEntity(TestEntity entity)
+        public void InsertEntity(TestProjectionEntity entity)
         {
             Insert(entity);
         }
@@ -43,19 +36,19 @@
             Update(id, a => a.Value = value);
         }
 
-        public void UpdateEntities(Expression<Func<TestEntity, bool>> expression, Guid value)
+        public void UpdateEntities(Expression<Func<TestProjectionEntity, bool>> expression, Guid value)
         {
             Update(expression, a =>
                 a.Value = value);
         }
 
-        public void InsertOrUpdate(Expression<Func<TestEntity, bool>> expression, Guid value)
+        public void InsertOrUpdate(Expression<Func<TestProjectionEntity, bool>> expression, Guid value)
         {
             InsertOrUpdate(expression, a =>
                 a.Value = value);
         }
 
-        public void InsertOrUpdateEntity(TestEntity entity)
+        public void InsertOrUpdateEntity(TestProjectionEntity entity)
         {
             InsertOrUpdate(entity);
         }
@@ -65,22 +58,9 @@
             Delete(id);
         }
 
-        public void DeleteEntity(TestEntity entity)
+        public void DeleteEntity(TestProjectionEntity entity)
         {
             Delete(entity);
-        }
-    }
-
-    public class TestQuery : QueryBase<TestEntity>
-    {
-        public new TestEntity Find(object id)
-        {
-            return base.Find(id);
-        }
-
-        public new TestEntity Find(GuidIdentity identity)
-        {
-            return base.Find(identity);
         }
     }
 }

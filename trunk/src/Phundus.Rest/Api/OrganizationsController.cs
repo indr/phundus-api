@@ -125,7 +125,8 @@
             {
                 Dispatch(new ChangeOrganizationPlan(CurrentUserId, new OrganizationId(organizationId), rq.Plan));
             }
-            return Accepted();
+
+            return NoContent();
         }
     }
 

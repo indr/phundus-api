@@ -16,7 +16,7 @@
         {
             Dispatch(new ResetPassword(requestContent.EmailAddress));
 
-            return Accepted();
+            return NoContent();
         }
     }
 

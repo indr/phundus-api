@@ -18,8 +18,7 @@
 
         [Test]
         public void CreateKey_returns_key_in_lowercase()
-        {
-            // HINT,Inder: Weils einfach schöner ist... =)
+        {            
             string key = KeyGenerator.CreateKey(10);
             Assert.That(key, Is.EqualTo(key.ToLower(CultureInfo.CurrentCulture)));
         }

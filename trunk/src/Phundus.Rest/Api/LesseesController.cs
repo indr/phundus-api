@@ -13,8 +13,7 @@
         private readonly ILesseeQueries _lesseeQueries;
 
         public LesseesController(ILesseeQueries lesseeQueries)
-        {
-            if (lesseeQueries == null) throw new ArgumentNullException("lesseeQueries");
+        {            
             _lesseeQueries = lesseeQueries;
         }
 
@@ -22,10 +21,10 @@
         [Transaction]
         public virtual LesseesGetOkResponseContent Get(Guid lesseeId)
         {
-            var lessee = _lesseeQueries.GetByGuid(lesseeId);
+            var lessee = _lesseeQueries.GetById(lesseeId);
             return new LesseesGetOkResponseContent
             {
-                LesseeId = lessee.LesseeGuid,
+                LesseeId = lessee.LesseeId,
                 Name = lessee.Name,
                 Address = lessee.Address,
                 PhoneNumber = lessee.PhoneNumber,

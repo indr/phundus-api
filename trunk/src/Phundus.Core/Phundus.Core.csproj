@@ -239,6 +239,7 @@
     <Compile Include="Shop\Model\OrderLines.cs" />
     <Compile Include="Shop\Projections\Data\LessorData.cs" />
     <Compile Include="Shop\Projections\Data\LessorType.cs" />
+    <Compile Include="Shop\Projections\Data\LesseeData.cs" />
     <Compile Include="Shop\Projections\LessorsProjection.cs" />
     <Compile Include="Shop\Projections\OrderQueries.cs" />
     <Compile Include="Shop\Projections\ShopItemProjection.cs" />
@@ -294,7 +295,7 @@
     <Compile Include="Shop\Projections\CartsProjection.cs" />
     <Compile Include="Shop\Projections\ItemQueries.cs" />
     <Compile Include="IdentityAccess\Projections\MembershipApplicationsProjection.cs" />
-    <Compile Include="Shop\Projections\LesseesProjection.cs" />
+    <Compile Include="Shop\Projections\LesseeQueries.cs" />
     <Compile Include="Shop\Projections\LessorQueries.cs" />
     <Compile Include="Shop\Model\LesseeService.cs" />
     <Compile Include="Shop\Model\ArticleService.cs" />

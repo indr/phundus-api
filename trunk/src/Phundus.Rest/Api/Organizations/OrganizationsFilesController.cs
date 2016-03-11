@@ -13,7 +13,12 @@ namespace Phundus.Rest.Api.Organizations
     [RoutePrefix("api/organizations/{organizationId}/files")]
     public class OrganizationsFilesController : ApiControllerBase
     {
-        public IMemberInRole MemberInRole { get; set; }
+        private readonly IMemberInRole _memberInRole;
+
+        public OrganizationsFilesController(IMemberInRole memberInRole)
+        {
+            _memberInRole = memberInRole;
+        }
 
         private string GetPath(Guid orgId)
         {
@@ -42,7 +47,7 @@ namespace Phundus.Rest.Api.Organizations
         [Transaction]
         public virtual object Get(Guid organizationId)
         {
-            MemberInRole.ActiveManager(organizationId, CurrentUserId);
+            _memberInRole.ActiveManager(organizationId, CurrentUserId);
 
             var path = GetPath(organizationId);
             var store = CreateImageStore(path);
@@ -55,7 +60,7 @@ namespace Phundus.Rest.Api.Organizations
         [Transaction]
         public virtual object Post(Guid organizationId)
         {
-            MemberInRole.ActiveManager(organizationId, CurrentUserId);
+            _memberInRole.ActiveManager(organizationId, CurrentUserId);
 
             var path = GetPath(organizationId);
             var store = CreateImageStore(path);
@@ -69,7 +74,7 @@ namespace Phundus.Rest.Api.Organizations
         [Transaction]
         public virtual HttpResponseMessage Delete(Guid organizationId, string fileName)
         {
-            MemberInRole.ActiveManager(organizationId, CurrentUserId);
+            _memberInRole.ActiveManager(organizationId, CurrentUserId);
 
             var path = GetPath(organizationId);
             var store = CreateImageStore(path);

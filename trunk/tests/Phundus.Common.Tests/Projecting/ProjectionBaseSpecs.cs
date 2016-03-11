@@ -12,18 +12,18 @@
     public class projection_base_concern : Observes<TestProjection>
     {
         protected static ISession session;
-        protected static IQueryOver<TestEntity, TestEntity> query;
+        protected static IQueryOver<TestProjectionEntity, TestProjectionEntity> query;
 
-        protected static TestEntity entity;
-        private static List<TestEntity> entities;
+        protected static TestProjectionEntity entity;
+        private static List<TestProjectionEntity> entities;
 
         private Establish ctx = () =>
         {
-            entities = new List<TestEntity>();
+            entities = new List<TestProjectionEntity>();
 
-            query = fake.an<IQueryOver<TestEntity, TestEntity>>();
+            query = fake.an<IQueryOver<TestProjectionEntity, TestProjectionEntity>>();
             session = depends.on<ISession>();
-            session.setup(x => x.QueryOver<TestEntity>()).Return(query);
+            session.setup(x => x.QueryOver<TestProjectionEntity>()).Return(query);
 
             sut_factory.create_using(() =>
             {
@@ -35,9 +35,9 @@
             entity = makeEntity();
         };
 
-        protected static TestEntity makeEntity()
+        protected static TestProjectionEntity makeEntity()
         {
-            var result = TestEntity.Create();
+            var result = TestProjectionEntity.Create();
             entities.Add(result);
             return result;
         }
@@ -49,7 +49,7 @@
             sut.InsertEntity(entity);
 
         private It should_save_entity = () =>
-            session.received(x => x.Save(Arg<TestEntity>.Is.Equal(entity)));
+            session.received(x => x.Save(Arg<TestProjectionEntity>.Is.Equal(entity)));
     }
 
     public class when_insert_with_action : projection_base_concern
@@ -60,7 +60,7 @@
             sut.InsertWithAction(value);
 
         private It should_save_new_entity = () =>
-            session.received(x => x.Save(Arg<TestEntity>.Matches(p =>
+            session.received(x => x.Save(Arg<TestProjectionEntity>.Matches(p =>
                 p.Value == value)));
     }
 
@@ -69,7 +69,7 @@
         private static Guid value = Guid.NewGuid();
 
         private Establish ctx = () =>
-            session.setup(x => x.Get<TestEntity>(entity.Id)).Return(entity);
+            session.setup(x => x.Get<TestProjectionEntity>(entity.Id)).Return(entity);
 
         private Because of = () =>
             sut.UpdateSingleEntity(entity.Id, value);
@@ -98,9 +98,9 @@
     public class when_updating_multiple_entities_with_expression : projection_base_concern
     {
         private static Guid value = Guid.NewGuid();
-        private static TestEntity entity2;
-        private static TestEntity entity3;
-        private static Expression<Func<TestEntity, bool>> expression;
+        private static TestProjectionEntity entity2;
+        private static TestProjectionEntity entity3;
+        private static Expression<Func<TestProjectionEntity, bool>> expression;
         private static bool flushCalled;
         private static bool flushCalledBeforeQueryOver;
 
@@ -111,9 +111,9 @@
 
             session.setup(x => x.Flush()).Callback(() => flushCalled = true);
 
-            var parameter = Expression.Parameter(typeof (TestEntity));
+            var parameter = Expression.Parameter(typeof (TestProjectionEntity));
             var lambda = Expression.LessThan(Expression.Property(parameter, "Id"), Expression.Constant(entity3.Id));
-            expression = Expression.Lambda<Func<TestEntity, bool>>(lambda, parameter);
+            expression = Expression.Lambda<Func<TestProjectionEntity, bool>>(lambda, parameter);
 
             query.setup(x => x.Where(expression)).Return(query);
             query.setup(x => x.Future()).Return(() =>
@@ -148,7 +148,7 @@
     public class when_inserting_or_updating_with_expression : projection_base_concern
     {
         protected static Guid value;
-        protected static Expression<Func<TestEntity, bool>> expression;
+        protected static Expression<Func<TestProjectionEntity, bool>> expression;
         protected static bool flushCalled;
         protected static bool flushcCalledBeforeSingleOrDefault;
 
@@ -167,9 +167,9 @@
     {
         private Establish ctx = () =>
         {
-            var parameter = Expression.Parameter(typeof (TestEntity));
+            var parameter = Expression.Parameter(typeof (TestProjectionEntity));
             var lambda = Expression.Constant(false);
-            expression = Expression.Lambda<Func<TestEntity, bool>>(lambda, parameter);
+            expression = Expression.Lambda<Func<TestProjectionEntity, bool>>(lambda, parameter);
 
             query.setup(x => x.Where(expression)).Return(query);
             query.setup(x => x.SingleOrDefault()).Return(() =>
@@ -183,7 +183,7 @@
             flushcCalledBeforeSingleOrDefault.ShouldBeTrue();
 
         private It should_save_or_update_new_entity_with_value = () =>
-            session.received(x => x.SaveOrUpdate(Arg<TestEntity>.Matches(p =>
+            session.received(x => x.SaveOrUpdate(Arg<TestProjectionEntity>.Matches(p =>
                 p.Id == 0 && p.Value == value)));
     }
 
@@ -192,9 +192,9 @@
     {
         private Establish ctx = () =>
         {
-            var parameter = Expression.Parameter(typeof (TestEntity));
+            var parameter = Expression.Parameter(typeof (TestProjectionEntity));
             var lambda = Expression.Constant(true);
-            expression = Expression.Lambda<Func<TestEntity, bool>>(lambda, parameter);
+            expression = Expression.Lambda<Func<TestProjectionEntity, bool>>(lambda, parameter);
 
             query.setup(x => x.Where(expression)).Return(query);
             query.setup(x => x.SingleOrDefault()).Return(() =>
@@ -226,7 +226,7 @@
     public class when_deleting_with_object_as_id : projection_base_concern
     {
         private Establish ctx = () =>
-            session.setup(x => x.Get<TestEntity>(1)).Return(entity);
+            session.setup(x => x.Get<TestProjectionEntity>(1)).Return(entity);
 
         private Because of = () =>
             sut.DeleteById(1);

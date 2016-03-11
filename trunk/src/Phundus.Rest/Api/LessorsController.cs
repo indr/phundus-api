@@ -16,8 +16,6 @@
 
         public LessorsController(ILessorQueries lessorQueries)
         {
-            if (lessorQueries == null) throw new ArgumentNullException("lessorQueries");
-
             _lessorQueries = lessorQueries;
         }
 
@@ -27,6 +25,7 @@
         public virtual QueryOkResponseContent<LessorData> Get()
         {
             var results = _lessorQueries.Query();
+
             return new QueryOkResponseContent<LessorData>(results);
         }
 
@@ -35,7 +34,8 @@
         [AllowAnonymous]
         public virtual LessorsGetOkResponseContent Get(Guid lessorId)
         {
-            var lessor = _lessorQueries.GetByGuid(lessorId);
+            var lessor = _lessorQueries.GetById(lessorId);
+
             return new LessorsGetOkResponseContent
             {
                 LessorId = lessor.LessorId,

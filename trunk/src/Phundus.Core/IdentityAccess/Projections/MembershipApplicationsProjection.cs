@@ -7,36 +7,22 @@
 
     public interface IMembershipApplicationQueries
     {
-        IList<IMembershipApplication> FindPending(CurrentUserId currentUserId, OrganizationId organizationId);
+        IList<MembershipApplicationData> FindPending(CurrentUserId currentUserId, OrganizationId organizationId);
     }
 
     public class MembershipApplicationQueries : QueryBase<MembershipApplicationData>,
         IMembershipApplicationQueries
     {
-        public IList<IMembershipApplication> FindPending(CurrentUserId currentUserId, OrganizationId organizationId)
+        public IList<MembershipApplicationData> FindPending(CurrentUserId currentUserId, OrganizationId organizationId)
         {
             // TODO: Access filtering
             return QueryOver()
                 .Where(p => p.OrganizationId == organizationId.Id && p.ApprovedAtUtc == null && p.RejectedAtUtc == null)
-                .List<IMembershipApplication>();
+                .List<MembershipApplicationData>();
         }
     }
 
-    public interface IMembershipApplication
-    {
-        Guid ApplicationId { get; }
-        Guid OrganizationId { get; }
-        Guid UserId { get; }
-        string CustomMemberNumber { get; }
-        string FirstName { get; }
-        string LastName { get; }
-        string EmailAddress { get; }
-        DateTime RequestedAtUtc { get; }
-        DateTime? ApprovedAtUtc { get; }
-        DateTime? RejectedAtUtc { get; }
-    }
-
-    public class MembershipApplicationData : IMembershipApplication
+    public class MembershipApplicationData
     {
         public virtual Guid ApplicationId { get; protected set; }
         public virtual Guid OrganizationId { get; protected set; }

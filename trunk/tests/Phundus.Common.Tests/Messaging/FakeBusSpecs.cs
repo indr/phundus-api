@@ -1,13 +1,10 @@
 ﻿namespace Phundus.Common.Tests.Messaging
 {
-    using System;
     using Castle.Core.Logging;
-    using Commanding;
+    using Common.Commanding;
     using Common.Messaging;
-    using developwithpassion.specifications.extensions;
     using developwithpassion.specifications.rhinomocks;
     using Machine.Specifications;
-    using Rhino.Mocks;
 
     public abstract class fake_bus_concern : Observes<FakeBus>
     {

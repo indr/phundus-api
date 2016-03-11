@@ -7,13 +7,13 @@
 
     public interface ILessorQueries
     {
-        LessorData GetByGuid(Guid lessorId);
+        LessorData GetById(Guid lessorId);
         IList<LessorData> Query();
     }
 
     public class LessorQueries : QueryBase<LessorData>, ILessorQueries
     {
-        public LessorData GetByGuid(Guid lessorId)
+        public LessorData GetById(Guid lessorId)
         {
             var result = QueryOver().Where(p => p.LessorId == lessorId).SingleOrDefault();
             if (result == null)

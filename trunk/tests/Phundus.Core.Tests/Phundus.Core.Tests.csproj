@@ -240,9 +240,9 @@
     <Compile Include="_Legacy\Entities\MembershipTests.cs" />
     <Compile Include="_Legacy\Entities\OrderStatusTests.cs" />
     <Compile Include="_Legacy\Entities\UserTests.cs" />
-    <Compile Include="_Legacy\KeyGeneratorTests.cs" />
-    <Compile Include="_Legacy\PasswordEncryptorTests.cs" />
-    <Compile Include="_Legacy\SessionKeyGeneratorTests.cs" />
+    <Compile Include="IdentityAccess\Model\Users\KeyGeneratorTests.cs" />
+    <Compile Include="IdentityAccess\Model\Users\PasswordEncryptorTests.cs" />
+    <Compile Include="IdentityAccess\Model\Users\SessionKeyGeneratorTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config">

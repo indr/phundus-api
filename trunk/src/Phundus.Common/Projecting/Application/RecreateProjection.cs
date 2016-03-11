@@ -5,13 +5,12 @@
     using Domain.Model;
     using Notifications;
 
-    public class RecreateProjection : ICommand
+    public class RecreateProjection : AsyncCommand
     {
         public RecreateProjection(InitiatorId initiatorId, string projectionTypeName)
         {
             if (initiatorId == null) throw new ArgumentNullException("initiatorId");
             if (projectionTypeName == null) throw new ArgumentNullException("projectionTypeName");
-
             InitiatorId = initiatorId;
             ProjectionTypeName = projectionTypeName;
         }
@@ -27,9 +26,7 @@
 
         public RecreateProjectionHandler(IProjectionFactory projectionFactory,
             IProcessedNotificationTrackerStore trackerStore)
-        {
-            if (projectionFactory == null) throw new ArgumentNullException("projectionFactory");
-            if (trackerStore == null) throw new ArgumentNullException("trackerStore");            
+        {   
             _projectionFactory = projectionFactory;
             _trackerStore = trackerStore;            
         }
@@ -39,14 +36,10 @@
             var typeName = command.ProjectionTypeName;
             var projection = _projectionFactory.FindProjection(typeName);
 
-            if (projection != null)
-            {
-                Recreate(GetType());
-            }
-            else
-            {
-                _trackerStore.DeleteTracker(typeName);
-            }
+            if (projection == null)
+                return;
+            
+            Recreate(GetType());
         }
 
         private void Recreate(Type entityType)

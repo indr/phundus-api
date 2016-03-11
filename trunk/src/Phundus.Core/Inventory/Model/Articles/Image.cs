@@ -1,6 +1,7 @@
-﻿namespace Phundus.Inventory.Articles.Model
+﻿namespace Phundus.Inventory.Model.Articles
 {
     using Common.Domain.Model;
+    using Inventory.Articles.Model;
 
     public class Image : EntityBase
     {

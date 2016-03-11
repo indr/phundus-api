@@ -1,7 +1,7 @@
 ﻿namespace Phundus.Persistence.Inventory.Mappings
 {
     using FluentNHibernate.Mapping;
-    using Phundus.Inventory.Articles.Model;
+    using Phundus.Inventory.Model.Articles;
 
     public class ImageMap : ClassMap<Image>
     {
