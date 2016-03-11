@@ -8,6 +8,7 @@
     using developwithpassion.specifications.rhinomocks;
     using Machine.Fakes;
     using Machine.Specifications;
+    using Rhino.Mocks;
 
     public class projection_processor_concern : Observes<EventHandlerDispatcher>
     {
@@ -15,16 +16,17 @@
         protected static IStoredEventsProcessor projectionUpdater;
         protected static IProcessedNotificationTrackerStore trackerStore;
 
-        protected static ISubscribeTo eventHandler1;
-        protected static ISubscribeTo eventHandler2;
+        protected static ISubscribeTo<DomainEvent> eventHandler1;
+        protected static ISubscribeTo<DomainEvent> eventHandler2;
 
         private Establish ctx = () =>
         {
-            eventHandler1 = fake.an<ISubscribeTo>();
-            eventHandler2 = fake.an<ISubscribeTo>();
+            eventHandler1 = fake.an<ISubscribeTo<DomainEvent>>();
+            eventHandler2 = fake.an<ISubscribeTo<DomainEvent>>();
 
             handlerFactory = depends.on<IEventHandlerFactory>();
             handlerFactory.setup(x => x.GetSubscribers()).Return(new[] {eventHandler1, eventHandler2});
+            handlerFactory.setup(x => x.GetSubscribersForEvent<DomainEvent>(Arg<DomainEvent>.Is.Anything)).Return(new[] {eventHandler1, eventHandler2});
 
             projectionUpdater = depends.on<IStoredEventsProcessor>();
             trackerStore = depends.on<IProcessedNotificationTrackerStore>();
