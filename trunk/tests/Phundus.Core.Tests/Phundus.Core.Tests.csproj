@@ -182,7 +182,6 @@
     <Compile Include="Inventory\Model\OwnerSpecs.cs" />
     <Compile Include="Inventory\Model\OwnerTypeSpecs.cs" />
     <Compile Include="Inventory\Model\StoreSpecs.cs" />
-    <Compile Include="Inventory\Model\OrganizationStoreOpenerSpecs.cs" />
     <Compile Include="concern.cs" />
     <Compile Include="Cqrs\TestCommand1.cs" />
     <Compile Include="Cqrs\TestCommand1Handler.cs" />

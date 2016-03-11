@@ -17,10 +17,7 @@
         private readonly IUsersQueries _usersQueries;
 
         public OwnerService(IOrganizationQueries organizationQueries, IUsersQueries usersQueries)
-        {
-            AssertionConcern.AssertArgumentNotNull(organizationQueries, "OrganizationQueries must be provided.");
-            AssertionConcern.AssertArgumentNotNull(usersQueries, "UserQueries must be provided.");
-
+        {            
             _organizationQueries = organizationQueries;
             _usersQueries = usersQueries;
         }

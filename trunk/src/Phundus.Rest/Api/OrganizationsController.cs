@@ -3,17 +3,17 @@
     using System;
     using System.Collections.Generic;
     using System.Linq;
-    using System.Net;
     using System.Net.Http;
+    using System.Threading;
     using System.Web.Http;
     using AttributeRouting;
     using AttributeRouting.Web.Http;
     using Castle.Transactions;
-    using Common;
     using Common.Domain.Model;
     using ContentObjects;
     using IdentityAccess.Application;
     using IdentityAccess.Projections;
+    using Inventory.Application;
     using Inventory.Projections;
     using Newtonsoft.Json;
 
@@ -64,9 +64,8 @@
                 Startpage = organization.Startpage,
                 Stores = new List<Store>(),
                 Url = organization.Url,
-                
                 Contact = new ContactDetails
-                {                    
+                {
                     EmailAddress = organization.EmailAddress,
                     PostalAddress = organization.PostalAddress,
                     Line1 = organization.Line1,
@@ -91,40 +90,40 @@
             return result;
         }
 
-        [POST("")]        
+        [POST("")]
         [Authorize(Roles = "Admin")]
-        public virtual HttpResponseMessage Post(OrganizationsPostRequestContent requestContent)
+        public virtual HttpResponseMessage Post(OrganizationsPostRequestContent rq)
         {
-            if (requestContent == null) throw new ArgumentNullException("requestContent");
+            var organizationId = new OrganizationId();
+            Dispatch(new EstablishOrganization(CurrentUserId, organizationId, rq.Name));
 
-            var organizationGuid = new OrganizationId();
-            Dispatch(new EstablishOrganization(CurrentUserId, organizationGuid, requestContent.Name));
+            // TODO: Eventual consistency...
+            Thread.Sleep(500);
 
-            return Created(new OrganizationsPostOkResponseContent {OrganizationId = organizationGuid.Id});
+            var storeId = new StoreId();
+            Dispatch(new OpenStore(CurrentUserId, new OwnerId(organizationId.Id), storeId));
+
+            return Created(new OrganizationsPostOkResponseContent {OrganizationId = organizationId.Id});
         }
 
-        [PATCH("{organizationId}")]        
-        public virtual HttpResponseMessage Patch(Guid organizationId, OrganizationsPatchRequestContent requestContent)
+        [PATCH("{organizationId}")]
+        public virtual HttpResponseMessage Patch(Guid organizationId, OrganizationsPatchRequestContent rq)
         {
-            if (requestContent == null) throw new ArgumentNullException("requestContent");
-
-            if (requestContent.ContactDetails != null)
+            if (rq.ContactDetails != null)
             {
-                var contactDetails = requestContent.ContactDetails;
+                var cd = rq.ContactDetails;
                 Dispatch(new ChangeOrganizationContactDetails(CurrentUserId, new OrganizationId(organizationId),
-                    contactDetails.Line1, contactDetails.Line2, contactDetails.Street, contactDetails.Postcode, contactDetails.City,
-                    contactDetails.PhoneNumber, contactDetails.EmailAddress, contactDetails.Website));
+                    cd.Line1, cd.Line2, cd.Street, cd.Postcode, cd.City, cd.PhoneNumber, cd.EmailAddress, cd.Website));
             }
 
-            if (!String.IsNullOrWhiteSpace(requestContent.Startpage))
+            if (!String.IsNullOrWhiteSpace(rq.Startpage))
             {
-                Dispatch(new UpdateStartpage(CurrentUserId, new OrganizationId(organizationId), requestContent.Startpage));
+                Dispatch(new UpdateStartpage(CurrentUserId, new OrganizationId(organizationId), rq.Startpage));
             }
 
-            if (!String.IsNullOrWhiteSpace(requestContent.Plan))
+            if (!String.IsNullOrWhiteSpace(rq.Plan))
             {
-                Dispatch(new ChangeOrganizationPlan(CurrentUserId, new OrganizationId(organizationId),
-                    requestContent.Plan));
+                Dispatch(new ChangeOrganizationPlan(CurrentUserId, new OrganizationId(organizationId), rq.Plan));
             }
             return Accepted();
         }
