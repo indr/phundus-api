@@ -1,3 +1,0 @@
-<p>Hallo</p>
-
-<p>@Model.User.FirstName  @Model.User.LastName hat die Mitgliedschaft bei deiner Organisation @Model.Organization.Name beantragt. Bestätige oder lehne die Anfrage unter Verwaltung/Beitrittsanfrage ab.</p>

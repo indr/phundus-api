@@ -1,26 +1,26 @@
-namespace Phundus.IdentityAccess.Model.Users.Mails
+﻿namespace Phundus.IdentityAccess.Model.Organizations.Mails
 {
     using Common.Mailing;
     using Common.Notifications;
-    using IdentityAccess.Users.Model;
-    using Resources;
+    using IdentityAccess.Organizations.Model;
+    using Integration.IdentityAccess;
 
-    public class AccountLockedMail : IConsumes<UserLocked>
+    public class MemberLockedMail : IConsumes<MemberLocked>
     {
         private readonly IMessageFactory _factory;
         private readonly IMailGateway _gateway;
-        private readonly IUserRepository _userRepository;
+        private readonly IUsersQueries _userQueries;
 
-        public AccountLockedMail(IMessageFactory factory, IMailGateway gateway, IUserRepository userRepository)
+        public MemberLockedMail(IMessageFactory factory, IMailGateway gateway, IUsersQueries userQueries)
         {
             _factory = factory;
             _gateway = gateway;
-            _userRepository = userRepository;
+            _userQueries = userQueries;
         }
 
-        public void Handle(UserLocked e)
+        public void Handle(MemberLocked e)
         {
-            var user = _userRepository.FindByGuid(e.UserId);
+            var user = _userQueries.FindById(e.UserGuid);
             var model = new Model
             {
                 FirstName = user.FirstName,
@@ -28,7 +28,8 @@ namespace Phundus.IdentityAccess.Model.Users.Mails
                 EmailAddress = user.EmailAddress
             };
 
-            var message = _factory.MakeMessage(model, Templates.AccountLockedSubject, null, Templates.AccountLockedHtml);
+            var message = _factory.MakeMessage(model, Templates.MemberLockedSubject, null,
+                Templates.MemberLockedHtml);
             message.To.Add(user.EmailAddress);
 
             _gateway.Send(e.OccuredOnUtc, message);
