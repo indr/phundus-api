@@ -8,8 +8,9 @@
     {
         public void Install(IWindsorContainer container, IConfigurationStore store)
         {
-            container.Register(Component.For<IMailGateway>()
-                .ImplementedBy(typeof(MailGateway)));
+            container.Register(
+                Component.For<IMailGateway>().ImplementedBy<MailGateway>(),
+                Component.For<IMessageFactory>().ImplementedBy<MessageFactory>());
         }
     }
 }
