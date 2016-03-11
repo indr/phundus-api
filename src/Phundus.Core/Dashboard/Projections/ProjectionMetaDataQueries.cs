@@ -3,7 +3,6 @@ namespace Phundus.Dashboard.Projections
     using System;
     using System.Collections.Generic;
     using System.Linq;
-    using System.Runtime.InteropServices;
     using Common.Notifications;
     using Common.Querying;
     using Newtonsoft.Json;
@@ -19,8 +18,6 @@ namespace Phundus.Dashboard.Projections
 
         public ProjectionsMetaDataQueries(IProcessedNotificationTrackerStore processedNotificationTrackerStore)
         {
-            if (processedNotificationTrackerStore == null)
-                throw new ArgumentNullException("processedNotificationTrackerStore");
             _processedNotificationTrackerStore = processedNotificationTrackerStore;
         }
 
@@ -41,8 +38,8 @@ namespace Phundus.Dashboard.Projections
 
     public class ProjectionMetaData
     {
-        private string _status = "success";
         private string _errorMessage;
+        private string _status = "success";
         private string _typeName;
 
         [JsonProperty("projectionId")]

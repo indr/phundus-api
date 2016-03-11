@@ -12,28 +12,33 @@
     [Authorize(Roles = "Admin")]
     public class NotificationsController : ApiControllerBase
     {
-        public INotificationLogFactory NotificationLogFactory { get; set; }
+        private readonly INotificationLogFactory _notificationLogFactory;
+
+        public NotificationsController(INotificationLogFactory notificationLogFactory)
+        {
+            _notificationLogFactory = notificationLogFactory;
+        }
 
         [GET("")]
         [Transaction]
         public virtual HttpResponseMessage Get()
         {
-            var result = NotificationLogFactory.CreateCurrentNotificationLog();
+            var result = _notificationLogFactory.CreateCurrentNotificationLog();
             if (result == null)
                 return Request.CreateErrorResponse(HttpStatusCode.NotFound, "");
 
-            return Request.CreateResponse(HttpStatusCode.OK, result);
+            return Ok(result);
         }
 
         [GET("{notificationId}")]
         [Transaction]
         public virtual HttpResponseMessage Get(string notificationId)
         {
-            var result = NotificationLogFactory.CreateNotificationLog(notificationId);
+            var result = _notificationLogFactory.CreateNotificationLog(notificationId);
             if (result == null)
                 return Request.CreateErrorResponse(HttpStatusCode.NotFound, "");
 
-            return Request.CreateResponse(HttpStatusCode.OK, result);
+            return Ok(result);
         }
     }
 }

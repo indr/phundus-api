@@ -4,7 +4,6 @@
     using AttributeRouting;
     using AttributeRouting.Web.Http;
     using Castle.Transactions;
-    using Common;
     using ContentObjects;
     using IdentityAccess.Projections;
     using Newtonsoft.Json;
@@ -16,8 +15,6 @@
 
         public OrganizationsRelationshipsController(IRelationshipQueries relationshipQueries)
         {
-            AssertionConcern.AssertArgumentNotNull(relationshipQueries, "RelationshipQueries must be provided.");
-
             _relationshipQueries = relationshipQueries;
         }
 

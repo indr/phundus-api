@@ -22,7 +22,6 @@
             projectionFactory = depends.on<IProjectionFactory>();
         };
 
-
         public class when_projection_does_not_exist
         {
             private Establish ctx = () =>
@@ -31,8 +30,8 @@
             private Because of = () =>
                 sut.Handle(new RecreateProjection(new InitiatorId(), projectionTypeName));
 
-            private It should_delete_tracker = () =>
-                trackerStore.received(x => x.DeleteTracker(projectionTypeName));
+            private It should_not_delete_tracker = () =>
+                trackerStore.never_received(x => x.DeleteTracker(projectionTypeName));
         }
 
         public class when_projection_exists

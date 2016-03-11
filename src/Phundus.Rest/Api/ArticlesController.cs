@@ -11,7 +11,6 @@ namespace Phundus.Rest.Api
     using Common.Domain.Model;
     using ContentObjects;
     using IdentityAccess.Projections;
-    using Integration.IdentityAccess;
     using Inventory.Application;
     using Inventory.Model.Reservations;
     using Inventory.Projections;
@@ -21,11 +20,11 @@ namespace Phundus.Rest.Api
     public class ArticlesController : ApiControllerBase
     {
         private readonly IArticleActionsQueries _articleActionsQueries;
-        private readonly IShortIdGeneratorService _shortIdGeneratorService;
         private readonly IArticleQueries _articleQueries;
         private readonly IAvailabilityQueries _availabilityQueries;
         private readonly IMemberInRole _memberInRole;
-        private readonly IReservationRepository _reservationRepository;        
+        private readonly IReservationRepository _reservationRepository;
+        private readonly IShortIdGeneratorService _shortIdGeneratorService;
         private readonly IStoresQueries _storesQueries;
 
         public ArticlesController(IMemberInRole memberInRole, IStoresQueries storesQueries,
@@ -33,18 +32,11 @@ namespace Phundus.Rest.Api
             IReservationRepository reservationRepository, IArticleActionsQueries articleActionsQueries,
             IShortIdGeneratorService shortIdGeneratorService)
         {
-            if (memberInRole == null) throw new ArgumentNullException("memberInRole");
-            if (storesQueries == null) throw new ArgumentNullException("storesQueries");
-            if (articleQueries == null) throw new ArgumentNullException("articleQueries");
-            if (availabilityQueries == null) throw new ArgumentNullException("availabilityQueries");
-            if (reservationRepository == null) throw new ArgumentNullException("reservationRepository");            
-            if (articleActionsQueries == null) throw new ArgumentNullException("articleActionsQueries");
-            if (shortIdGeneratorService == null) throw new ArgumentNullException("shortIdGeneratorService");
             _memberInRole = memberInRole;
             _storesQueries = storesQueries;
             _articleQueries = articleQueries;
             _availabilityQueries = availabilityQueries;
-            _reservationRepository = reservationRepository;            
+            _reservationRepository = reservationRepository;
             _articleActionsQueries = articleActionsQueries;
             _shortIdGeneratorService = shortIdGeneratorService;
         }
@@ -79,10 +71,8 @@ namespace Phundus.Rest.Api
                 query = queryParams["q"];
 
             var results = _articleQueries.Query(CurrentUserId, ownerId, query);
-            return new QueryOkResponseContent<ArticleData>
-            {
-                Results = results.ToList()
-            };
+            
+            return new QueryOkResponseContent<ArticleData>(results);
         }
 
         [GET("{articleId}")]
@@ -191,13 +181,14 @@ namespace Phundus.Rest.Api
             return Request.CreateResponse(HttpStatusCode.OK, new {availabilities, reservations});
         }
 
-        [POST("")]        
+        [POST("")]
         public virtual ArticlesPostOkResponseContent Post(ArticlesPostRequestContent requestContent)
-        {            
+        {
             var storeId = _storesQueries.GetByOwnerId(requestContent.OwnerId).StoreId;
             var articleId = new ArticleId();
             var articleShortId = _shortIdGeneratorService.GetNext<ArticleShortId>();
-            var command = new CreateArticle(CurrentUserId, new OwnerId(requestContent.OwnerId), new StoreId(storeId), articleId, articleShortId,
+            var command = new CreateArticle(CurrentUserId, new OwnerId(requestContent.OwnerId), new StoreId(storeId),
+                articleId, articleShortId,
                 requestContent.Name, requestContent.GrossStock, requestContent.PublicPrice, requestContent.MemberPrice);
             Dispatch(command);
 
@@ -208,7 +199,7 @@ namespace Phundus.Rest.Api
             };
         }
 
-        [PATCH("{articleId}")]        
+        [PATCH("{articleId}")]
         public virtual HttpResponseMessage Patch(ArticleId articleId, ArticlesPatchRequestContent requestContent)
         {
             if (!String.IsNullOrWhiteSpace(requestContent.Name))
@@ -233,7 +224,7 @@ namespace Phundus.Rest.Api
             return NoContent();
         }
 
-        [DELETE("{articleId}")]        
+        [DELETE("{articleId}")]
         public virtual HttpResponseMessage Delete(ArticleId articleId)
         {
             Dispatcher.Dispatch(new DeleteArticle(CurrentUserId, articleId));

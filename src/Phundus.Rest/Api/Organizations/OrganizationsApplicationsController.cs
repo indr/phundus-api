@@ -7,6 +7,7 @@
     using AttributeRouting.Web.Http;
     using Castle.Transactions;
     using Common.Domain.Model;
+    using ContentObjects;
     using IdentityAccess.Application;
     using IdentityAccess.Projections;
     using Newtonsoft.Json;
@@ -17,17 +18,16 @@
         private readonly IMembershipApplicationQueries _membershipApplicationQueries;
 
         public OrganizationsApplicationsController(IMembershipApplicationQueries membershipApplicationQueries)
-        {
-            if (membershipApplicationQueries == null) throw new ArgumentNullException("membershipApplicationQueries");
+        {            
             _membershipApplicationQueries = membershipApplicationQueries;
         }
 
         [GET("")]
         [Transaction]
-        public virtual OrganizationsApplicationsGetOkResponseContent Get(Guid organizationId)
+        public virtual QueryOkResponseContent<MembershipApplicationData> Get(Guid organizationId)
         {
             var results = _membershipApplicationQueries.FindPending(CurrentUserId, new OrganizationId(organizationId));
-            return new OrganizationsApplicationsGetOkResponseContent(results);
+            return new QueryOkResponseContent<MembershipApplicationData>(results);
         }
 
         [POST("")]        
@@ -48,14 +48,6 @@
             Dispatch(new RejectMembershipApplication(CurrentUserId, new MembershipApplicationId(applicationId)));
 
             return NoContent();
-        }
-    }
-
-    public class OrganizationsApplicationsGetOkResponseContent : List<IMembershipApplication>
-    {
-        public OrganizationsApplicationsGetOkResponseContent(IEnumerable<IMembershipApplication> collection)
-            : base(collection)
-        {
         }
     }
 

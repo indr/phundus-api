@@ -1,4 +1,4 @@
-﻿namespace Phundus.Common.Tests.Projecting
+﻿namespace Phundus.Common.Tests.Querying
 {
     using System.Collections.Generic;
     using Common.Domain.Model;
@@ -6,22 +6,23 @@
     using developwithpassion.specifications.rhinomocks;
     using Machine.Specifications;
     using NHibernate;
+    using Projecting;
 
     public class query_base_concern : Observes<TestQuery>
     {
         protected static ISession session;
-        protected static IQueryOver<TestEntity, TestEntity> query;
+        protected static IQueryOver<TestQueryEntity, TestQueryEntity> query;
 
-        protected static TestEntity entity;
-        private static List<TestEntity> entities;
+        protected static TestQueryEntity entity;
+        private static List<TestQueryEntity> entities;
 
         private Establish ctx = () =>
         {
-            entities = new List<TestEntity>();
+            entities = new List<TestQueryEntity>();
 
-            query = fake.an<IQueryOver<TestEntity, TestEntity>>();
+            query = fake.an<IQueryOver<TestQueryEntity, TestQueryEntity>>();
             session = depends.on<ISession>();
-            session.setup(x => x.QueryOver<TestEntity>()).Return(query);
+            session.setup(x => x.QueryOver<TestQueryEntity>()).Return(query);
 
             sut_factory.create_using(() =>
             {
@@ -30,7 +31,7 @@
                 return sut;
             });
 
-            entity = TestEntity.Create();
+            entity = TestQueryEntity.Create();
             entities.Add(entity);
         };
     }
@@ -38,10 +39,10 @@
     public class when_find_with_integer : query_base_concern
     {
         private static int id = 123;
-        private static TestEntity returnValue;
+        private static TestQueryEntity returnValue;
 
         private Establish ctx = () =>
-            session.setup(x => x.Get<TestEntity>(id)).Return(entity);
+            session.setup(x => x.Get<TestQueryEntity>(id)).Return(entity);
 
         private Because of = () =>
             returnValue = sut.Find(id);
@@ -53,12 +54,12 @@
     public class when_find_with_guid_identity : query_base_concern
     {
         private static GuidIdentity identity;
-        private static TestEntity returnValue;
+        private static TestQueryEntity returnValue;
 
         private Establish ctx = () =>
         {
-            identity = new TestGuidIdentity();
-            session.setup(x => x.Get<TestEntity>(identity.Id)).Return(entity);
+            identity = new TestQueryEntityId();
+            session.setup(x => x.Get<TestQueryEntity>(identity.Id)).Return(entity);
         };
 
         private Because of = () =>
@@ -70,23 +71,23 @@
 
     public class when_find_with_guid_identity_and_entity_does_not_exist : query_base_concern
     {
-        private static TestGuidIdentity identity;
-        private static TestEntity returnValue;
+        private static TestQueryEntityId identity;
+        private static TestQueryEntity result;
 
         private Establish ctx = () =>
         {
-            identity = new TestGuidIdentity();
-            session.setup(x => x.Get<TestEntity>(identity)).Return((TestEntity) null);
+            identity = new TestQueryEntityId();
+            session.setup(x => x.Get<TestProjectionEntity>(identity)).Return((TestProjectionEntity) null);
         };
 
         private Because of = () =>
             spec.catch_exception(() =>
-                returnValue = sut.Find(identity));
+                result = sut.Find(identity));
 
         private It should_not_throw_exception = () =>
             spec.exception_thrown.ShouldBeNull();
 
         private It should_return_null = () =>
-            returnValue.ShouldBeNull();
+            result.ShouldBeNull();
     }
 }

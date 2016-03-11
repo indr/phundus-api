@@ -6,7 +6,7 @@ namespace Phundus.Rest.Api
     using AttributeRouting;
     using AttributeRouting.Web.Http;
     using Common;
-    using Common.Mailing;    
+    using Common.Mailing;
     using Newtonsoft.Json;
 
     [RoutePrefix("api/feedback")]
@@ -16,24 +16,23 @@ namespace Phundus.Rest.Api
 
         public FeedbackController(IMailGateway mailGateway)
         {
-            if (mailGateway == null) throw new ArgumentNullException("mailGateway");
             _mailGateway = mailGateway;
         }
 
         [POST("")]
         [AllowAnonymous]
-        public virtual HttpResponseMessage Post(FeedbackPostRequestContent requestContent)
+        public virtual HttpResponseMessage Post(FeedbackPostRequestContent rq)
         {
-            if (requestContent == null) throw new ArgumentNullException("requestContent");
+            if (rq == null) throw new ArgumentNullException("rq");
 
             _mailGateway.Send(DateTime.UtcNow, Config.FeedbackRecipients,
-               @"[phundus] Feedback",
-               @"Feedback von " + requestContent.EmailAddress + Environment.NewLine + Environment.NewLine +
-               requestContent.Comment + MailTemplates.TextSignature);
+                @"[phundus] Feedback",
+                @"Feedback von " + rq.EmailAddress + Environment.NewLine + Environment.NewLine +
+                rq.Comment + MailTemplates.TextSignature);
 
-            _mailGateway.Send(DateTime.UtcNow, requestContent.EmailAddress,
-               @"Vielen Dank fürs Feedback",
-               @"Wir haben dein Feedback erhalten und werden dir baldmöglichst darauf antworten.
+            _mailGateway.Send(DateTime.UtcNow, rq.EmailAddress,
+                @"Vielen Dank fürs Feedback",
+                @"Wir haben dein Feedback erhalten und werden dir baldmöglichst darauf antworten.
 
 Vielen Dank und freundliche Grüsse
 

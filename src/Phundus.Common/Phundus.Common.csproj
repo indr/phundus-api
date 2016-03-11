@@ -104,7 +104,6 @@
     <Compile Include="Commanding\IHandleCommand.cs" />
     <Compile Include="Config.cs" />
     <Compile Include="DateTimeProvider.cs" />
-    <Compile Include="DefaultDateTimeProvider.cs" />
     <Compile Include="Domain.Model\Aggregate.cs" />
     <Compile Include="Domain.Model\DomainEvent.cs" />
     <Compile Include="Domain.Model\Entity.cs" />
@@ -127,7 +126,6 @@
     <Compile Include="Eventing\IEventHandlerFactory.cs" />
     <Compile Include="Eventing\IStoredEventRepository.cs" />
     <Compile Include="Eventing\ISubscribeTo.cs" />
-    <Compile Include="IDateTimeProvider.cs" />
     <Compile Include="Injecting\IAssemblyInstaller.cs" />
     <Compile Include="Mailing\IMailGateway.cs" />
     <Compile Include="Mailing\MailGateway.cs" />

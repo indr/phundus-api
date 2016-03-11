@@ -31,33 +31,6 @@
         }
 
         [Test]
-        public void Can_get_DisplayName()
-        {
-            var sut = CreateUser();
-            sut.FirstName = "Hans";
-            sut.LastName = "Wahrig";
-            Assert.That(sut.DisplayName, Is.EqualTo("Hans Wahrig"));
-        }
-
-        [Test]
-        public void Can_set_and_get_FirstName()
-        {
-            var sut = CreateUser();
-            Assert.That(sut.FirstName, Is.EqualTo("Hans"));
-            sut.FirstName = "Robert";
-            Assert.That(sut.FirstName, Is.EqualTo("Robert"));
-        }
-
-        [Test]
-        public void Can_set_and_get_LastName()
-        {
-            var sut = CreateUser();
-            Assert.That(sut.LastName, Is.EqualTo("Müller"));
-            sut.LastName = "Baden-Powell";
-            Assert.That(sut.LastName, Is.EqualTo("Baden-Powell"));
-        }
-
-        [Test]
         public void Create_assignes_Membership()
         {
             var sut = CreateUser();

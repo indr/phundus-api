@@ -90,6 +90,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Commanding\AsyncCommandSpecs.cs" />
     <Compile Include="ConfigSpecs.cs" />
     <Compile Include="Domain.Model\GuidConverterSpecs.cs" />
     <Compile Include="Domain.Model\IdentitiesSpecs.cs" />
@@ -114,7 +115,8 @@
     <Compile Include="Projecting\ProjectionFactorySpecs.cs" />
     <Compile Include="Projecting\Installers\ProjectionsInstallerSpecs.cs" />
     <Compile Include="Projecting\ProjectionUpdaterSpecs.cs" />
-    <Compile Include="Projecting\QueryBaseSpecs.cs" />
+    <Compile Include="Querying\TestQuery.cs" />
+    <Compile Include="Querying\QueryBaseSpecs.cs" />
     <Compile Include="Projecting\TestStubs.cs" />
     <Compile Include="Projecting\TypedProjectionFactorySpecs.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

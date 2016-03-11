@@ -6,7 +6,6 @@
     using AttributeRouting;
     using AttributeRouting.Web.Http;
     using Castle.Transactions;
-    using Common;
     using Common.Domain.Model;
     using ContentObjects;
     using IdentityAccess.Application;
@@ -21,8 +20,6 @@
 
         public OrganizationsMembersController(IMemberQueries memberQueries)
         {
-            AssertionConcern.AssertArgumentNotNull(memberQueries, "MemberQueries must be provided.");
-
             _memberQueries = memberQueries;
         }
 
@@ -52,26 +49,27 @@
             }).ToList());
         }
 
-        [POST("")]        
+        [POST("")]
         public virtual HttpResponseMessage Post(Guid organizationId,
             OrganizationsMembersPostRequestContent requestContent)
         {
-            Dispatch(new ApproveMembershipApplication(CurrentUserId, new MembershipApplicationId(requestContent.ApplicationId)));
+            Dispatch(new ApproveMembershipApplication(CurrentUserId,
+                new MembershipApplicationId(requestContent.ApplicationId)));
 
-            return Accepted();
+            return NoContent();
         }
 
-        [PUT("{memberId}")]        
+        [PUT("{memberId}")]
         public virtual HttpResponseMessage Put(Guid organizationId, Guid memberId,
             OrganizationsMembersPutRequestContent requestContent)
         {
             Dispatch(new ChangeMembersRole(CurrentUserId, new OrganizationId(organizationId),
                 new UserId(memberId), (MemberRole) requestContent.Role));
 
-            return Accepted();
+            return NoContent();
         }
 
-        [PATCH("{memberId}")]        
+        [PATCH("{memberId}")]
         public virtual HttpResponseMessage Patch(Guid organizationId, Guid memberId,
             OrganizationsMembersPatchRequestContent requestContent)
         {
@@ -98,7 +96,7 @@
                     requestContent.RecievesEmailNotifications.Value));
             }
 
-            return Accepted();
+            return NoContent();
         }
     }
 

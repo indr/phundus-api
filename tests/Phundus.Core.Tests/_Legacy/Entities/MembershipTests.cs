@@ -1,11 +1,9 @@
 ﻿namespace Phundus.Tests._Legacy.Entities
 {
     using System;
-    using System.Threading;
     using NUnit.Framework;
     using Phundus.IdentityAccess.Model.Users;
     using Phundus.IdentityAccess.Users.Exceptions;
-    using Phundus.IdentityAccess.Users.Model;
 
     [TestFixture]
     public class MembershipTests

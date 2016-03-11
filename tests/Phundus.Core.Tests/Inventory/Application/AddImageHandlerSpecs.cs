@@ -6,6 +6,7 @@
     using Phundus.Inventory.Application;
     using Phundus.Inventory.Articles.Model;
     using Phundus.Inventory.Model;
+    using Phundus.Inventory.Model.Articles;
     using Rhino.Mocks;
 
     [Subject(typeof (AddImageHandler))]

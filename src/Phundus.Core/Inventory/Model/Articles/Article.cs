@@ -7,6 +7,7 @@
     using Common.Eventing;
     using Iesi.Collections.Generic;
     using Inventory.Model;
+    using Inventory.Model.Articles;
 
     public class Article : EntityWithCompositeId
     {

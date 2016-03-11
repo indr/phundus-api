@@ -19,8 +19,7 @@ namespace Phundus.Rest.Api
         private readonly IStoresQueries _storesQueries;
 
         public StoresController(IStoresQueries storesQueries)
-        {
-            if (storesQueries == null) throw new ArgumentNullException("storesQueries");
+        {            
             _storesQueries = storesQueries;
         }
 
@@ -91,7 +90,7 @@ namespace Phundus.Rest.Api
                 Dispatch(new ChangeOpeningHours(CurrentUserId, new StoreId(storeId), requestContent.OpeningHours));
             }
 
-            return Request.CreateResponse(HttpStatusCode.NoContent);
+            return NoContent();
         }
     }
 

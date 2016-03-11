@@ -23,9 +23,6 @@ namespace Phundus.Rest.Api
 
         public ProjectionsController(IProjectionsMetaDataQueries projectionsMetaDataQueries, IEventStore eventStore)
         {
-            if (projectionsMetaDataQueries == null) throw new ArgumentNullException("projectionsMetaDataQueries");
-            if (eventStore == null) throw new ArgumentNullException("eventStore");
-
             _projectionsMetaDataQueries = projectionsMetaDataQueries;
             _eventStore = eventStore;
         }
@@ -36,31 +33,35 @@ namespace Phundus.Rest.Api
         {
             var maxEventId = _eventStore.GetMaxNotificationId();
             var results = _projectionsMetaDataQueries.Query();
+
             return new ProjectionsQueryOkResponseContent(maxEventId, results);
         }
 
         [PUT("{projectionId}")]
         public virtual HttpResponseMessage Put(string projectionId)
         {
-            Bus.Send(new ResetProjection(CurrentUserId, projectionId));
+            var command = new ResetProjection(CurrentUserId, projectionId);
+            Bus.Send(command);
 
-            return Accepted();
+            return Accepted(command);
         }
 
         [PATCH("{projectionId}")]
         public virtual HttpResponseMessage Patch(string projectionId)
         {
-            Bus.Send(new UpdateProjection(CurrentUserId, projectionId));
+            var command = new UpdateProjection(CurrentUserId, projectionId);
+            Bus.Send(command);
 
-            return Accepted();
+            return Accepted(command);
         }
 
         [DELETE("{projectionId}")]
         public virtual HttpResponseMessage Delete(string projectionId)
         {
-            Bus.Send(new RecreateProjection(CurrentUserId, projectionId));
+            var command = new RecreateProjection(CurrentUserId, projectionId);
+            Bus.Send(command);
 
-            return Accepted();
+            return Accepted(command);
         }
     }
 

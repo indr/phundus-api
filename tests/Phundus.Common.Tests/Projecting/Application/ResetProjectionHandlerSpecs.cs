@@ -30,8 +30,8 @@
         private Establish ctx = () =>
             projectionFactory.setup(x => x.FindProjection(projectionTypeName)).Return((IProjection) null);
 
-        private It should_delete_tracker = () =>
-            trackerStore.received(x => x.DeleteTracker(projectionTypeName));
+        private It should_not_delete_tracker = () =>
+            trackerStore.never_received(x => x.DeleteTracker(projectionTypeName));
     }
 
     [Subject(typeof(ResetProjectionHandler))]

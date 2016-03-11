@@ -1,5 +1,6 @@
 ﻿namespace Phundus.Rest
 {
+    using System;
     using System.Collections.Generic;
     using System.IO;
     using System.Linq;
@@ -67,9 +68,13 @@
             return Mapper.Map<TDestination>(source);
         }
 
-        protected HttpResponseMessage Accepted()
+        protected HttpResponseMessage Accepted(AsyncCommand command)
         {
-            return Request.CreateResponse(HttpStatusCode.Accepted);
+            return Request.CreateResponse(HttpStatusCode.Accepted, new
+            {
+                commandId = command.CommandId,
+                createdAtUtc = command.CreatedAtUtc
+            });
         }
 
         protected HttpResponseMessage Created<T>(T content)

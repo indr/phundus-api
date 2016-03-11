@@ -55,13 +55,13 @@
         public virtual string FirstName
         {
             get { return _firstName; }
-            set { _firstName = value; }
+            protected set { _firstName = value; }
         }
 
         public virtual string LastName
         {
             get { return _lastName; }
-            set { _lastName = value; }
+            protected set { _lastName = value; }
         }
 
         public virtual string FullName
@@ -89,25 +89,25 @@
         public virtual string Street
         {
             get { return _street; }
-            set { _street = value; }
+            protected set { _street = value; }
         }
 
         public virtual string Postcode
         {
             get { return _postcode; }
-            set { _postcode = value; }
+            protected set { _postcode = value; }
         }
 
         public virtual string City
         {
             get { return _city; }
-            set { _city = value; }
+            protected set { _city = value; }
         }
 
         public virtual string PhoneNumber
         {
             get { return _phoneNumber; }
-            set { _phoneNumber = value; }
+            protected set { _phoneNumber = value; }
         }
 
         public virtual int? JsNumber
@@ -119,11 +119,6 @@
                     throw new ArgumentOutOfRangeException("value", "Die J+S-Nummer muss sechs- oder siebenstellig sein.");
                 _jsNumber = value;
             }
-        }
-
-        public virtual string DisplayName
-        {
-            get { return String.Format("{0} {1}", FirstName, LastName); }
         }
 
         public virtual bool IsLocked

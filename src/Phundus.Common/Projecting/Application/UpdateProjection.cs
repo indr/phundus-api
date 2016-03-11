@@ -5,13 +5,12 @@
     using Domain.Model;
     using Notifications;
 
-    public class UpdateProjection : ICommand
+    public class UpdateProjection : AsyncCommand
     {
         public UpdateProjection(InitiatorId initiatorId, string projectionTypeName)
         {
             if (initiatorId == null) throw new ArgumentNullException("initiatorId");
             if (projectionTypeName == null) throw new ArgumentNullException("projectionTypeName");
-
             InitiatorId = initiatorId;
             ProjectionTypeName = projectionTypeName;
         }
