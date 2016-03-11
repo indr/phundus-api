@@ -18,17 +18,12 @@ namespace Phundus.Common.Notifications.Installers
                 .ImplementedBy<BusNotificationPublisher>());
 
             container.Register(
-                Component.For<INotificationConsumerFactory>().AsFactory(),
-                Component.For<IEventConsumerFactory>().AsFactory());
+                Component.For<INotificationHandlerFactory>().AsFactory());
 
-
-
-            container.Register(
-                Component.For<INotificationToConsumersDispatcher>().ImplementedBy<NotificationToConsumersDispatcher>(),
+            container.Register(                
                 Component.For<IStoredEventsProcessor>().ImplementedBy<StoredEventsProcessor>());
 
-            new NotificationHandlerInstaller().Install(container, Assembly.GetExecutingAssembly());
-            new EventConsumerInstaller().Install(container, Assembly.GetExecutingAssembly());
+            new NotificationHandlerInstaller().Install(container, Assembly.GetExecutingAssembly());            
         }
     }
 }

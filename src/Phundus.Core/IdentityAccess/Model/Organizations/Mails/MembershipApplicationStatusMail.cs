@@ -2,20 +2,22 @@
 {
     using System;
     using System.Linq;
+    using Common.Eventing;
     using Common.Mailing;
-    using Common.Notifications;
     using IdentityAccess.Organizations.Model;
     using Integration.IdentityAccess;
     using Projections;
 
-    public class MembershipApplicationStatusMail : IConsumes<MembershipApplicationFiled>,
-        IConsumes<MembershipApplicationApproved>, IConsumes<MembershipApplicationRejected>
+    public class MembershipApplicationStatusMail :
+        ISubscribeTo<MembershipApplicationApproved>,
+        ISubscribeTo<MembershipApplicationFiled>,
+        ISubscribeTo<MembershipApplicationRejected>
     {
         private readonly IMessageFactory _factory;
         private readonly IMailGateway _gateway;
+        private readonly IMembersWithRole _memberWithRole;
         private readonly IOrganizationQueries _organizationQueries;
         private readonly IUsersQueries _usersQueries;
-        private readonly IMembersWithRole _memberWithRole;
 
         public MembershipApplicationStatusMail(IMessageFactory factory, IMailGateway gateway,
             IOrganizationQueries organizationQueries, IUsersQueries usersQueries, IMembersWithRole memberWithRole)

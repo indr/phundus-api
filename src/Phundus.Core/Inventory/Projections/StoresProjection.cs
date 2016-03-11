@@ -1,16 +1,16 @@
 namespace Phundus.Inventory.Projections
 {
     using System;
-    using Common.Notifications;
+    using Common.Eventing;
     using Common.Projecting;
     using Stores.Model;
 
     public class StoresProjection : ProjectionBase<StoreData>,
-        IConsumes<StoreOpened>,
-        IConsumes<StoreRenamed>,
-        IConsumes<AddressChanged>,
-        IConsumes<OpeningHoursChanged>,
-        IConsumes<CoordinateChanged>
+        ISubscribeTo<StoreOpened>,
+        ISubscribeTo<StoreRenamed>,
+        ISubscribeTo<AddressChanged>,
+        ISubscribeTo<OpeningHoursChanged>,
+        ISubscribeTo<CoordinateChanged>
     {
         public void Handle(AddressChanged e)
         {

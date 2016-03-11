@@ -1,6 +1,5 @@
 ﻿namespace Phundus.Common.Notifications.Application
 {
-    using System;
     using Commanding;
 
     public class ProcessMissedNotifications : ICommand
@@ -9,17 +8,20 @@
 
     public class ProcessMissedNotificationsHandler : IHandleCommand<ProcessMissedNotifications>
     {
-        private readonly INotificationHandler _notificationHandler;
+        private readonly INotificationHandlerFactory _notificationHandlerFactory;
 
-        public ProcessMissedNotificationsHandler(INotificationHandler notificationHandler)
+        public ProcessMissedNotificationsHandler(INotificationHandlerFactory notificationHandlerFactory)
         {
-            if (notificationHandler == null) throw new ArgumentNullException("notificationHandler");
-            _notificationHandler = notificationHandler;
+            _notificationHandlerFactory = notificationHandlerFactory;
         }
 
         public void Handle(ProcessMissedNotifications command)
         {
-            _notificationHandler.ProcessMissedNotifications();
+            var handlers = _notificationHandlerFactory.GetNotificationHandlers();
+            foreach (var handler in handlers)
+            {
+                handler.ProcessMissedNotifications();
+            }
         }
     }
 }

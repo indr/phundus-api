@@ -4,21 +4,21 @@
     using System.Collections.Generic;
     using System.Linq;
     using Common;
-    using Common.Notifications;
+    using Common.Eventing;
     using Common.Projecting;
     using Inventory.Articles.Model;
     using Inventory.Stores.Model;
     using Orders.Model;
 
     public class ShopItemsProjection : ProjectionBase<ShopItemsData>,
-        IConsumes<ArticleCreated>,
-        IConsumes<ArticleDeleted>,
-        IConsumes<ArticleDetailsChanged>,
-        IConsumes<ImageAdded>,
-        IConsumes<PreviewImageChanged>,
-        IConsumes<PricesChanged>,
-        IConsumes<StoreRenamed>,
-        IConsumes<OrderPlaced>
+        ISubscribeTo<ArticleCreated>,
+        ISubscribeTo<ArticleDeleted>,
+        ISubscribeTo<ArticleDetailsChanged>,
+        ISubscribeTo<ImageAdded>,
+        ISubscribeTo<PreviewImageChanged>,
+        ISubscribeTo<PricesChanged>,
+        ISubscribeTo<StoreRenamed>,
+        ISubscribeTo<OrderPlaced>
     {
         public void Handle(ArticleCreated e)
         {

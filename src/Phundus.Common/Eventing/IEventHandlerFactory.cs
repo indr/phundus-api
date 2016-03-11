@@ -2,10 +2,9 @@
 {
     public interface IEventHandlerFactory
     {
-        ISubscribeTo<TDomainEvent> GetSubscriberForEvent<TDomainEvent>(TDomainEvent @event);
-
-        ISubscribeTo<TDomainEvent>[] GetSubscribersForEvent<TDomainEvent>(TDomainEvent @event);
+        ISubscribeTo FindSubscriber(string typeName);
+        ISubscribeTo[] GetSubscribers();
+        ISubscribeTo<TDomainEvent> GetSubscriberForEvent<TDomainEvent>(TDomainEvent e);
+        ISubscribeTo<TDomainEvent>[] GetSubscribersForEvent<TDomainEvent>(TDomainEvent e);
     }
-
-    
 }

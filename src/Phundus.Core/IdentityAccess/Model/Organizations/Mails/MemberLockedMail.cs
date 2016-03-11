@@ -1,11 +1,11 @@
 ﻿namespace Phundus.IdentityAccess.Model.Organizations.Mails
 {
+    using Common.Eventing;
     using Common.Mailing;
-    using Common.Notifications;
     using IdentityAccess.Organizations.Model;
     using Integration.IdentityAccess;
 
-    public class MemberLockedMail : IConsumes<MemberLocked>
+    public class MemberLockedMail : ISubscribeTo<MemberLocked>
     {
         private readonly IMessageFactory _factory;
         private readonly IMailGateway _gateway;

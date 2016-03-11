@@ -1,15 +1,15 @@
 ﻿namespace Phundus.IdentityAccess.Projections
 {
     using System;
-    using Common.Notifications;
+    using Common.Eventing;
     using Common.Projecting;
     using Model.Users;
     using Users.Model;
 
     public class UserAddressProjection : ProjectionBase<UserAddressData>,
-        IConsumes<UserAddressChanged>,
-        IConsumes<UserEmailAddressChanged>,
-        IConsumes<UserSignedUp>
+        ISubscribeTo<UserAddressChanged>,
+        ISubscribeTo<UserEmailAddressChanged>,
+        ISubscribeTo<UserSignedUp>
     {
         public void Handle(UserAddressChanged e)
         {

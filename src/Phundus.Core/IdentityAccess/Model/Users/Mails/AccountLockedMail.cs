@@ -1,11 +1,12 @@
 namespace Phundus.IdentityAccess.Model.Users.Mails
 {
+    using Common.Eventing;
     using Common.Mailing;
-    using Common.Notifications;
     using IdentityAccess.Users.Model;
     using Resources;
 
-    public class AccountLockedMail : IConsumes<UserLocked>
+    public class AccountLockedMail : MailBase,
+        ISubscribeTo<UserLocked>
     {
         private readonly IMessageFactory _factory;
         private readonly IMailGateway _gateway;

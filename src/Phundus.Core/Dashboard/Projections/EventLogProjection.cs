@@ -3,7 +3,7 @@ namespace Phundus.Dashboard.Projections
     using System;
     using System.IO;
     using Common.Domain.Model;
-    using Common.Notifications;
+    using Common.Eventing;
     using Common.Projecting;
     using Common.Projections;
     using IdentityAccess.Organizations.Model;
@@ -11,14 +11,14 @@ namespace Phundus.Dashboard.Projections
     using Newtonsoft.Json;
 
     public class EventLogProjection : ProjectionBase<EventLogData>,
-        IConsumes<DomainEvent>,
-        IConsumes<UserLoggedIn>,
-        IConsumes<UserSignedUp>,
-        IConsumes<MembershipApplicationFiled>,
-        IConsumes<MembershipApplicationApproved>,
-        IConsumes<MembershipApplicationRejected>,
-        IConsumes<MemberLocked>,
-        IConsumes<MemberUnlocked>
+        ISubscribeTo<DomainEvent>,
+        ISubscribeTo<UserLoggedIn>,
+        ISubscribeTo<UserSignedUp>,
+        ISubscribeTo<MembershipApplicationFiled>,
+        ISubscribeTo<MembershipApplicationApproved>,
+        ISubscribeTo<MembershipApplicationRejected>,
+        ISubscribeTo<MemberLocked>,
+        ISubscribeTo<MemberUnlocked>
     {
         public void Handle(DomainEvent domainEvent)
         {

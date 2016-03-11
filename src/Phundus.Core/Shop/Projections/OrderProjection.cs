@@ -4,20 +4,20 @@
     using System.Collections.Generic;
     using System.Collections.ObjectModel;
     using System.Linq;
-    using Common.Notifications;
+    using Common.Eventing;
     using Common.Projecting;
     using Orders.Model;
 
     public class OrderProjection : ProjectionBase<OrderData>,
-        IConsumes<OrderCreated>,
-        IConsumes<OrderApproved>,
-        IConsumes<OrderClosed>,
-        IConsumes<OrderRejected>,
-        IConsumes<OrderItemAdded>,
-        IConsumes<OrderItemPeriodChanged>,
-        IConsumes<OrderItemQuantityChanged>,
-        IConsumes<OrderItemRemoved>,
-        IConsumes<OrderItemTotalChanged>
+        ISubscribeTo<OrderCreated>,
+        ISubscribeTo<OrderApproved>,
+        ISubscribeTo<OrderClosed>,
+        ISubscribeTo<OrderRejected>,
+        ISubscribeTo<OrderItemAdded>,
+        ISubscribeTo<OrderItemPeriodChanged>,
+        ISubscribeTo<OrderItemQuantityChanged>,
+        ISubscribeTo<OrderItemRemoved>,
+        ISubscribeTo<OrderItemTotalChanged>
     {
         public void Handle(OrderApproved e)
         {

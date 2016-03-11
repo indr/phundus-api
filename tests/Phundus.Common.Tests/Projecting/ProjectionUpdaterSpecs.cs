@@ -4,24 +4,23 @@
     using Common.Domain.Model;
     using Common.Eventing;
     using Common.Notifications;
-    using Common.Projecting;
     using developwithpassion.specifications.extensions;
     using developwithpassion.specifications.rhinomocks;
     using Machine.Specifications;
     using Rhino.Mocks;
 
-    public interface ITestConsumer : IConsumes<DomainEvent>
+    public interface ITestEventHandler : ISubscribeTo<DomainEvent>
     {
     }
 
 
-    public class TestConsumerAdapter : ITestConsumer
+    public class TestEventHandlerAdapter : ITestEventHandler
     {
         // RedirectToWhen does not work with castle proxies
 
-        private readonly IConsumes<DomainEvent> _mock;
+        private readonly ISubscribeTo<DomainEvent> _mock;
 
-        public TestConsumerAdapter(IConsumes<DomainEvent> mock)
+        public TestEventHandlerAdapter(ISubscribeTo<DomainEvent> mock)
         {
             _mock = mock;
         }
@@ -42,11 +41,10 @@
         protected static long lowNotificationId = 123;
         protected static long maxNotificationId = lowNotificationId + 2;
         protected static ProcessedNotificationTracker tracker;
-        protected static ITestConsumer consumer;
-        protected static ITestConsumer consumerMock;
+        protected static ITestEventHandler eventHandlerAdapter;
+        protected static ITestEventHandler eventHandlerMock;
         protected static IEventSerializer eventSerializer = new EventSerializer();
 
-        
 
         private Establish ctx = () =>
         {
@@ -54,8 +52,8 @@
             domainEvent2 = new DomainEvent();
             tracker = new ProcessedNotificationTracker("typeName");
             tracker.Track(lowNotificationId);
-            consumerMock = fake.an<ITestConsumer>();
-            consumer = new TestConsumerAdapter(consumerMock);
+            eventHandlerMock = fake.an<ITestEventHandler>();
+            eventHandlerAdapter = new TestEventHandlerAdapter(eventHandlerMock);
 
             eventStore = depends.on<IEventStore>();
             eventStore.setup(x => x.GetMaxNotificationId()).Return(maxNotificationId);
@@ -66,7 +64,7 @@
             eventStore.setup(x => x.Deserialize(storedEvents[1])).Return(domainEvent2);
 
             trackerStore = depends.on<IProcessedNotificationTrackerStore>();
-            trackerStore.setup(x => x.GetProcessedNotificationTracker(consumer.GetType().FullName)).Return(tracker);
+            trackerStore.setup(x => x.GetProcessedNotificationTracker(eventHandlerAdapter.GetType().FullName)).Return(tracker);
         };
 
         private static StoredEvent makeStoredEvent(DomainEvent domainEvent)
@@ -80,12 +78,12 @@
     public class when_projection_updater_updates_projection : projection_updater_concern
     {
         private Because of = () =>
-            sut.Process(consumer);
+            sut.Process(eventHandlerAdapter);
 
-        private It should_tell_consumer_to_consume = () =>
+        private It should_tell_subscriber_to_handler = () =>
         {
-            consumerMock.received(x => x.Handle(domainEvent1));
-            consumerMock.received(x => x.Handle(domainEvent2));
+            eventHandlerMock.received(x => x.Handle(domainEvent1));
+            eventHandlerMock.received(x => x.Handle(domainEvent2));
         };
 
         private It should_track_processed_notification_id = () =>
@@ -101,7 +99,7 @@
             tracker.Track(maxNotificationId);
 
         private Because of = () =>
-            returnValue = sut.Process(consumer);
+            returnValue = sut.Process(eventHandlerAdapter);
 
         private It should_return_false = () =>
             returnValue.ShouldBeFalse();
@@ -121,7 +119,7 @@
         };
 
         private Because of = () =>
-            returnValue = sut.Process(consumer);
+            returnValue = sut.Process(eventHandlerAdapter);
 
         private It should_return_true = () =>
             returnValue.ShouldBeTrue();
@@ -141,7 +139,7 @@
         };
 
         private Because of = () =>
-            returnValue = sut.Process(consumer);
+            returnValue = sut.Process(eventHandlerAdapter);
 
         private It should_return_false = () =>
             returnValue.ShouldBeFalse();

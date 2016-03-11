@@ -3,7 +3,6 @@
     using System;
     using System.Threading;
     using Castle.Core.Logging;
-    using Castle.MicroKernel.ModelBuilder.Descriptors;
     using Castle.Windsor;
     using Commanding;
     using Notifications;
@@ -34,21 +33,21 @@
             throw new InvalidOperationException("Unknown message " + message.GetType().FullName);
         }
 
-        private void SendNotification(Notification message)
+        private void SendNotification(Notification notification)
         {
             ThreadPool.QueueUserWorkItem(o =>
             {
-                var consumers = _container.Resolve<INotificationConsumerFactory>().GetNotificationConsumers();
+                var handlers = _container.Resolve<INotificationHandlerFactory>().GetNotificationHandlers();
                 var logger = _container.Resolve<ILogger>();
-                foreach (var each in consumers)
+                foreach (var each in handlers)
                 {
                     try
                     {
-                        each.Handle(message);
+                        each.Handle(notification);
                     }
                     catch (Exception ex)
                     {
-                        logger.Fatal("Notification consumer threw exception.", ex);
+                        logger.Fatal("Notification handler threw exception.", ex);
                     }
                 }
             });
