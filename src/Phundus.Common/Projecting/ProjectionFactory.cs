@@ -16,8 +16,7 @@
         private readonly ITypedProjectionFactory _projectionFactory;
 
         public ProjectionFactory(ITypedProjectionFactory projectionFactory)
-        {
-            if (projectionFactory == null) throw new ArgumentNullException("projectionFactory");
+        {            
             _projectionFactory = projectionFactory;
         }
 

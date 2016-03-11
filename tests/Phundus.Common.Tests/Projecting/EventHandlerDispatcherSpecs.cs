@@ -10,7 +10,7 @@
     using Machine.Specifications;
     using Rhino.Mocks;
 
-    public class projection_processor_concern : Observes<EventHandlerDispatcher>
+    public class event_handler_dispatcher_concern : Observes<EventHandlerDispatcher>
     {
         protected static IEventHandlerFactory handlerFactory;
         protected static IStoredEventsProcessor projectionUpdater;
@@ -34,7 +34,7 @@
     }
 
     [Subject(typeof (EventHandlerDispatcher))]
-    public class when_updating : projection_processor_concern
+    public class when_updating : event_handler_dispatcher_concern
     {
         private Establish ctx = () =>
             handlerFactory.setup(x => x.FindSubscriber("typeName")).Return(eventHandler1);
@@ -47,7 +47,7 @@
     }
 
     [Subject(typeof (EventHandlerDispatcher))]
-    public class when_projection_updater_updates_returns_true_as_not_done : projection_processor_concern
+    public class when_projection_updater_updates_returns_true_as_not_done : event_handler_dispatcher_concern
     {
         private static int calls;
 
@@ -65,7 +65,7 @@
     }
 
     [Subject(typeof (EventHandlerDispatcher))]
-    public class when_projection_update_throws_exception : projection_processor_concern
+    public class when_projection_update_throws_exception : event_handler_dispatcher_concern
     {
         private static Exception exception;
 
@@ -84,7 +84,7 @@
     }
 
     [Subject(typeof (EventHandlerDispatcher))]
-    public class when_handling_notification : projection_processor_concern
+    public class when_handling_notification : event_handler_dispatcher_concern
     {
         private Because of = () =>
             sut.Process(new Notification(1234, new DomainEvent(), 1));
@@ -98,7 +98,7 @@
 
 
     [Subject(typeof (EventHandlerDispatcher))]
-    public class when_projection_processor_processes_missed_notification_ : projection_processor_concern
+    public class when_projection_processor_processes_missed_notification_ : event_handler_dispatcher_concern
     {
         private Because of = () =>
             sut.ProcessMissedNotifications();

@@ -100,7 +100,6 @@
     <Compile Include="InstrumentedDateTimeProvider.cs" />
     <Compile Include="Mailing\Installers\MailingInstallerSpecs.cs" />
     <Compile Include="Mailing\MessageFactorySpecs.cs" />
-    <Compile Include="Mailing\ShouldExtensions.cs" />
     <Compile Include="Mailing\UrlsSpecs.cs" />
     <Compile Include="Messaging\FakeBusSpecs.cs" />
     <Compile Include="Notifications\Installers\NotificationHandlerInstallerSpecs.cs" />
@@ -108,12 +107,12 @@
     <Compile Include="Notifications\ProcessedNotificationTrackerSpecs.cs" />
     <Compile Include="Notifications\ProcessedNotificationTrackerStoreSpecs.cs" />
     <Compile Include="Projecting\ProjectionBaseSpecs.cs" />
-    <Compile Include="Projecting\ProjectionProcessorSpecs.cs" />
+    <Compile Include="Projecting\EventHandlerDispatcherSpecs.cs" />
     <Compile Include="Projecting\Application\RecreateProjectionHandlerSpecs.cs" />
     <Compile Include="Projecting\Application\ResetProjectionHandlerSpecs.cs" />
-    <Compile Include="Projecting\ProjectingInstallerSpecs.cs" />
+    <Compile Include="Projecting\Installers\ProjectingInstallerSpecs.cs" />
     <Compile Include="Projecting\ProjectionFactorySpecs.cs" />
-    <Compile Include="Projecting\ProjectionsInstallerSpecs.cs" />
+    <Compile Include="Projecting\Installers\ProjectionsInstallerSpecs.cs" />
     <Compile Include="Projecting\ProjectionUpdaterSpecs.cs" />
     <Compile Include="Projecting\QueryBaseSpecs.cs" />
     <Compile Include="Projecting\TestStubs.cs" />

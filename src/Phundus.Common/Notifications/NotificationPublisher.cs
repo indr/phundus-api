@@ -18,8 +18,7 @@
         private readonly IBus _bus;        
 
         public BusNotificationPublisher(IBus bus)
-        {
-            if (bus == null) throw new ArgumentNullException("bus");
+        {            
             _bus = bus;
         }
 

@@ -16,9 +16,7 @@ namespace Phundus.Common.Notifications
         private readonly IProcessedNotificationTrackerStore _trackerStore;
 
         public StoredEventsProcessor(IEventStore eventStore, IProcessedNotificationTrackerStore trackerStore)
-        {
-            if (eventStore == null) throw new ArgumentNullException("eventStore");
-            if (trackerStore == null) throw new ArgumentNullException("trackerStore");
+        {            
             _eventStore = eventStore;
             _trackerStore = trackerStore;
         }

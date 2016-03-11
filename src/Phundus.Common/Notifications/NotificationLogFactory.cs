@@ -4,13 +4,21 @@
     using System.Linq;
     using Eventing;
 
+    public interface INotificationLogFactory
+    {
+        NotificationLog CreateCurrentNotificationLog();
+        NotificationLog CreateNotificationLog(string notificationLogId);
+    }
+
     public class NotificationLogFactory : INotificationLogFactory
     {
-        private const int NotificationsPerLog = 20;
+        private const int NotificationsPerLog = 20;        
+        private readonly IEventStore _eventStore;
 
-        public IEventStore EventStore { get; set; }
-
-        public IEventSerializer EventSerializer { get; set; }
+        public NotificationLogFactory(IEventStore eventStore)
+        {
+            _eventStore = eventStore;            
+        }
 
         public NotificationLog CreateCurrentNotificationLog()
         {
@@ -24,10 +32,7 @@
 
         private NotificationLogId CalculateCurrentNotificationLogId()
         {
-            // TODO: Bedingt, dass keine Lücken vorhanden sind!
-            //var count = EventStore.CountStoredEvents();
-            //var remainder = count%NotificationsPerLog;
-            var max = EventStore.GetMaxNotificationId();
+            var max = _eventStore.GetMaxNotificationId();
             if (max == 0)
                 max = 1;
             var remainder = max%NotificationsPerLog;
@@ -49,13 +54,13 @@
 
         private NotificationLog CreateNotificationLog(NotificationLogId notificationLogId)
         {
-            var storedEvents = EventStore.AllStoredEventsBetween(
+            var storedEvents = _eventStore.AllStoredEventsBetween(
                 notificationLogId.Low, notificationLogId.High);
 
             // TODO: Bedingt, dass keine Lücken vorhanden sind!
             //var count = EventStore.CountStoredEvents();
             //var archivedIndicator = notificationLogId.High < count;
-            var max = EventStore.GetMaxNotificationId();
+            var max = _eventStore.GetMaxNotificationId();
             var archivedIndicator = notificationLogId.High < max;
 
             var notificationLog = new NotificationLog(
@@ -70,7 +75,9 @@
 
         private IEnumerable<Notification> GetNotificationsFrom(IEnumerable<StoredEvent> storedEvents)
         {
-            return storedEvents.Select(each => new Notification(each.EventId, EventStore.Deserialize(each), each.Version)).ToList();
+            return storedEvents.Select(each =>
+                new Notification(each.EventId, _eventStore.Deserialize(each), each.Version))
+                .ToList();
         }
     }
 }
