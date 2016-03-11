@@ -234,6 +234,7 @@
     <Compile Include="Inventory\Application\RenameStore.cs" />
     <Compile Include="Inventory\Model\Stores\StoreRenamed.cs" />
     <Compile Include="Inventory\Projections\StoresQueries.cs" />
+    <Compile Include="Shop\Model\Mails\OrderMailBase.cs" />
     <Compile Include="Shop\Model\Manager.cs" />
     <Compile Include="Shop\Model\OrderLines.cs" />
     <Compile Include="Shop\Projections\Data\LessorData.cs" />
@@ -274,7 +275,7 @@
     <Compile Include="Shop\Application\UpdateCartItem.cs" />
     <Compile Include="Shop\Application\RemoveOrderItem.cs" />
     <Compile Include="Shop\Application\UpdateOrderItem.cs" />
-    <Compile Include="Shop\Model\Mails\OrderStatusChangedMailNotifier.cs" />
+    <Compile Include="Shop\Model\Mails\OrderStatusChangedMail.cs" />
     <Compile Include="Shop\Model\Article.cs" />
     <Compile Include="Shop\Model\CartItem.cs" />
     <Compile Include="Shop\Model\Lessor.cs" />
@@ -315,7 +316,7 @@
     <Compile Include="Shop\Model\OrderLine.cs" />
     <Compile Include="Shop\Model\OrderStatus.cs" />
     <Compile Include="Inventory\Model\Reservations\Reservation.cs" />
-    <Compile Include="Shop\Model\Mails\OrderReceivedMail.cs" />
+    <Compile Include="Shop\Model\Mails\OrderPlacedMail.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Shop\Model\ICartRepository.cs" />
     <Compile Include="Shop\Model\IOrderRepository.cs" />
@@ -336,7 +337,9 @@
     <None Include="app.config" />
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Shop\Model\Orders\" />
+  </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="IdentityAccess\Model\Organizations\Mails\Templates.resx">
       <Generator>ResXFileCodeGenerator</Generator>

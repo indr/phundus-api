@@ -1,6 +1,6 @@
 ﻿<p>Hallo @Model.Lessee.FullName</p>
 
-<p>Wir haben deine Bestellung vom @Model.Order.CreatedAtUtc.ToLocalTime() mit der Nummer @Model.Order.OrderShortId.Id erhalten.</p>
+<p>Wir haben deine Bestellung vom @Model.Order.CreatedAtUtc.ToLocalTime() mit der Nummer @Model.Order.OrderShortId erhalten.</p>
 
 <p>Die Materialien sind im angegeben Zeitraum nun für dich reserviert. Das Sekretariat bestätigt deine Buchung vor dem Abholdatum nochmals manuell und sendet dir die abschliessende Bestellungsgenehmigung. Bitte melde dich anschliessend beim Sekretariat um einen Abholtermin zu vereinbaren</p>
 

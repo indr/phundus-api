@@ -1,6 +1,6 @@
 ﻿<p>Hallo @Model.Lessee.FullName</p>
 
-<p>Die Bestellung vom @Model.Order.CreatedAtUtc.ToLocalTime() mit der Nummer @Model.Order.OrderShortId.Id wurde <b>genehmigt</b>.</p>
+<p>Die Bestellung vom @Model.Order.CreatedAtUtc.ToLocalTime() mit der Nummer @Model.Order.OrderShortId wurde <b>genehmigt</b>.</p>
 
 <p>Bitte vereinbare mit der Materialstelle telefonisch einen Übergabetermin. Wir bitten dich bei der Materialübernahme den Mietpreis bar zu bezahlen.</p>
 
@@ -20,8 +20,8 @@
         {
             <tr>
                 <td>@each.Text</td>
-                <td>@each.FromLocal.ToString("d")</td>
-                <td>@each.ToLocal.ToString("d")</td>
+                <td>@each.Period.FromUtc.ToLocalTime().ToString("d")</td>
+                <td>@each.Period.ToUtc.ToLocalTime().ToString("d")</td>
                 <td>@each.Quantity</td>
                 <td style="text-align:right">@each.UnitPricePerWeek.ToString("N")</td>
                 <td style="text-align:right">@each.LineTotal.ToString("N")</td>

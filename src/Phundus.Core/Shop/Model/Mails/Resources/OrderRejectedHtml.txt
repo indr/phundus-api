@@ -1,6 +1,6 @@
 ﻿<p>Hallo @Model.Lessee.FullName</p>
 
-<p>Wir konnten die Bestellung vom @Model.Order.CreatedAtUtc.ToLocalTime() mit der Nummer @Model.Order.OrderShortId.Id infolge unvorhergesehen Ereignissen leider nicht in dem von dir eingegebenen Zeitraum freigeben.</p>
+<p>Wir konnten die Bestellung vom @Model.Order.CreatedAtUtc.ToLocalTime() mit der Nummer @Model.Order.OrderShortId infolge unvorhergesehen Ereignissen leider nicht in dem von dir eingegebenen Zeitraum freigeben.</p>
 
 <table class="table table-bordered table-striped">
     <thead>
