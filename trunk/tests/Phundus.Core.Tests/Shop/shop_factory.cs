@@ -4,9 +4,7 @@ namespace Phundus.Tests.Shop
     using Common.Domain.Model;
     using developwithpassion.specifications.core;
     using developwithpassion.specifications.extensions;
-    using Machine.Fakes;
     using Phundus.Shop.Model;
-    using Phundus.Shop.Orders.Model;
 
     public class shop_factory : factory_base
     {
@@ -33,6 +31,7 @@ namespace Phundus.Tests.Shop
             userId = userId ?? new UserId();
             var lessee = fake.an<Lessee>();
             lessee.setup(x => x.LesseeId).Return(new LesseeId(userId.Id));
+            lessee.setup(x => x.EmailAddress).Return("lessee@test.phundus.ch");
             return lessee;
         }
 
@@ -49,7 +48,7 @@ namespace Phundus.Tests.Shop
             lessee = lessee ?? Lessee();
             var order = fake.an<Order>();
             order.setup(x => x.OrderId).Return(new OrderId());
-            order.setup(x => x.OrderShortId).Return( new OrderShortId(NextNumericId()));
+            order.setup(x => x.OrderShortId).Return(new OrderShortId(NextNumericId()));
             order.setup(x => x.Lessor).Return(lessor);
             order.setup(x => x.Lessee).Return(lessee);
             return order;
