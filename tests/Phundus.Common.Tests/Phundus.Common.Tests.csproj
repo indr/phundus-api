@@ -96,6 +96,10 @@
     <Compile Include="Eventing\EventSerializerSpecs.cs" />
     <Compile Include="installer_concern.cs" />
     <Compile Include="InstrumentedDateTimeProvider.cs" />
+    <Compile Include="Mailing\MessageFactorySpecs.cs" />
+    <Compile Include="Mailing\ModelFactorySpecs.cs" />
+    <Compile Include="Mailing\ShouldExtensions.cs" />
+    <Compile Include="Mailing\UrlsSpecs.cs" />
     <Compile Include="Messaging\FakeBusSpecs.cs" />
     <Compile Include="Notifications\Installers\NotificationConsumersInstallerSpecs.cs" />
     <Compile Include="Notifications\NotificationLogFactorySpecs.cs" />

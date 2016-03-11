@@ -11,7 +11,7 @@
 
             FeedbackRecipients = settings["FeedbackRecipients"];
             InMaintenance = Convert.ToBoolean(settings["MaintenanceMode"]);
-            ServerUrl = settings["ServerUrl"];
+            ServerUrl = settings["ServerUrl"] ?? "";
         }
 
         public static readonly string FeedbackRecipients;

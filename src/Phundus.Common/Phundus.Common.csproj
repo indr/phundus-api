@@ -76,6 +76,10 @@
     <Compile Include="App_Start\CommonInstaller.cs" />
     <Compile Include="Domain.Model\IShortIdGeneratorService.cs" />
     <Compile Include="Eventing\EventStore.cs" />
+    <Compile Include="Mailing\MessageFactory.cs" />
+    <Compile Include="Mailing\MailTemplates.cs" />
+    <Compile Include="Mailing\ModelFactory.cs" />
+    <Compile Include="Mailing\Urls.cs" />
     <Compile Include="Notifications\Application\ProcessMissedNotifications.cs" />
     <Compile Include="Notifications\IEventConsumerFactory.cs" />
     <Compile Include="Notifications\Installers\EventConsumerInstaller.cs" />
