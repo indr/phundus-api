@@ -66,7 +66,7 @@
             IsLockedOut = true;
             LastLockoutDate = DateTime.UtcNow;
 
-            EventPublisher.Publish(new UserLocked(initiator, User, LastLockoutDate.Value));
+            EventPublisher.Publish(new UserLocked(initiator, User.UserId, LastLockoutDate.Value));
         }
 
         public virtual void Unlock(Initiator initiator)
@@ -76,7 +76,7 @@
 
             IsLockedOut = false;
 
-            EventPublisher.Publish(new UserUnlocked(initiator, User, LastLockoutDate.GetValueOrDefault()));
+            EventPublisher.Publish(new UserUnlocked(initiator, User.UserId, LastLockoutDate.GetValueOrDefault()));
         }
 
         public virtual void LogOn(string sessionKey, string password)
@@ -109,7 +109,7 @@
             GenerateValidationKey();
             RequestedEmail = newEmailAddress;
 
-            EventPublisher.Publish(new UserEmailAddressChangeRequested(initiatorId.Id, User));
+            EventPublisher.Publish(new UserEmailAddressChangeRequested(initiatorId.Id, User.UserId));
         }
 
         public virtual void ChangePassword(string oldPassword, string newPassword)

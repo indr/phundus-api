@@ -23,8 +23,7 @@ If you think it was sent incorrectly contact the administrators at lukas.mueller
 <html xmlns=""http://www.w3.org/1999/xhtml"" xml:lang=""en"" lang=""en"">
 <head>
     <meta http-equiv=""Content-Type"" content=""text/html;charset=utf-8"" />
-    <link rel=""stylesheet"" type=""text/css"" href=""http://@Model.Urls.ServerUrl/Content/bootstrap.min.css"" />
-    <link rel=""stylesheet"" type=""text/css"" href=""http://@Model.Urls.ServerUrl/Content/fundus.css"" />
+    <link rel=""stylesheet"" type=""text/css"" href=""@Model.Urls.Make(""/Content/bootstrap.min.css"")"" />    
     <style type=""text/css"">
     body { margin: 0; padding: 0; color: #333333; font-family: Helvetica Neue,Helvetica,Arial,sans-serif; font-size: 13px; }
     </style>

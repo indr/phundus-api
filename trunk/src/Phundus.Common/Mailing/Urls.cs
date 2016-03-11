@@ -1,37 +1,39 @@
 ﻿namespace Phundus.Common.Mailing
 {
+    using System;
+
     public class Urls
     {
-        private readonly string _serverUrl;
+        private readonly string _baseUrl;
 
-        public Urls() : this(Config.ServerUrl)
+        public Urls() : this(Config.BaseUrl)
         {
         }
 
-        public Urls(string serverUrl)
+        public Urls(string baseUrl)
         {
-            if (serverUrl == "phundus.ch")
-                serverUrl = @"www." + serverUrl;
-            var scheme = (serverUrl == @"www.phundus.ch" ? "https" : "http") + "://";
-
-            if (!serverUrl.EndsWith("/"))
-                serverUrl = serverUrl + "/";
-            _serverUrl = scheme + serverUrl;
+            _baseUrl = baseUrl;
         }
 
-        public string ServerUrl
+        public string BaseUrl
         {
-            get { return _serverUrl; }
+            get { return _baseUrl; }
         }
 
-        public string UserAccountValidation
+        public string AccountValidation(string key = null)
         {
-            get { return ServerUrl + "#/validate/account"; }
+            return BaseUrl + "#/validate/account" + (String.IsNullOrWhiteSpace(key) ? "" : "?key=" + key);
         }
 
-        public string UserEmailValidation
+        public string EmailAddressValidation(string key = null)
         {
-            get { return ServerUrl + "#/validate/email-address"; }
+            return BaseUrl + "#/validate/email-address" + (String.IsNullOrWhiteSpace(key) ? "" : "?key=" + key);
+        }
+
+        public string Make(string resource)
+        {
+
+            return BaseUrl + resource.TrimStart('/');
         }
     }
 }

@@ -80,6 +80,7 @@
       <HintPath>..\..\packages\RhinoMocks.3.6.1\lib\net\Rhino.Mocks.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Xml.Linq" />
@@ -89,6 +90,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ConfigSpecs.cs" />
     <Compile Include="Domain.Model\GuidConverterSpecs.cs" />
     <Compile Include="Domain.Model\IdentitiesSpecs.cs" />
     <Compile Include="Domain.Model\InitiatorSpecs.cs" />

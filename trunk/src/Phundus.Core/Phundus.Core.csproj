@@ -148,6 +148,12 @@
     <Compile Include="IdentityAccess\Model\Organizations\IMembershipRepository.cs" />
     <Compile Include="IdentityAccess\Model\Organizations\IMembershipRequestRepository.cs" />
     <Compile Include="IdentityAccess\Model\Organizations\IOrganizationRepository.cs" />
+    <Compile Include="IdentityAccess\Model\Users\Mails\AccountLockedMail.cs" />
+    <Compile Include="IdentityAccess\Model\Users\Mails\AccountUnlockedMail.cs" />
+    <Compile Include="IdentityAccess\Model\Users\Mails\AccountValidationMail.cs" />
+    <Compile Include="IdentityAccess\Model\Users\Mails\EmailAddressValidationMail.cs" />
+    <Compile Include="IdentityAccess\Model\Users\Mails\NewPasswordMail.cs" />
+    <Compile Include="IdentityAccess\Model\Users\PasswordResetted.cs" />
     <Compile Include="IdentityAccess\Model\Users\UserRole.cs" />
     <Compile Include="IdentityAccess\Projections\OrganizationProjection.cs" />
     <Compile Include="IdentityAccess\Projections\OrganizationQueries.cs" />
@@ -172,17 +178,6 @@
     <Compile Include="IdentityAccess\Model\Users\InvalidPasswordException.cs" />
     <Compile Include="IdentityAccess\Model\Users\UserLockedOutException.cs" />
     <Compile Include="IdentityAccess\Model\Users\UserNotApprovedException.cs" />
-    <Compile Include="IdentityAccess\Model\Users\Mails\Templates.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Templates.resx</DependentUpon>
-    </Compile>
-    <Compile Include="IdentityAccess\Model\Users\Mails\UserAccountCreatedMail.cs" />
-    <Compile Include="IdentityAccess\Model\Users\Mails\UserAccountValidationMail.cs" />
-    <Compile Include="IdentityAccess\Model\Users\Mails\UserChangeEmailValidationMail.cs" />
-    <Compile Include="IdentityAccess\Model\Users\Mails\UserLockedMailNotifier.cs" />
-    <Compile Include="IdentityAccess\Model\Users\Mails\UserResetPasswordMail.cs" />
-    <Compile Include="IdentityAccess\Model\Users\Mails\UserUnlockedMailNotifier.cs" />
     <Compile Include="IdentityAccess\Model\Users\Account.cs" />
     <Compile Include="IdentityAccess\Model\Users\Admin.cs" />
     <Compile Include="IdentityAccess\Model\Users\UserAddressChanged.cs" />
@@ -201,6 +196,11 @@
     <Compile Include="IdentityAccess\Model\Users\PasswordGenerator.cs" />
     <Compile Include="IdentityAccess\Model\Users\SessionKeyGenerator.cs" />
     <Compile Include="IdentityAccess\Model\Users\UserInRole.cs" />
+    <Compile Include="IdentityAccess\Resources\Templates.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Templates.resx</DependentUpon>
+    </Compile>
     <Compile Include="Inventory\Application\AddImage.cs" />
     <Compile Include="Inventory\Application\ChangePrices.cs" />
     <Compile Include="Inventory\Application\RemoveImage.cs" />
@@ -341,10 +341,10 @@
       <LastGenOutput>Templates.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="IdentityAccess\Model\Users\Mails\Templates.resx">
+    <EmbeddedResource Include="IdentityAccess\Resources\Templates.resx">
       <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>Templates.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
+      <LastGenOutput>Templates.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="Shop\Model\Mails\Templates.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -358,12 +358,11 @@
     <Content Include="IdentityAccess\Model\Organizations\Mails\Resources\MembershipApplicationFiledBodyHtml.txt" />
     <Content Include="IdentityAccess\Model\Organizations\Mails\Resources\MembershipApplicationRejectedBodyHtml.txt" />
     <Content Include="IdentityAccess\Model\Organizations\Mails\Resources\MemberUnlockedBodyHtml.txt" />
-    <Content Include="IdentityAccess\Model\Users\Mails\Resources\UserAccountCreatedHtml.txt" />
-    <Content Include="IdentityAccess\Model\Users\Mails\Resources\UserAccountValidationHtml.txt" />
-    <Content Include="IdentityAccess\Model\Users\Mails\Resources\UserChangeEmailValidationHtml.txt" />
-    <Content Include="IdentityAccess\Model\Users\Mails\Resources\UserLockedHtml.txt" />
-    <Content Include="IdentityAccess\Model\Users\Mails\Resources\UserResetPasswordHtml.txt" />
-    <Content Include="IdentityAccess\Model\Users\Mails\Resources\UserUnlockedHtml.txt" />
+    <Content Include="IdentityAccess\Resources\AccountValidation.html" />
+    <Content Include="IdentityAccess\Resources\EmailAddressValidation.html" />
+    <Content Include="IdentityAccess\Resources\AccountLocked.html" />
+    <Content Include="IdentityAccess\Resources\NewPassword.html" />
+    <Content Include="IdentityAccess\Resources\AccountUnlocked.html" />
     <Content Include="Shop\Model\Mails\Resources\OrderApprovedHtml.txt" />
     <Content Include="Shop\Model\Mails\Resources\OrderReceivedHtml.txt" />
     <Content Include="Shop\Model\Mails\Resources\OrderRejectedHtml.txt" />

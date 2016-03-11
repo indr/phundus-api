@@ -8,32 +8,6 @@
     using Machine.Specifications;
     using Rhino.Mocks;
 
-    public class when_creating_with_empty_subject_template : Observes
-    {
-        private Because of = () =>
-            spec.catch_exception(() =>
-                new MessageFactory(fake.an<IModelFactory>(), "", "text", "body"));
-
-        private It should_throw_argument_exception = () =>
-            spec.exception_thrown.ShouldBeOfExactType<ArgumentNullException>();
-
-        private It should_throw_with_parameter_subject_template = () =>
-            (spec.exception_thrown as ArgumentNullException).ParamName.ShouldEqual("subject");
-    }
-
-    public class when_creating_with_empty_text_body_and_empty_html_body : Observes
-    {
-        private Because of = () =>
-            spec.catch_exception(() =>
-                new MessageFactory(fake.an<IModelFactory>(), "Subject", "", ""));
-
-        private It should_throw_argument_exception = () =>
-            spec.exception_thrown.ShouldBeOfExactType<ArgumentNullException>();
-
-        private It should_throw_with_parameter_subject_template = () =>
-            (spec.exception_thrown as ArgumentNullException).ParamName.ShouldEqual("textBody");
-    }
-
     public class make_mail_message_concern : Observes<MessageFactory>
     {
         protected static string subjectTemplate;
@@ -51,7 +25,6 @@
             textBodyTemplate = "Text body template";
             htmlBodyTemplate = "Html body template";
 
-
             data = new
             {
                 FirstName = "John",
@@ -66,20 +39,54 @@
                 FirstName = "John",
                 LastName = "Doe"
             };
+
             modelFactory = depends.on<IModelFactory>();
             modelFactory.setup(x => x.MakeModel(Arg<object>.Is.Anything)).Return(model);
-            sut_factory.create_using(() =>
-                new MessageFactory(modelFactory, subjectTemplate, textBodyTemplate, htmlBodyTemplate));
         };
+    }
+
+    [Subject(typeof (MessageFactory))]
+    public class generating_mail_message_with_empty_subject_template : make_mail_message_concern
+    {
+        private Establish ctx = () =>
+            subjectTemplate = "";
 
         private Because of = () =>
-            message = sut.MakeMessage(data);
+            spec.catch_exception(() =>
+                message = sut.MakeMessage(data, subjectTemplate, textBodyTemplate, htmlBodyTemplate));
+
+        private It should_throw_argument_exception = () =>
+            spec.exception_thrown.ShouldBeOfExactType<ArgumentNullException>();
+
+        private It should_throw_with_parameter_subject_template = () =>
+            (spec.exception_thrown as ArgumentNullException).ParamName.ShouldEqual("subject");
+    }
+
+    [Subject(typeof (MessageFactory))]
+    public class generating_mail_message_with_empty_text_body_and_empty_html_body : make_mail_message_concern
+    {
+        private Establish ctx = () =>
+            htmlBodyTemplate = textBodyTemplate = "";
+
+        private Because of = () =>
+            spec.catch_exception(() =>
+                message = sut.MakeMessage(data, subjectTemplate, textBodyTemplate, htmlBodyTemplate));
+
+        private It should_throw_argument_exception = () =>
+            spec.exception_thrown.ShouldBeOfExactType<ArgumentNullException>();
+
+        private It should_throw_with_parameter_subject_template = () =>
+            (spec.exception_thrown as ArgumentNullException).ParamName.ShouldEqual("textBody");
     }
 
 
+    [Subject(typeof (MessageFactory))]
     public class generating_mail_message_with_subject : make_mail_message_concern
     {
         private Establish ctx = () => { subjectTemplate = "Hello @Model.FirstName @Model.LastName"; };
+
+        private Because of = () =>
+            message = sut.MakeMessage(data, subjectTemplate, textBodyTemplate, htmlBodyTemplate);
 
         private It should_generate_subject = () =>
             message.Subject.ShouldContain("Hello John Doe");
@@ -88,6 +95,7 @@
             message.Subject.ShouldStartWith("[phundus] ");
     }
 
+    [Subject(typeof (MessageFactory))]
     public class generating_mail_message_with_text_body : make_mail_message_concern
     {
         private Establish ctx = () =>
@@ -95,6 +103,9 @@
             textBodyTemplate = @"Text body for @Model.FirstName @Model.LastName";
             htmlBodyTemplate = null;
         };
+
+        private Because of = () =>
+            message = sut.MakeMessage(data, subjectTemplate, textBodyTemplate, htmlBodyTemplate);
 
         private It should_have_is_body_html_false = () =>
             message.IsBodyHtml.ShouldBeFalse();
@@ -106,6 +117,7 @@
             message.Body.ShouldStartWith(@"Text body for John Doe");
     }
 
+    [Subject(typeof (MessageFactory))]
     public class generating_mail_message_with_html_body : make_mail_message_concern
     {
         private Establish ctx = () =>
@@ -113,6 +125,9 @@
             textBodyTemplate = null;
             htmlBodyTemplate = @"Html body for @Model.FirstName @Model.LastName";
         };
+
+        private Because of = () =>
+            message = sut.MakeMessage(data, subjectTemplate, textBodyTemplate, htmlBodyTemplate);
 
         private It should_add_html_footer = () =>
             message.Body.ShouldEndWith(@"</body>
@@ -129,6 +144,7 @@
             message.Body.ShouldContain(@"Html body for John Doe");
     }
 
+    [Subject(typeof (MessageFactory))]
     public class generating_mail_message_with_text_body_and_html_body : make_mail_message_concern
     {
         private Establish ctx = () =>
@@ -136,6 +152,9 @@
             textBodyTemplate = @"Text body for @Model.FirstName @Model.LastName";
             htmlBodyTemplate = @"Html body for @Model.FirstName @Model.LastName";
         };
+
+        private Because of = () =>
+            message = sut.MakeMessage(data, subjectTemplate, textBodyTemplate, htmlBodyTemplate);
 
         private It shold_have_a_text_alternative_view = () =>
             message.AlternateViews.ShouldContain(p => p.ContentType.MediaType == ContentTypes.Text);

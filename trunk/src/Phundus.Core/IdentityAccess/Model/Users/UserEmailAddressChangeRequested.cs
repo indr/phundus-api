@@ -7,12 +7,12 @@ namespace Phundus.IdentityAccess.Users.Model
     [DataContract]
     public class UserEmailAddressChangeRequested : DomainEvent
     {
-        public UserEmailAddressChangeRequested(Guid initiatorId, User user)
+        public UserEmailAddressChangeRequested(Guid initiatorId, UserId userId)
         {
             if (initiatorId == null) throw new ArgumentNullException("initiatorId");
-            if (user == null) throw new ArgumentNullException("user");
+            if (userId == null) throw new ArgumentNullException("userId");
             InitiatorId = initiatorId;
-            UserGuid = user.UserId.Id;
+            UserGuid = userId.Id;
         }
 
         protected UserEmailAddressChangeRequested()
