@@ -79,7 +79,6 @@
     <Compile Include="Mailing\MailModel.cs" />
     <Compile Include="Mailing\MessageFactory.cs" />
     <Compile Include="Mailing\MailTemplates.cs" />
-    <Compile Include="Mailing\ModelFactory.cs" />
     <Compile Include="Mailing\Urls.cs" />
     <Compile Include="Notifications\Application\ProcessMissedNotifications.cs" />
     <Compile Include="Notifications\IEventConsumerFactory.cs" />

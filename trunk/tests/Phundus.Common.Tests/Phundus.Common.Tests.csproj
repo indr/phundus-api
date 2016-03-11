@@ -99,7 +99,6 @@
     <Compile Include="installer_concern.cs" />
     <Compile Include="InstrumentedDateTimeProvider.cs" />
     <Compile Include="Mailing\MessageFactorySpecs.cs" />
-    <Compile Include="Mailing\ModelFactorySpecs.cs" />
     <Compile Include="Mailing\ShouldExtensions.cs" />
     <Compile Include="Mailing\UrlsSpecs.cs" />
     <Compile Include="Messaging\FakeBusSpecs.cs" />

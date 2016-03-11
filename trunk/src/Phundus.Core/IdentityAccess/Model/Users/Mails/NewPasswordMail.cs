@@ -20,7 +20,7 @@
             {
                 FirstName = e.FirstName,
                 LastName = e.LastName,
-                NewPassword = e.NewPassword
+                Password = e.NewPassword
             };
 
             var message = _factory.MakeMessage(model, Resources.Templates.NewPasswordSubject, null,
@@ -34,7 +34,7 @@
         {
             public string FirstName { get; set; }
             public string LastName { get; set; }
-            public string NewPassword { get; set; }
+            public string Password { get; set; }
         }
     }
 }

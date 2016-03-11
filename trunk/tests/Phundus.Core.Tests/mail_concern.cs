@@ -15,7 +15,7 @@
         private Establish ctx = () =>
         {
             gateway = depends.on<IMailGateway>();
-            factory = depends.on<IMessageFactory>(new MessageFactory(new ModelFactory()));
+            factory = depends.on<IMessageFactory>(new MessageFactory());
         };
     }
 }
