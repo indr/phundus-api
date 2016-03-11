@@ -7,7 +7,8 @@
     [DataContract]
     public class PasswordResetted : DomainEvent
     {
-        public PasswordResetted(UserId userId, string firstName, string lastName, string emailAddress, string newPassword)
+        public PasswordResetted(UserId userId, string firstName, string lastName, string emailAddress,
+            string newPassword)
         {
             if (userId == null) throw new ArgumentNullException("userId");
             if (firstName == null) throw new ArgumentNullException("firstName");
@@ -19,6 +20,10 @@
             LastName = lastName;
             EmailAddress = emailAddress;
             NewPassword = newPassword;
+        }
+
+        protected PasswordResetted()
+        {
         }
 
         [DataMember(Order = 1)]
@@ -34,6 +39,6 @@
         public string EmailAddress { get; protected set; }
 
         [DataMember(Order = 5)]
-        public string NewPassword { get; set; }
+        public string NewPassword { get; protected set; }
     }
 }

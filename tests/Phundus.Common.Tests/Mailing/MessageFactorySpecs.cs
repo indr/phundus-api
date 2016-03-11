@@ -8,16 +8,19 @@
     using Machine.Specifications;
     using Rhino.Mocks;
 
+    public class TestModel : MailModel
+    {
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
+    }
+
     public class make_mail_message_concern : Observes<MessageFactory>
     {
         protected static string subjectTemplate;
         protected static string textBodyTemplate;
         protected static string htmlBodyTemplate;
-        protected static dynamic data;
+        protected static object model;
         protected static MailMessage message;
-
-        protected static IModelFactory modelFactory;
-        private static object model;
 
         private Establish ctx = () =>
         {
@@ -25,23 +28,11 @@
             textBodyTemplate = "Text body template";
             htmlBodyTemplate = "Html body template";
 
-            data = new
+            model = new TestModel
             {
                 FirstName = "John",
                 LastName = "Doe"
             };
-            model = new
-            {
-                Urls = new
-                {
-                    ServerUrl = ""
-                },
-                FirstName = "John",
-                LastName = "Doe"
-            };
-
-            modelFactory = depends.on<IModelFactory>();
-            modelFactory.setup(x => x.MakeModel(Arg<object>.Is.Anything)).Return(model);
         };
     }
 
@@ -53,7 +44,7 @@
 
         private Because of = () =>
             spec.catch_exception(() =>
-                message = sut.MakeMessage(data, subjectTemplate, textBodyTemplate, htmlBodyTemplate));
+                message = sut.MakeMessage(model, subjectTemplate, textBodyTemplate, htmlBodyTemplate));
 
         private It should_throw_argument_exception = () =>
             spec.exception_thrown.ShouldBeOfExactType<ArgumentNullException>();
@@ -70,7 +61,7 @@
 
         private Because of = () =>
             spec.catch_exception(() =>
-                message = sut.MakeMessage(data, subjectTemplate, textBodyTemplate, htmlBodyTemplate));
+                message = sut.MakeMessage(model, subjectTemplate, textBodyTemplate, htmlBodyTemplate));
 
         private It should_throw_argument_exception = () =>
             spec.exception_thrown.ShouldBeOfExactType<ArgumentNullException>();
@@ -86,7 +77,7 @@
         private Establish ctx = () => { subjectTemplate = "Hello @Model.FirstName @Model.LastName"; };
 
         private Because of = () =>
-            message = sut.MakeMessage(data, subjectTemplate, textBodyTemplate, htmlBodyTemplate);
+            message = sut.MakeMessage(model, subjectTemplate, textBodyTemplate, htmlBodyTemplate);
 
         private It should_generate_subject = () =>
             message.Subject.ShouldContain("Hello John Doe");
@@ -105,7 +96,7 @@
         };
 
         private Because of = () =>
-            message = sut.MakeMessage(data, subjectTemplate, textBodyTemplate, htmlBodyTemplate);
+            message = sut.MakeMessage(model, subjectTemplate, textBodyTemplate, htmlBodyTemplate);
 
         private It should_have_is_body_html_false = () =>
             message.IsBodyHtml.ShouldBeFalse();
@@ -127,7 +118,7 @@
         };
 
         private Because of = () =>
-            message = sut.MakeMessage(data, subjectTemplate, textBodyTemplate, htmlBodyTemplate);
+            message = sut.MakeMessage(model, subjectTemplate, textBodyTemplate, htmlBodyTemplate);
 
         private It should_add_html_footer = () =>
             message.Body.ShouldEndWith(@"</body>
@@ -154,7 +145,7 @@
         };
 
         private Because of = () =>
-            message = sut.MakeMessage(data, subjectTemplate, textBodyTemplate, htmlBodyTemplate);
+            message = sut.MakeMessage(model, subjectTemplate, textBodyTemplate, htmlBodyTemplate);
 
         private It shold_have_a_text_alternative_view = () =>
             message.AlternateViews.ShouldContain(p => p.ContentType.MediaType == ContentTypes.Text);
