@@ -7,27 +7,28 @@ namespace Phundus.Dashboard.Projections
     using Common.Querying;
     using Newtonsoft.Json;
 
-    public interface IProjectionsMetaDataQueries
+    public interface IProcessedNotificationQueries
     {
-        ICollection<ProjectionMetaData> Query();
+        ICollection<ProcessedNotificationData> Query();
     }
 
-    public class ProjectionsMetaDataQueries : QueryBase<ProjectionMetaData>, IProjectionsMetaDataQueries
+    public class ProcessedNotificationQueries : QueryBase<ProcessedNotificationData>, IProcessedNotificationQueries
     {
         private readonly IProcessedNotificationTrackerStore _processedNotificationTrackerStore;
 
-        public ProjectionsMetaDataQueries(IProcessedNotificationTrackerStore processedNotificationTrackerStore)
+        public ProcessedNotificationQueries(IProcessedNotificationTrackerStore processedNotificationTrackerStore)
         {
             _processedNotificationTrackerStore = processedNotificationTrackerStore;
         }
 
-        public ICollection<ProjectionMetaData> Query()
+        public ICollection<ProcessedNotificationData> Query()
         {
             var trackers = _processedNotificationTrackerStore.GetProcessedNotificationTrackers();
-            return trackers.Select(s => new ProjectionMetaData
+            return trackers.Select(s => new ProcessedNotificationData
             {
-                ProjectionId = s.TypeName,
+                ProcessorId = s.TypeName,
                 TypeName = s.TypeName,
+                IsProjection = s.TypeName.EndsWith("Projection"),
                 ProcessedEventId = s.MostRecentProcessedNotificationId,
                 ProcessedAtUtc = s.MostRecentProcessedAtUtc,
                 ErrorMessage = s.ErrorMessage,
@@ -36,14 +37,14 @@ namespace Phundus.Dashboard.Projections
         }
     }
 
-    public class ProjectionMetaData
+    public class ProcessedNotificationData
     {
         private string _errorMessage;
         private string _status = "success";
         private string _typeName;
 
-        [JsonProperty("projectionId")]
-        public string ProjectionId { get; set; }
+        [JsonProperty("processorId")]
+        public string ProcessorId { get; set; }
 
         [JsonProperty("status")]
         public string Status
@@ -98,6 +99,9 @@ namespace Phundus.Dashboard.Projections
 
         [JsonProperty("errorAtUtc")]
         public DateTime? ErrorAtUtc { get; set; }
+
+        [JsonProperty("isProjection")]
+        public bool IsProjection { get; set; }
 
         public void SetBehind(long maxEventId)
         {
