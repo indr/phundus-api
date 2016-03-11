@@ -29,7 +29,7 @@ namespace Phundus.Rest.Api
             _mailGateway.Send(DateTime.UtcNow, Config.FeedbackRecipients,
                @"[phundus] Feedback",
                @"Feedback von " + requestContent.EmailAddress + Environment.NewLine + Environment.NewLine +
-               requestContent.Comment + BaseMail.TextSignature);
+               requestContent.Comment + MailTemplates.TextSignature);
 
             _mailGateway.Send(DateTime.UtcNow, requestContent.EmailAddress,
                @"Vielen Dank fürs Feedback",
@@ -37,7 +37,7 @@ namespace Phundus.Rest.Api
 
 Vielen Dank und freundliche Grüsse
 
-Das phundus-Team" + BaseMail.TextSignature);
+Das phundus-Team" + MailTemplates.TextSignature);
 
             return NoContent();
         }
