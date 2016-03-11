@@ -3,18 +3,18 @@ namespace Phundus.IdentityAccess.Projections
     using System;
     using System.Text;
     using Common;
-    using Common.Notifications;
+    using Common.Eventing;
     using Common.Projecting;
     using Model;
     using Model.Organizations;
     using Organizations.Model;
 
     public class OrganizationProjection : ProjectionBase<OrganizationData>,
-        IConsumes<OrganizationEstablished>,
-        IConsumes<OrganizationContactDetailsChanged>,
-        IConsumes<OrganizationPlanChanged>,
-        IConsumes<PublicRentalSettingChanged>,
-        IConsumes<StartpageChanged>
+        ISubscribeTo<OrganizationEstablished>,
+        ISubscribeTo<OrganizationContactDetailsChanged>,
+        ISubscribeTo<OrganizationPlanChanged>,
+        ISubscribeTo<PublicRentalSettingChanged>,
+        ISubscribeTo<StartpageChanged>
     {
         public void Handle(OrganizationContactDetailsChanged e)
         {

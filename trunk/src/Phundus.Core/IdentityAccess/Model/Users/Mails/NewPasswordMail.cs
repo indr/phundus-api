@@ -1,10 +1,10 @@
 ﻿namespace Phundus.IdentityAccess.Model.Users.Mails
 {
+    using Common.Eventing;
     using Common.Mailing;
-    using Common.Notifications;
     using Resources;
 
-    public class NewPasswordMail : IConsumes<PasswordResetted>
+    public class NewPasswordMail : ISubscribeTo<PasswordResetted>
     {
         private readonly IMessageFactory _factory;
         private readonly IMailGateway _gateway;

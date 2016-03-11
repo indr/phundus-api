@@ -19,10 +19,10 @@
     }
 
     [Subject(typeof (NotificationHandlerInstaller))]
-    public class NotificationConsumersInstallerSpecs :
-        assembly_installer_concern<NotificationHandlerInstaller, NotificationConsumersInstallerSpecs>
+    public class when_installing_notification_handler_installer :
+        assembly_installer_concern<NotificationHandlerInstaller, when_installing_notification_handler_installer>
     {
-        private It should_resolve_to_TestNotificationConsumer = () =>
+        private It should_resolve_to_TestNotificationHandler = () =>
             resolve<INotificationHandler>().ShouldBeOfExactType<TestNotificationHandler>();
     }
 }

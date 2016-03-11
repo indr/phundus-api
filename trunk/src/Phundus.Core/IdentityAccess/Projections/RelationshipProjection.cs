@@ -1,14 +1,14 @@
 ﻿namespace Phundus.IdentityAccess.Projections
 {
     using System;
-    using Common.Notifications;
+    using Common.Eventing;
     using Common.Projecting;
     using Organizations.Model;
 
     public class RelationshipProjection : ProjectionBase<RelationshipData>,
-        IConsumes<MembershipApplicationApproved>,
-        IConsumes<MembershipApplicationFiled>,
-        IConsumes<MembershipApplicationRejected>
+        ISubscribeTo<MembershipApplicationApproved>,
+        ISubscribeTo<MembershipApplicationFiled>,
+        ISubscribeTo<MembershipApplicationRejected>
     {
         public void Handle(MembershipApplicationApproved domainEvent)
         {

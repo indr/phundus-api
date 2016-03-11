@@ -8,7 +8,6 @@
     using Castle.Windsor;
     using Common.Commanding;
     using Common.Eventing;
-    using Common.Notifications.Installers;
     using Common.Projecting;
     using Common.Projecting.Installers;
     using Common.Querying;
@@ -21,7 +20,6 @@
             var assembly = Assembly.GetExecutingAssembly();
             new CommandHandlerInstaller().Install(container, assembly);
             new ProjectionsInstaller().Install(container, assembly);
-            new EventConsumerInstaller().Install(container, assembly);
         }
     }
 

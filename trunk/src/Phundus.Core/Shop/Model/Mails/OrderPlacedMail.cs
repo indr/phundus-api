@@ -5,12 +5,13 @@
     using System.Linq;
     using System.Net.Mail;
     using Common.Domain.Model;
+    using Common.Eventing;
     using Common.Mailing;
-    using Common.Notifications;
     using Orders.Model;
     using Orders.Services;
 
-    public class OrderPlacedMail : OrderMailBase, IConsumes<OrderPlaced>
+    public class OrderPlacedMail : OrderMailBase,
+        ISubscribeTo<OrderPlaced>
     {
         private readonly IMessageFactory _factory;
         private readonly IMailGateway _gateway;

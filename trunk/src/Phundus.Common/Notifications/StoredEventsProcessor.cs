@@ -1,12 +1,13 @@
 namespace Phundus.Common.Notifications
 {
     using System;
+    using Castle.DynamicProxy;
     using Castle.Transactions;
     using Eventing;
 
     public interface IStoredEventsProcessor
     {
-        bool Process(IEventConsumer consumer);
+        bool Process(ISubscribeTo eventSubscriber);
     }
 
     public class StoredEventsProcessor : IStoredEventsProcessor
@@ -25,9 +26,10 @@ namespace Phundus.Common.Notifications
         public static int NotificationsPerUpdate = 20;
 
         [Transaction]
-        public bool Process(IEventConsumer consumer)
+        public bool Process(ISubscribeTo eventSubscriber)
         {
-            var tracker = _trackerStore.GetProcessedNotificationTracker(consumer.GetType().FullName);
+            var type = ProxyUtil.GetUnproxiedType(eventSubscriber);
+            var tracker = _trackerStore.GetProcessedNotificationTracker(type.FullName);
             var maxNotificationId = _eventStore.GetMaxNotificationId();
             if (tracker.MostRecentProcessedNotificationId >= maxNotificationId)
                 return false;
@@ -39,7 +41,7 @@ namespace Phundus.Common.Notifications
             foreach (var each in storedEvents)
             {
                 var e = _eventStore.Deserialize(each);
-                RedirectToConsume.InvokeEventOptional(consumer, e);                
+                RedirectToConsume.InvokeEventOptional(eventSubscriber, e);                
             }
 
             _trackerStore.TrackMostRecentProcessedNotificationId(tracker, highNotificationId);

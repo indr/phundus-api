@@ -77,13 +77,12 @@
     <Compile Include="Domain.Model\IShortIdGeneratorService.cs" />
     <Compile Include="Eventing\EventStore.cs" />
     <Compile Include="Mailing\ContentTypes.cs" />
+    <Compile Include="Mailing\MailBase.cs" />
     <Compile Include="Mailing\MailModel.cs" />
     <Compile Include="Mailing\MessageFactory.cs" />
     <Compile Include="Mailing\MailTemplates.cs" />
     <Compile Include="Mailing\Urls.cs" />
     <Compile Include="Notifications\Application\ProcessMissedNotifications.cs" />
-    <Compile Include="Notifications\IEventConsumerFactory.cs" />
-    <Compile Include="Notifications\Installers\EventConsumerInstaller.cs" />
     <Compile Include="Notifications\Installers\TrackerStoreInstaller.cs" />
     <Compile Include="Notifications\ITrackerRepository.cs" />
     <Compile Include="Notifications\ProcessedNotificationTrackerStore.cs" />
@@ -142,8 +141,7 @@
     <Compile Include="Projecting\Installers\ProjectionsInstaller.cs" />
     <Compile Include="Projecting\ProjectionBase.cs" />
     <Compile Include="Projecting\Application\ResetProjection.cs" />
-    <Compile Include="Notifications\EventConsumerNotificationListener.cs" />
-    <Compile Include="Notifications\NotificationToConsumersDispatcher.cs" />
+    <Compile Include="Notifications\EventHandlerDispatcher.cs" />
     <Compile Include="Projecting\IProjection.cs" />
     <Compile Include="Notifications\StoredEventsProcessor.cs" />
     <Compile Include="Querying\QueryResult.cs" />
@@ -154,8 +152,7 @@
     <Compile Include="Eventing\StoredEvent.cs" />
     <Compile Include="FriendlyUrl.cs" />
     <Compile Include="NotFoundException.cs" />
-    <Compile Include="Notifications\EventConsumer.cs" />
-    <Compile Include="Notifications\INotificationConsumerFactory.cs" />
+    <Compile Include="Notifications\INotificationHandlerFactory.cs" />
     <Compile Include="Notifications\NotificationPublisher.cs" />
     <Compile Include="Notifications\IProcessedNotificationTrackerStore.cs" />
     <Compile Include="Notifications\INotificationHandler.cs" />

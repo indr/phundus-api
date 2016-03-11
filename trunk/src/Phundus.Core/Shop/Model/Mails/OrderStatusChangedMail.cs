@@ -4,23 +4,22 @@
     using System.Collections.Generic;
     using System.Linq;
     using System.Net.Mail;
-    using Common;
     using Common.Domain.Model;
+    using Common.Eventing;
     using Common.Mailing;
-    using Common.Notifications;
     using Model;
     using Services;
     using Shop.Model;
     using Shop.Model.Mails;
 
     public class OrderStatusChangedMail : OrderMailBase,
-        IConsumes<OrderApproved>,
-        IConsumes<OrderRejected>
+        ISubscribeTo<OrderApproved>,
+        ISubscribeTo<OrderRejected>
     {
         private readonly IMessageFactory _factory;
         private readonly IMailGateway _gateway;
-        private readonly IOrderRepository _orderRepository;
         private readonly IOrderPdfGeneratorService _orderPdfGeneratorService;
+        private readonly IOrderRepository _orderRepository;
 
         public OrderStatusChangedMail(IMessageFactory factory, IMailGateway gateway, IOrderRepository orderRepository,
             IOrderPdfGeneratorService orderPdfGeneratorService)

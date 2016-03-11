@@ -2,18 +2,18 @@
 {
     using System;
     using Articles.Model;
-    using Common.Notifications;
+    using Common.Eventing;
     using Common.Projecting;
     using Model;
 
     public class ArticlesProjection : ProjectionBase<ArticleData>,
-        IConsumes<ArticleCreated>,
-        IConsumes<ArticleDeleted>,
-        IConsumes<ArticleDetailsChanged>,
-        IConsumes<GrossStockChanged>,
-        IConsumes<DescriptionChanged>,
-        IConsumes<SpecificationChanged>,
-        IConsumes<PricesChanged>
+        ISubscribeTo<ArticleCreated>,
+        ISubscribeTo<ArticleDeleted>,
+        ISubscribeTo<ArticleDetailsChanged>,
+        ISubscribeTo<GrossStockChanged>,
+        ISubscribeTo<DescriptionChanged>,
+        ISubscribeTo<SpecificationChanged>,
+        ISubscribeTo<PricesChanged>
     {
         public void Handle(ArticleCreated e)
         {

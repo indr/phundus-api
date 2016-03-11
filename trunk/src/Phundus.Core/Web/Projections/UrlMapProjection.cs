@@ -2,12 +2,12 @@
 {
     using System;
     using Common;
-    using Common.Notifications;
+    using Common.Eventing;
     using Common.Projecting;
     using IdentityAccess.Organizations.Model;
 
     public class UrlMapProjection : ProjectionBase<UrlMapData>,
-        IConsumes<OrganizationEstablished>
+        ISubscribeTo<OrganizationEstablished>
     {
         public void Handle(OrganizationEstablished e)
         {

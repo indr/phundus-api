@@ -46,10 +46,10 @@
             get { return _domainEvent; }
         }
 
-        public TEvent GetEvent<TEvent>() where TEvent : DomainEvent
-        {
-            return (TEvent) _domainEvent;
-        }
+        //public TEvent GetEvent<TEvent>() where TEvent : DomainEvent
+        //{
+        //    return (TEvent) _domainEvent;
+        //}
 
         protected override IEnumerable<object> GetEqualityComponents()
         {

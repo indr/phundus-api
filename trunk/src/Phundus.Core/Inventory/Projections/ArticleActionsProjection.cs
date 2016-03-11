@@ -4,22 +4,22 @@
     using System.IO;
     using Articles.Model;
     using Common.Domain.Model;
-    using Common.Notifications;
+    using Common.Eventing;
     using Common.Projecting;
     using Common.Projections;
     using Newtonsoft.Json;
 
     public class ArticleActionsProjection : ProjectionBase<ArticleActionData>,
-        IConsumes<ArticleCreated>,
-        IConsumes<ArticleDeleted>,
-        IConsumes<ArticleDetailsChanged>,
-        IConsumes<DescriptionChanged>,
-        IConsumes<SpecificationChanged>,
-        IConsumes<PricesChanged>,
-        IConsumes<GrossStockChanged>,
-        IConsumes<ImageAdded>,
-        IConsumes<ImageRemoved>,
-        IConsumes<PreviewImageChanged>
+        ISubscribeTo<ArticleCreated>,
+        ISubscribeTo<ArticleDeleted>,
+        ISubscribeTo<ArticleDetailsChanged>,
+        ISubscribeTo<DescriptionChanged>,
+        ISubscribeTo<SpecificationChanged>,
+        ISubscribeTo<PricesChanged>,
+        ISubscribeTo<GrossStockChanged>,
+        ISubscribeTo<ImageAdded>,
+        ISubscribeTo<ImageRemoved>,
+        ISubscribeTo<PreviewImageChanged>
     {
         public void Handle(ArticleCreated e)
         {

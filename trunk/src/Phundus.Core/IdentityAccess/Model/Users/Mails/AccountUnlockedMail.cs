@@ -1,11 +1,11 @@
 namespace Phundus.IdentityAccess.Model.Users.Mails
 {
+    using Common.Eventing;
     using Common.Mailing;
-    using Common.Notifications;
     using IdentityAccess.Users.Model;
     using Resources;
 
-    public class AccountUnlockedMail : IConsumes<UserUnlocked>
+    public class AccountUnlockedMail : ISubscribeTo<UserUnlocked>
     {
         private readonly IMessageFactory _factory;
         private readonly IMailGateway _gateway;
@@ -28,7 +28,8 @@ namespace Phundus.IdentityAccess.Model.Users.Mails
                 EmailAddress = user.EmailAddress
             };
 
-            var message = _factory.MakeMessage(model, Templates.AccountUnlockedSubject, null, Templates.AccountUnlockedHtml);
+            var message = _factory.MakeMessage(model, Templates.AccountUnlockedSubject, null,
+                Templates.AccountUnlockedHtml);
             message.To.Add(user.EmailAddress);
 
             _gateway.Send(e.OccuredOnUtc, message);

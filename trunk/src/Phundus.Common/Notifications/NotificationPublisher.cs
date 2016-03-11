@@ -38,12 +38,12 @@
 
     public class InThreadNotificationPublisher : INotificationPublisher
     {
-        private readonly INotificationConsumerFactory _consumerFactory;
+        private readonly INotificationHandlerFactory _handlerFactory;
 
-        public InThreadNotificationPublisher(INotificationConsumerFactory consumerFactory)
+        public InThreadNotificationPublisher(INotificationHandlerFactory handlerFactory)
         {
-            if (consumerFactory == null) throw new ArgumentNullException("consumerFactory");
-            _consumerFactory = consumerFactory;
+            if (handlerFactory == null) throw new ArgumentNullException("handlerFactory");
+            _handlerFactory = handlerFactory;
         }
 
         public void PublishNotification(StoredEvent storedEvent, Func<StoredEvent, DomainEvent> deserializer)
@@ -62,7 +62,7 @@
 
         private void PublishNotification(Notification notification)
         {
-            var handlers = _consumerFactory.GetNotificationConsumers();
+            var handlers = _handlerFactory.GetNotificationHandlers();
 
             foreach (var each in handlers)
             {

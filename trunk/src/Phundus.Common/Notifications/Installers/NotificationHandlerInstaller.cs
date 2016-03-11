@@ -10,7 +10,7 @@ namespace Phundus.Common.Notifications.Installers
         public override void Install(IWindsorContainer container, Assembly assembly)
         {
             container.Register(Classes.FromAssembly(assembly)
-                .BasedOn<INotificationHandler>()
+                .BasedOn(typeof(INotificationHandler))
                 .WithServiceAllInterfaces()
                 .LifestyleTransient());
         }

@@ -103,7 +103,7 @@
     <Compile Include="Mailing\ShouldExtensions.cs" />
     <Compile Include="Mailing\UrlsSpecs.cs" />
     <Compile Include="Messaging\FakeBusSpecs.cs" />
-    <Compile Include="Notifications\Installers\NotificationConsumersInstallerSpecs.cs" />
+    <Compile Include="Notifications\Installers\NotificationHandlerInstallerSpecs.cs" />
     <Compile Include="Notifications\NotificationLogFactorySpecs.cs" />
     <Compile Include="Notifications\ProcessedNotificationTrackerSpecs.cs" />
     <Compile Include="Notifications\ProcessedNotificationTrackerStoreSpecs.cs" />

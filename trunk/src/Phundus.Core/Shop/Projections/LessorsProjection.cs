@@ -3,7 +3,7 @@
     using System;
     using System.Text;
     using Common;
-    using Common.Notifications;
+    using Common.Eventing;
     using Common.Projecting;
     using IdentityAccess.Model;
     using IdentityAccess.Model.Organizations;
@@ -12,13 +12,24 @@
     using IdentityAccess.Users.Model;
 
     public class LessorsProjection : ProjectionBase<LessorData>,
-        IConsumes<OrganizationEstablished>,
-        IConsumes<OrganizationContactDetailsChanged>,
-        IConsumes<PublicRentalSettingChanged>,
-        IConsumes<UserSignedUp>,
-        IConsumes<UserEmailAddressChanged>,
-        IConsumes<UserAddressChanged>
+        ISubscribeTo<OrganizationEstablished>,
+        ISubscribeTo<OrganizationContactDetailsChanged>,
+        ISubscribeTo<PublicRentalSettingChanged>,
+        ISubscribeTo<UserSignedUp>,
+        ISubscribeTo<UserEmailAddressChanged>,
+        ISubscribeTo<UserAddressChanged>
     {
+        public void Handle(OrganizationContactDetailsChanged e)
+        {
+            Update(e.OrganizationId, x =>
+            {
+                x.PostalAddress = MakeOrganizationPostalAddress(e.Line1, e.Line2, e.Street, e.Postcode, e.City);
+                x.PhoneNumber = e.PhoneNumber;
+                x.EmailAddress = e.EmailAddress;
+                x.Website = e.Website;
+            });
+        }
+
         public void Handle(OrganizationEstablished e)
         {
             Insert(x =>
@@ -35,20 +46,23 @@
             });
         }
 
-        public void Handle(OrganizationContactDetailsChanged e)
-        {
-            Update(e.OrganizationId, x =>
-            {
-                x.PostalAddress = MakeOrganizationPostalAddress(e.Line1, e.Line2, e.Street, e.Postcode, e.City);
-                x.PhoneNumber = e.PhoneNumber;
-                x.EmailAddress = e.EmailAddress;
-                x.Website = e.Website;
-            });
-        }
-
         public void Handle(PublicRentalSettingChanged e)
         {
             Update(e.OrganizationId, x => { x.PublicRental = e.Value; });
+        }
+
+        public void Handle(UserAddressChanged e)
+        {
+            Update(e.UserId, x =>
+            {
+                x.PostalAddress = MakeUserPostalAddress(e.FirstName, e.LastName, e.Street, e.Postcode, e.City);
+                x.PhoneNumber = e.PhoneNumber;
+            });
+        }
+
+        public void Handle(UserEmailAddressChanged e)
+        {
+            Update(e.UserId, x => { x.EmailAddress = e.NewEmailAddress; });
         }
 
         public void Handle(UserSignedUp e)
@@ -63,20 +77,6 @@
                 x.EmailAddress = e.EmailAddress;
                 x.Website = null;
                 x.PublicRental = true;
-            });
-        }
-
-        public void Handle(UserEmailAddressChanged e)
-        {
-            Update(e.UserId, x => { x.EmailAddress = e.NewEmailAddress; });
-        }
-
-        public void Handle(UserAddressChanged e)
-        {
-            Update(e.UserId, x =>
-            {
-                x.PostalAddress = MakeUserPostalAddress(e.FirstName, e.LastName, e.Street, e.Postcode, e.City);
-                x.PhoneNumber = e.PhoneNumber;
             });
         }
 

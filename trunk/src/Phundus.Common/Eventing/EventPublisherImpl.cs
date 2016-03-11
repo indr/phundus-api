@@ -9,18 +9,21 @@ namespace Phundus.Common.Eventing
 
     public class EventPublisherImpl : IEventPublisher
     {
-        public IEventHandlerFactory Factory { get; set; }
+        private readonly IEventStore _eventStore;        
 
-        public IEventStore EventStore { get; set; }
+        public EventPublisherImpl(IEventStore eventStore)
+        {
+            _eventStore = eventStore;
+        }
 
         public void Publish<TDomainEvent>(TDomainEvent e) where TDomainEvent : DomainEvent
         {
-            ISubscribeTo<TDomainEvent>[] subscribers = Factory.GetSubscribersForEvent(e);
+            //ISubscribeTo<TDomainEvent>[] subscribers = Factory.GetSubscribersForEvent(e);
 
-            foreach (var each in subscribers)
-                each.Handle(e);
+            //foreach (var each in subscribers)
+            //    each.Handle(e);
 
-            EventStore.Append(e);
+            _eventStore.Append(e);
         }
     }
 }
