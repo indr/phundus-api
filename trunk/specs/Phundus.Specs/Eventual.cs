@@ -9,7 +9,7 @@
     public class Eventual
     {
         private const int RetryCount = 5;
-        private const int Timeout = 200;
+        private const int Timeout = 500;
 
         public static T NotDefault<T>(Func<T> func, bool throwAfterRetrys = false)
         {
@@ -19,7 +19,8 @@
                 if (!Equals(result, default(T)))
                     return result;
 
-                Thread.Sleep(i * Timeout);
+                if (i < RetryCount)
+                    Thread.Sleep(i * Timeout);
             }
 
             if (throwAfterRetrys)
@@ -38,7 +39,8 @@
                 if (statusCode >= 200 && statusCode < 300)
                     return result;
 
-                Thread.Sleep(i * Timeout);
+                if (i < RetryCount)
+                    Thread.Sleep(i * Timeout);
             }
             return result;
         }
@@ -61,7 +63,8 @@
                 {
                     exception = ex;
                 }
-                Thread.Sleep(i * Timeout);
+                if (i < RetryCount)
+                    Thread.Sleep(i * Timeout);
             }
             if (exception != null)
                 throw exception;
