@@ -77,7 +77,8 @@
                     City = organization.City,
                     PhoneNumber = organization.PhoneNumber,
                     Website = organization.Website
-                }
+                },
+                PublicRental = organization.PublicRental
             };
             if (store != null)
             {
@@ -202,6 +203,9 @@
 
         [JsonProperty("contact")]
         public ContactDetails Contact { get; set; }
+
+        [JsonProperty("publicRental")]
+        public bool PublicRental { get; set; }
     }
 
     public class OrganizationsPostOkResponseContent
