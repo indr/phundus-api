@@ -18,6 +18,7 @@
         }
 
         [Given(@"I updated the startpage")]
+        [When(@"I update the startpage")]
         public void GivenIUpdatedTheStartpage()
         {
             App.UpdateStartpage(Ctx.Organization, GenerateNewStartpage());
@@ -44,7 +45,13 @@
         [Then(@"I should see the updated startpage")]
         public void ThenIShouldSeeTheUpdatedStartpage()
         {
-            Assert.That(_startpage, Is.EqualTo(_theStartpage));
+            var organizationId = Ctx.Organization.OrganizationId;
+            Eventual.NoAssertionException(() =>
+            {
+                var startpage = App.GetOrganization(organizationId).Startpage;
+                Assert.That(startpage, Is.EqualTo(_theStartpage));    
+            });
+            
         }
     }
 }

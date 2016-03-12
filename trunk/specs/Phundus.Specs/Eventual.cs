@@ -8,15 +8,18 @@
 
     public class Eventual
     {
+        private const int RetryCount = 6;
+        private const int Timeout = 200;
+
         public static T NotDefault<T>(Func<T> func)
         {
-            for (var i = 1; i <= 5; i++)
+            for (var i = 1; i <= RetryCount; i++)
             {
                 var result = func();
                 if (!Equals(result, default(T)))
                     return result;
 
-                Thread.Sleep(i*200);
+                Thread.Sleep(i * Timeout);
             }
 
             return default(T);
@@ -26,14 +29,14 @@
         public static IRestResponse<T> StatusCode2xx<T>(Func<IRestResponse<T>> func)
         {
             IRestResponse<T> result = null;
-            for (var i = 1; i <= 5; i++)
+            for (var i = 1; i <= RetryCount; i++)
             {
                 result = func();
                 var statusCode = (int) result.StatusCode;
                 if (statusCode >= 200 && statusCode < 300)
                     return result;
 
-                Thread.Sleep(i*200);
+                Thread.Sleep(i * Timeout);
             }
             return result;
         }
@@ -51,7 +54,7 @@
         private static void NoException<T>(Action action) where T : Exception
         {
             T exception = default(T);
-            for (var i = 1; i <= 5; i++)
+            for (var i = 1; i <= RetryCount; i++)
             {
                 try
                 {
@@ -62,6 +65,7 @@
                 {
                     exception = ex;
                 }
+                Thread.Sleep(i * Timeout);
             }
             if (exception != null)
                 throw exception;
