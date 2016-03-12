@@ -32,6 +32,9 @@
 
         public void Handle(OrderApproved e)
         {
+            if (e.Lessee == null)
+                return;
+
             var order = _orderRepository.GetById(new OrderId(e.OrderId));
             var stream = _orderPdfGeneratorService.GeneratePdf(order);
             var attachment = new Attachment(stream, String.Format("Bestellung-{0}.pdf", order.OrderShortId.Id),

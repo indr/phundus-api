@@ -165,8 +165,8 @@
     <Compile Include="2016\01\M201601221416_Add_Owner_Type_To_Dm_Inventory_Article.cs" />
     <Compile Include="2016\03\M201603122019_Alter_columns_on_ProcessedNotificationTracker.cs" />
     <Compile Include="2016\03\M201603122201_Fix_OrderPlaced_OrderLine_ToUtc_and_ArticleId.cs" />
-    <Compile Include="2016\03\M201603122232_Fix_OrderCreated_OrderLine_ToUtc.cs" />
-    <Compile Include="2016\03\M201603122237_Fix_Dm_Shop_OrderItem_ToUtc.cs" />
+    <Compile Include="2016\03\M201603122235_Fix_OrderCreated_OrderLine_ToUtc_and_ArticleId.cs" />
+    <Compile Include="2016\03\M201603122238_Fix_Dm_Shop_OrderItem_ToUtc_and_ArticleId.cs" />
     <Compile Include="Helper\FluentMigratorExtensions.cs" />
     <Compile Include="2016\03\M201603020229_Create_primary_and_foreign_keys.cs" />
     <Compile Include="2016\02\M201602020534_Create_or_populate_ArticleCreated.cs" />
