@@ -1,5 +1,9 @@
 ﻿namespace Phundus.Web
 {
+    using System;
+    using System.Collections;
+    using System.Collections.Generic;
+    using System.Collections.ObjectModel;
     using System.Web;
     using System.Web.Mvc;
     using System.Web.Routing;
@@ -8,6 +12,9 @@
     using Bootstrap.Windsor;
     using Castle.MicroKernel.Registration;
     using Castle.Windsor;
+    using Common;
+    using Elmah;
+    using Rest.Auth;
     using Security;
 
     public class MvcApplication : HttpApplication, IContainerAccessor
@@ -45,5 +52,27 @@
             if (_container != null)
                 _container.Dispose();
         }
+
+        private void ErrorLog_Filtering(object sender, ExceptionFilterEventArgs args)
+        {
+            Filter(args);
+        }
+
+        private void ErrorMail_Filtering(object sender, ExceptionFilterEventArgs args)
+        {
+            Filter(args);
+        }
+
+        private static void Filter(ExceptionFilterEventArgs args)
+        {
+            if (ExceptionsToDismiss.Contains(args.Exception.GetBaseException().GetType()))
+                args.Dismiss();            
+        }
+
+        private static readonly ICollection<Type> ExceptionsToDismiss = new Collection<Type>
+        {
+            typeof(MaintenanceModeException),
+            typeof(NotFoundException)
+        };
     }
 }
