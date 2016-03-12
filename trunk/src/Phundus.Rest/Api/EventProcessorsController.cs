@@ -1,6 +1,5 @@
 namespace Phundus.Rest.Api
 {
-    using System;
     using System.Collections.Generic;
     using System.Net.Http;
     using System.Web.Http;
@@ -14,27 +13,28 @@ namespace Phundus.Rest.Api
     using Dashboard.Projections;
     using Newtonsoft.Json;
 
-    [RoutePrefix("api/notification-processors")]
+    [RoutePrefix("api/event-processors")]
     [Authorize(Roles = "Admin")]
-    public class NotificationProcessorsController : ApiControllerBase
+    public class EventProcessorsController : ApiControllerBase
     {
+        private readonly IEventProcessorsQueries _eventProcessorsQueries;
         private readonly IEventStore _eventStore;
-        private readonly IProcessedNotificationQueries _processedNotificationQueries;
 
-        public NotificationProcessorsController(IProcessedNotificationQueries processedNotificationQueries, IEventStore eventStore)
+        public EventProcessorsController(IEventProcessorsQueries eventProcessorsQueries,
+            IEventStore eventStore)
         {
-            _processedNotificationQueries = processedNotificationQueries;
+            _eventProcessorsQueries = eventProcessorsQueries;
             _eventStore = eventStore;
         }
 
         [GET("")]
         [Transaction]
-        public virtual NotificationProcessorsQueryOkResponseContent GetAll()
+        public virtual EventProcessorsQueryOkResponseContent GetAll()
         {
             var maxEventId = _eventStore.GetMaxNotificationId();
-            var results = _processedNotificationQueries.Query();
+            var results = _eventProcessorsQueries.Query();
 
-            return new NotificationProcessorsQueryOkResponseContent(maxEventId, results);
+            return new EventProcessorsQueryOkResponseContent(maxEventId, results);
         }
 
         [PUT("{processorId}")]
@@ -65,9 +65,10 @@ namespace Phundus.Rest.Api
         }
     }
 
-    public class NotificationProcessorsQueryOkResponseContent : QueryOkResponseContent<ProcessedNotificationData>
+    public class EventProcessorsQueryOkResponseContent : QueryOkResponseContent<EventProcessorData>
     {
-        public NotificationProcessorsQueryOkResponseContent(long maxEventId, IEnumerable<ProcessedNotificationData> results)
+        public EventProcessorsQueryOkResponseContent(long maxEventId,
+            IEnumerable<EventProcessorData> results)
             : base(results)
         {
             MaxEventId = maxEventId;

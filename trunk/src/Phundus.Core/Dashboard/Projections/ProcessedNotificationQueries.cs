@@ -7,24 +7,24 @@ namespace Phundus.Dashboard.Projections
     using Common.Querying;
     using Newtonsoft.Json;
 
-    public interface IProcessedNotificationQueries
+    public interface IEventProcessorsQueries
     {
-        ICollection<ProcessedNotificationData> Query();
+        ICollection<EventProcessorData> Query();
     }
 
-    public class ProcessedNotificationQueries : QueryBase<ProcessedNotificationData>, IProcessedNotificationQueries
+    public class EventProcessorsQueries : QueryBase<EventProcessorData>, IEventProcessorsQueries
     {
         private readonly IProcessedNotificationTrackerStore _processedNotificationTrackerStore;
 
-        public ProcessedNotificationQueries(IProcessedNotificationTrackerStore processedNotificationTrackerStore)
+        public EventProcessorsQueries(IProcessedNotificationTrackerStore processedNotificationTrackerStore)
         {
             _processedNotificationTrackerStore = processedNotificationTrackerStore;
         }
 
-        public ICollection<ProcessedNotificationData> Query()
+        public ICollection<EventProcessorData> Query()
         {
             var trackers = _processedNotificationTrackerStore.GetProcessedNotificationTrackers();
-            return trackers.Select(s => new ProcessedNotificationData
+            return trackers.Select(s => new EventProcessorData
             {
                 ProcessorId = s.TypeName,
                 TypeName = s.TypeName,
@@ -37,7 +37,7 @@ namespace Phundus.Dashboard.Projections
         }
     }
 
-    public class ProcessedNotificationData
+    public class EventProcessorData
     {
         private string _errorMessage;
         private string _status = "success";

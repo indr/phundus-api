@@ -5,12 +5,12 @@ namespace Phundus.Dashboard.Projections
 
     public interface IEventLogQueries
     {
-        IEnumerable<EventLogData> FindMostRecent20();
+        IEnumerable<EventLogData> Query();
     }
 
     public class EventLogQueries : QueryBase<EventLogData>, IEventLogQueries
     {
-        public IEnumerable<EventLogData> FindMostRecent20()
+        public IEnumerable<EventLogData> Query()
         {
             return QueryOver().OrderBy(p => p.OccuredOnUtc).Desc.Take(20).List();
         }
