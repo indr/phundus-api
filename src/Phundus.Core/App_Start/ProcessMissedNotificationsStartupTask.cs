@@ -2,14 +2,14 @@
 {
     using System;
     using Bootstrap.Extensions.StartupTasks;
-    using Common.Messaging;
+    using Common.Commanding;
     using Common.Notifications.Application;
 
     public class ProcessMissedNotificationsStartupTask : IStartupTask
     {
-        private readonly IBus _bus;
+        private readonly ICommandDispatcher _bus;
 
-        public ProcessMissedNotificationsStartupTask(IBus bus)
+        public ProcessMissedNotificationsStartupTask(ICommandDispatcher bus)
         {
             if (bus == null) throw new ArgumentNullException("bus");
             _bus = bus;
@@ -17,7 +17,7 @@
 
         public void Run()
         {
-            _bus.Send(new ProcessMissedNotifications());
+            _bus.Dispatch(new ProcessMissedNotifications());
         }
 
         public void Reset()
