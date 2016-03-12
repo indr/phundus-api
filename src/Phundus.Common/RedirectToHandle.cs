@@ -6,7 +6,7 @@ namespace Phundus.Common
     using System.Linq;
     using System.Reflection;
 
-    public static class RedirectToConsume
+    public static class RedirectToHandle
     {
         private static readonly MethodInfo InternalPreserveStackTraceMethod =
             typeof (Exception).GetMethod("InternalPreserveStackTrace", BindingFlags.Instance | BindingFlags.NonPublic);

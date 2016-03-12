@@ -93,7 +93,7 @@
     <Compile Include="Notifications\ITrackerRepository.cs" />
     <Compile Include="Notifications\ProcessedNotificationTrackerStore.cs" />
     <Compile Include="Projecting\Installers\ProjectingInstaller.cs" />
-    <Compile Include="RedirectToConsume.cs" />
+    <Compile Include="RedirectToHandle.cs" />
     <Compile Include="RedirectToWhen.cs" />
     <Compile Include="Messaging\Installers\MessagingInstaller.cs" />
     <Compile Include="Notifications\Installers\NotificationHandlerInstaller.cs" />

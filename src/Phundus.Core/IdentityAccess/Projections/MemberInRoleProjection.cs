@@ -29,9 +29,6 @@ namespace Phundus.IdentityAccess.Projections
 
         public MemberInRoleProjection(IUsersQueries usersQueries, IMembershipRepository membershipRepository)
         {
-            AssertionConcern.AssertArgumentNotNull(usersQueries, "UserQueries must be provided.");
-            AssertionConcern.AssertArgumentNotNull(membershipRepository, "MembershipRepository must be provided.");
-
             _usersQueries = usersQueries;
             _membershipRepository = membershipRepository;
         }

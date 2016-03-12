@@ -6,8 +6,8 @@
     using Common.Domain.Model;
     using Model;
     using Model.Collaborators;
+    using Model.Stores;
     using Stores.Model;
-    using Stores.Repositories;
 
     public class OpenStore : ICommand
     {

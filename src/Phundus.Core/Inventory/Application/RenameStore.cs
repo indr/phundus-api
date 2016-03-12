@@ -5,7 +5,7 @@ namespace Phundus.Inventory.Application
     using Common.Commanding;
     using Common.Domain.Model;
     using Model;
-    using Stores.Repositories;
+    using Model.Stores;
 
     public class RenameStore : ICommand
     {
