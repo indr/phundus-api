@@ -85,37 +85,20 @@ namespace Phundus.Specs.Features.Orders
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("Create empty orders returns ok")]
-        public virtual void CreateEmptyOrdersReturnsOk()
+        [NUnit.Framework.DescriptionAttribute("Order query shows newly created empty return")]
+        public virtual void OrderQueryShowsNewlyCreatedEmptyReturn()
         {
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Create empty orders returns ok", ((string[])(null)));
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Order query shows newly created empty return", ((string[])(null)));
 #line 10
 this.ScenarioSetup(scenarioInfo);
 #line 3
 this.FeatureBackground();
 #line 11
- testRunner.When("I try to create a new empty order for Alice", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+ testRunner.When("I create a new empty order for Alice", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 12
  testRunner.Then("I should see ok", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
-#line hidden
-            this.ScenarioCleanup();
-        }
-        
-        [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("Order query shows order")]
-        public virtual void OrderQueryShowsOrder()
-        {
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Order query shows order", ((string[])(null)));
-#line 14
-this.ScenarioSetup(scenarioInfo);
-#line 3
-this.FeatureBackground();
-#line 15
- testRunner.Given("I created a new empty order for Alice", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
-#line 16
- testRunner.When("I try to query all orders of organization \"Scouts\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 17
- testRunner.Then("I should find the order in the results", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line 13
+ testRunner.And("I should find the order in the order query for organization \"Scouts\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
             this.ScenarioCleanup();
         }

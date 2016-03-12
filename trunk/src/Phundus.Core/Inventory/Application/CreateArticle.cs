@@ -11,6 +11,7 @@
     using Integration.IdentityAccess;
     using Model;
     using Model.Articles;
+    using Model.Collaborators;
     using Phundus.Authorization;
     using Stores.Repositories;
 

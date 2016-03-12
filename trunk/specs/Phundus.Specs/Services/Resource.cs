@@ -231,10 +231,14 @@
             return response;
         }
 
-
-        private IRestResponse<T> Execute<T>(RestRequest request) where T : new()
+        private IRestResponse<T> Execute<T>(IRestRequest request) where T : new()
         {
-            var response = CreateClient().Execute<T>(request);
+            IRestResponse<T> response;
+            if (request.Method == Method.GET)
+                response = Eventual.StatusCode2xx(() => CreateClient().Execute<T>(request));
+            else
+                response = CreateClient().Execute<T>(request);
+            
             HandleErrorException(response);
             if (_assertHttpStatusCode)
                 AssertHttpStatusCodeIs2xx(response);

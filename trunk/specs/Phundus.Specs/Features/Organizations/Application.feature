@@ -3,8 +3,7 @@
 Scenario: Relationship status after application
 	Given an organization
 	And I am logged in as a user
-	And I applied for membership
-	When I try to get my relationship status
+	And I applied for membership	
 	Then my relationship status is "application"
 
 Scenario: Relationship status after rejection
@@ -12,8 +11,7 @@ Scenario: Relationship status after rejection
 	And I am logged in as "John"
 	And I applied for membership
 	And the membership application is rejected
-	And I am logged in as "John"
-	When I try to get my relationship status
+	When I am logged in as "John"	
 	Then my relationship status is "rejected"
 
 Scenario: Relationship status is after approval
@@ -21,8 +19,7 @@ Scenario: Relationship status is after approval
 	And I am logged in as "Greg"
 	And I applied for membership
 	And the membership application is approved
-	And I am logged in as "Greg"
-	When I try to get my relationship status
+	And I am logged in as "Greg"	
 	Then my relationship status is "member"
 
 Scenario: New member is in the organizations member list
