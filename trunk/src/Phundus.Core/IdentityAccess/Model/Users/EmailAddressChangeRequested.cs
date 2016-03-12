@@ -1,13 +1,13 @@
-namespace Phundus.IdentityAccess.Users.Model
+namespace Phundus.IdentityAccess.Model.Users
 {
     using System;
     using System.Runtime.Serialization;
     using Common.Domain.Model;
 
     [DataContract]
-    public class UserEmailAddressChangeRequested : DomainEvent
+    public class EmailAddressChangeRequested : DomainEvent
     {
-        public UserEmailAddressChangeRequested(Initiator initiator, UserId userId, string firstName, string lastName, string requestedEmailAddress, string validationKey)
+        public EmailAddressChangeRequested(Initiator initiator, UserId userId, string firstName, string lastName, string requestedEmailAddress, string validationKey)
         {
             if (initiator == null) throw new ArgumentNullException("initiator");
             if (userId == null) throw new ArgumentNullException("userId");
@@ -21,7 +21,7 @@ namespace Phundus.IdentityAccess.Users.Model
             ValidationKey = validationKey;
         }
 
-        protected UserEmailAddressChangeRequested()
+        protected EmailAddressChangeRequested()
         {
         }
 

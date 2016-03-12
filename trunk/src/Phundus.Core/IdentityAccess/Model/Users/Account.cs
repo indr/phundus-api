@@ -109,7 +109,7 @@
             GenerateValidationKey();
             RequestedEmail = newEmailAddress;
 
-            EventPublisher.Publish(new UserEmailAddressChangeRequested(initiator, User.UserId, User.FirstName, User.LastName, RequestedEmail, ValidationKey));
+            EventPublisher.Publish(new EmailAddressChangeRequested(initiator, User.UserId, User.FirstName, User.LastName, RequestedEmail, ValidationKey));
         }
 
         public virtual void ChangePassword(string oldPassword, string newPassword)

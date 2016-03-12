@@ -1,5 +1,6 @@
 namespace Phundus.Migrations
 {
+    using System;
     using FluentMigrator;
 
     [Migration(201603030653)]
