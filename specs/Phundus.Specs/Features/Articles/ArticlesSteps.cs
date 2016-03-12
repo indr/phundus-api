@@ -105,7 +105,7 @@
         [Then(@"the article should equal")]
         public void ThenTheArticleShouldEqual(Table table)
         {
-            Eventual.NoComparisonException(() =>
+            Eventual.NoTestException(() =>
             {
                 var article = App.GetArticle(Ctx.Article);
                 table.CompareToInstance(article);
@@ -115,7 +115,7 @@
         [Then(@"the article ""(.*)"" should equal")]
         public void ThenTheArticleShouldEqual(string alias, Table table)
         {
-            Eventual.NoComparisonException(() =>
+            Eventual.NoTestException(() =>
             {
                 var article = App.GetArticle(Ctx.Articles[alias]);
                 table.CompareToInstance(article);
@@ -139,7 +139,7 @@
         [Then(@"the article description is:")]
         public void ThenTheArticleDescriptionIs(string multilineText)
         {
-            Eventual.NoAssertionException(() =>
+            Eventual.NoTestException(() =>
             {
                 var article = App.GetArticle(Ctx.Article);
                 Assert.That(article.Description, Is.EqualTo(multilineText));
@@ -156,7 +156,7 @@
         [Then(@"the article specification is:")]
         public void ThenTheArticleSpecificationIs(string multilineText)
         {
-            Eventual.NoAssertionException(() =>
+            Eventual.NoTestException(() =>
             {
                 var article = App.GetArticle(Ctx.Article);
                 Assert.That(article.Specification, Is.EqualTo(multilineText));

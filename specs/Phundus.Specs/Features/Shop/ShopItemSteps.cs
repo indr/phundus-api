@@ -1,6 +1,5 @@
 ﻿namespace Phundus.Specs.Features.Shop
-{
-    using ContentTypes;
+{    
     using NUnit.Framework;
     using Services;
     using Steps;

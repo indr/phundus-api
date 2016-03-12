@@ -41,6 +41,9 @@
     <Reference Include="Castle.Windsor">
       <HintPath>..\..\packages\Castle.Windsor.3.3.0\lib\net40\Castle.Windsor.dll</HintPath>
     </Reference>
+    <Reference Include="Elmah">
+      <HintPath>..\..\packages\elmah.corelibrary.1.2.2\lib\Elmah.dll</HintPath>
+    </Reference>
     <Reference Include="Iesi.Collections">
       <HintPath>..\..\packages\Iesi.Collections.3.2.0.4000\lib\Net35\Iesi.Collections.dll</HintPath>
     </Reference>
@@ -75,7 +78,10 @@
   <ItemGroup>
     <Compile Include="App_Start\CommonInstaller.cs" />
     <Compile Include="Domain.Model\IShortIdGeneratorService.cs" />
+    <Compile Include="Eventing\Application\ForceProcessing.cs" />
     <Compile Include="Eventing\EventStore.cs" />
+    <Compile Include="Eventing\Installers\EventHandlerInstaller.cs" />
+    <Compile Include="Eventing\Installers\EventingInstaller.cs" />
     <Compile Include="Mailing\ContentTypes.cs" />
     <Compile Include="Mailing\MailBase.cs" />
     <Compile Include="Mailing\MailModel.cs" />
@@ -133,7 +139,6 @@
     <Compile Include="Messaging\FakeBus.cs" />
     <Compile Include="Messaging\IBus.cs" />
     <Compile Include="Notifications\Installers\NotificationsInstaller.cs" />
-    <Compile Include="Projecting\Application\UpdateProjection.cs" />
     <Compile Include="Projecting\Application\RecreateProjection.cs" />
     <Compile Include="Projecting\ProjectionFactory.cs" />
     <Compile Include="Projecting\Installers\ProjectionsInstaller.cs" />

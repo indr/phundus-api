@@ -46,7 +46,7 @@
         public void ThenIShouldSeeTheUpdatedStartpage()
         {
             var organizationId = Ctx.Organization.OrganizationId;
-            Eventual.NoAssertionException(() =>
+            Eventual.NoTestException(() =>
             {
                 var startpage = App.GetOrganization(organizationId).Startpage;
                 Assert.That(startpage, Is.EqualTo(_theStartpage));    

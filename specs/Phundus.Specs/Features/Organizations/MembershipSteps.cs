@@ -66,8 +66,8 @@
         public void ThenMyMembershipStatusIsRequested(string status)
         {
             var organizationId = Ctx.Organization.OrganizationId;
-            
-            Eventual.NoAssertionException(() =>
+
+            Eventual.NoTestException(() =>
             {
                 var relationship = App.GetRelationshipStatus(null, organizationId).Result;
                 Assert.That(relationship.Status, Is.EqualTo(status));

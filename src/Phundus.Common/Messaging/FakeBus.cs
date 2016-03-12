@@ -2,9 +2,9 @@
 {
     using System;
     using System.Threading;
-    using Castle.Core.Logging;
     using Castle.Windsor;
     using Commanding;
+    using Elmah;
     using Notifications;
 
     public class FakeBus : IBus
@@ -38,7 +38,6 @@
             ThreadPool.QueueUserWorkItem(o =>
             {
                 var handlers = _container.Resolve<INotificationHandlerFactory>().GetNotificationHandlers();
-                var logger = _container.Resolve<ILogger>();
                 foreach (var each in handlers)
                 {
                     try
@@ -47,7 +46,7 @@
                     }
                     catch (Exception ex)
                     {
-                        logger.Fatal("Notification handler threw exception.", ex);
+                        Elmah.ErrorLog.GetDefault(null).Log(new Error(ex));
                     }
                 }
             });
@@ -58,14 +57,13 @@
             ThreadPool.QueueUserWorkItem(o =>
             {
                 var handler = _container.Resolve<ICommandHandlerFactory>().GetHandlerForCommand(message);
-                var logger = _container.Resolve<ILogger>();
                 try
                 {
                     handler.Handle(message);
                 }
                 catch (Exception ex)
                 {
-                    logger.Fatal("Command handler threw exception.", ex);
+                    Elmah.ErrorLog.GetDefault(null).Log(new Error(ex));
                 }
             });
         }

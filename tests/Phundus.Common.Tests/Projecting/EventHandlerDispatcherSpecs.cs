@@ -37,10 +37,10 @@
     public class when_updating : event_handler_dispatcher_concern
     {
         private Establish ctx = () =>
-            handlerFactory.setup(x => x.FindSubscriber("typeName")).Return(eventHandler1);
+            handlerFactory.setup(x => x.GetSubscriber("typeName")).Return(eventHandler1);
 
         private Because of = () =>
-            sut.Update("typeName");
+            sut.Force("typeName");
 
         private It should_tell_projection_update = () =>
             projectionUpdater.received(x => x.Process(eventHandler1));
@@ -53,12 +53,12 @@
 
         private Establish ctx = () =>
         {
-            handlerFactory.setup(x => x.FindSubscriber("typeName")).Return(eventHandler1);
+            handlerFactory.setup(x => x.GetSubscriber("typeName")).Return(eventHandler1);
             projectionUpdater.WhenToldTo(x => x.Process(eventHandler1)).Return(() => ++calls < 2);
         };
 
         private Because of = () =>
-            sut.Update("typeName");
+            sut.Force("typeName");
 
         private It should_call_update_twice = () =>
             projectionUpdater.received(x => x.Process(eventHandler1)).Twice();
@@ -72,12 +72,12 @@
         private Establish ctx = () =>
         {
             exception = new Exception("Error message");
-            handlerFactory.setup(x => x.FindSubscriber(eventHandler1.GetType().FullName)).Return(eventHandler1);
+            handlerFactory.setup(x => x.GetSubscriber(eventHandler1.GetType().FullName)).Return(eventHandler1);
             projectionUpdater.setup(x => x.Process(eventHandler1)).Throw(exception);
         };
 
         private Because of = () =>
-            sut.Update(eventHandler1.GetType().FullName);
+            sut.Force(eventHandler1.GetType().FullName);
 
         private It should_track_exception = () =>
             trackerStore.received(x => x.TrackException(eventHandler1.GetType().FullName, exception));

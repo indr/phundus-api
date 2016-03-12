@@ -7,7 +7,7 @@
     using Injecting;
     using Machine.Specifications;
 
-    public class installer_concern : Observes
+    public class container_concern<T> : Observes<T> where T : class
     {
         protected static WindsorContainer container;
 
@@ -15,11 +15,14 @@
             container.Dispose();
 
         private Establish ctx = () =>
+        {
             container = new WindsorContainer();
+            container.AddFacility<TypedFactoryFacility>();
+        };
 
         protected static void register<T>() where T : class
         {
-            container.Register(Component.For(typeof(T)).Instance(fake.an<T>()));
+            container.Register(Component.For(typeof (T)).Instance(fake.an<T>()));
         }
 
         protected static T resolve<T>()
@@ -31,6 +34,39 @@
         {
             return container.ResolveAll<T>();
         }
+    }
+
+    public class container_concern : Observes
+    {
+        protected static WindsorContainer container;
+
+        private Cleanup cleanup = () =>
+            container.Dispose();
+
+        private Establish ctx = () =>
+        {
+            container = new WindsorContainer();
+            container.AddFacility<TypedFactoryFacility>();
+        };
+
+        protected static void register<T>() where T : class
+        {
+            container.Register(Component.For(typeof (T)).Instance(fake.an<T>()));
+        }
+
+        protected static T resolve<T>()
+        {
+            return container.Resolve<T>();
+        }
+
+        protected static T[] resolveAll<T>()
+        {
+            return container.ResolveAll<T>();
+        }
+    }
+
+    public class installer_concern : container_concern
+    {
     }
 
     public class assembly_installer_concern<TInstaller, TTypeOfAssembly> : installer_concern
