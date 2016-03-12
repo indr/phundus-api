@@ -8,7 +8,7 @@
 
     public class Eventual
     {
-        private const int RetryCount = 5;
+        private const int RetryCount = 7;
         private const int Timeout = 500;
 
         public static T NotDefault<T>(Func<T> func, bool throwAfterRetrys = false)
