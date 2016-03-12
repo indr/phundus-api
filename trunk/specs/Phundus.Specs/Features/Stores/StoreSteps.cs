@@ -25,7 +25,16 @@
                 return;
 
             App.OpenUserStore(Ctx.User);
-            Ctx.Stores[storeAlias] = Ctx.User.StoreId;            
+            Ctx.Stores[storeAlias] = Ctx.User.StoreId;
+
+            var userId = Ctx.User.UserId;
+            var storeId = Ctx.User.StoreId;
+            Eventual.NoAssertionException(() =>
+            {
+                var response = App.GetUser(userId);
+                Assert.That(response.Store, Is.Not.Null);
+                Assert.That(response.Store.StoreId, Is.EqualTo(storeId));
+            });
         }
 
         [When(@"I try to open my store")]

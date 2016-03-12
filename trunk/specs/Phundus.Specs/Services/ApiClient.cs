@@ -137,6 +137,11 @@
             get { return Resource("shop/items/{itemId}"); }
         }
 
+        public Resource Lessors
+        {
+            get { return Resource("lessors/{lessorId}"); }
+        }
+
         private Resource Resource(string url)
         {
             var result = new Resource(url, _assertNextHttpStatusCode);

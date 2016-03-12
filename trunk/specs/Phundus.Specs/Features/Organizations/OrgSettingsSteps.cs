@@ -2,6 +2,7 @@
 {
     using System;
     using ContentTypes;
+    using NUnit.Framework;
     using Services;
     using Steps;
     using TechTalk.SpecFlow;
@@ -26,6 +27,13 @@
             {
                 organizationId = Ctx.Organization.OrganizationId,
                 publicRental = value
+            });
+
+            var organizationId = Ctx.Organization.OrganizationId;
+            Eventual.NoAssertionException(() =>
+            {
+                var lessor = App.GetLessor(organizationId);
+                Assert.That(lessor.PublicRental, Is.EqualTo(value));
             });
         }
 
