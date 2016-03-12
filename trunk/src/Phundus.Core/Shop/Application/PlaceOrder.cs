@@ -21,7 +21,6 @@
             if (orderId == null) throw new ArgumentNullException("orderId");
             if (orderShortId == null) throw new ArgumentNullException("orderShortId");
             if (lessorId == null) throw new ArgumentNullException("lessorId");
-
             InitiatorId = initiatorId;
             OrderId = orderId;
             OrderShortId = orderShortId;
@@ -48,13 +47,6 @@
             ICartRepository cartRepository, IOrderRepository orderRepository,
             ILessorService lessorService, ILesseeService lesseeService, IArticleService articleService)
         {
-            if (authorize == null) throw new ArgumentNullException("authorize");
-            if (initiatorService == null) throw new ArgumentNullException("initiatorService");
-            if (cartRepository == null) throw new ArgumentNullException("cartRepository");
-            if (orderRepository == null) throw new ArgumentNullException("orderRepository");
-            if (lessorService == null) throw new ArgumentNullException("lessorService");
-            if (lesseeService == null) throw new ArgumentNullException("lesseeService");
-            if (articleService == null) throw new ArgumentNullException("articleService");
             _authorize = authorize;
             _initiatorService = initiatorService;
             _cartRepository = cartRepository;

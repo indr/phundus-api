@@ -32,8 +32,8 @@
             var organizationId = Ctx.Organization.OrganizationId;
             Eventual.NoTestException(() =>
             {
-                var lessor = App.GetLessor(organizationId);
-                Assert.That(lessor.PublicRental, Is.EqualTo(value));
+                var organization = App.GetOrganization(organizationId);
+                Assert.That(organization.PublicRental, Is.EqualTo(value));
             });
         }
 

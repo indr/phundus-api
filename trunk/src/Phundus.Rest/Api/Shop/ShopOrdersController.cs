@@ -13,8 +13,7 @@
         private readonly IShortIdGeneratorService _shortIdGeneratorService;
 
         public ShopOrdersController(IShortIdGeneratorService shortIdGeneratorService)
-        {
-            if (shortIdGeneratorService == null) throw new ArgumentNullException("shortIdGeneratorService");
+        {            
             _shortIdGeneratorService = shortIdGeneratorService;
         }
 
@@ -24,9 +23,7 @@
             var orderId = new OrderId();
             var orderShortId = _shortIdGeneratorService.GetNext<OrderShortId>();
 
-            var command = new PlaceOrder(CurrentUserId, orderId, orderShortId, new LessorId(requestContent.LessorId));
-
-            Dispatch(command);
+            Dispatch(new PlaceOrder(CurrentUserId, orderId, orderShortId, new LessorId(requestContent.LessorId)));
 
             return new ShopOrdersPostOkResponseContent
             {

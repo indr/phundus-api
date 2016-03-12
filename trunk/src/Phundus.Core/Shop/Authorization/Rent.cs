@@ -32,9 +32,7 @@
         private readonly ILessorService _lessorService;
 
         public RentArticleAccessObjectHandler(IMemberInRole memberInRole, ILessorService lessorService)
-        {
-            if (memberInRole == null) throw new ArgumentNullException("memberInRole");
-            if (lessorService == null) throw new ArgumentNullException("lessorService");
+        {            
             _memberInRole = memberInRole;
             _lessorService = lessorService;
         }

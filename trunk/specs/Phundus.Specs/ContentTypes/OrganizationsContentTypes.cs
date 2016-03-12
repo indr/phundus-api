@@ -35,6 +35,9 @@
         [JsonProperty("contact")]
         public ContactDetails Contact { get; set; }
 
+        [JsonProperty("publicRental")]
+        public bool PublicRental { get; set; }
+
         public override string ToString()
         {
             return String.Format("[Id={0}, Name={1}]",
