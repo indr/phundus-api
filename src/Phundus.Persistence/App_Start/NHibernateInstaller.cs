@@ -48,11 +48,12 @@ namespace Phundus.Persistence
 
         private static void WriteConfiguration(Configuration cfg)
         {
-            //var fileName = HostingEnvironment.MapPath(@"~\App_Data\SchemaUpdate.sql") ?? @".\SchemaUpdate.sql";
             var fileName = HttpContext.Current.Server.MapPath(@"~\App_Data\SchemaUpdate.sql");
 
-            var writer = new StreamWriter(fileName, false);
-            new SchemaUpdate(cfg).Execute(writer.WriteLine, true);
+            using (var writer = new StreamWriter(fileName, false))
+            {
+                new SchemaUpdate(cfg).Execute(writer.WriteLine, true);
+            }
         }
     }
 }

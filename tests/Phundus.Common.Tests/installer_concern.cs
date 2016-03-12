@@ -7,7 +7,7 @@
     using Injecting;
     using Machine.Specifications;
 
-    public class container_concern<T> : Observes<T> where T : class
+    public class container_concern<TClass> : Observes<TClass> where TClass : class
     {
         protected static WindsorContainer container;
 
@@ -79,6 +79,7 @@
     public class windsor_installer_concern<TInstaller> : installer_concern
         where TInstaller : IWindsorInstaller, new()
     {
+
         private Because of = () =>
             container.Install(new TInstaller());
     }
