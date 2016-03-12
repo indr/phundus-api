@@ -1,6 +1,7 @@
 ﻿namespace Phundus.Common.Tests.Projecting
 {
     using System;
+    using Castle.DynamicProxy;
     using Common.Domain.Model;
     using Common.Eventing;
     using Common.Notifications;
@@ -26,7 +27,7 @@
 
             handlerFactory = depends.on<IEventHandlerFactory>();
             handlerFactory.setup(x => x.GetSubscribers()).Return(new[] {eventHandler1, eventHandler2});
-            handlerFactory.setup(x => x.GetSubscribersForEvent<DomainEvent>(Arg<DomainEvent>.Is.Anything)).Return(new[] {eventHandler1, eventHandler2});
+            handlerFactory.setup(x => x.GetSubscribersForEventNonGeneric(Arg<DomainEvent>.Is.Anything)).Return(new[] {eventHandler1, eventHandler2});
 
             projectionUpdater = depends.on<IStoredEventsProcessor>();
             trackerStore = depends.on<IProcessedNotificationTrackerStore>();
