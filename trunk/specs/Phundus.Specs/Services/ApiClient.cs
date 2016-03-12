@@ -137,7 +137,7 @@
             get { return Resource("shop/items/{itemId}"); }
         }
 
-        public Resource Lessors
+        public Resource LessorsApi
         {
             get { return Resource("lessors/{lessorId}"); }
         }

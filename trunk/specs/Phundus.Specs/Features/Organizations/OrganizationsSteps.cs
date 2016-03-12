@@ -2,6 +2,7 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.Linq;
     using ContentTypes;
     using NUnit.Framework;
     using Services;
@@ -57,6 +58,9 @@
                 Ctx.Organizations[alias] = organization;
             }
             WithTheseMembers(table, organization);
+
+            Eventual.NotDefault(() =>
+                App.QueryStores(Ctx.Organization.OrganizationId).Results.FirstOrDefault(), true);
         }
 
         [Given(@"an organization with name ""(.*)"" with these members")]
@@ -65,6 +69,9 @@
             App.LogInAsRoot();
             Ctx.Organization = App.EstablishOrganization(name);
             WithTheseMembers(table, Ctx.Organization);
+
+            Eventual.NotDefault(() =>
+                App.QueryStores(Ctx.Organization.OrganizationId).Results.FirstOrDefault(), true);
         }
 
 

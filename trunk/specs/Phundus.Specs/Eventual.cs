@@ -11,7 +11,7 @@
         private const int RetryCount = 10;
         private const int Timeout = 200;
 
-        public static T NotDefault<T>(Func<T> func)
+        public static T NotDefault<T>(Func<T> func, bool throwAfterRetrys = false)
         {
             for (var i = 1; i <= RetryCount; i++)
             {
@@ -22,6 +22,8 @@
                 Thread.Sleep(i * Timeout);
             }
 
+            if (throwAfterRetrys)
+                throw new Exception("Result is still default(T) after " + RetryCount + " calls.");
             return default(T);
         }
 
