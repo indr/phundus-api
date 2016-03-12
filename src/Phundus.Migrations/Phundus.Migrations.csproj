@@ -230,6 +230,7 @@
     <Compile Include="2016\03\M201603020307_Create_unique_key_on_Article_ArticleShortId.cs" />
     <Compile Include="2016\03\M201603020359_Recreate_View_Shop_CartItems.cs" />
     <Compile Include="2016\03\M201603030653_Add_columns_to_ProcessedNotificationTracker.cs" />
+    <Compile Include="2016\03\M201603121036_Remove_UserEmailAddressChangeRequested_stored_events.cs" />
     <Compile Include="Helper\EventMigrationBase.cs" />
     <Compile Include="2016\01\M201601151255AddUserGuidToApplicationAndMembership.cs" />
     <Compile Include="2016\01\M201501110544AlterTableNames.cs" />

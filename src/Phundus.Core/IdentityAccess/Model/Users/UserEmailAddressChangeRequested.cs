@@ -7,12 +7,18 @@ namespace Phundus.IdentityAccess.Users.Model
     [DataContract]
     public class UserEmailAddressChangeRequested : DomainEvent
     {
-        public UserEmailAddressChangeRequested(Guid initiatorId, UserId userId)
+        public UserEmailAddressChangeRequested(Initiator initiator, UserId userId, string firstName, string lastName, string requestedEmailAddress, string validationKey)
         {
-            if (initiatorId == null) throw new ArgumentNullException("initiatorId");
+            if (initiator == null) throw new ArgumentNullException("initiator");
             if (userId == null) throw new ArgumentNullException("userId");
-            InitiatorId = initiatorId;
-            UserGuid = userId.Id;
+            if (requestedEmailAddress == null) throw new ArgumentNullException("requestedEmailAddress");
+            if (validationKey == null) throw new ArgumentNullException("validationKey");            
+            Initiator = initiator;
+            UserId = userId.Id;
+            FirstName = firstName;
+            LastName = lastName;
+            RequestedEmailAddress = requestedEmailAddress;
+            ValidationKey = validationKey;
         }
 
         protected UserEmailAddressChangeRequested()
@@ -20,9 +26,21 @@ namespace Phundus.IdentityAccess.Users.Model
         }
 
         [DataMember(Order = 1)]
-        public Guid InitiatorId { get; protected set; }
+        public Initiator Initiator { get; protected set; }
 
         [DataMember(Order = 2)]
-        public Guid UserGuid { get; protected set; }
+        public Guid UserId { get; protected set; }
+        
+        [DataMember(Order = 3)]
+        public string FirstName { get; protected set; }
+
+        [DataMember(Order = 4)]
+        public string LastName { get; protected set; }
+
+        [DataMember(Order = 5)]
+        public string RequestedEmailAddress { get; protected set; }
+
+        [DataMember(Order = 6)]
+        public string ValidationKey { get; protected set; }
     }
 }

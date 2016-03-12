@@ -20,17 +20,16 @@ namespace Phundus.IdentityAccess.Model.Users.Mails
 
         public void Handle(UserEmailAddressChangeRequested e)
         {
-            var user = _userRepository.FindByGuid(e.UserGuid);
             var model = new Model
             {
-                FirstName = user.FirstName,
-                LastName = user.LastName,
-                ValidationKey = user.Account.ValidationKey
+                FirstName = e.FirstName,
+                LastName = e.LastName,
+                ValidationKey = e.ValidationKey
             };
 
             var message = _factory.MakeMessage(model, Templates.EmailAddressValidationSubject, null,
                 Templates.EmailAddressValidationHtml);
-            message.To.Add(user.Account.RequestedEmail);
+            message.To.Add(e.RequestedEmailAddress);
 
             _gateway.Send(e.OccuredOnUtc, message);
         }

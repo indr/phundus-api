@@ -87,6 +87,13 @@ namespace Phundus.Migrations
             _commands.Add(command);
         }
 
+        protected void DeleteStoredEvents(string typeName)
+        {
+            var command = CreateCommand(@"DELETE FROM [StoredEvents] WHERE [TypeName] = @TypeName");
+            command.Parameters.Add(new SqlParameter(@"TypeName", typeName));
+            _commands.Add(command);
+        }
+
         protected void InsertStoredEvent(DateTime occuredOnUtc, string typeName, object domainEvent, Guid? aggregateId = null, Guid? eventGuid = null)
         {
             InsertStoredEvent(occuredOnUtc, typeName, Serialize(domainEvent), aggregateId);
