@@ -8,9 +8,7 @@ namespace Phundus.Common.Notifications
 
     public interface IEventHandlerDispatcher
     {
-        [Obsolete]
-        void Update(string typeName);
-
+        void Force(string fullName);
         void Process(Notification notification);
         void ProcessMissedNotifications();
     }
@@ -30,24 +28,26 @@ namespace Phundus.Common.Notifications
             _trackerStore = trackerStore;
         }
 
-        [Obsolete]
-        public void Update(string typeName)
+        public void Force(string fullName)
         {
-            var projection = _eventHandlerFactory.FindSubscriber(typeName);
-            if (projection == null)
+            var subscriber = _eventHandlerFactory.GetSubscriber(fullName);
+            if (subscriber == null)
                 return;
 
-            UpdateHandler(projection);
+            UpdateHandler(subscriber);
         }
 
         public void Process(Notification notification)
         {
             lock (Lock)
             {
-                MethodInfo method = typeof(IEventHandlerFactory).GetMethod("GetSubscribersForEvent");
-                MethodInfo genericMethod = method.MakeGenericMethod(notification.Event.GetType());
-                var subscribers = (ISubscribeTo[]) genericMethod.Invoke(_eventHandlerFactory, new object[] {notification.Event});
                 //var subscribers = _eventHandlerFactory.GetSubscribersForEvent(notification.Event);
+
+                //MethodInfo method = typeof(IEventHandlerFactory).GetMethod("GetSubscribersForEvent");
+                //MethodInfo genericMethod = method.MakeGenericMethod(notification.Event.GetType());
+                //var subscribers = (ISubscribeTo[]) genericMethod.Invoke(_eventHandlerFactory, new object[] {notification.Event});
+                
+                var subscribers = _eventHandlerFactory.GetSubscribersForEventNonGeneric(notification.Event);
                 subscribers.ForEach(UpdateHandler);
             }
         }

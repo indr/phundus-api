@@ -8,6 +8,7 @@ namespace Phundus.Rest.Api
     using Castle.Core.Internal;
     using Castle.Transactions;
     using Common.Eventing;
+    using Common.Eventing.Application;
     using Common.Projecting.Application;
     using ContentObjects;
     using Dashboard.Projections;
@@ -49,7 +50,7 @@ namespace Phundus.Rest.Api
         [PATCH("{processorId}")]
         public virtual HttpResponseMessage Patch(string processorId)
         {
-            var command = new UpdateProjection(CurrentUserId, processorId);
+            var command = new ForceProcessing(CurrentUserId, processorId);
             Bus.Send(command);
 
             return Accepted(command);

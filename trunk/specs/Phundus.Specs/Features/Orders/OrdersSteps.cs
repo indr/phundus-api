@@ -71,7 +71,7 @@
         public void ThenISholdFindTheOrderInTheOrderQueryForOrganization(string organizationAlias)
         {
             var organizationId = Ctx.Organizations[organizationAlias].OrganizationId;
-            Eventual.NoAssertionException(() =>
+            Eventual.NoTestException(() =>
             {
                 var results = App.QueryOrders(organizationId);
                 Assert.That(results, Has.Some.Matches<Order>(p => p.OrderId == _orderId));

@@ -18,16 +18,18 @@
     {
         // RedirectToWhen does not work with castle proxies
 
-        private readonly ISubscribeTo<DomainEvent> _mock;
+        private ISubscribeTo<DomainEvent> _mock;
 
-        public TestEventHandlerAdapter(ISubscribeTo<DomainEvent> mock)
-        {
-            _mock = mock;
-        }
 
         public void Handle(DomainEvent e)
         {
             _mock.Handle(e);
+        }
+
+        public TestEventHandlerAdapter SetMock(ISubscribeTo<DomainEvent> mock)
+        {
+            _mock = mock;
+            return this;
         }
     }
 
@@ -53,7 +55,7 @@
             tracker = new ProcessedNotificationTracker("typeName");
             tracker.Track(lowNotificationId);
             eventHandlerMock = fake.an<ITestEventHandler>();
-            eventHandlerAdapter = new TestEventHandlerAdapter(eventHandlerMock);
+            eventHandlerAdapter = new TestEventHandlerAdapter().SetMock(eventHandlerMock);            
 
             eventStore = depends.on<IEventStore>();
             eventStore.setup(x => x.GetMaxNotificationId()).Return(maxNotificationId);
@@ -64,7 +66,8 @@
             eventStore.setup(x => x.Deserialize(storedEvents[1])).Return(domainEvent2);
 
             trackerStore = depends.on<IProcessedNotificationTrackerStore>();
-            trackerStore.setup(x => x.GetProcessedNotificationTracker(eventHandlerAdapter.GetType().FullName)).Return(tracker);
+            trackerStore.setup(x => x.GetProcessedNotificationTracker(eventHandlerAdapter.GetType().FullName))
+                .Return(tracker);
         };
 
         private static StoredEvent makeStoredEvent(DomainEvent domainEvent)

@@ -152,7 +152,7 @@
         public void ThenIShouldSeeTheseOrganizationContactDetails(Table table)
         {
             var organizationId = Ctx.Organization.OrganizationId;
-            Eventual.NoComparisonException(() =>
+            Eventual.NoTestException(() =>
             {
                 var organization = App.GetOrganization(organizationId);
                 table.CompareToInstance(organization.Contact);

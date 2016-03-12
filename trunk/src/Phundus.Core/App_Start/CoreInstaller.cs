@@ -6,22 +6,11 @@
     using Castle.MicroKernel.Registration;
     using Castle.MicroKernel.SubSystems.Configuration;
     using Castle.Windsor;
-    using Common.Commanding;
     using Common.Eventing;
+    using Common.Eventing.Installers;
     using Common.Projecting;
-    using Common.Projecting.Installers;
     using Common.Querying;
     using IdentityAccess.Users.Services;
-
-    public class AssemblyInstaller : IWindsorInstaller
-    {
-        public void Install(IWindsorContainer container, IConfigurationStore store)
-        {
-            var assembly = Assembly.GetExecutingAssembly();
-            new CommandHandlerInstaller().Install(container, assembly);
-            new ProjectionsInstaller().Install(container, assembly);
-        }
-    }
 
     public class CoreInstaller : IWindsorInstaller
     {
@@ -50,16 +39,6 @@
                     .AsFactory(c => c.SelectedWith<AccessObjectHandlerSelector>())
                 );
 
-            container.Register(
-                Component.For<ITypedFactoryComponentSelector>().ImplementedBy<EventHandlerSelector>(),
-                Component.For<AutoReleaseEventHandlerInterceptor>(),
-                Classes.FromThisAssembly()
-                    .BasedOn(typeof (ISubscribeTo<>))
-                    .WithServiceAllInterfaces()
-                    .Configure(c => c.LifeStyle.Transient.Interceptors<AutoReleaseEventHandlerInterceptor>()),
-                Component.For<IEventPublisher>().ImplementedBy<EventPublisherImpl>(),
-                Component.For<IEventHandlerFactory>().AsFactory(c => c.SelectedWith<EventHandlerSelector>())
-                );
 
             container.Register(
                 Classes.FromThisAssembly()
@@ -83,14 +62,14 @@
                 Component.For<Shop.Model.IUserInRole>()
                     .ImplementedBy<Shop.Model.UserInRole>());
 
-            EventPublisher.Factory(container.Resolve<IEventPublisher>);
-
             container.Register(Component.For<IWindsorContainer>().Instance(container));
 
             container.Register(
                 Classes.FromThisAssembly().Where(p => p.Name.EndsWith("Service")).WithServiceDefaultInterfaces());
             container.Register(
                 Classes.FromThisAssembly().Where(p => p.Name.EndsWith("Store")).WithServiceDefaultInterfaces());
+
+            
         }
     }
 }

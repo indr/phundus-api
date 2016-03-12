@@ -29,7 +29,7 @@
 
             var userId = Ctx.User.UserId;
             var storeId = Ctx.User.StoreId;
-            Eventual.NoAssertionException(() =>
+            Eventual.NoTestException(() =>
             {
                 var response = App.GetUser(userId);
                 Assert.That(response.Store, Is.Not.Null);

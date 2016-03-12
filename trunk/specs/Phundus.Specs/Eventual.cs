@@ -66,35 +66,5 @@
             if (exception != null)
                 throw exception;
         }
-
-        public static void NoComparisonException(Action action)
-        {
-            NoException<ComparisonException>(action);
-        }
-
-        public static void NoAssertionException(Action action)
-        {
-            NoException<AssertionException>(action);
-        }
-
-        private static void NoException<T>(Action action) where T : Exception
-        {
-            T exception = default(T);
-            for (var i = 1; i <= RetryCount; i++)
-            {
-                try
-                {
-                    action();
-                    return;
-                }
-                catch (T ex)
-                {
-                    exception = ex;
-                }
-                Thread.Sleep(i * Timeout);
-            }
-            if (exception != null)
-                throw exception;
-        }
     }
 }

@@ -95,6 +95,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="App_Start\AssemblyInstaller.cs" />
     <Compile Include="App_Start\ProcessMissedNotificationsStartupTask.cs" />
     <Compile Include="Authorization\AutoReleaseAccessObjectHandlerInterceptor.cs" />
     <Compile Include="Authorization\Authorize.cs" />
