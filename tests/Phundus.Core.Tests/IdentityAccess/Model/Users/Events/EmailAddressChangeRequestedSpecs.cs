@@ -2,10 +2,10 @@
 {
     using Common.Domain.Model;
     using Machine.Specifications;
-    using Phundus.IdentityAccess.Users.Model;
+    using Phundus.IdentityAccess.Model.Users;
 
-    [Subject(typeof (UserEmailAddressChangeRequested))]
-    public class UserEmailAddressChangeRequestedSpecs : domain_event_concern<UserEmailAddressChangeRequested>
+    [Subject(typeof (EmailAddressChangeRequested))]
+    public class EmailAddressChangeRequestedSpecs : domain_event_concern<EmailAddressChangeRequested>
     {
         private static UserId theUserId = new UserId();
         private static string theFirstName = "First";
@@ -14,7 +14,7 @@
         private static string theValidationKey = "validationKey";
 
         private Establish ctx = () => sut_factory.create_using(() =>
-            new UserEmailAddressChangeRequested(theInitiator, theUserId, theFirstName, theLastName,
+            new EmailAddressChangeRequested(theInitiator, theUserId, theFirstName, theLastName,
                 theRequestedEmailAddress, theValidationKey));
 
         private It should_be_in_assembly = () =>
@@ -39,6 +39,6 @@
             dataMember(6).ShouldEqual(theValidationKey);
 
         private It should_have_full_name = () =>
-            itsFullName.ShouldEqual("Phundus.IdentityAccess.Users.Model.UserEmailAddressChangeRequested");
+            itsFullName.ShouldEqual("Phundus.IdentityAccess.Model.Users.EmailAddressChangeRequested");
     }
 }

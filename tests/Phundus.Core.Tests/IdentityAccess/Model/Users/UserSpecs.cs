@@ -166,7 +166,7 @@
             sut.Account.RequestedEmail.ShouldEqual(theNewEmailAddress);
 
         private It should_publish_email_address_change_requested = () => publisher.WasToldTo(
-            x => x.Publish(Arg<UserEmailAddressChangeRequested>.Is.NotNull));
+            x => x.Publish(Arg<EmailAddressChangeRequested>.Is.NotNull));
     }
 
     [Subject(typeof (User))]

@@ -5,7 +5,7 @@ namespace Phundus.IdentityAccess.Model.Users.Mails
     using IdentityAccess.Users.Model;
     using Resources;
 
-    public class EmailAddressValidationMail : ISubscribeTo<UserEmailAddressChangeRequested>
+    public class EmailAddressValidationMail : ISubscribeTo<EmailAddressChangeRequested>
     {
         private readonly IMessageFactory _factory;
         private readonly IMailGateway _gateway;
@@ -18,7 +18,7 @@ namespace Phundus.IdentityAccess.Model.Users.Mails
             _userRepository = userRepository;
         }
 
-        public void Handle(UserEmailAddressChangeRequested e)
+        public void Handle(EmailAddressChangeRequested e)
         {
             var model = new Model
             {

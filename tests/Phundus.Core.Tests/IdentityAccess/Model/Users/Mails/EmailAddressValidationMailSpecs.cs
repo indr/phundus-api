@@ -5,6 +5,7 @@
     using Common.Domain.Model;
     using developwithpassion.specifications.extensions;
     using Machine.Specifications;
+    using Phundus.IdentityAccess.Model.Users;
     using Phundus.IdentityAccess.Model.Users.Mails;
     using Phundus.IdentityAccess.Users.Model;
     using Rhino.Mocks;
@@ -12,7 +13,7 @@
     [Subject(typeof (EmailAddressValidationMail))]
     public class when_handling_user_email_address_change_requested : mail_concern<EmailAddressValidationMail>
     {
-        private static UserEmailAddressChangeRequested e = new UserEmailAddressChangeRequested(initiator, new UserId(),
+        private static EmailAddressChangeRequested e = new EmailAddressChangeRequested(initiator, new UserId(),
             "John", "Galt", "requested@test.phundus.ch", "validationKey");
 
         private Because of = () =>

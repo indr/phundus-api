@@ -185,7 +185,7 @@
     <Compile Include="IdentityAccess\Model\Users\Admin.cs" />
     <Compile Include="IdentityAccess\Model\Users\UserAddressChanged.cs" />
     <Compile Include="IdentityAccess\Model\Users\UserEmailAddressChanged.cs" />
-    <Compile Include="IdentityAccess\Model\Users\UserEmailAddressChangeRequested.cs" />
+    <Compile Include="IdentityAccess\Model\Users\EmailAddressChangeRequested.cs" />
     <Compile Include="IdentityAccess\Model\Users\User.cs" />
     <Compile Include="IdentityAccess\Model\Users\UserApproved.cs" />
     <Compile Include="IdentityAccess\Model\Users\UserLocked.cs" />
