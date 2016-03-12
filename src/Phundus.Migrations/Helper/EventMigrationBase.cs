@@ -89,7 +89,7 @@ namespace Phundus.Migrations
 
         protected void DeleteStoredEvents(string typeName)
         {
-            var command = CreateCommand(@"DELETE FROM [StoredEvents] WHERE [TypeName] = @TypeName");
+            var command = CreateCommand(@"DELETE FROM [StoredEvents] WHERE [TypeName] LIKE @TypeName + '%'");
             command.Parameters.Add(new SqlParameter(@"TypeName", typeName));
             _commands.Add(command);
         }
