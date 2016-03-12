@@ -1,4 +1,4 @@
-namespace Phundus.Common.Projections
+namespace Phundus.Common.Projecting
 {
     using System;
     using Newtonsoft.Json;

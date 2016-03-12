@@ -36,6 +36,7 @@
         }
 
         [Given(@"I created a new empty order for (.+)")]
+        [When(@"I create a new empty order for (.+)")]
         public void GivenICreatedANewEmptyOrderForAlice(string userAlias)
         {
             var organization = Ctx.Organization;
@@ -64,6 +65,17 @@
         public void ThenIShouldFindTheOrderInTheResults()
         {
             Assert.That(_results, Has.Some.Matches<Order>(p => p.OrderId == _orderId));
+        }
+
+        [Then(@"I should find the order in the order query for organization ""(.*)""")]
+        public void ThenISholdFindTheOrderInTheOrderQueryForOrganization(string organizationAlias)
+        {
+            var organizationId = Ctx.Organizations[organizationAlias].OrganizationId;
+            Eventual.NoAssertionException(() =>
+            {
+                var results = App.QueryOrders(organizationId);
+                Assert.That(results, Has.Some.Matches<Order>(p => p.OrderId == _orderId));
+            });
         }
 
         [Then(@"the order should have these items:")]

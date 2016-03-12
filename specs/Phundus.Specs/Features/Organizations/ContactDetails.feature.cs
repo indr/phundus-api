@@ -110,9 +110,7 @@ this.FeatureBackground();
                         "scouts@test.phundus.ch",
                         "http://www.scouts.com"});
 #line 10
- testRunner.Given("I changed to organization contact details", ((string)(null)), table2, "Given ");
-#line 13
- testRunner.When("I try to get the organization details", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+ testRunner.When("I change the organizations contact details", ((string)(null)), table2, "When ");
 #line hidden
             TechTalk.SpecFlow.Table table3 = new TechTalk.SpecFlow.Table(new string[] {
                         "Line1",
@@ -132,7 +130,7 @@ this.FeatureBackground();
                         "012 345 67 89",
                         "scouts@test.phundus.ch",
                         "http://www.scouts.com"});
-#line 14
+#line 13
  testRunner.Then("I should see these organization contact details", ((string)(null)), table3, "Then ");
 #line hidden
             this.ScenarioCleanup();

@@ -8,7 +8,7 @@ Background:
 
 Scenario: Update startpage returns no content
 	When I try to update the startpage
-	Then I should see accepted
+	Then I should see no content
 	
 Scenario: Update startpage updates startpage
 	Given I updated the startpage

@@ -28,6 +28,7 @@
         }
 
         [Given(@"I am logged in as ""?((?!root)[^ ""]*)""?")]
+        [When(@"I am logged in as ""?((?!root)[^ ""]*)""?")]
         public void GivenIAmLoggedInAs(string alias)
         {
             if (!Ctx.Users.ContainsAlias(alias))

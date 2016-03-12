@@ -5,7 +5,6 @@ namespace Phundus.Specs.Services
     using System.Linq;
     using System.Threading;
     using ContentTypes;
-    using Machine.Specifications;
     using OpenPop.Mime;
     using OpenPop.Pop3;
 
@@ -26,17 +25,10 @@ namespace Phundus.Specs.Services
 
         public Mail Find(string subject, string toAddress)
         {
-            for(var i = 1; i <= 5; i++)
-            {
-                var response = _apiClient.Assert(true).MailsApi.Query<Mail>();
+            var response = _apiClient.Assert(true).MailsApi.Query<Mail>();
 
-                var result = response.Data.Results.FirstOrDefault(p => p.Subject == subject && p.To.Contains(toAddress.ToLowerInvariant()));
-                if (result != null)
-                    return result;
-
-                Thread.Sleep(i * 500);
-            }
-            return null;
+            return response.Data.Results
+                .FirstOrDefault(p => p.Subject == subject && p.To.Contains(toAddress.ToLowerInvariant()));
         }
     }
 
@@ -68,7 +60,8 @@ namespace Phundus.Specs.Services
                         for (var i = 1; i <= count; i++)
                         {
                             var msg = client.GetMessageHeaders(i);
-                            if ((msg.Subject != null) && (msg.Subject.Equals(subject)) && (msg.To.Any(p => p.Address == toAddress)))
+                            if ((msg.Subject != null) && (msg.Subject.Equals(subject)) &&
+                                (msg.To.Any(p => p.Address == toAddress)))
                                 return ToMail(client.GetMessage(i));
                         }
                     }

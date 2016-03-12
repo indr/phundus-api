@@ -5,6 +5,7 @@
     using Common.Commanding;
     using Common.Domain.Model;
     using Model;
+    using Model.Collaborators;
     using Stores.Model;
     using Stores.Repositories;
 

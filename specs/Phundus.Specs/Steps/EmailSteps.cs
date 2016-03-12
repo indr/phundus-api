@@ -85,7 +85,8 @@
 
         private Mail AssertEmailReceived(string subject, string toAddress, string textBody = null)
         {
-            var mail = _mailbox.Find(subject, toAddress);
+            var mail = Eventual.NotDefault(() => _mailbox.Find(subject, toAddress));
+            
             Assert.That(mail, Is.Not.Null,
                 String.Format("Email with subject \"{0}\" to {1} not found.", subject, toAddress));
 
@@ -96,7 +97,7 @@
 
         private void AssertEmailNotReceived(string subject, string toAddress, string textBody = null)
         {
-            var mail = _mailbox.Find(subject, toAddress);
+            var mail = Eventual.NotDefault(() => _mailbox.Find(subject, toAddress));
             Assert.That(mail, Is.Null,
                 String.Format("Email with subject \"{0}\" to {1} found.", subject, toAddress));
         }

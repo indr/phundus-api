@@ -1,6 +1,7 @@
-﻿namespace Phundus.Inventory.Model
+﻿namespace Phundus.Inventory.Model.Collaborators
 {
     using System;
+    using Castle.Transactions;
     using Common;
     using Common.Domain.Model;
     using IdentityAccess.Projections;
@@ -9,6 +10,7 @@
     public interface IOwnerService
     {
         Owner GetById(OwnerId ownerId);
+        Owner FindById(OwnerId ownerId);
     }
 
     public class OwnerService : IOwnerService
@@ -22,7 +24,18 @@
             _usersQueries = usersQueries;
         }
 
+        [Transaction]
         public Owner GetById(OwnerId ownerId)
+        {
+            var result = FindById(ownerId);   
+            if (result == null)
+                throw new NotFoundException(String.Format("Owner {0} not found.", ownerId));
+
+            return result;
+        }
+
+        [Transaction]
+        public Owner FindById(OwnerId ownerId)
         {
             var organization = _organizationQueries.FindById(ownerId.Id);
             if (organization != null)
@@ -32,7 +45,7 @@
             if (user != null)
                 return ToOwner(user);
 
-            throw new NotFoundException(String.Format("Owner {0} not found.", ownerId));
+            return null;
         }
 
         private static Owner ToOwner(OrganizationData organization)

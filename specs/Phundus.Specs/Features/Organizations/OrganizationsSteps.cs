@@ -99,7 +99,8 @@
             Ctx.Organization = App.EstablishOrganization();
         }
 
-        [Given(@"I changed to organization contact details")]
+        [Given(@"I changed the organizations contact details")]
+        [When(@"I change the organizations contact details")]
         public void GivenIChangedToOrganizationContactDetails(Table table)
         {
             var row = table.Rows[0];
@@ -143,7 +144,12 @@
         [Then(@"I should see these organization contact details")]
         public void ThenIShouldSeeTheseOrganizationContactDetails(Table table)
         {
-            table.CompareToInstance(_organizationDetails.Contact);
+            var organizationId = Ctx.Organization.OrganizationId;
+            Eventual.NoComparisonException(() =>
+            {
+                var organization = App.GetOrganization(organizationId);
+                table.CompareToInstance(organization.Contact);
+            });
         }
     }
 }

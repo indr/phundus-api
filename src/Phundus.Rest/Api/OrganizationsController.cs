@@ -14,6 +14,8 @@
     using IdentityAccess.Application;
     using IdentityAccess.Projections;
     using Inventory.Application;
+    using Inventory.Model;
+    using Inventory.Model.Collaborators;
     using Inventory.Projections;
     using Newtonsoft.Json;
 
@@ -22,13 +24,13 @@
     {
         private readonly IOrganizationQueries _organizationQueries;
         private readonly IStoresQueries _storesQueries;
+        private readonly IOwnerService _ownerService;
 
-        public OrganizationsController(IOrganizationQueries organizationQueries, IStoresQueries storesQueries)
+        public OrganizationsController(IOrganizationQueries organizationQueries, IStoresQueries storesQueries, IOwnerService ownerService)
         {
-            if (organizationQueries == null) throw new ArgumentNullException("organizationQueries");
-            if (storesQueries == null) throw new ArgumentNullException("storesQueries");
             _organizationQueries = organizationQueries;
             _storesQueries = storesQueries;
+            _ownerService = ownerService;
         }
 
         [GET("")]
@@ -97,11 +99,20 @@
             var organizationId = new OrganizationId();
             Dispatch(new EstablishOrganization(CurrentUserId, organizationId, rq.Name));
 
-            // TODO: Eventual consistency...
-            Thread.Sleep(500);
+            // Ugly ugly ugly... The drawback of eventual consistency...
+            // Inventory context should listen to OrganizationEstablished events and create
+            // the corresponding store...
+            var ownerId = new OwnerId(organizationId.Id);
+            for (var i = 1; i <= 10; i++)
+            {
+                if (_ownerService.FindById(ownerId) != null)
+                    break;
+
+                Thread.Sleep(i*200);
+            }
 
             var storeId = new StoreId();
-            Dispatch(new OpenStore(CurrentUserId, new OwnerId(organizationId.Id), storeId));
+            Dispatch(new OpenStore(CurrentUserId, ownerId, storeId));
 
             return Created(new OrganizationsPostOkResponseContent {OrganizationId = organizationId.Id});
         }

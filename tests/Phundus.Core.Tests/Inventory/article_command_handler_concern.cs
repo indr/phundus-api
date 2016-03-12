@@ -5,6 +5,7 @@ namespace Phundus.Tests.Inventory
     using Phundus.IdentityAccess.Projections;
     using Phundus.Inventory.Model;
     using Phundus.Inventory.Model.Articles;
+    using Phundus.Inventory.Model.Collaborators;
 
     public abstract class article_command_handler_concern<TCommand, THandler> :
         command_handler_concern<TCommand, THandler> where THandler : class, IHandleCommand<TCommand>

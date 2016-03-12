@@ -1,8 +1,5 @@
 namespace Phundus.Rest.Api
 {
-    using System.Net;
-    using System.Net.Http;
-    using System.Runtime.InteropServices;
     using System.Web.Http;
     using AttributeRouting;
     using AttributeRouting.Web.Http;
