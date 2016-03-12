@@ -1,7 +1,6 @@
 ﻿namespace Phundus.Specs.Features.Articles
 {
     using System;
-    using System.Linq;
     using ContentTypes;
     using NUnit.Framework;
     using Services;
@@ -106,15 +105,21 @@
         [Then(@"the article should equal")]
         public void ThenTheArticleShouldEqual(Table table)
         {
-            var article = App.GetArticle(Ctx.Article);
-            table.CompareToInstance(article);
+            Eventual.NoComparisonException(() =>
+            {
+                var article = App.GetArticle(Ctx.Article);
+                table.CompareToInstance(article);
+            });
         }
 
         [Then(@"the article ""(.*)"" should equal")]
         public void ThenTheArticleShouldEqual(string alias, Table table)
         {
-            var article = App.GetArticle(Ctx.Articles[alias]);
-            table.CompareToInstance(article);
+            Eventual.NoComparisonException(() =>
+            {
+                var article = App.GetArticle(Ctx.Articles[alias]);
+                table.CompareToInstance(article);
+            });
         }
 
         [Then(@"I should see at least (.*) articles")]
@@ -134,8 +139,11 @@
         [Then(@"the article description is:")]
         public void ThenTheArticleDescriptionIs(string multilineText)
         {
-            var article = App.GetArticle(Ctx.Article);
-            Assert.That(article.Description, Is.EqualTo(multilineText));
+            Eventual.NoAssertionException(() =>
+            {
+                var article = App.GetArticle(Ctx.Article);
+                Assert.That(article.Description, Is.EqualTo(multilineText));
+            });
         }
 
         [Given(@"I updated the article specification:")]
@@ -148,8 +156,11 @@
         [Then(@"the article specification is:")]
         public void ThenTheArticleSpecificationIs(string multilineText)
         {
-            var article = App.GetArticle(Ctx.Article);
-            Assert.That(article.Specification, Is.EqualTo(multilineText));
+            Eventual.NoAssertionException(() =>
+            {
+                var article = App.GetArticle(Ctx.Article);
+                Assert.That(article.Specification, Is.EqualTo(multilineText));
+            });
         }
     }
 }

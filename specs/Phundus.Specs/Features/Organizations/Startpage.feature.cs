@@ -84,36 +84,19 @@ namespace Phundus.Specs.Features.Organizations
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("Update startpage returns no content")]
-        public virtual void UpdateStartpageReturnsNoContent()
+        [NUnit.Framework.DescriptionAttribute("Update startpage updates startpage")]
+        public virtual void UpdateStartpageUpdatesStartpage()
         {
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Update startpage returns no content", ((string[])(null)));
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Update startpage updates startpage", ((string[])(null)));
 #line 9
 this.ScenarioSetup(scenarioInfo);
 #line 3
 this.FeatureBackground();
 #line 10
- testRunner.When("I try to update the startpage", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+ testRunner.When("I update the startpage", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 11
  testRunner.Then("I should see no content", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
-#line hidden
-            this.ScenarioCleanup();
-        }
-        
-        [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("Update startpage updates startpage")]
-        public virtual void UpdateStartpageUpdatesStartpage()
-        {
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Update startpage updates startpage", ((string[])(null)));
-#line 13
-this.ScenarioSetup(scenarioInfo);
-#line 3
-this.FeatureBackground();
-#line 14
- testRunner.Given("I updated the startpage", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
-#line 15
- testRunner.When("I try to get the startpage", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 16
+#line 12
  testRunner.Then("I should see the updated startpage", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();
