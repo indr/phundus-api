@@ -2,6 +2,7 @@ namespace Phundus.Common.Notifications
 {
     using System;
     using System.Collections.Generic;
+    using System.Globalization;
     using Castle.Transactions;
 
     public interface IProcessedNotificationTrackerStore
@@ -84,6 +85,10 @@ namespace Phundus.Common.Notifications
 
         private ProcessedNotificationTracker FindProcessedNotificationTracker(string typeName)
         {
+            if (typeName.EndsWith("Proxy", true, CultureInfo.InvariantCulture))
+                throw new ArgumentException(
+                    "Trying to find a tracker that ends with proxy. Use ProxyUtil to get the underlying type.",
+                    "typeName");
             return _trackerRepository.Find(typeName);
         }
     }
