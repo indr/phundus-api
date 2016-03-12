@@ -4,8 +4,7 @@
     using Castle.Transactions;
     using Common.Commanding;
     using Common.Eventing;
-    using Common.Mailing;    
-    using Model.Users;    
+    using Model.Users;
 
     public class ResetPassword : ICommand
     {
@@ -20,12 +19,11 @@
 
     public class ResetPasswordHandler : IHandleCommand<ResetPassword>
     {
-        private readonly IUserRepository _userRepository;        
+        private readonly IUserRepository _userRepository;
 
         public ResetPasswordHandler(IUserRepository userRepository)
         {
-            if (userRepository == null) throw new ArgumentNullException("userRepository");            
-            _userRepository = userRepository;            
+            _userRepository = userRepository;
         }
 
         [Transaction]
@@ -36,7 +34,8 @@
                 throw new Exception("Die E-Mail-Adresse konnte nicht gefunden werden.");
             var password = user.Account.ResetPassword();
 
-            EventPublisher.Publish(new PasswordResetted(user.UserId, user.FirstName, user.LastName, user.EmailAddress, password));
+            EventPublisher.Publish(new PasswordResetted(user.UserId, user.FirstName, user.LastName, user.EmailAddress,
+                password));
         }
     }
 }
