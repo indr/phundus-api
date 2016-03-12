@@ -1,7 +1,7 @@
 ﻿namespace Phundus.Tests.IdentityAccess.Model.Users
 {
     using Common.Domain.Model;
-    using Events;
+    using IdentityAccess.Events;
     using Machine.Specifications;
     using Phundus.IdentityAccess.Users.Model;
 

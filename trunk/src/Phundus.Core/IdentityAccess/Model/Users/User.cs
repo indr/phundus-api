@@ -145,12 +145,13 @@
             EventPublisher.Publish(new UserApproved(admin.UserId, UserId));
         }
 
-        public virtual void ChangeEmailAddress(UserId initiatorId, string password, string newEmailAddress)
+        public virtual void ChangeEmailAddress(Initiator initiator, string password, string newEmailAddress)
         {
+            if (initiator == null) throw new ArgumentNullException("initiator");
             if (password == null) throw new ArgumentNullException("password");
             if (newEmailAddress == null) throw new ArgumentNullException("newEmailAddress");
 
-            Account.ChangeEmailAddress(initiatorId, password, newEmailAddress);
+            Account.ChangeEmailAddress(initiator, password, newEmailAddress);
         }
 
         public virtual void Lock(Initiator initiator)

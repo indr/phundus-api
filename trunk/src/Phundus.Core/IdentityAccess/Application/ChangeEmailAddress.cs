@@ -5,6 +5,7 @@
     using Castle.Transactions;
     using Common.Commanding;
     using Common.Domain.Model;
+    using Integration.IdentityAccess;
     using Model.Users;
     using Users.Exceptions;
 
@@ -29,24 +30,26 @@
 
     public class ChangeEmailAddressHandler : IHandleCommand<ChangeEmailAddress>
     {
+        private readonly IInitiatorService _initiatorService;
         private readonly IUserRepository _userRepository;
 
-        public ChangeEmailAddressHandler(IUserRepository userRepository)
+        public ChangeEmailAddressHandler(IInitiatorService initiatorService, IUserRepository userRepository)
         {
-            if (userRepository == null) throw new ArgumentNullException("userRepository");
+            _initiatorService = initiatorService;
             _userRepository = userRepository;
         }
 
         [Transaction]
         public void Handle(ChangeEmailAddress command)
         {
+            var initiator = _initiatorService.GetById(command.InitiatorId);
             var user = _userRepository.GetById(command.UserId);
 
             var emailAddress = command.NewEmailAddress.ToLower(CultureInfo.CurrentCulture).Trim();
             if (_userRepository.FindByEmailAddress(emailAddress) != null)
                 throw new EmailAlreadyTakenException();
 
-            user.ChangeEmailAddress(command.UserId, command.Password, command.NewEmailAddress);
+            user.ChangeEmailAddress(initiator, command.Password, command.NewEmailAddress);
         }
     }
 }

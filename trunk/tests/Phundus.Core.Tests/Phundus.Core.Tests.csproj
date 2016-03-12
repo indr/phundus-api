@@ -123,6 +123,7 @@
     <Compile Include="IdentityAccess\Model\Organizations\Mails\MemberLockedMailSpecs.cs" />
     <Compile Include="IdentityAccess\Model\Organizations\Mails\MembershipApplicationStatusMailSpecs.cs" />
     <Compile Include="IdentityAccess\Model\Organizations\Mails\MemberUnlockedMailSpecs.cs" />
+    <Compile Include="IdentityAccess\Model\Users\Events\UserEmailAddressChangeRequestedSpecs.cs" />
     <Compile Include="IdentityAccess\Model\Users\Mails\AccountLockedMailSpecs.cs" />
     <Compile Include="IdentityAccess\Model\Users\Mails\AccountUnlockedMailSpecs.cs" />
     <Compile Include="IdentityAccess\Model\Users\Mails\AccountValidationMailSpecs.cs" />

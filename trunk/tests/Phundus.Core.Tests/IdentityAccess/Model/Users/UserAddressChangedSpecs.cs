@@ -1,7 +1,7 @@
 ﻿namespace Phundus.Tests.IdentityAccess.Model.Users
 {
     using Common.Domain.Model;
-    using Events;
+    using IdentityAccess.Events;
     using Machine.Specifications;
     using Phundus.IdentityAccess.Model.Users;
 
@@ -31,6 +31,9 @@
                     theCity, thePhoneNumber));
         };
 
+        private It shold_have_full_name = () =>
+            itsFullName.ShouldEqual("Phundus.IdentityAccess.Model.Users.UserAddressChanged");
+
         private It should_be_in_assembly = () =>
             itsAssembly.ShouldEqual("Phundus.Core");
 
@@ -57,10 +60,5 @@
 
         private It should_have_at_8_the_phone_number = () =>
             dataMember(8).ShouldEqual(thePhoneNumber);
-
-        private It shold_have_full_name = () =>
-            itsFullName.ShouldEqual("Phundus.IdentityAccess.Model.Users.UserAddressChanged");
-
-
     }
 }

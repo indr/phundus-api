@@ -23,9 +23,9 @@
             command = new ChangeEmailAddress(theInitiatorId, "1234", theNewEmailAddress);
         };
 
-        private It should_tell_to_change_email_address = () => theUser.WasToldTo(
-            x =>
-                x.ChangeEmailAddress(Arg<UserId>.Is.Equal(theInitiatorId), Arg<String>.Is.Equal("1234"),
+        private It should_tell_to_change_email_address = () =>
+            theUser.WasToldTo(x =>
+                x.ChangeEmailAddress(Arg<Initiator>.Is.Equal(theInitiator), Arg<String>.Is.Equal("1234"),
                     Arg<String>.Is.Equal(theNewEmailAddress)));
     }
 }
