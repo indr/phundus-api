@@ -38,7 +38,7 @@
             var typeName = command.ProjectionTypeName;
             var projection = _projectionFactory.FindProjection(typeName);
 
-            if (!projection.CanReset)
+            if (projection == null || !projection.CanReset)
             {
                 return;
             }
