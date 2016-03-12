@@ -5,7 +5,7 @@ namespace Phundus.Inventory.Application
     using Common.Commanding;
     using Common.Domain.Model;
     using Model;
-    using Stores.Repositories;
+    using Model.Stores;
 
     public class ChangeAddress : ICommand
     {
@@ -30,9 +30,7 @@ namespace Phundus.Inventory.Application
         private readonly IUserInRole _userInRole;
 
         public ChangeAddressHandler(IStoreRepository storeRepository, IUserInRole userInRole)
-        {
-            if (storeRepository == null) throw new ArgumentNullException("storeRepository");
-            if (userInRole == null) throw new ArgumentNullException("userInRole");
+        {            
             _storeRepository = storeRepository;
             _userInRole = userInRole;
         }

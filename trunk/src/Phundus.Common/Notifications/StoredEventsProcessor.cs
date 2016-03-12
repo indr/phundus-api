@@ -39,7 +39,7 @@ namespace Phundus.Common.Notifications
             foreach (var each in storedEvents)
             {
                 var e = _eventStore.Deserialize(each);
-                RedirectToConsume.InvokeEventOptional(eventSubscriber, e);                
+                RedirectToHandle.InvokeEventOptional(eventSubscriber, e);                
             }
 
             _trackerStore.TrackMostRecentProcessedNotificationId(tracker, highNotificationId);

@@ -32,6 +32,7 @@ namespace Phundus.Migrations
             {1009, new Guid("3B148DC3-AE2C-4486-9D63-BEB5A9BE320E")} // Ludothek Luzern
         };
 
+        
         protected IDbConnection Connection;
         protected IDbTransaction Transaction;
         private IDictionary<int, Guid> _userIdMap;
@@ -130,6 +131,14 @@ VALUES (@EventGuid, @TypeName, @OccuredOnUtc, @AggregateId, @Serialization)");
             var stream = new MemoryStream();
             Serializer.Serialize(stream, domainEvent);
 
+            var setAggregateIdSql = "";
+            SqlParameter setAggregateIdParameter = null;
+            if (aggregateId != null)
+            {
+                setAggregateIdSql = ", [AggregateId] = @AggregateId";
+                setAggregateIdParameter = new SqlParameter(@"AggregateId", aggregateId.Value);
+            }
+
             var setTypeNameSql = "";
             SqlParameter setTypeNameParameter = null;
             if (!String.IsNullOrWhiteSpace(typeName))
@@ -141,13 +150,13 @@ VALUES (@EventGuid, @TypeName, @OccuredOnUtc, @AggregateId, @Serialization)");
             var command = CreateCommand(@"
 UPDATE [dbo].[StoredEvents] SET
   [Serialization] = @Serialization
-, [AggregateId] = @AggregateId
+" + setAggregateIdSql + @"
 " + setTypeNameSql + @"
 WHERE [EventGuid] = @EventGuid");
             command.Parameters.Add(new SqlParameter(@"EventGuid", eventGuid));
             command.Parameters.Add(new SqlParameter(@"Serialization", stream.ToArray()));
-            command.Parameters.Add(new SqlParameter(@"AggregateId",
-                aggregateId.HasValue ? aggregateId.Value : Guid.Empty));
+            if (setAggregateIdParameter != null)
+                command.Parameters.Add(setAggregateIdParameter);
             if (setTypeNameParameter != null)
                 command.Parameters.Add(setTypeNameParameter);
             _commands.Add(command);

@@ -5,8 +5,8 @@
     using Common.Commanding;
     using Common.Domain.Model;
     using Model;
+    using Model.Stores;
     using Stores.Model;
-    using Stores.Repositories;
 
     public class ChangeCoordinate : ICommand
     {

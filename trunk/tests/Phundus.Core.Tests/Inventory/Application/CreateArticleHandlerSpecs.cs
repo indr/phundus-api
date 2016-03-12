@@ -8,8 +8,8 @@
     using Phundus.Inventory.Articles.Model;
     using Phundus.Inventory.Authorization;
     using Phundus.Inventory.Model;
+    using Phundus.Inventory.Model.Stores;
     using Phundus.Inventory.Stores.Model;
-    using Phundus.Inventory.Stores.Repositories;
     using Rhino.Mocks;
 
     [Subject(typeof (CreateArticleHandler))]
