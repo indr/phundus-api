@@ -23,9 +23,7 @@
         private readonly IItemQueries _itemQueries;
 
         public ShopItemsController(IItemQueries itemQueries, IAvailabilityQueries availabilityQueries)
-        {
-            if (itemQueries == null) throw new ArgumentNullException("itemQueries");
-            if (availabilityQueries == null) throw new ArgumentNullException("availabilityQueries");
+        {            
             _itemQueries = itemQueries;
             _availabilityQueries = availabilityQueries;
         }

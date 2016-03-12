@@ -126,7 +126,7 @@
     <Compile Include="Api\EmailAddressCheckController.cs" />
     <Compile Include="Api\FeedbackController.cs" />
     <Compile Include="Api\Organizations\OrganizationsSettingsController.cs" />
-    <Compile Include="Api\NotificationProcessorsController.cs" />
+    <Compile Include="Api\EventProcessorsController.cs" />
     <Compile Include="Auth\MaintenanceModeException.cs" />
     <Compile Include="Api\LesseesController.cs" />
     <Compile Include="Api\LessorsController.cs" />
