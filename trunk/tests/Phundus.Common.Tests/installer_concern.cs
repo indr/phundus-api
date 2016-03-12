@@ -79,9 +79,6 @@
     public class windsor_installer_concern<TInstaller> : installer_concern
         where TInstaller : IWindsorInstaller, new()
     {
-        private Establish ctx = () =>
-            container.AddFacility<TypedFactoryFacility>();
-
         private Because of = () =>
             container.Install(new TInstaller());
     }
