@@ -258,11 +258,10 @@
         }
 
         public OrganizationsRelationshipsQueryOkResponseContent GetRelationshipStatus(User user,
-            Organization organization)
+            Guid organizationId)
         {
             var response = _apiClient.OrganizationsRelationshipsApi
-                .Get<OrganizationsRelationshipsQueryOkResponseContent>(
-                    new {organizationId = organization.OrganizationId});
+                .Get<OrganizationsRelationshipsQueryOkResponseContent>(new {organizationId});
             return response.Data;
         }
 
@@ -376,9 +375,10 @@
                 fullFileName, fileName);
         }
 
-        public FileUploadResponseContent UploadArticleDocument(Article article, string fullFileName, string fileName = null)
+        public FileUploadResponseContent UploadArticleDocument(Article article, string fullFileName,
+            string fileName = null)
         {
-            return _apiClient.ArticlesFilesApi.PostFile<FileUploadResponseContent>(new { articleId = article.ArticleId },
+            return _apiClient.ArticlesFilesApi.PostFile<FileUploadResponseContent>(new {articleId = article.ArticleId},
                 fullFileName, fileName);
         }
 
@@ -392,7 +392,8 @@
             _apiClient.ArticlesFilesApi.Patch(new {articleId = article.ArticleId, fileName, isPreview = true});
         }
 
-        public void ChangeOrganizationContactDetails(Organization organization, string line1, string line2, string street, string postcode, string city, string phoneNumber,
+        public void ChangeOrganizationContactDetails(Organization organization, string line1, string line2,
+            string street, string postcode, string city, string phoneNumber,
             string emailAddress, string website)
         {
             _apiClient.OrganizationsApi.Patch(new
@@ -427,12 +428,12 @@
 
         public void UpdateArticleDescription(Guid articleId, string description)
         {
-            _apiClient.ArticlesApi.Patch(new {articleId, description = description});
+            _apiClient.ArticlesApi.Patch(new {articleId, description});
         }
 
         public void UpdateArticleSpecification(Guid articleId, string specification)
         {
-            _apiClient.ArticlesApi.Patch(new { articleId, specification = specification });
+            _apiClient.ArticlesApi.Patch(new {articleId, specification});
         }
 
         public void UpdateArticleDetails(Guid articleId, string name, string brand, string color, int grossStock)
@@ -442,7 +443,12 @@
 
         public ShopItem GetShopItemDetails(Guid itemId)
         {
-            return _apiClient.ShopItemsApi.Get<ShopItem>(new {itemId = itemId}).Data;
+            return _apiClient.ShopItemsApi.Get<ShopItem>(new {itemId}).Data;
+        }
+
+        public LessorDetails GetLessor(Guid lessorId)
+        {
+            return _apiClient.Lessors.Get<LessorDetails>(new {lessorId}).Data;
         }
     }
 }

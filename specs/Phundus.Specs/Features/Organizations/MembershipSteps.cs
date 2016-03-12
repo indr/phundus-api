@@ -59,15 +59,19 @@
         public void WhenIGetMyMembershipStatus()
         {
             var organization = Ctx.Organization;
-            _relationship = App.GetRelationshipStatus(Ctx.User, organization).Result;
+            _relationship = App.GetRelationshipStatus(Ctx.User, organization.OrganizationId).Result;
         }
 
         [Then(@"my relationship status is ""(.*)""")]
         public void ThenMyMembershipStatusIsRequested(string status)
         {
-            if (_relationship == null)
-                _relationship = App.GetRelationshipStatus(Ctx.User, Ctx.Organization).Result;
-            Assert.That(_relationship.Status, Is.EqualTo(status));
+            var organizationId = Ctx.Organization.OrganizationId;
+            
+            Eventual.NoAssertionException(() =>
+            {
+                var relationship = App.GetRelationshipStatus(null, organizationId).Result;
+                Assert.That(relationship.Status, Is.EqualTo(status));
+            });
         }
 
     }
