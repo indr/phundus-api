@@ -4,6 +4,7 @@ namespace Phundus.Common.Notifications
     using System.Reflection;
     using Castle.Core.Internal;
     using Castle.DynamicProxy;
+    using Elmah;
     using Eventing;
 
     public interface IEventHandlerDispatcher
@@ -81,6 +82,7 @@ namespace Phundus.Common.Notifications
                 catch (Exception ex)
                 {
                     _trackerStore.TrackException(ProxyUtil.GetUnproxiedType(eventHandler).FullName, ex);
+                    Elmah.ErrorLog.GetDefault(null).Log(new Error(ex));
                 }
             }
         }

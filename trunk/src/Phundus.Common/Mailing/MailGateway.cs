@@ -26,6 +26,7 @@
             if (date < DateTimeProvider.UtcNow.AddDays(-1))
             {
                 Logger.Warn("Skipped sending mail message because it is too old.");
+                return;
             }
 
             if (Config.InMaintenance)
