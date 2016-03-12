@@ -2,9 +2,11 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.Linq;
     using System.Net;
     using ContentTypes;
     using Entities;
+    using RestSharp;
     using TechTalk.SpecFlow;
 
     [Binding]
@@ -448,7 +450,12 @@
 
         public LessorDetails GetLessor(Guid lessorId)
         {
-            return _apiClient.Lessors.Get<LessorDetails>(new {lessorId}).Data;
+            return _apiClient.LessorsApi.Get<LessorDetails>(new {lessorId}).Data;
+        }
+
+        public QueryOkResponseContent<Store> QueryStores(Guid ownerId)
+        {
+            return _apiClient.StoresApi.Query<Store>(new {ownerId = ownerId}).Data;            
         }
     }
 }

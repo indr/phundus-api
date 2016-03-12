@@ -18,7 +18,7 @@
     {
         private static readonly string BaseUrl;
         private const int TimeoutBeforeGetRequests = 0;
-        private const int TimeoutAfterNoneGetRequests = 400;
+        private const int TimeoutAfterNoneGetRequests = 300;
 
         private static readonly IDictionary<string, string> Cookies = new Dictionary<string, string>();
         private readonly string _resource;

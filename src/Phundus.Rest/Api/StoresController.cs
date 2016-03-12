@@ -1,8 +1,6 @@
 namespace Phundus.Rest.Api
 {
     using System;
-    using System.Collections.Generic;
-    using System.Net;
     using System.Net.Http;
     using AttributeRouting;
     using AttributeRouting.Web.Http;
@@ -19,21 +17,21 @@ namespace Phundus.Rest.Api
         private readonly IStoresQueries _storesQueries;
 
         public StoresController(IStoresQueries storesQueries)
-        {            
+        {
             _storesQueries = storesQueries;
         }
 
         [GET("")]
         [Transaction]
-        public virtual StoresQueryOkResponseContent Get(Guid? ownerId)
+        public virtual QueryOkResponseContent<Store> Get(Guid? ownerId)
         {
-            var result = new StoresQueryOkResponseContent();
+            var result = new QueryOkResponseContent<Store>();
             if (!ownerId.HasValue)
                 return result;
 
             var store = _storesQueries.FindByOwnerId(ownerId.Value);
             if (store != null)
-                result.Stores.Add(ToStore(store));
+                result.Results.Add(ToStore(store));
 
             return result;
         }
@@ -70,7 +68,7 @@ namespace Phundus.Rest.Api
             };
         }
 
-        [PATCH("{storeId}")]        
+        [PATCH("{storeId}")]
         public virtual HttpResponseMessage Patch(Guid storeId, StoresPatchRequestContent requestContent)
         {
             if (requestContent.Name != null)
@@ -83,7 +81,8 @@ namespace Phundus.Rest.Api
             }
             if (requestContent.Coordinate != null)
             {
-                Dispatch(new ChangeCoordinate(CurrentUserId, new StoreId(storeId), requestContent.Coordinate.Latitude, requestContent.Coordinate.Longitude));
+                Dispatch(new ChangeCoordinate(CurrentUserId, new StoreId(storeId), requestContent.Coordinate.Latitude,
+                    requestContent.Coordinate.Longitude));
             }
             if (requestContent.OpeningHours != null)
             {
@@ -92,17 +91,6 @@ namespace Phundus.Rest.Api
 
             return NoContent();
         }
-    }
-
-    public class StoresQueryOkResponseContent
-    {
-        public StoresQueryOkResponseContent()
-        {
-            Stores = new List<Store>();
-        }
-
-        [JsonProperty("stores")]
-        public IList<Store> Stores { get; set; }
     }
 
     public class StoresPatchRequestContent
