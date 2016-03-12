@@ -9,7 +9,7 @@
     public class Eventual
     {
         private const int RetryCount = 15;
-        private const int Timeout = 300;
+        private const int Timeout = 200;
 
         public static T NotDefault<T>(Func<T> func, bool throwAfterRetrys = false)
         {
@@ -41,6 +41,30 @@
                 Thread.Sleep(i * Timeout);
             }
             return result;
+        }
+
+        public static void NoTestException(Action action)
+        {
+            Exception exception = null;
+            for (var i = 1; i <= RetryCount; i++)
+            {
+                try
+                {
+                    action();
+                    return;
+                }
+                catch (ComparisonException ex)
+                {
+                    exception = ex;
+                }
+                catch (AssertionException ex)
+                {
+                    exception = ex;
+                }
+                Thread.Sleep(i * Timeout);
+            }
+            if (exception != null)
+                throw exception;
         }
 
         public static void NoComparisonException(Action action)
