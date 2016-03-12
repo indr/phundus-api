@@ -1,6 +1,7 @@
 namespace Phundus.Common.Notifications
 {
     using System;
+    using System.Globalization;
 
     public class ProcessedNotificationTracker
     {
@@ -9,6 +10,10 @@ namespace Phundus.Common.Notifications
 
         public ProcessedNotificationTracker(string typeName)
         {
+            if (typeName == null) throw new ArgumentNullException("typeName");
+            if (typeName.EndsWith("Proxy", true, CultureInfo.InvariantCulture))
+                throw new ArgumentException("The type name must not end with proxy", "typeName");
+
             _id = Guid.NewGuid();
             _typeName = typeName;
         }

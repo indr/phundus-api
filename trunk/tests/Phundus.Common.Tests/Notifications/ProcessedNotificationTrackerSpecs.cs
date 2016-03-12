@@ -20,6 +20,17 @@
     }
 
     [Subject(typeof (ProcessedNotificationTracker))]
+    public class when_creating_with_proxy_in_type_name : Observes
+    {
+        private Because of = () =>
+            spec.catch_exception(() =>
+                new ProcessedNotificationTracker("Name.Space.IInterfaceProxy"));
+
+        private It should_throw_argument_exception = () =>
+            spec.exception_thrown.ShouldBeOfExactType<ArgumentException>();
+    }
+
+    [Subject(typeof (ProcessedNotificationTracker))]
     public class when_tracker_tracks_notification_id : processed_notification_tracker_concern
     {
         private Establish ctx = () =>

@@ -71,6 +71,17 @@
     }
 
     [Subject(typeof (ProcessedNotificationTrackerStore))]
+    public class when_get_tracker_with_type_name_that_ends_with_proxy : processed_notification_tracker_store_concern
+    {
+        private Because of = () =>
+            spec.catch_exception(() =>
+                sut.GetProcessedNotificationTracker("Name.Space.IInterfaceProxy"));
+
+        private It should_throw_argument_exception = () =>
+            spec.exception_thrown.ShouldBeOfExactType<ArgumentException>();
+    }
+
+    [Subject(typeof (ProcessedNotificationTrackerStore))]
     public class when_store_tracks_exception_for_existing_tracker : processed_notification_tracker_store_concern
     {
         private static ProcessedNotificationTracker tracker;
