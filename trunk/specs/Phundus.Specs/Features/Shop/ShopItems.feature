@@ -29,8 +29,7 @@ Scenario: View shop item details
 	And I uploaded an article image image5.jpg
 	And I uploaded an article document doc1.pdf
 	And I uploaded an article document doc2.pdf
-	And I am logged out
-	When I try to get the shop item details
+	And I am logged out	
 	Then the shop item should equal
 	| Name   | Member price | Public price |
 	| Boskop | 1.50         | 1.60         |

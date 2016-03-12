@@ -10,8 +10,6 @@
     [Binding]
     public class ShopItemSteps : AppStepsBase
     {
-        private ShopItem _shopItem;
-
         public ShopItemSteps(App app, Ctx ctx) : base(app, ctx)
         {
         }
@@ -19,25 +17,37 @@
         [When(@"I try to get the shop item details")]
         public void WhenITryToGetTheShopItemDetails()
         {
-            _shopItem = App.GetShopItemDetails(Ctx.Article.ArticleId);
+            //_shopItem = App.GetShopItemDetails(Ctx.Article.ArticleId);
         }
 
         [Then(@"the shop item should equal")]
         public void ThenTheShopItemShouldEqual(Table table)
         {
-            table.CompareToInstance(_shopItem);
+            Eventual.NoTestException(() =>
+            {
+                var product = App.GetShopItemDetails(Ctx.Article.ArticleId);
+                table.CompareToInstance(product);
+            });
         }
 
         [Then(@"the shop item should have (.*) document")]
-        public void ThenTheShopItemShouldHaveDocument(int p0)
+        public void ThenTheShopItemShouldHaveDocument(int number)
         {
-            Assert.That(_shopItem.Documents, Has.Count.EqualTo(p0));
+            Eventual.NoTestException(() =>
+            {
+                var product = App.GetShopItemDetails(Ctx.Article.ArticleId);
+                Assert.That(product.Documents, Has.Count.EqualTo(number));
+            });
         }
 
         [Then(@"the shop item should have (.*) image")]
-        public void ThenTheShopItemShouldHaveImage(int p0)
+        public void ThenTheShopItemShouldHaveImage(int number)
         {
-            Assert.That(_shopItem.Images, Has.Count.EqualTo(p0));
+            Eventual.NoTestException(() =>
+            {
+                var product = App.GetShopItemDetails(Ctx.Article.ArticleId);
+                Assert.That(product.Images, Has.Count.EqualTo(number));
+            });
         }
     }
 }

@@ -127,8 +127,6 @@ this.FeatureBackground();
  testRunner.And("I uploaded an article document doc2.pdf", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 32
  testRunner.And("I am logged out", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 33
- testRunner.When("I try to get the shop item details", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
             TechTalk.SpecFlow.Table table3 = new TechTalk.SpecFlow.Table(new string[] {
                         "Name",
@@ -138,11 +136,11 @@ this.FeatureBackground();
                         "Boskop",
                         "1.50",
                         "1.60"});
-#line 34
+#line 33
  testRunner.Then("the shop item should equal", ((string)(null)), table3, "Then ");
-#line 37
+#line 36
  testRunner.And("the shop item should have 2 document", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 38
+#line 37
  testRunner.And("the shop item should have 5 image", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
             this.ScenarioCleanup();
