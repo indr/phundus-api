@@ -1,6 +1,5 @@
 namespace Phundus.Rest.Api
 {
-    using System;
     using System.Web.Http;
     using AttributeRouting;
     using AttributeRouting.Web.Http;
@@ -14,8 +13,6 @@ namespace Phundus.Rest.Api
 
         public EmailAddressCheckController(IUsersQueries usersQueries)
         {
-            if (usersQueries == null) throw new ArgumentNullException("usersQueries");
-
             _usersQueries = usersQueries;
         }
 

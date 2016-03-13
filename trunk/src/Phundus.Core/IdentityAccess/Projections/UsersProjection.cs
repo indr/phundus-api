@@ -55,6 +55,7 @@
                 .List().SingleOrDefault();
         }
 
+        [Transaction]
         public bool IsEmailAddressTaken(string emailAddress)
         {
             if (emailAddress == null) throw new ArgumentNullException("emailAddress");
