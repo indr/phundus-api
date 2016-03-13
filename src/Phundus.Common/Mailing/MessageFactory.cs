@@ -4,6 +4,7 @@
     using System.Net.Mail;
     using System.Net.Mime;
     using RazorEngine;
+    using RazorEngine.Templating;
 
     public interface IMessageFactory
     {
@@ -26,7 +27,7 @@
 
             if (hasTextAndHtmlBody)
             {
-                result.AlternateViews.Add(AlternateView.CreateAlternateViewFromString(ParseHtmlBody(model, htmlBody),
+                result.AlternateViews.Add(AlternateView.CreateAlternateViewFromString(ParseHtmlBody(model, htmlBody, result.Subject),
                     new ContentType(ContentTypes.Html)));
                 result.AlternateViews.Add(AlternateView.CreateAlternateViewFromString(ParseTextBody(model, textBody),
                     new ContentType(ContentTypes.Text)));
@@ -36,7 +37,7 @@
             else
             {
                 result.IsBodyHtml = true;
-                result.Body = ParseHtmlBody(model, htmlBody);
+                result.Body = ParseHtmlBody(model, htmlBody, result.Subject);
             }
 
             return result;
@@ -52,9 +53,11 @@
             return Razor.Parse(textBody + MailTemplates.TextSignature, model);
         }
 
-        private string ParseHtmlBody(dynamic model, string htmlBody)
+        private string ParseHtmlBody(dynamic model, string htmlBody, string subject)
         {
-            return Razor.Parse(MailTemplates.HtmlHeader + htmlBody + MailTemplates.HtmlFooter, model);
+            var bag = new DynamicViewBag();
+            bag.AddValue("Subject", subject);
+            return Razor.Parse(MailTemplates.HtmlHeader + htmlBody + MailTemplates.HtmlFooter, model, bag, null);
         }
     }
 }
