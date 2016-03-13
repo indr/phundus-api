@@ -69,6 +69,13 @@ namespace Phundus.Migrations
             return command;
         }
 
+        protected IDbCommand CreateAndAddCommand(string commandText)
+        {
+            var command = CreateCommand(commandText);
+            _commands.Add(command);
+            return command;
+        }
+
         protected abstract void Migrate();
 
         protected void Reinsert(string typeName)

@@ -26,15 +26,11 @@
 
         public EventStore(INotificationPublisher notificationPublisher, IStoredEventRepository storedEventRepository,
             IEventSerializer eventSerializer)
-        {
-            if (notificationPublisher == null) throw new ArgumentNullException("notificationPublisher");
-            if (storedEventRepository == null) throw new ArgumentNullException("storedEventRepository");
-            if (eventSerializer == null) throw new ArgumentNullException("eventSerializer");
+        {            
             _notificationPublisher = notificationPublisher;
             _storedEventRepository = storedEventRepository;
             _eventSerializer = eventSerializer;
         }
-
 
         public void Append(DomainEvent domainEvent)
         {

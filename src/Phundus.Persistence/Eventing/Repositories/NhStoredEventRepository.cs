@@ -40,6 +40,7 @@
             var query = from se in Entities
                 where se.EventId >= lowStoredEventId
                       && se.EventId <= highStoredEventId
+                      orderby se.EventId
                 select se;
 
             return query.ToList();

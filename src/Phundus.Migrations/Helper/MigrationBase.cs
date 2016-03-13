@@ -100,8 +100,8 @@ EXEC CreateNewSeq @name=N'{0}', @seed=@seed
 
         protected static IDictionary<int, Guid> DeletedArticleIdMap = new Dictionary<int, Guid>
         {
-            {10111, new Guid("A4180FEE-3D32-4980-82F2-CFB777EF2BBB")},
-            {10110, new Guid("1A7DBE88-763B-4B0F-B039-2335A83949F7")}
+            {10110, new Guid("1A7DBE88-763B-4B0F-B039-2335A83949F7")},
+            {10111, new Guid("A4180FEE-3D32-4980-82F2-CFB777EF2BBB")}
         }; 
 
     }
