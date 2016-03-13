@@ -29,6 +29,8 @@
         public void ThenItShouldHaveServerUrlAccordingToApp_Config()
         {
             var serverUrl = ConfigurationManager.AppSettings["ServerUrl"];
+            if (serverUrl == "phundus.ch")
+                serverUrl = "www.phundus.ch";
             Assert.That(_status.ServerUrl, Is.Not.Empty);
             Assert.That(_status.ServerUrl, Is.EqualTo(serverUrl));
         }
