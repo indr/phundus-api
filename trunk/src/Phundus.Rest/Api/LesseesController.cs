@@ -21,12 +21,12 @@
         [Transaction]
         public virtual LesseesGetOkResponseContent Get(Guid lesseeId)
         {
-            var lessee = _lesseeQueries.GetById(lesseeId);
+            var lessee = _lesseeQueries.GetById(CurrentUserId, lesseeId);
             return new LesseesGetOkResponseContent
             {
                 LesseeId = lessee.LesseeId,
-                Name = lessee.Name,
-                Address = lessee.Address,
+                Name = lessee.Name,                
+                PostalAddress = lessee.PostalAddress,
                 PhoneNumber = lessee.PhoneNumber,
                 EmailAddress = lessee.EmailAddress
             };
@@ -39,10 +39,10 @@
         public Guid LesseeId { get; set; }
 
         [JsonProperty("name")]
-        public string Name { get; set; }
+        public string Name { get; set; }        
 
-        [JsonProperty("address")]
-        public string Address { get; set; }
+        [JsonProperty("postalAddress")]
+        public string PostalAddress { get; set; }
 
         [JsonProperty("phoneNumber")]
         public string PhoneNumber { get; set; }
