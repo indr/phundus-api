@@ -10,6 +10,7 @@ namespace Phundus.Web
     using Common.Domain.Model;
     using IdentityAccess.Application;
     using IdentityAccess.Organizations.Model;
+    using Inventory.Application;
 
     public class SeedTestDataTask : IStartupTask
     {
@@ -43,6 +44,8 @@ namespace Phundus.Web
 
             Dispatch(new SignUpUser(adminId, "admin@test.phundus.ch", "1234", "John", "Root", "", "", "", ""));
             Dispatch(new EstablishOrganization(adminId, organizationId, "Scouts"));
+            Thread.Sleep(1000);
+            Dispatch(new OpenStore(adminId, new OwnerId(organizationId.Id), new StoreId()));
 
             applicationId = new MembershipApplicationId();
             Dispatch(new SignUpUser(managerId, "manager@test.phundus.ch", "1234", "Greg", "Manager", "", "", "", ""));
