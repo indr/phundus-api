@@ -9,6 +9,7 @@ namespace Phundus.Rest.Api
     using Castle.Transactions;
     using Common.Eventing;
     using Common.Eventing.Application;
+    using Common.Notifications.Application;
     using Common.Projecting.Application;
     using ContentObjects;
     using Dashboard.Projections;
@@ -42,6 +43,15 @@ namespace Phundus.Rest.Api
         public virtual HttpResponseMessage Put(string processorId)
         {
             var command = new ResetProjection(CurrentUserId, processorId);
+            Bus.Send(command);
+
+            return Accepted(command);
+        }
+
+        [PATCH("")]
+        public virtual HttpResponseMessage PatchAll()
+        {
+            var command = new ProcessMissedNotifications();
             Bus.Send(command);
 
             return Accepted(command);

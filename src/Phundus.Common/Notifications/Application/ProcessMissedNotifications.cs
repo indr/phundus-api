@@ -2,7 +2,7 @@
 {
     using Commanding;
 
-    public class ProcessMissedNotifications : ICommand
+    public class ProcessMissedNotifications : AsyncCommand
     {
     }
 

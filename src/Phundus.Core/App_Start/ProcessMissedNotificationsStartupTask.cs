@@ -7,17 +7,16 @@
 
     public class ProcessMissedNotificationsStartupTask : IStartupTask
     {
-        private readonly ICommandDispatcher _bus;
+        private readonly ICommandDispatcher _dispatcher;
 
-        public ProcessMissedNotificationsStartupTask(ICommandDispatcher bus)
+        public ProcessMissedNotificationsStartupTask(ICommandDispatcher dispatcher)
         {
-            if (bus == null) throw new ArgumentNullException("bus");
-            _bus = bus;
+            _dispatcher = dispatcher;
         }
 
         public void Run()
         {
-            _bus.Dispatch(new ProcessMissedNotifications());
+            _dispatcher.Dispatch(new ProcessMissedNotifications());
         }
 
         public void Reset()
