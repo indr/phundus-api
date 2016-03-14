@@ -11,7 +11,7 @@ namespace Phundus.Shop.Model.Pdf
     {
         public Stream GeneratePdf(Order order)
         {
-            return new OrderPdf().GeneratePdf(order);
+            return new OrderPdf(order).GeneratePdf();
         }
     }
 }
