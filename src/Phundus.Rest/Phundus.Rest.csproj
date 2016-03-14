@@ -123,6 +123,7 @@
     <Compile Include="Api\Admin\AdminOrganizationsController.cs" />
     <Compile Include="Api\Admin\AdminUsersController.cs" />
     <Compile Include="Api\ArticlesController.cs" />
+    <Compile Include="ContentObjects\ContactDetailsCto.cs" />
     <Compile Include="Api\EmailAddressCheckController.cs" />
     <Compile Include="Api\FeedbackController.cs" />
     <Compile Include="Api\Organizations\OrganizationsSettingsController.cs" />
@@ -142,7 +143,7 @@
     <Compile Include="ContentObjects\AdminUser.cs" />
     <Compile Include="ContentObjects\Member.cs" />
     <Compile Include="ContentObjects\Relationship.cs" />
-    <Compile Include="ContentObjects\Coordinate.cs" />
+    <Compile Include="ContentObjects\CoordinateCto.cs" />
     <Compile Include="Api\EventLogController.cs" />
     <Compile Include="Api\SchemaUpdateController.cs" />
     <Compile Include="Api\MailsController.cs" />
@@ -176,6 +177,7 @@
     <Compile Include="ContentObjects\Order.cs" />
     <Compile Include="ContentObjects\OrderItem.cs" />
     <Compile Include="Converters\CustomDateTimeConverter.cs" />
+    <Compile Include="CtoMapper.cs" />
     <Compile Include="FileUpload\BlueImpFileUploadHandler.cs" />
     <Compile Include="FileUpload\BlueImpFileUploadJsonResult.cs" />
     <Compile Include="FileUpload\BlueImpFileUploadJsonResultFactory.cs" />

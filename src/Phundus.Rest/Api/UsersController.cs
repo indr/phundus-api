@@ -45,7 +45,9 @@ namespace Phundus.Rest.Api
             var store = _storesQueries.FindByOwnerId(userId);
             var address = _userAddressQueries.FindById(CurrentUserIdOrNull, userId);
 
-            return new UsersGetOkResponseContent(user, memberships, store, address);
+            var result = new UsersGetOkResponseContent(user, memberships, address);
+            result.Store = Map<StoreDetailsCto>(store);
+            return result;
         }
 
         [POST("")]
@@ -86,7 +88,7 @@ namespace Phundus.Rest.Api
         {
         }
 
-        public UsersGetOkResponseContent(IUser user, IEnumerable<MembershipData> memberships, StoreData store, UserAddressData address)
+        public UsersGetOkResponseContent(IUser user, IEnumerable<MembershipData> memberships, UserAddressData address)
         {
             UserId = user.UserId;
             Username = user.EmailAddress;
@@ -102,25 +104,6 @@ namespace Phundus.Rest.Api
                     OrganizationName = each.OrganizationName,
                     OrganizationUrl = each.OrganizationUrl
                 });
-            }
-
-            if (store != null)
-            {
-                Store = new Store
-                {
-                    StoreId = store.StoreId,
-                    Address = store.Address,
-                    OpeningHours = store.OpeningHours
-                };
-
-                if (store.Latitude.HasValue && store.Longitude.HasValue)
-                {
-                    Store.Coordinate = new Coordinate
-                    {
-                        Latitude = store.Latitude.Value,
-                        Longitude = store.Longitude.Value
-                    };
-                }
             }
 
             if (address != null)
@@ -153,7 +136,7 @@ namespace Phundus.Rest.Api
         public List<Memberships> Memberships { get; set; }
 
         [JsonProperty("store")]
-        public Store Store { get; set; }
+        public StoreDetailsCto Store { get; set; }
 
         [JsonProperty("address")]
         public UserAddressContentObject Address { get; set; }
