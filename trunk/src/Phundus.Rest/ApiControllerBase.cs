@@ -68,6 +68,11 @@
             return Mapper.Map<TDestination>(source);
         }
 
+        protected static TDestination Map<TDestination>(params object[] sources) where TDestination : class
+        {
+            return CtoMapper.Map<TDestination>(sources);
+        }
+
         protected HttpResponseMessage Accepted(AsyncCommand command)
         {
             return Request.CreateResponse(HttpStatusCode.Accepted, new

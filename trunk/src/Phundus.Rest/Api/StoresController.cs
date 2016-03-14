@@ -9,7 +9,6 @@ namespace Phundus.Rest.Api
     using ContentObjects;
     using Inventory.Application;
     using Inventory.Projections;
-    using MsgReader.Outlook;
     using Newtonsoft.Json;
 
     [RoutePrefix("api/stores")]
@@ -24,37 +23,10 @@ namespace Phundus.Rest.Api
 
         [GET("")]
         [Transaction]
-        public virtual QueryOkResponseContent<Store> Get(Guid? ownerId)
+        public virtual QueryOkResponseContent<StoreDetailsCto> Get(Guid? ownerId)
         {
-            var result = new QueryOkResponseContent<Store>();
-            if (!ownerId.HasValue)
-                return result;
-
-            var store = _storesQueries.FindByOwnerId(ownerId.Value);
-            if (store != null)
-                result.Results.Add(ToStore(store));
-
-            return result;
-        }
-
-        private static Store ToStore(StoreData store)
-        {
-            var result = new Store
-            {
-                Name = store.Name,
-                Address = store.Address,
-                OpeningHours = store.OpeningHours,
-                StoreId = store.StoreId,
-            };
-            if (store.Latitude.HasValue && store.Longitude.HasValue)
-            {
-                result.Coordinate = new Coordinate
-                {
-                    Latitude = store.Latitude.Value,
-                    Longitude = store.Longitude.Value
-                };
-            }
-            return result;
+            var stores = _storesQueries.Query(ownerId);
+            return new QueryOkResponseContent<StoreDetailsCto>(Map<StoreDetailsCto[]>(stores));
         }
 
         [POST("")]
@@ -83,7 +55,8 @@ namespace Phundus.Rest.Api
             if (rq.ContactDetails != null)
             {
                 var cd = rq.ContactDetails;
-                Dispatch(new ChangeContactDetails(CurrentUserId, storeId, cd.EmailAddress, cd.PhoneNumber, cd.Line1, cd.Line2, cd.Street, cd.Postcode, cd.City));
+                Dispatch(new ChangeContactDetails(CurrentUserId, storeId, cd.EmailAddress, cd.PhoneNumber, cd.Line1,
+                    cd.Line2, cd.Street, cd.Postcode, cd.City));
             }
             if (rq.Coordinate != null)
             {
@@ -108,10 +81,10 @@ namespace Phundus.Rest.Api
         public string Address { get; set; }
 
         [JsonProperty("contactDetails")]
-        public ContactDetails ContactDetails { get; set; }
+        public ContactDetailsCto ContactDetails { get; set; }
 
         [JsonProperty("coordinate")]
-        public Coordinate Coordinate { get; set; }
+        public CoordinateCto Coordinate { get; set; }
 
         [JsonProperty("openingHours")]
         public string OpeningHours { get; set; }

@@ -8,6 +8,7 @@
     using System.Web.Http;
     using AttributeRouting;
     using AttributeRouting.Web.Http;
+    using AutoMapper;
     using Castle.Transactions;
     using Common.Domain.Model;
     using ContentObjects;
@@ -57,40 +58,9 @@
         public virtual OrganizationsGetOkResponseContent Get(Guid organizationId)
         {
             var organization = _organizationQueries.GetById(organizationId);
+            var stores = _storesQueries.Query(organization.OrganizationId);
 
-            var store = _storesQueries.FindByOwnerId(organization.OrganizationId);
-            var result = new OrganizationsGetOkResponseContent
-            {
-                Name = organization.Name,
-                OrganizationId = organization.OrganizationId,
-                Startpage = organization.Startpage,
-                Stores = new List<Store>(),
-                Url = organization.Url,
-                Contact = new ContactDetails
-                {
-                    EmailAddress = organization.EmailAddress,
-                    PostalAddress = organization.PostalAddress,
-                    Line1 = organization.Line1,
-                    Line2 = organization.Line2,
-                    Street = organization.Street,
-                    Postcode = organization.Postcode,
-                    City = organization.City,
-                    PhoneNumber = organization.PhoneNumber,
-                    Website = organization.Website
-                },
-                PublicRental = organization.PublicRental
-            };
-            if (store != null)
-            {
-                result.Stores.Add(new Store
-                {
-                    Address = store.Address,
-                    OpeningHours = store.OpeningHours,
-                    Coordinate = Coordinate.FromLatLng(store.Latitude, store.Longitude),
-                    StoreId = store.StoreId
-                });
-            }
-            return result;
+            return Map<OrganizationsGetOkResponseContent>(organization, stores);
         }
 
         [POST("")]
@@ -100,7 +70,7 @@
             var organizationId = new OrganizationId();
             Dispatch(new EstablishOrganization(CurrentUserId, organizationId, rq.Name));
 
-            // Ugly ugly ugly... The drawback of eventual consistency...
+            // Ugly ugly ugly... The drawback of eventual consistency...?
             // Inventory context should listen to OrganizationEstablished events and create
             // the corresponding store...
             var ownerId = new OwnerId(organizationId.Id);
@@ -142,46 +112,17 @@
         }
     }
 
+    
     public class OrganizationsPatchRequestContent
     {
         [JsonProperty("startpage")]
         public string Startpage { get; set; }
 
         [JsonProperty("contactDetails")]
-        public ContactDetails ContactDetails { get; set; }
+        public ContactDetailsCto ContactDetails { get; set; }
 
         [JsonProperty("plan")]
         public string Plan { get; set; }
-    }
-
-    public class ContactDetails
-    {
-        [JsonProperty("postalAddress")]
-        public string PostalAddress { get; set; }
-
-        [JsonProperty("line1")]
-        public string Line1 { get; set; }
-
-        [JsonProperty("line2")]
-        public string Line2 { get; set; }
-
-        [JsonProperty("street")]
-        public string Street { get; set; }
-
-        [JsonProperty("postcode")]
-        public string Postcode { get; set; }
-
-        [JsonProperty("city")]
-        public string City { get; set; }
-
-        [JsonProperty("phoneNumber")]
-        public string PhoneNumber { get; set; }
-
-        [JsonProperty("emailAddress")]
-        public string EmailAddress { get; set; }
-
-        [JsonProperty("website")]
-        public string Website { get; set; }
     }
 
     public class OrganizationsGetOkResponseContent
@@ -199,10 +140,10 @@
         public string Startpage { get; set; }
 
         [JsonProperty("stores")]
-        public List<Store> Stores { get; set; }
+        public StoreDetailsCto[] Stores { get; set; }
 
         [JsonProperty("contact")]
-        public ContactDetails Contact { get; set; }
+        public ContactDetailsCto Contact { get; set; }
 
         [JsonProperty("publicRental")]
         public bool PublicRental { get; set; }

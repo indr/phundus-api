@@ -234,7 +234,8 @@
     <Compile Include="Inventory\Projections\ArticleActionsProjection.cs" />
     <Compile Include="Inventory\Projections\ArticleActionsQueries.cs" />
     <Compile Include="Inventory\Projections\ArticleQueries.cs" />
-    <Compile Include="Inventory\Projections\StoresProjection.cs" />
+    <Compile Include="Inventory\Projections\StoreDetailsProjection.cs" />
+    <Compile Include="Inventory\Projections\StoreListProjection.cs" />
     <Compile Include="Inventory\Model\Collaborators\UserInRole.cs" />
     <Compile Include="Inventory\Application\RenameStore.cs" />
     <Compile Include="Inventory\Model\Stores\Events\StoreRenamed.cs" />

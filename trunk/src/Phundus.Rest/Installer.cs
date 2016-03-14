@@ -1,6 +1,8 @@
 ﻿namespace Phundus.Rest
 {
     using System;
+    using System.Linq;
+    using System.Reflection;
     using System.Web.Http;
     using System.Web.Http.Controllers;
     using AutoMapper;
@@ -23,7 +25,13 @@
                 .If(t => t.Name.EndsWith("Controller", StringComparison.InvariantCulture))
                 .LifestyleScoped());
 
-            Mapper.AddProfile<Orders>();
+            var profiles = Assembly.GetExecutingAssembly().GetTypes()
+                .Where(p => typeof (Profile).IsAssignableFrom(p)).ToList();                
+                
+            foreach (var profile in profiles)
+            {
+                Mapper.AddProfile(Activator.CreateInstance(profile) as Profile);
+            }
         }
     }
 }

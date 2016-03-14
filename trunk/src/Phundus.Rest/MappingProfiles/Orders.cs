@@ -1,23 +1,53 @@
 ﻿namespace Phundus.Rest.MappingProfiles
 {
+    using System.Collections.Generic;
     using System.Linq;
+    using Api;
     using AutoMapper;
     using ContentObjects;
+    using IdentityAccess.Projections;
+    using Inventory.Projections;
     using Shop.Projections;
+
+    public class OrganizationsProfile : Profile
+    {
+        protected override void Configure()
+        {
+            Mapper.CreateMap<OrganizationData, OrganizationsGetOkResponseContent>()
+                .ForMember(d => d.Contact, mo => mo.MapFrom(s => s));
+            Mapper.CreateMap<IList<StoreDetailsData>, OrganizationsGetOkResponseContent>()
+                .ForMember(d => d.Stores, mo => mo.MapFrom(s => s));
+            Mapper.CreateMap<OrganizationData, ContactDetailsCto>();
+        }
+    }
+
+    public class StoresProfile : Profile
+    {
+        protected override void Configure()
+        {
+            Mapper.CreateMap<StoreListData, StoreDetailsCto>();
+            Mapper.CreateMap<StoreDetailsData, StoreDetailsCto>()
+                .ForMember(d => d.Coordinate, mo => mo.MapFrom(s => s));
+            Mapper.CreateMap<StoreDetailsData, ContactDetailsCto>();
+            Mapper.CreateMap<StoreDetailsData, CoordinateCto>()
+                .ForAllMembers(mo => mo.Condition(s => s.Latitude.HasValue && s.Longitude.HasValue));
+        }
+    }
+
 
     public class Orders : Profile
     {
         protected override void Configure()
         {
             Mapper.CreateMap<OrderData, Order>()
-               .ForMember(d => d.CreatedAtUtc, o => o.MapFrom(s => s.CreatedAtUtc))
-               .ForMember(d => d.ModifiedAtUtc, o => o.MapFrom(s => s.ModifiedAtUtc))
-               .ForMember(d => d.OrderId, o => o.MapFrom(s => s.OrderId))
-               .ForMember(d => d.OrderShortId, o => o.MapFrom(s => s.OrderShortId))
-               .ForMember(d => d.Status, o => o.MapFrom(s => s.Status.ToString()))
-               .ForMember(d => d.LessorId, o => o.MapFrom(s => s.LessorId))
-               .ForMember(d => d.LessorName, o => o.MapFrom(s => s.LessorName))
-               .ForMember(d => d.Lessee, o => o.MapFrom(s => s));
+                .ForMember(d => d.CreatedAtUtc, o => o.MapFrom(s => s.CreatedAtUtc))
+                .ForMember(d => d.ModifiedAtUtc, o => o.MapFrom(s => s.ModifiedAtUtc))
+                .ForMember(d => d.OrderId, o => o.MapFrom(s => s.OrderId))
+                .ForMember(d => d.OrderShortId, o => o.MapFrom(s => s.OrderShortId))
+                .ForMember(d => d.Status, o => o.MapFrom(s => s.Status.ToString()))
+                .ForMember(d => d.LessorId, o => o.MapFrom(s => s.LessorId))
+                .ForMember(d => d.LessorName, o => o.MapFrom(s => s.LessorName))
+                .ForMember(d => d.Lessee, o => o.MapFrom(s => s));
 
             Mapper.CreateMap<OrderData, OrderDetail>()
                 .ForMember(d => d.CreatedAtUtc, o => o.MapFrom(s => s.CreatedAtUtc))
@@ -37,7 +67,6 @@
                 .ForMember(d => d.OrderItemId, o => o.MapFrom(s => s.LineId))
                 .ForMember(d => d.ArticleId, o => o.MapFrom(s => s.ArticleId))
                 .ForMember(d => d.ArticleShortId, o => o.MapFrom(s => s.ArticleShortId))
-
                 .ForMember(d => d.IsAvailable, o => o.MapFrom(s => s.IsAvailable))
                 .ForMember(d => d.Text, o => o.MapFrom(s => s.Text))
                 .ForMember(d => d.FromUtc, o => o.MapFrom(s => s.FromUtc))
