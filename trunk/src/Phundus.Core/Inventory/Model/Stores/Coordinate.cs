@@ -1,4 +1,4 @@
-﻿namespace Phundus.Inventory.Stores.Model
+﻿namespace Phundus.Inventory.Model.Stores
 {
     using System.Collections.Generic;
     using Common;

@@ -41,7 +41,7 @@ namespace Phundus.Inventory.Application
         public void Handle(RenameStore command)
         {
             var store = _storeRepository.GetById(command.StoreId);
-            var manager = _userInRole.Manager(command.InitiatorId, store.Owner.OwnerId);
+            var manager = _userInRole.Manager(command.InitiatorId, store.OwnerId);
 
             store.Rename(manager, command.Name);
 

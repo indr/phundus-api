@@ -1,7 +1,6 @@
 ﻿namespace Phundus.Inventory.Model.Stores
 {
     using Common.Domain.Model;
-    using Inventory.Stores.Model;
 
     public interface IStoreRepository
     {

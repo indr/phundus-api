@@ -6,7 +6,7 @@
     using Common.Domain.Model;
     using Orders.Model;
 
-    public class Order : EventSourcedAggregate
+    public class Order : EventSourcedAggregateRoot
     {
         private OrderLines _orderLines;
 

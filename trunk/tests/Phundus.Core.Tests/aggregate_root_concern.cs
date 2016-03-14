@@ -6,7 +6,7 @@ namespace Phundus.Tests
     using Common.Domain.Model;
     using Machine.Specifications;
 
-    public class aggregate_root_concern<TAggregate> : aggregate_concern<TAggregate> where TAggregate : EventSourcedAggregate
+    public class aggregate_root_concern<TAggregate> : aggregate_concern<TAggregate> where TAggregate : EventSourcedAggregateRoot
     {
         protected static void mutatingEvent<T>(Expression<Func<T, bool>> predicate)
         {

@@ -9,7 +9,6 @@
     using Phundus.Inventory.Authorization;
     using Phundus.Inventory.Model;
     using Phundus.Inventory.Model.Stores;
-    using Phundus.Inventory.Stores.Model;
     using Rhino.Mocks;
 
     [Subject(typeof (CreateArticleHandler))]
@@ -28,7 +27,7 @@
         public Establish c = () =>
         {
             theOwner = make.Owner();
-            theStore = make.Store(theOwner);
+            theStore = make.Store(theOwner.OwnerId);
             theArticleId = new ArticleId();
             theArticleShortId = new ArticleShortId(1234);
             theName = "The name";

@@ -42,7 +42,7 @@ namespace Phundus.Inventory.Application
         public void Handle(ChangeOpeningHours command)
         {
             var store = _storeRepository.GetById(command.StoreId);
-            var manager = _userInRole.Manager(command.InitiatorId, store.Owner.OwnerId);
+            var manager = _userInRole.Manager(command.InitiatorId, store.OwnerId);
 
             store.ChangeOpeningHours(manager, command.OpeningHours);
 

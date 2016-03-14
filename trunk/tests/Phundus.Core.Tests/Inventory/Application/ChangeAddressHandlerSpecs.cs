@@ -3,7 +3,7 @@
     using developwithpassion.specifications.extensions;
     using Machine.Specifications;
     using Phundus.Inventory.Application;
-    using Phundus.Inventory.Stores.Model;
+    using Phundus.Inventory.Model.Stores;
 
     [Subject(typeof (ChangeAddressHandler))]
     public class when_handling_change_address : store_command_handler_concern<ChangeAddress, ChangeAddressHandler>
@@ -13,7 +13,7 @@
 
         private Establish ctx = () =>
         {
-            theStore = make.Store(theOwner);
+            theStore = make.Store(theOwner.OwnerId);
             theNewAddress = "The new address";
             storeRepository.setup(x => x.GetById(theStore.StoreId)).Return(theStore);
 

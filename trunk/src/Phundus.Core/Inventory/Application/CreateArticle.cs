@@ -76,7 +76,7 @@
             _authorize.Enforce(initiator.InitiatorId, Create.Article(owner.OwnerId));
 
             var store = _storeRepository.GetById(command.StoreId);
-            if (!Equals(store.Owner.OwnerId, command.OwnerId))
+            if (!Equals(store.OwnerId, command.OwnerId))
                 throw new Exception("The store does not belong to the owner specified.");
 
             var article = new Article(owner, store.StoreId, command.ArticleId, command.ArticleShortId, command.Name,
