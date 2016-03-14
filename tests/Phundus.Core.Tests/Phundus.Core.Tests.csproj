@@ -129,6 +129,7 @@
     <Compile Include="IdentityAccess\Model\Users\Mails\AccountValidationMailSpecs.cs" />
     <Compile Include="IdentityAccess\Model\Users\Mails\EmailAddressValidationMailSpecs.cs" />
     <Compile Include="IdentityAccess\Model\Users\Mails\NewPasswordMailSpecs.cs" />
+    <Compile Include="Inventory\Model\Stores\Events\ContactDetailsChangedSpecs.cs" />
     <Compile Include="mail_concern.cs" />
     <Compile Include="IdentityAccess\Model\MembershipSpecs.cs" />
     <Compile Include="IdentityAccess\Model\OrganizationSettingsSpecs.cs" />

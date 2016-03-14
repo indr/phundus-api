@@ -16,5 +16,11 @@ namespace Phundus.Tests
 
             typed.ShouldMatch(predicate);
         }
+
+        protected static void mutatingEvent<T>(Action<T> a)
+        {
+            var e = sut.MutatingEvents.SingleOrDefault(p => p.GetType() == typeof (T));
+            a((T)e);
+        }
     }
 }
