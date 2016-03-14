@@ -49,24 +49,6 @@ namespace Phundus.Tests.Inventory.Model
     }
 
     [Subject(typeof (Store))]
-    public class when_changing_address : store_concern
-    {
-        private static string theNewAddress = "New address";
-
-        private Because of = () =>
-            sut.ChangeAddress(theManager, theNewAddress);
-
-        private It should_have_mutating_event_address_changed = () =>
-            mutatingEvent<AddressChanged>(p =>
-                Equals(p.Manager.UserId, theManager.UserId)
-                && p.StoreId == theStoreId.Id
-                && p.Address == theNewAddress);
-
-        private It should_have_the_new_address = () =>
-            sut.Address.ShouldEqual(theNewAddress);
-    }
-
-    [Subject(typeof (Store))]
     public class when_changing_contact_details : store_concern
     {
         private static ContactDetails theContactDetails = new ContactDetails("emailAddress", "phoneNumber",

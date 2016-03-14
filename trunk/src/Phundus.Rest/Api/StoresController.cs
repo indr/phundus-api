@@ -48,10 +48,6 @@ namespace Phundus.Rest.Api
             {
                 Dispatch(new RenameStore(CurrentUserId, storeId, rq.Name));
             }
-            if (rq.Address != null)
-            {
-                Dispatch(new ChangeAddress(CurrentUserId, storeId, rq.Address));
-            }
             if (rq.Contact != null)
             {
                 var cd = rq.Contact;
@@ -76,10 +72,6 @@ namespace Phundus.Rest.Api
     {
         [JsonProperty("name")]
         public string Name { get; set; }
-
-        [Obsolete("Use contact")]
-        [JsonProperty("address")]
-        public string Address { get; set; }
 
         [JsonProperty("contact")]
         public ContactCto Contact { get; set; }

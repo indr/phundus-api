@@ -165,7 +165,6 @@
     <Compile Include="Inventory\Application\ChangePricesHandlerSpecs.cs" />
     <Compile Include="Inventory\Application\UpdateDescriptionHandlerSpecs.cs" />
     <Compile Include="Inventory\Application\UpdateSpecificationHandlerSpecs.cs" />
-    <Compile Include="Inventory\Application\ChangeAddressHandlerSpecs.cs" />
     <Compile Include="Inventory\Events\AddressChangedSpecs.cs" />
     <Compile Include="Inventory\Events\ArticleCreatedSpecs.cs" />
     <Compile Include="Inventory\Events\ArticleDeletedSpecs.cs" />

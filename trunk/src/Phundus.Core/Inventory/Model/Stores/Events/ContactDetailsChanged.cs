@@ -33,7 +33,7 @@
         public Manager Manager { get; protected set; }
 
         [DataMember(Order = 2)]
-        public Guid OwnerId { get; set; }
+        public Guid OwnerId { get; protected set; }
 
         [DataMember(Order = 3)]
         public Guid StoreId { get; protected set; }
@@ -42,21 +42,21 @@
         public string EmailAddress { get; protected set; }
 
         [DataMember(Order = 5)]
-        public string PhoneNumber { get; set; }
+        public string PhoneNumber { get; protected set; }
 
         [DataMember(Order = 6)]
-        public string Line1 { get; set; }
+        public string Line1 { get; protected set; }
 
         [DataMember(Order = 7)]
-        public string Line2 { get; set; }
+        public string Line2 { get; protected set; }
 
         [DataMember(Order = 8)]
-        public string Street { get; set; }
+        public string Street { get; protected set; }
 
         [DataMember(Order = 9)]
-        public string Postcode { get; set; }
+        public string Postcode { get; protected set; }
 
         [DataMember(Order = 10)]
-        public string City { get; set; }
+        public string City { get; protected set; }
     }
 }
