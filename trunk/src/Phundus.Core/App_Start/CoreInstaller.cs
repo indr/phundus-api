@@ -6,11 +6,10 @@
     using Castle.MicroKernel.Registration;
     using Castle.MicroKernel.SubSystems.Configuration;
     using Castle.Windsor;
-    using Common.Eventing;
-    using Common.Eventing.Installers;
     using Common.Projecting;
     using Common.Querying;
     using IdentityAccess.Users.Services;
+    using Shop.Model.Pdf;
 
     public class CoreInstaller : IWindsorInstaller
     {
@@ -69,7 +68,8 @@
             container.Register(
                 Classes.FromThisAssembly().Where(p => p.Name.EndsWith("Store")).WithServiceDefaultInterfaces());
 
-            
+            container.Register(
+                Component.For<IOrderPdfGenerator>().ImplementedBy<OrderPdf>().LifestyleTransient());
         }
     }
 }

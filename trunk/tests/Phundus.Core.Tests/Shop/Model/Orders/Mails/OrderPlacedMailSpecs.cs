@@ -9,8 +9,8 @@
     using Machine.Specifications;
     using Phundus.Shop.Model;
     using Phundus.Shop.Model.Mails;
+    using Phundus.Shop.Model.Pdf;
     using Phundus.Shop.Orders.Model;
-    using Phundus.Shop.Orders.Services;
     using Rhino.Mocks;
     using Manager = Integration.IdentityAccess.Manager;
 
@@ -31,7 +31,7 @@
                     new Manager(new UserId(), "manager1@test.phundus.ch", "The Manager 1"),
                     new Manager(new UserId(), "manager2@test.phundus.ch", "The Manager 2")
                 });
-            depends.on<IOrderPdfGeneratorService>()
+            depends.on<IOrderPdfGenerator>()
                 .setup(x => x.GeneratePdf(Arg<Order>.Is.Anything))
                 .Return(new MemoryStream());
 

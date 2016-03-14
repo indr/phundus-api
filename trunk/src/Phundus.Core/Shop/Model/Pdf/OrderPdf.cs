@@ -1,29 +1,17 @@
-﻿namespace Phundus.Shop.Orders.Services
+﻿namespace Phundus.Shop.Model.Pdf
 {
     using System;
     using System.IO;
     using System.Linq;
-    using System.Web.Hosting;
-    using IdentityAccess.Model.Organizations;
     using iTextSharp.text;
-    using iTextSharp.text.exceptions;
     using iTextSharp.text.pdf;
     using Model;
-    using Shop.Model;
+    using Orders.Model;
 
-    public interface IOrderPdfGeneratorService
+    public class OrderPdf
     {
-        Stream GeneratePdf(Order order);
-    }
-
-    public class OrderPdfGeneratorService : IOrderPdfGeneratorService
-    {
-        public IOrganizationRepository OrganizationRepository { get; set; }
-
         public Stream GeneratePdf(Order order)
         {
-            var reader = GetPdfReader(order);
-
             var result = new MemoryStream();
             var doc = new Document(PageSize.A4, 0, 0, 36.0f, 36.0f);
             var writer = PdfWriter.GetInstance(doc, result);
@@ -31,6 +19,7 @@
 
             doc.Open();
 
+            var reader = GetPdfReader(order);
             if (reader != null)
             {
                 var importedPage = writer.GetImportedPage(reader, 1);
@@ -130,7 +119,7 @@
             table.AddCell(cell);
             table.AddCell(new Phrase(order.Lessee.PhoneNumber + " / " + order.Lessee.EmailAddress, defaultFont));
 
-            var firstFrom = order.Lines.Count == 0 ? (DateTime?)null : order.Lines.Min(s => s.Period.FromUtc);
+            var firstFrom = order.Lines.Count == 0 ? (DateTime?) null : order.Lines.Min(s => s.Period.FromUtc);
             if (firstFrom.HasValue)
             {
                 cell = new PdfPCell(new Phrase("Abholen:", defaultFontGray));
@@ -142,7 +131,7 @@
                 table.AddCell(new Phrase(firstFrom.Value.ToLocalTime().ToString("d"), defaultFont));
             }
 
-            var lastTo = order.Lines.Count == 0 ? (DateTime?)null : order.Lines.Max(s => s.Period.ToUtc);
+            var lastTo = order.Lines.Count == 0 ? (DateTime?) null : order.Lines.Max(s => s.Period.ToUtc);
             if (lastTo.HasValue)
             {
                 cell = new PdfPCell(new Phrase("Rückgabe:", defaultFontGray));
@@ -249,29 +238,30 @@
 
         private PdfReader GetPdfReader(Order order)
         {
-            var organization = OrganizationRepository.FindById(order.Lessor.LessorId.Id);
-            if (organization == null)
-                return null;
+            return null;
+            //var organization = OrganizationRepository.FindById(order.Lessor.LessorId.Id);
+            //if (organization == null)
+            //    return null;
 
-            PdfReader reader = null;
-            if (!String.IsNullOrEmpty(organization.DocTemplateFileName))
-            {
-                var fileName = HostingEnvironment.MapPath(
-                    String.Format(@"~\Content\Uploads\{0}\{1}", organization.Id.Id.ToString("N"),
-                        organization.DocTemplateFileName));
-                if (File.Exists(fileName))
-                {
-                    try
-                    {
-                        reader = new PdfReader(fileName);
-                    }
-                    catch (InvalidPdfException)
-                    {
-                        reader = null;
-                    }
-                }
-            }
-            return reader;
+            //PdfReader reader = null;
+            //if (!String.IsNullOrEmpty(organization.DocTemplateFileName))
+            //{
+            //    var fileName = HostingEnvironment.MapPath(
+            //        String.Format(@"~\Content\Uploads\{0}\{1}", organization.Id.Id.ToString("N"),
+            //            organization.DocTemplateFileName));
+            //    if (File.Exists(fileName))
+            //    {
+            //        try
+            //        {
+            //            reader = new PdfReader(fileName);
+            //        }
+            //        catch (InvalidPdfException)
+            //        {
+            //            reader = null;
+            //        }
+            //    }
+            //}
+            //return reader;
         }
     }
 }
