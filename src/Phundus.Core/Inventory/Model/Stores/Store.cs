@@ -58,7 +58,7 @@
         }
 
 
-        public void ChangeContactDetails(Manager manager, ContactDetails contactDetails)
+        public virtual void ChangeContactDetails(Manager manager, ContactDetails contactDetails)
         {
             AssertionConcern.AssertArgumentNotNull(manager, "Manager must be provided.");
 

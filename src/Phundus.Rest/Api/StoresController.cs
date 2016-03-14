@@ -9,6 +9,7 @@ namespace Phundus.Rest.Api
     using ContentObjects;
     using Inventory.Application;
     using Inventory.Projections;
+    using MsgReader.Outlook;
     using Newtonsoft.Json;
 
     [RoutePrefix("api/stores")]
@@ -69,24 +70,29 @@ namespace Phundus.Rest.Api
         }
 
         [PATCH("{storeId}")]
-        public virtual HttpResponseMessage Patch(Guid storeId, StoresPatchRequestContent requestContent)
+        public virtual HttpResponseMessage Patch(StoreId storeId, StoresPatchRequestContent rq)
         {
-            if (requestContent.Name != null)
+            if (rq.Name != null)
             {
-                Dispatch(new RenameStore(CurrentUserId, new StoreId(storeId), requestContent.Name));
+                Dispatch(new RenameStore(CurrentUserId, storeId, rq.Name));
             }
-            if (requestContent.Address != null)
+            if (rq.Address != null)
             {
-                Dispatch(new ChangeAddress(CurrentUserId, new StoreId(storeId), requestContent.Address));
+                Dispatch(new ChangeAddress(CurrentUserId, storeId, rq.Address));
             }
-            if (requestContent.Coordinate != null)
+            if (rq.ContactDetails != null)
             {
-                Dispatch(new ChangeCoordinate(CurrentUserId, new StoreId(storeId), requestContent.Coordinate.Latitude,
-                    requestContent.Coordinate.Longitude));
+                var cd = rq.ContactDetails;
+                Dispatch(new ChangeContactDetails(CurrentUserId, storeId, cd.EmailAddress, cd.PhoneNumber, cd.Line1, cd.Line2, cd.Street, cd.Postcode, cd.City));
             }
-            if (requestContent.OpeningHours != null)
+            if (rq.Coordinate != null)
             {
-                Dispatch(new ChangeOpeningHours(CurrentUserId, new StoreId(storeId), requestContent.OpeningHours));
+                Dispatch(new ChangeCoordinate(CurrentUserId, storeId, rq.Coordinate.Latitude,
+                    rq.Coordinate.Longitude));
+            }
+            if (rq.OpeningHours != null)
+            {
+                Dispatch(new ChangeOpeningHours(CurrentUserId, storeId, rq.OpeningHours));
             }
 
             return NoContent();
@@ -100,6 +106,9 @@ namespace Phundus.Rest.Api
 
         [JsonProperty("address")]
         public string Address { get; set; }
+
+        [JsonProperty("contactDetails")]
+        public ContactDetails ContactDetails { get; set; }
 
         [JsonProperty("coordinate")]
         public Coordinate Coordinate { get; set; }

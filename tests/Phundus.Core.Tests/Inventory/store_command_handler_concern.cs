@@ -1,6 +1,7 @@
 namespace Phundus.Tests.Inventory
 {
     using Common.Commanding;
+    using Common.Domain.Model;
     using developwithpassion.specifications.extensions;
     using Machine.Specifications;
     using Phundus.Inventory.Model;
@@ -17,6 +18,7 @@ namespace Phundus.Tests.Inventory
 
         protected static Manager theManager;
         protected static Owner theOwner;
+        protected static OwnerId theOwnerId;
 
         private Establish ctx = () =>
         {
@@ -27,8 +29,9 @@ namespace Phundus.Tests.Inventory
 
             theManager = make.Manager();
             theOwner = make.Owner();
+            theOwnerId = theOwner.OwnerId;
 
-            userInRole.setup(x => x.Manager(theInitiatorId, theOwner.OwnerId)).Return(theManager);
+            userInRole.setup(x => x.Manager(theInitiatorId, theOwnerId)).Return(theManager);
         };
     }
 }
