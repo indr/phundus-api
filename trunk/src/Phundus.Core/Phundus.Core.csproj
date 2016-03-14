@@ -260,7 +260,6 @@
     <Compile Include="Inventory\Application\OpenStore.cs" />
     <Compile Include="Inventory\Model\Stores\Coordinate.cs" />
     <Compile Include="Inventory\Model\Stores\Events\OpeningHoursChanged.cs" />
-    <Compile Include="Inventory\Model\Stores\Events\AddressChanged.cs" />
     <Compile Include="Inventory\Model\Stores\Events\CoordinateChanged.cs" />
     <Compile Include="Inventory\Model\Stores\Store.cs" />
     <Compile Include="Inventory\Model\Stores\Events\StoreOpened.cs" />
