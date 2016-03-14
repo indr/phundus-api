@@ -9,7 +9,7 @@ namespace Phundus.Migrations
         public override void Up()
         {
             EmptyTableAndResetTracker("Es_Inventory_Articles_Actions", "ArticleActionsProjection");
-            DeleteTableAndResetTracker("Es_Inventory_Articles", "ArticlesProjection");
+            DeleteTableAndTracker("Es_Inventory_Articles", "ArticlesProjection");
             EmptyTableAndResetTracker("Es_Dashboard_EventLog", "EventLogProjection");
         }
 

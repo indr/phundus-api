@@ -25,7 +25,7 @@ namespace Phundus.Migrations
         {
             base.Up();
 
-            DeleteTableAndResetTracker("Es_IdentityAccess_Organizations", "OrganizationProjection");
+            DeleteTableAndTracker("Es_IdentityAccess_Organizations", "OrganizationProjection");
         }
 
         [DataContract]

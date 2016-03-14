@@ -8,12 +8,12 @@ namespace Phundus.Migrations
     {
         public override void Up()
         {
-            DeleteTableAndResetTracker("Es_Shop_Item_Files", "FilesProjection");
-            DeleteTableAndResetTracker("Es_Shop_Item_Images", "ImagesProjection");
-            DeleteTableAndResetTracker("Es_Shop_ShopItemsSortByPopularityProjection", "ShopItemsSortByPopularityProjection");
-            DeleteTableAndResetTracker("Es_Shop_ResultItems", "ResultItemsProjection");
-            DeleteTableAndResetTracker("Es_Shop_Items", "ItemProjection");
-            DeleteTableAndResetTracker("Es_Shop_ItemDetails", "DetailsProjection");
+            DeleteTableAndTracker("Es_Shop_Item_Files", "FilesProjection");
+            DeleteTableAndTracker("Es_Shop_Item_Images", "ImagesProjection");
+            DeleteTableAndTracker("Es_Shop_ShopItemsSortByPopularityProjection", "ShopItemsSortByPopularityProjection");
+            DeleteTableAndTracker("Es_Shop_ResultItems", "ResultItemsProjection");
+            DeleteTableAndTracker("Es_Shop_Items", "ItemProjection");
+            DeleteTableAndTracker("Es_Shop_ItemDetails", "DetailsProjection");
         }
 
         public override void Down()

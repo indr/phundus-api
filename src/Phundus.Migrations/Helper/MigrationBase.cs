@@ -88,7 +88,7 @@ EXEC CreateNewSeq @name=N'{0}', @seed=@seed
                 Delete.Table(tableName);
         }
 
-        protected void DeleteTableAndResetTracker(string tableName, string trackerTypeName)
+        protected void DeleteTableAndTracker(string tableName, string trackerTypeName)
         {
             DeleteTable(tableName);
             DeleteTracker(trackerTypeName);
