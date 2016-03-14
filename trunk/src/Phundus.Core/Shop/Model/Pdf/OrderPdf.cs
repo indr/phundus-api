@@ -18,6 +18,7 @@
         private Font defaultFont;
         private Font defaultFontGray;
         private Font defaultFontBold;
+        private MemoryStream stream;
 
         public OrderPdf(Order aOrder)
         {
@@ -36,9 +37,71 @@
 
         public Stream GeneratePdf()
         {
-            var result = new MemoryStream();
+            CreateDocument();
+
+            AddTitle();
+            AddHeading();
+            AddOrderLines();
+
+            AddFooter();
+
+            return CloseDocument();
+        }
+
+        private void AddFooter()
+        {
+
+            //            var path = HttpContext.Current.Server.MapPath(@"~\Content\Images\PdfFooter.png");
+            //            var img = iTextSharp.text.Image.GetInstance(path);
+            //            img.ScaleToFit(doc.PageSize.Width, doc.PageSize.Height);
+            //            img.SetAbsolutePosition(0, 40);
+            //            img.BorderColor = BaseColor.LIGHT_GRAY;
+            //            img.BorderWidthTop = 1.0f;
+            //            img.BorderWidthBottom = 1.0f;
+            //            doc.Add(img);
+
+
+            var table = new PdfPTable(1);
+            var cell = new PdfPCell()
+            {
+                CellEvent = new RoundRectangle(),
+                Border = PdfPCell.NO_BORDER,
+                Padding = 10,
+                PaddingTop = 0,
+                HorizontalAlignment = Element.ALIGN_RIGHT
+            };
+            var font = FontFactory.GetFont("calibri", 10);
+
+            var lessor = order.Lessor;           
+            cell.AddElement(new Paragraph(lessor.Name, font) { Alignment = Element.ALIGN_RIGHT});
+
+//            cell.AddElement(new Paragraph(@"Sekretariat PFADI Luzern
+//            c/o Stiftung Rodtegg, bürowärkstatt
+//            Rodteggstrasse 3a, 6005 Luzern 
+//            Tel. 041 368 40 35   Fax 041 368 42 94
+//            Web www.pfadiluzern.ch
+//            E-Mail sekretariat@pfadiluzern.ch", font) { Alignment = Element.ALIGN_RIGHT });
+
+            table.AddCell(cell);
+            table.TotalWidth = doc.PageSize.Width / 2.8f;
+            table.WriteSelectedRows(0, -1, -10, 150, writer.DirectContent);
+
+        }
+
+        private Stream CloseDocument()
+        {
+            doc.Close();
+            if (reader != null)
+                reader.Close();
+            stream.Position = 0;
+            return stream;
+        }
+
+        private void CreateDocument()
+        {
+            stream = new MemoryStream();
             doc = new Document(PageSize.A4, 0, 0, 36.0f, 36.0f);
-            writer = PdfWriter.GetInstance(doc, result);
+            writer = PdfWriter.GetInstance(doc, stream);
             writer.CloseStream = false;
 
             doc.Open();
@@ -50,57 +113,6 @@
 
                 writer.DirectContentUnder.AddTemplate(importedPage, 0, 0);
             }
-
-            
-
-
-            
-            AddTitle();
-
-
-            
-
-            
-            AddHeading();
-
-
-            AddOrderLines();
-//            var path = HttpContext.Current.Server.MapPath(@"~\Content\Images\PdfFooter.png");
-//            var img = iTextSharp.text.Image.GetInstance(path);
-//            img.ScaleToFit(doc.PageSize.Width, doc.PageSize.Height);
-//            img.SetAbsolutePosition(0, 40);
-//            img.BorderColor = BaseColor.LIGHT_GRAY;
-//            img.BorderWidthTop = 1.0f;
-//            img.BorderWidthBottom = 1.0f;
-//            doc.Add(img);
-
-
-//            table = new PdfPTable(1);
-//            cell = new PdfPCell()
-//            {
-//                CellEvent = new RoundRectangle(),
-//                Border = PdfPCell.NO_BORDER,
-//                Padding = 10,
-//                PaddingTop = 0,
-//                HorizontalAlignment = Element.ALIGN_RIGHT
-//            };
-//            defaultFont = FontFactory.GetFont("calibri", 10);
-//            cell.AddElement(new Paragraph(@"Sekretariat PFADI Luzern
-//c/o Stiftung Rodtegg, bürowärkstatt
-//Rodteggstrasse 3a, 6005 Luzern 
-//Tel. 041 368 40 35   Fax 041 368 42 94
-//Web www.pfadiluzern.ch
-//E-Mail sekretariat@pfadiluzern.ch", defaultFont) { Alignment = Element.ALIGN_RIGHT });
-
-//            table.AddCell(cell);
-//            table.TotalWidth = doc.PageSize.Width / 2.8f;
-//            table.WriteSelectedRows(0, -1, -10, 150, writer.DirectContent);
-
-            doc.Close();
-            if (reader != null)
-                reader.Close();
-            result.Position = 0;
-            return result;
         }
 
         private void AddOrderLines()
@@ -177,7 +189,7 @@
 
             PdfPCell cell = null;
 
-            cell = new PdfPCell(new Phrase("Mietende Person:", defaultFontGray));
+            cell = new PdfPCell(new Phrase("Mieter:", defaultFontGray));
             cell.BorderWidth = 0;
             cell.BackgroundColor = backGroundColor;
             cell.Padding = 3;
@@ -186,13 +198,15 @@
             table.AddCell(new Phrase(order.Lessee.FullName, defaultFont));
             table.AddCell(orderNumberCell);
 
-            cell = new PdfPCell(new Phrase("J+S-Nummer:", defaultFontGray));
+            var lessee = order.Lessee;
+            var postalAddress = lessee.Street + "\n" + lessee.Postcode + " " + lessee.City;
+            cell = new PdfPCell(new Phrase("Addresse:", defaultFontGray));
             cell.BorderWidth = 0;
             cell.BackgroundColor = backGroundColor;
             cell.Padding = 3;
             cell.PaddingLeft = 36.0f;
             table.AddCell(cell);
-            table.AddCell(new Phrase(order.Lessee.MemberNumber, defaultFontBold));
+            table.AddCell(new Phrase(postalAddress, defaultFont));
 
             cell = new PdfPCell(new Phrase("Telefon / E-Mail:", defaultFontGray));
             cell.BorderWidth = 0;
@@ -292,5 +306,42 @@
             //}
             //return reader;
         }
+    }
+
+    public class RoundRectangle : IPdfPCellEvent
+    {
+        #region IPdfPCellEvent Members
+
+        public void CellLayout(
+            PdfPCell cell, Rectangle rect, PdfContentByte[] canvas
+            )
+        {
+            PdfContentByte cb;
+
+            cb = canvas[PdfPTable.BACKGROUNDCANVAS];
+            cb.RoundRectangle(
+                rect.Left,
+                rect.Bottom,
+                rect.Width,
+                rect.Height,
+                8 // change to adjust how "round" corner is displayed
+                );
+            cb.SetColorFill(BaseColor.WHITE);
+            cb.Fill();
+
+            cb = canvas[PdfPTable.LINECANVAS];
+            cb.RoundRectangle(
+                rect.Left,
+                rect.Bottom,
+                rect.Width,
+                rect.Height,
+                8 // change to adjust how "round" corner is displayed
+                );
+            cb.SetLineWidth(0.5f);
+            cb.SetCMYKColorStrokeF(0f, 0f, 0f, 1f);
+            cb.Stroke();
+        }
+
+        #endregion
     }
 }
