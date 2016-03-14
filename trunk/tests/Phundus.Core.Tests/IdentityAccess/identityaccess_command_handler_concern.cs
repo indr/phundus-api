@@ -36,7 +36,7 @@ namespace Phundus.Tests.IdentityAccess
             userInRole = depends.on<IUserInRole>();
             theAdmin = make.Admin();
             userInRole.WhenToldTo(x => x.Admin(theInitiatorId)).Return(theAdmin);
-            theManager = make.Manager();
+            theManager = new Manager(new UserId(), "manager@test.phundus.ch", "The Manager");
             userInRole.WhenToldTo(x => x.Manager(theInitiatorId, theOrganizationId)).Return(theManager);
 
             memberInRole = depends.on<IMemberInRole>();

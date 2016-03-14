@@ -8,7 +8,7 @@
     using Phundus.IdentityAccess.Model.Users;
     using Phundus.IdentityAccess.Organizations.Model;
     using Phundus.IdentityAccess.Projections;
-    using Phundus.IdentityAccess.Users.Model;
+    using Phundus.IdentityAccess.Users.Model;   
 
     public class identityaccess_factory : factory_base
     {
