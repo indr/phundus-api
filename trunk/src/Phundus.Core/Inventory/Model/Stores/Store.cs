@@ -25,17 +25,19 @@
         {
         }
 
-        public virtual StoreId StoreId { get; private set; }
         public virtual OwnerId OwnerId { get; private set; }
+        public virtual StoreId StoreId { get; private set; }
         public virtual Coordinate Coordinate { get; private set; }
         public virtual string OpeningHours { get; private set; }
         public virtual string Address { get; private set; }
         public virtual string Name { get; private set; }
+        public virtual ContactDetails ContactDetails { get; set; }
 
         protected void When(StoreOpened e)
         {
-            StoreId = new StoreId(e.StoreId);
             OwnerId = e.Owner.OwnerId;
+            StoreId = new StoreId(e.StoreId);
+            ContactDetails = ContactDetails.Empty;
         }
 
 
@@ -43,6 +45,9 @@
         {
             AssertionConcern.AssertArgumentNotNull(manager, "Manager must be provided.");
             AssertionConcern.AssertArgumentNotEmpty(address, "Address must be provided.");
+
+            if (Equals(Address, address))
+                return;
 
             Apply(new AddressChanged(manager, StoreId, address));
         }
@@ -53,10 +58,30 @@
         }
 
 
+        public void ChangeContactDetails(Manager manager, ContactDetails contactDetails)
+        {
+            AssertionConcern.AssertArgumentNotNull(manager, "Manager must be provided.");
+
+            if (Equals(ContactDetails, contactDetails))
+                return;
+
+            Apply(new ContactDetailsChanged(manager, OwnerId, StoreId, contactDetails));
+        }
+
+        protected void When(ContactDetailsChanged e)
+        {
+            ContactDetails = new ContactDetails(e.EmailAddress, e.PhoneNumber,
+                new PostalAddress(e.Line1, e.Line2, e.Street, e.Postcode, e.City));
+        }
+
+
         public void ChangeCoordinate(Manager manager, Coordinate coordinate)
         {
             AssertionConcern.AssertArgumentNotNull(manager, "Manager must be provided.");
             AssertionConcern.AssertArgumentNotNull(coordinate, "Coordinate must be provided.");
+
+            if (Equals(Coordinate, coordinate))
+                return;
 
             Apply(new CoordinateChanged(manager, StoreId, coordinate));
         }
@@ -72,6 +97,9 @@
             AssertionConcern.AssertArgumentNotNull(manager, "Manager must be provided.");
             AssertionConcern.AssertArgumentNotNull(openingHours, "Opening hours must be provided.");
 
+            if (Equals(OpeningHours, openingHours))
+                return;
+
             Apply(new OpeningHoursChanged(manager, StoreId, openingHours));
         }
 
@@ -85,6 +113,9 @@
         {
             AssertionConcern.AssertArgumentNotNull(manager, "Manager must be provided.");
             AssertionConcern.AssertArgumentNotEmpty(name, "Name must be provided.");
+
+            if (Equals(Name, name))
+                return;
 
             Apply(new StoreRenamed(manager, StoreId, name));
         }

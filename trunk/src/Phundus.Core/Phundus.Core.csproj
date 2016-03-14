@@ -228,6 +228,7 @@
     <Compile Include="Inventory\Model\Collaborators\Manager.cs" />
     <Compile Include="Inventory\Model\Collaborators\Owner.cs" />
     <Compile Include="Inventory\Model\Stores\ContactDetails.cs" />
+    <Compile Include="Inventory\Model\Stores\Events\ContactDetailsChanged.cs" />
     <Compile Include="Inventory\Model\Stores\PostalAddress.cs" />
     <Compile Include="Inventory\Projections\ArticleActionsProjection.cs" />
     <Compile Include="Inventory\Projections\ArticleActionsQueries.cs" />
