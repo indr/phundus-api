@@ -3,6 +3,7 @@ namespace Phundus.Tests.Inventory.Model
     using Common.Domain.Model;
     using Machine.Specifications;
     using Phundus.Inventory.Model;
+    using Phundus.Inventory.Model.Stores;
     using Phundus.Inventory.Stores.Model;
 
     public class store_concern : aggregate_root_concern<Store>
@@ -25,7 +26,7 @@ namespace Phundus.Tests.Inventory.Model
     }
 
     [Subject(typeof (Store))]
-    public class when_instantiating_a_store : store_concern
+    public class when_opening_a_store : store_concern
     {
         private It should_have_mutating_event_store_opened = () =>
             mutatingEvent<StoreOpened>(p =>
@@ -33,8 +34,8 @@ namespace Phundus.Tests.Inventory.Model
                 && Equals(p.Owner, theOwner)
                 && p.StoreId == theStoreId.Id);
 
-        private It should_have_owner = () =>
-            sut.Owner.ShouldEqual(theOwner);
+        private It should_have_owner_id = () =>
+            sut.OwnerId.ShouldEqual(theOwner.OwnerId);
 
         private It should_have_store_id = () =>
             sut.StoreId.ShouldEqual(theStoreId);

@@ -39,7 +39,7 @@ namespace Phundus.Inventory.Application
         public void Handle(ChangeAddress command)
         {
             var store = _storeRepository.GetById(command.StoreId);
-            var manager = _userInRole.Manager(command.InitatorId, store.Owner.OwnerId);
+            var manager = _userInRole.Manager(command.InitatorId, store.OwnerId);
 
             store.ChangeAddress(manager, command.Address);
 

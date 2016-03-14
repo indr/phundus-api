@@ -115,7 +115,7 @@
     <Compile Include="Domain.Model\Entity.cs" />
     <Compile Include="Domain.Model\EntityBase.cs" />
     <Compile Include="Domain.Model\EntityWithCompositeId.cs" />
-    <Compile Include="Domain.Model\EventSourcedAggregate.cs" />
+    <Compile Include="Domain.Model\EventSourcedAggregateRoot.cs" />
     <Compile Include="Domain.Model\GuidConverter.cs" />
     <Compile Include="Domain.Model\GuidIdentity.cs" />
     <Compile Include="Domain.Model\HashCodeHelper.cs" />

@@ -4,6 +4,7 @@
     using System.Runtime.Serialization;
     using Common.Domain.Model;
     using Inventory.Model;
+    using Inventory.Model.Stores;
 
     [DataContract]
     public class CoordinateChanged : DomainEvent

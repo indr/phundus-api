@@ -5,6 +5,7 @@ namespace Phundus.Tests.Inventory
     using developwithpassion.specifications.extensions;
     using Phundus.Inventory.Articles.Model;
     using Phundus.Inventory.Model;
+    using Phundus.Inventory.Model.Stores;
     using Phundus.Inventory.Stores.Model;
 
     public class inventory_factory : factory_base
@@ -28,12 +29,12 @@ namespace Phundus.Tests.Inventory
             return new Owner(new OwnerId(), "The Owner", ownerType);
         }
 
-        public Store Store(Owner owner = null)
+        public Store Store(OwnerId ownerId = null)
         {
-            owner = owner ?? Owner();
+            ownerId = ownerId ?? new OwnerId();
             var result = fake.an<Store>();
             result.setup(x => x.StoreId).Return(new StoreId());
-            result.setup(x => x.Owner).Return(owner);
+            result.setup(x => x.OwnerId).Return(ownerId);
             result.setup(x => x.Name).Return("The store name");
             return result;
         }

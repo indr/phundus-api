@@ -177,7 +177,7 @@
         {
         }
 
-        public StoreId(Guid value) : base(value)
+        public StoreId(Guid id) : base(id)
         {
         }
     }

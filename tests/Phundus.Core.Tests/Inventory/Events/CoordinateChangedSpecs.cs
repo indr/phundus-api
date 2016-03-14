@@ -3,6 +3,7 @@
     using Common.Domain.Model;
     using Machine.Specifications;
     using Phundus.Inventory.Model;
+    using Phundus.Inventory.Model.Stores;
     using Phundus.Inventory.Stores.Model;
 
     [Subject(typeof (CoordinateChanged))]

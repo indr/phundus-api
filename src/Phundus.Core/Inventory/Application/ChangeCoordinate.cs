@@ -43,7 +43,7 @@
         public void Handle(ChangeCoordinate command)
         {
             var store = _storeRepository.GetById(command.StoreId);
-            var manager = _userInRole.Manager(command.InitiatorId, store.Owner.OwnerId);
+            var manager = _userInRole.Manager(command.InitiatorId, store.OwnerId);
 
             store.ChangeCoordinate(manager, new Coordinate(command.Latitude, command.Longitude));
 
