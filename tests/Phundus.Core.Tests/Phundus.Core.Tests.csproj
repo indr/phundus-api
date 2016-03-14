@@ -83,6 +83,10 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\packages\CommonServiceLocator.1.3\lib\portable-net4+sl5+netcore45+wpa81+wp8\Microsoft.Practices.ServiceLocation.dll</HintPath>
     </Reference>
+    <Reference Include="NHibernate, Version=3.3.1.4000, Culture=neutral, PublicKeyToken=aa95f207798dfdb4, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\NHibernate.3.3.3.4000\lib\Net35\NHibernate.dll</HintPath>
+    </Reference>
     <Reference Include="nunit.framework">
       <HintPath>..\..\packages\NUnit.2.6.3\lib\nunit.framework.dll</HintPath>
     </Reference>
@@ -131,6 +135,8 @@
     <Compile Include="IdentityAccess\Model\Users\Mails\NewPasswordMailSpecs.cs" />
     <Compile Include="Inventory\Application\ChangeContactDetailsHandlerSpecs.cs" />
     <Compile Include="Inventory\Model\Stores\Events\ContactDetailsChangedSpecs.cs" />
+    <Compile Include="projection_concern.cs" />
+    <Compile Include="Inventory\Projections\StoreDetailsProjectionSpecs.cs" />
     <Compile Include="mail_concern.cs" />
     <Compile Include="IdentityAccess\Model\MembershipSpecs.cs" />
     <Compile Include="IdentityAccess\Model\OrganizationSettingsSpecs.cs" />

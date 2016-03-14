@@ -13,8 +13,9 @@
 
         private Establish ctx = () =>
         {
-            theStore = make.Store(theOwner.OwnerId);
             theNewName = "The new address";
+
+            theStore = make.Store(theOwner.OwnerId);
             storeRepository.setup(x => x.GetById(theStore.StoreId)).Return(theStore);
 
             command = new RenameStore(theInitiatorId, theStore.StoreId, theNewName);

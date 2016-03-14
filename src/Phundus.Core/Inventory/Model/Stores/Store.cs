@@ -57,7 +57,7 @@
         }
 
 
-        public void ChangeCoordinate(Manager manager, Coordinate coordinate)
+        public virtual void ChangeCoordinate(Manager manager, Coordinate coordinate)
         {
             AssertionConcern.AssertArgumentNotNull(manager, "Manager must be provided.");
             AssertionConcern.AssertArgumentNotNull(coordinate, "Coordinate must be provided.");
@@ -74,7 +74,7 @@
         }
 
 
-        public void ChangeOpeningHours(Manager manager, string openingHours)
+        public virtual void ChangeOpeningHours(Manager manager, string openingHours)
         {
             AssertionConcern.AssertArgumentNotNull(manager, "Manager must be provided.");
             AssertionConcern.AssertArgumentNotNull(openingHours, "Opening hours must be provided.");
@@ -91,7 +91,7 @@
         }
 
 
-        public void Rename(Manager manager, string name)
+        public virtual void Rename(Manager manager, string name)
         {
             AssertionConcern.AssertArgumentNotNull(manager, "Manager must be provided.");
             AssertionConcern.AssertArgumentNotEmpty(name, "Name must be provided.");
