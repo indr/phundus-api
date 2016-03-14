@@ -4,7 +4,7 @@ namespace Phundus.Rest.ContentObjects
     using System.Collections.Generic;
     using Newtonsoft.Json;
 
-    public class Mail
+    public class MailCto
     {
         [JsonProperty("mailId")]
         public string MailId { get; set; }

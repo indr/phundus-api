@@ -52,9 +52,9 @@ namespace Phundus.Rest.Api
             {
                 Dispatch(new ChangeAddress(CurrentUserId, storeId, rq.Address));
             }
-            if (rq.ContactDetails != null)
+            if (rq.Contact != null)
             {
-                var cd = rq.ContactDetails;
+                var cd = rq.Contact;
                 Dispatch(new ChangeContactDetails(CurrentUserId, storeId, cd.EmailAddress, cd.PhoneNumber, cd.Line1,
                     cd.Line2, cd.Street, cd.Postcode, cd.City));
             }
@@ -77,11 +77,12 @@ namespace Phundus.Rest.Api
         [JsonProperty("name")]
         public string Name { get; set; }
 
+        [Obsolete("Use contact")]
         [JsonProperty("address")]
         public string Address { get; set; }
 
-        [JsonProperty("contactDetails")]
-        public ContactDetailsCto ContactDetails { get; set; }
+        [JsonProperty("contact")]
+        public ContactCto Contact { get; set; }
 
         [JsonProperty("coordinate")]
         public CoordinateCto Coordinate { get; set; }

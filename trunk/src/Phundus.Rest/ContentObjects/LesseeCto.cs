@@ -3,7 +3,7 @@
     using System;
     using Newtonsoft.Json;
 
-    public class Lessee
+    public class LesseeCto
     {
         [JsonProperty("lesseeId")]
         public Guid LesseeId { get; set; }

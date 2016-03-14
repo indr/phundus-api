@@ -17,7 +17,7 @@
                 .ForMember(d => d.Contact, mo => mo.MapFrom(s => s));
             Mapper.CreateMap<IList<StoreDetailsData>, OrganizationsGetOkResponseContent>()
                 .ForMember(d => d.Stores, mo => mo.MapFrom(s => s));
-            Mapper.CreateMap<OrganizationData, ContactDetailsCto>();
+            Mapper.CreateMap<OrganizationData, ContactCto>();
         }
     }
 
@@ -27,8 +27,9 @@
         {
             Mapper.CreateMap<StoreListData, StoreDetailsCto>();
             Mapper.CreateMap<StoreDetailsData, StoreDetailsCto>()
+                .ForMember(d => d.Contact, mo => mo.MapFrom(s => s))
                 .ForMember(d => d.Coordinate, mo => mo.MapFrom(s => s));
-            Mapper.CreateMap<StoreDetailsData, ContactDetailsCto>();
+            Mapper.CreateMap<StoreDetailsData, ContactCto>();
             Mapper.CreateMap<StoreDetailsData, CoordinateCto>()
                 .ForAllMembers(mo => mo.Condition(s => s.Latitude.HasValue && s.Longitude.HasValue));
         }
@@ -75,7 +76,7 @@
                 .ForMember(d => d.UnitPrice, o => o.MapFrom(s => s.UnitPricePerWeek))
                 .ForMember(d => d.LineTotal, o => o.MapFrom(s => s.LineTotal));
 
-            Mapper.CreateMap<OrderData, Lessee>()
+            Mapper.CreateMap<OrderData, LesseeCto>()
                 .ForMember(d => d.City, o => o.MapFrom(s => s.LesseeCity))
                 .ForMember(d => d.EmailAddress, o => o.MapFrom(s => s.LesseeEmailAddress))
                 .ForMember(d => d.FullName, o => o.MapFrom(s => s.LesseeFirstName + " " + s.LesseeLastName))

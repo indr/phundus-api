@@ -2,7 +2,7 @@ namespace Phundus.Rest.ContentObjects
 {
     using Newtonsoft.Json;
 
-    public class ContactDetailsCto
+    public class ContactCto
     {
         [JsonProperty("postalAddress")]
         public string PostalAddress { get; set; }

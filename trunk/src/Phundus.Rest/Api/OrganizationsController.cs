@@ -91,9 +91,9 @@
         [PATCH("{organizationId}")]
         public virtual HttpResponseMessage Patch(Guid organizationId, OrganizationsPatchRequestContent rq)
         {
-            if (rq.ContactDetails != null)
+            if (rq.Contact != null)
             {
-                var cd = rq.ContactDetails;
+                var cd = rq.Contact;
                 Dispatch(new ChangeOrganizationContactDetails(CurrentUserId, new OrganizationId(organizationId),
                     cd.Line1, cd.Line2, cd.Street, cd.Postcode, cd.City, cd.PhoneNumber, cd.EmailAddress, cd.Website));
             }
@@ -119,7 +119,7 @@
         public string Startpage { get; set; }
 
         [JsonProperty("contactDetails")]
-        public ContactDetailsCto ContactDetails { get; set; }
+        public ContactCto Contact { get; set; }
 
         [JsonProperty("plan")]
         public string Plan { get; set; }
@@ -143,7 +143,7 @@
         public StoreDetailsCto[] Stores { get; set; }
 
         [JsonProperty("contact")]
-        public ContactDetailsCto Contact { get; set; }
+        public ContactCto Contact { get; set; }
 
         [JsonProperty("publicRental")]
         public bool PublicRental { get; set; }
