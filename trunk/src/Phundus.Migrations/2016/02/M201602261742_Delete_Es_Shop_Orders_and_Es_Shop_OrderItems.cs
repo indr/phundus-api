@@ -13,7 +13,7 @@ namespace Phundus.Migrations
             if (Schema.Table("Es_Shop_Orders_Lines").Exists())
                 Delete.Table("Es_Shop_Orders_Lines");
             
-            DeleteTableAndResetTracker("Es_Shop_Orders", "OrderProjection");
+            DeleteTableAndTracker("Es_Shop_Orders", "OrderProjection");
         }
 
         public override void Down()

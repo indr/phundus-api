@@ -135,6 +135,8 @@
     <Compile Include="IdentityAccess\Model\Users\Mails\NewPasswordMailSpecs.cs" />
     <Compile Include="Inventory\Application\ChangeContactDetailsHandlerSpecs.cs" />
     <Compile Include="Inventory\Model\Stores\Events\ContactDetailsChangedSpecs.cs" />
+    <Compile Include="Inventory\Projections\inventory_projection_concern.cs" />
+    <Compile Include="Inventory\Projections\StoreListProjectionSpecs.cs" />
     <Compile Include="projection_concern.cs" />
     <Compile Include="Inventory\Projections\StoreDetailsProjectionSpecs.cs" />
     <Compile Include="mail_concern.cs" />

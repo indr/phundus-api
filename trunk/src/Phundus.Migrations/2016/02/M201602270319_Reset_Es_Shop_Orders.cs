@@ -8,8 +8,8 @@
     {
         public override void Up()
         {
-            DeleteTableAndResetTracker("Es_Shop_Orders_Lines", "OrderProjection");
-            DeleteTableAndResetTracker("Es_Shop_Orders", "OrderProjection");
+            DeleteTableAndTracker("Es_Shop_Orders_Lines", "OrderProjection");
+            DeleteTableAndTracker("Es_Shop_Orders", "OrderProjection");
         }
 
         public override void Down()
