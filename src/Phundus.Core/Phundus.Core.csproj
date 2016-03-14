@@ -255,7 +255,6 @@
     <Compile Include="Inventory\Projections\AvailabilityProjection.cs" />
     <Compile Include="Inventory\Application\AvailabilityService.cs" />
     <Compile Include="Inventory\Model\Collaborators\OwnerService.cs" />
-    <Compile Include="Inventory\Application\ChangeAddress.cs" />
     <Compile Include="Inventory\Application\ChangeCoordinate.cs" />
     <Compile Include="Inventory\Application\ChangeOpeningHours.cs" />
     <Compile Include="Inventory\Application\OpenStore.cs" />

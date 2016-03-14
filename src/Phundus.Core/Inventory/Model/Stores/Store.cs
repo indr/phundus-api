@@ -28,33 +28,15 @@
         public virtual OwnerId OwnerId { get; private set; }
         public virtual StoreId StoreId { get; private set; }
         public virtual Coordinate Coordinate { get; private set; }
-        public virtual string OpeningHours { get; private set; }
-        public virtual string Address { get; private set; }
+        public virtual string OpeningHours { get; private set; }        
         public virtual string Name { get; private set; }
-        public virtual ContactDetails ContactDetails { get; set; }
+        public virtual ContactDetails ContactDetails { get; private set; }
 
         protected void When(StoreOpened e)
         {
             OwnerId = e.Owner.OwnerId;
             StoreId = new StoreId(e.StoreId);
             ContactDetails = ContactDetails.Empty;
-        }
-
-
-        public void ChangeAddress(Manager manager, string address)
-        {
-            AssertionConcern.AssertArgumentNotNull(manager, "Manager must be provided.");
-            AssertionConcern.AssertArgumentNotEmpty(address, "Address must be provided.");
-
-            if (Equals(Address, address))
-                return;
-
-            Apply(new AddressChanged(manager, StoreId, address));
-        }
-
-        protected void When(AddressChanged e)
-        {
-            Address = e.Address;
         }
 
 

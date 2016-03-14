@@ -35,7 +35,7 @@ namespace Phundus.Tests.Inventory
             var result = fake.an<Store>();
             result.setup(x => x.StoreId).Return(new StoreId());
             result.setup(x => x.OwnerId).Return(ownerId);
-            result.setup(x => x.Name).Return("The store name");
+            result.setup(x => x.Name).Return("The store name");            
             return result;
         }
 
