@@ -1,6 +1,7 @@
 namespace Phundus.Inventory.Application
 {
     using System;
+    using Castle.Transactions;
     using Common.Commanding;
     using Common.Domain.Model;
     using Model;
@@ -46,6 +47,7 @@ namespace Phundus.Inventory.Application
             _userInRole = userInRole;
         }
 
+        [Transaction]
         public void Handle(ChangeContactDetails command)
         {
             var store = _storeRepository.GetById(command.StoreId);

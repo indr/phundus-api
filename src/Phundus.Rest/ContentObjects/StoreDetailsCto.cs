@@ -1,7 +1,6 @@
 namespace Phundus.Rest.ContentObjects
 {
     using System;
-    using Api;
     using Newtonsoft.Json;
 
     public class StoreDetailsCto
@@ -18,8 +17,8 @@ namespace Phundus.Rest.ContentObjects
         [JsonProperty("name")]
         public string Name { get; set; }
 
-        [JsonProperty("contactDetails")]
-        public ContactDetailsCto ContactDetails { get; set; }
+        [JsonProperty("contact")]
+        public ContactCto Contact { get; set; }
 
         [JsonProperty("coordinate")]
         public CoordinateCto Coordinate { get; set; }

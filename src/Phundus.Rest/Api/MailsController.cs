@@ -19,7 +19,7 @@
     {
         [GET("")]
         [AllowAnonymous]
-        public virtual QueryOkResponseContent<Mail> Get()
+        public virtual QueryOkResponseContent<MailCto> Get()
         {
             var messages = GetMails();
 
@@ -31,7 +31,7 @@
                     messages = messages.Where(p => p.To.Contains(to));
                 }
             }
-            return new QueryOkResponseContent<Mail>(messages.OrderByDescending(p => p.Date));
+            return new QueryOkResponseContent<MailCto>(messages.OrderByDescending(p => p.Date));
         }
 
         [GET("{mailId}")]
@@ -87,7 +87,7 @@
             return Request.CreateResponse(HttpStatusCode.NoContent);
         }
 
-        private IEnumerable<Mail> GetMails()
+        private IEnumerable<MailCto> GetMails()
         {
             foreach (var each in GetFiles())
             {
@@ -107,9 +107,9 @@
             return HttpContext.Current.Server.MapPath(@"~\App_Data\Mails");
         }
 
-        private static Mail ToMail(string id, Message message)
+        private static MailCto ToMail(string id, Message message)
         {
-            return new Mail
+            return new MailCto
             {
                 MailId = id,
                 Date = message.Headers.DateSent,

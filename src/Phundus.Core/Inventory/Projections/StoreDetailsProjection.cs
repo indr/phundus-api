@@ -22,7 +22,7 @@ namespace Phundus.Inventory.Projections
                 x.Line2 = e.Line2;
                 x.Street = e.Street;
                 x.Postcode = e.Postcode;
-                x.City = e.Postcode;
+                x.City = e.City;
                 x.PostalAddress = MakePostalAddress(e);
                 x.EmailAddress = e.EmailAddress;
                 x.PhoneNumber = e.PhoneNumber;

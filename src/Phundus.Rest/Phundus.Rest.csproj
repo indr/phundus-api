@@ -123,7 +123,7 @@
     <Compile Include="Api\Admin\AdminOrganizationsController.cs" />
     <Compile Include="Api\Admin\AdminUsersController.cs" />
     <Compile Include="Api\ArticlesController.cs" />
-    <Compile Include="ContentObjects\ContactDetailsCto.cs" />
+    <Compile Include="ContentObjects\ContactCto.cs" />
     <Compile Include="Api\EmailAddressCheckController.cs" />
     <Compile Include="Api\FeedbackController.cs" />
     <Compile Include="Api\Organizations\OrganizationsSettingsController.cs" />
@@ -148,7 +148,7 @@
     <Compile Include="Api\SchemaUpdateController.cs" />
     <Compile Include="Api\MailsController.cs" />
     <Compile Include="ContentObjects\StatusGetOkResponseContent.cs" />
-    <Compile Include="ContentObjects\Store.cs" />
+    <Compile Include="ContentObjects\StoreDetailsCto.cs" />
     <Compile Include="ContentObjects\Memberships.cs" />
     <Compile Include="Api\NotificationsController.cs" />
     <Compile Include="ContentObjects\Organization.cs" />
@@ -171,8 +171,8 @@
     <Compile Include="Api\Organizations\OrganizationsApplicationsController.cs" />
     <Compile Include="Api\OrdersItemsController.cs" />
     <Compile Include="Auth\Auth.cs" />
-    <Compile Include="ContentObjects\Lessee.cs" />
-    <Compile Include="ContentObjects\Mail.cs" />
+    <Compile Include="ContentObjects\LesseeCto.cs" />
+    <Compile Include="ContentObjects\MailCto.cs" />
     <Compile Include="ContentObjects\OrderDetail.cs" />
     <Compile Include="ContentObjects\Order.cs" />
     <Compile Include="ContentObjects\OrderItem.cs" />
@@ -184,7 +184,7 @@
     <Compile Include="FileUpload\ImageStore.cs" />
     <Compile Include="Filters\ExceptionFilterAttribute.cs" />
     <Compile Include="Installer.cs" />
-    <Compile Include="MappingProfiles\Orders.cs" />
+    <Compile Include="Profiles.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Api\StatusController.cs" />
   </ItemGroup>

@@ -27,6 +27,6 @@ namespace Phundus.Rest.ContentObjects
         public string LessorName { get; set; }
 
         [JsonProperty("lessee")]
-        public Lessee Lessee { get; set; }
+        public LesseeCto Lessee { get; set; }
     }
 }
