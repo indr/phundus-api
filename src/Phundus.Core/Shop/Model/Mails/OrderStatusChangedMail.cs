@@ -8,9 +8,9 @@
     using Common.Eventing;
     using Common.Mailing;
     using Model;
-    using Services;
     using Shop.Model;
     using Shop.Model.Mails;
+    using Shop.Model.Pdf;
 
     public class OrderStatusChangedMail : OrderMailBase,
         ISubscribeTo<OrderApproved>,
@@ -18,16 +18,16 @@
     {
         private readonly IMessageFactory _factory;
         private readonly IMailGateway _gateway;
-        private readonly IOrderPdfGeneratorService _orderPdfGeneratorService;
+        private readonly IOrderPdfGenerator _orderPdfGenerator;
         private readonly IOrderRepository _orderRepository;
 
         public OrderStatusChangedMail(IMessageFactory factory, IMailGateway gateway, IOrderRepository orderRepository,
-            IOrderPdfGeneratorService orderPdfGeneratorService)
+            IOrderPdfGenerator orderPdfGenerator)
         {
             _factory = factory;
             _gateway = gateway;
             _orderRepository = orderRepository;
-            _orderPdfGeneratorService = orderPdfGeneratorService;
+            _orderPdfGenerator = orderPdfGenerator;
         }
 
         public void Handle(OrderApproved e)
@@ -36,7 +36,7 @@
                 return;
 
             var order = _orderRepository.GetById(new OrderId(e.OrderId));
-            var stream = _orderPdfGeneratorService.GeneratePdf(order);
+            var stream = _orderPdfGenerator.GeneratePdf(order);
             var attachment = new Attachment(stream, String.Format("Bestellung-{0}.pdf", order.OrderShortId.Id),
                 "application/pdf");
 
@@ -77,7 +77,7 @@
                 return;
 
             var order = _orderRepository.GetById(new OrderId(e.OrderId));
-            var stream = _orderPdfGeneratorService.GeneratePdf(order);
+            var stream = _orderPdfGenerator.GeneratePdf(order);
             var attachment = new Attachment(stream, String.Format("Bestellung-{0}.pdf", order.OrderShortId.Id),
                 "application/pdf");
 

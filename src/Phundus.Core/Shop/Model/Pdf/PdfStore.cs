@@ -2,9 +2,6 @@
 {
     using System.IO;
     using Common.Domain.Model;
-    using IdentityAccess.Projections;
-    using Orders.Model;
-    using Orders.Services;
 
     public interface IPdfStore
     {
@@ -13,21 +10,24 @@
 
     public class PdfStore : IPdfStore
     {
-        public IMemberInRole MemberInRole { get; set; }
+        private readonly IOrderPdfGenerator _orderPdfGenerator;
+        private readonly IOrderRepository _orderRepository;
 
-        public IOrderRepository OrderRepository { get; set; }
-
-        public IOrderPdfGeneratorService OrderPdfGeneratorService { get; set; }
+        public PdfStore(IOrderRepository orderRepository, IOrderPdfGenerator orderPdfGenerator)
+        {
+            _orderRepository = orderRepository;
+            _orderPdfGenerator = orderPdfGenerator;
+        }
 
         public Stream GetOrderPdf(OrderId orderId, UserId currentUserId)
         {
-            var order = OrderRepository.GetById(orderId);
+            var order = _orderRepository.GetById(orderId);
             return GetPdf(order);
         }
 
         private Stream GetPdf(Order order)
         {
-            return OrderPdfGeneratorService.GeneratePdf(order);
+            return _orderPdfGenerator.GeneratePdf(order);
         }
     }
 }

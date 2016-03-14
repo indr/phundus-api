@@ -8,7 +8,7 @@
     using Common.Eventing;
     using Common.Mailing;
     using Orders.Model;
-    using Orders.Services;
+    using Pdf;
 
     public class OrderPlacedMail : OrderMailBase,
         ISubscribeTo<OrderPlaced>
@@ -16,17 +16,17 @@
         private readonly IMessageFactory _factory;
         private readonly IMailGateway _gateway;
         private readonly ILessorService _lessorService;
-        private readonly IOrderPdfGeneratorService _orderPdfGeneratorService;
+        private readonly IOrderPdfGenerator _orderPdfGenerator;
         private readonly IOrderRepository _orderRepository;
 
         public OrderPlacedMail(IMessageFactory factory, IMailGateway gateway, IOrderRepository orderRepository,
-            ILessorService lessorService, IOrderPdfGeneratorService orderPdfGeneratorService)
+            ILessorService lessorService, IOrderPdfGenerator orderPdfGenerator)
         {
             _factory = factory;
             _gateway = gateway;
             _orderRepository = orderRepository;
             _lessorService = lessorService;
-            _orderPdfGeneratorService = orderPdfGeneratorService;
+            _orderPdfGenerator = orderPdfGenerator;
         }
 
         public void Handle(OrderPlaced e)
@@ -34,7 +34,7 @@
             var order = _orderRepository.GetById(new OrderId(e.OrderId));
             var managers = _lessorService.GetManagersForEmailNotification(new LessorId(e.LessorId))
                 .Select(x => x.EmailAddress);
-            var stream = _orderPdfGeneratorService.GeneratePdf(order);
+            var stream = _orderPdfGenerator.GeneratePdf(order);
             var attachment = new Attachment(stream, String.Format("Bestellung-{0}.pdf", order.OrderShortId.Id),
                 "application/pdf");
 

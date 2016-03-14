@@ -8,9 +8,9 @@
     using developwithpassion.specifications.extensions;
     using Machine.Specifications;
     using Phundus.Shop.Model;
+    using Phundus.Shop.Model.Pdf;
     using Phundus.Shop.Orders.Mails;
     using Phundus.Shop.Orders.Model;
-    using Phundus.Shop.Orders.Services;
     using Rhino.Mocks;
 
     public class order_status_changed_mail_concern : mail_concern<OrderStatusChangedMail>
@@ -27,7 +27,7 @@
             var make = new shop_factory(fake);
 
             depends.on<IOrderRepository>().setup(x => x.GetById(Arg<OrderId>.Is.Anything)).Return(make.Order());
-            depends.on<IOrderPdfGeneratorService>()
+            depends.on<IOrderPdfGenerator>()
                 .setup(x => x.GeneratePdf(Arg<Order>.Is.Anything))
                 .Return(new MemoryStream());
 
@@ -63,7 +63,7 @@
             var make = new shop_factory(fake);
 
             depends.on<IOrderRepository>().setup(x => x.GetById(Arg<OrderId>.Is.Anything)).Return(make.Order());
-            depends.on<IOrderPdfGeneratorService>()
+            depends.on<IOrderPdfGenerator>()
                 .setup(x => x.GeneratePdf(Arg<Order>.Is.Anything))
                 .Return(new MemoryStream());
 

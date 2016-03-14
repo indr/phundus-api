@@ -243,6 +243,7 @@
     <Compile Include="Shop\Model\Mails\OrderMailBase.cs" />
     <Compile Include="Shop\Model\Manager.cs" />
     <Compile Include="Shop\Model\OrderLines.cs" />
+    <Compile Include="Shop\Model\Pdf\OrderPdfGenerator.cs" />
     <Compile Include="Shop\Projections\Data\LessorData.cs" />
     <Compile Include="Shop\Projections\Data\LessorType.cs" />
     <Compile Include="Shop\Projections\Data\LesseeData.cs" />
@@ -290,8 +291,7 @@
     <Compile Include="Shop\Model\Events\OrderItemPeriodChanged.cs" />
     <Compile Include="Shop\Model\Events\OrderItemTotalChanged.cs" />
     <Compile Include="Shop\Model\Events\OrderPlaced.cs" />
-    <Compile Include="Shop\Model\Pdf\RoundRectangle.cs" />
-    <Compile Include="Shop\Model\Pdf\OrderPdfGeneratorService.cs" />
+    <Compile Include="Shop\Model\Pdf\OrderPdf.cs" />
     <Compile Include="Shop\Model\Pdf\PdfStore.cs" />
     <Compile Include="Shop\Model\PerDayWithPerSevenDaysPricePricingStrategy.cs" />
     <Compile Include="Shop\Projections\OrderProjection.cs" />
