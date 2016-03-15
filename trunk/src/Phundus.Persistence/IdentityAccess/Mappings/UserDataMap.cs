@@ -4,9 +4,9 @@
     using NHibernate.Type;
     using Phundus.IdentityAccess.Projections;
 
-    public class UserViewRowMap : ClassMap<UserData>
+    public class UserDataMap : ClassMap<UserData>
     {
-        public UserViewRowMap()
+        public UserDataMap()
         {
             SchemaAction.Validate();
 

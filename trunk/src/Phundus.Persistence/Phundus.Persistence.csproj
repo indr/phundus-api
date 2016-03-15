@@ -84,9 +84,9 @@
   <ItemGroup>
     <Compile Include="App_Start\RepositoryInstaller.cs" />
     <Compile Include="Dashboard\EventLogDataMap.cs" />
-    <Compile Include="IdentityAccess\Mappings\MembershipApplicationViewRowMap.cs" />
+    <Compile Include="IdentityAccess\Mappings\MembershipApplicationDataMap.cs" />
     <Compile Include="IdentityAccess\Mappings\RelationshipProjectionRowMap.cs" />
-    <Compile Include="IdentityAccess\Mappings\UserViewRowMap.cs" />
+    <Compile Include="IdentityAccess\Mappings\UserDataMap.cs" />
     <Compile Include="IdentityAccess\Projections\OrganizationDataMap.cs" />
     <Compile Include="IdentityAccess\Projections\UserAddressDataMap.cs" />
     <Compile Include="Inventory\Mappings\StoreListDataMap.cs" />
