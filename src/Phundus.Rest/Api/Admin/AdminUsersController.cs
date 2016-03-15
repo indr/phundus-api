@@ -41,7 +41,7 @@
                     UserId = s.UserId,
                     IsApproved = s.IsApproved,
                     IsLocked = s.IsLockedOut,
-                    IsAdmin = s.RoleId == 2,
+                    IsAdmin = s.RoleId == 3,
                     SignedUpAtUtc = s.SignedUpAtUtc,
                     LastLogInAtUtc = s.LastLogInAtUtc
                 }).ToList()
