@@ -32,7 +32,7 @@
 
         public InitiatorId InitiatorId { get; protected set; }
         public CartItemId CartItemId { get; protected set; }
-        public LessorId LessorId { get; set; }
+        public LessorId LessorId { get; protected set; }
         public ArticleId ArticleId { get; protected set; }
         public UserId UserId { get; protected set; }        
         public DateTime FromUtc { get; protected set; }

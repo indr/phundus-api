@@ -78,6 +78,7 @@
   <ItemGroup>
     <Compile Include="App_Start\CommonInstaller.cs" />
     <Compile Include="Domain.Model\IShortIdGeneratorService.cs" />
+    <Compile Include="Domain.Model\PostalAddressFactory.cs" />
     <Compile Include="Eventing\Application\ForceProcessing.cs" />
     <Compile Include="Eventing\EventStore.cs" />
     <Compile Include="Eventing\Installers\EventHandlerInstaller.cs" />

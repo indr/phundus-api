@@ -6,6 +6,7 @@ namespace Phundus.Tests.Shop
     using developwithpassion.specifications.extensions;
     using Phundus.Shop.Model;
 
+// ReSharper disable once InconsistentNaming
     public class shop_factory : factory_base
     {
         public shop_factory(ICreateFakes fake) : base(fake)
@@ -15,14 +16,9 @@ namespace Phundus.Tests.Shop
         public Article Article(Guid lessorId = default(Guid))
         {
             lessorId = lessorId == default(Guid) ? Guid.NewGuid() : lessorId;
-
-            var articleId = new ArticleShortId(NextNumericId());
-            var article = fake.an<Article>();
-            article.setup(x => x.ArticleId).Return(new ArticleId());
-            article.setup(x => x.ArticleShortId).Return(articleId);
-            article.setup(x => x.LessorId).Return(new LessorId(lessorId));
-            article.setup(x => x.Name).Return("The article " + articleId.Id);
-            article.setup(x => x.Price).Return(7.0m);
+            var shortId = new ArticleShortId(NextNumericId());
+            var article = new Article(shortId, new ArticleId(), Lessor(new LessorId(lessorId)), new StoreId(),
+                "The article " + shortId.Id, 7.0m);
             return article;
         }
 
@@ -30,7 +26,6 @@ namespace Phundus.Tests.Shop
         {
             userId = userId ?? new UserId();
             return Lessee(new LesseeId(userId));
-         
         }
 
         public Lessee Lessee(LesseeId lesseeId)
