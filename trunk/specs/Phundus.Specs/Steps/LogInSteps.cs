@@ -1,6 +1,5 @@
 ﻿namespace Phundus.Specs.Steps
-{
-    using System.Configuration;
+{    
     using System.Diagnostics;
     using Services;
     using TechTalk.SpecFlow;
