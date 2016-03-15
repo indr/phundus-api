@@ -29,8 +29,14 @@ namespace Phundus.Tests.Shop
         public Lessee Lessee(UserId userId = null)
         {
             userId = userId ?? new UserId();
+            return Lessee(new LesseeId(userId));
+         
+        }
+
+        public Lessee Lessee(LesseeId lesseeId)
+        {
             var lessee = fake.an<Lessee>();
-            lessee.setup(x => x.LesseeId).Return(new LesseeId(userId.Id));
+            lessee.setup(x => x.LesseeId).Return(lesseeId);
             lessee.setup(x => x.EmailAddress).Return("lessee@test.phundus.ch");
             return lessee;
         }

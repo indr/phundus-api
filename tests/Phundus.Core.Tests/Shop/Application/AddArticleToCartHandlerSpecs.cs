@@ -9,7 +9,7 @@
     using Phundus.Shop.Authorization;
     using Phundus.Shop.Model;
     using Rhino.Mocks;
-
+    
     public class when_add_article_to_cart_is_handled :
         shop_command_handler_concern<AddArticleToCart, AddArticleToCartHandler>
     {
@@ -25,13 +25,17 @@
         private Establish ctx = () =>
         {
             theArticle = make.Article();
+
+            var lesseeId = new LesseeId(theInitiatorId);
+            depends.on<ILesseeService>().setup(x => x.GetById(Arg<LesseeId>.Is.Equal(lesseeId))).Return(make.Lessee(lesseeId));
             cartRepository = depends.on<ICartRepository>();
 
             depends.on<IArticleService>()
-                .WhenToldTo(x => x.GetById(theArticle.ArticleId, theInitiatorId))
+                .WhenToldTo(x => x.GetById(Arg<LessorId>.Is.Equal(theArticle.LessorId), Arg<ArticleId>.Is.Equal(theArticle.ArticleId),
+                    Arg<LesseeId>.Is.Equal(new LesseeId(theInitiatorId))))
                 .Return(theArticle);
             theCartItemId = new CartItemId();
-            command = new AddArticleToCart(theInitiatorId, theCartItemId, theArticle.ArticleId, theFromUtc, theToUtc, theQuantity);
+            command = new AddArticleToCart(theInitiatorId, theCartItemId, theArticle.LessorId, theArticle.ArticleId, theFromUtc, theToUtc, theQuantity);
         };
     }
 

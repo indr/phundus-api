@@ -7,8 +7,7 @@ namespace Phundus.Shop.Model
     using Inventory.Model.Articles;
 
     public interface IArticleService
-    {
-        Article GetById(ArticleId articleId, UserId userId);
+    {        
         Article GetById(LessorId lessorId, ArticleId articleId, LesseeId lesseeId);
     }
 
@@ -21,10 +20,6 @@ namespace Phundus.Shop.Model
         public ArticleService(IMemberInRole memberInRole, IArticleRepository articleRepository,
             ILessorService lessorService)
         {
-            if (memberInRole == null) throw new ArgumentNullException("memberInRole");
-            if (articleRepository == null) throw new ArgumentNullException("articleRepository");
-            if (lessorService == null) throw new ArgumentNullException("lessorService");
-
             _memberInRole = memberInRole;
             _articleRepository = articleRepository;
             _lessorService = lessorService;
@@ -33,16 +28,7 @@ namespace Phundus.Shop.Model
         protected ArticleService()
         {
         }
-
-        public virtual Article GetById(ArticleId articleId, UserId userId)
-        {
-            if (articleId == null) throw new ArgumentNullException("articleId");
-            if (userId == null) throw new ArgumentNullException("userId");
-
-            var article = _articleRepository.GetById(articleId);
-            return ConvertToInternal(article, userId);
-        }
-
+        
         public virtual Article GetById(LessorId lessorId, ArticleId articleId, LesseeId lesseeId)
         {
             if (lessorId == null) throw new ArgumentNullException("lessorId");
@@ -54,6 +40,15 @@ namespace Phundus.Shop.Model
                 throw new NotFoundException(String.Format("Article {0} {1} not found.", lessorId, articleId));
 
             return result;
+        }        
+
+        private Article GetById(ArticleId articleId, UserId userId)
+        {
+            if (articleId == null) throw new ArgumentNullException("articleId");
+            if (userId == null) throw new ArgumentNullException("userId");
+
+            var article = _articleRepository.GetById(articleId);
+            return ConvertToInternal(article, userId);
         }
 
         private Article ConvertToInternal(Inventory.Articles.Model.Article article, UserId userId)
