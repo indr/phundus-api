@@ -47,16 +47,15 @@ namespace Phundus.Rest.Api.Users
             return NoContent();
         }
 
-        [POST("items")]        
-        public virtual UsersCartItemsPostOkResponseContent Post(Guid userId,
-            UsersCartItemsPostRequestContent rq)
+        [POST("items")]
+        public virtual UsersCartItemsPostOkResponseContent Post(Guid userId, UsersCartItemsPostRequestContent rq)
         {
             if (userId != CurrentUserId.Id)
                 throw new ArgumentException("userId");
 
             var cartItemId = new CartItemId();
-            Dispatch(new AddArticleToCart(CurrentUserId, cartItemId, new ArticleId(rq.ArticleGuid),
-                rq.FromUtc, rq.ToUtc, rq.Quantity));
+            Dispatch(new AddArticleToCart(CurrentUserId, cartItemId, new LessorId(rq.LessorId),
+                new ArticleId(rq.ProductId), rq.FromUtc, rq.ToUtc, rq.Quantity));
 
             return new UsersCartItemsPostOkResponseContent
             {
@@ -64,7 +63,7 @@ namespace Phundus.Rest.Api.Users
             };
         }
 
-        [PATCH("items/{itemId}")]        
+        [PATCH("items/{itemId}")]
         public virtual HttpResponseMessage Patch(Guid userId, Guid itemId,
             UsersCartPatchRequestContent requestContent)
         {
@@ -77,8 +76,8 @@ namespace Phundus.Rest.Api.Users
 
             return NoContent();
         }
-        
-        [DELETE("items/{itemId}")]        
+
+        [DELETE("items/{itemId}")]
         public virtual HttpResponseMessage Delete(Guid userId, Guid itemId)
         {
             if (userId != CurrentUserId.Id)
@@ -183,8 +182,11 @@ namespace Phundus.Rest.Api.Users
 
     public class UsersCartItemsPostRequestContent
     {
-        [JsonProperty("articleGuid")]
-        public Guid ArticleGuid { get; set; }
+        [JsonProperty("lessorId")]
+        public Guid LessorId { get; set; }
+
+        [JsonProperty("productId")]
+        public Guid ProductId { get; set; }
 
         [JsonProperty("fromUtc")]
         public DateTime FromUtc { get; set; }

@@ -6,13 +6,7 @@
     using Integration.IdentityAccess;
 
     public interface ILesseeService
-    {
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="lesseeId"></param>
-        /// <returns></returns>
-        /// <exception cref="NotFoundException"></exception>
+    {        
         Lessee GetById(LesseeId lesseeId);
     }
 
@@ -21,8 +15,7 @@
         private readonly IUsersQueries _usersQueries;
 
         public LesseeService(IUsersQueries usersQueries)
-        {
-            if (usersQueries == null) throw new ArgumentNullException("usersQueries");
+        {            
             _usersQueries = usersQueries;
         }
 

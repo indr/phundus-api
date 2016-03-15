@@ -11,14 +11,16 @@
 
     public class AddArticleToCart : ICommand
     {
-        public AddArticleToCart(InitiatorId initiatorId, CartItemId cartItemId, ArticleId articleId, DateTime fromUtc,
+        public AddArticleToCart(InitiatorId initiatorId, CartItemId cartItemId, LessorId lessorId, ArticleId articleId, DateTime fromUtc,
             DateTime toUtc, int quantity)
         {
             if (initiatorId == null) throw new ArgumentNullException("initiatorId");
             if (cartItemId == null) throw new ArgumentNullException("cartItemId");
+            if (lessorId == null) throw new ArgumentNullException("lessorId");
             if (articleId == null) throw new ArgumentNullException("articleId");
             InitiatorId = initiatorId;
             CartItemId = cartItemId;
+            LessorId = lessorId;
             ArticleId = articleId;
             UserId = new UserId(initiatorId.Id);            
             FromUtc = fromUtc;
@@ -28,6 +30,7 @@
 
         public InitiatorId InitiatorId { get; protected set; }
         public CartItemId CartItemId { get; protected set; }
+        public LessorId LessorId { get; set; }
         public ArticleId ArticleId { get; protected set; }
         public UserId UserId { get; protected set; }        
         public DateTime FromUtc { get; protected set; }
@@ -41,17 +44,15 @@
         private readonly IAuthorize _authorize;
         private readonly IInitiatorService _initiatorService;
         private readonly ICartRepository _cartRepository;
+        private readonly ILesseeService _lesseeService;
 
         public AddArticleToCartHandler(IAuthorize authorize, IInitiatorService initiatorService,
-            ICartRepository cartRepository, IArticleService articleService)
-        {
-            if (authorize == null) throw new ArgumentNullException("authorize");
-            if (initiatorService == null) throw new ArgumentNullException("initiatorService");
-            if (cartRepository == null) throw new ArgumentNullException("cartRepository");
-            if (articleService == null) throw new ArgumentNullException("articleService");
+            ICartRepository cartRepository, ILesseeService lesseeService, IArticleService articleService)
+        {            
             _authorize = authorize;
             _initiatorService = initiatorService;
             _cartRepository = cartRepository;
+            _lesseeService = lesseeService;
             _articleService = articleService;
         }
 
@@ -59,7 +60,9 @@
         public void Handle(AddArticleToCart command)
         {
             var initiator = _initiatorService.GetById(command.InitiatorId);
-            var article = _articleService.GetById(command.ArticleId, command.UserId);
+
+            var lessee = _lesseeService.GetById(new LesseeId(command.InitiatorId));
+            var article = _articleService.GetById(command.LessorId, command.ArticleId, lessee.LesseeId);
 
             _authorize.Enforce(initiator.InitiatorId, Rent.Article(article));
 
