@@ -292,7 +292,8 @@
                 .Post<UserCartItemsPostOkResponseContent>(new
                 {
                     userId = user.UserId,
-                    articleGuid = article.ArticleId,
+                    lessorId = article.OwnerId,
+                    productId = article.ArticleId,
                     quantity = 1,
                     fromUtc = DateTime.Today.Date.ToUniversalTime(),
                     toUtc = DateTime.Today.Date.AddDays(1).AddSeconds(-1).ToUniversalTime()
