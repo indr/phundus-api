@@ -2,6 +2,7 @@
 {
     using System;
 
+    // TODO: Split into LessorListData and LessorDetailsData
     public class LessorData
     {
         private string _website;

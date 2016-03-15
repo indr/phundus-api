@@ -35,8 +35,9 @@ namespace Phundus.Shop.Model
 
             foreach (var each in orderEventLines)
             {
+                StoreId storeId = each.StoreId == Guid.Empty ? null : new StoreId(each.StoreId);
                 var item = new OrderLine(new OrderLineId(each.LineId), new ArticleId(each.ArticleId),
-                    new ArticleShortId(each.ArticleShortId), new StoreId(each.StoreId), each.Text, each.Period, each.Quantity,
+                    new ArticleShortId(each.ArticleShortId), storeId, each.Text, each.Period, each.Quantity,
                     each.UnitPricePerWeek, each.LineTotal);
                 _items.Add(item);
             }

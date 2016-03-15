@@ -3,26 +3,34 @@
     using System;
     using System.IO;
     using System.Linq;
+    using System.Text;
+    using IdentityAccess.Projections;
+    using Inventory.Projections;
     using iTextSharp.text;
     using iTextSharp.text.pdf;
-    using Model;
     using Orders.Model;
+    using Projections;
 
     public class OrderPdf
-    {
-        private Document doc;
-        private PdfReader reader;
-        private PdfWriter writer;
-        private Order order;
+    {        
         private GrayColor backGroundColor;
         private Font defaultFont;
-        private Font defaultFontGray;
         private Font defaultFontBold;
+        private Font defaultFontGray;
+        private Document doc;
+        private Order order;
+        private readonly LessorData _lessor;
+        private readonly StoreDetailsData _store;
+        private PdfReader reader;
         private MemoryStream stream;
+        private PdfWriter writer;
 
-        public OrderPdf(Order aOrder)
+        public OrderPdf(Order aOrder, LessorData lessor, StoreDetailsData store)
         {
+            if (lessor == null) throw new ArgumentNullException("lessor");
             order = aOrder;
+            _lessor = lessor;
+            _store = store;
 
 
             var fontsFolder = Environment.GetFolderPath(Environment.SpecialFolder.Fonts);
@@ -32,7 +40,6 @@
             defaultFont = FontFactory.GetFont("calibri", 11);
             defaultFontGray = FontFactory.GetFont("calibri", 11, BaseColor.GRAY);
             defaultFontBold = FontFactory.GetFont("calibri-bold", 11);
-
         }
 
         public Stream GeneratePdf()
@@ -50,7 +57,6 @@
 
         private void AddFooter()
         {
-
             //            var path = HttpContext.Current.Server.MapPath(@"~\Content\Images\PdfFooter.png");
             //            var img = iTextSharp.text.Image.GetInstance(path);
             //            img.ScaleToFit(doc.PageSize.Width, doc.PageSize.Height);
@@ -61,31 +67,70 @@
             //            doc.Add(img);
 
 
+            var contactDetails = _store != null ? GetStoreContactDetails() : GetLessorContactDetails();
+            
             var table = new PdfPTable(1);
-            var cell = new PdfPCell()
+            var cell = new PdfPCell
             {
                 CellEvent = new RoundRectangle(),
-                Border = PdfPCell.NO_BORDER,
+                Border = Rectangle.NO_BORDER,
                 Padding = 10,
                 PaddingTop = 0,
                 HorizontalAlignment = Element.ALIGN_RIGHT
             };
-            var font = FontFactory.GetFont("calibri", 10);
+            var font = FontFactory.GetFont("calibri", 9);
 
-            var lessor = order.Lessor;           
-            cell.AddElement(new Paragraph(lessor.Name, font) { Alignment = Element.ALIGN_RIGHT});
-
-//            cell.AddElement(new Paragraph(@"Sekretariat PFADI Luzern
-//            c/o Stiftung Rodtegg, bürowärkstatt
-//            Rodteggstrasse 3a, 6005 Luzern 
-//            Tel. 041 368 40 35   Fax 041 368 42 94
-//            Web www.pfadiluzern.ch
-//            E-Mail sekretariat@pfadiluzern.ch", font) { Alignment = Element.ALIGN_RIGHT });
+            
+            cell.AddElement(new Paragraph(contactDetails, font) {Alignment = Element.ALIGN_RIGHT});
 
             table.AddCell(cell);
-            table.TotalWidth = doc.PageSize.Width / 2.8f;
+            table.TotalWidth = doc.PageSize.Width/2.8f;
             table.WriteSelectedRows(0, -1, -10, 150, writer.DirectContent);
+        }
 
+        private string GetLessorContactDetails()
+        {
+            if (_lessor == null)
+                return null;
+
+            var sb = new StringBuilder();
+            sb.AppendLine(_lessor.PostalAddress);            
+
+            if (!String.IsNullOrWhiteSpace(_lessor.PhoneNumber))
+                sb.AppendLine("Tel. " + _lessor.PhoneNumber);
+            if (!String.IsNullOrWhiteSpace(_lessor.EmailAddress))
+                sb.AppendLine(_lessor.EmailAddress);
+            if (!String.IsNullOrWhiteSpace(_lessor.Website))
+                sb.AppendLine(_lessor.Website);
+
+            return sb.ToString().Trim();
+        }
+
+        private string GetStoreContactDetails()
+        {
+            if (_store == null)
+                return null;
+
+            var sb = new StringBuilder();
+            if (!String.IsNullOrWhiteSpace(_store.PostalAddress))
+                sb.AppendLine(_store.PostalAddress);
+            else
+                sb.AppendLine(_lessor.PostalAddress);
+
+            if (!String.IsNullOrWhiteSpace(_store.PhoneNumber))
+                sb.AppendLine("Tel. " + _store.PhoneNumber);
+            else if (!String.IsNullOrWhiteSpace(_lessor.PhoneNumber))
+                sb.AppendLine("Tel. " + _lessor.PhoneNumber);
+
+            if (!String.IsNullOrWhiteSpace(_store.EmailAddress))
+                sb.AppendLine(_store.EmailAddress);
+            else if (!String.IsNullOrWhiteSpace(_lessor.EmailAddress))
+                sb.AppendLine(_lessor.EmailAddress);
+
+            if (!String.IsNullOrWhiteSpace(_lessor.Website))
+                sb.AppendLine(_lessor.Website);
+
+            return sb.ToString().Trim();
         }
 
         private Stream CloseDocument()
