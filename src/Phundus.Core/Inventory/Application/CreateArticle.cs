@@ -4,12 +4,10 @@
     using Articles.Model;
     using Authorization;
     using Castle.Transactions;
-    using Common;
     using Common.Commanding;
     using Common.Domain.Model;
     using Common.Eventing;
     using Integration.IdentityAccess;
-    using Model;
     using Model.Articles;
     using Model.Collaborators;
     using Model.Stores;
@@ -52,16 +50,16 @@
     {
         private readonly IArticleRepository _articleRepository;
         private readonly IAuthorize _authorize;
-        private readonly IInitiatorService _initiatorService;
+        private readonly ICollaboratorService _collaboratorService;
         private readonly IOwnerService _ownerService;
         private readonly IStoreRepository _storeRepository;
 
-        public CreateArticleHandler(IAuthorize authorize, IInitiatorService initiatorService,
+        public CreateArticleHandler(IAuthorize authorize, ICollaboratorService collaboratorService,
             IArticleRepository articleRepository, IStoreRepository storeRepository,
             IOwnerService ownerService)
-        {            
+        {
             _authorize = authorize;
-            _initiatorService = initiatorService;
+            _collaboratorService = collaboratorService;
             _articleRepository = articleRepository;
             _storeRepository = storeRepository;
             _ownerService = ownerService;
@@ -70,7 +68,7 @@
         [Transaction]
         public void Handle(CreateArticle command)
         {
-            var initiator = _initiatorService.GetById(command.InitiatorId);
+            var initiator = _collaboratorService.Initiator(command.InitiatorId);
             var owner = _ownerService.GetById(command.OwnerId);
 
             _authorize.Enforce(initiator.InitiatorId, Create.Article(owner.OwnerId));

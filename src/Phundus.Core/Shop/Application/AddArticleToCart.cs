@@ -7,6 +7,7 @@
     using Common.Domain.Model;
     using Integration.IdentityAccess;
     using Model;
+    using Model.Collaborators;
     using Phundus.Authorization;
 
     // TODO: Rename to AddCartItem
@@ -44,15 +45,15 @@
     {
         private readonly IArticleService _articleService;
         private readonly IAuthorize _authorize;
-        private readonly IInitiatorService _initiatorService;
+        private readonly ICollaboratorService _collaboratorService;
         private readonly ICartRepository _cartRepository;
         private readonly ILesseeService _lesseeService;
 
-        public AddArticleToCartHandler(IAuthorize authorize, IInitiatorService initiatorService,
+        public AddArticleToCartHandler(IAuthorize authorize, ICollaboratorService collaboratorService,
             ICartRepository cartRepository, ILesseeService lesseeService, IArticleService articleService)
         {            
             _authorize = authorize;
-            _initiatorService = initiatorService;
+            _collaboratorService = collaboratorService;
             _cartRepository = cartRepository;
             _lesseeService = lesseeService;
             _articleService = articleService;
@@ -61,7 +62,7 @@
         [Transaction]
         public void Handle(AddArticleToCart command)
         {
-            var initiator = _initiatorService.GetById(command.InitiatorId);
+            var initiator = _collaboratorService.Initiator(command.InitiatorId);
 
             var lessee = _lesseeService.GetById(new LesseeId(command.InitiatorId));
             var article = _articleService.GetById(command.LessorId, command.ArticleId, lessee.LesseeId);

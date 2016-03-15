@@ -5,6 +5,7 @@
     using Common.Commanding;
     using Common.Domain.Model;
     using Model;
+    using Model.Collaborators;
 
     public class RemoveOrderItem : ICommand
     {
@@ -25,13 +26,11 @@
     public class RemoveOrderItemHandler : IHandleCommand<RemoveOrderItem>
     {
         private readonly IOrderRepository _orderRepository;
-        private readonly IUserInRole _userInRole;
+        private readonly ICollaboratorService _collaboratorService;
 
-        public RemoveOrderItemHandler(IUserInRole userInRole, IOrderRepository orderRepository)
+        public RemoveOrderItemHandler(ICollaboratorService collaboratorService, IOrderRepository orderRepository)
         {
-            if (userInRole == null) throw new ArgumentNullException("userInRole");
-            if (orderRepository == null) throw new ArgumentNullException("orderRepository");
-            _userInRole = userInRole;
+            _collaboratorService = collaboratorService;
             _orderRepository = orderRepository;
         }
 
@@ -39,7 +38,7 @@
         public void Handle(RemoveOrderItem command)
         {
             var order = _orderRepository.GetById(command.OrderId);
-            var manager = _userInRole.Manager(command.InitiatorId, order.Lessor.LessorId);
+            var manager = _collaboratorService.Manager(command.InitiatorId, order.Lessor.LessorId);
 
             order.RemoveItem(manager, command.OrderItemId);
 

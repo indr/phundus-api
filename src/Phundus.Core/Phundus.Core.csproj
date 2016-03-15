@@ -227,6 +227,7 @@
     <Compile Include="Inventory\Model\Articles\ImageRemoved.cs" />
     <Compile Include="Inventory\Authorization\Create.cs" />
     <Compile Include="Inventory\Authorization\Manage.cs" />
+    <Compile Include="Inventory\Infrastructure\CollaboratorService.cs" />
     <Compile Include="Inventory\Model\Collaborators\Manager.cs" />
     <Compile Include="Inventory\Model\Collaborators\Owner.cs" />
     <Compile Include="Inventory\Model\Stores\ContactDetails.cs" />
@@ -237,10 +238,12 @@
     <Compile Include="Inventory\Projections\ArticleQueries.cs" />
     <Compile Include="Inventory\Projections\StoreDetailsProjection.cs" />
     <Compile Include="Inventory\Projections\StoreListProjection.cs" />
-    <Compile Include="Inventory\Model\Collaborators\UserInRole.cs" />
+    <Compile Include="Inventory\Model\Collaborators\ICollaboratorService.cs" />
     <Compile Include="Inventory\Application\RenameStore.cs" />
     <Compile Include="Inventory\Model\Stores\Events\StoreRenamed.cs" />
     <Compile Include="Inventory\Projections\StoresQueries.cs" />
+    <Compile Include="Shop\Infrastructure\CollaboratorService.cs" />
+    <Compile Include="Shop\Model\Collaborators\ICollaboratorService.cs" />
     <Compile Include="Shop\Model\Mails\OrderMailBase.cs" />
     <Compile Include="Shop\Model\Manager.cs" />
     <Compile Include="Shop\Model\OrderLines.cs" />
@@ -306,7 +309,6 @@
     <Compile Include="Shop\Model\ArticleService.cs" />
     <Compile Include="Shop\Authorization\Rent.cs" />
     <Compile Include="Shop\Model\LessorService.cs" />
-    <Compile Include="Shop\Model\UserInRole.cs" />
     <Compile Include="Web\Projections\UrlMapProjection.cs" />
     <Compile Include="App_Start\CoreInstaller.cs" />
     <Compile Include="Inventory\Model\Articles\Article.cs" />

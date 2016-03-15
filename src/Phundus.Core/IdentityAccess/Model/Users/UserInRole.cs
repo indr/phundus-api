@@ -26,9 +26,6 @@
 
         public UserInRole(IUserRepository userRepository, IMembershipRepository membershipRepository)
         {
-            if (userRepository == null) throw new ArgumentNullException("userRepository");
-            if (membershipRepository == null) throw new ArgumentNullException("membershipRepository");
-
             _userRepository = userRepository;
             _membershipRepository = membershipRepository;
         }

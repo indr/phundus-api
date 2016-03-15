@@ -4,7 +4,7 @@ namespace Phundus.Inventory.Application
     using Castle.Transactions;
     using Common.Commanding;
     using Common.Domain.Model;
-    using Model;
+    using Model.Collaborators;
     using Model.Stores;
 
     public class ChangeOpeningHours : ICommand
@@ -27,22 +27,20 @@ namespace Phundus.Inventory.Application
 
     public class ChangeOpeningHoursHandler : IHandleCommand<ChangeOpeningHours>
     {
+        private readonly ICollaboratorService _collaboratorService;
         private readonly IStoreRepository _storeRepository;
-        private readonly IUserInRole _userInRole;
 
-        public ChangeOpeningHoursHandler(IStoreRepository storeRepository, IUserInRole userInRole)
+        public ChangeOpeningHoursHandler(IStoreRepository storeRepository, ICollaboratorService collaboratorService)
         {
-            if (storeRepository == null) throw new ArgumentNullException("storeRepository");
-            if (userInRole == null) throw new ArgumentNullException("userInRole");
             _storeRepository = storeRepository;
-            _userInRole = userInRole;
+            _collaboratorService = collaboratorService;
         }
 
         [Transaction]
         public void Handle(ChangeOpeningHours command)
         {
             var store = _storeRepository.GetById(command.StoreId);
-            var manager = _userInRole.Manager(command.InitiatorId, store.OwnerId);
+            var manager = _collaboratorService.Manager(command.InitiatorId, store.OwnerId);
 
             store.ChangeOpeningHours(manager, command.OpeningHours);
 

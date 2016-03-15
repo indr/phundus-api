@@ -9,6 +9,7 @@
     using Common.Projecting;
     using Common.Querying;
     using IdentityAccess.Users.Services;
+    using Inventory.Infrastructure;
     using Shop.Model.Pdf;
 
     public class CoreInstaller : IWindsorInstaller
@@ -54,12 +55,12 @@
                     .ImplementedBy<UserInRole>());
 
             container.Register(
-                Component.For<Inventory.Model.IUserInRole>()
-                    .ImplementedBy<Inventory.Model.UserInRole>());
+                Component.For<Inventory.Model.Collaborators.ICollaboratorService>()
+                    .ImplementedBy<CollaboratorService>());
 
             container.Register(
-                Component.For<Shop.Model.IUserInRole>()
-                    .ImplementedBy<Shop.Model.UserInRole>());
+                Component.For<Shop.Model.Collaborators.ICollaboratorService>()
+                    .ImplementedBy<Shop.Infrastructure.CollaboratorService>());
 
             container.Register(Component.For<IWindsorContainer>().Instance(container));
 

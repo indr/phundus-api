@@ -5,6 +5,7 @@
     using Common.Commanding;
     using Common.Domain.Model;
     using Model;
+    using Model.Collaborators;
 
     public class UpdateOrderItem : ICommand
     {
@@ -32,12 +33,10 @@
     public class UpdateOrderItemHandler : IHandleCommand<UpdateOrderItem>
     {
         private readonly IOrderRepository _orderRepository;
-        private readonly IUserInRole _userInRole;
+        private readonly ICollaboratorService _userInRole;
 
-        public UpdateOrderItemHandler(IUserInRole userInRole, IOrderRepository orderRepository)
-        {
-            if (userInRole == null) throw new ArgumentNullException("userInRole");
-            if (orderRepository == null) throw new ArgumentNullException("orderRepository");
+        public UpdateOrderItemHandler(ICollaboratorService userInRole, IOrderRepository orderRepository)
+        {            
             _userInRole = userInRole;
             _orderRepository = orderRepository;
         }

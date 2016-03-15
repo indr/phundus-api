@@ -5,8 +5,8 @@
     using Castle.Transactions;
     using Common.Commanding;
     using Common.Domain.Model;
-    using Integration.IdentityAccess;
     using Model.Articles;
+    using Model.Collaborators;
     using Phundus.Authorization;
 
     public class ChangePrices : ICommand
@@ -31,27 +31,25 @@
     {
         private readonly IArticleRepository _articleRepository;
         private readonly IAuthorize _authorize;
-        private readonly IInitiatorService _initiatorService;
+        private readonly ICollaboratorService _collaboratorService;
 
-        public ChangePricesHandler(IAuthorize authorize, IInitiatorService initiatorService,
+        public ChangePricesHandler(IAuthorize authorize, ICollaboratorService collaboratorService,
             IArticleRepository articleRepository)
         {
-            if (authorize == null) throw new ArgumentNullException("authorize");
-            if (initiatorService == null) throw new ArgumentNullException("initiatorService");
-            if (articleRepository == null) throw new ArgumentNullException("articleRepository");
             _authorize = authorize;
-            _initiatorService = initiatorService;
+            _collaboratorService = collaboratorService;
             _articleRepository = articleRepository;
         }
 
         [Transaction]
         public void Handle(ChangePrices command)
         {
-            var initiator = _initiatorService.GetById(command.InitiatorId);
+            var initiator = _collaboratorService.Initiator(command.InitiatorId);
             var article = _articleRepository.GetById(command.ArticleId);
 
             _authorize.Enforce(initiator.InitiatorId, Manage.Articles(article.Owner.OwnerId));
 
+            // TODO: Pass manager
             article.ChangePrices(initiator, command.PublicPrice, command.MemberPrice);
         }
     }
