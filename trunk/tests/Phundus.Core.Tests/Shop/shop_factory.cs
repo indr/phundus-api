@@ -55,10 +55,11 @@ namespace Phundus.Tests.Shop
             return order;
         }
 
-        public Manager Manager(UserId userId = null)
+        public Manager Manager(UserId userId = null, string emailAddress = null)
         {
             userId = userId ?? new UserId();
-            return new Manager(userId, "manager@test.phundus.ch", "The Manager");
+            emailAddress = emailAddress ?? "manager@test.phundus.ch";
+            return new Manager(userId, emailAddress, "The Manager");
         }
     }
 }

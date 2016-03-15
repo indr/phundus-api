@@ -1,8 +1,6 @@
 ﻿namespace Phundus.Shop.Model
 {
     using System;
-    using System.Collections.Generic;
-    using System.Linq;
     using Common;
     using Common.Domain.Model;
     using IdentityAccess.Projections;
@@ -11,21 +9,17 @@
     public interface ILessorService
     {
         Lessor GetById(LessorId lessorId);
-        IList<string> GetEmailNotificationSubscribers(LessorId lessorId);
     }
 
     public class LessorService : ILessorService
-    {
-        private readonly IMembersWithRole _membersWithRole;
+    {        
         private readonly IOrganizationQueries _organizationQueries;
         private readonly IUsersQueries _usersQueries;
 
-        public LessorService(IOrganizationQueries organizationQueries, IUsersQueries usersQueries,
-            IMembersWithRole membersWithRole)
+        public LessorService(IOrganizationQueries organizationQueries, IUsersQueries usersQueries)
         {
             _organizationQueries = organizationQueries;
-            _usersQueries = usersQueries;
-            _membersWithRole = membersWithRole;
+            _usersQueries = usersQueries;            
         }
 
         public Lessor GetById(LessorId lessorId)
@@ -41,14 +35,6 @@
                 return ToLessor(user);
 
             throw new NotFoundException(String.Format("Lessor {0} not found.", lessorId));
-        }
-
-        public IList<string> GetEmailNotificationSubscribers(LessorId lessorId)
-        {
-            if (lessorId == null) throw new ArgumentNullException("lessorId");
-
-            var managers = _membersWithRole.Manager(lessorId.Id, true);
-            return managers.Select(x => x.EmailAddress).ToList();
         }
 
         private static Lessor ToLessor(IUser user)

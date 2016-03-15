@@ -33,12 +33,12 @@
 
         private Establish ctx = () =>
         {
-            var managers = new List<Manager>
+            var managers = new List<MemberData>
             {
-                new Manager(new UserId(), "manager1@test.phundus.ch", "The Manager 1"),
-                new Manager(new UserId(), "manager2@test.phundus.ch", "The Manager 2")
+                new MemberData { EmailAddress = "manager1@test.phundus.ch"},
+                new MemberData { EmailAddress = "manager2@test.phundus.ch"}
             };
-            depends.on<IMembersWithRole>().setup(x => x.Manager(Arg<Guid>.Is.Anything, Arg<bool>.Is.Anything)).Return(managers);
+            depends.on<IMemberQueries>().setup(x => x.Managers(Arg<Guid>.Is.Anything, Arg<bool>.Is.Anything)).Return(managers);
         };
 
         private Because of = () =>

@@ -15,18 +15,18 @@
     {
         private readonly IMessageFactory _factory;
         private readonly IMailGateway _gateway;
-        private readonly IMembersWithRole _memberWithRole;
+        private readonly IMemberQueries _memberQueries;
         private readonly IOrganizationQueries _organizationQueries;
         private readonly IUsersQueries _usersQueries;
 
         public MembershipApplicationStatusMail(IMessageFactory factory, IMailGateway gateway,
-            IOrganizationQueries organizationQueries, IUsersQueries usersQueries, IMembersWithRole memberWithRole)
+            IOrganizationQueries organizationQueries, IUsersQueries usersQueries, IMemberQueries memberQueries)
         {
             _factory = factory;
             _gateway = gateway;
             _organizationQueries = organizationQueries;
             _usersQueries = usersQueries;
-            _memberWithRole = memberWithRole;
+            _memberQueries = memberQueries;
         }
 
         public void Handle(MembershipApplicationApproved e)
@@ -43,7 +43,7 @@
         public void Handle(MembershipApplicationFiled e)
         {
             var model = CreateModel(e.OrganizationGuid, e.UserGuid);
-            var recipients = _memberWithRole.Manager(e.OrganizationGuid, true).Select(x => x.EmailAddress).ToList();
+            var recipients = _memberQueries.Managers(e.OrganizationGuid, true).Select(x => x.EmailAddress).ToList();
 
             var message = _factory.MakeMessage(model, Templates.MembershipApplicationFiledSubject, null,
                 Templates.MembershipApplicationFiledHtml);

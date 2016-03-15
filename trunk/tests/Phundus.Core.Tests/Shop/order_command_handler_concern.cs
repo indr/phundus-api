@@ -28,7 +28,7 @@ namespace Phundus.Tests.Shop
             theLessor = make.Lessor();
             theLessee = make.Lessee(theInitiatorId);
 
-            collaboratorService.setup(x => x.Manager(theInitiatorId, theLessor.LessorId)).Return(theManager);
+            collaboratorService.setup(x => x.Manager(theLessor.LessorId, theInitiatorId)).Return(theManager);
             lessorService.setup(x => x.GetById(theLessor.LessorId)).Return(theLessor);
             lesseeService.setup(x => x.GetById(theLessee.LesseeId)).Return(theLessee);
         };

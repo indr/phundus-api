@@ -11,9 +11,10 @@
     {
         IList<MemberData> FindByOrganizationId(Guid organizationId);
         IEnumerable<MemberData> Query(CurrentUserId currentUserId, Guid queryOrganizationId, string queryFullName);
+        ICollection<MemberData> Managers(Guid organizationId, bool emailSubscribtion);
     }
 
-    public class MembersProjection : QueryBase, IMemberQueries, IMembersWithRole
+    public class MembersProjection : QueryBase, IMemberQueries
     {
         private readonly IMembershipQueries _membershipQueries;
         private readonly IUsersQueries _userQueries;
@@ -38,14 +39,12 @@
             return ToMemberData(memberships, queryFullName);
         }
 
-        public IList<Manager> Manager(Guid tenantId, bool recievesEmailNotifications)
+        public ICollection<MemberData> Managers(Guid organizationId, bool emailSubscribtion)
         {
-            return
-                FindByOrganizationId(tenantId)
-                    .Where(p => p.Role == 2)
-                    .Where(p => p.RecievesEmailNotifications == recievesEmailNotifications)
-                    .Select(s => new Manager(new UserId(s.Guid), s.EmailAddress, s.FullName))
-                    .ToList();
+            return FindByOrganizationId(organizationId)
+                .Where(p => p.Role == 2)
+                .Where(p => p.RecievesEmailNotifications == emailSubscribtion).ToList();
+
         }
 
         private IList<MemberData> ToMemberData(IEnumerable<MembershipData> memberships, string queryFullName = "")
