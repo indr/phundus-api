@@ -8,20 +8,21 @@ namespace Phundus.Shop.Model
     {
         private ArticleId _articleId;
         private ArticleShortId _articleShortId;
-        private Lessor _lessor;
+        private Lessor _lessor;        
         private string _name;
         private decimal _publicPrice;
 
-        public Article(ArticleShortId articleShortId, ArticleId articleId, Lessor lessor, string name,
+        public Article(ArticleShortId articleShortId, ArticleId articleId, Lessor lessor, StoreId storeId, string name,
             decimal publicPrice)
         {
             if (articleShortId == null) throw new ArgumentNullException("articleShortId");
             if (articleId == null) throw new ArgumentNullException("articleId");
             if (lessor == null) throw new ArgumentNullException("lessor");
-
+            if (storeId == null) throw new ArgumentNullException("storeId");
             _articleShortId = articleShortId;
             _articleId = articleId;
             _lessor = lessor;
+            StoreId = storeId;
             _name = name;
             _publicPrice = publicPrice;
         }
@@ -52,6 +53,8 @@ namespace Phundus.Shop.Model
         {
             get { return Lessor.LessorId; }
         }
+
+        public StoreId StoreId { get; private set; }
 
         public virtual string Name
         {

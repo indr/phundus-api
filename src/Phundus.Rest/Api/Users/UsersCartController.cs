@@ -111,6 +111,7 @@ namespace Phundus.Rest.Api.Users
                 return;
             }
 
+            // TODO: Use Automapper
             CartGuid = cart.CartId;
             UserGuid = cart.UserId;
             Items = cart.Items.Select(s => new CartItem
@@ -118,6 +119,7 @@ namespace Phundus.Rest.Api.Users
                 CartItemId = s.CartItemGuid,
                 ArticleId = s.ArticleId,
                 ArticleGuid = s.ArticleGuid,
+                StoreId = s.StoreId,
                 Text = s.Text,
                 FromUtc = s.FromUtc,
                 ToUtc = s.ToUtc,
@@ -150,6 +152,9 @@ namespace Phundus.Rest.Api.Users
 
         [JsonProperty("articleGuid")]
         public Guid ArticleGuid { get; set; }
+
+        [JsonProperty("storeId")]
+        public Guid StoreId { get; set; }
 
         [JsonProperty("text")]
         public string Text { get; set; }

@@ -43,10 +43,6 @@
         public AddOrderItemHandler(IUserInRole userInRole, IOrderRepository orderRepository,
             IArticleService articleService)
         {
-            if (userInRole == null) throw new ArgumentNullException("userInRole");
-            if (orderRepository == null) throw new ArgumentNullException("orderRepository");
-            if (articleService == null) throw new ArgumentNullException("articleService");
-
             _userInRole = userInRole;
             _orderRepository = orderRepository;
             _articleService = articleService;

@@ -38,6 +38,11 @@ namespace Phundus.Shop.Model
             get { return Article.ArticleShortId; }
         }
 
+        public virtual StoreId StoreId
+        {
+            get { return Article.StoreId; }
+        }
+
         public virtual int Quantity { get; set; }
 
         public virtual DateTime From { get; set; }

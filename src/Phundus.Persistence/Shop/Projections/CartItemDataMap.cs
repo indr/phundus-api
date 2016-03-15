@@ -17,6 +17,7 @@ namespace Phundus.Persistence.Shop.Projections
             Map(x => x.Position, "Position");
             Map(x => x.ArticleId, "ArticleShortId");
             Map(x => x.ArticleGuid, "ArticleId");
+            Map(x => x.StoreId, "StoreId");
             Map(x => x.Text, "Text");
             Map(x => x.FromUtc, "FromUtc").CustomType<UtcDateTimeType>();
             Map(x => x.ToUtc, "ToUtc").CustomType<UtcDateTimeType>();

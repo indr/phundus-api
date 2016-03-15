@@ -86,7 +86,7 @@
             mutatingEvent<OrderItemAdded>(p =>
                 p.OrderId == theOrderId.Id
                 && p.OrderTotal == theLineTotal
-                && p.OrderLine.ItemId == theOrderItemId.Id
+                && p.OrderLine.LineId == theOrderItemId.Id
                 && p.OrderLine.LineTotal == theLineTotal);
     }
 }

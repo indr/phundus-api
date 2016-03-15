@@ -22,7 +22,7 @@
         protected static OrderEventLine CreateOrderEventItem()
         {
             return new OrderEventLine(new OrderLineId(), new ArticleId(), new ArticleShortId(1234),
-                "The text", 1.23m, Period.FromNow(1), 10, 12.3m);
+                new StoreId(), "The text", 1.23m, Period.FromNow(1), 10, 12.3m);
         }
     }
 }

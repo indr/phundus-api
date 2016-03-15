@@ -22,7 +22,7 @@ namespace Phundus.Shop.Model
 
             foreach (var each in cartItems)
             {
-                var item = new OrderLine(new OrderLineId(), each.ArticleId, each.ArticleShortId, each.LineText,
+                var item = new OrderLine(new OrderLineId(), each.ArticleId, each.ArticleShortId, each.StoreId, each.LineText,
                     each.Period, each.Quantity, each.UnitPrice, each.ItemTotal);
                 _items.Add(item);
             }
@@ -35,8 +35,8 @@ namespace Phundus.Shop.Model
 
             foreach (var each in orderEventLines)
             {
-                var item = new OrderLine(new OrderLineId(each.ItemId), new ArticleId(each.ArticleId),
-                    new ArticleShortId(each.ArticleShortId), each.Text, each.Period, each.Quantity,
+                var item = new OrderLine(new OrderLineId(each.LineId), new ArticleId(each.ArticleId),
+                    new ArticleShortId(each.ArticleShortId), new StoreId(each.StoreId), each.Text, each.Period, each.Quantity,
                     each.UnitPricePerWeek, each.LineTotal);
                 _items.Add(item);
             }
@@ -54,8 +54,8 @@ namespace Phundus.Shop.Model
 
         public void When(OrderItemAdded e)
         {
-            var item = new OrderLine(new OrderLineId(e.OrderLine.ItemId), new ArticleId(e.OrderLine.ArticleId),
-                new ArticleShortId(e.OrderLine.ArticleShortId),
+            var item = new OrderLine(new OrderLineId(e.OrderLine.LineId), new ArticleId(e.OrderLine.ArticleId),
+                new ArticleShortId(e.OrderLine.ArticleShortId), new StoreId(e.OrderLine.StoreId), 
                 e.OrderLine.Text, e.OrderLine.Period, e.OrderLine.Quantity, e.OrderLine.UnitPricePerWeek,
                 e.OrderLine.LineTotal);
             _items.Add(item);
@@ -63,7 +63,7 @@ namespace Phundus.Shop.Model
 
         public void When(OrderItemRemoved e)
         {
-            var item = GetOrderLine(e.OrderLine.ItemId);
+            var item = GetOrderLine(e.OrderLine.LineId);
             _items.Remove(item);
         }
 
