@@ -1,14 +1,14 @@
-﻿namespace Phundus.IdentityAccess.Users.Services
+﻿namespace Phundus.IdentityAccess.Resources
 {
     using System;
     using System.Linq;
     using Common;
     using Common.Domain.Model;
-    using IdentityAccess.Model.Organizations;
-    using IdentityAccess.Model.Users;
     using Integration.IdentityAccess;
-    using Model;
+    using Model.Organizations;
+    using Model.Users;
     using Organizations.Model;
+    using Users.Model;
 
     public interface IUserInRole
     {

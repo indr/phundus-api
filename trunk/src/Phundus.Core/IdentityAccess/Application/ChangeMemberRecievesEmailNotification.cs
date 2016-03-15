@@ -5,6 +5,7 @@
     using Common.Commanding;
     using Common.Domain.Model;
     using Model.Organizations;
+    using Resources;
     using Users.Services;
 
     public class ChangeMemberRecievesEmailNotification : ICommand

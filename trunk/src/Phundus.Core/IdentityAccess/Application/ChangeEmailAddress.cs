@@ -7,6 +7,7 @@
     using Common.Domain.Model;
     using Integration.IdentityAccess;
     using Model.Users;
+    using Resources;
     using Users.Exceptions;
     using Users.Services;
 

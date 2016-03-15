@@ -3,6 +3,7 @@
     using Authorization;
     using Machine.Specifications;
     using Phundus.IdentityAccess.Projections;
+    using Phundus.IdentityAccess.Resources;
 
     public class inventory_access_object_handler_concern<TAccessObject, TAccessObjectHandler> :
         access_object_handler_concern<TAccessObject, TAccessObjectHandler>

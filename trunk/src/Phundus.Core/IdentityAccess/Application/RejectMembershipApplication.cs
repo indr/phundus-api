@@ -6,6 +6,7 @@
     using Common.Domain.Model;
     using Model.Organizations;
     using Projections;
+    using Resources;
 
     public class RejectMembershipApplication : ICommand
     {

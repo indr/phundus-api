@@ -8,6 +8,7 @@
     using Model.Users;
     using Organizations.Model;
     using Projections;
+    using Resources;
 
     public class ChangeMembersRole : ICommand
     {

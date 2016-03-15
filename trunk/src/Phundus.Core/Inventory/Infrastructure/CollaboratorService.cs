@@ -1,6 +1,7 @@
 ﻿namespace Phundus.Inventory.Infrastructure
 {
     using Common.Domain.Model;
+    using IdentityAccess.Resources;
     using Integration.IdentityAccess;
     using Model.Collaborators;
     using Manager = Model.Manager;
@@ -8,9 +9,9 @@
     public class CollaboratorService : ICollaboratorService
     {
         private readonly IUsersQueries _usersQueries;
-        private readonly IdentityAccess.Users.Services.IUserInRole _userInRole;
+        private readonly IUserInRole _userInRole;
 
-        public CollaboratorService(IUsersQueries usersQueries, IdentityAccess.Users.Services.IUserInRole userInRole)
+        public CollaboratorService(IUsersQueries usersQueries, IUserInRole userInRole)
         {
             _usersQueries = usersQueries;
             _userInRole = userInRole;

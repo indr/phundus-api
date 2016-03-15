@@ -1,6 +1,7 @@
 ﻿namespace Phundus.Shop.Infrastructure
 {
     using Common.Domain.Model;
+    using IdentityAccess.Resources;
     using IdentityAccess.Users.Services;
     using Integration.IdentityAccess;
     using Model.Collaborators;

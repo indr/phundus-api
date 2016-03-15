@@ -9,6 +9,7 @@ namespace Phundus.Tests.IdentityAccess
     using Phundus.IdentityAccess.Model.Organizations;
     using Phundus.IdentityAccess.Model.Users;
     using Phundus.IdentityAccess.Projections;
+    using Phundus.IdentityAccess.Resources;
     using Phundus.IdentityAccess.Users.Model;
     using Phundus.IdentityAccess.Users.Services;
 

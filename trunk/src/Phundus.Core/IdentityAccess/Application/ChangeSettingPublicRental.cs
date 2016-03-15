@@ -8,6 +8,7 @@
     using Integration.IdentityAccess;
     using Model.Organizations;
     using Phundus.Authorization;
+    using Resources;
     using Users.Services;
 
     public class ChangeSettingPublicRental : ICommand

@@ -8,6 +8,7 @@
     using Model.Organizations;
     using Organizations.Model;
     using Projections;
+    using Resources;
     using Users.Services;
 
     public class ChangeOrganizationContactDetails : ICommand
