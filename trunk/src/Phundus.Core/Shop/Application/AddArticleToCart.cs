@@ -9,6 +9,7 @@
     using Model;
     using Phundus.Authorization;
 
+    // TODO: Rename to AddCartItem
     public class AddArticleToCart : ICommand
     {
         public AddArticleToCart(InitiatorId initiatorId, CartItemId cartItemId, LessorId lessorId, ArticleId articleId, DateTime fromUtc,
@@ -22,6 +23,7 @@
             CartItemId = cartItemId;
             LessorId = lessorId;
             ArticleId = articleId;
+            // TODO: Change to LesseeId
             UserId = new UserId(initiatorId.Id);            
             FromUtc = fromUtc;
             ToUtc = toUtc;

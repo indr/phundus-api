@@ -151,6 +151,48 @@ namespace Phundus.Migrations
         }
 
         [DataContract]
+        public class Lessor
+        {
+            private bool _doesPublicRental;
+            private LessorId _lessorId;
+            private string _name;
+
+            public Lessor(LessorId lessorId, string name, bool doesPublicRental)
+            {
+                _lessorId = lessorId;
+                _name = name;
+                _doesPublicRental = doesPublicRental;
+            }
+
+            public virtual LessorId LessorId
+            {
+                get { return _lessorId; }
+                protected set { _lessorId = value; }
+            }
+
+            [DataMember(Order = 1)]
+            protected virtual Guid LessorGuid
+            {
+                get { return LessorId.Id; }
+                set { LessorId = new LessorId(value); }
+            }
+
+            [DataMember(Order = 2)]
+            public virtual string Name
+            {
+                get { return _name; }
+                protected set { _name = value; }
+            }
+
+            [DataMember(Order = 3)]
+            public virtual bool DoesPublicRental
+            {
+                get { return _doesPublicRental; }
+                protected set { _doesPublicRental = value; }
+            }
+        }
+
+        [DataContract]
         public class OrderPlaced : MigratingDomainEvent
         {
             public OrderPlaced(Initiator initiator, OrderId orderId, OrderShortId orderShortId, Lessor lessor, Lessee lessee,

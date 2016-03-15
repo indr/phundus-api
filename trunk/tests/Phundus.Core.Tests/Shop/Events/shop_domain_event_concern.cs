@@ -14,7 +14,7 @@
         private Establish ctx = () =>
         {
             theManager = new Manager(new UserId(), "manager@test.phundus.ch", "The Manager");
-            theLessor = new Lessor(new LessorId(), "The lessor", true);
+            theLessor = new Lessor(new LessorId(), "The lessor", "postalAddress", "phoneNumber", "emailAddress", "website", true);
             theLessee = new Lessee(new LesseeId(), "First name", "Last name", "Street", "Postcode", "City",
                 "Email address", "Phone number", "Member number");
         };

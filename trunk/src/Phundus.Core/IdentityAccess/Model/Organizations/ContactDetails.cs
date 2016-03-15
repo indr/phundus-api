@@ -1,22 +1,21 @@
 namespace Phundus.IdentityAccess.Organizations.Model
 {
-    using System;
     using System.Collections.Generic;
-    using System.Text;
-    using Common.Domain.Model;    
+    using Common.Domain.Model;
 
     public class ContactDetails : ValueObject
     {
+        private string _city;
         private string _emailAddress;
         private string _line1;
         private string _line2;
-        private string _street;
-        private string _postcode;
-        private string _city;
         private string _phoneNumber;
+        private string _postcode;
+        private string _street;
         private string _website;
 
-        public ContactDetails(string line1, string line2, string street, string postcode, string city, string phoneNumber, string emailAddress, string website)
+        public ContactDetails(string line1, string line2, string street, string postcode, string city,
+            string phoneNumber, string emailAddress, string website)
         {
             _line1 = line1;
             _line2 = line2;
@@ -49,7 +48,7 @@ namespace Phundus.IdentityAccess.Organizations.Model
             get { return _street; }
             protected set { _street = value; }
         }
-        
+
         public virtual string Postcode
         {
             get { return _postcode; }
@@ -61,7 +60,7 @@ namespace Phundus.IdentityAccess.Organizations.Model
             get { return _city; }
             protected set { _city = value; }
         }
-        
+
         public virtual string PhoneNumber
         {
             get { return _phoneNumber; }
