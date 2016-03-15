@@ -4,7 +4,7 @@ namespace Phundus.Inventory.Application
     using Castle.Transactions;
     using Common.Commanding;
     using Common.Domain.Model;
-    using Model;
+    using Model.Collaborators;
     using Model.Stores;
 
     public class RenameStore : ICommand
@@ -26,22 +26,20 @@ namespace Phundus.Inventory.Application
 
     public class RenameStoreHandler : IHandleCommand<RenameStore>
     {
+        private readonly ICollaboratorService _collaboratorService;
         private readonly IStoreRepository _storeRepository;
-        private readonly IUserInRole _userInRole;
 
-        public RenameStoreHandler(IStoreRepository storeRepository, IUserInRole userInRole)
-        {
-            if (storeRepository == null) throw new ArgumentNullException("storeRepository");
-            if (userInRole == null) throw new ArgumentNullException("userInRole");
+        public RenameStoreHandler(IStoreRepository storeRepository, ICollaboratorService collaboratorService)
+        {            
             _storeRepository = storeRepository;
-            _userInRole = userInRole;
+            _collaboratorService = collaboratorService;
         }
 
         [Transaction]
         public void Handle(RenameStore command)
         {
             var store = _storeRepository.GetById(command.StoreId);
-            var manager = _userInRole.Manager(command.InitiatorId, store.OwnerId);
+            var manager = _collaboratorService.Manager(command.InitiatorId, store.OwnerId);
 
             store.Rename(manager, command.Name);
 

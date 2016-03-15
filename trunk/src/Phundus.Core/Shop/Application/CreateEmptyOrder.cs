@@ -5,6 +5,7 @@
     using Common.Commanding;
     using Common.Domain.Model;
     using Model;
+    using Model.Collaborators;
 
     public class CreateEmptyOrder : ICommand
     {
@@ -35,16 +36,12 @@
         private readonly ILesseeService _lesseeService;
         private readonly ILessorService _lessorService;
         private readonly IOrderRepository _orderRepository;
-        private readonly IUserInRole _userInRole;
+        private readonly ICollaboratorService _collaboratorService;
 
-        public CreateEmptyOrderHandler(IUserInRole userInRole, IOrderRepository orderRepository,
+        public CreateEmptyOrderHandler(ICollaboratorService collaboratorService, IOrderRepository orderRepository,
             ILessorService lessorService, ILesseeService lesseeService)
-        {
-            if (userInRole == null) throw new ArgumentNullException("userInRole");
-            if (orderRepository == null) throw new ArgumentNullException("orderRepository");
-            if (lessorService == null) throw new ArgumentNullException("lessorService");
-            if (lesseeService == null) throw new ArgumentNullException("lesseeService");
-            _userInRole = userInRole;
+        {            
+            _collaboratorService = collaboratorService;
             _orderRepository = orderRepository;
             _lessorService = lessorService;
             _lesseeService = lesseeService;
@@ -53,7 +50,7 @@
         [Transaction]
         public void Handle(CreateEmptyOrder command)
         {
-            var manager = _userInRole.Manager(command.InitiatorId, command.LessorId);
+            var manager = _collaboratorService.Manager(command.InitiatorId, command.LessorId);
 
             var order = new Order(manager,
                 command.OrderId, command.OrderShortId,

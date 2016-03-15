@@ -30,19 +30,19 @@
     {
         private readonly IOwnerService _ownerService;
         private readonly IStoreRepository _storeRepository;
-        private readonly IUserInRole _userInRole;
+        private readonly ICollaboratorService _collaboratorService;
 
-        public OpenStoreHandler(IStoreRepository storeRepository, IUserInRole userInRole, IOwnerService ownerService)
+        public OpenStoreHandler(IStoreRepository storeRepository, ICollaboratorService collaboratorService, IOwnerService ownerService)
         {            
             _storeRepository = storeRepository;
-            _userInRole = userInRole;
+            _collaboratorService = collaboratorService;
             _ownerService = ownerService;
         }
 
         [Transaction]
         public void Handle(OpenStore command)
         {
-            var manager = _userInRole.Manager(command.InitiatorId, command.OwnerId);
+            var manager = _collaboratorService.Manager(command.InitiatorId, command.OwnerId);
             var owner = _ownerService.GetById(command.OwnerId);
 
             var store = new Store(manager, command.StoreId, owner);

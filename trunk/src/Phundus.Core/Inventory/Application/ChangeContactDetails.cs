@@ -4,7 +4,7 @@ namespace Phundus.Inventory.Application
     using Castle.Transactions;
     using Common.Commanding;
     using Common.Domain.Model;
-    using Model;
+    using Model.Collaborators;
     using Model.Stores;
 
     public class ChangeContactDetails : ICommand
@@ -38,20 +38,20 @@ namespace Phundus.Inventory.Application
 
     public class ChangeContactDetailsHandler : IHandleCommand<ChangeContactDetails>
     {
+        private readonly ICollaboratorService _collaboratorService;
         private readonly IStoreRepository _storeRepository;
-        private readonly IUserInRole _userInRole;
 
-        public ChangeContactDetailsHandler(IStoreRepository storeRepository, IUserInRole userInRole)
+        public ChangeContactDetailsHandler(IStoreRepository storeRepository, ICollaboratorService collaboratorService)
         {
             _storeRepository = storeRepository;
-            _userInRole = userInRole;
+            _collaboratorService = collaboratorService;
         }
 
         [Transaction]
         public void Handle(ChangeContactDetails command)
         {
             var store = _storeRepository.GetById(command.StoreId);
-            var manager = _userInRole.Manager(command.InitiatorId, store.OwnerId);
+            var manager = _collaboratorService.Manager(command.InitiatorId, store.OwnerId);
 
             store.ChangeContactDetails(manager, new ContactDetails(command.EmailAddress, command.PhoneNumber,
                 new PostalAddress(command.Line1, command.Line2, command.Street, command.Postcode, command.City)));

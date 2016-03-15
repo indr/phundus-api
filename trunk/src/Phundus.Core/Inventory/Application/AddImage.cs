@@ -6,8 +6,8 @@
     using Common.Commanding;
     using Common.Domain.Model;
     using IdentityAccess.Projections;
-    using Integration.IdentityAccess;
     using Model.Articles;
+    using Model.Collaborators;
 
     public class AddImage : ICommand
     {
@@ -46,28 +46,27 @@
     public class AddImageHandler : IHandleCommand<AddImage>
     {
         private readonly IArticleRepository _articleRepository;
-        private readonly IInitiatorService _initiatorService;
+        private readonly ICollaboratorService _collaboratorService;
         private readonly IMemberInRole _memberInRole;
 
-        public AddImageHandler(IMemberInRole memberInRole, IInitiatorService initiatorService,
+        public AddImageHandler(IMemberInRole memberInRole, ICollaboratorService collaboratorService,
             IArticleRepository articleRepository)
         {
-            if (memberInRole == null) throw new ArgumentNullException("memberInRole");
-            if (initiatorService == null) throw new ArgumentNullException("initiatorService");
-            if (articleRepository == null) throw new ArgumentNullException("articleRepository");
             _memberInRole = memberInRole;
-            _initiatorService = initiatorService;
+            _collaboratorService = collaboratorService;
             _articleRepository = articleRepository;
         }
 
         [Transaction]
         public void Handle(AddImage command)
         {
-            var initiator = _initiatorService.GetById(command.InitiatorId);
+            var initiator = _collaboratorService.Initiator(command.InitiatorId);
             var article = _articleRepository.GetById(command.ArticleId);
+
 
             _memberInRole.ActiveManager(article.Owner.OwnerId.Id, command.InitiatorId);
 
+            // TODO: Pass manager to AddImage()
             article.AddImage(initiator, command.FileName, command.FileType, command.FileSize);
         }
     }

@@ -10,6 +10,7 @@
     using Common.Eventing;
     using Integration.IdentityAccess;
     using Model;
+    using Model.Collaborators;
     using Orders.Model;
     using Phundus.Authorization;
 
@@ -38,17 +39,17 @@
         private readonly IArticleService _articleService;
         private readonly IAuthorize _authorize;
         private readonly ICartRepository _cartRepository;
-        private readonly IInitiatorService _initiatorService;
+        private readonly ICollaboratorService _collaboratorService;
         private readonly ILesseeService _lesseeService;
         private readonly ILessorService _lessorService;
         private readonly IOrderRepository _orderRepository;
 
-        public PlaceOrderHandler(IAuthorize authorize, IInitiatorService initiatorService,
+        public PlaceOrderHandler(IAuthorize authorize, ICollaboratorService collaboratorService,
             ICartRepository cartRepository, IOrderRepository orderRepository,
             ILessorService lessorService, ILesseeService lesseeService, IArticleService articleService)
         {
             _authorize = authorize;
-            _initiatorService = initiatorService;
+            _collaboratorService = collaboratorService;
             _cartRepository = cartRepository;
             _orderRepository = orderRepository;
             _lessorService = lessorService;
@@ -66,7 +67,7 @@
             AssertionConcern.AssertArgumentGreaterThan(cartItemsToPlace.Count, 0,
                 String.Format("The cart does not contain items belonging to the lessor {0}.", command.LessorId));
 
-            var initiator = _initiatorService.GetById(command.InitiatorId);
+            var initiator = _collaboratorService.Initiator(command.InitiatorId);
             var lessor = _lessorService.GetById(command.LessorId);
             var lessee = _lesseeService.GetById(new LesseeId(command.InitiatorId.Id));
 

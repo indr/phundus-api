@@ -12,7 +12,6 @@
             if (initiatorId == null) throw new ArgumentNullException("initiatorId");
             if (fullName == null) throw new ArgumentNullException("fullName");
             if (emailAddress == null) throw new ArgumentNullException("emailAddress");
-
             InitiatorId = initiatorId;
             EmailAddress = emailAddress;
             FullName = fullName;
@@ -39,7 +38,7 @@
 
         protected override IEnumerable<object> GetEqualityComponents()
         {
-            yield return InitiatorGuid;
+            yield return InitiatorId;
         }
     }
 }
