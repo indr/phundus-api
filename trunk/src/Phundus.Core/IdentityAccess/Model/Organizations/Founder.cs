@@ -1,4 +1,4 @@
-namespace Phundus.Integration.IdentityAccess
+namespace Phundus.IdentityAccess.Model.Organizations
 {
     using System;
     using System.Collections.Generic;

@@ -32,8 +32,7 @@
         public void Handle(OrderPlaced e)
         {
             var order = _orderRepository.GetById(new OrderId(e.OrderId));
-            var managers = _lessorService.GetManagersForEmailNotification(new LessorId(e.LessorId))
-                .Select(x => x.EmailAddress);
+            var emailAddresses = _lessorService.GetEmailNotificationSubscribers(new LessorId(e.LessorId));
             var stream = _orderPdfGenerator.GeneratePdf(order);
             var attachment = new Attachment(stream, String.Format("Bestellung-{0}.pdf", order.OrderShortId.Id),
                 "application/pdf");
@@ -63,7 +62,7 @@
             };
 
             var message = _factory.MakeMessage(model, Templates.OrderReceivedSubject, null, Templates.OrderReceivedHtml);
-            message.To.Add(String.Join(",", managers));
+            message.To.Add(String.Join(",", emailAddresses));
             message.Attachments.Add(attachment);
 
             _gateway.Send(e.OccuredOnUtc, message);
