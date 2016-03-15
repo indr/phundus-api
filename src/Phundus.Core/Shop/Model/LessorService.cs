@@ -75,8 +75,8 @@
 
         private static Lessor ToLessor(IUser user)
         {
-            var lessorId = new LessorId(user.UserId);
-            return new Lessor(lessorId, user.FullName, true);
+            var lessorId = new LessorId(user.UserId);            
+            return new Lessor(lessorId, user.FullName, user.PostalAddress, user.MobilePhone, user.EmailAddress, null, true);
         }
 
         private static Lessor ToLessor(OrganizationData organization)

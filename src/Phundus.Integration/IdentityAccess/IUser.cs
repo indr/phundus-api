@@ -2,7 +2,7 @@
 {
     using System;
 
-    // TODO: Add PostalAddress
+    // TODO: Remove
     public interface IUser
     {
         Guid UserId { get; }
@@ -18,6 +18,9 @@
         string Street { get; }
         string Postcode { get; }
         string City { get; }
+
+        string PostalAddress { get; }
+        
         string MobilePhone { get; }
         int? JsNummer { get; }
 

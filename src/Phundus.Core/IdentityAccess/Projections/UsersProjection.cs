@@ -87,14 +87,6 @@
             get { return EmailAddress; }
         }
 
-        /// <summary>
-        /// Für E-Mail-Template!
-        /// </summary>
-        public virtual string Email
-        {
-            get { return EmailAddress; }
-        }
-
         public virtual DateTime? LastPasswordChangeAtUtc { get; set; }
         public virtual DateTime? LastLockOutAtUtc { get; set; }
         public virtual Guid UserId { get; set; }
@@ -120,6 +112,12 @@
         public virtual string Street { get; set; }
         public virtual string Postcode { get; set; }
         public virtual string City { get; set; }
+
+        public virtual string PostalAddress
+        {
+            get { return PostalAddressFactory.Make(FirstName, LastName, Street, Postcode, City); }
+        }
+
         public virtual string MobilePhone { get; set; }
         public virtual int? JsNummer { get; set; }
 

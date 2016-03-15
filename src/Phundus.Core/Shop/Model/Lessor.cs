@@ -13,17 +13,6 @@ namespace Phundus.Shop.Model
         private LessorId _lessorId;
         private string _name;
 
-        // TODO: Remove
-        [Obsolete]
-        public Lessor(LessorId lessorId, string name, bool doesPublicRental)
-        {
-            AssertionConcern.AssertArgumentNotNull(lessorId, "LessorId must be provided.");
-            AssertionConcern.AssertArgumentNotEmpty(name, "Name must be provided.");
-            _lessorId = lessorId;
-            _name = name;
-            _doesPublicRental = doesPublicRental;
-        }
-
         public Lessor(LessorId lessorId, string name, string postalAddress, string phoneNumber, string emailAddress,
             string website, bool doesPublicRental)
         {
