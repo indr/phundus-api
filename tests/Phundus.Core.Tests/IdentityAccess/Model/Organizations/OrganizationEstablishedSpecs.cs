@@ -3,6 +3,7 @@ namespace Phundus.Tests.IdentityAccess.Model.Organizations
     using Events;
     using Integration.IdentityAccess;
     using Machine.Specifications;
+    using Phundus.IdentityAccess.Model.Organizations;
     using Phundus.IdentityAccess.Organizations.Model;
 
     [Subject(typeof (OrganizationEstablished))]

@@ -12,7 +12,6 @@
     using Phundus.Shop.Model.Pdf;
     using Phundus.Shop.Orders.Model;
     using Rhino.Mocks;
-    using Manager = Integration.IdentityAccess.Manager;
 
     [Subject(typeof (OrderPlacedMail))]
     public class when_handling_order_recieved : mail_concern<OrderPlacedMail>
@@ -25,12 +24,8 @@
 
             depends.on<IOrderRepository>().setup(x => x.GetById(Arg<OrderId>.Is.Anything)).Return(make.Order());
             depends.on<ILessorService>()
-                .setup(x => x.GetManagersForEmailNotification(Arg<LessorId>.Is.Anything))
-                .Return(new List<Manager>
-                {
-                    new Manager(new UserId(), "manager1@test.phundus.ch", "The Manager 1"),
-                    new Manager(new UserId(), "manager2@test.phundus.ch", "The Manager 2")
-                });
+                .setup(x => x.GetEmailNotificationSubscribers(Arg<LessorId>.Is.Anything))
+                .Return(new List<string> {"manager1@test.phundus.ch", "manager2@test.phundus.ch"});
             depends.on<IOrderPdfGenerator>()
                 .setup(x => x.GeneratePdf(Arg<Order>.Is.Anything))
                 .Return(new MemoryStream());

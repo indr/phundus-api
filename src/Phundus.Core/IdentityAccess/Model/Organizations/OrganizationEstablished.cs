@@ -3,6 +3,7 @@ namespace Phundus.IdentityAccess.Organizations.Model
     using System;
     using System.Runtime.Serialization;
     using Common.Domain.Model;
+    using IdentityAccess.Model.Organizations;
     using Integration.IdentityAccess;
 
     [DataContract]

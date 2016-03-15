@@ -110,6 +110,7 @@
     <Compile Include="IdentityAccess\Application\ChangeUserAddress.cs" />
     <Compile Include="IdentityAccess\Authorization\Manage.cs" />
     <Compile Include="IdentityAccess\Application\ChangeMemberRecievesEmailNotification.cs" />
+    <Compile Include="IdentityAccess\Model\Organizations\Founder.cs" />
     <Compile Include="IdentityAccess\Model\Organizations\Mails\MemberLockedMail.cs" />
     <Compile Include="IdentityAccess\Model\Organizations\Mails\MembershipApplicationStatusMail.cs" />
     <Compile Include="IdentityAccess\Model\Organizations\Mails\MemberUnlockedMail.cs" />
