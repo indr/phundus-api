@@ -8,13 +8,21 @@ namespace Phundus.Inventory.Projections
 
     public interface IStoresQueries
     {
+        StoreDetailsData GetById(Guid storeId);
         StoreDetailsData GetByOwnerId(Guid ownerId);
         StoreDetailsData FindByOwnerId(Guid ownerId);
         IList<StoreDetailsData> Query(Guid? ownerId);
+        
     }
 
     public class StoresQueries : QueryBase<StoreDetailsData>, IStoresQueries
     {
+        [Transaction]
+        public StoreDetailsData GetById(Guid storeId)
+        {
+            return SingleOrThrow(p => p.StoreId == storeId, "Store {0} not found.", storeId);
+        }
+
         [Transaction]
         public StoreDetailsData GetByOwnerId(Guid ownerId)
         {

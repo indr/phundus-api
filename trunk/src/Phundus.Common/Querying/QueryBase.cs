@@ -37,6 +37,14 @@ namespace Phundus.Common.Querying
             return QueryOver().Where(expression).SingleOrDefault();
         }
 
+        protected TEntity SingleOrThrow(Expression<Func<TEntity, bool>> expression, string format, object arg0)
+        {
+            var result = SingleOrDefault(expression);
+            if (result == default(TEntity))
+                throw new NotFoundException(format, arg0);
+            return result;
+        }
+
         protected IQueryOver<TEntity, TEntity> QueryOver()
         {
             return Session.QueryOver<TEntity>();

@@ -20,7 +20,6 @@
             if (orderLineId == null) throw new ArgumentNullException("orderLineId");
             if (articleId == null) throw new ArgumentNullException("articleId");
             if (articleShortId == null) throw new ArgumentNullException("articleShortId");
-            if (storeId == null) throw new ArgumentNullException("storeId");
             if (text == null) throw new ArgumentNullException("text");
             if (period == null) throw new ArgumentNullException("period");
 
