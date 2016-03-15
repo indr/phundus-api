@@ -8,6 +8,7 @@
     using Integration.IdentityAccess;
     using Model.Users;
     using Users.Exceptions;
+    using Users.Services;
 
     public class ChangeEmailAddress : ICommand
     {
@@ -30,19 +31,19 @@
 
     public class ChangeEmailAddressHandler : IHandleCommand<ChangeEmailAddress>
     {
-        private readonly IInitiatorService _initiatorService;
+        private readonly IUserInRole _userInRole;
         private readonly IUserRepository _userRepository;
 
-        public ChangeEmailAddressHandler(IInitiatorService initiatorService, IUserRepository userRepository)
+        public ChangeEmailAddressHandler(IUserInRole userInRole, IUserRepository userRepository)
         {
-            _initiatorService = initiatorService;
+            _userInRole = userInRole;
             _userRepository = userRepository;
         }
 
         [Transaction]
         public void Handle(ChangeEmailAddress command)
         {
-            var initiator = _initiatorService.GetById(command.InitiatorId);
+            var initiator = _userInRole.GetById(command.InitiatorId);
             var user = _userRepository.GetById(command.UserId);
 
             var emailAddress = command.NewEmailAddress.ToLower(CultureInfo.CurrentCulture).Trim();

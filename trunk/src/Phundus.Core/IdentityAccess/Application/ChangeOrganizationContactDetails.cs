@@ -8,6 +8,7 @@
     using Model.Organizations;
     using Organizations.Model;
     using Projections;
+    using Users.Services;
 
     public class ChangeOrganizationContactDetails : ICommand
     {
@@ -44,19 +45,24 @@
 
     public class ChangeOrganizationContactDetailsHandler : IHandleCommand<ChangeOrganizationContactDetails>
     {
-        public IInitiatorService InitiatorService { get; set; }
+        private readonly IUserInRole _userInRole;
+        private readonly IMemberInRole _memberInRole;
+        private readonly IOrganizationRepository _organizationRepository;
 
-        public IMemberInRole MemberInRole { get; set; }
-
-        public IOrganizationRepository Repository { get; set; }
+        public ChangeOrganizationContactDetailsHandler(IUserInRole userInRole, IMemberInRole memberInRole, IOrganizationRepository organizationRepository)
+        {
+            _userInRole = userInRole;
+            _memberInRole = memberInRole;
+            _organizationRepository = organizationRepository;
+        }
 
         [Transaction]
         public void Handle(ChangeOrganizationContactDetails command)
         {
-            var initiator = InitiatorService.GetById(command.InitiatorId);
-            MemberInRole.ActiveManager(command.OrganizationId.Id, command.InitiatorId);
+            var initiator = _userInRole.GetById(command.InitiatorId);
+            _memberInRole.ActiveManager(command.OrganizationId.Id, command.InitiatorId);
 
-            var organization = Repository.GetById(command.OrganizationId);
+            var organization = _organizationRepository.GetById(command.OrganizationId);
 
             organization.ChangeContactDetails(initiator, new ContactDetails(command.Line1, command.Line2, command.Street,
                 command.Postcode, command.City, command.PhoneNumber, command.EmailAddress, command.Website));            

@@ -2,6 +2,7 @@ namespace Phundus.Tests.IdentityAccess
 {
     using Common.Commanding;
     using Common.Domain.Model;
+    using developwithpassion.specifications.extensions;
     using Integration.IdentityAccess;
     using Machine.Fakes;
     using Machine.Specifications;
@@ -34,10 +35,14 @@ namespace Phundus.Tests.IdentityAccess
             theOrganizationId = new OrganizationId();
 
             userInRole = depends.on<IUserInRole>();
+            
+            userInRole.setup(x => x.GetById(theInitiatorId)).Return(theInitiator);
+
             theAdmin = make.Admin();
-            userInRole.WhenToldTo(x => x.Admin(theInitiatorId)).Return(theAdmin);
+            userInRole.setup(x => x.Admin(theInitiatorId)).Return(theAdmin);
+            
             theManager = new Manager(new UserId(), "manager@test.phundus.ch", "The Manager");
-            userInRole.WhenToldTo(x => x.Manager(theInitiatorId, theOrganizationId)).Return(theManager);
+            userInRole.setup(x => x.Manager(theInitiatorId, theOrganizationId)).Return(theManager);
 
             memberInRole = depends.on<IMemberInRole>();
             organizationRepository = depends.on<IOrganizationRepository>();
