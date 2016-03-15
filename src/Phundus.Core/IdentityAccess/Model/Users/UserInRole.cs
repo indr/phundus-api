@@ -12,6 +12,8 @@
 
     public interface IUserInRole
     {
+        Initiator GetById(InitiatorId initiatorId);
+
         Admin Admin(UserId userId);
         Founder Founder(UserId userId);
         Manager Manager(UserId userId, OrganizationId organizationId);
@@ -28,6 +30,12 @@
         {
             _userRepository = userRepository;
             _membershipRepository = membershipRepository;
+        }
+
+        public Initiator GetById(InitiatorId initiatorId)
+        {
+            var result = _userRepository.GetById(initiatorId);
+            return new Initiator(new InitiatorId(result.UserId), result.EmailAddress, result.FullName);
         }
 
         public Admin Admin(UserId userId)

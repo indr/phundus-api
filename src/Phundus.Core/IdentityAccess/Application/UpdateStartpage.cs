@@ -7,6 +7,7 @@
     using Integration.IdentityAccess;
     using Model.Organizations;
     using Projections;
+    using Users.Services;
 
     public class UpdateStartpage : ICommand
     {
@@ -26,17 +27,13 @@
 
     public class UpdateStartpageHandler : IHandleCommand<UpdateStartpage>
     {
-        private readonly IInitiatorService _initiatorService;
+        private readonly IUserInRole _userInRole;
         private readonly IMemberInRole _memberInRole;
         private readonly IOrganizationRepository _organizationRepository;
 
-        public UpdateStartpageHandler(IInitiatorService initiatorService, IMemberInRole memberInRole, IOrganizationRepository organizationRepository)
+        public UpdateStartpageHandler(IUserInRole userInRole, IMemberInRole memberInRole, IOrganizationRepository organizationRepository)
         {
-            if (initiatorService == null) throw new ArgumentNullException("initiatorService");
-            if (memberInRole == null) throw new ArgumentNullException("memberInRole");
-            if (organizationRepository == null) throw new ArgumentNullException("organizationRepository");
-
-            _initiatorService = initiatorService;
+            _userInRole = userInRole;
             _memberInRole = memberInRole;
             _organizationRepository = organizationRepository;
         }
@@ -44,7 +41,8 @@
         [Transaction]
         public void Handle(UpdateStartpage command)
         {
-            var initiator = _initiatorService.GetById(command.InitiatorId);
+            // TODO: Manager
+            var initiator = _userInRole.GetById(command.InitiatorId);
             _memberInRole.ActiveManager(command.OrganizationId.Id, command.InitiatorId);
 
             var organization = _organizationRepository.GetById(command.OrganizationId.Id);

@@ -8,6 +8,7 @@
     using Integration.IdentityAccess;
     using Model.Organizations;
     using Phundus.Authorization;
+    using Users.Services;
 
     public class ChangeSettingPublicRental : ICommand
     {
@@ -28,16 +29,13 @@
     public class ChangeSettingPublicRentalHandler : IHandleCommand<ChangeSettingPublicRental>
     {
         private readonly IAuthorize _authorize;
-        private readonly IInitiatorService _initiatorService;
+        private readonly IUserInRole _userInRole;
         private readonly IOrganizationRepository _organizationRepository;
 
-        public ChangeSettingPublicRentalHandler(IAuthorize authorize, IInitiatorService initiatorService, IOrganizationRepository organizationRepository)
+        public ChangeSettingPublicRentalHandler(IAuthorize authorize, IUserInRole userInRole, IOrganizationRepository organizationRepository)
         {
-            if (authorize == null) throw new ArgumentNullException("authorize");
-            if (initiatorService == null) throw new ArgumentNullException("initiatorService");
-            if (organizationRepository == null) throw new ArgumentNullException("organizationRepository");
             _authorize = authorize;
-            _initiatorService = initiatorService;
+            _userInRole = userInRole;
             _organizationRepository = organizationRepository;
         }
 
@@ -45,7 +43,7 @@
         public void Handle(ChangeSettingPublicRental command)
         {
             var organization = _organizationRepository.GetById(command.OrganizationId);
-            var initiator = _initiatorService.GetById(command.InitiatorId);
+            var initiator = _userInRole.GetById(command.InitiatorId);
 
             _authorize.Enforce(initiator.InitiatorId, Manage.Organization(organization.Id));
             

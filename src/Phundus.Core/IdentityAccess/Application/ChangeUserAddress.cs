@@ -8,6 +8,7 @@
     using Integration.IdentityAccess;
     using Model.Users;
     using Phundus.Authorization;
+    using Users.Services;
 
     public class ChangeUserAddress : ICommand
     {
@@ -40,15 +41,11 @@
     public class ChangeUserAddressHandler : IHandleCommand<ChangeUserAddress>
     {
         private readonly IAuthorize _authorize;
-        private readonly IInitiatorService _initiatorService;
+        private readonly IUserInRole _initiatorService;
         private readonly IUserRepository _userRepository;
 
-        public ChangeUserAddressHandler(IAuthorize authorize, IInitiatorService initiatorService, IUserRepository userRepository)
+        public ChangeUserAddressHandler(IAuthorize authorize, IUserInRole initiatorService, IUserRepository userRepository)
         {
-            if (authorize == null) throw new ArgumentNullException("authorize");
-            if (initiatorService == null) throw new ArgumentNullException("initiatorService");
-            if (userRepository == null) throw new ArgumentNullException("userRepository");
-
             _authorize = authorize;
             _initiatorService = initiatorService;
             _userRepository = userRepository;

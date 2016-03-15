@@ -40,7 +40,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="IdentityAccess\IInitiatorService.cs" />
     <Compile Include="IdentityAccess\IMembersWithRole.cs" />
     <Compile Include="IdentityAccess\IUser.cs" />
     <Compile Include="IdentityAccess\IUsersQueries.cs" />

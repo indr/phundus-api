@@ -8,6 +8,7 @@
     using Integration.IdentityAccess;
     using Model.Users;
     using Phundus.Authorization;
+    using Users.Services;
 
     public class UnlockUser : ICommand
     {
@@ -26,23 +27,21 @@
     public class UnlockUserHandler : IHandleCommand<UnlockUser>
     {
         private readonly IAuthorize _authorize;
-        private readonly IInitiatorService _initiatorService;
+        private readonly IUserInRole _userInRole;
         private readonly IUserRepository _userRepository;
 
-        public UnlockUserHandler(IAuthorize authorize, IInitiatorService initiatorService, IUserRepository userRepository)
-        {
-            if (authorize == null) throw new ArgumentNullException("authorize");
-            if (initiatorService == null) throw new ArgumentNullException("initiatorService");
-            if (userRepository == null) throw new ArgumentNullException("userRepository");
+        public UnlockUserHandler(IAuthorize authorize, IUserInRole userInRole, IUserRepository userRepository)
+        {            
             _authorize = authorize;
-            _initiatorService = initiatorService;
+            _userInRole = userInRole;
             _userRepository = userRepository;
         }
 
         [Transaction]
         public void Handle(UnlockUser command)
         {
-            var initiator = _initiatorService.GetById(command.InitiatorId);
+            // TODO: Admin
+            var initiator = _userInRole.GetById(command.InitiatorId);
 
             _authorize.Enforce(initiator.InitiatorId, Manage.Users);
 

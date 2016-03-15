@@ -10,14 +10,8 @@
     using Integration.IdentityAccess;
     using Model.Users;
 
-    public class UsersProjection : QueryBase<UserData>, IUsersQueries, IInitiatorService
+    public class UsersProjection : QueryBase<UserData>, IUsersQueries
     {
-        public Initiator GetById(InitiatorId initiatorId)
-        {
-            var user = GetById(initiatorId.Id);
-            return new Initiator(new InitiatorId(user.UserId), user.EmailAddress, user.FullName);
-        }
-
         public IUser GetById(Guid userId)
         {
             return GetByGuid(new UserId(userId));
