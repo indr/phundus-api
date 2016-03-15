@@ -6,11 +6,12 @@ namespace Phundus.Tests.Shop.Events
     using Phundus.Shop.Orders.Model;
 
     [Subject(typeof (OrderEventLine))]
-    public class order_event_item : domain_event_concern<OrderEventLine>
+    public class OrderEventLineSpecs : domain_event_concern<OrderEventLine>
     {
         private static OrderLineId theItemId = new OrderLineId();
         private static ArticleId theArticleId = new ArticleId();
         private static ArticleShortId theArticleShortId = new ArticleShortId(1234);
+        private static StoreId theStoreId = new StoreId();
         private static string theText = "The text";
         private static decimal theUnitPricePerWeek = 1.23m;
         private static int theQuantity = 2;
@@ -18,7 +19,7 @@ namespace Phundus.Tests.Shop.Events
         private static decimal theItemTotal = 2.50m;
 
         private Establish ctx = () => sut_factory.create_using(() =>
-            new OrderEventLine(theItemId, theArticleId, theArticleShortId,
+            new OrderEventLine(theItemId, theArticleId, theArticleShortId, theStoreId,
                 theText, theUnitPricePerWeek, thePeriod, theQuantity,
                 theItemTotal));
 
@@ -48,5 +49,8 @@ namespace Phundus.Tests.Shop.Events
 
         private It should_have_at_9_the_item_total = () =>
             dataMember(9).ShouldEqual(theItemTotal);
+
+        private It should_have_at_10_the_store_id = () =>
+            dataMember(10).ShouldEqual(theStoreId.Id);
     }
 }

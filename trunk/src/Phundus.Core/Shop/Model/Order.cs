@@ -115,7 +115,7 @@
 
             Apply(new OrderItemAdded(manager, OrderId, OrderShortId, (int) Status, OrderTotal + lineTotal,
                 new OrderEventLine(orderLineId, article.ArticleId, article.ArticleShortId,
-                    article.Name, unitPricePerWeek, period, quantity, lineTotal)));
+                    article.StoreId, article.Name, unitPricePerWeek, period, quantity, lineTotal)));
         }
 
         protected void When(OrderItemAdded e)
@@ -226,7 +226,8 @@
 
         private static OrderEventLine CreateOrderEventItem(OrderLine line)
         {
-            return new OrderEventLine(line.LineId, line.ArticleId, line.ArticleShortId, line.Text, line.UnitPricePerWeek,
+            return new OrderEventLine(line.LineId, line.ArticleId, line.ArticleShortId,
+                line.StoreId, line.Text, line.UnitPricePerWeek,
                 line.Period, line.Quantity, line.LineTotal);
         }
 

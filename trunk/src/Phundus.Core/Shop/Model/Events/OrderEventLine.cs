@@ -8,16 +8,18 @@ namespace Phundus.Shop.Orders.Model
     [DataContract]
     public class OrderEventLine : ValueObject
     {
-        public OrderEventLine(OrderLineId orderLineId, ArticleId articleId, ArticleShortId articleShortId, string text,
+        public OrderEventLine(OrderLineId orderLineId, ArticleId articleId, ArticleShortId articleShortId, StoreId storeId, string text,
             decimal unitPricePerWeek, Period period, int quantity, decimal lineTotal)
         {
             if (articleId == null) throw new ArgumentNullException("articleId");
             if (articleShortId == null) throw new ArgumentNullException("articleShortId");
+            if (storeId == null) throw new ArgumentNullException("storeId");
             if (text == null) throw new ArgumentNullException("text");
             if (period == null) throw new ArgumentNullException("period");
-            ItemId = orderLineId.Id;
+            LineId = orderLineId.Id;
             ArticleId = articleId.Id;
             ArticleShortId = articleShortId.Id;
+            StoreId = storeId.Id;
             Text = text;
             UnitPricePerWeek = unitPricePerWeek;
             FromUtc = period.FromUtc;
@@ -31,13 +33,16 @@ namespace Phundus.Shop.Orders.Model
         }
 
         [DataMember(Order = 1)]
-        public Guid ItemId { get; set; }
+        public Guid LineId { get; set; }
 
         [DataMember(Order = 2)]
         public Guid ArticleId { get; set; }
 
         [DataMember(Order = 3)]
         public int ArticleShortId { get; set; }
+
+        [DataMember(Order = 10)]
+        public Guid StoreId { get; set; }
 
         [DataMember(Order = 4)]
         public string Text { get; set; }
@@ -64,7 +69,7 @@ namespace Phundus.Shop.Orders.Model
 
         protected override IEnumerable<object> GetEqualityComponents()
         {
-            yield return ItemId;
+            yield return LineId;
         }
     }
 }

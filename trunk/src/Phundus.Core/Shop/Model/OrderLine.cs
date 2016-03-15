@@ -14,18 +14,20 @@
         private string _text;
         private decimal _unitPricePerWeekPerWeek;
 
-        public OrderLine(OrderLineId orderLineId, ArticleId articleId, ArticleShortId articleShortId, string text,
-            Period period, int quantity, decimal unitPricePerWeekPerWeek, decimal lineTotal)
+        public OrderLine(OrderLineId orderLineId, ArticleId articleId, ArticleShortId articleShortId, StoreId storeId,
+            string text, Period period, int quantity, decimal unitPricePerWeekPerWeek, decimal lineTotal)
         {
             if (orderLineId == null) throw new ArgumentNullException("orderLineId");
             if (articleId == null) throw new ArgumentNullException("articleId");
             if (articleShortId == null) throw new ArgumentNullException("articleShortId");
+            if (storeId == null) throw new ArgumentNullException("storeId");
             if (text == null) throw new ArgumentNullException("text");
             if (period == null) throw new ArgumentNullException("period");
 
             _orderLineId = orderLineId;
             _articleId = articleId;
             _articleShortId = articleShortId;
+            StoreId = storeId;
             _text = text;
             _period = period;
             _quantity = quantity;
@@ -62,6 +64,8 @@
             get { return _articleId; }
             protected set { _articleId = value; }
         }
+
+        public StoreId StoreId { get; private set; }
 
         public virtual string Text
         {

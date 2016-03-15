@@ -88,7 +88,7 @@
         {
             Update(e.OrderId, order =>
             {
-                var item = order.Lines.Single(p => p.LineId == e.OrderLine.ItemId);
+                var item = order.Lines.Single(p => p.LineId == e.OrderLine.LineId);
                 order.Lines.Remove(item);
             });
         }
@@ -108,7 +108,7 @@
         {
             return new OrderLineData
             {
-                LineId = s.ItemId,
+                LineId = s.LineId,
                 Order = order,
                 ArticleId = s.ArticleId,
                 ArticleShortId = s.ArticleShortId,

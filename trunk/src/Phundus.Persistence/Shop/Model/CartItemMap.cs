@@ -30,6 +30,8 @@
                     a.Map(x => x.Id, "Article_ArticleId"));
                 m.Component(x => x.ArticleId, a =>
                     a.Map(x => x.Id, "Article_ArticleGuid"));
+                m.Component(x => x.StoreId, a =>
+                    a.Map(x => x.Id, "Article_StoreId"));
 
                 m.Map(x => x.Name, "Article_Name");
                 m.Map(x => x.Price, "Article_UnitPricePerWeek");

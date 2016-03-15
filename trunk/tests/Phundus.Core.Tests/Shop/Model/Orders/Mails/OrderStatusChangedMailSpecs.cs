@@ -33,8 +33,8 @@
 
             var lines = new List<OrderEventLine>
             {
-                new OrderEventLine(new OrderLineId(), new ArticleId(), new ArticleShortId(99), "Text", 1.23m,
-                    Period.FromNow(1), 1, 1.23m)
+                new OrderEventLine(new OrderLineId(), new ArticleId(), new ArticleShortId(99), new StoreId(),
+                    "Text", 1.23m, Period.FromNow(1), 1, 1.23m)
             };
             e = new OrderApproved(make.Manager(), new OrderId(), new OrderShortId(123),
                 make.Lessor(), make.Lessee(), OrderStatus.Pending, 12.34m, lines);
@@ -69,8 +69,8 @@
 
             var lines = new List<OrderEventLine>
             {
-                new OrderEventLine(new OrderLineId(), new ArticleId(), new ArticleShortId(99), "Text", 1.23m,
-                    Period.FromNow(1), 1, 1.23m)
+                new OrderEventLine(new OrderLineId(), new ArticleId(), new ArticleShortId(99),
+                    new StoreId(), "Text", 1.23m, Period.FromNow(1), 1, 1.23m)
             };
             e = new OrderRejected(make.Manager(), new OrderId(), new OrderShortId(123),
                 make.Lessor(), make.Lessee(), OrderStatus.Pending, 12.34m, lines);

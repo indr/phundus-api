@@ -61,7 +61,7 @@ namespace Phundus.Shop.Model
                 price = article.MemberPrice.Value;
             }
 
-            return new Article(article.ArticleShortId, article.ArticleId, lessor, article.Name, price);
+            return new Article(article.ArticleShortId, article.ArticleId, lessor, article.StoreId, article.Name, price);
         }
     }
 }
