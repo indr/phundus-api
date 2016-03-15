@@ -4,6 +4,7 @@
     using Common;
     using Common.Domain.Model;
     using IdentityAccess.Projections;
+    using IdentityAccess.Resources;
     using Model;
     using Phundus.Authorization;
 

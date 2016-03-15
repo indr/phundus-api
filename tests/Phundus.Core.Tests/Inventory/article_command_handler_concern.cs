@@ -3,6 +3,7 @@ namespace Phundus.Tests.Inventory
     using Common.Commanding;
     using Machine.Specifications;
     using Phundus.IdentityAccess.Projections;
+    using Phundus.IdentityAccess.Resources;
     using Phundus.Inventory.Model.Articles;
     using Phundus.Inventory.Model.Collaborators;
 

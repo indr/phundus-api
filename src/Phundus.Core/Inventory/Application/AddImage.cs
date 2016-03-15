@@ -6,6 +6,7 @@
     using Common.Commanding;
     using Common.Domain.Model;
     using IdentityAccess.Projections;
+    using IdentityAccess.Resources;
     using Model.Articles;
     using Model.Collaborators;
 

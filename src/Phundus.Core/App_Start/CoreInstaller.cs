@@ -8,6 +8,7 @@
     using Castle.Windsor;
     using Common.Projecting;
     using Common.Querying;
+    using IdentityAccess.Resources;
     using IdentityAccess.Users.Services;
     using Inventory.Infrastructure;
     using Shop.Model.Pdf;

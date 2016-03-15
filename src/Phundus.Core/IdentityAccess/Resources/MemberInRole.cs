@@ -1,11 +1,9 @@
-namespace Phundus.IdentityAccess.Projections
+namespace Phundus.IdentityAccess.Resources
 {
     using System;
     using System.Linq;
     using Common;
     using Common.Domain.Model;
-    using Common.Projecting;
-    using Common.Querying;
     using Integration.IdentityAccess;
     using Model.Organizations;
     using Organizations.Model;
@@ -22,7 +20,7 @@ namespace Phundus.IdentityAccess.Projections
         bool IsActiveMember(LessorId lessorId, UserId userId);
     }
 
-    public class MemberInRoleProjection : QueryBase, IMemberInRole
+    public class MemberInRoleProjection : IMemberInRole
     {
         private readonly IMembershipRepository _membershipRepository;
         private readonly IUsersQueries _usersQueries;
@@ -64,7 +62,7 @@ namespace Phundus.IdentityAccess.Projections
         {
             return IsActiveMember(lessorId.Id, userId);
         }
-        
+
         private bool IsActiveManager(Guid organizationId, UserId userId)
         {
             // Hack für Material-Kontext: organizationId kann die Guid des Benutzers (Owners) sein.

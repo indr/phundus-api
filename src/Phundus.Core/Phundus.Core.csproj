@@ -162,7 +162,6 @@
     <Compile Include="IdentityAccess\Projections\OrganizationProjection.cs" />
     <Compile Include="IdentityAccess\Projections\OrganizationQueries.cs" />
     <Compile Include="IdentityAccess\Projections\RelationshipProjection.cs" />
-    <Compile Include="IdentityAccess\Projections\MemberInRoleProjection.cs" />
     <Compile Include="IdentityAccess\Projections\MembershipsProjection.cs" />
     <Compile Include="IdentityAccess\Projections\MembersProjection.cs" />
     <Compile Include="IdentityAccess\Projections\RelationshipQueries.cs" />
@@ -199,12 +198,13 @@
     <Compile Include="IdentityAccess\Model\Users\PasswordEncryptor.cs" />
     <Compile Include="IdentityAccess\Model\Users\PasswordGenerator.cs" />
     <Compile Include="IdentityAccess\Model\Users\SessionKeyGenerator.cs" />
-    <Compile Include="IdentityAccess\Model\Users\UserInRole.cs" />
     <Compile Include="IdentityAccess\Model\Users\Mails\Resources\Templates.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Templates.resx</DependentUpon>
     </Compile>
+    <Compile Include="IdentityAccess\Resources\MemberInRole.cs" />
+    <Compile Include="IdentityAccess\Resources\UserInRole.cs" />
     <Compile Include="Inventory\Application\AddImage.cs" />
     <Compile Include="Inventory\Application\ChangeContactDetails.cs" />
     <Compile Include="Inventory\Application\ChangePrices.cs" />
