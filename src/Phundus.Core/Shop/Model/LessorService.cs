@@ -82,7 +82,7 @@
         private static Lessor ToLessor(OrganizationData organization)
         {
             var lessorId = new LessorId(organization.OrganizationId);
-            return new Lessor(lessorId, organization.Name, organization.PublicRental);
+            return new Lessor(lessorId, organization.Name, organization.PostalAddress, organization.PhoneNumber, organization.EmailAddress, organization.Website, organization.PublicRental);
         }
     }
 }

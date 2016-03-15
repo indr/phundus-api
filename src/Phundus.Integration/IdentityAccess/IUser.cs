@@ -2,7 +2,7 @@
 {
     using System;
 
-    
+    // TODO: Add PostalAddress
     public interface IUser
     {
         Guid UserId { get; }

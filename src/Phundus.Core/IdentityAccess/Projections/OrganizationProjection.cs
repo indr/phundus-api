@@ -82,6 +82,7 @@ namespace Phundus.IdentityAccess.Projections
         }
     }
 
+    // TODO: Split to OrganizationListData and OrganizationDetailsData
     public class OrganizationData
     {
         private string _website;
