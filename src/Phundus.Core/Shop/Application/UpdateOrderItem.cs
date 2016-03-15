@@ -45,7 +45,7 @@
         public void Handle(UpdateOrderItem command)
         {
             var order = _orderRepository.GetById(command.OrderId);
-            var manager = _userInRole.Manager(command.InitiatorId, order.Lessor.LessorId);
+            var manager = _userInRole.Manager(order.Lessor.LessorId, command.InitiatorId);
 
 
             order.ChangeQuantity(manager, command.OrderItemId, command.Quantity);

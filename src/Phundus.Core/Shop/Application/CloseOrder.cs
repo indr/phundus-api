@@ -36,7 +36,7 @@
         public void Handle(CloseOrder command)
         {
             var order = _orderRepository.GetById(command.OrderId);
-            var manager = _collaboratorService.Manager(command.InitiatorId, order.Lessor.LessorId);
+            var manager = _collaboratorService.Manager(order.Lessor.LessorId, command.InitiatorId);
 
             order.Close(manager);
 

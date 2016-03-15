@@ -50,7 +50,7 @@
         [Transaction]
         public void Handle(CreateEmptyOrder command)
         {
-            var manager = _collaboratorService.Manager(command.InitiatorId, command.LessorId);
+            var manager = _collaboratorService.Manager(command.LessorId, command.InitiatorId);
 
             var order = new Order(manager,
                 command.OrderId, command.OrderShortId,

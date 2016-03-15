@@ -8,6 +8,7 @@
     using developwithpassion.specifications.extensions;
     using Machine.Specifications;
     using Phundus.Shop.Model;
+    using Phundus.Shop.Model.Collaborators;
     using Phundus.Shop.Model.Mails;
     using Phundus.Shop.Model.Pdf;
     using Phundus.Shop.Orders.Model;
@@ -23,9 +24,13 @@
             var make = new shop_factory(fake);
 
             depends.on<IOrderRepository>().setup(x => x.GetById(Arg<OrderId>.Is.Anything)).Return(make.Order());
-            depends.on<ILessorService>()
-                .setup(x => x.GetEmailNotificationSubscribers(Arg<LessorId>.Is.Anything))
-                .Return(new List<string> {"manager1@test.phundus.ch", "manager2@test.phundus.ch"});
+            depends.on<ICollaboratorService>()
+                .setup(x => x.Managers(Arg<LessorId>.Is.Anything, Arg<bool>.Is.Equal(true)))
+                .Return(new List<Manager>
+                {
+                    make.Manager(emailAddress: "manager1@test.phundus.ch"),
+                    make.Manager(emailAddress: "manager2@test.phundus.ch")
+                });
             depends.on<IOrderPdfGenerator>()
                 .setup(x => x.GeneratePdf(Arg<Order>.Is.Anything))
                 .Return(new MemoryStream());

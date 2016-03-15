@@ -53,7 +53,7 @@
         public void Handle(AddOrderItem command)
         {
             var order = _orderRepository.GetById(command.OrderId);
-            var manager = _collaboratorService.Manager(command.InitiatorId, order.Lessor.LessorId);
+            var manager = _collaboratorService.Manager(order.Lessor.LessorId, command.InitiatorId);
             var article = _articleService.GetById(order.Lessor.LessorId, command.ArticleId, order.Lessee.LesseeId);
 
             order.AddItem(manager, command.OrderLineId, article, command.Period, command.Quantity, command.LineTotal);
