@@ -9,7 +9,6 @@
     using Model.Users;
     using Organizations.Model;
     using Resources;
-    using Users.Services;
 
     public class EstablishOrganization : ICommand
     {
@@ -30,16 +29,13 @@
 
     public class EstablishOrganizationHandler : IHandleCommand<EstablishOrganization>
     {
-        private readonly IUserInRole _userInRole;
         private readonly IOrganizationRepository _organizationRepository;
+        private readonly IUserInRole _userInRole;
         private readonly IUserRepository _userRepository;
 
         public EstablishOrganizationHandler(IUserInRole userInRole, IOrganizationRepository organizationRepository,
             IUserRepository userRepository)
-        {
-            if (userInRole == null) throw new ArgumentNullException("userInRole");
-            if (organizationRepository == null) throw new ArgumentNullException("organizationRepository");
-            if (userRepository == null) throw new ArgumentNullException("userRepository");
+        {            
             _userInRole = userInRole;
             _organizationRepository = organizationRepository;
             _userRepository = userRepository;
