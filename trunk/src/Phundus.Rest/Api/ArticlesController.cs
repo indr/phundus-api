@@ -64,7 +64,6 @@ namespace Phundus.Rest.Api
             if (ownerId == null)
                 throw new NotFoundException("Article not found.");
 
-            _memberInRole.ActiveManager(ownerId, CurrentUserId);
             // TODO: Prüfen ob Artikel dem Owner gehört  
 
             string query = null;
@@ -89,7 +88,6 @@ namespace Phundus.Rest.Api
             if (ownerId == null)
                 throw new NotFoundException("Article not found.");
 
-            _memberInRole.ActiveManager(ownerId, CurrentUserId);
             // TODO: Prüfen ob Artikel dem Owner gehört  
 
             var result = _articleQueries.GetById(articleId);
@@ -130,8 +128,7 @@ namespace Phundus.Rest.Api
 
             if (ownerId == null)
                 throw new NotFoundException("Article not found.");
-
-            _memberInRole.ActiveManager(ownerId, CurrentUserId);
+            
             // TODO: Prüfen ob Artikel dem Owner gehört  
 
             var result = _articleQueries.GetById(articleId);
@@ -152,7 +149,6 @@ namespace Phundus.Rest.Api
             if (ownerId == null)
                 throw new NotFoundException("Article not found.");
 
-            _memberInRole.ActiveManager(ownerId, CurrentUserId);
             // TODO: Prüfen ob Artikel dem Owner gehört  
 
             var result = _articleQueries.GetById(articleId);
@@ -172,8 +168,7 @@ namespace Phundus.Rest.Api
 
             if (ownerId == null)
                 throw new NotFoundException("Article not found.");
-
-            _memberInRole.ActiveManager(ownerId, CurrentUserId);
+            
             // TODO: Prüfen ob Artikel dem Owner gehört   
 
             var availabilities = _availabilityQueries.GetAvailability(articleId).ToList();

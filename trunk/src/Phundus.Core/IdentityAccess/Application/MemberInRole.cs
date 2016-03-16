@@ -2,21 +2,18 @@ namespace Phundus.IdentityAccess.Application
 {
     using System;
     using System.Linq;
-    using Common;
     using Common.Domain.Model;
     using Integration.IdentityAccess;
     using Model.Organizations;
     using Organizations.Model;
 
+    [Obsolete("Use appropriate integration service")]
     public interface IMemberInRole
     {
-        void ActiveManager(OrganizationId organizationId, UserId userId);
-        void ActiveManager(OwnerId ownerId, UserId userId);
-        void ActiveManager(Guid organizationId, UserId userId);
-
-        bool IsActiveManager(OrganizationId organizationId, UserId userId);
+        [Obsolete("Use resource UserInRole")]
         bool IsActiveManager(OwnerId ownerId, UserId userId);
 
+        [Obsolete("Use lessee service")]
         bool IsActiveMember(LessorId lessorId, UserId userId);
     }
 
@@ -29,28 +26,6 @@ namespace Phundus.IdentityAccess.Application
         {
             _usersQueries = usersQueries;
             _membershipRepository = membershipRepository;
-        }
-
-        public void ActiveManager(OrganizationId organizationId, UserId userId)
-        {
-            ActiveManager(organizationId.Id, userId);
-        }
-
-        public void ActiveManager(OwnerId ownerId, UserId userId)
-        {
-            ActiveManager(ownerId.Id, userId);
-        }
-
-        public void ActiveManager(Guid organizationId, UserId userId)
-        {
-            if (!IsActiveManager(organizationId, userId))
-                throw new AuthorizationException(
-                    "Sie müssen aktives Mitglied mit der Rolle Verwaltung dieser Organisation sein.");
-        }
-
-        public bool IsActiveManager(OrganizationId organizationId, UserId userId)
-        {
-            return IsActiveManager(organizationId.Id, userId);
         }
 
         public bool IsActiveManager(OwnerId ownerId, UserId userId)

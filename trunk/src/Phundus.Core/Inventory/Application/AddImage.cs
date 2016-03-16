@@ -64,8 +64,7 @@
             var initiator = _collaboratorService.Initiator(command.InitiatorId);
             var article = _articleRepository.GetById(command.ArticleId);
 
-
-            _memberInRole.ActiveManager(article.Owner.OwnerId.Id, command.InitiatorId);
+            var manager = _collaboratorService.Manager(command.InitiatorId, article.Owner.OwnerId);            
 
             // TODO: Pass manager to AddImage()
             article.AddImage(initiator, command.FileName, command.FileType, command.FileSize);
