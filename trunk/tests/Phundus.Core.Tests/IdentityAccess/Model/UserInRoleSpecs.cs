@@ -34,32 +34,6 @@
     }
 
     [Subject(typeof (UserInRole))]
-    public class when_asking_for_admin_with_user_in_role_user : user_in_role_concern
-    {
-        private Establish ctx = () =>
-            theUser.WhenToldTo(x => x.Role).Return(UserRole.User);
-
-        private It is_admin_should_return_false = () =>
-            sut.IsAdmin(theUser.UserId).ShouldBeFalse();
-
-        private It should_throw_exception = () =>
-            Catch.Exception(() => sut.Admin(theUser.UserId)).ShouldNotBeNull();
-    }
-
-    [Subject(typeof (UserInRole))]
-    public class when_asking_for_admin_with_user_in_admin_role : user_in_role_concern
-    {
-        private Establish ctx = () =>
-            theUser.WhenToldTo(x => x.Role).Return(UserRole.Admin);
-
-        private It is_admin_should_return_true = () =>
-            sut.IsAdmin(theUser.UserId).ShouldBeTrue();
-
-        private It should_not_throw_exception = () =>
-            Catch.Exception(() => sut.Admin(theUser.UserId)).ShouldBeNull();
-    }
-
-    [Subject(typeof (UserInRole))]
     public class when_asking_for_founder : user_in_role_concern
     {
         private static Founder aFounder;

@@ -14,8 +14,6 @@
         Founder Founder(UserId userId);
         Manager Manager(UserId userId, OrganizationId organizationId);
         Initiator Initiator(InitiatorId initiatorId);
-
-        bool IsAdmin(UserId userId);
     }
 
     public class UserInRole : IUserInRole
@@ -76,12 +74,6 @@
                     organizationId));
 
             return new Manager(user.UserId, user.EmailAddress, user.FullName);
-        }
-
-        public bool IsAdmin(UserId userId)
-        {
-            var user = _userRepository.GetById(userId);
-            return user.Role == UserRole.Admin;
         }
     }
 }

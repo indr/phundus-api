@@ -126,6 +126,7 @@
     <Compile Include="IdentityAccess\Model\Organizations\Mails\MemberUnlockedMailSpecs.cs" />
     <Compile Include="IdentityAccess\Model\Users\AdminSpesc.cs" />
     <Compile Include="IdentityAccess\Model\Users\Events\EmailAddressChangeRequestedSpecs.cs" />
+    <Compile Include="IdentityAccess\Model\Users\FounderSpecs.cs" />
     <Compile Include="IdentityAccess\Model\Users\Mails\AccountLockedMailSpecs.cs" />
     <Compile Include="IdentityAccess\Model\Users\Mails\AccountUnlockedMailSpecs.cs" />
     <Compile Include="IdentityAccess\Model\Users\Mails\AccountValidationMailSpecs.cs" />
