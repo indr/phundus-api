@@ -1,15 +1,11 @@
 ﻿namespace Phundus.IdentityAccess.Application
 {
     using System;
-    using Authorization;
     using Castle.Transactions;
     using Common.Commanding;
     using Common.Domain.Model;
-    using Integration.IdentityAccess;
     using Model.Users;
-    using Phundus.Authorization;
     using Resources;
-    using Users.Services;
 
     public class LockUser : ICommand
     {
@@ -17,7 +13,6 @@
         {
             if (initiatorId == null) throw new ArgumentNullException("initiatorId");
             if (userId == null) throw new ArgumentNullException("userId");
-
             InitiatorId = initiatorId;
             UserId = userId;
         }
@@ -27,12 +22,12 @@
     }
 
     public class LockUserHandler : IHandleCommand<LockUser>
-    {        
+    {
         private readonly IUserInRole _userInRole;
         private readonly IUserRepository _userRepository;
 
         public LockUserHandler(IUserInRole userInRole, IUserRepository userRepository)
-        {                        
+        {
             _userInRole = userInRole;
             _userRepository = userRepository;
         }

@@ -5,16 +5,20 @@
     using Phundus.IdentityAccess.Model;
     using Phundus.IdentityAccess.Model.Users;
     using Phundus.IdentityAccess.Organizations.Model;
-    using Phundus.IdentityAccess.Users.Model;
 
     public class identityaccess_domain_event_concern<TDomainEvent> : domain_event_concern<TDomainEvent>
         where TDomainEvent : class
     {
         protected static Admin theAdmin;
+        protected static Manager theManager;
         protected static OrganizationId theOrganizationId = new OrganizationId();
 
-        private Establish ctx =
-            () => { theAdmin = new Admin(theInitiator.InitiatorId, theInitiator.EmailAddress, theInitiator.FullName); };
+        private Establish ctx = () =>
+        {
+            var make = new identityaccess_factory(fake);
+            theAdmin = make.Admin(theInitiatorId);
+            theManager = make.Manager(theInitiatorId);
+        };
     }
 
     [Subject(typeof (PublicRentalSettingChanged))]
@@ -23,13 +27,13 @@
         private static bool theValue = true;
 
         private Establish ctx = () => sut_factory.create_using(() =>
-            new PublicRentalSettingChanged(theInitiator, theOrganizationId, theValue));
+            new PublicRentalSettingChanged(theManager, theOrganizationId, theValue));
 
         private It should_be_in_assembly = () =>
             itsAssembly.ShouldEqual("Phundus.Core");
 
         private It should_have_at_1_initiator = () =>
-            dataMember(1).ShouldEqual(theInitiator);
+            dataMember(1).ShouldEqual(theManager);
 
         private It should_have_at_2_organization_id = () =>
             dataMember(2).ShouldEqual(theOrganizationId.Id);

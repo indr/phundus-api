@@ -3,11 +3,12 @@
     using System;
     using System.Runtime.Serialization;
     using Common.Domain.Model;
+    using Users;
 
     [DataContract]
     public class OrganizationContactDetailsChanged : DomainEvent
     {
-        public OrganizationContactDetailsChanged(Initiator initiator, OrganizationId organizationId, string line1, string line2, string street,
+        public OrganizationContactDetailsChanged(Manager initiator, OrganizationId organizationId, string line1, string line2, string street,
             string postcode, string city, string phoneNumber, string emailAddress, string website)
         {
             if (initiator == null) throw new ArgumentNullException("initiator");
@@ -30,7 +31,7 @@
         }
 
         [DataMember(Order = 1)]
-        public Initiator Initiator { get; protected set; }
+        public Manager Initiator { get; protected set; }
 
         [DataMember(Order = 2)]
         public Guid OrganizationId { get; protected set; }

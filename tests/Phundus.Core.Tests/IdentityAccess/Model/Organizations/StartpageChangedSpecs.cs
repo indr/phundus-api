@@ -9,13 +9,13 @@
     {
         private Establish ctx = () =>
             sut_factory.create_using(() =>
-                new StartpageChanged(theInitiator, theOrganizationId, "The new startpage"));
+                new StartpageChanged(theManager, theOrganizationId, "The new startpage"));
 
         private It should_be_in_assembly = () =>
             itsAssembly.ShouldEqual("Phundus.Core");
 
         private It should_have_at_1_the_initiator = () =>
-            dataMember(1).ShouldEqual(theInitiator);
+            dataMember(1).ShouldEqual(theManager);
 
         private It should_have_at_2_the_organization_id = () =>
             dataMember(2).ShouldEqual(theOrganizationId.Id);

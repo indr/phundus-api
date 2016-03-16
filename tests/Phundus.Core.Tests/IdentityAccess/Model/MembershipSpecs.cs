@@ -5,6 +5,7 @@
     using developwithpassion.specifications.rhinomocks;
     using Integration.IdentityAccess;
     using Machine.Specifications;
+    using Phundus.IdentityAccess.Model.Users;
     using Phundus.IdentityAccess.Organizations.Model;
 
     public class membership_concern : Observes<Membership>

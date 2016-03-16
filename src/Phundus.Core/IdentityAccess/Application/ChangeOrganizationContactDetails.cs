@@ -4,12 +4,9 @@
     using Castle.Transactions;
     using Common.Commanding;
     using Common.Domain.Model;
-    using Integration.IdentityAccess;
     using Model.Organizations;
     using Organizations.Model;
-    using Projections;
     using Resources;
-    using Users.Services;
 
     public class ChangeOrganizationContactDetails : ICommand
     {
@@ -46,11 +43,12 @@
 
     public class ChangeOrganizationContactDetailsHandler : IHandleCommand<ChangeOrganizationContactDetails>
     {
-        private readonly IUserInRole _userInRole;
         private readonly IMemberInRole _memberInRole;
         private readonly IOrganizationRepository _organizationRepository;
+        private readonly IUserInRole _userInRole;
 
-        public ChangeOrganizationContactDetailsHandler(IUserInRole userInRole, IMemberInRole memberInRole, IOrganizationRepository organizationRepository)
+        public ChangeOrganizationContactDetailsHandler(IUserInRole userInRole, IMemberInRole memberInRole,
+            IOrganizationRepository organizationRepository)
         {
             _userInRole = userInRole;
             _memberInRole = memberInRole;
@@ -60,13 +58,12 @@
         [Transaction]
         public void Handle(ChangeOrganizationContactDetails command)
         {
-            var initiator = _userInRole.GetById(command.InitiatorId);
-            _memberInRole.ActiveManager(command.OrganizationId.Id, command.InitiatorId);
-
+            var manager = _userInRole.Manager(command.InitiatorId, command.OrganizationId);
             var organization = _organizationRepository.GetById(command.OrganizationId);
 
-            organization.ChangeContactDetails(initiator, new ContactDetails(command.Line1, command.Line2, command.Street,
-                command.Postcode, command.City, command.PhoneNumber, command.EmailAddress, command.Website));            
+            organization.ChangeContactDetails(manager,
+                new ContactDetails(command.Line1, command.Line2, command.Street,
+                    command.Postcode, command.City, command.PhoneNumber, command.EmailAddress, command.Website));
         }
     }
 }

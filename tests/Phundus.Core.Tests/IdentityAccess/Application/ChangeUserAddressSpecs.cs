@@ -3,7 +3,6 @@
     using developwithpassion.specifications.extensions;
     using Machine.Specifications;
     using Phundus.IdentityAccess.Application;
-    using Phundus.IdentityAccess.Authorization;
     using Phundus.IdentityAccess.Users.Model;
 
     [Subject(typeof (ChangeUserAddressHandler))]
@@ -32,10 +31,6 @@
             theUser.received(x =>
                 x.ChangeAddress(theInitiator, theFirstName, theLastName, theStreet, thePostcode, theCity,
                     thePhoneNumber));
-
-        private It should_enforce_initiator_to_manage_user = () =>
-            enforceInitiatorTo<ManageUserAccessObject>(p =>
-                Equals(p.UserId, theUser.UserId));
 
         private It should_save_to_repository = () =>
             userRepository.received(x => x.Save(theUser));

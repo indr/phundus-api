@@ -76,11 +76,11 @@
                     "Website");
 
         private Because of = () =>
-            sut.ChangeContactDetails(theInitiator, theContactDetails);
+            sut.ChangeContactDetails(theManager, theContactDetails);
 
         private It should_publish_organization_contact_details_changed = () =>
             published<OrganizationContactDetailsChanged>(p =>
-                Equals(p.Initiator, theInitiator)
+                Equals(p.Initiator, theManager)
                 && p.OrganizationId == theOrganizationId.Id
                 && p.Line1 == "Line1"
                 && p.Line2 == "Line2"
@@ -173,14 +173,14 @@
         private static string theNewStartpage = "<p>The new startpage</p>";
 
         private Because of = () =>
-            sut.ChangeStartpage(theInitiator, theNewStartpage);
+            sut.ChangeStartpage(theManager, theNewStartpage);
 
         private It should_have_new_startpage = () =>
             sut.Startpage.ShouldEqual(theNewStartpage);
 
         private It should_publish_startpage_changed = () =>
             published<StartpageChanged>(p =>
-                Equals(p.Initiator, theInitiator)
+                Equals(p.Initiator, theManager)
                 && p.OrganizationId == theOrganizationId.Id
                 && p.Startpage == theNewStartpage);
     }

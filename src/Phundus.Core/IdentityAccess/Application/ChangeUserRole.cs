@@ -6,7 +6,6 @@
     using Common.Domain.Model;
     using Model.Users;
     using Resources;
-    using Users.Services;
 
     public class ChangeUserRole : ICommand
     {
@@ -30,20 +29,18 @@
         private readonly IUserRepository _userRepository;
 
         public ChangeUserRoleHandler(IUserInRole userInRole, IUserRepository userRepository)
-        {
-            if (userInRole == null) throw new ArgumentNullException("userInRole");
-            if (userRepository == null) throw new ArgumentNullException("userRepository");
+        {            
             _userInRole = userInRole;
             _userRepository = userRepository;
         }
-        
+
         [Transaction]
         public void Handle(ChangeUserRole command)
         {
-            var initiator = _userInRole.Admin(command.InitiatorId);
-
+            var admin = _userInRole.Admin(command.InitiatorId);
             var user = _userRepository.GetById(command.UserId);
-            user.ChangeRole(initiator, command.UserRole);
+            
+            user.ChangeRole(admin, command.UserRole);
         }
     }
 }

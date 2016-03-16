@@ -1,15 +1,11 @@
 ﻿namespace Phundus.IdentityAccess.Application
 {
     using System;
-    using Authorization;
     using Castle.Transactions;
     using Common.Commanding;
     using Common.Domain.Model;
-    using Integration.IdentityAccess;
     using Model.Users;
-    using Phundus.Authorization;
     using Resources;
-    using Users.Services;
 
     public class UnlockUser : ICommand
     {
@@ -31,14 +27,14 @@
         private readonly IUserRepository _userRepository;
 
         public UnlockUserHandler(IUserInRole userInRole, IUserRepository userRepository)
-        {                        
+        {
             _userInRole = userInRole;
             _userRepository = userRepository;
         }
 
         [Transaction]
         public void Handle(UnlockUser command)
-        {            
+        {
             var initiator = _userInRole.Admin(command.InitiatorId);
             var user = _userRepository.GetById(command.UserId);
 

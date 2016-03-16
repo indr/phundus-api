@@ -21,7 +21,7 @@
     public class when_changing_setting_public_rental_to_false : organization_concern
     {
         private Because of = () =>
-            sut.ChangeSettingPublicRental(theInitiator, false);
+            sut.ChangeSettingPublicRental(theManager, false);
 
         private It should_have_setting_public_rental_true = () =>
             sut.Settings.PublicRental.ShouldBeFalse();

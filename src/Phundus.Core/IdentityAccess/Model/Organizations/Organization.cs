@@ -175,17 +175,17 @@
             EventPublisher.Publish(new MemberRecieveEmailNotificationOptionChanged(manager, Id, memberId, value));
         }
 
-        public virtual void ChangeStartpage(Initiator initiator, string startpage)
+        public virtual void ChangeStartpage(Manager manager, string startpage)
         {
             if (_startpage == startpage)
                 return;
 
             Startpage = startpage;
 
-            EventPublisher.Publish(new StartpageChanged(initiator, Id, startpage));
+            EventPublisher.Publish(new StartpageChanged(manager, Id, startpage));
         }
 
-        public virtual void ChangeContactDetails(Initiator initiator, ContactDetails contactDetails)
+        public virtual void ChangeContactDetails(Manager manager, ContactDetails contactDetails)
         {
             if (contactDetails == null) throw new ArgumentNullException("contactDetails");
             if (Equals(_contactDetails, contactDetails))
@@ -193,21 +193,21 @@
 
             ContactDetails = contactDetails;
 
-            EventPublisher.Publish(new OrganizationContactDetailsChanged(initiator, Id, contactDetails.Line1,
+            EventPublisher.Publish(new OrganizationContactDetailsChanged(manager, Id, contactDetails.Line1,
                 contactDetails.Line2, contactDetails.Street, contactDetails.Postcode, contactDetails.City,
                 contactDetails.PhoneNumber, contactDetails.EmailAddress, contactDetails.Website));
         }
 
-        public virtual void ChangeSettingPublicRental(Initiator initiator, bool value)
+        public virtual void ChangeSettingPublicRental(Manager manager, bool value)
         {
-            if (initiator == null) throw new ArgumentNullException("initiator");
+            if (manager == null) throw new ArgumentNullException("manager");
 
             if (_settings.PublicRental == value)
                 return;
 
             _settings = new Settings(value);
 
-            EventPublisher.Publish(new PublicRentalSettingChanged(initiator, Id, _settings.PublicRental));
+            EventPublisher.Publish(new PublicRentalSettingChanged(manager, Id, _settings.PublicRental));
         }
 
         public virtual void ChangePlan(Admin admin, OrganizationPlan plan)

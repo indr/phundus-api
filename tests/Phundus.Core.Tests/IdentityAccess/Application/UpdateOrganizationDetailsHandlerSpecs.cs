@@ -5,6 +5,7 @@
     using Machine.Fakes;
     using Machine.Specifications;
     using Phundus.IdentityAccess.Application;
+    using Phundus.IdentityAccess.Model.Users;
     using Phundus.IdentityAccess.Organizations.Model;
     using Rhino.Mocks;
 
@@ -30,6 +31,6 @@
             memberInRole.WasToldTo(x => x.ActiveManager(theOrganization.Id.Id, theInitiatorId));
 
         private It should_tell_organization_to_change_contact_details = () =>
-            theOrganization.WasToldTo(x => x.ChangeContactDetails(Arg<Initiator>.Is.Equal(theInitiator), Arg<ContactDetails>.Is.NotNull));
+            theOrganization.WasToldTo(x => x.ChangeContactDetails(Arg<Manager>.Is.Same(theManager), Arg<ContactDetails>.Is.NotNull));
     }
 }

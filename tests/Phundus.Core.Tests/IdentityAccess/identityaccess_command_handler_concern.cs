@@ -37,7 +37,7 @@ namespace Phundus.Tests.IdentityAccess
 
             userInRole = depends.on<IUserInRole>();
             
-            userInRole.setup(x => x.GetById(theInitiatorId)).Return(theInitiator);
+            userInRole.setup(x => x.Initiator(theInitiatorId)).Return(theInitiator);
 
             theAdmin = make.Admin();
             userInRole.setup(x => x.Admin(theInitiatorId)).Return(theAdmin);

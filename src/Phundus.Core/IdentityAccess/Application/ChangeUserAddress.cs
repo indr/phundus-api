@@ -1,15 +1,12 @@
 ﻿namespace Phundus.IdentityAccess.Application
 {
     using System;
-    using Authorization;
     using Castle.Transactions;
+    using Common;
     using Common.Commanding;
     using Common.Domain.Model;
-    using Integration.IdentityAccess;
     using Model.Users;
-    using Phundus.Authorization;
     using Resources;
-    using Users.Services;
 
     public class ChangeUserAddress : ICommand
     {
@@ -18,7 +15,6 @@
         {
             if (initiatorId == null) throw new ArgumentNullException("initiatorId");
             if (userId == null) throw new ArgumentNullException("userId");
-
             InitiatorId = initiatorId;
             UserId = userId;
             FirstName = firstName;
@@ -41,23 +37,22 @@
 
     public class ChangeUserAddressHandler : IHandleCommand<ChangeUserAddress>
     {
-        private readonly IAuthorize _authorize;
-        private readonly IUserInRole _initiatorService;
+        private readonly IUserInRole _userInRole;
         private readonly IUserRepository _userRepository;
 
-        public ChangeUserAddressHandler(IAuthorize authorize, IUserInRole initiatorService, IUserRepository userRepository)
+        public ChangeUserAddressHandler(IUserInRole userInRole, IUserRepository userRepository)
         {
-            _authorize = authorize;
-            _initiatorService = initiatorService;
+            _userInRole = userInRole;
             _userRepository = userRepository;
         }
 
         [Transaction]
         public void Handle(ChangeUserAddress command)
         {
-            _authorize.Enforce(command.InitiatorId, Manage.User(command.UserId));
+            if (!Equals(command.InitiatorId, command.UserId))
+                throw new AuthorizationException();
 
-            var initiator = _initiatorService.GetById(command.InitiatorId);
+            var initiator = _userInRole.Initiator(command.InitiatorId);
             var user = _userRepository.GetById(command.UserId);
 
             user.ChangeAddress(initiator, command.FirstName, command.LastName, command.Street, command.Postcode,

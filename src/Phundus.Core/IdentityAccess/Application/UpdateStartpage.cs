@@ -4,11 +4,8 @@
     using Castle.Transactions;
     using Common.Commanding;
     using Common.Domain.Model;
-    using Integration.IdentityAccess;
     using Model.Organizations;
-    using Projections;
     using Resources;
-    using Users.Services;
 
     public class UpdateStartpage : ICommand
     {
@@ -28,27 +25,24 @@
 
     public class UpdateStartpageHandler : IHandleCommand<UpdateStartpage>
     {
-        private readonly IUserInRole _userInRole;
         private readonly IMemberInRole _memberInRole;
         private readonly IOrganizationRepository _organizationRepository;
+        private readonly IUserInRole _userInRole;
 
-        public UpdateStartpageHandler(IUserInRole userInRole, IMemberInRole memberInRole, IOrganizationRepository organizationRepository)
+        public UpdateStartpageHandler(IUserInRole userInRole, IMemberInRole memberInRole,
+            IOrganizationRepository organizationRepository)
         {
             _userInRole = userInRole;
             _memberInRole = memberInRole;
             _organizationRepository = organizationRepository;
         }
-                             
+
         [Transaction]
         public void Handle(UpdateStartpage command)
         {
-            // TODO: Manager
-            var initiator = _userInRole.GetById(command.InitiatorId);
-            _memberInRole.ActiveManager(command.OrganizationId.Id, command.InitiatorId);
-
+            var manager = _userInRole.Manager(command.InitiatorId, command.OrganizationId);
             var organization = _organizationRepository.GetById(command.OrganizationId.Id);
-
-            organization.ChangeStartpage(initiator, command.Startpage);
+            organization.ChangeStartpage(manager, command.Startpage);
         }
     }
 }
