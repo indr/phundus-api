@@ -1,25 +1,24 @@
 ﻿namespace Phundus.IdentityAccess.Application
 {
     using System;
-    using System.Globalization;
     using Castle.Transactions;
+    using Common;
     using Common.Commanding;
     using Common.Domain.Model;
-    using Integration.IdentityAccess;
     using Model.Users;
     using Resources;
     using Users.Exceptions;
-    using Users.Services;
 
     public class ChangeEmailAddress : ICommand
     {
-        public ChangeEmailAddress(InitiatorId initiatorId, string password, string newEmailAddress)
+        public ChangeEmailAddress(InitiatorId initiatorId, UserId userId, string password, string newEmailAddress)
         {
             if (initiatorId == null) throw new ArgumentNullException("initiatorId");
+            if (userId == null) throw new ArgumentNullException("userId");
             if (password == null) throw new ArgumentNullException("password");
             if (newEmailAddress == null) throw new ArgumentNullException("newEmailAddress");
             InitiatorId = initiatorId;
-            UserId = new UserId(initiatorId.Id);
+            UserId = userId;
             Password = password;
             NewEmailAddress = newEmailAddress;
         }
@@ -44,12 +43,15 @@
         [Transaction]
         public void Handle(ChangeEmailAddress command)
         {
-            var initiator = _userInRole.GetById(command.InitiatorId);
-            var user = _userRepository.GetById(command.UserId);
+            if (!Equals(command.InitiatorId, command.UserId))
+                throw new AuthorizationException();
 
-            var emailAddress = command.NewEmailAddress.ToLower(CultureInfo.CurrentCulture).Trim();
+            var emailAddress = command.NewEmailAddress.ToLowerInvariant().Trim();
             if (_userRepository.FindByEmailAddress(emailAddress) != null)
                 throw new EmailAlreadyTakenException();
+
+            var initiator = _userInRole.Initiator(command.InitiatorId);
+            var user = _userRepository.GetById(command.UserId);
 
             user.ChangeEmailAddress(initiator, command.Password, command.NewEmailAddress);
         }

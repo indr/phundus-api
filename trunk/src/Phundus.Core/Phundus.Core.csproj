@@ -112,7 +112,6 @@
     <Compile Include="Dashboard\Projections\ProcessedNotificationQueries.cs" />
     <Compile Include="Guard.cs" />
     <Compile Include="IdentityAccess\Application\ChangeUserAddress.cs" />
-    <Compile Include="IdentityAccess\Authorization\Manage.cs" />
     <Compile Include="IdentityAccess\Application\ChangeMemberRecievesEmailNotification.cs" />
     <Compile Include="IdentityAccess\Model\Organizations\Founder.cs" />
     <Compile Include="IdentityAccess\Model\Organizations\Mails\MemberLockedMail.cs" />
@@ -161,6 +160,7 @@
     <Compile Include="IdentityAccess\Model\Users\Mails\AccountValidationMail.cs" />
     <Compile Include="IdentityAccess\Model\Users\Mails\EmailAddressValidationMail.cs" />
     <Compile Include="IdentityAccess\Model\Users\Mails\NewPasswordMail.cs" />
+    <Compile Include="IdentityAccess\Model\Users\Manager.cs" />
     <Compile Include="IdentityAccess\Model\Users\PasswordResetted.cs" />
     <Compile Include="IdentityAccess\Model\Users\UserRole.cs" />
     <Compile Include="IdentityAccess\Projections\OrganizationProjection.cs" />

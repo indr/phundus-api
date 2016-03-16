@@ -8,12 +8,12 @@
     [DataContract]
     public class UserLocked : DomainEvent
     {
-        public UserLocked(Admin admin, UserId userId, DateTime lockedAtUtc)
+        public UserLocked(Admin initiator, UserId userId, DateTime lockedAtUtc)
         {
-            if (admin == null) throw new ArgumentNullException("admin");
+            if (initiator == null) throw new ArgumentNullException("initiator");
             if (userId == null) throw new ArgumentNullException("userId");
 
-            InitiatorId = admin.UserId.Id;
+            InitiatorId = initiator.UserId.Id;
             UserId = userId.Id;
             LockedAtUtc = lockedAtUtc;
         }

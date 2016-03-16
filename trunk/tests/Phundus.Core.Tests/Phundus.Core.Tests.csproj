@@ -112,19 +112,15 @@
     <Compile Include="factory_base.cs" />
     <Compile Include="IdentityAccess\Application\ChangeUserAddressSpecs.cs" />
     <Compile Include="IdentityAccess\Application\UnlockUserHandlerSpecs.cs" />
-    <Compile Include="IdentityAccess\Authorize\identityaccess_access_object_handler_concern.cs" />
-    <Compile Include="IdentityAccess\Authorize\ManageUsersAccessObjectHandlerSpecs.cs" />
     <Compile Include="IdentityAccess\Application\ChangeMemberRecievesEmailNotificationsSpecs.cs" />
     <Compile Include="IdentityAccess\Application\ChangeOrganizationPlanHandlerSpecs.cs" />
     <Compile Include="IdentityAccess\Application\ChangeSettingPublicRentalHandlerSpecs.cs" />
     <Compile Include="IdentityAccess\Application\LockUserHandlerSpecs.cs" />
     <Compile Include="IdentityAccess\Application\LockMemberHandlerSpecs.cs" />
     <Compile Include="IdentityAccess\Application\UnlockMemberHandlerSpecs.cs" />
-    <Compile Include="IdentityAccess\Authorize\ManageUserAccessObjectHandlerSpecs.cs" />
     <Compile Include="IdentityAccess\Events\MembershipApplicationApprovedSpecs.cs" />
     <Compile Include="IdentityAccess\Events\MembershipApplicationRejectedSpecs.cs" />
     <Compile Include="IdentityAccess\identityaccess_factory.cs" />
-    <Compile Include="IdentityAccess\Authorize\ManageOrganizationAccessObjectHandlerSpecs.cs" />
     <Compile Include="IdentityAccess\Model\Organizations\Mails\MemberLockedMailSpecs.cs" />
     <Compile Include="IdentityAccess\Model\Organizations\Mails\MembershipApplicationStatusMailSpecs.cs" />
     <Compile Include="IdentityAccess\Model\Organizations\Mails\MemberUnlockedMailSpecs.cs" />
@@ -136,6 +132,7 @@
     <Compile Include="IdentityAccess\Model\Users\Mails\EmailAddressValidationMailSpecs.cs" />
     <Compile Include="IdentityAccess\Model\Users\Mails\identityaccess_mail_concern.cs" />
     <Compile Include="IdentityAccess\Model\Users\Mails\NewPasswordMailSpecs.cs" />
+    <Compile Include="IdentityAccess\Model\Users\ManagerSpecs.cs" />
     <Compile Include="Inventory\Application\ChangeContactDetailsHandlerSpecs.cs" />
     <Compile Include="Inventory\inventory_command_handler_concern.cs" />
     <Compile Include="Inventory\Model\Stores\Events\ContactDetailsChangedSpecs.cs" />

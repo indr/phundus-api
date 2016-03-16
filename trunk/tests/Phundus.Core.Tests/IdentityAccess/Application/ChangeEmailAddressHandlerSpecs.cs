@@ -20,7 +20,7 @@
         {
             theUser = make.User(theInitiatorId);
             depends.on<IUserRepository>().WhenToldTo(x => x.GetById(theInitiatorId)).Return(theUser);
-            command = new ChangeEmailAddress(theInitiatorId, "1234", theNewEmailAddress);
+            command = new ChangeEmailAddress(theInitiatorId, theInitiatorId, "1234", theNewEmailAddress);
         };
 
         private It should_tell_to_change_email_address = () =>

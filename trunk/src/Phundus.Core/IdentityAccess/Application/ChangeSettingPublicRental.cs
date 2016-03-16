@@ -5,11 +5,8 @@
     using Castle.Transactions;
     using Common.Commanding;
     using Common.Domain.Model;
-    using Integration.IdentityAccess;
     using Model.Organizations;
-    using Phundus.Authorization;
     using Resources;
-    using Users.Services;
 
     public class ChangeSettingPublicRental : ICommand
     {
@@ -28,14 +25,12 @@
     }
 
     public class ChangeSettingPublicRentalHandler : IHandleCommand<ChangeSettingPublicRental>
-    {
-        private readonly IAuthorize _authorize;
-        private readonly IUserInRole _userInRole;
+    {        
         private readonly IOrganizationRepository _organizationRepository;
+        private readonly IUserInRole _userInRole;
 
-        public ChangeSettingPublicRentalHandler(IAuthorize authorize, IUserInRole userInRole, IOrganizationRepository organizationRepository)
-        {
-            _authorize = authorize;
+        public ChangeSettingPublicRentalHandler(IUserInRole userInRole, IOrganizationRepository organizationRepository)
+        {            
             _userInRole = userInRole;
             _organizationRepository = organizationRepository;
         }
@@ -43,13 +38,10 @@
         [Transaction]
         public void Handle(ChangeSettingPublicRental command)
         {
+            var manager = _userInRole.Manager(command.InitiatorId, command.OrganizationId);
             var organization = _organizationRepository.GetById(command.OrganizationId);
-            var initiator = _userInRole.GetById(command.InitiatorId);
 
-            _authorize.Enforce(initiator.InitiatorId, Manage.Organization(organization.Id));
-            
-
-            organization.ChangeSettingPublicRental(initiator, command.Value);
+            organization.ChangeSettingPublicRental(manager, command.Value);
         }
     }
 }

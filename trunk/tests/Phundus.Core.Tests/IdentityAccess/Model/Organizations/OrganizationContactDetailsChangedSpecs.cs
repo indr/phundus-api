@@ -10,9 +10,8 @@
     {
         private Establish ctx = () =>
             sut_factory.create_using(() =>
-                new OrganizationContactDetailsChanged(theInitiator, theOrganizationId, "Line1", "Line2", "Street",
-                    "Postcode", "City",
-                    "PhoneNumber", "EmailAddress", "Website"));
+                new OrganizationContactDetailsChanged(theManager, theOrganizationId, "Line1", "Line2", "Street",
+                    "Postcode", "City", "PhoneNumber", "EmailAddress", "Website"));
 
         private It shold_have_at_2_the_organization_id = () =>
             dataMember(2).ShouldEqual(theOrganizationId.Id);

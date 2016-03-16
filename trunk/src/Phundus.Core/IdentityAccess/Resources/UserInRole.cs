@@ -4,19 +4,16 @@
     using System.Linq;
     using Common;
     using Common.Domain.Model;
-    using Integration.IdentityAccess;
     using Model.Organizations;
     using Model.Users;
     using Organizations.Model;
-    using Users.Model;
 
     public interface IUserInRole
     {
-        Initiator GetById(InitiatorId initiatorId);
-
         Admin Admin(UserId userId);
         Founder Founder(UserId userId);
         Manager Manager(UserId userId, OrganizationId organizationId);
+        Initiator Initiator(InitiatorId initiatorId);
 
         bool IsAdmin(UserId userId);
     }
@@ -32,7 +29,7 @@
             _membershipRepository = membershipRepository;
         }
 
-        public Initiator GetById(InitiatorId initiatorId)
+        public Initiator Initiator(InitiatorId initiatorId)
         {
             var result = _userRepository.GetById(initiatorId);
             return new Initiator(new InitiatorId(result.UserId), result.EmailAddress, result.FullName);

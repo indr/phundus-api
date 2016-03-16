@@ -42,7 +42,6 @@
   <ItemGroup>
     <Compile Include="IdentityAccess\IUser.cs" />
     <Compile Include="IdentityAccess\IUsersQueries.cs" />
-    <Compile Include="IdentityAccess\Manager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
