@@ -97,6 +97,7 @@
     <Compile Include="Domain.Model\InitiatorSpecs.cs" />
     <Compile Include="Domain.Model\PeriodSpecs.cs" />
     <Compile Include="Domain.Model\PostalAddressFactorySpecs.cs" />
+    <Compile Include="Domain.Model\ActorSpecs.cs" />
     <Compile Include="Eventing\EventHandlerFactorySpecs.cs" />
     <Compile Include="Eventing\EventSerializerSpecs.cs" />
     <Compile Include="installer_concern.cs" />

@@ -22,7 +22,7 @@ namespace Phundus.Tests.Inventory.Model
     }
 
     [Subject(typeof (Owner))]
-    public class when_serializing_an_owner : serialization_object_concern<Owner>
+    public class when_deserializing_an_owner : serialization_object_concern<Owner>
     {
         private static OwnerId theOwnerId;
         private static string theName;

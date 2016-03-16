@@ -10,12 +10,18 @@
 
     public class user_concern : aggregate_concern<User>
     {
+        protected static identityaccess_factory make;
+
+        protected static Admin theAdmin;
         protected static UserId theUserId;
         protected static string theEmailAddress = "user@test.phundus.ch";
         protected static string thePassword = "1234";
 
         private Establish ctx = () =>
         {
+            make = new identityaccess_factory(fake);
+
+            theAdmin = make.Admin();
             theUserId = new UserId();
             sut_factory.create_using(() =>
                 new User(theUserId, theEmailAddress, thePassword, "Hans", "Müller", "Street", "1234", "City",
@@ -233,7 +239,7 @@
     public class when_locking : user_concern
     {
         private Because of = () =>
-            sut.Lock(theInitiator);
+            sut.Lock(theAdmin);
 
         private It should_be_locked = () =>
             sut.Account.IsLockedOut.ShouldBeTrue();
@@ -250,11 +256,12 @@
     [Subject(typeof (User))]
     public class when_unlocking : user_concern
     {
-        private Establish ctx = () => sut_setup.run(sut =>
-            sut.Lock(theInitiator));
+        private Establish ctx = () =>
+            sut_setup.run(sut =>
+                sut.Lock(theAdmin));
 
         private Because of = () =>
-            sut.Unlock(theInitiator);
+            sut.Unlock(theAdmin);
 
         private It should_not_be_locked = () =>
             sut.Account.IsLockedOut.ShouldBeFalse();

@@ -58,7 +58,7 @@
 
         public virtual string RequestedEmail { get; set; }
 
-        public virtual void Lock(Initiator initiator)
+        public virtual void Lock(Admin admin)
         {
             if (IsLockedOut)
                 return;
@@ -66,17 +66,17 @@
             IsLockedOut = true;
             LastLockoutDate = DateTime.UtcNow;
 
-            EventPublisher.Publish(new UserLocked(initiator, User.UserId, LastLockoutDate.Value));
+            EventPublisher.Publish(new UserLocked(admin, User.UserId, LastLockoutDate.Value));
         }
 
-        public virtual void Unlock(Initiator initiator)
+        public virtual void Unlock(Admin admin)
         {
             if (!IsLockedOut)
                 return;
 
             IsLockedOut = false;
 
-            EventPublisher.Publish(new UserUnlocked(initiator, User.UserId, LastLockoutDate.GetValueOrDefault()));
+            EventPublisher.Publish(new UserUnlocked(admin, User.UserId, LastLockoutDate.GetValueOrDefault()));
         }
 
         public virtual void LogOn(string sessionKey, string password)

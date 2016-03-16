@@ -5,8 +5,8 @@
     using Phundus.IdentityAccess.Application;
     using Phundus.IdentityAccess.Users.Model;
 
-    [Subject(typeof (LockUserHandler))]
-    public class when_lock_user_is_handled : identityaccess_command_handler_concern<LockUser, LockUserHandler>
+    [Subject(typeof (UnlockUserHandler))]
+    public class when_unlock_user_is_handled : identityaccess_command_handler_concern<UnlockUser, UnlockUserHandler>
     {
         private static User theUser;
 
@@ -15,10 +15,12 @@
             theUser = make.User();
             userRepository.WhenToldTo(x => x.GetById(theUser.UserId)).Return(theUser);
 
-            command = new LockUser(theInitiatorId, theUser.UserId);
+            theUser.Lock(theAdmin);
+
+            command = new UnlockUser(theInitiatorId, theUser.UserId);
         };
 
-        private It should_lock_user = () =>
-            theUser.WasToldTo(x => x.Lock(theAdmin));
+        private It should_unlock_user = () =>
+            theUser.WasToldTo(x => x.Unlock(theAdmin));
     }
 }

@@ -68,6 +68,14 @@
             }
         }
 
+        public static void AssertArgumentNotEmpty(Guid value, string message)
+        {
+            if (value == Guid.Empty)
+            {
+                throw new InvalidOperationException(message);
+            }
+        }
+
         public static void AssertArgumentNotEmpty(string value, string message)
         {
             if (String.IsNullOrWhiteSpace(value))

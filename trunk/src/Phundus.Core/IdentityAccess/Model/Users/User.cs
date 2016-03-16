@@ -154,18 +154,18 @@
             Account.ChangeEmailAddress(initiator, password, newEmailAddress);
         }
 
-        public virtual void Lock(Initiator initiator)
+        public virtual void Lock(Admin admin)
         {
-            if (initiator == null) throw new ArgumentNullException("initiator");
+            if (admin == null) throw new ArgumentNullException("admin");
 
-            Account.Lock(initiator);
+            Account.Lock(admin);
         }
 
-        public virtual void Unlock(Initiator initiator)
+        public virtual void Unlock(Admin admin)
         {
-            if (initiator == null) throw new ArgumentNullException("initiator");
+            if (admin == null) throw new ArgumentNullException("admin");
 
-            Account.Unlock(initiator);
+            Account.Unlock(admin);
         }
 
         public virtual void ChangeAddress(Initiator initiator, string firstName, string lastName, string street,

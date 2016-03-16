@@ -7,6 +7,7 @@
     using Machine.Specifications;
     using Phundus.IdentityAccess.Model;
     using Phundus.IdentityAccess.Model.Organizations;
+    using Phundus.IdentityAccess.Model.Users;
     using Phundus.IdentityAccess.Organizations.Model;
     using Phundus.IdentityAccess.Users.Model;
     using Rhino.Mocks;
@@ -109,7 +110,7 @@
 
         private It should_public_organization_plan_changed = () =>
             published<OrganizationPlanChanged>(p =>
-                p.Initiator.InitiatorId.Id == theAdmin.UserId.Id
+                Equals(p.Admin, theAdmin)
                 && p.OrganizationId == theOrganizationId.Id
                 && p.OldPlan == "free"
                 && p.NewPlan == theNewOrganizationPlan.ToString().ToLowerInvariant());

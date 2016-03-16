@@ -3,6 +3,7 @@
     using Common.Domain.Model;
     using Machine.Specifications;
     using Phundus.IdentityAccess.Model;
+    using Phundus.IdentityAccess.Model.Users;
     using Phundus.IdentityAccess.Organizations.Model;
     using Phundus.IdentityAccess.Users.Model;
 

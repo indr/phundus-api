@@ -27,25 +27,19 @@
 
     public class UnlockUserHandler : IHandleCommand<UnlockUser>
     {
-        private readonly IAuthorize _authorize;
         private readonly IUserInRole _userInRole;
         private readonly IUserRepository _userRepository;
 
-        public UnlockUserHandler(IAuthorize authorize, IUserInRole userInRole, IUserRepository userRepository)
-        {            
-            _authorize = authorize;
+        public UnlockUserHandler(IUserInRole userInRole, IUserRepository userRepository)
+        {                        
             _userInRole = userInRole;
             _userRepository = userRepository;
         }
 
         [Transaction]
         public void Handle(UnlockUser command)
-        {
-            // TODO: Admin
-            var initiator = _userInRole.GetById(command.InitiatorId);
-
-            _authorize.Enforce(initiator.InitiatorId, Manage.Users);
-
+        {            
+            var initiator = _userInRole.Admin(command.InitiatorId);
             var user = _userRepository.GetById(command.UserId);
 
             user.Unlock(initiator);

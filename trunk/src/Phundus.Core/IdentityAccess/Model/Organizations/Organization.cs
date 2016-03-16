@@ -7,6 +7,7 @@
     using Common.Eventing;
     using IdentityAccess.Model;
     using IdentityAccess.Model.Organizations;
+    using IdentityAccess.Model.Users;
     using Iesi.Collections.Generic;
     using Integration.IdentityAccess;
     using Users.Model;
