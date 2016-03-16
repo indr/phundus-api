@@ -27,16 +27,18 @@
             Serializer.Serialize(stream, sut);
             stream.Seek(0, SeekOrigin.Begin);
             sut = Serializer.Deserialize<T>(stream);
+            sut.ShouldNotBeNull();
         };
 
         protected static object dataMember(int order)
         {
-            var dataMemberProperties = type.GetProperties(BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic).Where(
-                p => p.GetCustomAttributes(typeof (DataMemberAttribute), false).Length == 1).ToList();
+            var dataMemberProperties =
+                type.GetProperties(BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic).Where(
+                    p => p.GetCustomAttributes(typeof (DataMemberAttribute), false).Length == 1).ToList();
             foreach (var propertyInfo in dataMemberProperties)
             {
                 var attribute = (DataMemberAttribute) propertyInfo.GetCustomAttributes(
-                    typeof (DataMemberAttribute), false).Single();
+                    typeof (DataMemberAttribute), true).Single();
                 if (attribute.Order == order)
                     return propertyInfo.GetValue(sut, null);
             }

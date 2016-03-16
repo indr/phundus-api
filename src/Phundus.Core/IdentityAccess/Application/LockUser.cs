@@ -27,14 +27,12 @@
     }
 
     public class LockUserHandler : IHandleCommand<LockUser>
-    {
-        private readonly IAuthorize _authorize;
+    {        
         private readonly IUserInRole _userInRole;
         private readonly IUserRepository _userRepository;
 
-        public LockUserHandler(IAuthorize authorize, IUserInRole userInRole, IUserRepository userRepository)
-        {            
-            _authorize = authorize;
+        public LockUserHandler(IUserInRole userInRole, IUserRepository userRepository)
+        {                        
             _userInRole = userInRole;
             _userRepository = userRepository;
         }
@@ -42,13 +40,10 @@
         [Transaction]
         public void Handle(LockUser command)
         {
-            var initiator = _userInRole.GetById(command.InitiatorId);
-
-            _authorize.Enforce(initiator.InitiatorId, Manage.Users);
-
+            var admin = _userInRole.Admin(command.InitiatorId);
             var user = _userRepository.GetById(command.UserId);
 
-            user.Lock(initiator);
+            user.Lock(admin);
         }
     }
 }

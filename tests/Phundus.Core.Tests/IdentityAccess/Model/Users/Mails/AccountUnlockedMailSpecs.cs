@@ -11,9 +11,9 @@
     using Rhino.Mocks;
 
     [Subject(typeof(AccountUnlockedMail))]
-    public class when_handling_user_unlocked : mail_concern<AccountUnlockedMail>
+    public class when_handling_user_unlocked : identityaccess_mail_concern<AccountUnlockedMail>
     {
-        private static UserUnlocked e = new UserUnlocked(initiator, new UserId(), DateTime.UtcNow);
+        private static UserUnlocked e = new UserUnlocked(theAdmin, new UserId(), DateTime.UtcNow);
 
         private Establish ctx = () =>
         {
