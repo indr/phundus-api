@@ -1,4 +1,4 @@
-﻿namespace Phundus.IdentityAccess.Resources
+﻿namespace Phundus.IdentityAccess.Application
 {
     using System;
     using System.Linq;

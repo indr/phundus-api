@@ -5,8 +5,8 @@
     using Castle.Transactions;
     using Common.Commanding;
     using Common.Domain.Model;
+    using IdentityAccess.Application;
     using IdentityAccess.Projections;
-    using IdentityAccess.Resources;
     using Model.Articles;
     using Model.Collaborators;
 

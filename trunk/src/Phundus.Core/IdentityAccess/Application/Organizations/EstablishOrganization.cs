@@ -8,7 +8,6 @@
     using Model.Organizations;
     using Model.Users;
     using Organizations.Model;
-    using Resources;
 
     public class EstablishOrganization : ICommand
     {

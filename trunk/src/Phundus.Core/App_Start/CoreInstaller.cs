@@ -8,7 +8,7 @@
     using Castle.Windsor;
     using Common.Projecting;
     using Common.Querying;
-    using IdentityAccess.Resources;
+    using IdentityAccess.Application;
     using IdentityAccess.Users.Services;
     using Inventory.Infrastructure;
     using Shop.Model.Pdf;
@@ -54,6 +54,11 @@
             container.Register(
                 Component.For<IUserInRole>()
                     .ImplementedBy<UserInRole>());
+
+            container.Register(
+                Component.For<IMemberInRole>()
+                    .ImplementedBy<MemberInRoleProjection>()
+                    .LifestyleTransient());
 
             container.Register(
                 Component.For<Inventory.Model.Collaborators.ICollaboratorService>()

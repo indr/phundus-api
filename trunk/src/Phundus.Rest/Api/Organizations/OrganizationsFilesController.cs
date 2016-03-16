@@ -8,8 +8,8 @@ namespace Phundus.Rest.Api.Organizations
     using AttributeRouting.Web.Http;
     using Castle.Transactions;
     using FileUpload;
+    using IdentityAccess.Application;
     using IdentityAccess.Projections;
-    using IdentityAccess.Resources;
 
     [RoutePrefix("api/organizations/{organizationId}/files")]
     public class OrganizationsFilesController : ApiControllerBase

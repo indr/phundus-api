@@ -1,7 +1,7 @@
 ﻿namespace Phundus.Inventory.Infrastructure
 {
     using Common.Domain.Model;
-    using IdentityAccess.Resources;
+    using IdentityAccess.Application;
     using Integration.IdentityAccess;
     using Model.Collaborators;
     using Manager = Model.Manager;

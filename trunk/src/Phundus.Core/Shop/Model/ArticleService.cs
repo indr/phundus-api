@@ -3,8 +3,8 @@ namespace Phundus.Shop.Model
     using System;
     using Common;
     using Common.Domain.Model;
+    using IdentityAccess.Application;
     using IdentityAccess.Projections;
-    using IdentityAccess.Resources;
     using Inventory.Model.Articles;
 
     public interface IArticleService

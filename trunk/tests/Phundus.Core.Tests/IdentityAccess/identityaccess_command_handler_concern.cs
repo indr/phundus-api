@@ -4,9 +4,9 @@ namespace Phundus.Tests.IdentityAccess
     using Common.Domain.Model;
     using developwithpassion.specifications.extensions;
     using Machine.Specifications;
+    using Phundus.IdentityAccess.Application;
     using Phundus.IdentityAccess.Model.Organizations;
     using Phundus.IdentityAccess.Model.Users;
-    using Phundus.IdentityAccess.Resources;
 
     public class identityaccess_command_handler_concern<TCommand, THandler> :
         command_handler_concern<TCommand, THandler> where THandler : class, IHandleCommand<TCommand>

@@ -5,7 +5,6 @@
     using Common.Commanding;
     using Common.Domain.Model;
     using Model.Organizations;
-    using Resources;
 
     public class UpdateStartpage : ICommand
     {

@@ -3,8 +3,8 @@
     using System;
     using Common;
     using Common.Domain.Model;
+    using IdentityAccess.Application;
     using IdentityAccess.Projections;
-    using IdentityAccess.Resources;
     using Phundus.Authorization;
 
     public static class Manage
