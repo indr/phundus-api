@@ -1,7 +1,6 @@
 namespace Phundus.Tests.IdentityAccess.Model.Organizations
 {
     using Events;
-    using Integration.IdentityAccess;
     using Machine.Specifications;
     using Phundus.IdentityAccess.Model.Organizations;
     using Phundus.IdentityAccess.Organizations.Model;
@@ -9,9 +8,11 @@ namespace Phundus.Tests.IdentityAccess.Model.Organizations
     [Subject(typeof (OrganizationEstablished))]
     public class OrganizationEstablishedSpecs : identityaccess_domain_event_concern<OrganizationEstablished>
     {
+        private static Founder theFounder;
+
         private Establish ctx = () =>
         {
-            var theFounder = new Founder(theInitiatorId, "founder@test.phundus.ch", "The Founder");
+            theFounder = new Founder(theInitiatorId, "founder@test.phundus.ch", "The Founder");
             sut_factory.create_using(() =>
                 new OrganizationEstablished(theFounder, theOrganizationId, "Name", OrganizationPlan.Membership, true));
         };
@@ -20,7 +21,7 @@ namespace Phundus.Tests.IdentityAccess.Model.Organizations
             itsAssembly.ShouldEqual("Phundus.Core");
 
         private It should_have_at_1_the_founder = () =>
-            dataMember(1).ShouldEqual(theInitiator);
+            dataMember(1).ShouldEqual(theFounder);
 
         private It should_have_at_2_the_organization_id = () =>
             dataMember(2).ShouldEqual(theOrganizationId.Id);

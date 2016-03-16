@@ -23,9 +23,6 @@
             command = new UpdateStartpage(theInitiatorId, theOrganizationId, "<p>New startpage</p>");
         };
 
-        public It should_ask_for_chief_privileges =
-            () => memberInRole.WasToldTo(x => x.ActiveManager(theOrganizationId.Id, theInitiatorId));
-
         public It should_publish_organization_updated =
             () => publisher.WasToldTo(x => x.Publish(Arg<StartpageChanged>.Is.NotNull));
     }

@@ -23,15 +23,10 @@
             return result;
         }
 
-        public Admin Admin()
+        public Admin Admin(UserId userId = null)
         {
-            return Admin(new UserId());
-        }
-
-        public Admin Admin(UserId userId)
-        {
-            var user = fake.an<Admin>();
-            return user;
+            userId = userId ?? new UserId();
+            return new Admin(userId, "admin@test.phundus.ch", "The Admin");
         }
 
         public User User()
