@@ -35,7 +35,7 @@
 
         public IOrganizationRepository OrganizationRepository { get; set; }
 
-        public IMemberInRole MemberInRole { get; set; }
+        public IUserInRole UserInRole { get; set; }
 
         [Transaction]
         public void Handle(ChangeMembersRole command)
@@ -44,7 +44,8 @@
 
             var member = UserRepository.GetById(command.MemberId);
 
-            MemberInRole.ActiveManager(command.OrganizationId, command.InitiatorId);
+
+            var manager = UserInRole.Manager(command.InitiatorId, organization.Id);
 
             organization.SetMembersRole(member, command.MemberRole);
         }

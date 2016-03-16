@@ -30,7 +30,7 @@
 
         public IOrganizationRepository OrganizationRepository { get; set; }
 
-        public IMemberInRole MemberInRole { get; set; }
+        public IUserInRole UserInRole { get; set; }
 
         [Transaction]
         public void Handle(ApproveMembershipApplication command)
@@ -39,9 +39,9 @@
 
             var organization = OrganizationRepository.GetById(application.OrganizationId);
 
+            var manager = UserInRole.Manager(command.InitiatorId, organization.Id);
 
-            MemberInRole.ActiveManager(application.OrganizationId, command.InitiatorId);
-
+            // TODO Pass manager
             organization.ApproveMembershipApplication(command.InitiatorId, application, Memberships.NextIdentity());
         }
     }

@@ -7,18 +7,18 @@ namespace Phundus.Rest.Api.Organizations
     using AttributeRouting;
     using AttributeRouting.Web.Http;
     using Castle.Transactions;
+    using Common.Domain.Model;
     using FileUpload;
-    using IdentityAccess.Application;
-    using IdentityAccess.Projections;
+    using Inventory.Model.Collaborators;
 
     [RoutePrefix("api/organizations/{organizationId}/files")]
     public class OrganizationsFilesController : ApiControllerBase
     {
-        private readonly IMemberInRole _memberInRole;
+        private readonly ICollaboratorService _collaboratorService;
 
-        public OrganizationsFilesController(IMemberInRole memberInRole)
+        public OrganizationsFilesController(ICollaboratorService collaboratorService)
         {
-            _memberInRole = memberInRole;
+            _collaboratorService = collaboratorService;
         }
 
         private string GetPath(Guid orgId)
@@ -48,7 +48,7 @@ namespace Phundus.Rest.Api.Organizations
         [Transaction]
         public virtual object Get(Guid organizationId)
         {
-            _memberInRole.ActiveManager(organizationId, CurrentUserId);
+            _collaboratorService.Manager(CurrentUserId, new OwnerId(organizationId));
 
             var path = GetPath(organizationId);
             var store = CreateImageStore(path);
@@ -61,7 +61,7 @@ namespace Phundus.Rest.Api.Organizations
         [Transaction]
         public virtual object Post(Guid organizationId)
         {
-            _memberInRole.ActiveManager(organizationId, CurrentUserId);
+            _collaboratorService.Manager(CurrentUserId, new OwnerId(organizationId));
 
             var path = GetPath(organizationId);
             var store = CreateImageStore(path);
@@ -75,7 +75,7 @@ namespace Phundus.Rest.Api.Organizations
         [Transaction]
         public virtual HttpResponseMessage Delete(Guid organizationId, string fileName)
         {
-            _memberInRole.ActiveManager(organizationId, CurrentUserId);
+            _collaboratorService.Manager(CurrentUserId, new OwnerId(organizationId));
 
             var path = GetPath(organizationId);
             var store = CreateImageStore(path);
