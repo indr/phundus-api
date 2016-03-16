@@ -207,8 +207,8 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Templates.resx</DependentUpon>
     </Compile>
-    <Compile Include="IdentityAccess\Resources\MemberInRole.cs" />
-    <Compile Include="IdentityAccess\Resources\UserInRole.cs" />
+    <Compile Include="IdentityAccess\Application\MemberInRole.cs" />
+    <Compile Include="IdentityAccess\Application\UserInRole.cs" />
     <Compile Include="Inventory\Application\AddImage.cs" />
     <Compile Include="Inventory\Application\ChangeContactDetails.cs" />
     <Compile Include="Inventory\Application\ChangePrices.cs" />
@@ -349,6 +349,7 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="IdentityAccess\Resources\" />
     <Folder Include="Shop\Model\Orders\" />
   </ItemGroup>
   <ItemGroup>

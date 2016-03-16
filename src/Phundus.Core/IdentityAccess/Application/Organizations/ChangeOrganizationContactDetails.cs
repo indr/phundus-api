@@ -6,7 +6,6 @@
     using Common.Domain.Model;
     using Model.Organizations;
     using Organizations.Model;
-    using Resources;
 
     public class ChangeOrganizationContactDetails : ICommand
     {

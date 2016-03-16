@@ -6,7 +6,6 @@
     using Common.Commanding;
     using Common.Domain.Model;
     using Model.Users;
-    using Resources;
 
     public class ChangeUserAddress : ICommand
     {

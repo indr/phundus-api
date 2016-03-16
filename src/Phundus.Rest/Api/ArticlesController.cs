@@ -10,8 +10,8 @@ namespace Phundus.Rest.Api
     using Common;
     using Common.Domain.Model;
     using ContentObjects;
+    using IdentityAccess.Application;
     using IdentityAccess.Projections;
-    using IdentityAccess.Resources;
     using Inventory.Application;
     using Inventory.Model.Reservations;
     using Inventory.Projections;

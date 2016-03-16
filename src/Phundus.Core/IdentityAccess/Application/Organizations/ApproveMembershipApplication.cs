@@ -6,7 +6,6 @@
     using Common.Domain.Model;
     using Model.Organizations;
     using Projections;
-    using Resources;
 
     public class ApproveMembershipApplication : ICommand
     {
@@ -39,6 +38,7 @@
             var application = Requests.GetById(command.ApplicationId);
 
             var organization = OrganizationRepository.GetById(application.OrganizationId);
+
 
             MemberInRole.ActiveManager(application.OrganizationId, command.InitiatorId);
 

@@ -5,7 +5,6 @@
     using Common.Commanding;
     using Common.Domain.Model;
     using Model.Users;
-    using Resources;
 
     public class ChangeUserRole : ICommand
     {

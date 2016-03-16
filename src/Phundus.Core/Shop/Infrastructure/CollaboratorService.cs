@@ -2,9 +2,9 @@
 {
     using System.Collections.Generic;
     using System.Linq;
-    using Common.Domain.Model;    
+    using Common.Domain.Model;
+    using IdentityAccess.Application;
     using IdentityAccess.Projections;
-    using IdentityAccess.Resources;
     using Integration.IdentityAccess;
     using Model.Collaborators;
     using Manager = Model.Manager;
