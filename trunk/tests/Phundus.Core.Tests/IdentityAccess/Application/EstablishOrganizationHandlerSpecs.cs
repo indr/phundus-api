@@ -1,7 +1,6 @@
 ﻿namespace Phundus.Tests.IdentityAccess.Application
 {
     using developwithpassion.specifications.extensions;
-    using Integration.IdentityAccess;
     using Machine.Fakes;
     using Machine.Specifications;
     using Phundus.IdentityAccess.Application;
@@ -15,14 +14,16 @@
         identityaccess_command_handler_concern<EstablishOrganization, EstablishOrganizationHandler>
     {
         private static string theName = "The organization name";
+        private static Founder theFounder;
 
         private Establish ctx = () =>
         {
             depends.on<IUserRepository>()
                 .WhenToldTo(x => x.GetById(theInitiatorId))
                 .Return(make.User(theInitiatorId));
+            theFounder = new Founder(theInitiatorId, "founder@test.phundus.ch", "The Founder");
             userInRole.setup(x => x.Founder(theInitiatorId))
-                .Return(new Founder(theInitiatorId, "founder@test.phundus.ch", "The Founder"));
+                .Return(theFounder);
             command = new EstablishOrganization(theInitiatorId, theOrganizationId, theName);
         };
 
@@ -37,7 +38,7 @@
 
         private It should_publish_organization_established = () =>
             published<OrganizationEstablished>(p =>
-                Equals(p.Initiator, theInitiator)
+                Equals(p.Initiator, theFounder)
                 && p.OrganizationId == theOrganizationId.Id
                 && p.Name == theName
                 && p.Plan == "free"

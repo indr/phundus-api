@@ -23,7 +23,7 @@
             dataMember(10).ShouldEqual("Website");
 
         private It should_have_at_1_the_initiator = () =>
-            dataMember(1).ShouldEqual(theInitiator);
+            dataMember(1).ShouldEqual(theManager);
 
         private It should_have_at_3_the_line_1 = () =>
             dataMember(3).ShouldEqual("Line1");

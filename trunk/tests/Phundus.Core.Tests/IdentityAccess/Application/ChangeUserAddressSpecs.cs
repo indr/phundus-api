@@ -19,7 +19,7 @@
 
         private Establish ctx = () =>
         {
-            theUser = make.User();
+            theUser = make.User(theInitiatorId);
 
             userRepository.setup(x => x.GetById(theUser.UserId)).Return(theUser);
 

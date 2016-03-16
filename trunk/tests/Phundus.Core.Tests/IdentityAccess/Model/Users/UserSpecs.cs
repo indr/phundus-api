@@ -248,7 +248,7 @@
             sut.Account.LastLockoutDate.Value.ShouldBeCloseTo(DateTime.UtcNow, TimeSpan.FromSeconds(1));
 
         private It should_publish_user_locked = () =>
-            published<UserLocked>(p => p.InitiatorId == theInitiatorId.Id
+            published<UserLocked>(p => p.InitiatorId == theAdmin.UserId.Id
                                        && p.LockedAtUtc == sut.Account.LastLockoutDate
                                        && p.UserId == sut.UserId.Id);
     }
@@ -267,7 +267,7 @@
             sut.Account.IsLockedOut.ShouldBeFalse();
 
         private It should_publish_user_unlocked = () =>
-            published<UserUnlocked>(p => p.InitiatorId == theInitiatorId.Id
+            published<UserUnlocked>(p => p.InitiatorId == theAdmin.UserId.Id
                                          && p.LockedAtUtc == sut.Account.LastLockoutDate
                                          && p.UserId == sut.UserId.Id);
     }
