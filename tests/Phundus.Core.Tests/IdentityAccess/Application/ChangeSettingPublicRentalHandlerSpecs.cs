@@ -15,7 +15,7 @@
 
         private Establish ctx = () =>
         {
-            theOrganization = make.Organization();
+            theOrganization = make.Organization(theOrganizationId);
             theValue = true;
 
             organizationRepository.setup(x => x.GetById(theOrganization.Id)).Return(theOrganization);
@@ -23,6 +23,6 @@
         };
 
         private It should_change_setting_public_rental = () =>
-            theOrganization.WasToldTo(x => x.ChangeSettingPublicRental(theManager, theValue));
+            theOrganization.received(x => x.ChangeSettingPublicRental(theManager, theValue));
     }
 }

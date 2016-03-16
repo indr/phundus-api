@@ -13,11 +13,12 @@
     [Subject(typeof(AccountUnlockedMail))]
     public class when_handling_user_unlocked : identityaccess_mail_concern<AccountUnlockedMail>
     {
-        private static UserUnlocked e = new UserUnlocked(theAdmin, new UserId(), DateTime.UtcNow);
+        private static UserUnlocked e;
 
         private Establish ctx = () =>
         {
-            var user = new identityaccess_factory(fake).User();
+            e = new UserUnlocked(theAdmin, new UserId(), DateTime.UtcNow);
+            var user = make.User();
             var userRepository = depends.on<IUserRepository>();
             userRepository.setup(x => x.FindByGuid(Arg<Guid>.Is.Anything)).Return(user);
         };

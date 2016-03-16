@@ -8,19 +8,12 @@
     using Phundus.IdentityAccess.Model.Users;
     using Phundus.IdentityAccess.Organizations.Model;
     using Phundus.IdentityAccess.Projections;
-    using Phundus.IdentityAccess.Users.Model;   
+    using Phundus.IdentityAccess.Users.Model;
 
     public class identityaccess_factory : factory_base
     {
         public identityaccess_factory(ICreateFakes fake) : base(fake)
         {
-        }
-
-        public Organization Organization()
-        {
-            var result = fake.an<Organization>();
-            result.setup(x => x.Id).Return(new OrganizationId());
-            return result;
         }
 
         public Admin Admin(UserId userId = null)
@@ -29,13 +22,31 @@
             return new Admin(userId, "admin@test.phundus.ch", "The Admin");
         }
 
-        public User User()
+        public Manager Manager(UserId userId = null)
         {
-            return User(new UserId());
+            userId = userId ?? new UserId();
+            return new Manager(userId, "manager@test.phundus.ch", "The Manager");
         }
 
-        public User User(UserId userId)
+        public Organization Organization(OrganizationId organizationId = null)
         {
+            organizationId = organizationId ?? new OrganizationId();
+            var result = fake.an<Organization>();
+            result.setup(x => x.Id).Return(organizationId);
+            return result;
+        }
+
+        public OrganizationData OrganizationData()
+        {
+            var result = fake.an<OrganizationData>();
+            result.setup(x => x.OrganizationId).Return(Guid.NewGuid());
+            return result;
+        }
+
+        public User User(UserId userId = null)
+        {
+            userId = userId ?? new UserId();
+
             var account = fake.an<Account>();
             account.setup(x => x.RequestedEmail).Return("requested@test.phundus.ch");
 
@@ -49,28 +60,11 @@
             return result;
         }
 
-        public Manager Manager()
-        {
-            return Manager(new UserId());
-        }
-
-        public Manager Manager(UserId userId)
-        {
-            return new Manager(userId, "manager@test.phundus.ch", "The Manager");
-        }
-
         public IUser UserData()
         {
             var result = fake.an<IUser>();
             result.setup(x => x.UserId).Return(Guid.NewGuid());
             result.setup(x => x.EmailAddress).Return("user@test.phundus.ch");
-            return result;
-        }
-
-        public OrganizationData OrganizationData()
-        {
-            var result = fake.an<OrganizationData>();
-            result.setup(x => x.OrganizationId).Return(Guid.NewGuid());
             return result;
         }
     }

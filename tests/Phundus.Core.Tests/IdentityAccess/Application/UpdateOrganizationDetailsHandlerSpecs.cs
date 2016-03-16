@@ -18,7 +18,7 @@
 
         private Establish ctx = () =>
         {
-            theOrganization = make.Organization();
+            theOrganization = make.Organization(theOrganizationId);
 
             organizationRepository.setup(x => x.GetById(theOrganization.Id)).Return(theOrganization);
 
@@ -27,10 +27,7 @@
                 "New email address", "New website");
         };
 
-        private It should_ask_for_chief_privileges = () =>
-            memberInRole.WasToldTo(x => x.ActiveManager(theOrganization.Id.Id, theInitiatorId));
-
-        private It should_tell_organization_to_change_contact_details = () =>
+        private It should_change_rganizations_contact_details = () =>
             theOrganization.WasToldTo(x => x.ChangeContactDetails(Arg<Manager>.Is.Same(theManager), Arg<ContactDetails>.Is.NotNull));
     }
 }
