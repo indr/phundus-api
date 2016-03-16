@@ -3,15 +3,10 @@ namespace Phundus.Tests.IdentityAccess
     using Common.Commanding;
     using Common.Domain.Model;
     using developwithpassion.specifications.extensions;
-    using Integration.IdentityAccess;
-    using Machine.Fakes;
     using Machine.Specifications;
     using Phundus.IdentityAccess.Model.Organizations;
     using Phundus.IdentityAccess.Model.Users;
-    using Phundus.IdentityAccess.Projections;
     using Phundus.IdentityAccess.Resources;
-    using Phundus.IdentityAccess.Users.Model;
-    using Phundus.IdentityAccess.Users.Services;
 
     public class identityaccess_command_handler_concern<TCommand, THandler> :
         command_handler_concern<TCommand, THandler> where THandler : class, IHandleCommand<TCommand>
@@ -36,13 +31,13 @@ namespace Phundus.Tests.IdentityAccess
             theOrganizationId = new OrganizationId();
 
             userInRole = depends.on<IUserInRole>();
-            
+
             userInRole.setup(x => x.Initiator(theInitiatorId)).Return(theInitiator);
 
             theAdmin = make.Admin();
             userInRole.setup(x => x.Admin(theInitiatorId)).Return(theAdmin);
-            
-            theManager = new Manager(new UserId(), "manager@test.phundus.ch", "The Manager");
+
+            theManager = new Manager(theInitiatorId, "manager@test.phundus.ch", "The Manager");
             userInRole.setup(x => x.Manager(theInitiatorId, theOrganizationId)).Return(theManager);
 
             memberInRole = depends.on<IMemberInRole>();
