@@ -11,7 +11,7 @@
         LesseeData GetById(CurrentUserId currentUserId, Guid lesseeId);
     }
 
-    public class LesseeQueries : QueryBase, ILesseeQueries
+    public class LesseeQueries : QueryServiceBase, ILesseeQueries
     {
         private readonly IUsersResource _usersQueries;
 

@@ -13,7 +13,7 @@
         IEnumerable<AvailabilityData> GetAvailability(ArticleId guid);
     }
 
-    public class AvailabilityProjection : QueryBase, IAvailabilityQueries
+    public class AvailabilityProjection : QueryServiceBase, IAvailabilityQueries
     {
         public IAvailabilityService AvailabilityService { get; set; }
 

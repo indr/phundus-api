@@ -14,7 +14,7 @@
         ICollection<MemberData> Managers(Guid organizationId, bool emailSubscribtion);
     }
 
-    public class MembersProjection : QueryBase, IMemberQueries
+    public class MembersProjection : QueryServiceBase, IMemberQueries
     {
         private readonly IMembershipQueries _membershipQueries;
         private readonly IUsersQueries _userQueries;

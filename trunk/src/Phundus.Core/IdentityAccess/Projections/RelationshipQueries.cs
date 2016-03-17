@@ -4,12 +4,12 @@ namespace Phundus.IdentityAccess.Projections
     using Common.Domain.Model;
     using Common.Querying;
 
-    public interface IRelationshipQueries
+    public interface IRelationshipQueryService
     {
         RelationshipData ByMemberIdForOrganizationId(UserId memberId, Guid organizationId);
     }
 
-    public class RelationshipQueries : QueryBase<RelationshipData>, IRelationshipQueries
+    public class RelationshipQueryService : QueryServiceBase<RelationshipData>, IRelationshipQueryService
     {
         public RelationshipData ByMemberIdForOrganizationId(UserId memberId, Guid organizationId)
         {

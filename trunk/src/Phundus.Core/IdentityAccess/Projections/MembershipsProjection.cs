@@ -14,7 +14,7 @@
         ICollection<MembershipData> FindByUserId(Guid userId);
     }
 
-    public class MembershipsProjection : QueryBase, IMembershipQueries
+    public class MembershipsProjection : QueryServiceBase, IMembershipQueries
     {
         private readonly IMembershipRepository _membershipRepository;
 

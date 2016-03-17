@@ -10,7 +10,7 @@ namespace Phundus.Inventory.Projections
         IEnumerable<ArticleActionData> GetActions(ArticleId articleId);
     }
 
-    public class ArticleActionsQueries : QueryBase<ArticleActionData>, IArticleActionsQueries
+    public class ArticleActionsQueries : QueryServiceBase<ArticleActionData>, IArticleActionsQueries
     {
         public IEnumerable<ArticleActionData> GetActions(ArticleId articleId)
         {

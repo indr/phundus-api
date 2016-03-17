@@ -12,7 +12,7 @@
         IEnumerable<ImageData> ByArticle(ArticleId articleId);
     }
 
-    public class ImageQueries : QueryBase, IImagesQueries
+    public class ImageQueries : QueryServiceBase, IImagesQueries
     {
         static ImageQueries()
         {

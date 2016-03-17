@@ -6,7 +6,7 @@ namespace Phundus.Common.Querying
     using Domain.Model;
     using NHibernate;
 
-    public class QueryBase
+    public class QueryServiceBase
     {
         public ILogger Logger { get; set; }
 
@@ -18,7 +18,7 @@ namespace Phundus.Common.Querying
         }
     }
 
-    public class QueryBase<TEntity> : QueryBase where TEntity : class
+    public class QueryServiceBase<TEntity> : QueryServiceBase where TEntity : class
     {
         protected TEntity Find(object id)
         {
