@@ -28,9 +28,9 @@
             var make = new shop_factory(fake);
 
             depends.on<IOrderRepository>().setup(x => x.GetById(Arg<OrderId>.Is.Anything)).Return(make.Order());
-            depends.on<IOrderPdfFactory>()
-                .setup(x => x.GeneratePdf(Arg<Order>.Is.Anything))
-                .Return(new MemoryStream());
+            depends.on<IOrderPdfStore>()
+                .setup(x => x.Get(Arg<OrderId>.Is.Anything, Arg<int>.Is.Anything))
+                .Return(new MemoryStream());  
 
             var lines = new List<OrderEventLine>
             {
@@ -64,9 +64,9 @@
             var make = new shop_factory(fake);
 
             depends.on<IOrderRepository>().setup(x => x.GetById(Arg<OrderId>.Is.Anything)).Return(make.Order());
-            depends.on<IOrderPdfFactory>()
-                .setup(x => x.GeneratePdf(Arg<Order>.Is.Anything))
-                .Return(new MemoryStream());
+            depends.on<IOrderPdfStore>()
+                .setup(x => x.Get(Arg<OrderId>.Is.Anything, Arg<int>.Is.Anything))
+                .Return(new MemoryStream());  
 
             var lines = new List<OrderEventLine>
             {
