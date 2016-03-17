@@ -1,15 +1,13 @@
 ﻿namespace Phundus.Inventory.Application
 {
     using System;
-    using Authorization;
     using Castle.Transactions;
     using Common.Commanding;
     using Common.Domain.Model;
-    using Integration.IdentityAccess;
     using Model.Articles;
     using Model.Collaborators;
 
-    public class UpdateDescription: ICommand
+    public class UpdateDescription : ICommand
     {
         public UpdateDescription(InitiatorId initiatorId, ArticleId articleId, string description)
         {
@@ -36,12 +34,12 @@
             _collaboratorService = collaboratorService;
             _articleRepository = articleRepository;
         }
-        
+
         [Transaction]
         public void Handle(UpdateDescription command)
-        {            
+        {
             var article = _articleRepository.GetById(command.ArticleId);
-            var manager = _collaboratorService.Manager(command.InitiatorId, article.OwnerId);            
+            var manager = _collaboratorService.Manager(command.InitiatorId, article.OwnerId);
 
             article.ChangeDescription(manager, command.Description);
         }

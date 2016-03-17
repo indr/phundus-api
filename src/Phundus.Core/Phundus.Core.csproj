@@ -101,12 +101,6 @@
   <ItemGroup>
     <Compile Include="App_Start\AssemblyInstaller.cs" />
     <Compile Include="App_Start\ProcessMissedNotificationsStartupTask.cs" />
-    <Compile Include="Authorization\AutoReleaseAccessObjectHandlerInterceptor.cs" />
-    <Compile Include="Authorization\Authorize.cs" />
-    <Compile Include="Authorization\AccessObjectHandlerSelector.cs" />
-    <Compile Include="Authorization\IAccessObject.cs" />
-    <Compile Include="Authorization\IAccessObjectHandlerFactory.cs" />
-    <Compile Include="Authorization\IHandleAccessObject.cs" />
     <Compile Include="Dashboard\Projections\EventLogProjection.cs" />
     <Compile Include="Dashboard\Projections\EventLogQueries.cs" />
     <Compile Include="Dashboard\Projections\ProcessedNotificationQueries.cs" />
