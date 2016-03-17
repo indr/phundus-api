@@ -8,36 +8,37 @@
     using Common.Domain.Model;
     using Common.Eventing;
     using Common.Mailing;
-    using Orders.Model;
-    using Pdf;
+    using Infrastructure;
+    using Orders;    
+    using Shop.Orders.Model;
 
     public class OrderPlacedMail : OrderMailBase,
         ISubscribeTo<OrderPlaced>
     {
+        private readonly ICollaboratorService _collaboratorService;
         private readonly IMessageFactory _factory;
         private readonly IMailGateway _gateway;
         private readonly ILessorService _lessorService;
-        private readonly IOrderPdfGenerator _orderPdfGenerator;
-        private readonly ICollaboratorService _collaboratorService;
+        private readonly IOrderPdfFactory _orderPdfFactory;
         private readonly IOrderRepository _orderRepository;
 
         public OrderPlacedMail(IMessageFactory factory, IMailGateway gateway, IOrderRepository orderRepository,
-            ILessorService lessorService, IOrderPdfGenerator orderPdfGenerator, ICollaboratorService collaboratorService)
+            ILessorService lessorService, IOrderPdfFactory orderPdfFactory, ICollaboratorService collaboratorService)
         {
             _factory = factory;
             _gateway = gateway;
             _orderRepository = orderRepository;
             _lessorService = lessorService;
-            _orderPdfGenerator = orderPdfGenerator;
+            _orderPdfFactory = orderPdfFactory;
             _collaboratorService = collaboratorService;
         }
 
         public void Handle(OrderPlaced e)
         {
-            var order = _orderRepository.GetById(new OrderId(e.OrderId));            
+            var order = _orderRepository.GetById(new OrderId(e.OrderId));
             var managers = _collaboratorService.Managers(new LessorId(e.LessorId), true);
             var emailAddresses = managers.Select(s => s.EmailAddress).ToList();
-            var stream = _orderPdfGenerator.GeneratePdf(order);
+            var stream = _orderPdfFactory.GeneratePdf(order);
             var attachment = new Attachment(stream, String.Format("Bestellung-{0}.pdf", order.OrderShortId.Id),
                 "application/pdf");
 

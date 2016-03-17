@@ -1,10 +1,11 @@
 ﻿namespace Phundus.Common.Infrastructure
 {
+    using System;
     using System.IO;
     using System.Web.Hosting;
 
     public interface IFileStorage
-    {
+    {        
         void Store(Storage storage, string fileName, Stream stream);
         Stream Get(Storage storage, string fileName);
     }
@@ -30,19 +31,19 @@
 
         public void Store(Storage fileType, string fileName, Stream stream)
         {
-            var path = GetPath(fileType, fileName);
+            string path = GetPath(fileType, fileName);
             Write(path, stream);
         }
 
         public Stream Get(Storage fileType, string fileName)
-        {
-            var path = GetPath(fileType, fileName);
+        {            
+            string path = GetPath(fileType, fileName);
             return Read(path);
         }
 
         private string GetPath(Storage storage, string fileName)
         {
-            var path = Path.Combine(_baseDirectory, storage.ToString());
+            string path = Path.Combine(_baseDirectory, storage.ToString());
             if (!Directory.Exists(path))
                 Directory.CreateDirectory(path);
             return Path.Combine(path, fileName);
@@ -58,6 +59,8 @@
 
         private static Stream Read(string fullFileName)
         {
+            if (!File.Exists(fullFileName))
+                return null;
             return new FileStream(fullFileName, FileMode.Open);
         }
     }

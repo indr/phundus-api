@@ -4,8 +4,8 @@
     using System.Collections.Generic;
     using System.Linq;
     using Common.Domain.Model;
-    using Orders.Model;
     using Products;
+    using Shop.Orders.Model;
 
     public class Order : EventSourcedAggregateRoot
     {
@@ -112,7 +112,7 @@
         {
             AssertPending();
 
-            var unitPricePerWeek = article.Price;            
+            var unitPricePerWeek = article.Price;
 
             Apply(new OrderItemAdded(manager, OrderId, OrderShortId, (int) Status, OrderTotal + lineTotal,
                 new OrderEventLine(orderLineId, article.ArticleId, article.ArticleShortId,

@@ -2,6 +2,7 @@ namespace Phundus.Inventory.Projections
 {
     using System;
     using System.Text;
+    using Application;
     using Common.Eventing;
     using Common.Projecting;
     using Model.Stores;
@@ -77,26 +78,5 @@ namespace Phundus.Inventory.Projections
                 sb.AppendLine(e.City);
             return sb.ToString();
         }
-    }
-
-    public class StoreDetailsData
-    {
-        public virtual Guid OwnerId { get; set; }
-        public virtual string OwnerType { get; set; }
-        public virtual Guid StoreId { get; set; }
-        public virtual string Name { get; set; }
-
-        public virtual string Line1 { get; set; }
-        public virtual string Line2 { get; set; }
-        public virtual string Street { get; set; }
-        public virtual string Postcode { get; set; }
-        public virtual string City { get; set; }
-        public virtual string PostalAddress { get; set; }
-        public virtual string EmailAddress { get; set; }
-        public virtual string PhoneNumber { get; set; }
-
-        public virtual string OpeningHours { get; set; }
-        public virtual decimal? Latitude { get; set; }
-        public virtual decimal? Longitude { get; set; }
     }
 }

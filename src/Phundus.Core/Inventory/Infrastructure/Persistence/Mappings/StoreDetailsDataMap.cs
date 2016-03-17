@@ -1,8 +1,8 @@
 ﻿namespace Phundus.Inventory.Infrastructure.Persistence.Mappings
 {
+    using Application;
     using Common.Infrastructure.Persistence;
     using FluentNHibernate.Mapping;
-    using Projections;
 
     public class StoreDetailsDataMap : ClassMap<StoreDetailsData>
     {

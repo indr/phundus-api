@@ -7,10 +7,11 @@
     using Common.Domain.Model;
     using developwithpassion.specifications.extensions;
     using Machine.Specifications;
+    using Phundus.Shop.Infrastructure;
     using Phundus.Shop.Model;
     using Phundus.Shop.Model.Collaborators;
     using Phundus.Shop.Model.Mails;
-    using Phundus.Shop.Model.Pdf;
+    using Phundus.Shop.Model.Orders;
     using Phundus.Shop.Orders.Model;
     using Rhino.Mocks;
 
@@ -31,7 +32,7 @@
                     make.Manager(emailAddress: "manager1@test.phundus.ch"),
                     make.Manager(emailAddress: "manager2@test.phundus.ch")
                 });
-            depends.on<IOrderPdfGenerator>()
+            depends.on<IOrderPdfFactory>()
                 .setup(x => x.GeneratePdf(Arg<Order>.Is.Anything))
                 .Return(new MemoryStream());
 

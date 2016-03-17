@@ -1,16 +1,17 @@
-﻿namespace Phundus.Shop.Model.Pdf
+﻿namespace Phundus.Shop.Infrastructure
 {
     using System;
     using System.IO;
     using System.Linq;
     using System.Text;
     using Application;
-    using Inventory.Projections;
+    using Inventory.Application;
     using iTextSharp.text;
     using iTextSharp.text.pdf;
+    using Model;
     using Orders.Model;
 
-    public class OrderPdf
+    public class OrderPdfGenerator
     {
         private readonly LessorData _lessor;
         private readonly StoreDetailsData _store;
@@ -24,7 +25,7 @@
         private MemoryStream stream;
         private PdfWriter writer;
 
-        public OrderPdf(Order aOrder, LessorData lessor, StoreDetailsData store)
+        public OrderPdfGenerator(Order aOrder, LessorData lessor, StoreDetailsData store)
         {
             if (lessor == null) throw new ArgumentNullException("lessor");
             order = aOrder;

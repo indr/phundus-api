@@ -5,7 +5,6 @@ namespace Phundus.Inventory.Application
     using Castle.Transactions;
     using Common;
     using Common.Querying;
-    using Projections;
 
     public interface IStoresQueryService
     {
@@ -44,5 +43,26 @@ namespace Phundus.Inventory.Application
                 return new List<StoreDetailsData>();
             return QueryOver().Where(p => p.OwnerId == ownerId).List();
         }
+    }
+
+    public class StoreDetailsData
+    {
+        public virtual Guid OwnerId { get; set; }
+        public virtual string OwnerType { get; set; }
+        public virtual Guid StoreId { get; set; }
+        public virtual string Name { get; set; }
+
+        public virtual string Line1 { get; set; }
+        public virtual string Line2 { get; set; }
+        public virtual string Street { get; set; }
+        public virtual string Postcode { get; set; }
+        public virtual string City { get; set; }
+        public virtual string PostalAddress { get; set; }
+        public virtual string EmailAddress { get; set; }
+        public virtual string PhoneNumber { get; set; }
+
+        public virtual string OpeningHours { get; set; }
+        public virtual decimal? Latitude { get; set; }
+        public virtual decimal? Longitude { get; set; }
     }
 }

@@ -1,25 +1,35 @@
-namespace Phundus.Shop.Model.Pdf
+namespace Phundus.Shop.Infrastructure
 {
     using System.IO;
     using System.Linq;
     using Application;
+    using Common.Domain.Model;
     using Inventory.Application;
-    using Inventory.Projections;
+    using Model;
 
-    public interface IOrderPdfGenerator
+    public interface IOrderPdfFactory
     {
+        Stream GeneratePdf(OrderId orderId);
         Stream GeneratePdf(Order order);
     }
 
-    public class OrderPdfGenerator : IOrderPdfGenerator
+    public class OrderPdfFactory : IOrderPdfFactory
     {
+        private readonly IOrderRepository _orderRepository;
         private readonly ILessorQueryService _lessorQueryService;
         private readonly IStoresQueryService _storeQueryService;
 
-        public OrderPdfGenerator(ILessorQueryService lessorQueryService, IStoresQueryService storeQueryService)
+        public OrderPdfFactory(IOrderRepository orderRepository, ILessorQueryService lessorQueryService, IStoresQueryService storeQueryService)
         {
+            _orderRepository = orderRepository;
             _lessorQueryService = lessorQueryService;
             _storeQueryService = storeQueryService;
+        }
+
+        public Stream GeneratePdf(OrderId orderId)
+        {
+            var order = _orderRepository.GetById(orderId);
+            return GeneratePdf(order);
         }
 
         public Stream GeneratePdf(Order order)
@@ -27,7 +37,7 @@ namespace Phundus.Shop.Model.Pdf
             var lessor = _lessorQueryService.GetById(order.Lessor.LessorId.Id);
             var store = GetStore(order);
 
-            return new OrderPdf(order, lessor, store).GeneratePdf();
+            return new OrderPdfGenerator(order, lessor, store).GeneratePdf();
         }
 
         private StoreDetailsData GetStore(Order order)
