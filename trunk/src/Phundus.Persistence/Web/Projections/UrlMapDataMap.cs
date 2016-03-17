@@ -1,7 +1,7 @@
 ﻿namespace Phundus.Persistence.Web.Mappings
 {
     using FluentNHibernate.Mapping;
-    using Phundus.Web.Projections;
+    using Phundus.Web.Application;
 
     public class UrlMapDataMap : ClassMap<UrlMapData>
     {

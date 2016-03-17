@@ -9,7 +9,6 @@
     using Phundus.IdentityAccess.Application;
     using Phundus.IdentityAccess.Model.Organizations.Mails;
     using Phundus.IdentityAccess.Organizations.Model;
-    using Phundus.IdentityAccess.Projections;
     using Rhino.Mocks;
 
     public class membership_application_status_mail_concern<T> : mail_concern<T> where T : class
@@ -35,10 +34,12 @@
         {
             var managers = new List<MemberData>
             {
-                new MemberData { EmailAddress = "manager1@test.phundus.ch"},
-                new MemberData { EmailAddress = "manager2@test.phundus.ch"}
+                new MemberData {EmailAddress = "manager1@test.phundus.ch"},
+                new MemberData {EmailAddress = "manager2@test.phundus.ch"}
             };
-            depends.on<IMemberQueries>().setup(x => x.Managers(Arg<Guid>.Is.Anything, Arg<bool>.Is.Anything)).Return(managers);
+            depends.on<IMemberQueryService>()
+                .setup(x => x.Managers(Arg<Guid>.Is.Anything, Arg<bool>.Is.Anything))
+                .Return(managers);
         };
 
         private Because of = () =>

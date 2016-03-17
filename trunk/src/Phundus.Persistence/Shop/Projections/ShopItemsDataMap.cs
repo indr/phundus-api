@@ -2,9 +2,9 @@ namespace Phundus.Persistence.Shop.Projections
 {
     using FluentNHibernate.Mapping;
     using NHibernate.Type;
-    using Phundus.Shop.Projections;
+    using Phundus.Shop.Application;
 
-    public class ShopItemsDataMap : ClassMap<ShopItemsData>
+    public class ShopItemsDataMap : ClassMap<ProductListData>
     {
         public ShopItemsDataMap()
         {
@@ -14,12 +14,12 @@ namespace Phundus.Persistence.Shop.Projections
             Id(x => x.ArticleId).GeneratedBy.Assigned();
             Map(x => x.ArticleShortId).Unique();
             Map(x => x.CreatedAtUtc).CustomType<UtcDateTimeType>();
-                        
+
             Map(x => x.LessorId);
             Map(x => x.LessorType).CustomType<LessorType>();
             Map(x => x.LessorName);
             Map(x => x.LessorUrl);
-            
+
             Map(x => x.StoreId);
             Map(x => x.StoreName);
             Map(x => x.StoreUrl);

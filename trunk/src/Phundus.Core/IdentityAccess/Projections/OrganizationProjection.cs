@@ -2,6 +2,7 @@ namespace Phundus.IdentityAccess.Projections
 {
     using System;
     using System.Text;
+    using Application;
     using Common;
     using Common.Eventing;
     using Common.Projecting;
@@ -80,42 +81,5 @@ namespace Phundus.IdentityAccess.Projections
                 sb.AppendLine(e.City);
             return sb.ToString();
         }
-    }
-
-    // TODO: Split to OrganizationListData and OrganizationDetailsData
-    public class OrganizationData
-    {
-        private string _website;
-
-        public virtual Guid OrganizationId { get; set; }
-        public virtual DateTime EstablishedAtUtc { get; set; }
-        public virtual string Name { get; set; }
-        public virtual string Url { get; set; }
-        public virtual string Plan { get; set; }
-        public virtual bool PublicRental { get; set; }
-
-        public virtual string Line1 { get; set; }
-        public virtual string Line2 { get; set; }
-        public virtual string Street { get; set; }
-        public virtual string Postcode { get; set; }
-        public virtual string City { get; set; }
-        public virtual string PostalAddress { get; set; }
-
-        public virtual string EmailAddress { get; set; }
-        public virtual string PhoneNumber { get; set; }
-
-        public virtual string Website
-        {
-            get
-            {
-                if (!String.IsNullOrEmpty(_website) && !_website.StartsWith("http"))
-                    return "http://" + _website;
-                return _website;
-            }
-            set { _website = value; }
-        }
-
-        public virtual string Startpage { get; set; }
-        public virtual string DocumentTemplate { get; set; }
     }
 }

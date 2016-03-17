@@ -2,8 +2,8 @@ namespace Phundus.Shop.Model.Pdf
 {
     using System.IO;
     using System.Linq;
+    using Application;
     using Inventory.Projections;
-    using Projections;
 
     public interface IOrderPdfGenerator
     {

@@ -6,7 +6,6 @@
     using Common.Eventing;
     using Common.Mailing;
     using IdentityAccess.Organizations.Model;
-    using Projections;
 
     public class MembershipApplicationStatusMail :
         ISubscribeTo<MembershipApplicationApproved>,
@@ -15,18 +14,19 @@
     {
         private readonly IMessageFactory _factory;
         private readonly IMailGateway _gateway;
-        private readonly IMemberQueries _memberQueries;
+        private readonly IMemberQueryService _memberQueryService;
         private readonly IOrganizationQueryService _organizationQueryService;
         private readonly IUserQueryService _userQueryService;
 
         public MembershipApplicationStatusMail(IMessageFactory factory, IMailGateway gateway,
-            IOrganizationQueryService organizationQueryService, IUserQueryService userQueryService, IMemberQueries memberQueries)
+            IOrganizationQueryService organizationQueryService, IUserQueryService userQueryService,
+            IMemberQueryService memberQueryService)
         {
             _factory = factory;
             _gateway = gateway;
             _organizationQueryService = organizationQueryService;
             _userQueryService = userQueryService;
-            _memberQueries = memberQueries;
+            _memberQueryService = memberQueryService;
         }
 
         public void Handle(MembershipApplicationApproved e)
@@ -43,7 +43,7 @@
         public void Handle(MembershipApplicationFiled e)
         {
             var model = CreateModel(e.OrganizationGuid, e.UserGuid);
-            var recipients = _memberQueries.Managers(e.OrganizationGuid, true).Select(x => x.EmailAddress).ToList();
+            var recipients = _memberQueryService.Managers(e.OrganizationGuid, true).Select(x => x.EmailAddress).ToList();
 
             var message = _factory.MakeMessage(model, Templates.MembershipApplicationFiledSubject, null,
                 Templates.MembershipApplicationFiledHtml);

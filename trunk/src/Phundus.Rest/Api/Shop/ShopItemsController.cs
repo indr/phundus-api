@@ -13,7 +13,7 @@
     using ContentObjects;
     using Inventory.Projections;
     using Newtonsoft.Json;
-    using Phundus.Shop.Projections;
+    using Phundus.Shop.Application;
 
     [RoutePrefix("api/shop/items")]
     [AllowAnonymous]
@@ -22,8 +22,9 @@
         private readonly IAvailabilityQueryService _availabilityQueryService;
         private readonly IProductQueryService _productQueryService;
 
-        public ShopItemsController(IProductQueryService productQueryService, IAvailabilityQueryService availabilityQueryService)
-        {            
+        public ShopItemsController(IProductQueryService productQueryService,
+            IAvailabilityQueryService availabilityQueryService)
+        {
             _productQueryService = productQueryService;
             _availabilityQueryService = availabilityQueryService;
         }
@@ -75,8 +76,8 @@
                 },
                 Store = new ShopItemGetOkResponseContent.StoreObject
                 {
-                  StoreId  = item.StoreId,
-                  Name = item.StoreName
+                    StoreId = item.StoreId,
+                    Name = item.StoreName
                 },
                 Documents = item.Documents.Select(s => new ShopItemGetOkResponseContent.DocumentObject
                 {

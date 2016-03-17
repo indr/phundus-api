@@ -4,23 +4,22 @@
     using System.IO;
     using System.Linq;
     using System.Text;
-    using IdentityAccess.Projections;
+    using Application;
     using Inventory.Projections;
     using iTextSharp.text;
     using iTextSharp.text.pdf;
     using Orders.Model;
-    using Projections;
 
     public class OrderPdf
-    {        
+    {
+        private readonly LessorData _lessor;
+        private readonly StoreDetailsData _store;
         private GrayColor backGroundColor;
         private Font defaultFont;
         private Font defaultFontBold;
         private Font defaultFontGray;
         private Document doc;
         private Order order;
-        private readonly LessorData _lessor;
-        private readonly StoreDetailsData _store;
         private PdfReader reader;
         private MemoryStream stream;
         private PdfWriter writer;
@@ -68,7 +67,7 @@
 
 
             var contactDetails = _store != null ? GetStoreContactDetails() : GetLessorContactDetails();
-            
+
             var table = new PdfPTable(1);
             var cell = new PdfPCell
             {
@@ -80,7 +79,7 @@
             };
             var font = FontFactory.GetFont("calibri", 9);
 
-            
+
             cell.AddElement(new Paragraph(contactDetails, font) {Alignment = Element.ALIGN_RIGHT});
 
             table.AddCell(cell);
@@ -94,7 +93,7 @@
                 return null;
 
             var sb = new StringBuilder();
-            sb.AppendLine(_lessor.PostalAddress);            
+            sb.AppendLine(_lessor.PostalAddress);
 
             if (!String.IsNullOrWhiteSpace(_lessor.PhoneNumber))
                 sb.AppendLine("Tel. " + _lessor.PhoneNumber);

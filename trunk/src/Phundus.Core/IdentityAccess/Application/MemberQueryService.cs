@@ -1,20 +1,19 @@
-﻿namespace Phundus.IdentityAccess.Projections
+﻿namespace Phundus.IdentityAccess.Application
 {
     using System;
     using System.Collections.Generic;
     using System.Linq;
-    using Application;
     using Common.Domain.Model;
     using Common.Querying;
 
-    public interface IMemberQueries
+    public interface IMemberQueryService
     {
         IList<MemberData> FindByOrganizationId(Guid organizationId);
         IEnumerable<MemberData> Query(CurrentUserId currentUserId, Guid queryOrganizationId, string queryFullName);
         ICollection<MemberData> Managers(Guid organizationId, bool emailSubscribtion);
     }
 
-    public class MembersProjection : QueryServiceBase, IMemberQueries
+    public class MembersProjection : QueryServiceBase, IMemberQueryService
     {
         private readonly IMembershipQueries _membershipQueries;
         private readonly IUserQueryService _userQueries;
@@ -44,7 +43,6 @@
             return FindByOrganizationId(organizationId)
                 .Where(p => p.Role == 2)
                 .Where(p => p.RecievesEmailNotifications == emailSubscribtion).ToList();
-
         }
 
         private IList<MemberData> ToMemberData(IEnumerable<MembershipData> memberships, string queryFullName = "")

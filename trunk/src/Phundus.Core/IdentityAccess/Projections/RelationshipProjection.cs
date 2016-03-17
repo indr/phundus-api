@@ -1,6 +1,7 @@
 ﻿namespace Phundus.IdentityAccess.Projections
 {
     using System;
+    using Application;
     using Common.Eventing;
     using Common.Projecting;
     using Organizations.Model;
@@ -48,14 +49,5 @@
             row.Timestamp = timestamp;
             Session.Update(row);
         }
-    }
-
-    public class RelationshipData
-    {
-        public virtual Guid RowGuid { get; set; }
-        public virtual Guid OrganizationGuid { get; set; }
-        public virtual Guid UserGuid { get; set; }
-        public virtual DateTime Timestamp { get; set; }
-        public virtual string Status { get; set; }
     }
 }

@@ -4,6 +4,7 @@
     using Common.Domain.Model;
     using developwithpassion.specifications.core;
     using developwithpassion.specifications.extensions;
+    using Phundus.IdentityAccess.Application;
     using Phundus.IdentityAccess.Model.Users;
     using Phundus.IdentityAccess.Organizations.Model;
     using Phundus.IdentityAccess.Projections;

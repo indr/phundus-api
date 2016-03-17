@@ -1,4 +1,4 @@
-﻿namespace Phundus.Shop.Projections
+﻿namespace Phundus.Shop.Application
 {
     using System;
 
@@ -25,6 +25,6 @@
                 return _website;
             }
             set { _website = value; }
-        }        
+        }
     }
 }

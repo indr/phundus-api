@@ -10,17 +10,16 @@
     using ContentObjects;
     using IdentityAccess.Application;
     using IdentityAccess.Organizations.Model;
-    using IdentityAccess.Projections;
     using Newtonsoft.Json;
 
     [RoutePrefix("api/organizations/{organizationId}/members")]
     public class OrganizationsMembersController : ApiControllerBase
     {
-        private readonly IMemberQueries _memberQueries;
+        private readonly IMemberQueryService _memberQueryService;
 
-        public OrganizationsMembersController(IMemberQueries memberQueries)
+        public OrganizationsMembersController(IMemberQueryService memberQueryService)
         {
-            _memberQueries = memberQueries;
+            _memberQueryService = memberQueryService;
         }
 
         [GET("")]
@@ -32,7 +31,7 @@
             if (queryParams.ContainsKey("username"))
                 username = queryParams["username"];
 
-            var result = _memberQueries.Query(CurrentUserId, organizationId, username);
+            var result = _memberQueryService.Query(CurrentUserId, organizationId, username);
             return new QueryOkResponseContent<Member>(result.Select(s => new Member
             {
                 ApprovalDate = s.ApprovalDate,

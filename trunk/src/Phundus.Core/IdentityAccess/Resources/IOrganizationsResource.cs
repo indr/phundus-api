@@ -1,9 +1,9 @@
 ﻿namespace Phundus.IdentityAccess.Resources
 {
     using System;
+    using Application;
     using Castle.Transactions;
     using Common.Resources;
-    using Projections;
 
     public interface IOrganizationsResource
     {

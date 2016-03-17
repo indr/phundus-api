@@ -1,6 +1,6 @@
 ﻿namespace Phundus.IdentityAccess.Projections
 {
-    using System;
+    using Application;
     using Common.Eventing;
     using Common.Projecting;
     using Model.Users;
@@ -45,18 +45,5 @@
                 x.PhoneNumber = e.PhoneNumber;
             });
         }
-    }
-
-    public class UserAddressData
-    {
-        public virtual Guid UserId { get; set; }
-        public virtual int UserShortId { get; set; }
-        public virtual string FirstName { get; set; }
-        public virtual string LastName { get; set; }
-        public virtual string Street { get; set; }
-        public virtual string Postcode { get; set; }
-        public virtual string City { get; set; }
-        public virtual string EmailAddress { get; set; }
-        public virtual string PhoneNumber { get; set; }
     }
 }

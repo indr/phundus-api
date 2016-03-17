@@ -3,7 +3,7 @@ namespace Phundus.Persistence.IdentityAccess.Projections
     using Extensions;
     using FluentNHibernate.Mapping;
     using NHibernate.Type;
-    using Phundus.IdentityAccess.Projections;
+    using Phundus.IdentityAccess.Application;
 
     public class OrganizationDataMap : ClassMap<OrganizationData>
     {
@@ -18,7 +18,7 @@ namespace Phundus.Persistence.IdentityAccess.Projections
             Map(x => x.Url);
             Map(x => x.Plan, "[Plan]");
             Map(x => x.PublicRental);
-            
+
             Map(x => x.Line1);
             Map(x => x.Line2);
             Map(x => x.Street);

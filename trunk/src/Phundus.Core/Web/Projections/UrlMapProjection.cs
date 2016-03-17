@@ -1,5 +1,6 @@
 ﻿namespace Phundus.Web.Projections
 {
+    using Application;
     using Common;
     using Common.Eventing;
     using Common.Projecting;

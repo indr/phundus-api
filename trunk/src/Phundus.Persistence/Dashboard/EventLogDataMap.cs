@@ -1,7 +1,7 @@
 ﻿namespace Phundus.Persistence.Dashboard
 {
     using FluentNHibernate.Mapping;
-    using Phundus.Dashboard.Projections;    
+    using Phundus.Dashboard.Application;
 
     public class EventLogDataMap : ClassMap<EventLogData>
     {

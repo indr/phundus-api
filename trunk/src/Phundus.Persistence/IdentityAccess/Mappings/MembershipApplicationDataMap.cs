@@ -2,7 +2,7 @@ namespace Phundus.Persistence.IdentityAccess.Mappings
 {
     using FluentNHibernate.Mapping;
     using NHibernate.Type;
-    using Phundus.IdentityAccess.Projections;
+    using Phundus.IdentityAccess.Application;
 
     public class MembershipApplicationDataMap : ClassMap<MembershipApplicationData>
     {

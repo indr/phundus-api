@@ -104,9 +104,8 @@
     <Compile Include="Dashboard\Projections\EventLogProjection.cs" />
     <Compile Include="Dashboard\Application\EventLogQueryService.cs" />
     <Compile Include="Dashboard\Application\ProcessedNotificationQueryService.cs" />
-    <Compile Include="IdentityAccess\Application\IUserQueryService.cs" />
-    <Compile Include="IdentityAccess\Application\Users\ChangeUserAddress.cs" />
-    <Compile Include="IdentityAccess\Application\Organizations\ChangeMemberRecievesEmailNotification.cs" />
+    <Compile Include="IdentityAccess\Application\Commands\Users\ChangeUserAddress.cs" />
+    <Compile Include="IdentityAccess\Application\Commands\Organizations\ChangeMemberRecievesEmailNotification.cs" />
     <Compile Include="IdentityAccess\Model\Organizations\Founder.cs" />
     <Compile Include="IdentityAccess\Model\Organizations\Mails\MemberLockedMail.cs" />
     <Compile Include="IdentityAccess\Model\Organizations\Mails\MembershipApplicationStatusMail.cs" />
@@ -114,17 +113,17 @@
     <Compile Include="IdentityAccess\Model\Organizations\OrganizationContactDetailsChanged.cs" />
     <Compile Include="IdentityAccess\Model\Organizations\OrganizationPlanChanged.cs" />
     <Compile Include="IdentityAccess\Model\Organizations\PublicRentalSettingChanged.cs" />
-    <Compile Include="IdentityAccess\Application\Organizations\ApplyForMembership.cs" />
-    <Compile Include="IdentityAccess\Application\Organizations\ApproveMembershipApplication.cs" />
-    <Compile Include="IdentityAccess\Application\Organizations\ChangeMembersRole.cs" />
-    <Compile Include="IdentityAccess\Application\Organizations\ChangeSettingPublicRental.cs" />
-    <Compile Include="IdentityAccess\Application\Organizations\ChangeOrganizationPlan.cs" />
-    <Compile Include="IdentityAccess\Application\Organizations\EstablishOrganization.cs" />
-    <Compile Include="IdentityAccess\Application\Organizations\LockMember.cs" />
-    <Compile Include="IdentityAccess\Application\Organizations\RejectMembershipApplication.cs" />
-    <Compile Include="IdentityAccess\Application\Organizations\UnlockMember.cs" />
-    <Compile Include="IdentityAccess\Application\Organizations\UpdateStartpage.cs" />
-    <Compile Include="IdentityAccess\Application\Organizations\ChangeOrganizationContactDetails.cs" />
+    <Compile Include="IdentityAccess\Application\Commands\Organizations\ApplyForMembership.cs" />
+    <Compile Include="IdentityAccess\Application\Commands\Organizations\ApproveMembershipApplication.cs" />
+    <Compile Include="IdentityAccess\Application\Commands\Organizations\ChangeMembersRole.cs" />
+    <Compile Include="IdentityAccess\Application\Commands\Organizations\ChangeSettingPublicRental.cs" />
+    <Compile Include="IdentityAccess\Application\Commands\Organizations\ChangeOrganizationPlan.cs" />
+    <Compile Include="IdentityAccess\Application\Commands\Organizations\EstablishOrganization.cs" />
+    <Compile Include="IdentityAccess\Application\Commands\Organizations\LockMember.cs" />
+    <Compile Include="IdentityAccess\Application\Commands\Organizations\RejectMembershipApplication.cs" />
+    <Compile Include="IdentityAccess\Application\Commands\Organizations\UnlockMember.cs" />
+    <Compile Include="IdentityAccess\Application\Commands\Organizations\UpdateStartpage.cs" />
+    <Compile Include="IdentityAccess\Application\Commands\Organizations\ChangeOrganizationContactDetails.cs" />
     <Compile Include="IdentityAccess\Model\Organizations\Mails\Templates.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -162,20 +161,20 @@
     <Compile Include="IdentityAccess\Application\OrganizationQueryService.cs" />
     <Compile Include="IdentityAccess\Projections\RelationshipProjection.cs" />
     <Compile Include="IdentityAccess\Application\MembershipQueryService.cs" />
-    <Compile Include="IdentityAccess\Projections\MembersProjection.cs" />
+    <Compile Include="IdentityAccess\Application\MemberQueryService.cs" />
     <Compile Include="IdentityAccess\Application\RelationshipQueryService.cs" />
     <Compile Include="IdentityAccess\Projections\UserAddressProjection.cs" />
     <Compile Include="IdentityAccess\Application\UserAddressQueryService.cs" />
     <Compile Include="IdentityAccess\Application\UserQueryService.cs" />
-    <Compile Include="IdentityAccess\Application\Users\ApproveUser.cs" />
-    <Compile Include="IdentityAccess\Application\Users\ChangeEmailAddress.cs" />
-    <Compile Include="IdentityAccess\Application\Users\ChangePassword.cs" />
-    <Compile Include="IdentityAccess\Application\Users\ChangeUserRole.cs" />
-    <Compile Include="IdentityAccess\Application\Users\LockUser.cs" />
-    <Compile Include="IdentityAccess\Application\Users\SignUpUser.cs" />
-    <Compile Include="IdentityAccess\Application\Users\ResetPassword.cs" />
-    <Compile Include="IdentityAccess\Application\Users\UnlockUser.cs" />
-    <Compile Include="IdentityAccess\Application\Users\ValidateKey.cs" />
+    <Compile Include="IdentityAccess\Application\Commands\Users\ApproveUser.cs" />
+    <Compile Include="IdentityAccess\Application\Commands\Users\ChangeEmailAddress.cs" />
+    <Compile Include="IdentityAccess\Application\Commands\Users\ChangePassword.cs" />
+    <Compile Include="IdentityAccess\Application\Commands\Users\ChangeUserRole.cs" />
+    <Compile Include="IdentityAccess\Application\Commands\Users\LockUser.cs" />
+    <Compile Include="IdentityAccess\Application\Commands\Users\SignUpUser.cs" />
+    <Compile Include="IdentityAccess\Application\Commands\Users\ResetPassword.cs" />
+    <Compile Include="IdentityAccess\Application\Commands\Users\UnlockUser.cs" />
+    <Compile Include="IdentityAccess\Application\Commands\Users\ValidateKey.cs" />
     <Compile Include="IdentityAccess\Model\Users\EmailAlreadyTakenException.cs" />
     <Compile Include="IdentityAccess\Model\Users\InvalidPasswordException.cs" />
     <Compile Include="IdentityAccess\Model\Users\UserLockedOutException.cs" />
@@ -243,6 +242,10 @@
     <Compile Include="Inventory\Application\Commands\RenameStore.cs" />
     <Compile Include="Inventory\Model\Stores\Events\StoreRenamed.cs" />
     <Compile Include="Inventory\Application\StoresQueryService.cs" />
+    <Compile Include="Shop\Application\Data\LessorData.cs" />
+    <Compile Include="Shop\Application\Data\LessorType.cs" />
+    <Compile Include="Shop\Application\Data\ProductDetailsData.cs" />
+    <Compile Include="Shop\Application\Data\ProdutListData.cs" />
     <Compile Include="Shop\Infrastructure\CollaboratorService.cs" />
     <Compile Include="Shop\Model\Collaborators\ICollaboratorService.cs" />
     <Compile Include="Shop\Model\IArticleService.cs" />
@@ -252,9 +255,6 @@
     <Compile Include="Shop\Model\Manager.cs" />
     <Compile Include="Shop\Model\OrderLines.cs" />
     <Compile Include="Shop\Model\Pdf\OrderPdfGenerator.cs" />
-    <Compile Include="Shop\Projections\Data\LessorData.cs" />
-    <Compile Include="Shop\Projections\Data\LessorType.cs" />
-    <Compile Include="Shop\Projections\Data\LesseeData.cs" />
     <Compile Include="Shop\Projections\LessorsProjection.cs" />
     <Compile Include="Shop\Application\OrderQueryService.cs" />
     <Compile Include="Shop\Projections\ProductDetailsProjection.cs" />
@@ -312,7 +312,6 @@
     <Compile Include="Shop\Infrastructure\LesseeService.cs" />
     <Compile Include="Shop\Infrastructure\ArticleService.cs" />
     <Compile Include="Shop\Infrastructure\LessorService.cs" />
-    <Compile Include="Web\Projections\UrlMapData.cs" />
     <Compile Include="Web\Projections\UrlMapProjection.cs" />
     <Compile Include="App_Start\CoreInstaller.cs" />
     <Compile Include="Inventory\Model\Articles\Article.cs" />
@@ -345,8 +344,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="IdentityAccess\Application\Commands\" />
+    <Folder Include="Dashboard\Infrastructure\" />
+    <Folder Include="IdentityAccess\Infrastructure\" />
     <Folder Include="Shop\Model\Orders\" />
+    <Folder Include="Web\Infrastructure\" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="IdentityAccess\Model\Organizations\Mails\Templates.resx">

@@ -1,4 +1,4 @@
-﻿namespace Phundus.Shop.Projections
+﻿namespace Phundus.Shop.Application
 {
     using System;
 

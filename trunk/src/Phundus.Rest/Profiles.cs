@@ -5,9 +5,9 @@
     using Api;
     using AutoMapper;
     using ContentObjects;
-    using IdentityAccess.Projections;
+    using IdentityAccess.Application;
     using Inventory.Projections;
-    using Shop.Projections;
+    using Shop.Application;
 
     public class OrganizationsProfile : Profile
     {

@@ -1,9 +1,8 @@
 namespace Phundus.Persistence.Shop.Projections
 {
     using FluentNHibernate.Mapping;
-    using NHibernate.Linq;
     using NHibernate.Type;
-    using Phundus.Shop.Projections;
+    using Phundus.Shop.Application;
 
     public class OrderDataMap : ClassMap<OrderData>
     {
@@ -50,7 +49,7 @@ namespace Phundus.Persistence.Shop.Projections
             Table("Es_Shop_Orders_Lines");
 
             Id(x => x.DataId).GeneratedBy.GuidComb();
-            
+
             References(x => x.Order, "OrderId");
             Map(x => x.LineId);
             Map(x => x.ArticleId);
