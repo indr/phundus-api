@@ -128,7 +128,6 @@
     <Compile Include="Api\FeedbackController.cs" />
     <Compile Include="Api\Organizations\OrganizationsSettingsController.cs" />
     <Compile Include="Api\EventProcessorsController.cs" />
-    <Compile Include="Auth\MaintenanceModeException.cs" />
     <Compile Include="Api\LesseesController.cs" />
     <Compile Include="Api\LessorsController.cs" />
     <Compile Include="Api\MaintenanceController.cs" />
@@ -136,7 +135,6 @@
     <Compile Include="Api\Shop\ShopOrdersController.cs" />
     <Compile Include="Api\UsernameCheckController.cs" />
     <Compile Include="Api\Users\UsersCartController.cs" />
-    <Compile Include="ContentObjects\QueryOkResponseContent.cs" />
     <Compile Include="Api\Shop\ShopQueryItem.cs" />
     <Compile Include="Api\Shop\ShopItemsController.cs" />
     <Compile Include="ContentObjects\AdminOrganization.cs" />
@@ -144,7 +142,6 @@
     <Compile Include="ContentObjects\Member.cs" />
     <Compile Include="ContentObjects\Relationship.cs" />
     <Compile Include="ContentObjects\CoordinateCto.cs" />
-    <Compile Include="Api\EventLogController.cs" />
     <Compile Include="Api\SchemaUpdateController.cs" />
     <Compile Include="Api\MailsController.cs" />
     <Compile Include="ContentObjects\StatusGetOkResponseContent.cs" />
@@ -177,7 +174,6 @@
     <Compile Include="ContentObjects\Order.cs" />
     <Compile Include="ContentObjects\OrderItem.cs" />
     <Compile Include="Converters\CustomDateTimeConverter.cs" />
-    <Compile Include="CtoMapper.cs" />
     <Compile Include="FileUpload\BlueImpFileUploadHandler.cs" />
     <Compile Include="FileUpload\BlueImpFileUploadJsonResult.cs" />
     <Compile Include="FileUpload\BlueImpFileUploadJsonResultFactory.cs" />

@@ -11,6 +11,7 @@
     using AutoMapper;
     using Castle.Transactions;
     using Common.Domain.Model;
+    using Common.Resources;
     using ContentObjects;
     using IdentityAccess.Application;
     using IdentityAccess.Projections;
@@ -19,6 +20,7 @@
     using Inventory.Model.Collaborators;
     using Inventory.Projections;
     using Newtonsoft.Json;
+    using ApiControllerBase = Rest.ApiControllerBase;
 
     [RoutePrefix("api/organizations")]
     public class OrganizationsController : ApiControllerBase

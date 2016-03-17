@@ -11,9 +11,11 @@ namespace Phundus.Rest.Api
     using Common.Eventing.Application;
     using Common.Notifications.Application;
     using Common.Projecting.Application;
+    using Common.Resources;
     using ContentObjects;
     using Dashboard.Application;
     using Newtonsoft.Json;
+    using ApiControllerBase = Rest.ApiControllerBase;
 
     [RoutePrefix("api/event-processors")]
     [Authorize(Roles = "Admin")]

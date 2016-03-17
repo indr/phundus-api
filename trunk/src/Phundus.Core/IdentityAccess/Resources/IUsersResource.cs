@@ -4,15 +4,13 @@
     using Application;
     using Castle.Transactions;
     using Common.Resources;
-    using Model.Users;
-    using Projections;
 
     public interface IUsersResource
     {
         UserData Get(Guid userId);
     }
 
-    public class UsersResource : ResourceBase, IUsersResource
+    public class UsersResource : ApiControllerBase, IUsersResource
     {
         private readonly IUserQueryService _userQueryService;
 

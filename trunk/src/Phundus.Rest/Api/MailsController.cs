@@ -11,8 +11,10 @@
     using AttributeRouting;
     using AttributeRouting.Web.Http;
     using Common;
+    using Common.Resources;
     using ContentObjects;
     using MsgReader.Mime;
+    using ApiControllerBase = Rest.ApiControllerBase;
 
     [RoutePrefix("api/mails")]
     public class MailsController : ApiControllerBase

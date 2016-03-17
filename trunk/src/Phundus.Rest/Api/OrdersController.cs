@@ -9,12 +9,14 @@
     using AttributeRouting.Web.Http;
     using Castle.Transactions;
     using Common.Domain.Model;
+    using Common.Resources;
     using ContentObjects;
     using IdentityAccess.Application;
     using Newtonsoft.Json;
     using Phundus.Shop.Application;
     using Phundus.Shop.Model.Pdf;
     using Phundus.Shop.Projections;
+    using ApiControllerBase = Rest.ApiControllerBase;
 
     [RoutePrefix("api/orders")]
     public class OrdersController : ApiControllerBase
