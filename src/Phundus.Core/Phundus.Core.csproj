@@ -53,6 +53,9 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\packages\Castle.Windsor.3.3.0\lib\net40\Castle.Windsor.dll</HintPath>
     </Reference>
+    <Reference Include="FluentNHibernate">
+      <HintPath>..\..\packages\FluentNHibernate.1.3.0.733\lib\FluentNHibernate.dll</HintPath>
+    </Reference>
     <Reference Include="Iesi.Collections">
       <HintPath>..\..\packages\Iesi.Collections.3.2.0.4000\lib\Net35\Iesi.Collections.dll</HintPath>
     </Reference>
@@ -101,11 +104,26 @@
   <ItemGroup>
     <Compile Include="App_Start\AssemblyInstaller.cs" />
     <Compile Include="App_Start\ProcessMissedNotificationsStartupTask.cs" />
+    <Compile Include="Dashboard\Infrastructure\EventLogDataMap.cs" />
     <Compile Include="Dashboard\Projections\EventLogProjection.cs" />
     <Compile Include="Dashboard\Application\EventLogQueryService.cs" />
     <Compile Include="Dashboard\Application\ProcessedNotificationQueryService.cs" />
     <Compile Include="IdentityAccess\Application\Commands\Users\ChangeUserAddress.cs" />
     <Compile Include="IdentityAccess\Application\Commands\Organizations\ChangeMemberRecievesEmailNotification.cs" />
+    <Compile Include="IdentityAccess\Infrastructure\Persistence\Mappings\AccountMap.cs" />
+    <Compile Include="IdentityAccess\Infrastructure\Persistence\Mappings\MembershipApplicationDataMap.cs" />
+    <Compile Include="IdentityAccess\Infrastructure\Persistence\Mappings\MembershipApplicationMap.cs" />
+    <Compile Include="IdentityAccess\Infrastructure\Persistence\Mappings\MembershipMap.cs" />
+    <Compile Include="IdentityAccess\Infrastructure\Persistence\Mappings\OrganizationMap.cs" />
+    <Compile Include="IdentityAccess\Infrastructure\Persistence\Mappings\RelationshipProjectionRowMap.cs" />
+    <Compile Include="IdentityAccess\Infrastructure\Persistence\Mappings\UserDataMap.cs" />
+    <Compile Include="IdentityAccess\Infrastructure\Persistence\Mappings\UserMap.cs" />
+    <Compile Include="IdentityAccess\Infrastructure\Persistence\Projections\OrganizationDataMap.cs" />
+    <Compile Include="IdentityAccess\Infrastructure\Persistence\Projections\UserAddressDataMap.cs" />
+    <Compile Include="IdentityAccess\Infrastructure\Persistence\Repositories\NhMembershipRepository.cs" />
+    <Compile Include="IdentityAccess\Infrastructure\Persistence\Repositories\NhMembershipRequestRepository.cs" />
+    <Compile Include="IdentityAccess\Infrastructure\Persistence\Repositories\NhOrganizationRepository.cs" />
+    <Compile Include="IdentityAccess\Infrastructure\Persistence\Repositories\NhUserRepository.cs" />
     <Compile Include="IdentityAccess\Model\Organizations\Founder.cs" />
     <Compile Include="IdentityAccess\Model\Organizations\Mails\MemberLockedMail.cs" />
     <Compile Include="IdentityAccess\Model\Organizations\Mails\MembershipApplicationStatusMail.cs" />
@@ -213,6 +231,16 @@
     <Compile Include="Inventory\Application\Commands\SetPreviewImage.cs" />
     <Compile Include="Inventory\Application\Commands\UpdateDescription.cs" />
     <Compile Include="Inventory\Application\Commands\UpdateSpecification.cs" />
+    <Compile Include="Inventory\Infrastructure\Persistence\Mappings\ArticleActionDataMap.cs" />
+    <Compile Include="Inventory\Infrastructure\Persistence\Mappings\ArticleDataMap.cs" />
+    <Compile Include="Inventory\Infrastructure\Persistence\Mappings\ArticleMap.cs" />
+    <Compile Include="Inventory\Infrastructure\Persistence\Mappings\ImageMap.cs" />
+    <Compile Include="Inventory\Infrastructure\Persistence\Mappings\StoreDetailsDataMap.cs" />
+    <Compile Include="Inventory\Infrastructure\Persistence\Mappings\StoreListDataMap.cs" />
+    <Compile Include="Inventory\Infrastructure\Persistence\Repositories\NhArticleRepository.cs" />
+    <Compile Include="Inventory\Infrastructure\Persistence\Repositories\NhReservationsBasedOnOrdersRepository.cs" />
+    <Compile Include="Inventory\Infrastructure\Persistence\Repositories\NhStoreRepository.cs" />
+    <Compile Include="Inventory\Infrastructure\Persistence\Repositories\ReservationFactory.cs" />
     <Compile Include="Inventory\Model\Articles\ArticleCreated.cs" />
     <Compile Include="Inventory\Model\Articles\ArticleDetailsChanged.cs" />
     <Compile Include="Inventory\Model\Articles\PreviewImageChanged.cs" />
@@ -247,6 +275,19 @@
     <Compile Include="Shop\Application\Data\ProductDetailsData.cs" />
     <Compile Include="Shop\Application\Data\ProdutListData.cs" />
     <Compile Include="Shop\Infrastructure\CollaboratorService.cs" />
+    <Compile Include="Shop\Infrastructure\Persistence\Model\CartItemMap.cs" />
+    <Compile Include="Shop\Infrastructure\Persistence\Model\CartMap.cs" />
+    <Compile Include="Shop\Infrastructure\Persistence\Projections\CartDataMap.cs" />
+    <Compile Include="Shop\Infrastructure\Persistence\Projections\CartItemDataMap.cs" />
+    <Compile Include="Shop\Infrastructure\Persistence\Projections\LessorDataMap.cs" />
+    <Compile Include="Shop\Infrastructure\Persistence\Projections\OrderDataMap.cs" />
+    <Compile Include="Shop\Infrastructure\Persistence\Projections\ShopItemDataMap.cs" />
+    <Compile Include="Shop\Infrastructure\Persistence\Projections\ShopItemDocumentDataMap.cs" />
+    <Compile Include="Shop\Infrastructure\Persistence\Projections\ShopItemImageDataMap.cs" />
+    <Compile Include="Shop\Infrastructure\Persistence\Projections\ShopItemsDataMap.cs" />
+    <Compile Include="Shop\Infrastructure\Persistence\Projections\ShopItemsPopularityDataMap.cs" />
+    <Compile Include="Shop\Infrastructure\Persistence\Repositories\NhCartRepository.cs" />
+    <Compile Include="Shop\Infrastructure\Persistence\Repositories\NhOrderRepository.cs" />
     <Compile Include="Shop\Model\Collaborators\ICollaboratorService.cs" />
     <Compile Include="Shop\Model\IArticleService.cs" />
     <Compile Include="Shop\Model\ILesseeService.cs" />
@@ -312,6 +353,7 @@
     <Compile Include="Shop\Infrastructure\LesseeService.cs" />
     <Compile Include="Shop\Infrastructure\ArticleService.cs" />
     <Compile Include="Shop\Infrastructure\LessorService.cs" />
+    <Compile Include="Web\Infrastructure\Mappings\UrlMapDataMap.cs" />
     <Compile Include="Web\Projections\UrlMapProjection.cs" />
     <Compile Include="App_Start\CoreInstaller.cs" />
     <Compile Include="Inventory\Model\Articles\Article.cs" />
@@ -344,10 +386,7 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Dashboard\Infrastructure\" />
-    <Folder Include="IdentityAccess\Infrastructure\" />
     <Folder Include="Shop\Model\Orders\" />
-    <Folder Include="Web\Infrastructure\" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="IdentityAccess\Model\Organizations\Mails\Templates.resx">

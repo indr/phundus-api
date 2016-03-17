@@ -8,6 +8,8 @@
     using Common.Projecting;
     using Common.Querying;
     using Inventory.Infrastructure;
+    using Inventory.Infrastructure.Persistence.Repositories;
+    using Inventory.Model.Reservations;
     using Shop.Model.Pdf;
 
     public class CoreInstaller : IWindsorInstaller
@@ -51,7 +53,10 @@
                 Classes.FromThisAssembly().Where(p => p.Name.EndsWith("Store")).WithServiceDefaultInterfaces());
 
             container.Register(
-                Component.For<IOrderPdfGenerator>().ImplementedBy<OrderPdfGenerator>());            
+                Component.For<IOrderPdfGenerator>().ImplementedBy<OrderPdfGenerator>());
+
+            container.Register(Component.For<IReservationRepository>()
+                .ImplementedBy<NhReservationsBasedOnOrdersRepository>());
         }
     }
 }

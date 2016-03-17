@@ -302,10 +302,6 @@
       <Project>{a2a165be-6433-4145-aa24-7552ac6a690f}</Project>
       <Name>Phundus.Migrations</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Phundus.Persistence\Phundus.Persistence.csproj">
-      <Project>{7ddea0a9-50ea-4df6-9608-9edb8f2b5024}</Project>
-      <Name>Phundus.Persistence</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Phundus.Rest\Phundus.Rest.csproj">
       <Project>{54a42682-059d-43b5-8028-60d1e4058371}</Project>
       <Name>Phundus.Rest</Name>

@@ -9,6 +9,7 @@
     using Castle.MicroKernel.SubSystems.Configuration;
     using Castle.Windsor;
     using Common.Eventing;
+    using Common.Infrastructure.Persistence.Installers;
     using Elmah.Mvc;
     using Persistence;
     using Plumbing;

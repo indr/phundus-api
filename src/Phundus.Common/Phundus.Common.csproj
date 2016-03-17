@@ -35,6 +35,15 @@
     <Reference Include="Castle.Core">
       <HintPath>..\..\packages\Castle.Core.3.3.1\lib\net40-client\Castle.Core.dll</HintPath>
     </Reference>
+    <Reference Include="Castle.Facilities.AutoTx">
+      <HintPath>..\..\packages\Castle.Facilities.AutoTx.3.2.207.2207\lib\net40\Castle.Facilities.AutoTx.dll</HintPath>
+    </Reference>
+    <Reference Include="Castle.Facilities.FactorySupport">
+      <HintPath>..\..\packages\Castle.FactorySupportFacility.3.3.0\lib\net40\Castle.Facilities.FactorySupport.dll</HintPath>
+    </Reference>
+    <Reference Include="Castle.Facilities.NHibernate">
+      <HintPath>..\..\packages\Castle.Facilities.NHibernate.0.7.1.23602\lib\net40\Castle.Facilities.NHibernate.dll</HintPath>
+    </Reference>
     <Reference Include="Castle.Transactions">
       <HintPath>..\..\packages\Castle.Transactions.3.2.207.2207\lib\net40\Castle.Transactions.dll</HintPath>
     </Reference>
@@ -43,6 +52,9 @@
     </Reference>
     <Reference Include="Elmah">
       <HintPath>..\..\packages\elmah.corelibrary.1.2.2\lib\Elmah.dll</HintPath>
+    </Reference>
+    <Reference Include="FluentNHibernate">
+      <HintPath>..\..\packages\FluentNHibernate.1.3.0.733\lib\FluentNHibernate.dll</HintPath>
     </Reference>
     <Reference Include="Iesi.Collections">
       <HintPath>..\..\packages\Iesi.Collections.3.2.0.4000\lib\Net35\Iesi.Collections.dll</HintPath>
@@ -84,6 +96,15 @@
     <Compile Include="Eventing\EventStore.cs" />
     <Compile Include="Eventing\Installers\EventHandlerInstaller.cs" />
     <Compile Include="Eventing\Installers\EventingInstaller.cs" />
+    <Compile Include="Eventing\Persistence\Mappings\StoredEventMap.cs" />
+    <Compile Include="Eventing\Persistence\Repositories\NhStoredEventRepository.cs" />
+    <Compile Include="Infrastructure\Persistence\EventSourcedRepositoryBase.cs" />
+    <Compile Include="Infrastructure\Persistence\FluentMappingExtensions.cs" />
+    <Compile Include="Infrastructure\Persistence\Installers\NHibernateInstaller.cs" />
+    <Compile Include="Infrastructure\Persistence\Installers\PersistenceInstaller.cs" />
+    <Compile Include="Infrastructure\Persistence\Installers\RepositoryInstaller.cs" />
+    <Compile Include="Infrastructure\Persistence\NhRepositoryBase.cs" />
+    <Compile Include="Infrastructure\Persistence\ShortIdGeneratorService.cs" />
     <Compile Include="Mailing\ContentTypes.cs" />
     <Compile Include="Mailing\MailBase.cs" />
     <Compile Include="Mailing\MailModel.cs" />
@@ -93,6 +114,8 @@
     <Compile Include="Notifications\Application\ProcessMissedNotifications.cs" />
     <Compile Include="Notifications\Installers\TrackerStoreInstaller.cs" />
     <Compile Include="Notifications\ITrackerRepository.cs" />
+    <Compile Include="Notifications\Persistence\Model\ProcessedNotificationTrackerMap.cs" />
+    <Compile Include="Notifications\Persistence\Repositories\NhTrackerRepository.cs" />
     <Compile Include="Notifications\ProcessedNotificationTrackerStore.cs" />
     <Compile Include="Projecting\Installers\ProjectingInstaller.cs" />
     <Compile Include="RedirectToHandle.cs" />
