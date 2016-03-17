@@ -13,19 +13,19 @@
     [Authorize(Roles = "Admin")]
     public class AdminOrganizationsController : ApiControllerBase
     {
-        private readonly IOrganizationQueries _organizationQueries;
+        private readonly IOrganizationQueryService _organizationQueryService;
 
-        public AdminOrganizationsController(IOrganizationQueries organizationQueries)
+        public AdminOrganizationsController(IOrganizationQueryService organizationQueryService)
         {
-            if (organizationQueries == null) throw new ArgumentNullException("organizationQueries");
-            _organizationQueries = organizationQueries;
+            if (organizationQueryService == null) throw new ArgumentNullException("organizationQueryService");
+            _organizationQueryService = organizationQueryService;
         }
 
         [GET("")]
         [Transaction]
         public virtual QueryOkResponseContent<AdminOrganization> Get()
         {
-            var results = _organizationQueries.Query();
+            var results = _organizationQueryService.Query();
             return new QueryOkResponseContent<AdminOrganization>
             {
                 Results = results.Select(s => new AdminOrganization

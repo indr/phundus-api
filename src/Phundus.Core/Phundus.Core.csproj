@@ -105,7 +105,7 @@
     <Compile Include="Dashboard\Projections\EventLogQueries.cs" />
     <Compile Include="Dashboard\Projections\ProcessedNotificationQueries.cs" />
     <Compile Include="Guard.cs" />
-    <Compile Include="IdentityAccess\Application\IUsersQueries.cs" />
+    <Compile Include="IdentityAccess\Application\IUserQueryService.cs" />
     <Compile Include="IdentityAccess\Application\Users\ChangeUserAddress.cs" />
     <Compile Include="IdentityAccess\Application\Organizations\ChangeMemberRecievesEmailNotification.cs" />
     <Compile Include="IdentityAccess\Model\Organizations\Founder.cs" />
@@ -159,14 +159,14 @@
     <Compile Include="IdentityAccess\Model\Users\PasswordResetted.cs" />
     <Compile Include="IdentityAccess\Model\Users\UserRole.cs" />
     <Compile Include="IdentityAccess\Projections\OrganizationProjection.cs" />
-    <Compile Include="IdentityAccess\Projections\OrganizationQueries.cs" />
+    <Compile Include="IdentityAccess\Projections\OrganizationQueryService.cs" />
     <Compile Include="IdentityAccess\Projections\RelationshipProjection.cs" />
-    <Compile Include="IdentityAccess\Projections\MembershipsProjection.cs" />
+    <Compile Include="IdentityAccess\Projections\MembershipQueryService.cs" />
     <Compile Include="IdentityAccess\Projections\MembersProjection.cs" />
-    <Compile Include="IdentityAccess\Projections\RelationshipQueries.cs" />
+    <Compile Include="IdentityAccess\Projections\RelationshipQueryService.cs" />
     <Compile Include="IdentityAccess\Projections\UserAddressProjection.cs" />
-    <Compile Include="IdentityAccess\Projections\UserAddressQueries.cs" />
-    <Compile Include="IdentityAccess\Projections\UsersProjection.cs" />
+    <Compile Include="IdentityAccess\Projections\UserAddressQueryService.cs" />
+    <Compile Include="IdentityAccess\Projections\UserQueryService.cs" />
     <Compile Include="IdentityAccess\Application\Users\ApproveUser.cs" />
     <Compile Include="IdentityAccess\Application\Users\ChangeEmailAddress.cs" />
     <Compile Include="IdentityAccess\Application\Users\ChangePassword.cs" />
@@ -306,7 +306,7 @@
     <Compile Include="Shop\Projections\ShopItemsProjection.cs" />
     <Compile Include="Shop\Projections\CartsProjection.cs" />
     <Compile Include="Shop\Projections\ItemQueries.cs" />
-    <Compile Include="IdentityAccess\Projections\MembershipApplicationsProjection.cs" />
+    <Compile Include="IdentityAccess\Projections\MembershipApplicationQueryService.cs" />
     <Compile Include="Shop\Projections\LesseeQueries.cs" />
     <Compile Include="Shop\Projections\LessorQueries.cs" />
     <Compile Include="Shop\Infrastructure\LesseeService.cs" />

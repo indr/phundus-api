@@ -17,9 +17,9 @@
     public class MembersProjection : QueryServiceBase, IMemberQueries
     {
         private readonly IMembershipQueries _membershipQueries;
-        private readonly IUsersQueries _userQueries;
+        private readonly IUserQueryService _userQueries;
 
-        public MembersProjection(IMembershipQueries membershipQueries, IUsersQueries userQueries)
+        public MembersProjection(IMembershipQueries membershipQueries, IUserQueryService userQueries)
         {
             if (membershipQueries == null) throw new ArgumentNullException("membershipQueries");
             if (userQueries == null) throw new ArgumentNullException("userQueries");

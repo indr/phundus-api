@@ -14,7 +14,7 @@ namespace Phundus.Inventory.Projections
         IEnumerable<ArticleData> Query(InitiatorId initiatorId, OwnerId queryOwnerId, string query);
     }
 
-    public class ArticleQueries : QueryBase<ArticleData>, IArticleQueries
+    public class ArticleQueries : QueryServiceBase<ArticleData>, IArticleQueries
     {
         public ArticleData GetById(ArticleId articleId)
         {

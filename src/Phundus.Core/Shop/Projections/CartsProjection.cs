@@ -12,7 +12,7 @@
         CartData FindByUserGuid(InitiatorId initiatorId, UserId userId);
     }
 
-    public class CartsProjection : QueryBase<CartData>, ICartsQueries
+    public class CartsProjection : QueryServiceBase<CartData>, ICartsQueries
     {
         public CartData FindByUserGuid(InitiatorId initiatorId, UserId userId)
         {

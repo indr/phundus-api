@@ -14,17 +14,17 @@
 
     public class UsersResource : ResourceBase, IUsersResource
     {
-        private readonly IUsersQueries _usersQueries;
+        private readonly IUserQueryService _userQueryService;
 
-        public UsersResource(IUsersQueries usersQueries)
+        public UsersResource(IUserQueryService userQueryService)
         {
-            _usersQueries = usersQueries;
+            _userQueryService = userQueryService;
         }
 
         [Transaction]
         public UserData Get(Guid userId)
         {
-            return _usersQueries.FindById(userId);
+            return _userQueryService.FindById(userId);
         }
     }
 }

@@ -4,7 +4,7 @@
     using System.Collections.Generic;
     using Projections;
 
-    public interface IUsersQueries
+    public interface IUserQueryService
     {
         UserData GetById(Guid userId);
         UserData FindById(Guid userId);

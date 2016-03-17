@@ -19,7 +19,7 @@ namespace Phundus.Shop.Projections
             OrganizationId queryOrganizationId);
     }
 
-    public class OrderQueries : QueryBase<OrderData>, IOrderQueries
+    public class OrderQueries : QueryServiceBase<OrderData>, IOrderQueries
     {
         private readonly IAvailabilityService _availabilityService;
         private readonly IMembershipQueries _membershipQueries;

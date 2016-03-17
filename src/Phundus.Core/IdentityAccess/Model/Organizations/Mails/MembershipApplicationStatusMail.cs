@@ -16,16 +16,16 @@
         private readonly IMessageFactory _factory;
         private readonly IMailGateway _gateway;
         private readonly IMemberQueries _memberQueries;
-        private readonly IOrganizationQueries _organizationQueries;
-        private readonly IUsersQueries _usersQueries;
+        private readonly IOrganizationQueryService _organizationQueryService;
+        private readonly IUserQueryService _userQueryService;
 
         public MembershipApplicationStatusMail(IMessageFactory factory, IMailGateway gateway,
-            IOrganizationQueries organizationQueries, IUsersQueries usersQueries, IMemberQueries memberQueries)
+            IOrganizationQueryService organizationQueryService, IUserQueryService userQueryService, IMemberQueries memberQueries)
         {
             _factory = factory;
             _gateway = gateway;
-            _organizationQueries = organizationQueries;
-            _usersQueries = usersQueries;
+            _organizationQueryService = organizationQueryService;
+            _userQueryService = userQueryService;
             _memberQueries = memberQueries;
         }
 
@@ -65,8 +65,8 @@
 
         private Model CreateModel(Guid organizationId, Guid userId)
         {
-            var organization = _organizationQueries.GetById(organizationId);
-            var user = _usersQueries.GetById(userId);
+            var organization = _organizationQueryService.GetById(organizationId);
+            var user = _userQueryService.GetById(userId);
 
             return new Model
             {

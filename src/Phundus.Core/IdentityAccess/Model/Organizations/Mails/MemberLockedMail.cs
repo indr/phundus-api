@@ -9,9 +9,9 @@
     {
         private readonly IMessageFactory _factory;
         private readonly IMailGateway _gateway;
-        private readonly IUsersQueries _userQueries;
+        private readonly IUserQueryService _userQueries;
 
-        public MemberLockedMail(IMessageFactory factory, IMailGateway gateway, IUsersQueries userQueries)
+        public MemberLockedMail(IMessageFactory factory, IMailGateway gateway, IUserQueryService userQueries)
         {
             _factory = factory;
             _gateway = gateway;

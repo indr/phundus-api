@@ -11,18 +11,18 @@
     [RoutePrefix("api/organizations/{organizationId}/relationships")]
     public class OrganizationsRelationshipsController : ApiControllerBase
     {
-        private readonly IRelationshipQueries _relationshipQueries;
+        private readonly IRelationshipQueryService _relationshipQueryService;
 
-        public OrganizationsRelationshipsController(IRelationshipQueries relationshipQueries)
+        public OrganizationsRelationshipsController(IRelationshipQueryService relationshipQueryService)
         {
-            _relationshipQueries = relationshipQueries;
+            _relationshipQueryService = relationshipQueryService;
         }
 
         [GET("")]
         [Transaction]
         public virtual OrganizationsRelationshipsQueryOkResponseContent Get(Guid organizationId)
         {
-            var result = _relationshipQueries.ByMemberIdForOrganizationId(CurrentUserId, organizationId);
+            var result = _relationshipQueryService.ByMemberIdForOrganizationId(CurrentUserId, organizationId);
             return new OrganizationsRelationshipsQueryOkResponseContent
             {
                 Result = new Relationship

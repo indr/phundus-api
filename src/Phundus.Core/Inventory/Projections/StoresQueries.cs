@@ -15,7 +15,7 @@ namespace Phundus.Inventory.Projections
         
     }
 
-    public class StoresQueries : QueryBase<StoreDetailsData>, IStoresQueries
+    public class StoresQueries : QueryServiceBase<StoreDetailsData>, IStoresQueries
     {
         [Transaction]
         public StoreDetailsData GetById(Guid storeId)

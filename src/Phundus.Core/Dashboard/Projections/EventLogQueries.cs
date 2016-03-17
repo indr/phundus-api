@@ -8,7 +8,7 @@ namespace Phundus.Dashboard.Projections
         IEnumerable<EventLogData> Query();
     }
 
-    public class EventLogQueries : QueryBase<EventLogData>, IEventLogQueries
+    public class EventLogQueries : QueryServiceBase<EventLogData>, IEventLogQueries
     {
         public IEnumerable<EventLogData> Query()
         {

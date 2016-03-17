@@ -13,19 +13,19 @@
     [RoutePrefix("api/organizations/{organizationId}/settings")]
     public class OrganizationsSettingsController : ApiControllerBase
     {
-        private readonly IOrganizationQueries _organizationQueries;
+        private readonly IOrganizationQueryService _organizationQueryService;
 
-        public OrganizationsSettingsController(IOrganizationQueries organizationQueries)
+        public OrganizationsSettingsController(IOrganizationQueryService organizationQueryService)
         {
-            if (organizationQueries == null) throw new ArgumentNullException("organizationQueries");
-            _organizationQueries = organizationQueries;
+            if (organizationQueryService == null) throw new ArgumentNullException("organizationQueryService");
+            _organizationQueryService = organizationQueryService;
         }
 
         [GET("")]
         [Transaction]
         public virtual OrganizationsSettingsGetOkResponseContent Get(Guid organizationId)
         {
-            var organization = _organizationQueries.GetById(organizationId);
+            var organization = _organizationQueryService.GetById(organizationId);
 
             return new OrganizationsSettingsGetOkResponseContent
             {

@@ -21,16 +21,16 @@ namespace Phundus.Rest.Api
     {
         private readonly IMembershipQueries _membershipQueries;
         private readonly IStoresQueries _storesQueries;
-        private readonly IUserAddressQueries _userAddressQueries;
-        private readonly IUsersQueries _usersQueries;
+        private readonly IUserAddressQueryService _userAddressQueryService;
+        private readonly IUserQueryService _userQueryService;
 
-        public UsersController(IUsersQueries usersQueries, IMembershipQueries membershipQueries,
-            IStoresQueries storesQueries, IUserAddressQueries userAddressQueries)
+        public UsersController(IUserQueryService userQueryService, IMembershipQueries membershipQueries,
+            IStoresQueries storesQueries, IUserAddressQueryService userAddressQueryService)
         {            
-            _usersQueries = usersQueries;
+            _userQueryService = userQueryService;
             _membershipQueries = membershipQueries;
             _storesQueries = storesQueries;
-            _userAddressQueries = userAddressQueries;
+            _userAddressQueryService = userAddressQueryService;
         }
 
         [GET("{userId}")]
@@ -38,11 +38,11 @@ namespace Phundus.Rest.Api
         [Transaction]
         public virtual UsersGetOkResponseContent Get(Guid userId)
         {
-            var user = _usersQueries.GetById(userId);
+            var user = _userQueryService.GetById(userId);
             
             var memberships = _membershipQueries.FindByUserId(userId);
             var store = _storesQueries.FindByOwnerId(userId);
-            var address = _userAddressQueries.FindById(CurrentUserIdOrNull, userId);
+            var address = _userAddressQueryService.FindById(CurrentUserIdOrNull, userId);
 
             var result = new UsersGetOkResponseContent(user, memberships, address);
             result.Store = Map<StoreDetailsCto>(store);

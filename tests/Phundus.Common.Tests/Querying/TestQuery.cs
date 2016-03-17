@@ -4,7 +4,7 @@
     using Common.Domain.Model;
     using Common.Querying;
 
-    public class TestQuery : QueryBase<TestQueryEntity>
+    public class TestQuery : QueryServiceBase<TestQueryEntity>
     {
         public new TestQueryEntity Find(object id)
         {

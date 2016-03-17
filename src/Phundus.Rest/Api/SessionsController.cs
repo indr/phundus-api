@@ -19,14 +19,14 @@
     public class SessionsController : ApiControllerBase
     {
         private readonly IMembershipQueries _membershipQueries;
-        private readonly IUsersQueries _usersQueries;
+        private readonly IUserQueryService _userQueryService;
 
-        public SessionsController(IUsersQueries usersQueries, IMembershipQueries membershipQueries)
+        public SessionsController(IUserQueryService userQueryService, IMembershipQueries membershipQueries)
         {
-            if (usersQueries == null) throw new ArgumentNullException("usersQueries");
+            if (userQueryService == null) throw new ArgumentNullException("userQueryService");
             if (membershipQueries == null) throw new ArgumentNullException("membershipQueries");
 
-            _usersQueries = usersQueries;
+            _userQueryService = userQueryService;
             _membershipQueries = membershipQueries;
         }
 
@@ -42,7 +42,7 @@
 
             FormsAuthentication.SetAuthCookie(requestContent.Username, false);
 
-            var user = _usersQueries.FindByUsername(requestContent.Username);
+            var user = _userQueryService.FindByUsername(requestContent.Username);
 
             var memberships = _membershipQueries.FindByUserId(user.UserId)
                 .Select(each => new Memberships
