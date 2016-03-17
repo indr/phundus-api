@@ -17,7 +17,7 @@
 
         public Manager Manager(UserId userId, OwnerId ownerId)
         {
-            var manager = _memberInRoleResource.Manager(new OrganizationId(ownerId.Id), userId);
+            MemberInRoleCto manager = _memberInRoleResource.Manager(new OrganizationId(ownerId.Id), userId);
             if (manager == null)
                 throw new NotFoundException("Manager {0} not found.", userId);
             return new Manager(new UserId(manager.UserId), manager.EmailAddress, manager.FullName);
@@ -25,7 +25,7 @@
 
         public bool IsMember(UserId userId, LessorId lessorId)
         {
-            var member = _memberInRoleResource.Member(new OrganizationId(lessorId.Id), userId);
+            MemberInRoleCto member = _memberInRoleResource.Member(new OrganizationId(lessorId.Id), userId);
             return member != null;
         }
     }

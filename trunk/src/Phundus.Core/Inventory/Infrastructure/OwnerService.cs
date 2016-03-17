@@ -5,7 +5,6 @@
     using Common;
     using Common.Domain.Model;
     using IdentityAccess.Application;
-    using IdentityAccess.Projections;
     using IdentityAccess.Resources;
     using Model;
     using Model.Collaborators;
@@ -24,7 +23,7 @@
         [Transaction]
         public Owner GetById(OwnerId ownerId)
         {
-            var result = FindById(ownerId);
+            Owner result = FindById(ownerId);
             if (result == null)
                 throw new NotFoundException(String.Format("Owner {0} not found.", ownerId));
 
@@ -34,11 +33,11 @@
         [Transaction]
         public Owner FindById(OwnerId ownerId)
         {
-            var organization = _organizationsResource.Get(ownerId.Id);
+            OrganizationData organization = _organizationsResource.Get(ownerId.Id);
             if (organization != null)
                 return ToOwner(organization);
 
-            var user = _usersResource.Get(ownerId.Id);
+            UserData user = _usersResource.Get(ownerId.Id);
             if (user != null)
                 return ToOwner(user);
 
