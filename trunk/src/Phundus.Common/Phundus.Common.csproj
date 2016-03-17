@@ -127,6 +127,7 @@
     <Compile Include="Eventing\Installers\EventingInstaller.cs" />
     <Compile Include="Eventing\Persistence\Mappings\StoredEventMap.cs" />
     <Compile Include="Eventing\Persistence\Repositories\NhStoredEventRepository.cs" />
+    <Compile Include="Infrastructure\AppDataFileStorage.cs" />
     <Compile Include="Infrastructure\Persistence\EventSourcedRepositoryBase.cs" />
     <Compile Include="Infrastructure\Persistence\FluentMappingExtensions.cs" />
     <Compile Include="Infrastructure\Persistence\Installers\PersistenceInstaller.cs" />
