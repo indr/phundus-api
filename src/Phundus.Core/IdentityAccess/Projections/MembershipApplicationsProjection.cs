@@ -5,13 +5,13 @@
     using Common.Domain.Model;
     using Common.Querying;
 
-    public interface IMembershipApplicationQueries
+    public interface IMembershipApplicationQueryService
     {
         IList<MembershipApplicationData> FindPending(CurrentUserId currentUserId, OrganizationId organizationId);
     }
 
-    public class MembershipApplicationQueries : QueryBase<MembershipApplicationData>,
-        IMembershipApplicationQueries
+    public class MembershipApplicationQueryService : QueryServiceBase<MembershipApplicationData>,
+        IMembershipApplicationQueryService
     {
         public IList<MembershipApplicationData> FindPending(CurrentUserId currentUserId, OrganizationId organizationId)
         {

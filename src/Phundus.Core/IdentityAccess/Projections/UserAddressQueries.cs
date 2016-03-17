@@ -5,12 +5,12 @@ namespace Phundus.IdentityAccess.Projections
     using Common.Querying;
     using NHibernate;
 
-    public interface IUserAddressQueries
+    public interface IUserAddressQueryService
     {
         UserAddressData FindById(InitiatorId initiatorId, Guid userId);
     }
 
-    public class UserAddressQueries : QueryBase<UserAddressData>, IUserAddressQueries
+    public class UserAddressQueryService : QueryServiceBase<UserAddressData>, IUserAddressQueryService
     {
         public UserAddressData FindById(InitiatorId initiatorId, Guid userId)
         {

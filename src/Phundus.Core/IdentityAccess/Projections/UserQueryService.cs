@@ -10,7 +10,7 @@
     using Common.Querying;
     using Model.Users;
 
-    public class UsersProjection : QueryBase<UserData>, IUsersQueries
+    public class UserQueryService : QueryServiceBase<UserData>, IUserQueryService
     {
         public UserData GetById(Guid userId)
         {

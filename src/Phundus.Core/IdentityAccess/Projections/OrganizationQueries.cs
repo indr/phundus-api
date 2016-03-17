@@ -5,14 +5,14 @@ namespace Phundus.IdentityAccess.Projections
     using Common;
     using Common.Querying;
 
-    public interface IOrganizationQueries
+    public interface IOrganizationQueryService
     {
         OrganizationData GetById(Guid organizationId);
         OrganizationData FindById(Guid organizationId);
         IEnumerable<OrganizationData> Query();
     }
 
-    public class OrganizationQueries : QueryBase<OrganizationData>, IOrganizationQueries
+    public class OrganizationQueryService : QueryServiceBase<OrganizationData>, IOrganizationQueryService
     {
         public OrganizationData GetById(Guid organizationId)
         {

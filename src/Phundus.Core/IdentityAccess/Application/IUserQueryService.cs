@@ -4,7 +4,6 @@
     using System.Collections.Generic;
     using Projections;
 
-    [Obsolete("Use IUsersResource")]
     public interface IUsersQueries
     {
         UserData GetById(Guid userId);

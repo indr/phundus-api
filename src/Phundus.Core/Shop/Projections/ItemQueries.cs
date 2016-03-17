@@ -13,7 +13,7 @@ namespace Phundus.Shop.Projections
         ShopItemData Get(Guid itemGuid);
     }
 
-    public class ItemQueries : QueryBase, IItemQueries
+    public class ItemQueries : QueryServiceBase, IItemQueries
     {
         private const int DefaultLimit = 10;
 

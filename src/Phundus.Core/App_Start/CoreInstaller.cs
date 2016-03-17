@@ -27,7 +27,7 @@
         {
             container.Register(
                 Classes.FromThisAssembly()
-                    .BasedOn<QueryBase>()
+                    .BasedOn<QueryServiceBase>()
                     .WithServiceAllInterfaces());
 
             container.Register(
