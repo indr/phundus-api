@@ -4,6 +4,7 @@
     using System.Linq;
     using Common.Domain.Model;
     using IdentityAccess.Application;
+    using IdentityAccess.Model;
     using IdentityAccess.Projections;
     using Integration.IdentityAccess;
     using Model.Collaborators;
@@ -11,14 +12,14 @@
 
     public class CollaboratorService : ICollaboratorService
     {
-        private readonly IUserInRole _userInRole;
+        private readonly IUserInRoleService _userInRoleService;
         private readonly IMemberQueries _memberQueries;
         private readonly IUsersQueries _usersQueries;
 
-        public CollaboratorService(IUsersQueries usersQueries, IUserInRole userInRole, IMemberQueries memberQueries)
+        public CollaboratorService(IUsersQueries usersQueries, IUserInRoleService userInRoleService, IMemberQueries memberQueries)
         {
             _usersQueries = usersQueries;
-            _userInRole = userInRole;
+            _userInRoleService = userInRoleService;
             _memberQueries = memberQueries;
         }
 
@@ -30,7 +31,7 @@
 
         public Manager Manager(LessorId lessorId, UserId userId)
         {
-            var result = _userInRole.Manager(userId, new OrganizationId(lessorId.Id));
+            var result = _userInRoleService.Manager(userId, new OrganizationId(lessorId.Id));
             return new Manager(result.UserId, result.EmailAddress, result.FullName);
         }
 

@@ -4,6 +4,7 @@
     using Castle.Transactions;
     using Common.Commanding;
     using Common.Domain.Model;
+    using Model;
     using Model.Organizations;
     using Users.Services;
 
@@ -28,21 +29,21 @@
 
     public class ChangeMemberRecievesEmailNotificationHandler : IHandleCommand<ChangeMemberRecievesEmailNotification>
     {
-        private readonly IUserInRole _userInRole;
+        private readonly IUserInRoleService _userInRoleService;
         private readonly IOrganizationRepository _organizationRepository;
 
-        public ChangeMemberRecievesEmailNotificationHandler(IUserInRole userInRole, IOrganizationRepository organizationRepository)
+        public ChangeMemberRecievesEmailNotificationHandler(IUserInRoleService userInRoleService, IOrganizationRepository organizationRepository)
         {
-            if (userInRole == null) throw new ArgumentNullException("userInRole");
+            if (userInRoleService == null) throw new ArgumentNullException("userInRoleService");
             if (organizationRepository == null) throw new ArgumentNullException("organizationRepository");
-            _userInRole = userInRole;
+            _userInRoleService = userInRoleService;
             _organizationRepository = organizationRepository;
         }
 
         [Transaction]
         public void Handle(ChangeMemberRecievesEmailNotification command)
         {
-            var manager = _userInRole.Manager(command.InitiatorId, command.OrganizationId);
+            var manager = _userInRoleService.Manager(command.InitiatorId, command.OrganizationId);
             var organization = _organizationRepository.GetById(command.OrganizationId);
 
             organization.ChangeMembersRecieveEmailNotificationOption(manager, command.MemberId, command.Value);

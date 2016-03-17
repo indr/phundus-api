@@ -5,6 +5,7 @@
     using Common;
     using Common.Commanding;
     using Common.Domain.Model;
+    using Model;
     using Model.Users;
 
     public class ChangeUserAddress : ICommand
@@ -36,12 +37,12 @@
 
     public class ChangeUserAddressHandler : IHandleCommand<ChangeUserAddress>
     {
-        private readonly IUserInRole _userInRole;
+        private readonly IUserInRoleService _userInRoleService;
         private readonly IUserRepository _userRepository;
 
-        public ChangeUserAddressHandler(IUserInRole userInRole, IUserRepository userRepository)
+        public ChangeUserAddressHandler(IUserInRoleService userInRoleService, IUserRepository userRepository)
         {
-            _userInRole = userInRole;
+            _userInRoleService = userInRoleService;
             _userRepository = userRepository;
         }
 
@@ -51,7 +52,7 @@
             if (!Equals(command.InitiatorId, command.UserId))
                 throw new AuthorizationException();
 
-            var initiator = _userInRole.Initiator(command.InitiatorId);
+            var initiator = _userInRoleService.Initiator(command.InitiatorId);
             var user = _userRepository.GetById(command.UserId);
 
             user.ChangeAddress(initiator, command.FirstName, command.LastName, command.Street, command.Postcode,

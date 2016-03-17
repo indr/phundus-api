@@ -4,6 +4,7 @@
     using Castle.Transactions;
     using Common.Commanding;
     using Common.Domain.Model;
+    using Model;
     using Model.Users;
 
     public class UnlockUser : ICommand
@@ -22,19 +23,19 @@
 
     public class UnlockUserHandler : IHandleCommand<UnlockUser>
     {
-        private readonly IUserInRole _userInRole;
+        private readonly IUserInRoleService _userInRoleService;
         private readonly IUserRepository _userRepository;
 
-        public UnlockUserHandler(IUserInRole userInRole, IUserRepository userRepository)
+        public UnlockUserHandler(IUserInRoleService userInRoleService, IUserRepository userRepository)
         {
-            _userInRole = userInRole;
+            _userInRoleService = userInRoleService;
             _userRepository = userRepository;
         }
 
         [Transaction]
         public void Handle(UnlockUser command)
         {
-            var initiator = _userInRole.Admin(command.InitiatorId);
+            var initiator = _userInRoleService.Admin(command.InitiatorId);
             var user = _userRepository.GetById(command.UserId);
 
             user.Unlock(initiator);

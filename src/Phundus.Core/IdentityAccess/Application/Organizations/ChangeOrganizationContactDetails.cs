@@ -4,6 +4,7 @@
     using Castle.Transactions;
     using Common.Commanding;
     using Common.Domain.Model;
+    using Model;
     using Model.Organizations;
     using Organizations.Model;
 
@@ -42,19 +43,19 @@
     public class ChangeOrganizationContactDetailsHandler : IHandleCommand<ChangeOrganizationContactDetails>
     {
         private readonly IOrganizationRepository _organizationRepository;
-        private readonly IUserInRole _userInRole;
+        private readonly IUserInRoleService _userInRoleService;
 
-        public ChangeOrganizationContactDetailsHandler(IUserInRole userInRole,
+        public ChangeOrganizationContactDetailsHandler(IUserInRoleService userInRoleService,
             IOrganizationRepository organizationRepository)
         {
-            _userInRole = userInRole;            
+            _userInRoleService = userInRoleService;            
             _organizationRepository = organizationRepository;
         }
 
         [Transaction]
         public void Handle(ChangeOrganizationContactDetails command)
         {
-            var manager = _userInRole.Manager(command.InitiatorId, command.OrganizationId);
+            var manager = _userInRoleService.Manager(command.InitiatorId, command.OrganizationId);
             var organization = _organizationRepository.GetById(command.OrganizationId);
 
             organization.ChangeContactDetails(manager,

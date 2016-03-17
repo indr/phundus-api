@@ -2,7 +2,6 @@ namespace Phundus.Tests.Inventory
 {
     using Common.Commanding;
     using Machine.Specifications;
-    using Phundus.IdentityAccess.Application;
     using Phundus.Inventory.Model.Articles;
     using Phundus.Inventory.Model.Collaborators;
 
@@ -11,18 +10,12 @@ namespace Phundus.Tests.Inventory
         where THandler : class, IHandleCommand<TCommand>
         where TCommand : ICommand
     {
-        protected static IMemberInRole memberInRole;
-
         protected static IArticleRepository articleRepository;
 
         protected static IOwnerService ownerService;
 
-        
-
         private Establish ctx = () =>
         {
-           
-            memberInRole = depends.on<IMemberInRole>();
             articleRepository = depends.on<IArticleRepository>();
             ownerService = depends.on<IOwnerService>();
         };
