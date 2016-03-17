@@ -124,16 +124,13 @@
     <Compile Include="IdentityAccess\Model\Organizations\Mails\MemberLockedMailSpecs.cs" />
     <Compile Include="IdentityAccess\Model\Organizations\Mails\MembershipApplicationStatusMailSpecs.cs" />
     <Compile Include="IdentityAccess\Model\Organizations\Mails\MemberUnlockedMailSpecs.cs" />
-    <Compile Include="IdentityAccess\Model\Users\AdminSpesc.cs" />
     <Compile Include="IdentityAccess\Model\Users\Events\EmailAddressChangeRequestedSpecs.cs" />
-    <Compile Include="IdentityAccess\Model\Users\FounderSpecs.cs" />
     <Compile Include="IdentityAccess\Model\Users\Mails\AccountLockedMailSpecs.cs" />
     <Compile Include="IdentityAccess\Model\Users\Mails\AccountUnlockedMailSpecs.cs" />
     <Compile Include="IdentityAccess\Model\Users\Mails\AccountValidationMailSpecs.cs" />
     <Compile Include="IdentityAccess\Model\Users\Mails\EmailAddressValidationMailSpecs.cs" />
     <Compile Include="IdentityAccess\Model\Users\Mails\identityaccess_mail_concern.cs" />
     <Compile Include="IdentityAccess\Model\Users\Mails\NewPasswordMailSpecs.cs" />
-    <Compile Include="IdentityAccess\Model\Users\ManagerSpecs.cs" />
     <Compile Include="Inventory\Application\ChangeContactDetailsHandlerSpecs.cs" />
     <Compile Include="Inventory\Events\GrossStockChangedSpecs.cs" />
     <Compile Include="Inventory\inventory_command_handler_concern.cs" />
@@ -203,7 +200,6 @@
     <Compile Include="Inventory\Application\UpdateArticleHandlerSpecs.cs" />
     <Compile Include="Inventory\Application\DeleteArticleHandlerSpecs.cs" />
     <Compile Include="Inventory\inventory_factory.cs" />
-    <Compile Include="Inventory\Model\ManagerSpecs.cs" />
     <Compile Include="Inventory\store_command_handler_concern.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="access_object_handler_concern.cs" />
@@ -233,7 +229,6 @@
     <Compile Include="Shop\Application\ApproveOrderHandlerSpecs.cs" />
     <Compile Include="Shop\Application\CreateEmptyOrderHandlerSpecs.cs" />
     <Compile Include="Mock.cs" />
-    <Compile Include="Shop\Model\ManagerSpecs.cs" />
     <Compile Include="Shop\Model\Orders\Mails\OrderPlacedMailSpecs.cs" />
     <Compile Include="Shop\Model\Orders\Mails\OrderStatusChangedMailSpecs.cs" />
     <Compile Include="Shop\order_command_handler_concern.cs" />

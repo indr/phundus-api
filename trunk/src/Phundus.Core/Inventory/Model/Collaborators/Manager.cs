@@ -6,10 +6,6 @@
 
     public class Manager : ValueObject
     {
-        public UserId UserId { get; protected set; }
-        public string EmailAddress { get; protected set; }
-        public string FullName { get; protected set; }
-
         public Manager(UserId userId, string emailAddress, string fullName)
         {
             if (userId == null) throw new ArgumentNullException("userId");
@@ -24,9 +20,13 @@
         {
         }
 
+        public UserId UserId { get; protected set; }
+        public string EmailAddress { get; protected set; }
+        public string FullName { get; protected set; }
+
         public Actor ToActor()
         {
-            return new Actor(UserId.Id, EmailAddress, FullName);   
+            return new Actor(UserId.Id, EmailAddress, FullName);
         }
 
         protected override IEnumerable<object> GetEqualityComponents()

@@ -38,7 +38,7 @@
 
         private It should_publish_organization_established = () =>
             published<OrganizationEstablished>(p =>
-                Equals(p.Initiator, theFounder)
+                Equals(p.Initiator, theFounder.ToActor())
                 && p.OrganizationId == theOrganizationId.Id
                 && p.Name == theName
                 && p.Plan == "free"
