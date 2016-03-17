@@ -120,6 +120,7 @@
     <Compile Include="Domain.Model\ActorSpecs.cs" />
     <Compile Include="Eventing\EventHandlerFactorySpecs.cs" />
     <Compile Include="Eventing\EventSerializerSpecs.cs" />
+    <Compile Include="Infrastructure\AppDataFileStorageSpecs.cs" />
     <Compile Include="Infrastructure\Persistence\concern.cs" />
     <Compile Include="Infrastructure\Persistence\Ddd\EventStoreSpecs.cs" />
     <Compile Include="Infrastructure\Persistence\Notifications\NhTrackerRepositorySpecs.cs" />
@@ -161,6 +162,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Infrastructure\Persistence\Installers\" />
+    <Folder Include="NewFolder1\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
