@@ -1,7 +1,6 @@
 ﻿namespace Phundus.IdentityAccess.Application
 {
     using System;
-    using Authorization;
     using Castle.Transactions;
     using Common.Commanding;
     using Common.Domain.Model;
@@ -25,12 +24,13 @@
     }
 
     public class ChangeSettingPublicRentalHandler : IHandleCommand<ChangeSettingPublicRental>
-    {        
+    {
         private readonly IOrganizationRepository _organizationRepository;
         private readonly IUserInRoleService _userInRoleService;
 
-        public ChangeSettingPublicRentalHandler(IUserInRoleService userInRoleService, IOrganizationRepository organizationRepository)
-        {            
+        public ChangeSettingPublicRentalHandler(IUserInRoleService userInRoleService,
+            IOrganizationRepository organizationRepository)
+        {
             _userInRoleService = userInRoleService;
             _organizationRepository = organizationRepository;
         }

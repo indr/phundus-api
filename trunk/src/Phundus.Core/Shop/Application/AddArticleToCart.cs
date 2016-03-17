@@ -1,12 +1,10 @@
 ﻿namespace Phundus.Shop.Application
 {
     using System;
-    using Authorization;
     using Castle.Transactions;
     using Common.Commanding;
     using Common.Domain.Model;
     using Model;
-    using Model.Collaborators;
 
     // TODO: Rename to AddCartItem
     public class AddArticleToCart : ICommand
@@ -43,16 +41,11 @@
     public class AddArticleToCartHandler : IHandleCommand<AddArticleToCart>
     {
         private readonly IArticleService _articleService;
-        private readonly IAuthorize _authorize;
         private readonly ICartRepository _cartRepository;
-        private readonly ICollaboratorService _collaboratorService;
         private readonly ILesseeService _lesseeService;
 
-        public AddArticleToCartHandler(IAuthorize authorize, ICollaboratorService collaboratorService,
-            ICartRepository cartRepository, ILesseeService lesseeService, IArticleService articleService)
+        public AddArticleToCartHandler(ICartRepository cartRepository, ILesseeService lesseeService, IArticleService articleService)
         {
-            _authorize = authorize;
-            _collaboratorService = collaboratorService;
             _cartRepository = cartRepository;
             _lesseeService = lesseeService;
             _articleService = articleService;

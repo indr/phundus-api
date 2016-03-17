@@ -1,7 +1,6 @@
 ﻿namespace Phundus.Inventory.Application
 {
     using System;
-    using Authorization;
     using Castle.Transactions;
     using Common.Commanding;
     using Common.Domain.Model;
@@ -35,13 +34,10 @@
     public class UpdateArticleHandler : IHandleCommand<UpdateArticle>
     {
         private readonly IArticleRepository _articleRepository;
-        private readonly IAuthorize _authorize;
         private readonly ICollaboratorService _collaboratorService;
 
-        public UpdateArticleHandler(IAuthorize authorize, ICollaboratorService collaboratorService,
-            IArticleRepository articleRepository)
+        public UpdateArticleHandler(ICollaboratorService collaboratorService, IArticleRepository articleRepository)
         {
-            _authorize = authorize;
             _collaboratorService = collaboratorService;
             _articleRepository = articleRepository;
         }

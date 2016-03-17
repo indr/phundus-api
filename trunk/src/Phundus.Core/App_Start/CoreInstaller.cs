@@ -1,15 +1,12 @@
 ﻿namespace Phundus
 {
     using System.Reflection;
-    using Authorization;
     using Castle.Facilities.TypedFactory;
     using Castle.MicroKernel.Registration;
     using Castle.MicroKernel.SubSystems.Configuration;
     using Castle.Windsor;
     using Common.Projecting;
     using Common.Querying;
-    using IdentityAccess.Application;
-    using IdentityAccess.Users.Services;
     using Inventory.Infrastructure;
     using Shop.Model.Pdf;
 
@@ -28,19 +25,6 @@
 
         public void Install(IWindsorContainer container, IConfigurationStore store)
         {
-            container.Register(
-                Component.For<ITypedFactoryComponentSelector>().ImplementedBy<AccessObjectHandlerSelector>(),
-                Component.For<AutoReleaseAccessObjectHandlerInterceptor>(),
-                Classes.FromAssembly(_assemblyContainingCommandsAndHandlers)
-                    .BasedOn(typeof (IHandleAccessObject<>))
-                    .WithServiceAllInterfaces()
-                    .Configure(c => c.LifeStyle.Transient.Interceptors<AutoReleaseAccessObjectHandlerInterceptor>()),
-                Component.For<IAuthorize>().ImplementedBy<Authorization.Authorize>().LifestyleTransient(),
-                Component.For<IAccessObjectHandlerFactory>()
-                    .AsFactory(c => c.SelectedWith<AccessObjectHandlerSelector>())
-                );
-
-
             container.Register(
                 Classes.FromThisAssembly()
                     .BasedOn<QueryBase>()

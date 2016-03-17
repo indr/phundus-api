@@ -2,7 +2,6 @@
 {
     using System;
     using System.Linq;
-    using Authorization;
     using Castle.Transactions;
     using Common;
     using Common.Commanding;
@@ -35,18 +34,16 @@
     public class PlaceOrderHandler : IHandleCommand<PlaceOrder>
     {
         private readonly IArticleService _articleService;
-        private readonly IAuthorize _authorize;
         private readonly ICartRepository _cartRepository;
         private readonly ICollaboratorService _collaboratorService;
         private readonly ILesseeService _lesseeService;
         private readonly ILessorService _lessorService;
         private readonly IOrderRepository _orderRepository;
 
-        public PlaceOrderHandler(IAuthorize authorize, ICollaboratorService collaboratorService,
+        public PlaceOrderHandler(ICollaboratorService collaboratorService,
             ICartRepository cartRepository, IOrderRepository orderRepository,
             ILessorService lessorService, ILesseeService lesseeService, IArticleService articleService)
         {
-            _authorize = authorize;
             _collaboratorService = collaboratorService;
             _cartRepository = cartRepository;
             _orderRepository = orderRepository;
