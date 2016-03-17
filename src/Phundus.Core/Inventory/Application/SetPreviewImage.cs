@@ -1,14 +1,11 @@
 ﻿namespace Phundus.Inventory.Application
 {
     using System;
-    using Authorization;
     using Castle.Transactions;
     using Common.Commanding;
     using Common.Domain.Model;
-    using Integration.IdentityAccess;
     using Model.Articles;
     using Model.Collaborators;
-    using Phundus.Authorization;
 
     public class SetPreviewImage : ICommand
     {
@@ -17,6 +14,7 @@
             if (initiatorId == null) throw new ArgumentNullException("initiatorId");
             if (articleId == null) throw new ArgumentNullException("articleId");
             if (fileName == null) throw new ArgumentNullException("fileName");
+
             InitiatorId = initiatorId;
             ArticleId = articleId;
             FileName = fileName;
@@ -30,13 +28,10 @@
     public class SetPreviewImageHandler : IHandleCommand<SetPreviewImage>
     {
         private readonly IArticleRepository _articleRepository;
-        private readonly IAuthorize _authorize;
         private readonly ICollaboratorService _collaboratorService;
 
-        public SetPreviewImageHandler(IAuthorize authorize, ICollaboratorService collaboratorService,
-            IArticleRepository articleRepository)
-        {            
-            _authorize = authorize;
+        public SetPreviewImageHandler(ICollaboratorService collaboratorService, IArticleRepository articleRepository)
+        {
             _collaboratorService = collaboratorService;
             _articleRepository = articleRepository;
         }
@@ -44,12 +39,10 @@
         [Transaction]
         public void Handle(SetPreviewImage command)
         {
-            var initiator = _collaboratorService.Initiator(command.InitiatorId);
             var article = _articleRepository.GetById(command.ArticleId);
+            var manager = _collaboratorService.Manager(command.InitiatorId, article.OwnerId);
 
-            _authorize.Enforce(initiator.InitiatorId, Manage.Articles(article.Owner.OwnerId));
-
-            article.SetPreviewImage(initiator, command.FileName);
+            article.SetPreviewImage(manager, command.FileName);
         }
     }
 }

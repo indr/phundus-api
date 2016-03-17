@@ -3,11 +3,12 @@
     using Common.Domain.Model;
     using Machine.Specifications;
     using Phundus.Inventory.Articles.Model;
+    using Phundus.Inventory.Model;
 
     [Subject(typeof (PricesChanged))]
-    public class prices_changed : domain_event_concern<PricesChanged>
+    public class prices_changed : inventory_domain_event_concern<PricesChanged>
     {
-        private static ArticleId the_article_id;
+        private static ArticleId theArticleId;
         private static ArticleShortId theArticlShortId;
         private static decimal thePublicPrice;
         private static decimal theMemberPrice;
@@ -15,14 +16,14 @@
 
         private Establish ctx = () =>
         {
-            the_article_id = new ArticleId();
+            theArticleId = new ArticleId();
             theArticlShortId = new ArticleShortId(1234);
             theOwnerId = new OwnerId();
             thePublicPrice = 1.11m;
             theMemberPrice = 2.22m;
 
             sut_factory.create_using(() =>
-                new PricesChanged(theInitiator, theArticlShortId, the_article_id, theOwnerId,
+                new PricesChanged(theManager, theArticlShortId, theArticleId, theOwnerId,
                     thePublicPrice, theMemberPrice));
         };
 
@@ -30,13 +31,13 @@
             itsAssembly.ShouldEqual("Phundus.Core");
 
         private It should_have_at_1_the_initiator = () =>
-            dataMember(1).ShouldEqual(theInitiator);
+            dataMember(1).ShouldEqual(theManager.ToActor());
 
         private It should_have_at_2_the_article_id = () =>
             dataMember(2).ShouldEqual(theArticlShortId.Id);
 
         private It should_have_at_3_the_article_guid = () =>
-            dataMember(3).ShouldEqual(the_article_id.Id);
+            dataMember(3).ShouldEqual(theArticleId.Id);
 
         private It should_have_at_4_the_public_price = () =>
             dataMember(4).ShouldEqual(thePublicPrice);

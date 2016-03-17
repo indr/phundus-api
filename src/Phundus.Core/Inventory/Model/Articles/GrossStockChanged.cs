@@ -3,11 +3,12 @@
     using System;
     using System.Runtime.Serialization;
     using Common.Domain.Model;
+    using Inventory.Model;
 
     [DataContract]
     public class GrossStockChanged : DomainEvent
     {
-        public GrossStockChanged(Initiator initiator, ArticleShortId articleShortId, ArticleId articleId,
+        public GrossStockChanged(Manager initiator, ArticleShortId articleShortId, ArticleId articleId,
             OwnerId ownerId, int oldGrossStock, int newGrossStock)
         {
             if (initiator == null) throw new ArgumentNullException("initiator");
@@ -15,7 +16,7 @@
             if (articleId == null) throw new ArgumentNullException("articleId");
             if (ownerId == null) throw new ArgumentNullException("ownerId");
 
-            Initiator = initiator;
+            Initiator = initiator.ToActor();
             ArticleShortId = articleShortId.Id;
             ArticleId = articleId.Id;
             OwnerId = ownerId.Id;
@@ -28,7 +29,7 @@
         }
 
         [DataMember(Order = 1)]
-        public Initiator Initiator { get; protected set; }
+        public Actor Initiator { get; protected set; }
 
         [DataMember(Order = 2)]
         public int ArticleShortId { get; protected set; }

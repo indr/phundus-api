@@ -4,7 +4,6 @@
     using Machine.Specifications;
     using Phundus.Inventory.Application;
     using Phundus.Inventory.Articles.Model;
-    using Phundus.Inventory.Authorization;
 
     [Subject(typeof (SetPreviewImageHandler))]
     public class when_handling_set_preview_image_command :
@@ -15,16 +14,13 @@
 
         private Establish ctx = () =>
         {
-            theArticle = make.Article();
+            theArticle = make.Article(theOwner);
             articleRepository.setup(x => x.GetById(theArticle.ArticleId)).Return(theArticle);
 
             command = new SetPreviewImage(theInitiatorId, theArticle.ArticleId, theFileName);
         };
 
         private It should_call_set_preview_image = () =>
-            theArticle.received(x => x.SetPreviewImage(theInitiator, theFileName));
-
-        private It should_enforce_initiator_to_manage_articles = () =>
-            enforceInitiatorTo<ManageArticlesAccessObject>(p => Equals(p.OwnerId, theArticle.Owner.OwnerId));
+            theArticle.received(x => x.SetPreviewImage(theManager, theFileName));
     }
 }

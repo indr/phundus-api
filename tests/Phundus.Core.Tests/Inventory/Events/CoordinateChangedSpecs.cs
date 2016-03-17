@@ -2,20 +2,17 @@
 {
     using Common.Domain.Model;
     using Machine.Specifications;
-    using Phundus.Inventory.Model;
     using Phundus.Inventory.Model.Stores;
     using Phundus.Inventory.Stores.Model;
 
     [Subject(typeof (CoordinateChanged))]
     public class coordinate_changed : inventory_domain_event_concern<CoordinateChanged>
     {
-        private static Manager theManager;
         private static StoreId theStoreId;
         private static Coordinate theCoordinate;
 
         private Establish ctx = () =>
         {
-            theManager = make.Manager();
             theStoreId = new StoreId();
             theCoordinate = new Coordinate(1, 2);
             sut_factory.create_using(() =>
@@ -26,7 +23,7 @@
             itsAssembly.ShouldEqual("Phundus.Core");
 
         private It should_have_at_1_the_manager = () =>
-            dataMember(1).ShouldEqual(theManager);
+            dataMember(1).ShouldEqual(theManager.ToActor());
 
         private It should_have_at_2_the_store_id = () =>
             dataMember(2).ShouldEqual(theStoreId.Id);

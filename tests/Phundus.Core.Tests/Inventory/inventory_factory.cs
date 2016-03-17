@@ -6,7 +6,6 @@ namespace Phundus.Tests.Inventory
     using Phundus.Inventory.Articles.Model;
     using Phundus.Inventory.Model;
     using Phundus.Inventory.Model.Stores;
-    using Phundus.Inventory.Stores.Model;
 
     public class inventory_factory : factory_base
     {
@@ -16,12 +15,20 @@ namespace Phundus.Tests.Inventory
 
         public Article Article(Owner owner = null)
         {
+            owner = owner ?? Owner();
             var article = fake.an<Article>();
             var articleId = new ArticleShortId(NextNumericId());
             article.setup(x => x.ArticleId).Return(new ArticleId());
             article.setup(x => x.ArticleShortId).Return(articleId);
-            article.setup(x => x.Owner).Return(owner ?? Owner());
+            article.setup(x => x.Owner).Return(owner);
+            article.setup(x => x.OwnerId).Return(owner.OwnerId);
             return article;
+        }
+
+        public Manager Manager(UserId userId = null)
+        {
+            userId = userId ?? new UserId();
+            return new Manager(userId, "manager@test.phundus.ch", "The Manager");
         }
 
         public Owner Owner(OwnerType ownerType = OwnerType.Organization)
@@ -35,13 +42,8 @@ namespace Phundus.Tests.Inventory
             var result = fake.an<Store>();
             result.setup(x => x.StoreId).Return(new StoreId());
             result.setup(x => x.OwnerId).Return(ownerId);
-            result.setup(x => x.Name).Return("The store name");            
+            result.setup(x => x.Name).Return("The store name");
             return result;
-        }
-
-        public Manager Manager()
-        {
-            return new Manager(new UserId(), "manager@test.phundus.ch", "The Manager");
         }
     }
 }

@@ -8,13 +8,11 @@
     [Subject(typeof (StoreOpened))]
     public class store_opened : inventory_domain_event_concern<StoreOpened>
     {
-        private static Manager theManager;
         private static StoreId theStoreId;
         private static Owner theOwner;
 
         private Establish ctx = () =>
         {
-            theManager = make.Manager();
             theStoreId = new StoreId();
             theOwner = make.Owner();
 
@@ -26,7 +24,7 @@
             itsAssembly.ShouldEqual("Phundus.Core");
 
         private It should_have_at_1_the_manager = () =>
-            dataMember(1).ShouldEqual(theManager);
+            dataMember(1).ShouldEqual(theManager.ToActor());
 
         private It should_have_at_2_the_store_id = () =>
             dataMember(2).ShouldEqual(theStoreId.Id);

@@ -13,6 +13,8 @@
     {
         protected static inventory_factory make;
 
+        protected static Manager theManager;
+
         protected static Owner theOwner;
         protected static OwnerType theOwnerType;
         protected static StoreId theStoreId;
@@ -27,6 +29,7 @@
         {
             make = new inventory_factory(fake);
 
+            theManager = make.Manager(theInitiatorId);
             theOwnerType = OwnerType.Organization;
             theOwner = null;
             theStoreId = new StoreId();
@@ -96,7 +99,7 @@
         };
 
         private Because of = () =>
-            sut.ChangeDetails(theInitiator, theNewName, theNewBrand, theNewColor);
+            sut.ChangeDetails(theManager, theNewName, theNewBrand, theNewColor);
 
         private It should_have_the_new_brand = () =>
             sut.Brand.ShouldEqual(theNewBrand);
@@ -112,7 +115,7 @@
                 p.ArticleId == theArticleId.Id
                 && p.Brand == theNewBrand
                 && p.Color == theNewColor
-                && Equals(p.Initiator, theInitiator)
+                && Equals(p.Initiator, theManager)
                 && p.Name == theNewName
                 && p.OwnerId == theOwner.OwnerId.Id);
     }
@@ -123,7 +126,8 @@
         private static string theNewDescription;
         private Establish ctx = () => { theNewDescription = "The new description"; };
 
-        private Because of = () => sut.ChangeDescription(theInitiator, theNewDescription);
+        private Because of = () =>
+            sut.ChangeDescription(theManager, theNewDescription);
 
         private It should_have_new_description = () =>
             sut.Description.ShouldEqual(theNewDescription);
@@ -132,7 +136,7 @@
             publisher.WasToldTo(x => x.Publish(
                 Arg<DescriptionChanged>.Matches(p => p.ArticleId == theArticleId.Id
                                                      && p.Description == theNewDescription
-                                                     && Equals(p.Initiator, theInitiator)
+                                                     && Equals(p.Initiator, theManager)
                                                      && p.OwnerId == theOwner.OwnerId.Id)));
     }
 
@@ -142,7 +146,7 @@
         private static string theNewSpecification;
         private Establish ctx = () => theNewSpecification = "The new specification";
 
-        private Because of = () => sut.ChangeSpecification(theInitiator, theNewSpecification);
+        private Because of = () => sut.ChangeSpecification(theManager, theNewSpecification);
 
         private It should_have_new_specification = () =>
             sut.Specification.ShouldEqual(theNewSpecification);
@@ -150,7 +154,7 @@
         private It should_publish_specification_changed = () =>
             publisher.WasToldTo(x => x.Publish(
                 Arg<SpecificationChanged>.Matches(p => p.ArticleId == theArticleId.Id
-                                                       && Equals(p.Initiator, theInitiator)
+                                                       && Equals(p.Initiator, theManager)
                                                        && p.OwnerId == theOwner.OwnerId.Id
                                                        && p.Specification == theNewSpecification)));
     }
@@ -164,7 +168,7 @@
             theNewGrossStock = theGrossStock + 1;
 
         private Because of = () =>
-            sut.ChangeGrossStock(theInitiator, theNewGrossStock);
+            sut.ChangeGrossStock(theManager, theNewGrossStock);
 
         private It should_have_the_new_gross_stock = () =>
             sut.GrossStock.ShouldEqual(theNewGrossStock);
@@ -172,7 +176,7 @@
         private It should_publish_gross_stock_changed = () =>
             published<GrossStockChanged>(p =>
                 p.ArticleId == theArticleId.Id
-                && Equals(p.Initiator, theInitiator)
+                && Equals(p.Initiator, theManager)
                 && p.NewGrossStock == theNewGrossStock
                 && p.OldGrossStock == theGrossStock
                 && p.OwnerId == theOwner.OwnerId.Id);
@@ -190,7 +194,8 @@
             theNewMemberPrice = theMemberPrice + 1.00m;
         };
 
-        private Because of = () => sut.ChangePrices(theInitiator, theNewPublicPrice, theNewMemberPrice);
+        private Because of = () =>
+            sut.ChangePrices(theManager, theNewPublicPrice, theNewMemberPrice);
 
 
         public class for_an_article_with_owner_type_organization
@@ -207,7 +212,7 @@
             private It should_public_prices_changed = () =>
                 publisher.WasToldTo(x => x.Publish(Arg<PricesChanged>.Matches(p =>
                     p.ArticleId == theArticleId.Id
-                    && Equals(p.Initiator.InitiatorId, theInitiatorId)
+                    && Equals(p.Initiator, theManager.ToActor())
                     && p.MemberPrice == theNewMemberPrice
                     && p.PublicPrice == theNewPublicPrice)));
         }
@@ -226,7 +231,7 @@
             private It should_public_prices_changed = () =>
                 publisher.WasToldTo(x => x.Publish(Arg<PricesChanged>.Matches(p =>
                     p.ArticleId == theArticleId.Id
-                    && Equals(p.Initiator.InitiatorId, theInitiatorId)
+                    && Equals(p.Initiator, theManager.ToActor())
                     && p.MemberPrice == null
                     && p.PublicPrice == theNewPublicPrice)));
         }
@@ -248,7 +253,7 @@
             private It should_public_prices_changed = () =>
                 publisher.WasToldTo(x => x.Publish(Arg<PricesChanged>.Matches(p =>
                     p.ArticleId == theArticleId.Id
-                    && Equals(p.Initiator.InitiatorId, theInitiatorId)
+                    && Equals(p.Initiator, theManager.ToActor())
                     && p.MemberPrice == theNewMemberPrice
                     && p.PublicPrice == theNewPublicPrice)));
         }
@@ -258,7 +263,7 @@
     public class when_adding_an_image : article_concern
     {
         private Because of = () =>
-            sut.AddImage(theInitiator, "fileName", "fileType", 123456);
+            sut.AddImage(theManager, "fileName", "fileType", 123456);
 
         private It should_add_to_images_collection = () =>
             sut.Images.ShouldNotBeEmpty();
@@ -270,7 +275,7 @@
                 && p.FileLength == 123456
                 && p.FileName == "fileName"
                 && p.FileType == "fileType"
-                && Equals(p.Initiator, theInitiator)
+                && Equals(p.Initiator, theManager)
                 && p.OwnerId == theOwner.OwnerId.Id);
 
         private It should_set_is_preview = () =>
@@ -281,10 +286,10 @@
     public class when_adding_a_second_image : article_concern
     {
         private Establish ctx = () => sut_setup.run(sut =>
-            sut.AddImage(theInitiator, "first.jpg", "image/jpeg", 1234));
+            sut.AddImage(theManager, "first.jpg", "image/jpeg", 1234));
 
         private Because of = () =>
-            sut.AddImage(theInitiator, "second.jpg", "image/jpeg", 2345);
+            sut.AddImage(theManager, "second.jpg", "image/jpeg", 2345);
 
         private It should_not_set_is_preview = () =>
             sut.Images.Single(p => p.FileName == "second.jpg").IsPreview.ShouldBeFalse();
@@ -296,10 +301,10 @@
         private static string theFileName = "file.jpg";
 
         private Establish ctx = () => sut_setup.run(sut =>
-            sut.AddImage(theInitiator, theFileName, "image/jpeg", 1234));
+            sut.AddImage(theManager, theFileName, "image/jpeg", 1234));
 
         private Because of = () => spec.catch_exception(() =>
-            sut.AddImage(theInitiator, theFileName, "image/jpeg", 1234));
+            sut.AddImage(theManager, theFileName, "image/jpeg", 1234));
 
         private It should_throw_exception_with_message = () =>
             spec.exception_thrown.Message.ShouldEqual("Image with file name file.jpg already exists.");
@@ -313,19 +318,19 @@
     {
         private Establish ctx = () => sut_setup.run(x =>
         {
-            x.AddImage(theInitiator, "first.jpg", "image/jpeg", 1234);
-            x.AddImage(theInitiator, "second.jpg", "image/jpeg", 2345);
-            x.AddImage(theInitiator, "third.jpg", "image/jpeg", 3456);
+            x.AddImage(theManager, "first.jpg", "image/jpeg", 1234);
+            x.AddImage(theManager, "second.jpg", "image/jpeg", 2345);
+            x.AddImage(theManager, "third.jpg", "image/jpeg", 3456);
         });
 
         private Because of = () =>
-            sut.RemoveImage(theInitiator, "first.jpg");
+            sut.RemoveImage(theManager, "first.jpg");
 
         private It should_publish_image_removed = () =>
             published<ImageRemoved>(p =>
                 p.ArticleId == theArticleId.Id
                 && p.FileName == "first.jpg"
-                && p.Initiator == theInitiator
+                && Equals(p.Initiator, theManager)
                 && p.OwnerId == theOwner.OwnerId.Id);
 
         private It should_publish_preview_image_changed = () =>
@@ -334,7 +339,7 @@
                 && p.FileLength == 2345
                 && p.FileName == "second.jpg"
                 && p.FileType == "image/jpeg"
-                && p.Initiator == theInitiator
+                && Equals(p.Initiator, theManager)
                 && p.OwnerId == theOwner.OwnerId.Id);
 
         private It should_remove_from_images_collection = () =>
@@ -349,12 +354,12 @@
     {
         private Establish ctx = () => sut_setup.run(x =>
         {
-            x.AddImage(theInitiator, "first.gif", "image/gif", 1234);
-            x.AddImage(theInitiator, "second.jpg", "image/jpeg", 2345);
+            x.AddImage(theManager, "first.gif", "image/gif", 1234);
+            x.AddImage(theManager, "second.jpg", "image/jpeg", 2345);
         });
 
         private Because of = () =>
-            sut.SetPreviewImage(theInitiator, "second.jpg");
+            sut.SetPreviewImage(theManager, "second.jpg");
 
         private It should_publish_preview_image_changed = () =>
             published<PreviewImageChanged>(p =>
@@ -362,7 +367,7 @@
                 && p.FileLength == 2345
                 && p.FileName == "second.jpg"
                 && p.FileType == "image/jpeg"
-                && Equals(p.Initiator, theInitiator)
+                && Equals(p.Initiator, theManager)
                 && p.OwnerId == theOwner.OwnerId.Id);
 
         private It should_remove_preview_flag = () =>

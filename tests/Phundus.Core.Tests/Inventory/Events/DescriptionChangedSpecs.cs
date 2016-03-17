@@ -5,7 +5,7 @@
     using Phundus.Inventory.Articles.Model;
 
     [Subject(typeof (DescriptionChanged))]
-    public class DescriptionChangedSpecs : domain_event_concern<DescriptionChanged>
+    public class DescriptionChangedSpecs : inventory_domain_event_concern<DescriptionChanged>
     {
         private static ArticleId theArticleId;
         private static OwnerId theOwnerId;
@@ -20,14 +20,14 @@
             theDescription = "The description";
 
             sut_factory.create_using(() =>
-                new DescriptionChanged(theInitiator, the_article_short_integral_id, theArticleId, theOwnerId, theDescription));
+                new DescriptionChanged(theManager, the_article_short_integral_id, theArticleId, theOwnerId, theDescription));
         };
 
         private It should_be_in_assembly = () =>
             itsAssembly.ShouldEqual("Phundus.Core");
 
         private It should_have_at_1_the_initiator = () =>
-            dataMember(1).ShouldEqual(theInitiator);
+            dataMember(1).ShouldEqual(theManager.ToActor());
 
         private It should_have_at_2_the_article_id = () =>
             dataMember(2).ShouldEqual(the_article_short_integral_id.Id);

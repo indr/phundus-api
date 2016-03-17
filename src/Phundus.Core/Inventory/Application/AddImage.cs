@@ -5,8 +5,6 @@
     using Castle.Transactions;
     using Common.Commanding;
     using Common.Domain.Model;
-    using IdentityAccess.Application;
-    using IdentityAccess.Projections;
     using Model.Articles;
     using Model.Collaborators;
 
@@ -48,12 +46,9 @@
     {
         private readonly IArticleRepository _articleRepository;
         private readonly ICollaboratorService _collaboratorService;
-        private readonly IMemberInRole _memberInRole;
 
-        public AddImageHandler(IMemberInRole memberInRole, ICollaboratorService collaboratorService,
-            IArticleRepository articleRepository)
+        public AddImageHandler(ICollaboratorService collaboratorService, IArticleRepository articleRepository)
         {
-            _memberInRole = memberInRole;
             _collaboratorService = collaboratorService;
             _articleRepository = articleRepository;
         }
@@ -61,13 +56,10 @@
         [Transaction]
         public void Handle(AddImage command)
         {
-            var initiator = _collaboratorService.Initiator(command.InitiatorId);
             var article = _articleRepository.GetById(command.ArticleId);
-
-            var manager = _collaboratorService.Manager(command.InitiatorId, article.Owner.OwnerId);            
-
-            // TODO: Pass manager to AddImage()
-            article.AddImage(initiator, command.FileName, command.FileType, command.FileSize);
+            var manager = _collaboratorService.Manager(command.InitiatorId, article.Owner.OwnerId);
+            
+            article.AddImage(manager, command.FileName, command.FileType, command.FileSize);
         }
     }
 }

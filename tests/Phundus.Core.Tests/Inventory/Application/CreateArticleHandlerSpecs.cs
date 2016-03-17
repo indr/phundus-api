@@ -6,7 +6,6 @@
     using Machine.Specifications;
     using Phundus.Inventory.Application;
     using Phundus.Inventory.Articles.Model;
-    using Phundus.Inventory.Authorization;
     using Phundus.Inventory.Model;
     using Phundus.Inventory.Model.Stores;
     using Rhino.Mocks;
@@ -14,8 +13,7 @@
     [Subject(typeof (CreateArticleHandler))]
     public class when_create_article_command_is_handled :
         article_command_handler_concern<CreateArticle, CreateArticleHandler>
-    {
-        private static Owner theOwner;
+    {        
         private static ArticleId theArticleId;
         private static string theName;
         private static int theGrossStock;
@@ -25,8 +23,7 @@
         private static Store theStore;
 
         public Establish c = () =>
-        {
-            theOwner = make.Owner();
+        {            
             theStore = make.Store(theOwner.OwnerId);
             theArticleId = new ArticleId();
             theArticleShortId = new ArticleShortId(1234);
@@ -45,17 +42,12 @@
         private It should_add_to_repository = () =>
             articleRepository.WasToldTo(x => x.Add(Arg<Article>.Is.NotNull));
 
-        private It should_authorize_initiator_to_create_article = () =>
-            authorize.WasToldTo(x =>
-                x.Enforce(Arg<InitiatorId>.Is.Equal(theInitiatorId),
-                    Arg<CreateArticleAccessObject>.Matches(p => Equals(p.OwnerId, theOwner.OwnerId))));
-
         public It should_publish_article_created = () =>
             published<ArticleCreated>(p =>
                 p.ArticleId == theArticleId.Id
                 && p.ArticleShortId == theArticleShortId.Id
                 && p.GrossStock == theGrossStock
-                && Equals(p.Initiator.InitiatorId, theInitiatorId)
+                && Equals(p.Initiator, theManager)
                 && p.MemberPrice == theMemberPrice
                 && p.Name == theName
                 && Equals(p.Owner.OwnerId, theOwner.OwnerId)

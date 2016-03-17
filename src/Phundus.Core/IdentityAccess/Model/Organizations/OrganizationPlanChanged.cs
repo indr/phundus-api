@@ -9,13 +9,13 @@
     [DataContract]
     public class OrganizationPlanChanged : DomainEvent
     {
-        public OrganizationPlanChanged(Admin admin, OrganizationId organizationId, OrganizationPlan oldPlan,
+        public OrganizationPlanChanged(Actor admin, OrganizationId organizationId, OrganizationPlan oldPlan,
             OrganizationPlan newPlan)
         {
             if (admin == null) throw new ArgumentNullException("admin");
             if (organizationId == null) throw new ArgumentNullException("organizationId");
 
-            Admin = admin;
+            Admin = admin.ToActor();
             OrganizationId = organizationId.Id;
             OldPlan = oldPlan.ToString().ToLowerInvariant();
             NewPlan = newPlan.ToString().ToLowerInvariant();
@@ -26,7 +26,7 @@
         }
 
         [DataMember(Order = 1)]
-        public Admin Admin { get; protected set; }
+        public Actor Admin { get; protected set; }
 
         [DataMember(Order = 2)]
         public Guid OrganizationId { get; protected set; }

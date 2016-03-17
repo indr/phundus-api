@@ -8,15 +8,19 @@
     using developwithpassion.specifications.rhinomocks;
     using Machine.Specifications;
     using ProtoBuf;
+    using ProtoBuf.Meta;
+    using Rhino.Mocks.Constraints;
 
-    public class serialization_object_concern<T> : Observes<T> where T : class
+    public class serialization_object_concern<TClass> : Observes<TClass> where TClass : class
     {
-        protected static Type type = typeof (T);
+        protected static Type type = typeof (TClass);
         protected static string itsFullName;
         protected static string itsAssembly;
 
         private Establish ctx = () =>
         {
+           
+
             itsFullName = type.FullName;
             itsAssembly = type.Assembly.GetName().Name;
         };
@@ -26,9 +30,14 @@
             var stream = new MemoryStream();
             Serializer.Serialize(stream, sut);
             stream.Seek(0, SeekOrigin.Begin);
-            sut = Serializer.Deserialize<T>(stream);
+            sut = Serializer.Deserialize<TClass>(stream);
             sut.ShouldNotBeNull();
         };
+
+        protected static T dataMember<T>(int order)
+        {
+            return (T) dataMember(order);
+        }
 
         protected static object dataMember(int order)
         {

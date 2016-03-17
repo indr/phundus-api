@@ -7,7 +7,7 @@
 
 
     [Subject(typeof (SpecificationChanged))]
-    public class SpecificationChangedSpecs : domain_event_concern<SpecificationChanged>
+    public class SpecificationChangedSpecs : inventory_domain_event_concern<SpecificationChanged>
     {
         private static ArticleId theArticleId;
         private static OwnerId theOwnerId;
@@ -22,14 +22,14 @@
             theSpecification = "The specification";
 
             sut_factory.create_using(() =>
-                new SpecificationChanged(theInitiator, the_article_short_integral_id, theArticleId, theOwnerId, theSpecification));
+                new SpecificationChanged(theManager, the_article_short_integral_id, theArticleId, theOwnerId, theSpecification));
         };
 
         private It should_be_in_assembly = () =>
             itsAssembly.ShouldEqual("Phundus.Core");
 
         private It should_have_at_1_the_initiator = () =>
-            dataMember(1).ShouldEqual(theInitiator);
+            dataMember(1).ShouldEqual(theManager.ToActor());
 
         private It should_have_at_2_the_article_id = () =>
             dataMember(2).ShouldEqual(the_article_short_integral_id.Id);

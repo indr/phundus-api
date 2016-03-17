@@ -6,7 +6,7 @@
     using Phundus.Inventory.Model;
 
     [Subject(typeof (ArticleCreated))]
-    public class article_created : domain_event_concern<ArticleCreated>
+    public class article_created : inventory_domain_event_concern<ArticleCreated>
     {
         private static Owner theOwner;
         private static ArticleShortId theArticleShortId;
@@ -19,7 +19,7 @@
         private static string theStoreName;
 
         private Establish ctx = () =>
-        {
+        {           
             theOwner = new Owner(new OwnerId(), "The Owner", OwnerType.User);
             theStoreId = new StoreId();
             theStoreName = "The store name";
@@ -29,7 +29,7 @@
             theGrossStock = 2;
             theMemberPrice = 3.33m;
             thePublicPrice = 4.44m;
-            sut_factory.create_using(() => new ArticleCreated(theInitiator, theOwner, theStoreId, theStoreName,
+            sut_factory.create_using(() => new ArticleCreated(theManager, theOwner, theStoreId, theStoreName,
                 theArticleShortId, theArticleId, theName, theGrossStock, thePublicPrice, theMemberPrice));
         };
 
@@ -40,7 +40,7 @@
             dataMember(10).ShouldEqual(theStoreName);
 
         private It should_have_at_1_initiator = () =>
-            dataMember(1).ShouldEqual(theInitiator);
+            dataMember(1).ShouldEqual(theManager.ToActor());
 
         private It should_have_at_2_owner = () =>
             dataMember(2).ShouldEqual(theOwner);

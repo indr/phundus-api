@@ -229,8 +229,6 @@
     <Compile Include="Inventory\Model\Articles\DescriptionChanged.cs" />
     <Compile Include="Inventory\Model\Articles\ImageAdded.cs" />
     <Compile Include="Inventory\Model\Articles\ImageRemoved.cs" />
-    <Compile Include="Inventory\Authorization\Create.cs" />
-    <Compile Include="Inventory\Authorization\Manage.cs" />
     <Compile Include="Inventory\Infrastructure\CollaboratorService.cs" />
     <Compile Include="Inventory\Model\Collaborators\Manager.cs" />
     <Compile Include="Inventory\Model\Collaborators\Owner.cs" />

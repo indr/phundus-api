@@ -10,8 +10,6 @@ namespace Phundus.Rest.Api
     using Common;
     using Common.Domain.Model;
     using ContentObjects;
-    using IdentityAccess.Application;
-    using IdentityAccess.Projections;
     using Inventory.Application;
     using Inventory.Model.Reservations;
     using Inventory.Projections;
@@ -23,17 +21,15 @@ namespace Phundus.Rest.Api
         private readonly IArticleActionsQueries _articleActionsQueries;
         private readonly IArticleQueries _articleQueries;
         private readonly IAvailabilityQueries _availabilityQueries;
-        private readonly IMemberInRole _memberInRole;
         private readonly IReservationRepository _reservationRepository;
         private readonly IShortIdGeneratorService _shortIdGeneratorService;
         private readonly IStoresQueries _storesQueries;
 
-        public ArticlesController(IMemberInRole memberInRole, IStoresQueries storesQueries,
+        public ArticlesController(IStoresQueries storesQueries,
             IArticleQueries articleQueries, IAvailabilityQueries availabilityQueries,
             IReservationRepository reservationRepository, IArticleActionsQueries articleActionsQueries,
             IShortIdGeneratorService shortIdGeneratorService)
         {
-            _memberInRole = memberInRole;
             _storesQueries = storesQueries;
             _articleQueries = articleQueries;
             _availabilityQueries = availabilityQueries;
@@ -71,7 +67,7 @@ namespace Phundus.Rest.Api
                 query = queryParams["q"];
 
             var results = _articleQueries.Query(CurrentUserId, ownerId, query);
-            
+
             return new QueryOkResponseContent<ArticleData>(results);
         }
 
@@ -128,7 +124,7 @@ namespace Phundus.Rest.Api
 
             if (ownerId == null)
                 throw new NotFoundException("Article not found.");
-            
+
             // TODO: Prüfen ob Artikel dem Owner gehört  
 
             var result = _articleQueries.GetById(articleId);
@@ -168,7 +164,7 @@ namespace Phundus.Rest.Api
 
             if (ownerId == null)
                 throw new NotFoundException("Article not found.");
-            
+
             // TODO: Prüfen ob Artikel dem Owner gehört   
 
             var availabilities = _availabilityQueries.GetAvailability(articleId).ToList();

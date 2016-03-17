@@ -13,6 +13,7 @@
         {
             if (initiatorId == null) throw new ArgumentNullException("initiatorId");
             if (storeId == null) throw new ArgumentNullException("storeId");
+
             InitiatorId = initiatorId;
             StoreId = storeId;
             Latitude = latitude;

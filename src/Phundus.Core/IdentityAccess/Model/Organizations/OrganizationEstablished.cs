@@ -14,7 +14,8 @@ namespace Phundus.IdentityAccess.Organizations.Model
             if (founder == null) throw new ArgumentNullException("founder");
             if (organizationId == null) throw new ArgumentNullException("organizationId");
             if (name == null) throw new ArgumentNullException("name");
-            Initiator = founder;
+
+            Initiator = founder.ToActor();
             OrganizationId = organizationId.Id;
             Name = name;
             Plan = plan.ToString().ToLowerInvariant();
@@ -26,7 +27,7 @@ namespace Phundus.IdentityAccess.Organizations.Model
         }
 
         [DataMember(Order = 1)]
-        public Founder Initiator { get; protected set; }
+        public Actor Initiator { get; protected set; }
 
         [DataMember(Order = 2)]
         public Guid OrganizationId { get; protected set; }

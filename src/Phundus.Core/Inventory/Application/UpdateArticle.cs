@@ -5,10 +5,8 @@
     using Castle.Transactions;
     using Common.Commanding;
     using Common.Domain.Model;
-    using Integration.IdentityAccess;
     using Model.Articles;
     using Model.Collaborators;
-    using Phundus.Authorization;
 
     public class UpdateArticle : ICommand
     {
@@ -17,6 +15,7 @@
         {
             if (initiatorId == null) throw new ArgumentNullException("initiatorId");
             if (name == null) throw new ArgumentNullException("name");
+
             InitiatorId = initiatorId;
             ArticleId = articleId;
             Name = name;
@@ -41,7 +40,7 @@
 
         public UpdateArticleHandler(IAuthorize authorize, ICollaboratorService collaboratorService,
             IArticleRepository articleRepository)
-        {            
+        {
             _authorize = authorize;
             _collaboratorService = collaboratorService;
             _articleRepository = articleRepository;
@@ -50,13 +49,11 @@
         [Transaction]
         public void Handle(UpdateArticle command)
         {
-            var initiator = _collaboratorService.Initiator(command.InitiatorId);
             var article = _articleRepository.GetById(command.ArticleId);
+            var manager = _collaboratorService.Manager(command.InitiatorId, article.OwnerId);
 
-            _authorize.Enforce(initiator.InitiatorId, Manage.Articles(article.Owner.OwnerId));
-
-            article.ChangeDetails(initiator, command.Name, command.Brand, command.Color);
-            article.ChangeGrossStock(initiator, command.GrossStock);
+            article.ChangeDetails(manager, command.Name, command.Brand, command.Color);
+            article.ChangeGrossStock(manager, command.GrossStock);
         }
     }
 }

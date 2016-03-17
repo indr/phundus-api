@@ -7,13 +7,14 @@
     [DataContract]
     public class ContactDetailsChanged : DomainEvent
     {
-        public ContactDetailsChanged(Manager manager, OwnerId ownerId, StoreId storeId, ContactDetails contactDetails)
+        public ContactDetailsChanged(Manager initiator, OwnerId ownerId, StoreId storeId, ContactDetails contactDetails)
         {
-            if (manager == null) throw new ArgumentNullException("manager");
+            if (initiator == null) throw new ArgumentNullException("initiator");
             if (ownerId == null) throw new ArgumentNullException("ownerId");
             if (storeId == null) throw new ArgumentNullException("storeId");
             if (contactDetails == null) throw new ArgumentNullException("contactDetails");
-            Manager = manager;
+
+            Initiator = initiator.ToActor();
             OwnerId = ownerId.Id;
             StoreId = storeId.Id;
             EmailAddress = contactDetails.EmailAddress;
@@ -30,7 +31,7 @@
         }
 
         [DataMember(Order = 1)]
-        public Manager Manager { get; protected set; }
+        public Actor Initiator { get; protected set; }
 
         [DataMember(Order = 2)]
         public Guid OwnerId { get; protected set; }

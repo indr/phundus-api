@@ -125,29 +125,31 @@
 
         public virtual string Color { get; set; }
 
-        public virtual void ChangeDescription(Initiator initiator, string description)
+        public virtual OwnerId OwnerId { get { return Owner.OwnerId; } }
+
+        public virtual void ChangeDescription(Manager manager, string description)
         {
             if (_description != null && description == _description)
                 return;
 
             Description = description;
 
-            EventPublisher.Publish(new DescriptionChanged(initiator, ArticleShortId, ArticleId, Owner.OwnerId,
+            EventPublisher.Publish(new DescriptionChanged(manager, ArticleShortId, ArticleId, Owner.OwnerId,
                 Description));
         }
 
-        public virtual void ChangeSpecification(Initiator initiator, string specification)
+        public virtual void ChangeSpecification(Manager manager, string specification)
         {
             if (_specification != null && specification == _specification)
                 return;
 
             Specification = specification;
 
-            EventPublisher.Publish(new SpecificationChanged(initiator, ArticleShortId, ArticleId, Owner.OwnerId,
+            EventPublisher.Publish(new SpecificationChanged(manager, ArticleShortId, ArticleId, Owner.OwnerId,
                 Specification));
         }
 
-        public virtual Image AddImage(Initiator initiator, string fileName, string type, long length)
+        public virtual Image AddImage(Manager manager, string fileName, string type, long length)
         {
             if (Images.Count(p => p.FileName == fileName) > 0)
                 throw new InvalidOperationException(String.Format("Image with file name {0} already exists.", fileName));
@@ -162,13 +164,13 @@
             };
             Images.Add(image);
 
-            EventPublisher.Publish(new ImageAdded(initiator, ArticleShortId, ArticleId, Owner.OwnerId, image.FileName,
+            EventPublisher.Publish(new ImageAdded(manager, ArticleShortId, ArticleId, Owner.OwnerId, image.FileName,
                 image.Type, image.Length, image.IsPreview));
 
             return image;
         }
 
-        public virtual void RemoveImage(Initiator initiator, string fileName)
+        public virtual void RemoveImage(Manager manager, string fileName)
         {
             var image = Images.FirstOrDefault(p => p.FileName == fileName);
             if (image == null)
@@ -176,12 +178,12 @@
             Images.Remove(image);
             image.Article = null;
 
-            EventPublisher.Publish(new ImageRemoved(initiator, ArticleShortId, ArticleId, Owner.OwnerId, image.FileName));
+            EventPublisher.Publish(new ImageRemoved(manager, ArticleShortId, ArticleId, Owner.OwnerId, image.FileName));
 
-            EnsureOneImageIsPreviewImage(initiator);
+            EnsureOneImageIsPreviewImage(manager);
         }
 
-        private void EnsureOneImageIsPreviewImage(Initiator initiator)
+        private void EnsureOneImageIsPreviewImage(Manager manager)
         {
             if (Images.Count == 0)
                 return;
@@ -195,11 +197,11 @@
                 return;
 
             previewImage.IsPreview = true;
-            EventPublisher.Publish(new PreviewImageChanged(initiator, ArticleShortId, ArticleId, Owner.OwnerId,
+            EventPublisher.Publish(new PreviewImageChanged(manager, ArticleShortId, ArticleId, Owner.OwnerId,
                 previewImage.FileName, previewImage.Type, previewImage.Length));
         }
 
-        public virtual void SetPreviewImage(Initiator initiator, string fileName)
+        public virtual void SetPreviewImage(Manager manager, string fileName)
         {
             var oldPreviewImage = Images.FirstOrDefault(p => p.IsPreview);
             foreach (var eachImage in Images)
@@ -212,13 +214,13 @@
             if ((oldPreviewImage == previewImage) || (previewImage == null))
                 return;
 
-            EventPublisher.Publish(new PreviewImageChanged(initiator, ArticleShortId, ArticleId, Owner.OwnerId,
+            EventPublisher.Publish(new PreviewImageChanged(manager, ArticleShortId, ArticleId, Owner.OwnerId,
                 previewImage.FileName, previewImage.Type, previewImage.Length));
         }
 
-        public virtual void ChangePrices(Initiator initiator, decimal publicPrice, decimal? memberPrice)
+        public virtual void ChangePrices(Manager manager, decimal publicPrice, decimal? memberPrice)
         {
-            if (initiator == null) throw new ArgumentNullException("initiator");
+            if (manager == null) throw new ArgumentNullException("manager");
 
             if ((PublicPrice == publicPrice) && (MemberPrice == memberPrice))
                 return;
@@ -226,13 +228,13 @@
             PublicPrice = publicPrice;
             MemberPrice = Owner.Type == OwnerType.Organization ? memberPrice : null;
 
-            EventPublisher.Publish(new PricesChanged(initiator, ArticleShortId, ArticleId, Owner.OwnerId, PublicPrice,
+            EventPublisher.Publish(new PricesChanged(manager, ArticleShortId, ArticleId, Owner.OwnerId, PublicPrice,
                 MemberPrice));
         }
 
-        public virtual void ChangeDetails(Initiator initiator, string name, string brand, string color)
+        public virtual void ChangeDetails(Manager manager, string name, string brand, string color)
         {
-            if (initiator == null) throw new ArgumentNullException("initiator");
+            if (manager == null) throw new ArgumentNullException("manager");
 
             if ((Name == name) && (Brand == brand) && (Color == color))
                 return;
@@ -241,13 +243,13 @@
             Brand = brand;
             Color = color;
 
-            EventPublisher.Publish(new ArticleDetailsChanged(initiator, ArticleShortId, ArticleId, Owner.OwnerId, Name,
+            EventPublisher.Publish(new ArticleDetailsChanged(manager, ArticleShortId, ArticleId, Owner.OwnerId, Name,
                 Brand, Color));
         }
 
-        public virtual void ChangeGrossStock(Initiator initiator, int grossStock)
+        public virtual void ChangeGrossStock(Manager manager, int grossStock)
         {
-            if (initiator == null) throw new ArgumentNullException("initiator");
+            if (manager == null) throw new ArgumentNullException("manager");
 
             if (GrossStock == grossStock)
                 return;
@@ -255,7 +257,7 @@
             var oldGrossStock = GrossStock;
             GrossStock = grossStock;
 
-            EventPublisher.Publish(new GrossStockChanged(initiator, ArticleShortId, ArticleId, Owner.OwnerId,
+            EventPublisher.Publish(new GrossStockChanged(manager, ArticleShortId, ArticleId, Owner.OwnerId,
                 oldGrossStock,
                 GrossStock));
         }

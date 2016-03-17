@@ -24,15 +24,12 @@
 
     public class UpdateStartpageHandler : IHandleCommand<UpdateStartpage>
     {
-        private readonly IMemberInRole _memberInRole;
         private readonly IOrganizationRepository _organizationRepository;
         private readonly IUserInRole _userInRole;
 
-        public UpdateStartpageHandler(IUserInRole userInRole, IMemberInRole memberInRole,
-            IOrganizationRepository organizationRepository)
+        public UpdateStartpageHandler(IUserInRole userInRole, IOrganizationRepository organizationRepository)
         {
             _userInRole = userInRole;
-            _memberInRole = memberInRole;
             _organizationRepository = organizationRepository;
         }
 
@@ -41,6 +38,7 @@
         {
             var manager = _userInRole.Manager(command.InitiatorId, command.OrganizationId);
             var organization = _organizationRepository.GetById(command.OrganizationId.Id);
+
             organization.ChangeStartpage(manager, command.Startpage);
         }
     }

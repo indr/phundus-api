@@ -1,36 +1,26 @@
 ﻿namespace Phundus.Tests.Inventory.Application
 {
-    using Common.Domain.Model;
-    using Machine.Fakes;
+    using developwithpassion.specifications.extensions;
     using Machine.Specifications;
     using Phundus.Inventory.Application;
     using Phundus.Inventory.Articles.Model;
-    using Phundus.Inventory.Authorization;
     using Phundus.Inventory.Model;
-    using Rhino.Mocks;
 
-    [Subject(typeof(ChangePrices))]
+    [Subject(typeof (ChangePrices))]
     public class when_handling_change_prices : article_command_handler_concern<ChangePrices, ChangePricesHandler>
     {
         private static Article theArticle;
         private static decimal thePublicPrice = 1.11m;
-        private static decimal? theMemberPrice = 2.22m;
-        private static Owner theOwner;
+        private static decimal? theMemberPrice = 2.22m;        
 
         private Establish ctx = () =>
-        {
-            theOwner = make.Owner();
+        {            
             theArticle = make.Article(theOwner);
-            articleRepository.WhenToldTo(x => x.GetById(theArticle.ArticleId)).Return(theArticle);
+            articleRepository.setup(x => x.GetById(theArticle.ArticleId)).Return(theArticle);
             command = new ChangePrices(theInitiatorId, theArticle.ArticleId, thePublicPrice, theMemberPrice);
         };
 
-        private It should_authorize_initiator_to_manage_articles = () =>
-            authorize.WasToldTo(x =>
-                x.Enforce(Arg<InitiatorId>.Is.Equal(theInitiatorId),
-                    Arg<ManageArticlesAccessObject>.Matches(p => Equals(p.OwnerId, theOwner.OwnerId))));
-
         private It should_call_change_prices = () =>
-            theArticle.WasToldTo(x => x.ChangePrices(theInitiator, thePublicPrice, theMemberPrice));
+            theArticle.received(x => x.ChangePrices(theManager, thePublicPrice, theMemberPrice));
     }
 }

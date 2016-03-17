@@ -34,5 +34,10 @@
         {
             yield return ActorGuid;
         }
+
+        public Actor ToActor()
+        {
+            return new Actor(ActorGuid, EmailAddress, FullName);
+        }
     }
 }

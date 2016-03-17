@@ -2,16 +2,13 @@
 {
     using System;
     using Articles.Model;
-    using Authorization;
     using Castle.Transactions;
     using Common.Commanding;
     using Common.Domain.Model;
     using Common.Eventing;
-    using Integration.IdentityAccess;
     using Model.Articles;
     using Model.Collaborators;
     using Model.Stores;
-    using Phundus.Authorization;
 
     public class CreateArticle : ICommand
     {
@@ -24,6 +21,7 @@
             if (articleId == null) throw new ArgumentNullException("articleId");
             if (articleShortId == null) throw new ArgumentNullException("articleShortId");
             if (name == null) throw new ArgumentNullException("name");
+
             InitiatorId = initiatorId;
             OwnerId = ownerId;
             StoreId = storeId;
@@ -49,16 +47,13 @@
     public class CreateArticleHandler : IHandleCommand<CreateArticle>
     {
         private readonly IArticleRepository _articleRepository;
-        private readonly IAuthorize _authorize;
         private readonly ICollaboratorService _collaboratorService;
         private readonly IOwnerService _ownerService;
         private readonly IStoreRepository _storeRepository;
 
-        public CreateArticleHandler(IAuthorize authorize, ICollaboratorService collaboratorService,
-            IArticleRepository articleRepository, IStoreRepository storeRepository,
-            IOwnerService ownerService)
+        public CreateArticleHandler(ICollaboratorService collaboratorService, IArticleRepository articleRepository,
+            IStoreRepository storeRepository, IOwnerService ownerService)
         {
-            _authorize = authorize;
             _collaboratorService = collaboratorService;
             _articleRepository = articleRepository;
             _storeRepository = storeRepository;
@@ -68,21 +63,20 @@
         [Transaction]
         public void Handle(CreateArticle command)
         {
-            var initiator = _collaboratorService.Initiator(command.InitiatorId);
             var owner = _ownerService.GetById(command.OwnerId);
-
-            _authorize.Enforce(initiator.InitiatorId, Create.Article(owner.OwnerId));
+            var manager = _collaboratorService.Manager(command.InitiatorId, owner.OwnerId);
 
             var store = _storeRepository.GetById(command.StoreId);
             if (!Equals(store.OwnerId, command.OwnerId))
                 throw new Exception("The store does not belong to the owner specified.");
 
+            // TODO: 
             var article = new Article(owner, store.StoreId, command.ArticleId, command.ArticleShortId, command.Name,
                 command.GrossStock, command.PublicPrice, command.MemberPrice);
 
             _articleRepository.Add(article);
 
-            EventPublisher.Publish(new ArticleCreated(initiator, article.Owner, article.StoreId, store.Name,
+            EventPublisher.Publish(new ArticleCreated(manager, article.Owner, article.StoreId, store.Name,
                 article.ArticleShortId, article.ArticleId,
                 article.Name, article.GrossStock, article.PublicPrice, article.MemberPrice));
         }

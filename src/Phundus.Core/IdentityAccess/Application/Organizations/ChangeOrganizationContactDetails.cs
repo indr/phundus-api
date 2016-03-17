@@ -15,7 +15,6 @@
         {
             if (initiatorId == null) throw new ArgumentNullException("initiatorId");
             if (organizationId == null) throw new ArgumentNullException("organizationId");
-
             InitiatorId = initiatorId;
             OrganizationId = organizationId;
             Line1 = line1;
@@ -42,15 +41,13 @@
 
     public class ChangeOrganizationContactDetailsHandler : IHandleCommand<ChangeOrganizationContactDetails>
     {
-        private readonly IMemberInRole _memberInRole;
         private readonly IOrganizationRepository _organizationRepository;
         private readonly IUserInRole _userInRole;
 
-        public ChangeOrganizationContactDetailsHandler(IUserInRole userInRole, IMemberInRole memberInRole,
+        public ChangeOrganizationContactDetailsHandler(IUserInRole userInRole,
             IOrganizationRepository organizationRepository)
         {
-            _userInRole = userInRole;
-            _memberInRole = memberInRole;
+            _userInRole = userInRole;            
             _organizationRepository = organizationRepository;
         }
 

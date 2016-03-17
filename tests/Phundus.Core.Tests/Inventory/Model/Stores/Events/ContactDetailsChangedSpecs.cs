@@ -1,20 +1,18 @@
 ﻿namespace Phundus.Tests.Inventory.Model.Stores.Events
 {
     using Common.Domain.Model;
+    using Inventory.Events;
     using Machine.Specifications;
-    using Phundus.Inventory.Model;
     using Phundus.Inventory.Model.Stores;
 
     [Subject(typeof (ContactDetailsChanged))]
-    public class ContactDetailsChangedSpecs : domain_event_concern<ContactDetailsChanged>
+    public class ContactDetailsChangedSpecs : inventory_domain_event_concern<ContactDetailsChanged>
     {
-        private static Manager theManager;
         private static StoreId theStoreId;
         private static OwnerId theOwnerId;
 
         private Establish ctx = () =>
         {
-            theManager = new Manager(new UserId(), "manager@test.phundus.ch", "The Manager");
             theStoreId = new StoreId();
             theOwnerId = new OwnerId();
 
@@ -31,7 +29,7 @@
             dataMember(10).ShouldEqual("city");
 
         private It should_have_at_1_the_manager = () =>
-            dataMember(1).ShouldEqual(theManager);
+            dataMember(1).ShouldEqual(theManager.ToActor());
 
         private It should_have_at_2_the_owner_id = () =>
             dataMember(2).ShouldEqual(theOwnerId.Id);

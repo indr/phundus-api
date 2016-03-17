@@ -37,7 +37,7 @@ namespace Phundus.Tests.Inventory.Model
 
         private It should_have_mutating_event_store_opened = () =>
             mutatingEvent<StoreOpened>(p =>
-                Equals(p.Manager, theManager)
+                Equals(p.Initiator, theManager)
                 && Equals(p.Owner, theOwner)
                 && p.StoreId == theStoreId.Id);
 
@@ -60,7 +60,7 @@ namespace Phundus.Tests.Inventory.Model
         private It should_have_mutating_event_contact_details_changed = () =>
             mutatingEvent<ContactDetailsChanged>(e =>
             {
-                e.Manager.ShouldEqual(theManager);
+                e.Initiator.ShouldEqual(theManager.ToActor());
                 e.OwnerId.ShouldEqual(theOwner.OwnerId.Id);
                 e.StoreId.ShouldEqual(theStoreId.Id);
                 e.EmailAddress.ShouldEqual("emailAddress");
@@ -86,7 +86,7 @@ namespace Phundus.Tests.Inventory.Model
 
         private It should_have_mutating_event_store_renamed = () =>
             mutatingEvent<StoreRenamed>(p =>
-                Equals(p.Manager.UserId, theManager.UserId)
+                Equals(p.Initiator, theManager)
                 && p.StoreId == theStoreId.Id
                 && p.Name == theNewName);
 

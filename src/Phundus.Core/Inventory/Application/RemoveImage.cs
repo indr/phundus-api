@@ -2,13 +2,11 @@
 {
     using System;
     using System.IO;
-    using Authorization;
     using Castle.Transactions;
     using Common.Commanding;
     using Common.Domain.Model;
     using Model.Articles;
     using Model.Collaborators;
-    using Phundus.Authorization;
 
     public class RemoveImage : ICommand
     {
@@ -37,13 +35,11 @@
     public class RemoveImageHandler : IHandleCommand<RemoveImage>
     {
         private readonly IArticleRepository _articleRepository;
-        private readonly IAuthorize _authorize;
         private readonly ICollaboratorService _collaboratorService;
 
-        public RemoveImageHandler(IAuthorize authorize, ICollaboratorService collaboratorService,
+        public RemoveImageHandler(ICollaboratorService collaboratorService,
             IArticleRepository articleRepository)
         {
-            _authorize = authorize;
             _collaboratorService = collaboratorService;
             _articleRepository = articleRepository;
         }
@@ -51,10 +47,8 @@
         [Transaction]
         public void Handle(RemoveImage command)
         {
-            var initiator = _collaboratorService.Initiator(command.InitiatorId);
             var article = _articleRepository.GetById(command.ArticleId);
-
-            _authorize.Enforce(initiator.InitiatorId, Manage.Articles(article.Owner.OwnerId));
+            var initiator = _collaboratorService.Manager(command.InitiatorId, article.OwnerId);
 
             article.RemoveImage(initiator, command.FileName);
         }

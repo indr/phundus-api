@@ -9,13 +9,13 @@
     [DataContract]
     public class CoordinateChanged : DomainEvent
     {
-        public CoordinateChanged(Manager manager, StoreId storeId, Coordinate coordinate)
+        public CoordinateChanged(Manager initiator, StoreId storeId, Coordinate coordinate)
         {
-            if (manager == null) throw new ArgumentNullException("manager");
+            if (initiator == null) throw new ArgumentNullException("initiator");
             if (storeId == null) throw new ArgumentNullException("storeId");
             if (coordinate == null) throw new ArgumentNullException("coordinate");
 
-            Manager = manager;
+            Initiator = initiator.ToActor();
             StoreId = storeId.Id;
             Latitude = coordinate.Latitude;
             Longitude = coordinate.Longitude;
@@ -26,7 +26,7 @@
         }
 
         [DataMember(Order = 1)]
-        public Manager Manager { get; protected set; }
+        public Actor Initiator { get; protected set; }
 
         [DataMember(Order = 2)]
         public Guid StoreId { get; protected set; }
