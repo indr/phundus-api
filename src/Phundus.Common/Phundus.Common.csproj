@@ -100,7 +100,6 @@
     <Compile Include="Eventing\Persistence\Repositories\NhStoredEventRepository.cs" />
     <Compile Include="Infrastructure\Persistence\EventSourcedRepositoryBase.cs" />
     <Compile Include="Infrastructure\Persistence\FluentMappingExtensions.cs" />
-    <Compile Include="Infrastructure\Persistence\Installers\NHibernateInstaller.cs" />
     <Compile Include="Infrastructure\Persistence\Installers\PersistenceInstaller.cs" />
     <Compile Include="Infrastructure\Persistence\Installers\RepositoryInstaller.cs" />
     <Compile Include="Infrastructure\Persistence\NhRepositoryBase.cs" />

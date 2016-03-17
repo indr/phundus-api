@@ -9,6 +9,7 @@ namespace Phundus.Common.Infrastructure.Persistence.Installers
     using NHibernate;
     using NHibernate.Cfg;
     using NHibernate.Tool.hbm2ddl;
+    using Notifications;
 
     public class NHibernateInstaller : INHibernateInstaller
     {
@@ -22,7 +23,11 @@ namespace Phundus.Common.Infrastructure.Persistence.Installers
         public FluentConfiguration BuildFluent()
         {
             var result = Fluently.Configure(new Configuration())
-                .Mappings(m => m.FluentMappings.AddFromAssembly(Assembly.GetExecutingAssembly()))
+                .Mappings(m =>
+                {
+                    m.FluentMappings.AddFromAssembly(Assembly.GetExecutingAssembly());
+                    m.FluentMappings.AddFromAssembly(Assembly.GetAssembly(typeof (ProcessedNotificationTrackerStore)));
+                })
                 .ExposeConfiguration(WriteConfiguration);
             return result;
         }

@@ -46,6 +46,17 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\packages\Castle.Core.3.3.1\lib\net40-client\Castle.Core.dll</HintPath>
     </Reference>
+    <Reference Include="Castle.Facilities.AutoTx, Version=3.2.207.2207, Culture=neutral, PublicKeyToken=407dd0808d44fbdc, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\Castle.Facilities.AutoTx.3.2.207.2207\lib\net40\Castle.Facilities.AutoTx.dll</HintPath>
+    </Reference>
+    <Reference Include="Castle.Facilities.FactorySupport">
+      <HintPath>..\..\packages\Castle.FactorySupportFacility.3.3.0\lib\net40\Castle.Facilities.FactorySupport.dll</HintPath>
+    </Reference>
+    <Reference Include="Castle.Facilities.NHibernate, Version=0.7.1.23602, Culture=neutral, PublicKeyToken=407dd0808d44fbdc, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\Castle.Facilities.NHibernate.0.7.1.23602\lib\net40\Castle.Facilities.NHibernate.dll</HintPath>
+    </Reference>
     <Reference Include="Castle.Transactions">
       <HintPath>..\..\packages\Castle.Transactions.3.2.207.2207\lib\net40\Castle.Transactions.dll</HintPath>
     </Reference>
@@ -103,6 +114,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\AssemblyInstaller.cs" />
+    <Compile Include="App_Start\NHibernateInstaller.cs" />
     <Compile Include="App_Start\ProcessMissedNotificationsStartupTask.cs" />
     <Compile Include="Dashboard\Infrastructure\EventLogDataMap.cs" />
     <Compile Include="Dashboard\Projections\EventLogProjection.cs" />

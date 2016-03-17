@@ -8,8 +8,6 @@
     using developwithpassion.specifications.rhinomocks;
     using Machine.Specifications;
     using ProtoBuf;
-    using ProtoBuf.Meta;
-    using Rhino.Mocks.Constraints;
 
     public class serialization_object_concern<TClass> : Observes<TClass> where TClass : class
     {
@@ -19,8 +17,6 @@
 
         private Establish ctx = () =>
         {
-           
-
             itsFullName = type.FullName;
             itsAssembly = type.Assembly.GetName().Name;
         };
