@@ -10,7 +10,7 @@ namespace Phundus.Shop.Application
     public interface IProductQueryService
     {
         QueryResult<ProductListData> Query(string q, Guid? lessorId, int? offset, int? limit);
-        ShopItemData Get(Guid itemGuid);
+        ProductDetailsData Get(Guid itemGuid);
     }
 
     public class ProductQueryService : QueryServiceBase, IProductQueryService
@@ -34,10 +34,10 @@ namespace Phundus.Shop.Application
                 query = query.Where(p => p.LessorId == lessorId);
             }
 
-            ProductPopularityData popularity = null;
+            ProductListPopularityData popularity = null;
 
             query.JoinAlias(() => items.Popularities, () => popularity, JoinType.LeftOuterJoin,
-                Restrictions.Where<ProductPopularityData>(p => p.Month == DateTime.Today.Month));
+                Restrictions.Where<ProductListPopularityData>(p => p.Month == DateTime.Today.Month));
 
 
             query = query.OrderBy(() => popularity.Value).Desc.ThenBy(p => p.CreatedAtUtc).Desc;
@@ -47,9 +47,9 @@ namespace Phundus.Shop.Application
             return new QueryResult<ProductListData>(offset.Value, limit.Value, total, result);
         }
 
-        public ShopItemData Get(Guid itemGuid)
+        public ProductDetailsData Get(Guid itemGuid)
         {
-            var result = Session.QueryOver<ShopItemData>()
+            var result = Session.QueryOver<ProductDetailsData>()
                 .Where(p => p.ArticleId == itemGuid)
                 .SingleOrDefault();
             if (result == null)

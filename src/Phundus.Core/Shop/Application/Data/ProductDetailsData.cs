@@ -3,10 +3,10 @@
     using System;
     using System.Collections.Generic;
 
-    public class ShopItemData
+    public class ProductDetailsData
     {
-        private ICollection<ShopItemDocumentData> _documents = new List<ShopItemDocumentData>();
-        private ICollection<ShopItemImageData> _images = new List<ShopItemImageData>();
+        private ICollection<ProductDetailsDocumentData> _documents = new List<ProductDetailsDocumentData>();
+        private ICollection<ProductDetailsImageData> _images = new List<ProductDetailsImageData>();
 
         public virtual Guid ArticleId { get; set; }
         public virtual int ArticleShortId { get; set; }
@@ -27,35 +27,35 @@
         public virtual string Description { get; set; }
         public virtual string Specification { get; set; }
 
-        public virtual ICollection<ShopItemDocumentData> Documents
+        public virtual ICollection<ProductDetailsDocumentData> Documents
         {
             get { return _documents; }
             protected set { _documents = value; }
         }
 
-        public virtual ICollection<ShopItemImageData> Images
+        public virtual ICollection<ProductDetailsImageData> Images
         {
             get { return _images; }
             protected set { _images = value; }
         }
     }
 
-    public class ShopItemDocumentData
+    public class ProductDetailsDocumentData
     {
         public virtual Guid DataId { get; set; }
 
-        public virtual ShopItemData ShopItem { get; set; }
+        public virtual ProductDetailsData ProductDetails { get; set; }
 
         public virtual string FileName { get; set; }
         public virtual string FileType { get; set; }
         public virtual long FileLength { get; set; }
     }
 
-    public class ShopItemImageData
+    public class ProductDetailsImageData
     {
         public virtual Guid DataId { get; set; }
 
-        public virtual ShopItemData ShopItem { get; set; }
+        public virtual ProductDetailsData ProductDetails { get; set; }
 
         public virtual string FileName { get; set; }
         public virtual string FileType { get; set; }

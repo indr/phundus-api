@@ -124,7 +124,7 @@
                     var popularity = x.Popularities.SingleOrDefault(p => p.Month == month);
                     if (popularity == null)
                     {
-                        popularity = new ProductPopularityData(x, articleId, month);
+                        popularity = new ProductListPopularityData(x, articleId, month);
                         x.Popularities.Add(popularity);
                     }
                     popularity.Value += 1;

@@ -3,16 +3,16 @@ namespace Phundus.Shop.Infrastructure.Persistence.Projections
     using Application;
     using FluentNHibernate.Mapping;
 
-    public class ShopItemDocumentDataMap : ClassMap<ShopItemDocumentData>
+    public class ProductDetailsDocumentDataMap : ClassMap<ProductDetailsDocumentData>
     {
-        public ShopItemDocumentDataMap()
+        public ProductDetailsDocumentDataMap()
         {
             SchemaAction.All();
-            Table("Es_Shop_Item_Documents");
+            Table("Es_Shop_ProductDetails_Document");
 
             Id(x => x.DataId).GeneratedBy.GuidComb();
 
-            References(x => x.ShopItem, "ArticleId").UniqueKey("ArticleId_FileName");
+            References(x => x.ProductDetails, "ArticleId").UniqueKey("ArticleId_FileName");
 
             Map(x => x.FileLength);
             Map(x => x.FileName).UniqueKey("ArticleId_FileName");

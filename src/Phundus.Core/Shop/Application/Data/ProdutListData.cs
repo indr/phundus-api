@@ -5,7 +5,7 @@
 
     public class ProductListData
     {
-        private ICollection<ProductPopularityData> _popularities = new List<ProductPopularityData>();
+        private ICollection<ProductListPopularityData> _popularities = new List<ProductListPopularityData>();
 
         public virtual Guid ArticleId { get; set; }
         public virtual int ArticleShortId { get; set; }
@@ -25,27 +25,27 @@
         public virtual decimal? MemberPrice { get; set; }
         public virtual string PreviewImageFileName { get; set; }
 
-        public virtual ICollection<ProductPopularityData> Popularities
+        public virtual ICollection<ProductListPopularityData> Popularities
         {
             get { return _popularities; }
             protected set { _popularities = value; }
         }
     }
 
-    public class ProductPopularityData
+    public class ProductListPopularityData
     {
         private Guid _articleId;
         private int _month;
         private ProductListData _productList;
 
-        public ProductPopularityData(ProductListData productList, Guid articleId, int month)
+        public ProductListPopularityData(ProductListData productList, Guid articleId, int month)
         {
             _productList = productList;
             _articleId = articleId;
             _month = month;
         }
 
-        protected ProductPopularityData()
+        protected ProductListPopularityData()
         {
         }
 

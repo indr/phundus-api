@@ -3,12 +3,12 @@ namespace Phundus.Shop.Infrastructure.Persistence.Projections
     using Application;
     using FluentNHibernate.Mapping;
 
-    public class ShopItemsPopularityDataMap : ClassMap<ProductPopularityData>
+    public class ProductListPopularityDataMap : ClassMap<ProductListPopularityData>
     {
-        public ShopItemsPopularityDataMap()
+        public ProductListPopularityDataMap()
         {
             SchemaAction.All();
-            Table("Es_Shop_Items_Popularity");
+            Table("Es_Shop_ProductList_Popularity");
 
             Id(x => x.RowId).GeneratedBy.GuidComb();
 

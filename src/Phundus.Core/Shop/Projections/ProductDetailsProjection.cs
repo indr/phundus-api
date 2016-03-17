@@ -9,7 +9,7 @@ namespace Phundus.Shop.Projections
     using Inventory.Articles.Model;
     using Inventory.Stores.Model;
 
-    public class ProductDetailsProjection : ProjectionBase<ShopItemData>,
+    public class ProductDetailsProjection : ProjectionBase<ProductDetailsData>,
         ISubscribeTo<ArticleCreated>,
         ISubscribeTo<ArticleDeleted>,
         ISubscribeTo<ArticleDetailsChanged>,
@@ -83,7 +83,7 @@ namespace Phundus.Shop.Projections
                 var image = x.Images.SingleOrDefault(p => p.FileName == e.FileName);
                 if (image != null)
                 {
-                    image.ShopItem = null;
+                    image.ProductDetails = null;
                     x.Images.Remove(image);
                     return;
                 }
@@ -91,7 +91,7 @@ namespace Phundus.Shop.Projections
                 var document = x.Documents.SingleOrDefault(p => p.FileName == e.FileName);
                 if (document != null)
                 {
-                    document.ShopItem = null;
+                    document.ProductDetails = null;
                     x.Documents.Remove(document);
                 }
             });
@@ -132,9 +132,9 @@ namespace Phundus.Shop.Projections
                             e.EventGuid, e.FileName));
                 }
 
-                var document = new ShopItemDocumentData
+                var document = new ProductDetailsDocumentData
                 {
-                    ShopItem = x,
+                    ProductDetails = x,
                     FileLength = e.FileLength,
                     FileName = e.FileName,
                     FileType = e.FileType
@@ -155,9 +155,9 @@ namespace Phundus.Shop.Projections
                             e.EventGuid, e.FileName));
                 }
 
-                var image = new ShopItemImageData
+                var image = new ProductDetailsImageData
                 {
-                    ShopItem = x,
+                    ProductDetails = x,
                     FileLength = e.FileLength,
                     FileName = e.FileName,
                     FileType = e.FileType
