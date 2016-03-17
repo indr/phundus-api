@@ -8,6 +8,7 @@ namespace Phundus.Rest.Api.Users
     using AttributeRouting.Web.Http;
     using Castle.Transactions;
     using Common.Domain.Model;
+    using Common.Resources;
     using Newtonsoft.Json;
     using Phundus.Shop.Application;
     using Phundus.Shop.Projections;

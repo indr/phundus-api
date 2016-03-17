@@ -3,7 +3,8 @@
     using System.Net.Http;
     using System.Web.Http;
     using AttributeRouting;
-    using Common;    
+    using Common;
+    using Common.Resources;
     using Newtonsoft.Json;
 
     [RoutePrefix("api/maintenance")]

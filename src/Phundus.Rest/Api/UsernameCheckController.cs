@@ -5,6 +5,7 @@ namespace Phundus.Rest.Api
     using AttributeRouting;
     using AttributeRouting.Web.Http;
     using Castle.Transactions;
+    using Common.Resources;
     using IdentityAccess.Application;
     using Newtonsoft.Json;
 

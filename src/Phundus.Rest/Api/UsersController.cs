@@ -10,6 +10,7 @@ namespace Phundus.Rest.Api
     using AttributeRouting.Web.Http;
     using Castle.Transactions;
     using Common.Domain.Model;
+    using Common.Resources;
     using ContentObjects;
     using IdentityAccess.Application;
     using IdentityAccess.Projections;

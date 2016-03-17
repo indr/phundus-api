@@ -4,6 +4,7 @@
     using System.Net.Http;
     using AttributeRouting;
     using AttributeRouting.Web.Http;
+    using Common.Resources;
     using IdentityAccess.Application;
     using Newtonsoft.Json;
 

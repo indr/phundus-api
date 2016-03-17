@@ -8,6 +8,7 @@
     using Api.Organizations;
     using AttributeRouting.Web.Http;
     using Castle.Transactions;
+    using Common.Resources;
     using Machine.Specifications;
 
     [Subject("Controllers transaction attribute")]

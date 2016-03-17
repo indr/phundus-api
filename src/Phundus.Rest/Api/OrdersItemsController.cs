@@ -5,6 +5,7 @@ namespace Phundus.Rest.Api
     using AttributeRouting;
     using AttributeRouting.Web.Http;
     using Common.Domain.Model;
+    using Common.Resources;
     using Newtonsoft.Json;
     using Phundus.Shop.Application;
 

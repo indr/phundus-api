@@ -4,6 +4,7 @@
     using AttributeRouting;
     using AttributeRouting.Web.Http;
     using Castle.Transactions;
+    using Common.Resources;
     using ContentObjects;
     using IdentityAccess.Application;
     using Newtonsoft.Json;

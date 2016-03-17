@@ -11,8 +11,7 @@
     using ContentObjects;
     using IdentityAccess.Application;
     using IdentityAccess.Projections;
-    using Newtonsoft.Json;
-    using ApiControllerBase = Rest.ApiControllerBase;
+    using Newtonsoft.Json;    
 
     [RoutePrefix("api/organizations/{organizationId}/applications")]
     public class OrganizationsApplicationsController : ApiControllerBase

@@ -9,6 +9,7 @@ namespace Phundus.Rest.Api
     using AttributeRouting.Web.Http;
     using Castle.Transactions;
     using Common.Domain.Model;
+    using Common.Resources;
     using FileUpload;
     using Inventory.Application;
     using Inventory.Projections;

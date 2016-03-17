@@ -115,7 +115,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ApiControllerBase.cs" />
     <Compile Include="Api\Account\ChangeEmailAddressController.cs" />
     <Compile Include="Api\Account\ChangePasswordController.cs" />
     <Compile Include="Api\Account\ResetPasswordController.cs" />

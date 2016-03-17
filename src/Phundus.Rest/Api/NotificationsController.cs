@@ -7,6 +7,7 @@
     using AttributeRouting.Web.Http;
     using Castle.Transactions;
     using Common.Notifications;
+    using Common.Resources;
 
     [RoutePrefix("api/notifications")]
     [Authorize(Roles = "Admin")]

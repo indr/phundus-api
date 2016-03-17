@@ -15,8 +15,7 @@
     using Newtonsoft.Json;
     using Phundus.Shop.Application;
     using Phundus.Shop.Model.Pdf;
-    using Phundus.Shop.Projections;
-    using ApiControllerBase = Rest.ApiControllerBase;
+    using Phundus.Shop.Projections;    
 
     [RoutePrefix("api/orders")]
     public class OrdersController : ApiControllerBase
