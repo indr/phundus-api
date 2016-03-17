@@ -1,10 +1,11 @@
-namespace Phundus.Inventory.Projections
+namespace Phundus.Inventory.Application
 {
     using System;
     using System.Collections.Generic;
     using Castle.Transactions;
     using Common;
     using Common.Querying;
+    using Projections;
 
     public interface IStoresQueryService
     {

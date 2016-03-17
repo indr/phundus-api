@@ -1,4 +1,4 @@
-namespace Phundus.Shop.Model
+namespace Phundus.Shop.Model.Products
 {
     using System;
     using System.Collections.Generic;
@@ -10,10 +10,10 @@ namespace Phundus.Shop.Model
         private ArticleShortId _articleShortId;
         private Lessor _lessor;        
         private string _name;
-        private decimal _publicPrice;
+        private decimal _price;
 
         public Article(ArticleShortId articleShortId, ArticleId articleId, Lessor lessor, StoreId storeId, string name,
-            decimal publicPrice)
+            decimal price)
         {
             if (articleShortId == null) throw new ArgumentNullException("articleShortId");
             if (articleId == null) throw new ArgumentNullException("articleId");
@@ -24,7 +24,7 @@ namespace Phundus.Shop.Model
             _lessor = lessor;
             StoreId = storeId;
             _name = name;
-            _publicPrice = publicPrice;
+            _price = price;
         }
 
         protected Article()
@@ -64,8 +64,8 @@ namespace Phundus.Shop.Model
 
         public virtual decimal Price
         {
-            get { return _publicPrice; }
-            protected set { _publicPrice = value; }
+            get { return _price; }
+            protected set { _price = value; }
         }
 
         protected override IEnumerable<object> GetEqualityComponents()

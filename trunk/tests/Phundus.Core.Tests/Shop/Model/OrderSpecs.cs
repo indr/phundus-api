@@ -4,6 +4,7 @@
     using Common.Domain.Model;
     using Machine.Specifications;
     using Phundus.Shop.Model;
+    using Phundus.Shop.Model.Products;
     using Phundus.Shop.Orders.Model;
 
     public abstract class order_concern : aggregate_root_concern<Order>

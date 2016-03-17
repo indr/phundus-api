@@ -6,6 +6,7 @@
     using Common.Domain.Model;
     using Model;
     using Model.Collaborators;
+    using Model.Products;
 
     public class AddOrderItem : ICommand
     {
@@ -37,16 +38,16 @@
 
     public class AddOrderItemHandler : IHandleCommand<AddOrderItem>
     {
-        private readonly IArticleService _articleService;
+        private readonly IProductsService _productsService;
         private readonly IOrderRepository _orderRepository;
         private readonly ICollaboratorService _collaboratorService;
 
         public AddOrderItemHandler(ICollaboratorService collaboratorService, IOrderRepository orderRepository,
-            IArticleService articleService)
+            IProductsService productsService)
         {
             _collaboratorService = collaboratorService;
             _orderRepository = orderRepository;
-            _articleService = articleService;
+            _productsService = productsService;
         }
 
         [Transaction]
@@ -54,7 +55,7 @@
         {
             var order = _orderRepository.GetById(command.OrderId);
             var manager = _collaboratorService.Manager(order.Lessor.LessorId, command.InitiatorId);
-            var article = _articleService.GetById(order.Lessor.LessorId, command.ArticleId, order.Lessee.LesseeId);
+            var article = _productsService.GetById(order.Lessor.LessorId, command.ArticleId, order.Lessee.LesseeId);
 
             order.AddItem(manager, command.OrderLineId, article, command.Period, command.Quantity, command.LineTotal);
 

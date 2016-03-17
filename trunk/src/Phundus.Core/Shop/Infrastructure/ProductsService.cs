@@ -1,18 +1,20 @@
-namespace Phundus.Shop.Model
+namespace Phundus.Shop.Infrastructure
 {
     using System;
     using Common;
     using Common.Domain.Model;
     using Inventory.Model.Articles;
     using Inventory.Model.Collaborators;
+    using Model;
+    using Model.Products;
 
-    public class ArticleService : IArticleService
+    public class ProductsService : IProductsService
     {
         private readonly IArticleRepository _articleRepository;
         private readonly ICollaboratorService _collaboratorService;
         private readonly ILessorService _lessorService;
 
-        public ArticleService(ICollaboratorService collaboratorService, IArticleRepository articleRepository,
+        public ProductsService(ICollaboratorService collaboratorService, IArticleRepository articleRepository,
             ILessorService lessorService)
         {
             _collaboratorService = collaboratorService;
@@ -20,7 +22,7 @@ namespace Phundus.Shop.Model
             _lessorService = lessorService;
         }
 
-        protected ArticleService()
+        protected ProductsService()
         {
         }
 
@@ -49,8 +51,12 @@ namespace Phundus.Shop.Model
         private Article ConvertToInternal(Inventory.Articles.Model.Article article, UserId userId)
         {
             var lessor = _lessorService.GetById(new LessorId(article.Owner.OwnerId.Id));
+            var isMember = IsMember(userId, lessor.LessorId);
+            if (!lessor.DoesPublicRental && !isMember)
+                throw new AuthorizationException();
+
             var price = article.PublicPrice;
-            if (article.MemberPrice.HasValue && article.MemberPrice.Value > 0 && IsMember(userId, lessor.LessorId))
+            if (article.MemberPrice.HasValue && article.MemberPrice.Value > 0 && isMember)
             {
                 price = article.MemberPrice.Value;
             }

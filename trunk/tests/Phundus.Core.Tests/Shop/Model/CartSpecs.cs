@@ -5,6 +5,7 @@
     using developwithpassion.specifications.rhinomocks;
     using Machine.Specifications;
     using Phundus.Shop.Model;
+    using Phundus.Shop.Model.Products;
     using Phundus.Shop.Orders.Model;
 
     public class cart_concern : Observes

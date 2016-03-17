@@ -4,7 +4,6 @@
     using Common;
     using Common.Domain.Model;
     using IdentityAccess.Application;
-    using IdentityAccess.Projections;
     using IdentityAccess.Resources;
     using Model;
 

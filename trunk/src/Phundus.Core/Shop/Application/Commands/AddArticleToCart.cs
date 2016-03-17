@@ -5,6 +5,7 @@
     using Common.Commanding;
     using Common.Domain.Model;
     using Model;
+    using Model.Products;
 
     // TODO: Rename to AddCartItem
     public class AddArticleToCart : ICommand
@@ -40,22 +41,22 @@
 
     public class AddArticleToCartHandler : IHandleCommand<AddArticleToCart>
     {
-        private readonly IArticleService _articleService;
+        private readonly IProductsService _productsService;
         private readonly ICartRepository _cartRepository;
         private readonly ILesseeService _lesseeService;
 
-        public AddArticleToCartHandler(ICartRepository cartRepository, ILesseeService lesseeService, IArticleService articleService)
+        public AddArticleToCartHandler(ICartRepository cartRepository, ILesseeService lesseeService, IProductsService productsService)
         {
             _cartRepository = cartRepository;
             _lesseeService = lesseeService;
-            _articleService = articleService;
+            _productsService = productsService;
         }
 
         [Transaction]
         public void Handle(AddArticleToCart command)
         {
             var lessee = _lesseeService.GetById(new LesseeId(command.InitiatorId));
-            var article = _articleService.GetById(command.LessorId, command.ArticleId, lessee.LesseeId);
+            var article = _productsService.GetById(command.LessorId, command.ArticleId, lessee.LesseeId);
 
             var cart = GetCart(command);
 

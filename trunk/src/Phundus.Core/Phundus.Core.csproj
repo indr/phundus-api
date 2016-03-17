@@ -254,11 +254,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Templates.resx</DependentUpon>
     </Compile>
-    <Compile Include="IdentityAccess\Resources\IMemberInRoleResource.cs" />
-    <Compile Include="IdentityAccess\Resources\IOrganizationsResource.cs" />
-    <Compile Include="IdentityAccess\Resources\IUserInRoleResource.cs" />
+    <Compile Include="IdentityAccess\Resources\MemberInRoleResource.cs" />
+    <Compile Include="IdentityAccess\Resources\OrganizationsResource.cs" />
+    <Compile Include="IdentityAccess\Resources\UserInRoleResource.cs" />
     <Compile Include="IdentityAccess\Model\UserInRoleService.cs" />
-    <Compile Include="IdentityAccess\Resources\IUsersResource.cs" />
+    <Compile Include="IdentityAccess\Resources\UsersResource.cs" />
     <Compile Include="Inventory\Application\Commands\AddImage.cs" />
     <Compile Include="Inventory\Application\Commands\ChangeContactDetails.cs" />
     <Compile Include="Inventory\Application\Commands\ChangePrices.cs" />
@@ -324,7 +324,7 @@
     <Compile Include="Shop\Infrastructure\Persistence\Repositories\NhCartRepository.cs" />
     <Compile Include="Shop\Infrastructure\Persistence\Repositories\NhOrderRepository.cs" />
     <Compile Include="Shop\Model\Collaborators\ICollaboratorService.cs" />
-    <Compile Include="Shop\Model\IArticleService.cs" />
+    <Compile Include="Shop\Model\Products\IProductsService.cs" />
     <Compile Include="Shop\Model\ILesseeService.cs" />
     <Compile Include="Shop\Model\ILessorService.cs" />
     <Compile Include="Shop\Model\Mails\OrderMailBase.cs" />
@@ -365,7 +365,7 @@
     <Compile Include="Shop\Application\Commands\RemoveOrderItem.cs" />
     <Compile Include="Shop\Application\Commands\UpdateOrderItem.cs" />
     <Compile Include="Shop\Model\Mails\OrderStatusChangedMail.cs" />
-    <Compile Include="Shop\Model\Article.cs" />
+    <Compile Include="Shop\Model\Products\Article.cs" />
     <Compile Include="Shop\Model\CartItem.cs" />
     <Compile Include="Shop\Model\Lessor.cs" />
     <Compile Include="Shop\Model\Events\OrderCreated.cs" />
@@ -386,7 +386,7 @@
     <Compile Include="Shop\Application\LesseeQueryService.cs" />
     <Compile Include="Shop\Application\LessorQueryService.cs" />
     <Compile Include="Shop\Infrastructure\LesseeService.cs" />
-    <Compile Include="Shop\Infrastructure\ArticleService.cs" />
+    <Compile Include="Shop\Infrastructure\ProductsService.cs" />
     <Compile Include="Shop\Infrastructure\LessorService.cs" />
     <Compile Include="Web\Infrastructure\Mappings\UrlMapDataMap.cs" />
     <Compile Include="Web\Projections\UrlMapProjection.cs" />
@@ -421,6 +421,7 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Inventory\Resources\" />
     <Folder Include="Shop\Model\Orders\" />
   </ItemGroup>
   <ItemGroup>

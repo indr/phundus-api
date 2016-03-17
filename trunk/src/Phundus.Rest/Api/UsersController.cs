@@ -14,6 +14,7 @@ namespace Phundus.Rest.Api
     using ContentObjects;
     using IdentityAccess.Application;
     using IdentityAccess.Projections;
+    using Inventory.Application;
     using Inventory.Projections;
     using Newtonsoft.Json;
 

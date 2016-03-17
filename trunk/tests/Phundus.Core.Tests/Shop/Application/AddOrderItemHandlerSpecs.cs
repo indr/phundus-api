@@ -5,6 +5,7 @@
     using Machine.Specifications;
     using Phundus.Shop.Application;
     using Phundus.Shop.Model;
+    using Phundus.Shop.Model.Products;
 
     [Subject(typeof (AddOrderItemHandler))]
     public class when_add_order_command_item_is_handled :
@@ -21,7 +22,7 @@
             orderRepository.setup(x => x.GetById(theOrder.OrderId)).Return(theOrder);
 
             theArticle = make.Article();
-            articleService.setup(x => x.GetById(theLessor.LessorId, theArticle.ArticleId, theLessee.LesseeId))
+            productsService.setup(x => x.GetById(theLessor.LessorId, theArticle.ArticleId, theLessee.LesseeId))
                 .Return(theArticle);
 
             thePeriod = Period.FromNow(1);

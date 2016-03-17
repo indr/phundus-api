@@ -1,4 +1,4 @@
-namespace Phundus.Inventory.Projections
+namespace Phundus.Inventory.Application
 {
     using System;
     using System.Collections.Generic;
@@ -6,6 +6,7 @@ namespace Phundus.Inventory.Projections
     using Common.Domain.Model;
     using Common.Querying;
     using NHibernate.Criterion;
+    using Projections;
 
     public interface IArticleQueryService
     {

@@ -2,6 +2,7 @@ namespace Phundus.Rest.FileUpload
 {
     using System.Collections.Generic;
     using System.Web;
+    using Inventory.Application;
     using Inventory.Projections;
 
     public class BlueImpFileUploadHandler
