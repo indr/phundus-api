@@ -207,8 +207,9 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Templates.resx</DependentUpon>
     </Compile>
-    <Compile Include="IdentityAccess\Application\MemberInRole.cs" />
-    <Compile Include="IdentityAccess\Application\UserInRole.cs" />
+    <Compile Include="IdentityAccess\Resources\IMemberInRoleResource.cs" />
+    <Compile Include="IdentityAccess\Resources\IUserInRoleResource.cs" />
+    <Compile Include="IdentityAccess\Model\UserInRoleService.cs" />
     <Compile Include="Inventory\Application\AddImage.cs" />
     <Compile Include="Inventory\Application\ChangeContactDetails.cs" />
     <Compile Include="Inventory\Application\ChangePrices.cs" />
@@ -309,7 +310,6 @@
     <Compile Include="Shop\Projections\LessorQueries.cs" />
     <Compile Include="Shop\Model\LesseeService.cs" />
     <Compile Include="Shop\Model\ArticleService.cs" />
-    <Compile Include="Shop\Authorization\Rent.cs" />
     <Compile Include="Shop\Model\LessorService.cs" />
     <Compile Include="Web\Projections\UrlMapProjection.cs" />
     <Compile Include="App_Start\CoreInstaller.cs" />
@@ -347,7 +347,6 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="IdentityAccess\Resources\" />
     <Folder Include="Shop\Model\Orders\" />
   </ItemGroup>
   <ItemGroup>

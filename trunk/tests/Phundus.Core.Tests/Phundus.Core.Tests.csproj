@@ -203,8 +203,6 @@
     <Compile Include="Inventory\store_command_handler_concern.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="access_object_handler_concern.cs" />
-    <Compile Include="Shop\Authorization\RentArticleAccessObjectHandlerSpecs.cs" />
-    <Compile Include="Shop\Authorization\shop_access_object_handler_concern.cs" />
     <Compile Include="Shop\Application\AddArticleToCartHandlerSpecs.cs" />
     <Compile Include="Shop\Application\PlaceOrderHandlerSpecs.cs" />
     <Compile Include="Shop\Application\RemoveCartItemHandlerSpecs.cs" />

@@ -4,6 +4,7 @@
     using Castle.Transactions;
     using Common.Commanding;
     using Common.Domain.Model;
+    using Model;
     using Model.Users;
 
     public class ChangeUserRole : ICommand
@@ -24,19 +25,19 @@
 
     public class ChangeUserRoleHandler : IHandleCommand<ChangeUserRole>
     {
-        private readonly IUserInRole _userInRole;
+        private readonly IUserInRoleService _userInRoleService;
         private readonly IUserRepository _userRepository;
 
-        public ChangeUserRoleHandler(IUserInRole userInRole, IUserRepository userRepository)
+        public ChangeUserRoleHandler(IUserInRoleService userInRoleService, IUserRepository userRepository)
         {            
-            _userInRole = userInRole;
+            _userInRoleService = userInRoleService;
             _userRepository = userRepository;
         }
 
         [Transaction]
         public void Handle(ChangeUserRole command)
         {
-            var admin = _userInRole.Admin(command.InitiatorId);
+            var admin = _userInRoleService.Admin(command.InitiatorId);
             var user = _userRepository.GetById(command.UserId);
             
             user.ChangeRole(admin, command.UserRole);

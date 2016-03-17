@@ -7,13 +7,14 @@
     using Machine.Fakes;
     using Machine.Specifications;
     using Phundus.IdentityAccess.Application;
+    using Phundus.IdentityAccess.Model;
     using Phundus.IdentityAccess.Model.Organizations;
     using Phundus.IdentityAccess.Model.Users;
     using Phundus.IdentityAccess.Organizations.Model;
     using Phundus.IdentityAccess.Users.Model;
     using Phundus.IdentityAccess.Users.Services;
 
-    public class user_in_role_concern : concern<UserInRole>
+    public class user_in_role_concern : concern<UserInRoleService>
     {
         protected static identityaccess_factory make;
 
@@ -33,7 +34,7 @@
         };
     }
 
-    [Subject(typeof (UserInRole))]
+    [Subject(typeof (UserInRoleService))]
     public class when_asking_for_founder : user_in_role_concern
     {
         private static Founder aFounder;
@@ -45,7 +46,7 @@
             aFounder.ShouldNotBeNull();
     }
 
-    [Subject(typeof (UserInRole))]
+    [Subject(typeof (UserInRoleService))]
     public class when_asking_for_founder_when_user_is_locked : user_in_role_concern
     {
         private Establish ctx = () => theUser.setup(x => x.IsLocked).Return(true);
@@ -58,7 +59,7 @@
             spec.exception_thrown.ShouldNotBeNull();
     }
 
-    [Subject(typeof (UserInRole))]
+    [Subject(typeof (UserInRoleService))]
     public class when_asking_for_manager_with_user_in_admin_role : user_in_role_concern
     {
         private static Manager aManager;
@@ -73,7 +74,7 @@
             aManager.ShouldNotBeNull();
     }
 
-    [Subject(typeof (UserInRole))]
+    [Subject(typeof (UserInRoleService))]
     public class when_asking_for_manager_with_user_as_organization_member : user_in_role_concern
     {
         private static OrganizationId theOrganizationId;
@@ -96,7 +97,7 @@
             caughtException.ShouldNotBeNull();
     }
 
-    [Subject(typeof (UserInRole))]
+    [Subject(typeof (UserInRoleService))]
     public class when_asking_for_manager_with_user_as_organization_manager : user_in_role_concern
     {
         private static OrganizationId theOrganizationId;
@@ -119,7 +120,7 @@
             aManager.ShouldNotBeNull();
     }
 
-    [Subject(typeof (UserInRole))]
+    [Subject(typeof (UserInRoleService))]
     public class when_asking_for_manager_with_user_as_organization_manager_but_locked : user_in_role_concern
     {
         private static OrganizationId theOrganizationId;

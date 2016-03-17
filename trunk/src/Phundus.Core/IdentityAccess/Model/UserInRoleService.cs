@@ -1,14 +1,14 @@
-﻿namespace Phundus.IdentityAccess.Application
+﻿namespace Phundus.IdentityAccess.Model
 {
     using System;
     using System.Linq;
     using Common;
     using Common.Domain.Model;
-    using Model.Organizations;
-    using Model.Users;
-    using Organizations.Model;
+    using IdentityAccess.Organizations.Model;
+    using Organizations;
+    using Users;
 
-    public interface IUserInRole
+    public interface IUserInRoleService
     {
         Admin Admin(UserId userId);
         Founder Founder(UserId userId);
@@ -16,12 +16,12 @@
         Initiator Initiator(InitiatorId initiatorId);
     }
 
-    public class UserInRole : IUserInRole
+    public class UserInRoleService : IUserInRoleService
     {
         private readonly IMembershipRepository _membershipRepository;
         private readonly IUserRepository _userRepository;
 
-        public UserInRole(IUserRepository userRepository, IMembershipRepository membershipRepository)
+        public UserInRoleService(IUserRepository userRepository, IMembershipRepository membershipRepository)
         {
             _userRepository = userRepository;
             _membershipRepository = membershipRepository;

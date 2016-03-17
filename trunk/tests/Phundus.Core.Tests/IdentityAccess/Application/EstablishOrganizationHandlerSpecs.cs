@@ -22,7 +22,7 @@
                 .WhenToldTo(x => x.GetById(theInitiatorId))
                 .Return(make.User(theInitiatorId));
             theFounder = new Founder(theInitiatorId, "founder@test.phundus.ch", "The Founder");
-            userInRole.setup(x => x.Founder(theInitiatorId))
+            userInRoleService.setup(x => x.Founder(theInitiatorId))
                 .Return(theFounder);
             command = new EstablishOrganization(theInitiatorId, theOrganizationId, theName);
         };

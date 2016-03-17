@@ -3,25 +3,26 @@ namespace Phundus.Shop.Model
     using System;
     using Common;
     using Common.Domain.Model;
-    using IdentityAccess.Application;
-    using IdentityAccess.Projections;
     using Inventory.Model.Articles;
+    using Inventory.Model.Collaborators;
 
     public interface IArticleService
-    {        
+    {
+        // TODO: should not return article if lessee can not rent it
+        // TODO: should throw exception if lessee can not rent article
         Article GetById(LessorId lessorId, ArticleId articleId, LesseeId lesseeId);
     }
 
     public class ArticleService : IArticleService
     {
         private readonly IArticleRepository _articleRepository;
+        private readonly ICollaboratorService _collaboratorService;
         private readonly ILessorService _lessorService;
-        private readonly IMemberInRole _memberInRole;
 
-        public ArticleService(IMemberInRole memberInRole, IArticleRepository articleRepository,
+        public ArticleService(ICollaboratorService collaboratorService, IArticleRepository articleRepository,
             ILessorService lessorService)
         {
-            _memberInRole = memberInRole;
+            _collaboratorService = collaboratorService;
             _articleRepository = articleRepository;
             _lessorService = lessorService;
         }
@@ -29,7 +30,7 @@ namespace Phundus.Shop.Model
         protected ArticleService()
         {
         }
-        
+
         public virtual Article GetById(LessorId lessorId, ArticleId articleId, LesseeId lesseeId)
         {
             if (lessorId == null) throw new ArgumentNullException("lessorId");
@@ -41,7 +42,7 @@ namespace Phundus.Shop.Model
                 throw new NotFoundException(String.Format("Article {0} {1} not found.", lessorId, articleId));
 
             return result;
-        }        
+        }
 
         private Article GetById(ArticleId articleId, UserId userId)
         {
@@ -56,13 +57,17 @@ namespace Phundus.Shop.Model
         {
             var lessor = _lessorService.GetById(new LessorId(article.Owner.OwnerId.Id));
             var price = article.PublicPrice;
-            if (article.MemberPrice.HasValue && article.MemberPrice.Value > 0
-                && _memberInRole.IsActiveMember(lessor.LessorId, userId))
+            if (article.MemberPrice.HasValue && article.MemberPrice.Value > 0 && IsMember(userId, lessor.LessorId))
             {
                 price = article.MemberPrice.Value;
             }
 
             return new Article(article.ArticleShortId, article.ArticleId, lessor, article.StoreId, article.Name, price);
+        }
+
+        private bool IsMember(UserId userId, LessorId lessorId)
+        {
+            return _collaboratorService.IsMember(userId, lessorId);
         }
     }
 }

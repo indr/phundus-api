@@ -5,6 +5,7 @@
     using Common;
     using Common.Commanding;
     using Common.Domain.Model;
+    using Model;
     using Model.Users;
     using Users.Exceptions;
 
@@ -30,12 +31,12 @@
 
     public class ChangeEmailAddressHandler : IHandleCommand<ChangeEmailAddress>
     {
-        private readonly IUserInRole _userInRole;
+        private readonly IUserInRoleService _userInRoleService;
         private readonly IUserRepository _userRepository;
 
-        public ChangeEmailAddressHandler(IUserInRole userInRole, IUserRepository userRepository)
+        public ChangeEmailAddressHandler(IUserInRoleService userInRoleService, IUserRepository userRepository)
         {
-            _userInRole = userInRole;
+            _userInRoleService = userInRoleService;
             _userRepository = userRepository;
         }
 
@@ -49,7 +50,7 @@
             if (_userRepository.FindByEmailAddress(emailAddress) != null)
                 throw new EmailAlreadyTakenException();
 
-            var initiator = _userInRole.Initiator(command.InitiatorId);
+            var initiator = _userInRoleService.Initiator(command.InitiatorId);
             var user = _userRepository.GetById(command.UserId);
 
             user.ChangeEmailAddress(initiator, command.Password, command.NewEmailAddress);

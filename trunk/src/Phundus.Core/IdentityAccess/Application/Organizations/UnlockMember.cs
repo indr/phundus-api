@@ -4,6 +4,7 @@
     using Castle.Transactions;
     using Common.Commanding;
     using Common.Domain.Model;
+    using Model;
     using Model.Organizations;
     using Users.Services;
 
@@ -27,20 +28,20 @@
     public class UnlockMemberHandler : IHandleCommand<UnlockMember>
     {
         private readonly IOrganizationRepository _organizationRepository;
-        private readonly IUserInRole _userInRole;
+        private readonly IUserInRoleService _userInRoleService;
 
-        public UnlockMemberHandler(IUserInRole userInRole, IOrganizationRepository organizationRepository)
+        public UnlockMemberHandler(IUserInRoleService userInRoleService, IOrganizationRepository organizationRepository)
         {
-            if (userInRole == null) throw new ArgumentNullException("userInRole");
+            if (userInRoleService == null) throw new ArgumentNullException("userInRoleService");
             if (organizationRepository == null) throw new ArgumentNullException("organizationRepository");
-            _userInRole = userInRole;
+            _userInRoleService = userInRoleService;
             _organizationRepository = organizationRepository;
         }
 
         [Transaction]
         public void Handle(UnlockMember command)
         {
-            var manager = _userInRole.Manager(command.InitiatorId, command.OrganizationId);
+            var manager = _userInRoleService.Manager(command.InitiatorId, command.OrganizationId);
             var organization = _organizationRepository.GetById(command.OrganizationId);
 
             organization.UnlockMember(manager, command.MemberId);

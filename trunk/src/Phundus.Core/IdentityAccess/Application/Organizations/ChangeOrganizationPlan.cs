@@ -4,6 +4,7 @@
     using Castle.Transactions;
     using Common.Commanding;
     using Common.Domain.Model;
+    using Model;
     using Model.Organizations;
     using Organizations.Model;
     using Users.Services;
@@ -35,20 +36,20 @@
     public class ChangeOrganizationPlanHandler : IHandleCommand<ChangeOrganizationPlan>
     {
         private readonly IOrganizationRepository _organizationRepository;
-        private readonly IUserInRole _userInRole;
+        private readonly IUserInRoleService _userInRoleService;
 
-        public ChangeOrganizationPlanHandler(IUserInRole userInRole, IOrganizationRepository organizationRepository)
+        public ChangeOrganizationPlanHandler(IUserInRoleService userInRoleService, IOrganizationRepository organizationRepository)
         {
-            if (userInRole == null) throw new ArgumentNullException("userInRole");
+            if (userInRoleService == null) throw new ArgumentNullException("userInRoleService");
             if (organizationRepository == null) throw new ArgumentNullException("organizationRepository");
-            _userInRole = userInRole;
+            _userInRoleService = userInRoleService;
             _organizationRepository = organizationRepository;
         }
 
         [Transaction]
         public void Handle(ChangeOrganizationPlan command)
         {
-            var admin = _userInRole.Admin(command.InitiatorId);
+            var admin = _userInRoleService.Admin(command.InitiatorId);
             var organization = _organizationRepository.GetById(command.OrganizationId);
 
             organization.ChangePlan(admin, command.Plan);

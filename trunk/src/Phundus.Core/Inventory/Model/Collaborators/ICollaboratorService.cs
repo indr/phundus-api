@@ -5,5 +5,6 @@
     public interface ICollaboratorService
     {        
         Manager Manager(UserId userId, OwnerId ownerId);
+        bool IsMember(UserId userId, LessorId lessorId);
     }
 }

@@ -8,11 +8,9 @@
     using Common.Commanding;
     using Common.Domain.Model;
     using Common.Eventing;
-    using Integration.IdentityAccess;
     using Model;
     using Model.Collaborators;
     using Orders.Model;
-    using Phundus.Authorization;
 
     public class PlaceOrder : ICommand
     {
@@ -30,7 +28,7 @@
 
         public InitiatorId InitiatorId { get; protected set; }
         public OrderId OrderId { get; protected set; }
-        public OrderShortId OrderShortId { get;  protected set; }
+        public OrderShortId OrderShortId { get; protected set; }
         public LessorId LessorId { get; protected set; }
     }
 
@@ -73,14 +71,13 @@
 
             foreach (var eachCartItem in cartItemsToPlace)
             {
-                var article = _articleService.GetById(lessor.LessorId, eachCartItem.ArticleId, lessee.LesseeId);
-                _authorize.Enforce(cart.UserId, Rent.Article(article));
+                _articleService.GetById(lessor.LessorId, eachCartItem.ArticleId, lessee.LesseeId);
             }
 
 
             var orderLines = new OrderLines(cartItemsToPlace);
             var order = new Order(initiator, command.OrderId, command.OrderShortId, lessor, lessee, orderLines);
-            
+
             _orderRepository.Add(order);
 
             foreach (var each in cartItemsToPlace)

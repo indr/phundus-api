@@ -4,6 +4,7 @@
     using Castle.Transactions;
     using Common.Commanding;
     using Common.Domain.Model;
+    using Model;
     using Model.Organizations;
     using Model.Users;
     using Organizations.Model;
@@ -35,7 +36,7 @@
 
         public IOrganizationRepository OrganizationRepository { get; set; }
 
-        public IUserInRole UserInRole { get; set; }
+        public IUserInRoleService UserInRoleService { get; set; }
 
         [Transaction]
         public void Handle(ChangeMembersRole command)
@@ -45,7 +46,7 @@
             var member = UserRepository.GetById(command.MemberId);
 
 
-            var manager = UserInRole.Manager(command.InitiatorId, organization.Id);
+            var manager = UserInRoleService.Manager(command.InitiatorId, organization.Id);
 
             organization.SetMembersRole(member, command.MemberRole);
         }

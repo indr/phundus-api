@@ -6,10 +6,9 @@
     using Machine.Fakes;
     using Machine.Specifications;
     using Phundus.Shop.Application;
-    using Phundus.Shop.Authorization;
     using Phundus.Shop.Model;
     using Rhino.Mocks;
-    
+
     public class when_add_article_to_cart_is_handled :
         shop_command_handler_concern<AddArticleToCart, AddArticleToCartHandler>
     {
@@ -27,15 +26,21 @@
             theArticle = make.Article();
 
             var lesseeId = new LesseeId(theInitiatorId);
-            depends.on<ILesseeService>().setup(x => x.GetById(Arg<LesseeId>.Is.Equal(lesseeId))).Return(make.Lessee(lesseeId));
+            depends.on<ILesseeService>()
+                .setup(x => x.GetById(Arg<LesseeId>.Is.Equal(lesseeId)))
+                .Return(make.Lessee(lesseeId));
             cartRepository = depends.on<ICartRepository>();
 
             depends.on<IArticleService>()
-                .WhenToldTo(x => x.GetById(Arg<LessorId>.Is.Equal(theArticle.LessorId), Arg<ArticleId>.Is.Equal(theArticle.ArticleId),
-                    Arg<LesseeId>.Is.Equal(new LesseeId(theInitiatorId))))
+                .WhenToldTo(
+                    x =>
+                        x.GetById(Arg<LessorId>.Is.Equal(theArticle.LessorId),
+                            Arg<ArticleId>.Is.Equal(theArticle.ArticleId),
+                            Arg<LesseeId>.Is.Equal(new LesseeId(theInitiatorId))))
                 .Return(theArticle);
             theCartItemId = new CartItemId();
-            command = new AddArticleToCart(theInitiatorId, theCartItemId, theArticle.LessorId, theArticle.ArticleId, theFromUtc, theToUtc, theQuantity);
+            command = new AddArticleToCart(theInitiatorId, theCartItemId, theArticle.LessorId, theArticle.ArticleId,
+                theFromUtc, theToUtc, theQuantity);
         };
     }
 
@@ -47,9 +52,6 @@
 
         private It should_add_new_cart_to_repository = () =>
             cartRepository.WasToldTo(x => x.Add(Arg<Cart>.Is.NotNull));
-
-        private It should_enforce_initiator_to_rent_article = () =>
-            enforceInitiatorTo<RentArticle>(p => Equals(p.Article.ArticleId, theArticle.ArticleId));
     }
 
     [Subject(typeof (AddArticleToCartHandler))]
@@ -62,9 +64,6 @@
             theCart = new Cart(theInitiatorId);
             cartRepository.WhenToldTo(x => x.FindByUserGuid(theInitiatorId)).Return(theCart);
         };
-
-        private It should_enforce_initiator_to_rent_article = () =>
-            enforceInitiatorTo<RentArticle>(p => Equals(p.Article.ArticleId, theArticle.ArticleId));
 
         private It should_not_add_a_cart_to_repository = () =>
             cartRepository.never_received(x => x.Add(Arg<Cart>.Is.NotNull));

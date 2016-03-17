@@ -4,6 +4,7 @@
     using Castle.Transactions;
     using Common.Commanding;
     using Common.Domain.Model;
+    using Model;
     using Model.Users;
     using Users.Services;
 
@@ -23,21 +24,21 @@
 
     public class ApproveUserHandler : IHandleCommand<ApproveUser>
     {
-        private readonly IUserInRole _userInRole;
+        private readonly IUserInRoleService _userInRoleService;
         private readonly IUserRepository _userRepository;
 
-        public ApproveUserHandler(IUserInRole userInRole, IUserRepository userRepository)
+        public ApproveUserHandler(IUserInRoleService userInRoleService, IUserRepository userRepository)
         {
-            if (userInRole == null) throw new ArgumentNullException("userInRole");
+            if (userInRoleService == null) throw new ArgumentNullException("userInRoleService");
             if (userRepository == null) throw new ArgumentNullException("userRepository");
-            _userInRole = userInRole;
+            _userInRoleService = userInRoleService;
             _userRepository = userRepository;
         }
 
         [Transaction]
         public void Handle(ApproveUser command)
         {
-            var initiator = _userInRole.Admin(command.InitiatorId);
+            var initiator = _userInRoleService.Admin(command.InitiatorId);
 
             var user = _userRepository.GetById(command.UserId);
             user.Approve(initiator);

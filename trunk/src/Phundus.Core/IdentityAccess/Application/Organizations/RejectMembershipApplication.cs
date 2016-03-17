@@ -4,6 +4,7 @@
     using Castle.Transactions;
     using Common.Commanding;
     using Common.Domain.Model;
+    using Model;
     using Model.Organizations;
     using Projections;
 
@@ -28,7 +29,7 @@
 
         public IOrganizationRepository OrganizationRepository { get; set; }
 
-        public IUserInRole UserInRole { get; set; }
+        public IUserInRoleService UserInRoleService { get; set; }
 
         [Transaction]
         public void Handle(RejectMembershipApplication command)
@@ -38,7 +39,7 @@
             var organization = OrganizationRepository.GetById(application.OrganizationId);
 
             // MemberInRole.ActiveManager(application.OrganizationId, command.InitiatorId);
-            var manager = UserInRole.Manager(command.InitiatorId, organization.Id);
+            var manager = UserInRoleService.Manager(command.InitiatorId, organization.Id);
 
             organization.RejectMembershipRequest(command.InitiatorId, application);
         }

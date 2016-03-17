@@ -4,7 +4,7 @@ namespace Phundus.Tests.IdentityAccess
     using Common.Domain.Model;
     using developwithpassion.specifications.extensions;
     using Machine.Specifications;
-    using Phundus.IdentityAccess.Application;
+    using Phundus.IdentityAccess.Model;
     using Phundus.IdentityAccess.Model.Organizations;
     using Phundus.IdentityAccess.Model.Users;
 
@@ -14,8 +14,7 @@ namespace Phundus.Tests.IdentityAccess
     {
         protected static identityaccess_factory make;
 
-        protected static IMemberInRole memberInRole;
-        protected static IUserInRole userInRole;
+        protected static IUserInRoleService userInRoleService;
 
         protected static IOrganizationRepository organizationRepository;
         protected static IUserRepository userRepository;
@@ -30,17 +29,16 @@ namespace Phundus.Tests.IdentityAccess
 
             theOrganizationId = new OrganizationId();
 
-            userInRole = depends.on<IUserInRole>();
+            userInRoleService = depends.on<IUserInRoleService>();
 
-            userInRole.setup(x => x.Initiator(theInitiatorId)).Return(theInitiator);
+            userInRoleService.setup(x => x.Initiator(theInitiatorId)).Return(theInitiator);
 
             theAdmin = make.Admin();
-            userInRole.setup(x => x.Admin(theInitiatorId)).Return(theAdmin);
+            userInRoleService.setup(x => x.Admin(theInitiatorId)).Return(theAdmin);
 
             theManager = new Manager(theInitiatorId, "manager@test.phundus.ch", "The Manager");
-            userInRole.setup(x => x.Manager(theInitiatorId, theOrganizationId)).Return(theManager);
+            userInRoleService.setup(x => x.Manager(theInitiatorId, theOrganizationId)).Return(theManager);
 
-            memberInRole = depends.on<IMemberInRole>();
             organizationRepository = depends.on<IOrganizationRepository>();
             userRepository = depends.on<IUserRepository>();
         };

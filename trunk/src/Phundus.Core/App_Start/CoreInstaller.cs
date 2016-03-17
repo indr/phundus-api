@@ -52,15 +52,6 @@
                     .WithServiceAllInterfaces());
 
             container.Register(
-                Component.For<IUserInRole>()
-                    .ImplementedBy<UserInRole>());
-
-            container.Register(
-                Component.For<IMemberInRole>()
-                    .ImplementedBy<MemberInRoleProjection>()
-                    .LifestyleTransient());
-
-            container.Register(
                 Component.For<Inventory.Model.Collaborators.ICollaboratorService>()
                     .ImplementedBy<CollaboratorService>());
 
