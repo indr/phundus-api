@@ -5,6 +5,7 @@ namespace Phundus.Rest.Api
     using AttributeRouting.Web.Http;
     using Castle.Transactions;
     using ContentObjects;
+    using Dashboard.Application;
     using Dashboard.Projections;
 
     [RoutePrefix("api/event-log")]

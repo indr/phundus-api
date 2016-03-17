@@ -1,7 +1,8 @@
-namespace Phundus.Dashboard.Projections
+namespace Phundus.Dashboard.Application
 {
     using System.Collections.Generic;
     using Common.Querying;
+    using Projections;
 
     public interface IEventLogQueryService
     {

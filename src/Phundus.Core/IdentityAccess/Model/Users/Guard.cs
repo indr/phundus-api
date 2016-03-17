@@ -1,4 +1,4 @@
-﻿namespace Phundus
+﻿namespace Phundus.IdentityAccess.Model.Users
 {
     using System;
 

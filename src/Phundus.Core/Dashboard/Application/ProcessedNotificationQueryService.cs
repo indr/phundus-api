@@ -1,4 +1,4 @@
-namespace Phundus.Dashboard.Projections
+namespace Phundus.Dashboard.Application
 {
     using System;
     using System.Collections.Generic;
