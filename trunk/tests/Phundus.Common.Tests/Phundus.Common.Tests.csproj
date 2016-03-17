@@ -122,7 +122,6 @@
     <Compile Include="Eventing\EventSerializerSpecs.cs" />
     <Compile Include="Infrastructure\Persistence\concern.cs" />
     <Compile Include="Infrastructure\Persistence\Ddd\EventStoreSpecs.cs" />
-    <Compile Include="Infrastructure\Persistence\MappedEntitiesSpecs.cs" />
     <Compile Include="Infrastructure\Persistence\Notifications\NhTrackerRepositorySpecs.cs" />
     <Compile Include="installer_concern.cs" />
     <Compile Include="InstrumentedDateTimeProvider.cs" />
