@@ -12,17 +12,17 @@
 
     public class OrganizationsResource : ResourceBase, IOrganizationsResource
     {
-        private readonly IOrganizationQueries _organizationQueries;
+        private readonly IOrganizationQueryService _organizationQueryService;
 
-        public OrganizationsResource(IOrganizationQueries organizationQueries)
+        public OrganizationsResource(IOrganizationQueryService organizationQueryService)
         {
-            _organizationQueries = organizationQueries;
+            _organizationQueryService = organizationQueryService;
         }
 
         [Transaction]
         public OrganizationData Get(Guid organizationId)
         {
-            return _organizationQueries.FindById(organizationId);
+            return _organizationQueryService.FindById(organizationId);
         }
     }
 }

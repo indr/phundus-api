@@ -12,7 +12,7 @@ namespace Phundus.Dashboard.Projections
         ICollection<EventProcessorData> Query();
     }
 
-    public class EventProcessorsQueries : QueryBase<EventProcessorData>, IEventProcessorsQueries
+    public class EventProcessorsQueries : QueryServiceBase<EventProcessorData>, IEventProcessorsQueries
     {
         private readonly IProcessedNotificationTrackerStore _processedNotificationTrackerStore;
 

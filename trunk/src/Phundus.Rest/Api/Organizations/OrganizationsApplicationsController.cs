@@ -15,18 +15,18 @@
     [RoutePrefix("api/organizations/{organizationId}/applications")]
     public class OrganizationsApplicationsController : ApiControllerBase
     {
-        private readonly IMembershipApplicationQueries _membershipApplicationQueries;
+        private readonly IMembershipApplicationQueryService _membershipApplicationQueryService;
 
-        public OrganizationsApplicationsController(IMembershipApplicationQueries membershipApplicationQueries)
+        public OrganizationsApplicationsController(IMembershipApplicationQueryService membershipApplicationQueryService)
         {            
-            _membershipApplicationQueries = membershipApplicationQueries;
+            _membershipApplicationQueryService = membershipApplicationQueryService;
         }
 
         [GET("")]
         [Transaction]
         public virtual QueryOkResponseContent<MembershipApplicationData> Get(Guid organizationId)
         {
-            var results = _membershipApplicationQueries.FindPending(CurrentUserId, new OrganizationId(organizationId));
+            var results = _membershipApplicationQueryService.FindPending(CurrentUserId, new OrganizationId(organizationId));
             return new QueryOkResponseContent<MembershipApplicationData>(results);
         }
 

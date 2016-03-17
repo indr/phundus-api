@@ -7,7 +7,7 @@
         UrlMapData FindByUrl(string url);
     }
 
-    public class UrlMapQueries : QueryBase<UrlMapData>, IUrlMapQueries
+    public class UrlMapQueries : QueryServiceBase<UrlMapData>, IUrlMapQueries
     {
         public UrlMapData FindByUrl(string url)
         {

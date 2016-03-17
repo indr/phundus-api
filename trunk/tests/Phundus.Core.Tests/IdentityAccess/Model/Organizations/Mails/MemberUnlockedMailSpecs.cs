@@ -18,7 +18,7 @@
         private Establish ctx = () =>
         {
             var make = new identityaccess_factory(fake);
-            var userQueries = depends.on<IUsersQueries>();
+            var userQueries = depends.on<IUserQueryService>();
             userQueries.setup(x => x.FindById(Arg<Guid>.Is.Anything)).Return(make.UserData());
         };
 

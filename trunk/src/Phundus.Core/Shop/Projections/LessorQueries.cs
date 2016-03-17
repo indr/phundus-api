@@ -11,7 +11,7 @@
         IList<LessorData> Query();
     }
 
-    public class LessorQueries : QueryBase<LessorData>, ILessorQueries
+    public class LessorQueries : QueryServiceBase<LessorData>, ILessorQueries
     {
         public LessorData GetById(Guid lessorId)
         {

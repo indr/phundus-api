@@ -11,20 +11,20 @@ namespace Phundus.Rest.Api
     [RoutePrefix("api/username-check")]
     public class UsernameCheckController : ApiControllerBase
     {
-        private readonly IUsersQueries _usersQueries;
+        private readonly IUserQueryService _userQueryService;
 
-        public UsernameCheckController(IUsersQueries usersQueries)
+        public UsernameCheckController(IUserQueryService userQueryService)
         {
-            if (usersQueries == null) throw new ArgumentNullException("usersQueries");
+            if (userQueryService == null) throw new ArgumentNullException("userQueryService");
 
-            _usersQueries = usersQueries;
+            _userQueryService = userQueryService;
         }
 
         [POST("")]
         [AllowAnonymous]        
         public virtual UsernameCheckPostOkResponseContent Post(UsernameCheckPostRequestContent requestContent)
         {
-            var user = _usersQueries.FindByUsername(requestContent.Username);
+            var user = _userQueryService.FindByUsername(requestContent.Username);
 
             return new UsernameCheckPostOkResponseContent
             {

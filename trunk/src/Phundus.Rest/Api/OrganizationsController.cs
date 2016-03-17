@@ -23,13 +23,13 @@
     [RoutePrefix("api/organizations")]
     public class OrganizationsController : ApiControllerBase
     {
-        private readonly IOrganizationQueries _organizationQueries;
+        private readonly IOrganizationQueryService _organizationQueryService;
         private readonly IStoresQueries _storesQueries;
         private readonly IOwnerService _ownerService;
 
-        public OrganizationsController(IOrganizationQueries organizationQueries, IStoresQueries storesQueries, IOwnerService ownerService)
+        public OrganizationsController(IOrganizationQueryService organizationQueryService, IStoresQueries storesQueries, IOwnerService ownerService)
         {
-            _organizationQueries = organizationQueries;
+            _organizationQueryService = organizationQueryService;
             _storesQueries = storesQueries;
             _ownerService = ownerService;
         }
@@ -39,7 +39,7 @@
         [AllowAnonymous]
         public virtual QueryOkResponseContent<Organization> Get()
         {
-            var result = _organizationQueries.Query();
+            var result = _organizationQueryService.Query();
             return new QueryOkResponseContent<Organization>
             {
                 Results = result.Select(s => new Organization
@@ -57,7 +57,7 @@
         [AllowAnonymous]
         public virtual OrganizationsGetOkResponseContent Get(Guid organizationId)
         {
-            var organization = _organizationQueries.GetById(organizationId);
+            var organization = _organizationQueryService.GetById(organizationId);
             var stores = _storesQueries.Query(organization.OrganizationId);
 
             return Map<OrganizationsGetOkResponseContent>(organization, stores);
