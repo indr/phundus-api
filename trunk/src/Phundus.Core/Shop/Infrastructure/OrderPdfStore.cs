@@ -16,19 +16,19 @@
             _fileStorage = fileStorage;
         }
 
-        public Stream Get(OrderId orderId)
+        public Stream Get(OrderId orderId, int version)
         {
             var fileName = GetFileName(orderId);
-            var stream = _fileStorage.Get(Storage.Orders, fileName);
+            var stream = _fileStorage.Get(Storage.Orders, fileName, version);
             if (stream != null)
                 return stream;
-            return CreateAndStorePdf(orderId, fileName);
+            return CreateAndStorePdf(orderId, fileName, version);
         }
 
-        private Stream CreateAndStorePdf(OrderId orderId, string fileName)
+        private Stream CreateAndStorePdf(OrderId orderId, string fileName, int version)
         {
             var stream = _orderPdfFactory.GeneratePdf(orderId);
-            _fileStorage.Store(Storage.Orders, fileName, stream);
+            _fileStorage.Store(Storage.Orders, fileName, stream, version);
             stream.Seek(0, SeekOrigin.Begin);
             return stream;
         }

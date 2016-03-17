@@ -36,43 +36,54 @@
     }
 
     [Subject(typeof (AppDataFileStorage))]
-    public class when_storing_a_file : app_data_file_storage_concern
+    public class when_storing_a_file_version_less_than_zero : app_data_file_storage_concern
     {
         private Because of = () =>
-            sut.Store(Storage.Orders, "fileName.pdf", createStream());
+            spec.catch_exception(() =>
+                sut.Store(Storage.Orders, "fileName.pdf", createStream(), -1));
 
-        private It should_write_file_to_storage_directory = () =>
-            fileInfo("Orders", "fileName.pdf").Exists.ShouldBeTrue();
+        private It should_throw_argument_out_of_range_exception = () =>
+            spec.exception_thrown.ShouldBeOfExactType<ArgumentOutOfRangeException>();
     }
 
     [Subject(typeof (AppDataFileStorage))]
-    public class when_storing_an_existing_file : app_data_file_storage_concern
+    public class when_storing_a_file_with_version : app_data_file_storage_concern
+    {
+        private Because of = () =>
+            sut.Store(Storage.Orders, "fileName.pdf", createStream(), 99);
+
+        private It should_write_file_to_storage_directory = () =>
+            fileInfo("Orders", "fileName-99.pdf").Exists.ShouldBeTrue();
+    }
+
+    [Subject(typeof (AppDataFileStorage))]
+    public class when_storing_an_existing_file_with_same_version : app_data_file_storage_concern
     {
         private Establish ctx = () =>
             sut_setup.run(sut =>
-                sut.Store(Storage.Orders, "fileName.pdf", createStream(20)));
+                sut.Store(Storage.Orders, "fileName.pdf", createStream(20), 99));
 
         private Because of = () =>
-            sut.Store(Storage.Orders, "fileName.pdf", createStream(10));
+            sut.Store(Storage.Orders, "fileName.pdf", createStream(10), 99);
 
         private It should_overwrite_file = () =>
-            fileInfo("Orders", "fileName.pdf").Length.ShouldEqual(10);
+            fileInfo("Orders", "fileName-99.pdf").Length.ShouldEqual(10);
     }
 
     [Subject(typeof (AppDataFileStorage))]
-    public class when_getting_an_non_existent_file : app_data_file_storage_concern
+    public class when_getting_an_non_existent_file_with_version : app_data_file_storage_concern
     {
         private static object result;
 
         private Because of = () =>
-            result = sut.Get(Storage.Orders, "notExisting.pdf");
+            result = sut.Get(Storage.Orders, "notExisting.pdf", 1);
 
         private It should_return_null = () =>
             result.ShouldBeNull();
     }
 
     [Subject(typeof (AppDataFileStorage))]
-    public class when_getting_an_existing_file : app_data_file_storage_concern
+    public class when_getting_an_existing_file_with_version : app_data_file_storage_concern
     {
         private static Stream stream;
         private static Stream result;
@@ -84,14 +95,39 @@
         {
             stream = createStream(30);
             sut_setup.run(sut =>
-                sut.Store(Storage.Orders, "fileName.pdf", stream));
+                sut.Store(Storage.Orders, "fileName.pdf", stream, 1));
         };
 
         private Because of = () =>
-            result = sut.Get(Storage.Orders, "fileName.pdf");
+            result = sut.Get(Storage.Orders, "fileName.pdf", 1);
 
         private It should_return_stream = () =>
             result.ShouldEqual(stream);
+    }
+
+    [Subject(typeof (AppDataFileStorage))]
+    public class when_getting_an_existing_file_without_version : app_data_file_storage_concern
+    {
+        private static Stream stream;
+        private static Stream result;
+
+        private Cleanup cleanup = () =>
+            result.Close();
+
+        private Establish ctx = () => sut_setup.run(sut =>
+        {
+            for (var i = 8; i <= 12; i++)
+            {
+                stream = createStream(i);
+                sut.Store(Storage.Orders, "fileName.pdf", stream, i);
+            }
+        });
+
+        private Because of = () =>
+            result = sut.Get(Storage.Orders, "fileName.pdf", -1);
+
+        private It should_return_highest_version = () =>
+            result.Length.ShouldEqual(12);
     }
 
 

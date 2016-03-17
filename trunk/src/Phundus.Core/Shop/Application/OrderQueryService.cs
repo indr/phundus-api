@@ -128,7 +128,7 @@ namespace Phundus.Shop.Application
         private ICollection<OrderLineData> _lines = new Collection<OrderLineData>();
 
         public virtual Guid OrderId { get; set; }
-        public virtual int OrderShortId { get; set; }
+        public virtual int OrderShortId { get; set; }        
         public virtual DateTime CreatedAtUtc { get; set; }
         public virtual DateTime ModifiedAtUtc { get; set; }
         public virtual OrderStatus Status { get; set; }

@@ -5,6 +5,6 @@
 
     public interface IOrderPdfStore
     {
-        Stream Get(OrderId orderId);
+        Stream Get(OrderId orderId, int version);
     }
 }
