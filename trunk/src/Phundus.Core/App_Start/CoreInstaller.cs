@@ -1,17 +1,16 @@
 ﻿namespace Phundus
 {
     using System.Reflection;
-    using Castle.Facilities.TypedFactory;
     using Castle.MicroKernel.Registration;
     using Castle.MicroKernel.SubSystems.Configuration;
     using Castle.Windsor;
     using Common.Infrastructure.Persistence;
     using Common.Projecting;
     using Common.Querying;
-    using Inventory.Infrastructure;
     using Inventory.Infrastructure.Persistence.Repositories;
     using Inventory.Model.Reservations;
-    using Shop.Model.Pdf;
+    using Shop.Infrastructure;    
+    using CollaboratorService = Inventory.Infrastructure.CollaboratorService;
 
     public class CoreInstaller : IWindsorInstaller
     {
@@ -54,13 +53,13 @@
                 Classes.FromThisAssembly().Where(p => p.Name.EndsWith("Store")).WithServiceDefaultInterfaces());
 
             container.Register(
-                Component.For<IOrderPdfGenerator>().ImplementedBy<OrderPdfGenerator>());
+                Component.For<IOrderPdfFactory>().ImplementedBy<OrderPdfFactory>());
 
             container.Register(Component.For<IReservationRepository>()
                 .ImplementedBy<NhReservationsBasedOnOrdersRepository>());
 
             container.Register(Classes.FromThisAssembly()
-                .BasedOn(typeof(NhRepositoryBase<>))
+                .BasedOn(typeof (NhRepositoryBase<>))
                 .WithServiceAllInterfaces());
 
             container.Register(Classes.FromThisAssembly()

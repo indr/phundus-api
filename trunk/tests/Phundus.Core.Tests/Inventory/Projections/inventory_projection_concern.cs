@@ -6,7 +6,7 @@ namespace Phundus.Tests.Inventory.Projections
     using Phundus.Inventory.Model;
 
     public class inventory_projection_concern<TProjection, TData> : projection_concern<TProjection, TData>
-        where TProjection : ProjectionBase where TData : new()
+        where TProjection : ProjectionBase<TData> where TData : class, new()
     {
         protected static inventory_factory make;
         protected static Manager theManager;

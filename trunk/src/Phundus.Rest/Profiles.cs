@@ -6,6 +6,7 @@
     using AutoMapper;
     using ContentObjects;
     using IdentityAccess.Application;
+    using Inventory.Application;
     using Inventory.Projections;
     using Shop.Application;
 

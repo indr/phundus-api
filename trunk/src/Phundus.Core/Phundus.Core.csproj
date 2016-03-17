@@ -309,6 +309,10 @@
     <Compile Include="Shop\Application\Data\LessorType.cs" />
     <Compile Include="Shop\Application\Data\ProductDetailsData.cs" />
     <Compile Include="Shop\Application\Data\ProdutListData.cs" />
+    <Compile Include="Shop\Infrastructure\OrderPdfStore.cs" />
+    <Compile Include="Shop\Infrastructure\OrderPdfGenerator.cs" />
+    <Compile Include="Shop\Infrastructure\OrderPdfFactory.cs" />
+    <Compile Include="Shop\Application\OrderPdfService.cs" />
     <Compile Include="Shop\Infrastructure\CollaboratorService.cs" />
     <Compile Include="Shop\Infrastructure\Persistence\Model\CartItemMap.cs" />
     <Compile Include="Shop\Infrastructure\Persistence\Model\CartMap.cs" />
@@ -324,13 +328,13 @@
     <Compile Include="Shop\Infrastructure\Persistence\Repositories\NhCartRepository.cs" />
     <Compile Include="Shop\Infrastructure\Persistence\Repositories\NhOrderRepository.cs" />
     <Compile Include="Shop\Model\Collaborators\ICollaboratorService.cs" />
+    <Compile Include="Shop\Model\Orders\OrderPdfStore.cs" />
     <Compile Include="Shop\Model\Products\IProductsService.cs" />
     <Compile Include="Shop\Model\ILesseeService.cs" />
     <Compile Include="Shop\Model\ILessorService.cs" />
     <Compile Include="Shop\Model\Mails\OrderMailBase.cs" />
     <Compile Include="Shop\Model\Manager.cs" />
     <Compile Include="Shop\Model\OrderLines.cs" />
-    <Compile Include="Shop\Model\Pdf\OrderPdfGenerator.cs" />
     <Compile Include="Shop\Projections\LessorsProjection.cs" />
     <Compile Include="Shop\Application\OrderQueryService.cs" />
     <Compile Include="Shop\Projections\ProductDetailsProjection.cs" />
@@ -375,8 +379,6 @@
     <Compile Include="Shop\Model\Events\OrderItemPeriodChanged.cs" />
     <Compile Include="Shop\Model\Events\OrderItemTotalChanged.cs" />
     <Compile Include="Shop\Model\Events\OrderPlaced.cs" />
-    <Compile Include="Shop\Model\Pdf\OrderPdf.cs" />
-    <Compile Include="Shop\Model\Pdf\PdfStore.cs" />
     <Compile Include="Shop\Model\PerDayWithPerSevenDaysPricePricingStrategy.cs" />
     <Compile Include="Shop\Projections\OrderProjection.cs" />
     <Compile Include="Shop\Projections\ProductListProjection.cs" />
@@ -422,7 +424,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Inventory\Resources\" />
-    <Folder Include="Shop\Model\Orders\" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="IdentityAccess\Model\Organizations\Mails\Templates.resx">

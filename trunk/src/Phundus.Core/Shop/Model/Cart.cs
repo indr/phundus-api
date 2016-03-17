@@ -3,8 +3,7 @@
     using System;
     using System.Linq;
     using Common.Domain.Model;
-    using Iesi.Collections.Generic;
-    using Orders.Model;
+    using Iesi.Collections.Generic;    
     using Products;
 
     public class Cart : Aggregate<CartId>

@@ -9,13 +9,6 @@ namespace Phundus.Common.Projecting
     {
         public ILogger Logger { get; set; }
 
-        public Func<ISession> SessionFactory { get; set; }
-
-        protected virtual ISession Session
-        {
-            get { return SessionFactory(); }
-        }
-
         public virtual bool CanReset
         {
             get { return false; }
@@ -29,6 +22,13 @@ namespace Phundus.Common.Projecting
 
     public abstract class ProjectionBase<TEntity> : ProjectionBase where TEntity : class, new()
     {
+        public Func<ISession> SessionFactory { get; set; }
+
+        protected virtual ISession Session
+        {
+            get { return SessionFactory(); }
+        }
+
         public override bool CanReset
         {
             get { return true; }

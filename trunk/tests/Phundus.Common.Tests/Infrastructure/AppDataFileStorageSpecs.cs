@@ -62,12 +62,13 @@
     [Subject(typeof (AppDataFileStorage))]
     public class when_getting_an_non_existent_file : app_data_file_storage_concern
     {
-        private Because of = () =>
-            spec.catch_exception(() =>
-                sut.Get(Storage.Orders, "notExisting.pdf"));
+        private static object result;
 
-        private It should_throw_file_not_found_exception = () =>
-            spec.exception_thrown.ShouldBeOfExactType<FileNotFoundException>();
+        private Because of = () =>
+            result = sut.Get(Storage.Orders, "notExisting.pdf");
+
+        private It should_return_null = () =>
+            result.ShouldBeNull();
     }
 
     [Subject(typeof (AppDataFileStorage))]

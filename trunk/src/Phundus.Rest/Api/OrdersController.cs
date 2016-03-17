@@ -14,31 +14,23 @@
     using IdentityAccess.Application;
     using Newtonsoft.Json;
     using Phundus.Shop.Application;
-    using Phundus.Shop.Model.Pdf;
-    using Phundus.Shop.Projections;    
 
     [RoutePrefix("api/orders")]
     public class OrdersController : ApiControllerBase
     {
         private readonly IMembershipQueries _membershipQueries;
         private readonly IOrderQueryService _orderQueryService;
-        private readonly IPdfStore _pdfStore;
+        private readonly IOrderPdfService _orderPdfService;
         private readonly IShortIdGeneratorService _shortIdGeneratorService;
 
-        public OrdersController(IOrderQueryService orderQueryService, IPdfStore pdfStore,
+        public OrdersController(IOrderQueryService orderQueryService, IOrderPdfService orderPdfService,
             IShortIdGeneratorService shortIdGeneratorService, IMembershipQueries membershipQueries)
         {
-            if (orderQueryService == null) throw new ArgumentNullException("orderQueryService");
-            if (pdfStore == null) throw new ArgumentNullException("pdfStore");
-            if (shortIdGeneratorService == null) throw new ArgumentNullException("shortIdGeneratorService");
-            if (membershipQueries == null) throw new ArgumentNullException("membershipQueries");
             _orderQueryService = orderQueryService;
-            _pdfStore = pdfStore;
+            _orderPdfService = orderPdfService;
             _shortIdGeneratorService = shortIdGeneratorService;
             _membershipQueries = membershipQueries;
         }
-
-        public IMembershipQueries MembershipQueries { get; set; }
 
         [GET("")]
         [Transaction]
@@ -74,11 +66,9 @@
         public virtual HttpResponseMessage GetPdf(Guid orderId)
         {
             var order = _orderQueryService.GetById(CurrentUserId, new OrderId(orderId));
-            var result = _pdfStore.GetOrderPdf(new OrderId(orderId), CurrentUserId);
-            if (result == null)
-                return CreateNotFoundResponse("Die Bestellung mit der Id {0} konnte nicht gefunden werden.", orderId);
-
-            return CreatePdfResponse(result, string.Format("Bestellung-{0}.pdf", order.OrderShortId));
+            var stream = _orderPdfService.GetOrderPdf(new OrderId(order.OrderId), CurrentUserId);
+            
+            return CreatePdfResponse(stream, string.Format("Bestellung-{0}.pdf", order.OrderShortId));
         }
 
         [POST("")]

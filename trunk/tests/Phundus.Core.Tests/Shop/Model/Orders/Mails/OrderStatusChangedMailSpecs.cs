@@ -7,8 +7,9 @@
     using Common.Domain.Model;
     using developwithpassion.specifications.extensions;
     using Machine.Specifications;
+    using Phundus.Shop.Infrastructure;
     using Phundus.Shop.Model;
-    using Phundus.Shop.Model.Pdf;
+    using Phundus.Shop.Model.Orders;
     using Phundus.Shop.Orders.Mails;
     using Phundus.Shop.Orders.Model;
     using Rhino.Mocks;
@@ -27,7 +28,7 @@
             var make = new shop_factory(fake);
 
             depends.on<IOrderRepository>().setup(x => x.GetById(Arg<OrderId>.Is.Anything)).Return(make.Order());
-            depends.on<IOrderPdfGenerator>()
+            depends.on<IOrderPdfFactory>()
                 .setup(x => x.GeneratePdf(Arg<Order>.Is.Anything))
                 .Return(new MemoryStream());
 
@@ -63,7 +64,7 @@
             var make = new shop_factory(fake);
 
             depends.on<IOrderRepository>().setup(x => x.GetById(Arg<OrderId>.Is.Anything)).Return(make.Order());
-            depends.on<IOrderPdfGenerator>()
+            depends.on<IOrderPdfFactory>()
                 .setup(x => x.GeneratePdf(Arg<Order>.Is.Anything))
                 .Return(new MemoryStream());
 

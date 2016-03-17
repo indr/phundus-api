@@ -5,7 +5,7 @@ namespace Phundus.Shop.Model
     using System.Collections.ObjectModel;
     using System.Linq;
     using Common.Domain.Model;
-    using Orders.Model;
+    using Shop.Orders.Model;
 
     public class OrderLines
     {
