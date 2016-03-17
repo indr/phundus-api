@@ -47,7 +47,7 @@
                 p.ArticleId == theArticleId.Id
                 && p.ArticleShortId == theArticleShortId.Id
                 && p.GrossStock == theGrossStock
-                && Equals(p.Initiator, theManager)
+                && Equals(p.Initiator, theManager.ToActor())
                 && p.MemberPrice == theMemberPrice
                 && p.Name == theName
                 && Equals(p.Owner.OwnerId, theOwner.OwnerId)

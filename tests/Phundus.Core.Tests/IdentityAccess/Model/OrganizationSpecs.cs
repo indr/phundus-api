@@ -80,7 +80,7 @@
 
         private It should_publish_organization_contact_details_changed = () =>
             published<OrganizationContactDetailsChanged>(p =>
-                Equals(p.Initiator, theManager)
+                Equals(p.Initiator, theManager.ToActor())
                 && p.OrganizationId == theOrganizationId.Id
                 && p.Line1 == "Line1"
                 && p.Line2 == "Line2"
@@ -180,7 +180,7 @@
 
         private It should_publish_startpage_changed = () =>
             published<StartpageChanged>(p =>
-                Equals(p.Initiator, theManager)
+                Equals(p.Initiator, theManager.ToActor())
                 && p.OrganizationId == theOrganizationId.Id
                 && p.Startpage == theNewStartpage);
     }

@@ -9,7 +9,7 @@
     [DataContract]
     public class OrganizationPlanChanged : DomainEvent
     {
-        public OrganizationPlanChanged(Actor admin, OrganizationId organizationId, OrganizationPlan oldPlan,
+        public OrganizationPlanChanged(Admin admin, OrganizationId organizationId, OrganizationPlan oldPlan,
             OrganizationPlan newPlan)
         {
             if (admin == null) throw new ArgumentNullException("admin");

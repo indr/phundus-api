@@ -4,7 +4,6 @@ namespace Phundus.IdentityAccess.Organizations.Model
     using System.Runtime.Serialization;
     using Common.Domain.Model;
     using IdentityAccess.Model.Users;
-    using Integration.IdentityAccess;
 
     [DataContract]
     public class MemberRecieveEmailNotificationOptionChanged : DomainEvent

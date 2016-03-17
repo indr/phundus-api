@@ -115,7 +115,7 @@
                 p.ArticleId == theArticleId.Id
                 && p.Brand == theNewBrand
                 && p.Color == theNewColor
-                && Equals(p.Initiator, theManager)
+                && Equals(p.Initiator, theManager.ToActor())
                 && p.Name == theNewName
                 && p.OwnerId == theOwner.OwnerId.Id);
     }
@@ -134,10 +134,11 @@
 
         private It should_publish_description_changed = () =>
             publisher.WasToldTo(x => x.Publish(
-                Arg<DescriptionChanged>.Matches(p => p.ArticleId == theArticleId.Id
-                                                     && p.Description == theNewDescription
-                                                     && Equals(p.Initiator, theManager)
-                                                     && p.OwnerId == theOwner.OwnerId.Id)));
+                Arg<DescriptionChanged>.Matches(p =>
+                    p.ArticleId == theArticleId.Id
+                    && p.Description == theNewDescription
+                    && Equals(p.Initiator, theManager.ToActor())
+                    && p.OwnerId == theOwner.OwnerId.Id)));
     }
 
     [Subject(typeof (Article))]
@@ -153,10 +154,11 @@
 
         private It should_publish_specification_changed = () =>
             publisher.WasToldTo(x => x.Publish(
-                Arg<SpecificationChanged>.Matches(p => p.ArticleId == theArticleId.Id
-                                                       && Equals(p.Initiator, theManager)
-                                                       && p.OwnerId == theOwner.OwnerId.Id
-                                                       && p.Specification == theNewSpecification)));
+                Arg<SpecificationChanged>.Matches(p =>
+                    p.ArticleId == theArticleId.Id
+                    && Equals(p.Initiator, theManager.ToActor())
+                    && p.OwnerId == theOwner.OwnerId.Id
+                    && p.Specification == theNewSpecification)));
     }
 
     [Subject(typeof (Article))]
@@ -176,7 +178,7 @@
         private It should_publish_gross_stock_changed = () =>
             published<GrossStockChanged>(p =>
                 p.ArticleId == theArticleId.Id
-                && Equals(p.Initiator, theManager)
+                && Equals(p.Initiator, theManager.ToActor())
                 && p.NewGrossStock == theNewGrossStock
                 && p.OldGrossStock == theGrossStock
                 && p.OwnerId == theOwner.OwnerId.Id);
@@ -275,7 +277,7 @@
                 && p.FileLength == 123456
                 && p.FileName == "fileName"
                 && p.FileType == "fileType"
-                && Equals(p.Initiator, theManager)
+                && Equals(p.Initiator, theManager.ToActor())
                 && p.OwnerId == theOwner.OwnerId.Id);
 
         private It should_set_is_preview = () =>
@@ -330,7 +332,7 @@
             published<ImageRemoved>(p =>
                 p.ArticleId == theArticleId.Id
                 && p.FileName == "first.jpg"
-                && Equals(p.Initiator, theManager)
+                && Equals(p.Initiator, theManager.ToActor())
                 && p.OwnerId == theOwner.OwnerId.Id);
 
         private It should_publish_preview_image_changed = () =>
@@ -339,7 +341,7 @@
                 && p.FileLength == 2345
                 && p.FileName == "second.jpg"
                 && p.FileType == "image/jpeg"
-                && Equals(p.Initiator, theManager)
+                && Equals(p.Initiator, theManager.ToActor())
                 && p.OwnerId == theOwner.OwnerId.Id);
 
         private It should_remove_from_images_collection = () =>
@@ -367,7 +369,7 @@
                 && p.FileLength == 2345
                 && p.FileName == "second.jpg"
                 && p.FileType == "image/jpeg"
-                && Equals(p.Initiator, theManager)
+                && Equals(p.Initiator, theManager.ToActor())
                 && p.OwnerId == theOwner.OwnerId.Id);
 
         private It should_remove_preview_flag = () =>

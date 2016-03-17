@@ -22,7 +22,7 @@ namespace Phundus.Tests.Inventory.Application
         private It should_publish_article_deleted = () =>
             published<ArticleDeleted>(p =>
                 p.ArticleId == theArticle.ArticleId.Id
-                && Equals(p.Initiator, theManager)
+                && Equals(p.Initiator, theManager.ToActor())
                 && p.OwnerId == theOwner.OwnerId.Id);
 
         private It should_tell_repository_to_remove = () =>
