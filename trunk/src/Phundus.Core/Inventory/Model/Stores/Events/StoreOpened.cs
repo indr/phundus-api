@@ -8,13 +8,13 @@
     [DataContract]
     public class StoreOpened : DomainEvent
     {
-        public StoreOpened(Manager manager, StoreId storeId, Owner owner)
+        public StoreOpened(Manager initiator, StoreId storeId, Owner owner)
         {
-            if (manager == null) throw new ArgumentNullException("manager");
+            if (initiator == null) throw new ArgumentNullException("initiator");
             if (storeId == null) throw new ArgumentNullException("storeId");
             if (owner == null) throw new ArgumentNullException("owner");
 
-            Manager = manager;
+            Initiator = initiator.ToActor();
             StoreId = storeId.Id;
             Owner = owner;
         }
@@ -24,7 +24,7 @@
         }
 
         [DataMember(Order = 1)]
-        public Manager Manager { get; protected set; }
+        public Actor Initiator { get; protected set; }
 
         [DataMember(Order = 2)]
         public Guid StoreId { get; protected set; }

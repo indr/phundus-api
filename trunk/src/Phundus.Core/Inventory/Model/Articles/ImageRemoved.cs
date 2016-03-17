@@ -3,11 +3,12 @@
     using System;
     using System.Runtime.Serialization;
     using Common.Domain.Model;
+    using Inventory.Model;
 
     [DataContract]
     public class ImageRemoved : DomainEvent
     {
-        public ImageRemoved(Initiator initiator, ArticleShortId articleShortId, ArticleId articleId, OwnerId ownerId,
+        public ImageRemoved(Manager initiator, ArticleShortId articleShortId, ArticleId articleId, OwnerId ownerId,
             string fileName)
         {
             if (initiator == null) throw new ArgumentNullException("initiator");
@@ -16,7 +17,7 @@
             if (ownerId == null) throw new ArgumentNullException("ownerId");
             if (fileName == null) throw new ArgumentNullException("fileName");
 
-            Initiator = initiator;
+            Initiator = initiator.ToActor();
             ArticleShortId = articleShortId.Id;
             ArticleId = articleId.Id;
             OwnerId = ownerId.Id;
@@ -28,7 +29,7 @@
         }
 
         [DataMember(Order = 1)]
-        public Initiator Initiator { get; protected set; }
+        public Actor Initiator { get; protected set; }
 
         [DataMember(Order = 2)]
         public int ArticleShortId { get; protected set; }

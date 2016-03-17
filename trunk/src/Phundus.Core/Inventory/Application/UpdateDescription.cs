@@ -8,7 +8,6 @@
     using Integration.IdentityAccess;
     using Model.Articles;
     using Model.Collaborators;
-    using Phundus.Authorization;
 
     public class UpdateDescription: ICommand
     {
@@ -30,26 +29,21 @@
     public class UpdateDescriptionHandler : IHandleCommand<UpdateDescription>
     {
         private readonly IArticleRepository _articleRepository;
-        private readonly IAuthorize _authorize;
         private readonly ICollaboratorService _collaboratorService;
 
-        public UpdateDescriptionHandler(IAuthorize authorize, ICollaboratorService collaboratorService,
-            IArticleRepository articleRepository)
-        {            
-            _authorize = authorize;
+        public UpdateDescriptionHandler(ICollaboratorService collaboratorService, IArticleRepository articleRepository)
+        {
             _collaboratorService = collaboratorService;
             _articleRepository = articleRepository;
         }
         
         [Transaction]
         public void Handle(UpdateDescription command)
-        {
-            var initiator = _collaboratorService.Initiator(command.InitiatorId);
+        {            
             var article = _articleRepository.GetById(command.ArticleId);
+            var manager = _collaboratorService.Manager(command.InitiatorId, article.OwnerId);            
 
-            _authorize.Enforce(initiator.InitiatorId, Manage.Articles(article.Owner.OwnerId));
-
-            article.ChangeDescription(initiator, command.Description);
+            article.ChangeDescription(manager, command.Description);
         }
     }
 }

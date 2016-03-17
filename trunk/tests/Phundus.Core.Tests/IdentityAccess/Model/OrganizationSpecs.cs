@@ -110,7 +110,7 @@
 
         private It should_public_organization_plan_changed = () =>
             published<OrganizationPlanChanged>(p =>
-                Equals(p.Admin, theAdmin)
+                Equals(p.Admin, theAdmin.ToActor())
                 && p.OrganizationId == theOrganizationId.Id
                 && p.OldPlan == "free"
                 && p.NewPlan == theNewOrganizationPlan.ToString().ToLowerInvariant());

@@ -14,7 +14,7 @@
             if (initiator == null) throw new ArgumentNullException("initiator");
             if (organizationId == null) throw new ArgumentNullException("organizationId");
 
-            Initiator = initiator;
+            Initiator = initiator.ToActor();
             OrganizationId = organizationId.Id;
             Line1 = line1;
             Line2 = line2;
@@ -31,7 +31,7 @@
         }
 
         [DataMember(Order = 1)]
-        public Manager Initiator { get; protected set; }
+        public Actor Initiator { get; protected set; }
 
         [DataMember(Order = 2)]
         public Guid OrganizationId { get; protected set; }

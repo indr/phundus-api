@@ -2,15 +2,12 @@
 {
     using System;
     using Articles.Model;
-    using Authorization;
     using Castle.Transactions;
     using Common.Commanding;
     using Common.Domain.Model;
     using Common.Eventing;
-    using Integration.IdentityAccess;
     using Model.Articles;
     using Model.Collaborators;
-    using Phundus.Authorization;
 
     public class DeleteArticle : ICommand
     {
@@ -18,6 +15,7 @@
         {
             if (initiatorId == null) throw new ArgumentNullException("initiatorId");
             if (articleId == null) throw new ArgumentNullException("articleId");
+
             InitiatorId = initiatorId;
             ArticleId = articleId;
         }
@@ -29,13 +27,10 @@
     public class DeleteArticleHandler : IHandleCommand<DeleteArticle>
     {
         private readonly IArticleRepository _articleRepository;
-        private readonly IAuthorize _authorize;
         private readonly ICollaboratorService _collaboratorService;
 
-        public DeleteArticleHandler(IAuthorize authorize, ICollaboratorService collaboratorService,
-            IArticleRepository articleRepository)
-        {            
-            _authorize = authorize;
+        public DeleteArticleHandler(ICollaboratorService collaboratorService, IArticleRepository articleRepository)
+        {
             _collaboratorService = collaboratorService;
             _articleRepository = articleRepository;
         }
@@ -43,15 +38,12 @@
         [Transaction]
         public void Handle(DeleteArticle command)
         {
-            var initiator = _collaboratorService.Initiator(command.InitiatorId);
             var article = _articleRepository.GetById(command.ArticleId);
-
-            _authorize.Enforce(initiator.InitiatorId, Manage.Articles(article.Owner.OwnerId));
+            var manager = _collaboratorService.Manager(command.InitiatorId, article.OwnerId);
 
             _articleRepository.Remove(article);
-
-            // Pass manager
-            EventPublisher.Publish(new ArticleDeleted(initiator, article.ArticleShortId, article.ArticleId,
+            
+            EventPublisher.Publish(new ArticleDeleted(manager, article.ArticleShortId, article.ArticleId,
                 article.Owner.OwnerId));
         }
     }

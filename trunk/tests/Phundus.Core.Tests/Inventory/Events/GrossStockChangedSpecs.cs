@@ -4,12 +4,14 @@ namespace Phundus.Tests.Inventory.Events
     using Machine.Specifications;
     using Phundus.Inventory.Articles.Model;
 
-    [Subject(typeof (ArticleDeleted))]
-    public class ArticleDeletedSpecs : inventory_domain_event_concern<ArticleDeleted>
+    [Subject(typeof (GrossStockChanged))]
+    public class GrossStockChangedSpecs : inventory_domain_event_concern<GrossStockChanged>
     {
         private static ArticleId theArticleId;
         private static OwnerId theOwnerId;
         private static ArticleShortId the_article_short_integral_id;
+        private static int theOldGrossStock = 19;
+        private static int theNewGrossStock = 20;
 
         private Establish ctx = () =>
         {
@@ -18,7 +20,8 @@ namespace Phundus.Tests.Inventory.Events
             theOwnerId = new OwnerId();
 
             sut_factory.create_using(() =>
-                new ArticleDeleted(theManager, the_article_short_integral_id, theArticleId, theOwnerId));
+                new GrossStockChanged(theManager, the_article_short_integral_id, theArticleId, theOwnerId, theOldGrossStock,
+                    theNewGrossStock));
         };
 
         private It should_be_in_assembly = () =>
@@ -36,7 +39,13 @@ namespace Phundus.Tests.Inventory.Events
         private It should_have_at_4_the_owner_guid = () =>
             dataMember(4).ShouldEqual(theOwnerId.Id);
 
+        private It should_have_at_5_the_old_gross_stock = () =>
+            dataMember(5).ShouldEqual(theOldGrossStock);
+
+        private It should_have_at_6_the_new_gross_stock = () =>
+            dataMember(6).ShouldEqual(theNewGrossStock);
+
         private It should_have_full_name = () =>
-            itsFullName.ShouldEqual("Phundus.Inventory.Articles.Model.ArticleDeleted");
+            itsFullName.ShouldEqual("Phundus.Inventory.Articles.Model.GrossStockChanged");
     }
 }

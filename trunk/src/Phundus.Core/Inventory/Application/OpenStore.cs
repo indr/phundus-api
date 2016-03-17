@@ -4,10 +4,8 @@
     using Castle.Transactions;
     using Common.Commanding;
     using Common.Domain.Model;
-    using Model;
     using Model.Collaborators;
     using Model.Stores;
-    using Stores.Model;
 
     public class OpenStore : ICommand
     {
@@ -16,6 +14,7 @@
             if (initiatorId == null) throw new ArgumentNullException("initiatorId");
             if (ownerId == null) throw new ArgumentNullException("ownerId");
             if (storeId == null) throw new ArgumentNullException("storeId");
+
             InitiatorId = initiatorId;
             OwnerId = ownerId;
             StoreId = storeId;
@@ -28,12 +27,13 @@
 
     public class OpenStoreHandler : IHandleCommand<OpenStore>
     {
+        private readonly ICollaboratorService _collaboratorService;
         private readonly IOwnerService _ownerService;
         private readonly IStoreRepository _storeRepository;
-        private readonly ICollaboratorService _collaboratorService;
 
-        public OpenStoreHandler(IStoreRepository storeRepository, ICollaboratorService collaboratorService, IOwnerService ownerService)
-        {            
+        public OpenStoreHandler(IStoreRepository storeRepository, ICollaboratorService collaboratorService,
+            IOwnerService ownerService)
+        {
             _storeRepository = storeRepository;
             _collaboratorService = collaboratorService;
             _ownerService = ownerService;
@@ -42,8 +42,8 @@
         [Transaction]
         public void Handle(OpenStore command)
         {
-            var manager = _collaboratorService.Manager(command.InitiatorId, command.OwnerId);
             var owner = _ownerService.GetById(command.OwnerId);
+            var manager = _collaboratorService.Manager(command.InitiatorId, owner.OwnerId);
 
             var store = new Store(manager, command.StoreId, owner);
 

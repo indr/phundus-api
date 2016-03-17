@@ -5,7 +5,7 @@ namespace Phundus.Tests.Inventory.Events
     using Phundus.Inventory.Articles.Model;
 
     [Subject(typeof (ImageAdded))]
-    public class ImageAddedSpecs : domain_event_concern<ImageAdded>
+    public class ImageAddedSpecs : inventory_domain_event_concern<ImageAdded>
     {
         private static ArticleShortId the_article_short_id;
         private static ArticleId the_article_id;
@@ -25,7 +25,7 @@ namespace Phundus.Tests.Inventory.Events
             theFileLength = 1234567;
             theIsPreviewImage = true;
 
-            sut_factory.create_using(() => new ImageAdded(theInitiator, the_article_short_id, the_article_id, theOwnerId,
+            sut_factory.create_using(() => new ImageAdded(theManager, the_article_short_id, the_article_id, theOwnerId,
                 theFileName, theFileType, theFileLength, theIsPreviewImage));
         };
 
@@ -33,7 +33,7 @@ namespace Phundus.Tests.Inventory.Events
             itsAssembly.ShouldEqual("Phundus.Core");
 
         private It should_have_at_1_the_initiator = () =>
-            dataMember(1).ShouldEqual(theInitiator);
+            dataMember(1).ShouldEqual(theManager.ToActor());
 
         private It should_have_at_2_the_article_integral_id = () =>
             dataMember(2).ShouldEqual(the_article_short_id.Id);

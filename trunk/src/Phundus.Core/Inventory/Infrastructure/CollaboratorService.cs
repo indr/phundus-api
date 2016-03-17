@@ -3,8 +3,8 @@
     using Common.Domain.Model;
     using IdentityAccess.Application;
     using Integration.IdentityAccess;
+    using Model;
     using Model.Collaborators;
-    using Manager = Model.Manager;
 
     public class CollaboratorService : ICollaboratorService
     {

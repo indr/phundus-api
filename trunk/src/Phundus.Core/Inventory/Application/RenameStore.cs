@@ -14,6 +14,7 @@ namespace Phundus.Inventory.Application
             if (initiatorId == null) throw new ArgumentNullException("initiatorId");
             if (storeId == null) throw new ArgumentNullException("storeId");
             if (name == null) throw new ArgumentNullException("name");
+
             InitiatorId = initiatorId;
             StoreId = storeId;
             Name = name;

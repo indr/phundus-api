@@ -3,11 +3,12 @@
     using System;
     using System.Runtime.Serialization;
     using Common.Domain.Model;
+    using Inventory.Model;
 
     [DataContract]
     public class PreviewImageChanged : DomainEvent
     {
-        public PreviewImageChanged(Initiator initiator, ArticleShortId articleShortId, ArticleId articleId, OwnerId ownerId,
+        public PreviewImageChanged(Manager initiator, ArticleShortId articleShortId, ArticleId articleId, OwnerId ownerId,
             string fileName, string fileType, long fileLength)
         {
             if (initiator == null) throw new ArgumentNullException("initiator");
@@ -17,7 +18,7 @@
             if (fileName == null) throw new ArgumentNullException("fileName");
             if (fileType == null) throw new ArgumentNullException("fileType");
 
-            Initiator = initiator;
+            Initiator = initiator.ToActor();
             ArticleShortId = articleShortId.Id;
             ArticleId = articleId.Id;
             OwnerId = ownerId.Id;
@@ -31,7 +32,7 @@
         }
 
         [DataMember(Order = 1)]
-        public Initiator Initiator { get; protected set; }
+        public Actor Initiator { get; protected set; }
 
         [DataMember(Order = 2)]
         public int ArticleShortId { get; protected set; }

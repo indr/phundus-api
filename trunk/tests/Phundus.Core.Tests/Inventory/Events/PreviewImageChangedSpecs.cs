@@ -5,7 +5,7 @@ namespace Phundus.Tests.Inventory.Events
     using Phundus.Inventory.Articles.Model;
 
     [Subject(typeof (PreviewImageChanged))]
-    public class PreviewImageChangedSpecs : domain_event_concern<PreviewImageChanged>
+    public class PreviewImageChangedSpecs : inventory_domain_event_concern<PreviewImageChanged>
     {
         private static ArticleShortId the_article_short_id;
         private static ArticleId the_article_id;
@@ -23,7 +23,7 @@ namespace Phundus.Tests.Inventory.Events
             theFileType = "image/jpeg";
             theFileLength = 1234567;
 
-            sut_factory.create_using(() => new PreviewImageChanged(theInitiator, the_article_short_id, the_article_id, theOwnerId,
+            sut_factory.create_using(() => new PreviewImageChanged(theManager, the_article_short_id, the_article_id, theOwnerId,
                 theFileName, theFileType, theFileLength));
         };
 
@@ -31,7 +31,7 @@ namespace Phundus.Tests.Inventory.Events
             itsFullName.ShouldEqual("Phundus.Inventory.Articles.Model.PreviewImageChanged");
 
         private It should_have_at_1_the_initiator = () =>
-            dataMember(1).ShouldEqual(theInitiator);
+            dataMember(1).ShouldEqual(theManager.ToActor());
 
         private It should_have_at_2_the_article_integral_id = () =>
             dataMember(2).ShouldEqual(the_article_short_id.Id);

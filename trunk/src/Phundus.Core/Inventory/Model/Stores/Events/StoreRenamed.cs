@@ -8,13 +8,13 @@ namespace Phundus.Inventory.Stores.Model
     [DataContract]
     public class StoreRenamed : DomainEvent
     {
-        public StoreRenamed(Manager manager, StoreId storeId, string name)
+        public StoreRenamed(Manager initiator, StoreId storeId, string name)
         {
-            if (manager == null) throw new ArgumentNullException("manager");
+            if (initiator == null) throw new ArgumentNullException("initiator");
             if (storeId == null) throw new ArgumentNullException("storeId");
             if (name == null) throw new ArgumentNullException("name");
 
-            Manager = manager;
+            Initiator = initiator.ToActor();
             StoreId = storeId.Id;
             Name = name;
         }
@@ -24,7 +24,7 @@ namespace Phundus.Inventory.Stores.Model
         }
 
         [DataMember(Order = 1)]
-        public Manager Manager { get; protected set; }
+        public Actor Initiator { get; protected set; }
 
         [DataMember(Order = 2)]
         public Guid StoreId { get; protected set; }

@@ -135,6 +135,7 @@
     <Compile Include="IdentityAccess\Model\Users\Mails\NewPasswordMailSpecs.cs" />
     <Compile Include="IdentityAccess\Model\Users\ManagerSpecs.cs" />
     <Compile Include="Inventory\Application\ChangeContactDetailsHandlerSpecs.cs" />
+    <Compile Include="Inventory\Events\GrossStockChangedSpecs.cs" />
     <Compile Include="Inventory\inventory_command_handler_concern.cs" />
     <Compile Include="Inventory\Model\Stores\Events\ContactDetailsChangedSpecs.cs" />
     <Compile Include="Inventory\Projections\inventory_projection_concern.cs" />
@@ -169,9 +170,6 @@
     <Compile Include="Inventory\Application\RemoveImageSpecs.cs" />
     <Compile Include="Inventory\Application\RenameStoreHandlerSpecs.cs" />
     <Compile Include="Inventory\Application\SetPreviewImageHandlerSpecs.cs" />
-    <Compile Include="Inventory\Authorize\ManageArticleAccessObjectHandlerSpecs.cs" />
-    <Compile Include="Inventory\Authorize\CreateArticleAccessObjectHandlerSpecs.cs" />
-    <Compile Include="Inventory\Authorize\inventory_access_object_handler_concern.cs" />
     <Compile Include="Inventory\Application\ChangePricesHandlerSpecs.cs" />
     <Compile Include="Inventory\Application\UpdateDescriptionHandlerSpecs.cs" />
     <Compile Include="Inventory\Application\UpdateSpecificationHandlerSpecs.cs" />

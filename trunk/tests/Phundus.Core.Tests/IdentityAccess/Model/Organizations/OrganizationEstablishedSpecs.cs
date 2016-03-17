@@ -21,7 +21,7 @@ namespace Phundus.Tests.IdentityAccess.Model.Organizations
             itsAssembly.ShouldEqual("Phundus.Core");
 
         private It should_have_at_1_the_founder = () =>
-            dataMember(1).ShouldEqual(theFounder);
+            dataMember(1).ShouldEqual(theFounder.ToActor());
 
         private It should_have_at_2_the_organization_id = () =>
             dataMember(2).ShouldEqual(theOrganizationId.Id);

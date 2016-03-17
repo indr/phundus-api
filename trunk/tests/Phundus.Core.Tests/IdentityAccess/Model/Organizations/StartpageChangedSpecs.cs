@@ -15,7 +15,7 @@
             itsAssembly.ShouldEqual("Phundus.Core");
 
         private It should_have_at_1_the_initiator = () =>
-            dataMember(1).ShouldEqual(theManager);
+            dataMember(1).ShouldEqual(theManager.ToActor());
 
         private It should_have_at_2_the_organization_id = () =>
             dataMember(2).ShouldEqual(theOrganizationId.Id);

@@ -3,7 +3,6 @@ namespace Phundus.Tests.Inventory
     using Common.Commanding;
     using Machine.Specifications;
     using Phundus.IdentityAccess.Application;
-    using Phundus.IdentityAccess.Projections;
     using Phundus.Inventory.Model.Articles;
     using Phundus.Inventory.Model.Collaborators;
 
@@ -18,11 +17,11 @@ namespace Phundus.Tests.Inventory
 
         protected static IOwnerService ownerService;
 
-        protected static inventory_factory make;
+        
 
         private Establish ctx = () =>
         {
-            make = new inventory_factory(fake);
+           
             memberInRole = depends.on<IMemberInRole>();
             articleRepository = depends.on<IArticleRepository>();
             ownerService = depends.on<IOwnerService>();

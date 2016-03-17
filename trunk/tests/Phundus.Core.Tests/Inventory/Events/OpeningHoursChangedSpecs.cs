@@ -8,13 +8,11 @@
     [Subject(typeof (OpeningHoursChanged))]
     public class opening_hours_changed : inventory_domain_event_concern<OpeningHoursChanged>
     {
-        private static Manager theManager;
         private static string theOpeningHours;
         private static StoreId theStoreId;
 
         private Establish ctx = () =>
         {
-            theManager = make.Manager();
             theStoreId = new StoreId();
             theOpeningHours = "The opening hours";
             sut_factory.create_using(() =>
@@ -25,7 +23,7 @@
             itsAssembly.ShouldEqual("Phundus.Core");
 
         private It should_have_at_1_the_manager = () =>
-            dataMember(1).ShouldEqual(theManager);
+            dataMember(1).ShouldEqual(theManager.ToActor());
 
         private It should_have_at_2_the_store_id = () =>
             dataMember(2).ShouldEqual(theStoreId.Id);

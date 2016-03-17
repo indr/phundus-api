@@ -11,19 +11,17 @@
 
     [Subject(typeof (AddImageHandler))]
     public class when_add_image_is_handled : article_command_handler_concern<AddImage, AddImageHandler>
-    {
-        private static Owner theOwner;
+    {        
         private static Article theArticle;
         private static int theImageId = 123;
 
         private Establish ctx = () =>
-        {
-            theOwner = make.Owner();
+        {            
             var theImage = fake.an<Image>();
             theImage.setup(x => x.Id).Return(theImageId);
             theArticle = make.Article(theOwner);
             theArticle.setup(x =>
-                x.AddImage(Arg<Initiator>.Is.Anything, Arg<string>.Is.Anything, Arg<string>.Is.Anything,
+                x.AddImage(Arg<Manager>.Is.Anything, Arg<string>.Is.Anything, Arg<string>.Is.Anything,
                     Arg<long>.Is.Anything))
                 .Return(theImage);
             articleRepository.setup(x => x.GetById(theArticle.ArticleId)).Return(theArticle);
@@ -32,6 +30,6 @@
         };
 
         private It tell_article_to_add_image = () =>
-            theArticle.received(x => x.AddImage(theInitiator, "file.jpg", "image/jpeg", 12345));
+            theArticle.received(x => x.AddImage(theManager, "file.jpg", "image/jpeg", 12345));
     }
 }

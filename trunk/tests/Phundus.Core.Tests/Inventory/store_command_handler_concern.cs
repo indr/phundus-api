@@ -1,10 +1,8 @@
 namespace Phundus.Tests.Inventory
 {
     using Common.Commanding;
-    using Common.Domain.Model;
     using developwithpassion.specifications.extensions;
     using Machine.Specifications;
-    using Phundus.Inventory.Model;
     using Phundus.Inventory.Model.Collaborators;
     using Phundus.Inventory.Model.Stores;
 
@@ -13,14 +11,8 @@ namespace Phundus.Tests.Inventory
         where THandler : class, IHandleCommand<TCommand>
         where TCommand : ICommand
     {
-        protected static inventory_factory make;
-
         protected static IStoreRepository storeRepository;
         protected static ICollaboratorService userInRole;
-
-        protected static Manager theManager;
-        protected static Owner theOwner;
-        protected static OwnerId theOwnerId;
 
         private Establish ctx = () =>
         {
@@ -28,10 +20,6 @@ namespace Phundus.Tests.Inventory
 
             userInRole = depends.on<ICollaboratorService>();
             storeRepository = depends.on<IStoreRepository>();
-
-            theManager = make.Manager();
-            theOwner = make.Owner();
-            theOwnerId = theOwner.OwnerId;
 
             userInRole.setup(x => x.Manager(theInitiatorId, theOwnerId)).Return(theManager);
         };
