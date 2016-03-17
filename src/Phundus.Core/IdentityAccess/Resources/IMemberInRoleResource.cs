@@ -22,7 +22,7 @@
         public string FullName { get; set; }
     }
 
-    public class MemberInRoleResource : ResourceBase, IMemberInRoleResource
+    public class MemberInRoleResource : ApiControllerBase, IMemberInRoleResource
     {
         private readonly IMembershipRepository _membershipRepository;
         private readonly IUserRepository _usersQueries;

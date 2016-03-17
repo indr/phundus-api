@@ -1,12 +1,11 @@
-namespace Phundus.Rest.Api
+﻿namespace Phundus.Dashboard.Resources
 {
     using System.Web.Http;
+    using Application;
     using AttributeRouting;
     using AttributeRouting.Web.Http;
     using Castle.Transactions;
-    using ContentObjects;
-    using Dashboard.Application;
-    using Dashboard.Projections;
+    using Common.Resources;
 
     [RoutePrefix("api/event-log")]
     [Authorize(Roles = "Admin")]

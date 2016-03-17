@@ -8,10 +8,12 @@
     using AttributeRouting.Web.Http;
     using Castle.Transactions;
     using Common.Domain.Model;
+    using Common.Resources;
     using ContentObjects;
     using IdentityAccess.Application;
     using IdentityAccess.Model.Users;
     using Newtonsoft.Json;
+    using ApiControllerBase = Rest.ApiControllerBase;
 
     [RoutePrefix("api/admin/users")]
     [Authorize(Roles = "Admin")]

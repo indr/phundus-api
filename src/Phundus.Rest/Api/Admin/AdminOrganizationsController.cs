@@ -6,8 +6,10 @@
     using AttributeRouting;
     using AttributeRouting.Web.Http;
     using Castle.Transactions;
+    using Common.Resources;
     using ContentObjects;
     using IdentityAccess.Application;
+    using ApiControllerBase = Rest.ApiControllerBase;
 
     [RoutePrefix("api/admin/organizations")]
     [Authorize(Roles = "Admin")]

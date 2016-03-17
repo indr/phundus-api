@@ -7,10 +7,12 @@
     using AttributeRouting.Web.Http;
     using Castle.Transactions;
     using Common.Domain.Model;
+    using Common.Resources;
     using ContentObjects;
     using IdentityAccess.Application;
     using IdentityAccess.Organizations.Model;
     using Newtonsoft.Json;
+    using ApiControllerBase = Rest.ApiControllerBase;
 
     [RoutePrefix("api/organizations/{organizationId}/members")]
     public class OrganizationsMembersController : ApiControllerBase

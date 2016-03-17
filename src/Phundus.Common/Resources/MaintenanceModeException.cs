@@ -1,4 +1,4 @@
-﻿namespace Phundus.Rest.Auth
+﻿namespace Phundus.Common.Resources
 {
     using System;
 

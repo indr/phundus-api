@@ -5,9 +5,11 @@
     using AttributeRouting;
     using AttributeRouting.Web.Http;
     using Castle.Transactions;
+    using Common.Resources;
     using ContentObjects;
     using Newtonsoft.Json;
     using Phundus.Shop.Application;
+    using ApiControllerBase = Rest.ApiControllerBase;
 
     [RoutePrefix("api/lessors")]
     public class LessorsController : ApiControllerBase

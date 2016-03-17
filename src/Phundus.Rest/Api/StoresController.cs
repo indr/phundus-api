@@ -6,10 +6,12 @@ namespace Phundus.Rest.Api
     using AttributeRouting.Web.Http;
     using Castle.Transactions;
     using Common.Domain.Model;
+    using Common.Resources;
     using ContentObjects;
     using Inventory.Application;
     using Inventory.Projections;
     using Newtonsoft.Json;
+    using ApiControllerBase = Rest.ApiControllerBase;
 
     [RoutePrefix("api/stores")]
     public class StoresController : ApiControllerBase

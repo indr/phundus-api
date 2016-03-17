@@ -13,6 +13,7 @@
     using Castle.MicroKernel.Registration;
     using Castle.Windsor;
     using Common;
+    using Common.Resources;
     using Elmah;
     using Rest.Auth;
     using Security;

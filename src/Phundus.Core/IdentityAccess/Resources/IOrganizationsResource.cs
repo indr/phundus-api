@@ -10,7 +10,7 @@
         OrganizationData Get(Guid organizationId);
     }
 
-    public class OrganizationsResource : ResourceBase, IOrganizationsResource
+    public class OrganizationsResource : ApiControllerBase, IOrganizationsResource
     {
         private readonly IOrganizationQueryService _organizationQueryService;
 

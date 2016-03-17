@@ -19,8 +19,9 @@
             new EventHandlerInstaller().Install(container, assembly);
 
             container.Register(Classes.FromAssembly(assembly)
-                .BasedOn<ResourceBase>()
-                .WithServiceDefaultInterfaces());
+                .BasedOn<ApiControllerBase>()
+                .WithServiceDefaultInterfaces()
+                .LifestyleTransient());
         }
     }
 }

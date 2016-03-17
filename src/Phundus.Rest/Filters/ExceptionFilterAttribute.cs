@@ -8,6 +8,7 @@
     using System.Web.Http.Filters;
     using Auth;
     using Common;
+    using Common.Resources;
 
     /// <summary>
     /// http://weblogs.asp.net/cibrax/handling-exceptions-in-your-asp-net-web-api

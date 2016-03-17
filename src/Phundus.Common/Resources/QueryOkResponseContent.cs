@@ -1,11 +1,10 @@
-namespace Phundus.Rest.ContentObjects
+namespace Phundus.Common.Resources
 {
     using System;
     using System.Collections.Generic;
     using System.Linq;
-    using Api.Shop;
-    using Common.Projections;
     using Newtonsoft.Json;
+    using Projections;
 
     public class QueryOkResponseContent<T>
     {
@@ -39,10 +38,10 @@ namespace Phundus.Rest.ContentObjects
         [JsonProperty("results")]
         public IList<T> Results { get; set; }
 
-        public static QueryOkResponseContent<ShopQueryItem> Build<TSource>(QueryResult<TSource> results,
-            Func<TSource, ShopQueryItem> selector)
+        public static QueryOkResponseContent<TDestination> Build<TSource, TDestination>(QueryResult<TSource> results,
+            Func<TSource, TDestination> selector)
         {
-            return new QueryOkResponseContent<ShopQueryItem>(results.Offset, results.Limit, results.Total,
+            return new QueryOkResponseContent<TDestination>(results.Offset, results.Limit, results.Total,
                 results.Result.Select(selector).ToList());
         }
     }
