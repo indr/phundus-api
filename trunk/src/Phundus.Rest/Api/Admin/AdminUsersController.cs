@@ -11,7 +11,6 @@
     using ContentObjects;
     using IdentityAccess.Application;
     using IdentityAccess.Model.Users;
-    using Integration.IdentityAccess;
     using Newtonsoft.Json;
 
     [RoutePrefix("api/admin/users")]

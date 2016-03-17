@@ -30,8 +30,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Phundus.Common.Tests", "tes
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Phundus.Migrations", "src\Phundus.Migrations\Phundus.Migrations.csproj", "{A2A165BE-6433-4145-AA24-7552AC6A690F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Phundus.Integration", "src\Phundus.Integration\Phundus.Integration.csproj", "{91C1A2A6-65D2-44BA-9985-C35F1705888A}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Phundus.Web.Tests", "tests\Phundus.Web.Tests\Phundus.Web.Tests.csproj", "{93348BE8-EDA9-41AE-BF2D-4C561C8FC1B0}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Phundus.Rest.Tests", "tests\Phundus.Rest.Tests\Phundus.Rest.Tests.csproj", "{4B705EC2-01E8-43AD-BEC7-7B23C6413B86}"
@@ -155,16 +153,6 @@ Global
 		{A2A165BE-6433-4145-AA24-7552AC6A690F}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{A2A165BE-6433-4145-AA24-7552AC6A690F}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{A2A165BE-6433-4145-AA24-7552AC6A690F}.Release|x86.ActiveCfg = Release|Any CPU
-		{91C1A2A6-65D2-44BA-9985-C35F1705888A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{91C1A2A6-65D2-44BA-9985-C35F1705888A}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{91C1A2A6-65D2-44BA-9985-C35F1705888A}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
-		{91C1A2A6-65D2-44BA-9985-C35F1705888A}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
-		{91C1A2A6-65D2-44BA-9985-C35F1705888A}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{91C1A2A6-65D2-44BA-9985-C35F1705888A}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{91C1A2A6-65D2-44BA-9985-C35F1705888A}.Release|Any CPU.Build.0 = Release|Any CPU
-		{91C1A2A6-65D2-44BA-9985-C35F1705888A}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
-		{91C1A2A6-65D2-44BA-9985-C35F1705888A}.Release|Mixed Platforms.Build.0 = Release|Any CPU
-		{91C1A2A6-65D2-44BA-9985-C35F1705888A}.Release|x86.ActiveCfg = Release|Any CPU
 		{93348BE8-EDA9-41AE-BF2D-4C561C8FC1B0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{93348BE8-EDA9-41AE-BF2D-4C561C8FC1B0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{93348BE8-EDA9-41AE-BF2D-4C561C8FC1B0}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU

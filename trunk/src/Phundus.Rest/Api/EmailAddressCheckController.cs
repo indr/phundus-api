@@ -3,7 +3,7 @@ namespace Phundus.Rest.Api
     using System.Web.Http;
     using AttributeRouting;
     using AttributeRouting.Web.Http;
-    using Integration.IdentityAccess;
+    using IdentityAccess.Application;
     using Newtonsoft.Json;
 
     [RoutePrefix("api/email-address-check")]

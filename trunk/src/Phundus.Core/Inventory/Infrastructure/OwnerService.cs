@@ -1,33 +1,29 @@
-﻿namespace Phundus.Inventory.Model.Collaborators
+﻿namespace Phundus.Inventory.Infrastructure
 {
     using System;
     using Castle.Transactions;
     using Common;
     using Common.Domain.Model;
     using IdentityAccess.Projections;
-    using Integration.IdentityAccess;
-
-    public interface IOwnerService
-    {
-        Owner GetById(OwnerId ownerId);
-        Owner FindById(OwnerId ownerId);
-    }
+    using IdentityAccess.Resources;
+    using Model;
+    using Model.Collaborators;
 
     public class OwnerService : IOwnerService
     {
-        private readonly IOrganizationQueries _organizationQueries;
-        private readonly IUsersQueries _usersQueries;
+        private readonly IOrganizationsResource _organizationsResource;
+        private readonly IUsersResource _usersResource;
 
-        public OwnerService(IOrganizationQueries organizationQueries, IUsersQueries usersQueries)
-        {            
-            _organizationQueries = organizationQueries;
-            _usersQueries = usersQueries;
+        public OwnerService(IOrganizationsResource organizationsResource, IUsersResource usersResource)
+        {
+            _organizationsResource = organizationsResource;
+            _usersResource = usersResource;
         }
 
         [Transaction]
         public Owner GetById(OwnerId ownerId)
         {
-            var result = FindById(ownerId);   
+            var result = FindById(ownerId);
             if (result == null)
                 throw new NotFoundException(String.Format("Owner {0} not found.", ownerId));
 
@@ -37,11 +33,11 @@
         [Transaction]
         public Owner FindById(OwnerId ownerId)
         {
-            var organization = _organizationQueries.FindById(ownerId.Id);
+            var organization = _organizationsResource.Get(ownerId.Id);
             if (organization != null)
                 return ToOwner(organization);
 
-            var user = _usersQueries.FindById(ownerId.Id);
+            var user = _usersResource.Get(ownerId.Id);
             if (user != null)
                 return ToOwner(user);
 
@@ -53,7 +49,7 @@
             return new Owner(new OwnerId(organization.OrganizationId), organization.Name, OwnerType.Organization);
         }
 
-        private static Owner ToOwner(IUser user)
+        private static Owner ToOwner(UserData user)
         {
             return new Owner(new OwnerId(user.UserId), user.FirstName + " " + user.LastName, OwnerType.User);
         }

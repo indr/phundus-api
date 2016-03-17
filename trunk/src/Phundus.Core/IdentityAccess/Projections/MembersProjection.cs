@@ -3,9 +3,9 @@
     using System;
     using System.Collections.Generic;
     using System.Linq;
+    using Application;
     using Common.Domain.Model;
     using Common.Querying;
-    using Integration.IdentityAccess;
 
     public interface IMemberQueries
     {

@@ -5,7 +5,7 @@ namespace Phundus.Rest.Api
     using AttributeRouting;
     using AttributeRouting.Web.Http;
     using Castle.Transactions;
-    using Integration.IdentityAccess;
+    using IdentityAccess.Application;
     using Newtonsoft.Json;
 
     [RoutePrefix("api/username-check")]

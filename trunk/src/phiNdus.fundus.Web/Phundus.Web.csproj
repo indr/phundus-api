@@ -298,10 +298,6 @@
       <Project>{b4c597ff-ef4c-4f33-b2c8-172c1f3e9a56}</Project>
       <Name>Phundus.Core</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Phundus.Integration\Phundus.Integration.csproj">
-      <Project>{91c1a2a6-65d2-44ba-9985-c35f1705888a}</Project>
-      <Name>Phundus.Integration</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Phundus.Migrations\Phundus.Migrations.csproj">
       <Project>{a2a165be-6433-4145-aa24-7552ac6a690f}</Project>
       <Name>Phundus.Migrations</Name>

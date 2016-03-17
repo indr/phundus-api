@@ -13,7 +13,6 @@ namespace Phundus.Rest.Api
     using ContentObjects;
     using IdentityAccess.Application;
     using IdentityAccess.Projections;
-    using Integration.IdentityAccess;
     using Inventory.Projections;
     using Newtonsoft.Json;
 
@@ -88,7 +87,7 @@ namespace Phundus.Rest.Api
         {
         }
 
-        public UsersGetOkResponseContent(IUser user, IEnumerable<MembershipData> memberships, UserAddressData address)
+        public UsersGetOkResponseContent(UserData user, IEnumerable<MembershipData> memberships, UserAddressData address)
         {
             UserId = user.UserId;
             Username = user.EmailAddress;

@@ -3,21 +3,21 @@
     using System;
     using System.Collections.Generic;
     using System.Linq;
+    using Application;
     using Castle.Transactions;
     using Common;
     using Common.Domain.Model;
     using Common.Querying;
-    using Integration.IdentityAccess;
     using Model.Users;
 
     public class UsersProjection : QueryBase<UserData>, IUsersQueries
     {
-        public IUser GetById(Guid userId)
+        public UserData GetById(Guid userId)
         {
             return GetByGuid(new UserId(userId));
         }
 
-        public IUser FindById(Guid userId)
+        public UserData FindById(Guid userId)
         {
             return QueryOver()
                 .Where(p => p.UserId == userId)
@@ -25,7 +25,7 @@
         }
 
         [Transaction]
-        public IUser FindByUsername(string username)
+        public UserData FindByUsername(string username)
         {
             if (username == null) throw new ArgumentNullException("username");
             username = username.ToLowerInvariant().Trim();
@@ -35,13 +35,13 @@
                 .List().SingleOrDefault();
         }
 
-        public IList<IUser> Query()
+        public IList<UserData> Query()
         {
             return QueryOver()
-                .List<IUser>();
+                .List<UserData>();
         }
 
-        public IUser FindActiveById(Guid userId)
+        public UserData FindActiveById(Guid userId)
         {
             return QueryOver()
                 .Where(p => p.UserId == userId)
@@ -60,7 +60,7 @@
                 .List().SingleOrDefault() != null;
         }
 
-        public IUser GetByGuid(UserId userId)
+        public UserData GetByGuid(UserId userId)
         {
             var result = FindByGuid(userId);
             if (result == null)
@@ -68,13 +68,13 @@
             return result;
         }
 
-        public IUser FindByGuid(UserId userId)
+        public UserData FindByGuid(UserId userId)
         {
             return FindById(userId.Id);
         }
     }
 
-    public class UserData : IUser
+    public class UserData
     {
         public virtual string Username
         {

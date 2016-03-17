@@ -3,7 +3,6 @@
     using System;
     using System.Linq;
     using Common.Domain.Model;
-    using Integration.IdentityAccess;
     using Machine.Specifications;
     using Phundus.IdentityAccess.Model;
     using Phundus.IdentityAccess.Model.Organizations;

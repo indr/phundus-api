@@ -11,8 +11,8 @@
     using Auth;
     using Castle.Transactions;
     using ContentObjects;
+    using IdentityAccess.Application;
     using IdentityAccess.Projections;
-    using Integration.IdentityAccess;
     using Newtonsoft.Json;
 
     [RoutePrefix("/api/sessions")]

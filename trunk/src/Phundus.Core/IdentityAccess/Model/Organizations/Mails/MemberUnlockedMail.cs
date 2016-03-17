@@ -1,9 +1,9 @@
 ﻿namespace Phundus.IdentityAccess.Model.Organizations.Mails
 {
+    using Application;
     using Common.Eventing;
     using Common.Mailing;
     using IdentityAccess.Organizations.Model;
-    using Integration.IdentityAccess;
 
     public class MemberUnlockedMail : ISubscribeTo<MemberUnlocked>
     {

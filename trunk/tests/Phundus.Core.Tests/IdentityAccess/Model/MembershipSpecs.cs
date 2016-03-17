@@ -3,7 +3,6 @@
     using System;
     using Common.Domain.Model;
     using developwithpassion.specifications.rhinomocks;
-    using Integration.IdentityAccess;
     using Machine.Specifications;
     using Phundus.IdentityAccess.Model.Users;
     using Phundus.IdentityAccess.Organizations.Model;

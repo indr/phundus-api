@@ -4,7 +4,6 @@
     using Common.Domain.Model;
     using developwithpassion.specifications.core;
     using developwithpassion.specifications.extensions;
-    using Integration.IdentityAccess;
     using Phundus.IdentityAccess.Model.Users;
     using Phundus.IdentityAccess.Organizations.Model;
     using Phundus.IdentityAccess.Projections;
@@ -60,9 +59,9 @@
             return result;
         }
 
-        public IUser UserData()
+        public UserData UserData()
         {
-            var result = fake.an<IUser>();
+            var result = fake.an<UserData>();
             result.setup(x => x.UserId).Return(Guid.NewGuid());
             result.setup(x => x.EmailAddress).Return("user@test.phundus.ch");
             return result;
