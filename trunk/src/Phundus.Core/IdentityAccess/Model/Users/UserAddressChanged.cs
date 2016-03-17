@@ -13,7 +13,7 @@
             if (initiator == null) throw new ArgumentNullException("initiator");
             if (userId == null) throw new ArgumentNullException("userId");
 
-            Initiator = initiator;
+            Initiator = initiator.ToActor();
             UserId = userId.Id;
             FirstName = firstName;
             LastName = lastName;
@@ -28,7 +28,7 @@
         }
 
         [DataMember(Order = 1)]
-        public Initiator Initiator { get; protected set; }
+        public Actor Initiator { get; protected set; }
 
         [DataMember(Order = 2)]
         public Guid UserId { get; protected set; }

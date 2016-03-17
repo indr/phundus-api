@@ -105,7 +105,7 @@
 
         private It should_publish_order_placed = () =>
             published<OrderPlaced>(p =>
-                Equals(p.Initiator.InitiatorId, theInitiatorId)
+                Equals(p.Initiator, theInitiator.ToActor())
                 && p.LessorId == theLessor.LessorId.Id);
 
         private It should_tell_cart_to_remove_items =

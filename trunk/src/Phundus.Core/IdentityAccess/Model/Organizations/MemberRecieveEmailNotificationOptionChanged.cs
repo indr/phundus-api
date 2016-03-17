@@ -9,14 +9,13 @@ namespace Phundus.IdentityAccess.Organizations.Model
     public class MemberRecieveEmailNotificationOptionChanged : DomainEvent
     {
         public MemberRecieveEmailNotificationOptionChanged(Manager manager, OrganizationId organizationId,
-            UserId memberId,
-            bool value)
+            UserId memberId, bool value)
         {
             if (manager == null) throw new ArgumentNullException("manager");
             if (organizationId == null) throw new ArgumentNullException("organizationId");
             if (memberId == null) throw new ArgumentNullException("memberId");
 
-            Initiator = new Initiator(new InitiatorId(manager.UserId), manager.EmailAddress, manager.FullName);
+            Initiator = manager.ToActor();
             OrganizationId = organizationId.Id;
             MemberId = memberId.Id;
             Value = value;
@@ -27,7 +26,7 @@ namespace Phundus.IdentityAccess.Organizations.Model
         }
 
         [DataMember(Order = 1)]
-        public Initiator Initiator { get; protected set; }
+        public Actor Initiator { get; protected set; }
 
         [DataMember(Order = 2)]
         public Guid OrganizationId { get; protected set; }

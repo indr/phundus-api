@@ -18,7 +18,8 @@ namespace Phundus.Shop.Orders.Model
             if (lessor == null) throw new ArgumentNullException("lessor");
             if (lessee == null) throw new ArgumentNullException("lessee");
             if (items == null) throw new ArgumentNullException("items");
-            Initiator = initiator;
+
+            Initiator = initiator.ToActor();
             OrderId = orderId.Id;
             OrderShortId = orderShortId.Id;
             Lessor = lessor;
@@ -43,7 +44,7 @@ namespace Phundus.Shop.Orders.Model
         public Guid OrderId { get; protected set; }
 
         [DataMember(Order = 4)]
-        public Initiator Initiator { get; protected set; }
+        public Actor Initiator { get; protected set; }
 
         [DataMember(Order = 5)]
         public Lessor Lessor { get; protected set; }

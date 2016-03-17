@@ -13,7 +13,7 @@ namespace Phundus.IdentityAccess.Users.Model
             if (oldEmailAddress == null) throw new ArgumentNullException("oldEmailAddress");
             if (newEmailAddress == null) throw new ArgumentNullException("newEmailAddress");
 
-            Initiator = initiator;
+            Initiator = initiator == null ? null : initiator.ToActor();
             UserId = userId.Id;
             OldEmailAddress = oldEmailAddress;
             NewEmailAddress = newEmailAddress;
@@ -33,6 +33,6 @@ namespace Phundus.IdentityAccess.Users.Model
         public string NewEmailAddress { get; protected set; }
 
         [DataMember(Order = 4)]
-        public Initiator Initiator { get; protected set; }
+        public Actor Initiator { get; protected set; }
     }
 }

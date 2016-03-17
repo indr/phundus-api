@@ -143,7 +143,7 @@
 
         private It should_publish_user_address_changed = () =>
             published<UserAddressChanged>(p =>
-                Equals(p.Initiator.InitiatorId, theInitiatorId)
+                Equals(p.Initiator, theInitiator.ToActor())
                 && p.UserId == theUserId.Id
                 && p.FirstName == theFirstName
                 && p.LastName == theLastName
