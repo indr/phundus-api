@@ -1,4 +1,4 @@
-﻿namespace Phundus.Inventory.Projections
+﻿namespace Phundus.Inventory.Application
 {
     using System.Collections.Generic;
     using AutoMapper;

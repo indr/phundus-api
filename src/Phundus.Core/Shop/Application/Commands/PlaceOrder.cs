@@ -9,6 +9,7 @@
     using Common.Eventing;
     using Model;
     using Model.Collaborators;
+    using Model.Products;
     using Orders.Model;
 
     public class PlaceOrder : ICommand
@@ -33,7 +34,7 @@
 
     public class PlaceOrderHandler : IHandleCommand<PlaceOrder>
     {
-        private readonly IArticleService _articleService;
+        private readonly IProductsService _productsService;
         private readonly ICartRepository _cartRepository;
         private readonly ICollaboratorService _collaboratorService;
         private readonly ILesseeService _lesseeService;
@@ -42,14 +43,14 @@
 
         public PlaceOrderHandler(ICollaboratorService collaboratorService,
             ICartRepository cartRepository, IOrderRepository orderRepository,
-            ILessorService lessorService, ILesseeService lesseeService, IArticleService articleService)
+            ILessorService lessorService, ILesseeService lesseeService, IProductsService productsService)
         {
             _collaboratorService = collaboratorService;
             _cartRepository = cartRepository;
             _orderRepository = orderRepository;
             _lessorService = lessorService;
             _lesseeService = lesseeService;
-            _articleService = articleService;
+            _productsService = productsService;
         }
 
         [Transaction]
@@ -68,7 +69,7 @@
 
             foreach (var eachCartItem in cartItemsToPlace)
             {
-                _articleService.GetById(lessor.LessorId, eachCartItem.ArticleId, lessee.LesseeId);
+                _productsService.GetById(lessor.LessorId, eachCartItem.ArticleId, lessee.LesseeId);
             }
 
 

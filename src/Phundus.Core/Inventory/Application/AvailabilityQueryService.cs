@@ -1,10 +1,9 @@
-﻿namespace Phundus.Inventory.Projections
+﻿namespace Phundus.Inventory.Application
 {
     using System;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
     using System.Linq;
-    using Application;
     using Common.Domain.Model;
     using Common.Querying;
 

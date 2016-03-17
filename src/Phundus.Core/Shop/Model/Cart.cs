@@ -5,6 +5,7 @@
     using Common.Domain.Model;
     using Iesi.Collections.Generic;
     using Orders.Model;
+    using Products;
 
     public class Cart : Aggregate<CartId>
     {

@@ -5,6 +5,7 @@ namespace Phundus.Tests.Shop
     using developwithpassion.specifications.core;
     using developwithpassion.specifications.extensions;
     using Phundus.Shop.Model;
+    using Phundus.Shop.Model.Products;
 
 // ReSharper disable once InconsistentNaming
     public class shop_factory : factory_base

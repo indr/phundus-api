@@ -4,13 +4,14 @@ namespace Phundus.Tests.Shop
     using developwithpassion.specifications.extensions;
     using Machine.Specifications;
     using Phundus.Shop.Model;
+    using Phundus.Shop.Model.Products;
 
     public abstract class order_command_handler_concern<TCommand, THandler> :
         shop_command_handler_concern<TCommand, THandler>
         where THandler : class, IHandleCommand<TCommand> where TCommand : ICommand
     {
         protected static IOrderRepository orderRepository;
-        protected static IArticleService articleService;
+        protected static IProductsService productsService;
         protected static ILessorService lessorService;
         protected static ILesseeService lesseeService;
         protected static Manager theManager;
@@ -20,7 +21,7 @@ namespace Phundus.Tests.Shop
         private Establish ctx = () =>
         {
             orderRepository = depends.on<IOrderRepository>();
-            articleService = depends.on<IArticleService>();
+            productsService = depends.on<IProductsService>();
             lessorService = depends.on<ILessorService>();
             lesseeService = depends.on<ILesseeService>();
 

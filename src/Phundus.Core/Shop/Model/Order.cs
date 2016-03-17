@@ -5,6 +5,7 @@
     using System.Linq;
     using Common.Domain.Model;
     using Orders.Model;
+    using Products;
 
     public class Order : EventSourcedAggregateRoot
     {

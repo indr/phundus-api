@@ -7,6 +7,7 @@
     using Machine.Specifications;
     using Phundus.Shop.Application;
     using Phundus.Shop.Model;
+    using Phundus.Shop.Model.Products;
     using Rhino.Mocks;
 
     public class when_add_article_to_cart_is_handled :
@@ -31,7 +32,7 @@
                 .Return(make.Lessee(lesseeId));
             cartRepository = depends.on<ICartRepository>();
 
-            depends.on<IArticleService>()
+            depends.on<IProductsService>()
                 .WhenToldTo(
                     x =>
                         x.GetById(Arg<LessorId>.Is.Equal(theArticle.LessorId),
