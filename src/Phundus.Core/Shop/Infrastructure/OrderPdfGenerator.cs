@@ -9,6 +9,7 @@
     using iTextSharp.text;
     using iTextSharp.text.pdf;
     using Model;
+    using NHibernate.Linq.Functions;
     using Orders.Model;
 
     public class OrderPdfGenerator
@@ -184,7 +185,9 @@
             {
                 pos++;
                 table.AddCell(new Phrase(pos.ToString(), defaultFont));
-                table.AddCell(new Phrase(item.Quantity.ToString(), defaultFont));
+                //table.AddCell(new Phrase(item.Quantity.ToString(), defaultFont));
+                table.AddCell(PhraseCell(new Phrase(item.Quantity.ToString(), defaultFont), 1));
+
                 table.AddCell(new Phrase(item.Text, defaultFont));
                 table.AddCell(new Phrase(item.ArticleShortId.Id.ToString(), defaultFont));
                 table.AddCell(new Phrase(item.Period.FromUtc.ToLocalTime().ToString("d"), defaultFont));
@@ -203,6 +206,22 @@
             table.AddCell(new Phrase(order.OrderTotal.ToString("N"), defaultFontBold));
             doc.Add(table);
         }
+
+
+
+        private static PdfPCell PhraseCell(Phrase phrase, int align)
+        {
+            PdfPCell cell = new PdfPCell(phrase);
+            cell.BorderColor = BaseColor.WHITE;
+            // cell.VerticalAlignment = PdfCell.ALIGN_TOP;
+            //cell.VerticalAlignment = align;
+            cell.HorizontalAlignment = align;
+            cell.PaddingBottom = 2f;
+            cell.PaddingTop = 0f;
+            return cell;
+        }
+
+
 
         private void AddHeading()
         {

@@ -136,7 +136,7 @@
 
         private It should_publish_member_recieve_email_notification_changed = () =>
             published<MemberRecieveEmailNotificationOptionChanged>(p =>
-                p.Initiator.InitiatorId.Id == theManager.UserId.Id
+                Equals(p.Initiator, theManager.ToActor())
                 && p.OrganizationId == theOrganizationId.Id
                 && p.MemberId == theMember.UserId.Id
                 && p.Value);

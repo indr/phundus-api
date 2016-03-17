@@ -114,7 +114,6 @@
     <Compile Include="ConfigSpecs.cs" />
     <Compile Include="Domain.Model\GuidConverterSpecs.cs" />
     <Compile Include="Domain.Model\IdentitiesSpecs.cs" />
-    <Compile Include="Domain.Model\InitiatorSpecs.cs" />
     <Compile Include="Domain.Model\PeriodSpecs.cs" />
     <Compile Include="Domain.Model\PostalAddressFactorySpecs.cs" />
     <Compile Include="Domain.Model\ActorSpecs.cs" />
