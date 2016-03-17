@@ -18,23 +18,23 @@ namespace Phundus.Rest.Api
     [RoutePrefix("api/articles")]
     public class ArticlesController : ApiControllerBase
     {
-        private readonly IArticleActionsQueries _articleActionsQueries;
-        private readonly IArticleQueries _articleQueries;
-        private readonly IAvailabilityQueries _availabilityQueries;
+        private readonly IArticleActionQueryService _articleActionQueryService;
+        private readonly IArticleQueryService _articleQueryService;
+        private readonly IAvailabilityQueryService _availabilityQueryService;
         private readonly IReservationRepository _reservationRepository;
         private readonly IShortIdGeneratorService _shortIdGeneratorService;
-        private readonly IStoresQueries _storesQueries;
+        private readonly IStoresQueryService _storesQueryService;
 
-        public ArticlesController(IStoresQueries storesQueries,
-            IArticleQueries articleQueries, IAvailabilityQueries availabilityQueries,
-            IReservationRepository reservationRepository, IArticleActionsQueries articleActionsQueries,
+        public ArticlesController(IStoresQueryService storesQueryService,
+            IArticleQueryService articleQueryService, IAvailabilityQueryService availabilityQueryService,
+            IReservationRepository reservationRepository, IArticleActionQueryService articleActionQueryService,
             IShortIdGeneratorService shortIdGeneratorService)
         {
-            _storesQueries = storesQueries;
-            _articleQueries = articleQueries;
-            _availabilityQueries = availabilityQueries;
+            _storesQueryService = storesQueryService;
+            _articleQueryService = articleQueryService;
+            _availabilityQueryService = availabilityQueryService;
             _reservationRepository = reservationRepository;
-            _articleActionsQueries = articleActionsQueries;
+            _articleActionQueryService = articleActionQueryService;
             _shortIdGeneratorService = shortIdGeneratorService;
         }
 
@@ -66,7 +66,7 @@ namespace Phundus.Rest.Api
             if (queryParams.ContainsKey("q"))
                 query = queryParams["q"];
 
-            var results = _articleQueries.Query(CurrentUserId, ownerId, query);
+            var results = _articleQueryService.Query(CurrentUserId, ownerId, query);
 
             return new QueryOkResponseContent<ArticleData>(results);
         }
@@ -86,7 +86,7 @@ namespace Phundus.Rest.Api
 
             // TODO: Prüfen ob Artikel dem Owner gehört  
 
-            var result = _articleQueries.GetById(articleId);
+            var result = _articleQueryService.GetById(articleId);
 
             return new ArticlesGetOkResponseContent
             {
@@ -108,7 +108,7 @@ namespace Phundus.Rest.Api
         [Transaction]
         public virtual QueryOkResponseContent<ArticleActionData> GetActions(ArticleId articleId)
         {
-            var result = _articleActionsQueries.GetActions(articleId);
+            var result = _articleActionQueryService.GetActions(articleId);
             return new QueryOkResponseContent<ArticleActionData>(result);
         }
 
@@ -127,7 +127,7 @@ namespace Phundus.Rest.Api
 
             // TODO: Prüfen ob Artikel dem Owner gehört  
 
-            var result = _articleQueries.GetById(articleId);
+            var result = _articleQueryService.GetById(articleId);
 
             return Request.CreateResponse(HttpStatusCode.OK, result.Description);
         }
@@ -147,7 +147,7 @@ namespace Phundus.Rest.Api
 
             // TODO: Prüfen ob Artikel dem Owner gehört  
 
-            var result = _articleQueries.GetById(articleId);
+            var result = _articleQueryService.GetById(articleId);
 
             return Request.CreateResponse(HttpStatusCode.OK, result.Specification);
         }
@@ -167,7 +167,7 @@ namespace Phundus.Rest.Api
 
             // TODO: Prüfen ob Artikel dem Owner gehört   
 
-            var availabilities = _availabilityQueries.GetAvailability(articleId).ToList();
+            var availabilities = _availabilityQueryService.GetAvailability(articleId).ToList();
             var reservations = _reservationRepository.Find(articleId, null).ToList();
 
             return Request.CreateResponse(HttpStatusCode.OK, new {availabilities, reservations});
@@ -176,7 +176,7 @@ namespace Phundus.Rest.Api
         [POST("")]
         public virtual ArticlesPostOkResponseContent Post(ArticlesPostRequestContent requestContent)
         {
-            var storeId = _storesQueries.GetByOwnerId(requestContent.OwnerId).StoreId;
+            var storeId = _storesQueryService.GetByOwnerId(requestContent.OwnerId).StoreId;
             var articleId = new ArticleId();
             var articleShortId = _shortIdGeneratorService.GetNext<ArticleShortId>();
             var command = new CreateArticle(CurrentUserId, new OwnerId(requestContent.OwnerId), new StoreId(storeId),

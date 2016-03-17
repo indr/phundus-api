@@ -7,14 +7,14 @@ namespace Phundus.Inventory.Projections
     using Common.Querying;
     using NHibernate.Criterion;
 
-    public interface IArticleQueries
+    public interface IArticleQueryService
     {
         ArticleData GetById(ArticleId articleId);
 
         IEnumerable<ArticleData> Query(InitiatorId initiatorId, OwnerId queryOwnerId, string query);
     }
 
-    public class ArticleQueries : QueryServiceBase<ArticleData>, IArticleQueries
+    public class ArticleQueryService : QueryServiceBase<ArticleData>, IArticleQueryService
     {
         public ArticleData GetById(ArticleId articleId)
         {

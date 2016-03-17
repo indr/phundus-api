@@ -6,16 +6,15 @@ namespace Phundus.Inventory.Projections
     using Common;
     using Common.Querying;
 
-    public interface IStoresQueries
+    public interface IStoresQueryService
     {
         StoreDetailsData GetById(Guid storeId);
         StoreDetailsData GetByOwnerId(Guid ownerId);
         StoreDetailsData FindByOwnerId(Guid ownerId);
         IList<StoreDetailsData> Query(Guid? ownerId);
-        
     }
 
-    public class StoresQueries : QueryServiceBase<StoreDetailsData>, IStoresQueries
+    public class StoresQueryService : QueryServiceBase<StoreDetailsData>, IStoresQueryService
     {
         [Transaction]
         public StoreDetailsData GetById(Guid storeId)

@@ -19,20 +19,20 @@
     [AllowAnonymous]
     public class ShopItemsController : ApiControllerBase
     {
-        private readonly IAvailabilityQueries _availabilityQueries;
-        private readonly IItemQueries _itemQueries;
+        private readonly IAvailabilityQueryService _availabilityQueryService;
+        private readonly IProductQueryService _productQueryService;
 
-        public ShopItemsController(IItemQueries itemQueries, IAvailabilityQueries availabilityQueries)
+        public ShopItemsController(IProductQueryService productQueryService, IAvailabilityQueryService availabilityQueryService)
         {            
-            _itemQueries = itemQueries;
-            _availabilityQueries = availabilityQueries;
+            _productQueryService = productQueryService;
+            _availabilityQueryService = availabilityQueryService;
         }
 
         [GET("")]
         [Transaction]
         public virtual QueryOkResponseContent<ShopQueryItem> Get([FromUri] ShopItemsQueryRequestContent requestContent)
         {
-            var results = _itemQueries.Query(requestContent.Q, requestContent.LessorId, requestContent.Offset,
+            var results = _productQueryService.Query(requestContent.Q, requestContent.LessorId, requestContent.Offset,
                 requestContent.Limit);
 
             return QueryOkResponseContent<ShopQueryItem>.Build(results, s => new ShopQueryItem
@@ -55,7 +55,7 @@
         [Transaction]
         public virtual ShopItemGetOkResponseContent Get(Guid itemId)
         {
-            var item = _itemQueries.Get(itemId);
+            var item = _productQueryService.Get(itemId);
 
             return new ShopItemGetOkResponseContent
             {
@@ -107,7 +107,7 @@
         [Transaction]
         public virtual HttpResponseMessage GetAvailability(ArticleId articleId)
         {
-            var result = _availabilityQueries.GetAvailability(articleId);
+            var result = _availabilityQueryService.GetAvailability(articleId);
             return Ok(new {result});
         }
     }

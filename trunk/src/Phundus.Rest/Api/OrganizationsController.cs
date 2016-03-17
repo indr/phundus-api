@@ -24,13 +24,13 @@
     public class OrganizationsController : ApiControllerBase
     {
         private readonly IOrganizationQueryService _organizationQueryService;
-        private readonly IStoresQueries _storesQueries;
+        private readonly IStoresQueryService _storesQueryService;
         private readonly IOwnerService _ownerService;
 
-        public OrganizationsController(IOrganizationQueryService organizationQueryService, IStoresQueries storesQueries, IOwnerService ownerService)
+        public OrganizationsController(IOrganizationQueryService organizationQueryService, IStoresQueryService storesQueryService, IOwnerService ownerService)
         {
             _organizationQueryService = organizationQueryService;
-            _storesQueries = storesQueries;
+            _storesQueryService = storesQueryService;
             _ownerService = ownerService;
         }
 
@@ -58,7 +58,7 @@
         public virtual OrganizationsGetOkResponseContent Get(Guid organizationId)
         {
             var organization = _organizationQueryService.GetById(organizationId);
-            var stores = _storesQueries.Query(organization.OrganizationId);
+            var stores = _storesQueryService.Query(organization.OrganizationId);
 
             return Map<OrganizationsGetOkResponseContent>(organization, stores);
         }

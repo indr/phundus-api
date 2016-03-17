@@ -19,13 +19,13 @@ namespace Phundus.Rest.Api
     [Authorize(Roles = "Admin")]
     public class EventProcessorsController : ApiControllerBase
     {
-        private readonly IEventProcessorsQueries _eventProcessorsQueries;
+        private readonly IEventProcessorsQueryService _eventProcessorsQueryService;
         private readonly IEventStore _eventStore;
 
-        public EventProcessorsController(IEventProcessorsQueries eventProcessorsQueries,
+        public EventProcessorsController(IEventProcessorsQueryService eventProcessorsQueryService,
             IEventStore eventStore)
         {
-            _eventProcessorsQueries = eventProcessorsQueries;
+            _eventProcessorsQueryService = eventProcessorsQueryService;
             _eventStore = eventStore;
         }
 
@@ -34,7 +34,7 @@ namespace Phundus.Rest.Api
         public virtual EventProcessorsQueryOkResponseContent GetAll()
         {
             var maxEventId = _eventStore.GetMaxNotificationId();
-            var results = _eventProcessorsQueries.Query();
+            var results = _eventProcessorsQueryService.Query();
 
             return new EventProcessorsQueryOkResponseContent(maxEventId, results);
         }

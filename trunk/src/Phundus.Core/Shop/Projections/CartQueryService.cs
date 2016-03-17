@@ -7,12 +7,12 @@
     using Common.Domain.Model;
     using Common.Querying;
 
-    public interface ICartsQueries
+    public interface ICartQueryService
     {
         CartData FindByUserGuid(InitiatorId initiatorId, UserId userId);
     }
 
-    public class CartsProjection : QueryServiceBase<CartData>, ICartsQueries
+    public class CartQueryService : QueryServiceBase<CartData>, ICartQueryService
     {
         public CartData FindByUserGuid(InitiatorId initiatorId, UserId userId)
         {

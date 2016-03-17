@@ -9,7 +9,7 @@ namespace Phundus.Shop.Projections
     using Inventory.Articles.Model;
     using Inventory.Stores.Model;
 
-    public class ShopItemProjection : ProjectionBase<ShopItemData>,
+    public class ProductDetailsProjection : ProjectionBase<ShopItemData>,
         ISubscribeTo<ArticleCreated>,
         ISubscribeTo<ArticleDeleted>,
         ISubscribeTo<ArticleDetailsChanged>,

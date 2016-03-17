@@ -11,7 +11,7 @@ namespace Phundus.Shop.Projections
     using NHibernate;
     using NHibernate.Criterion;
 
-    public interface IOrderQueries
+    public interface IOrderQueryService
     {
         OrderData GetById(CurrentUserId currentUserId, OrderId orderId);
 
@@ -19,12 +19,12 @@ namespace Phundus.Shop.Projections
             OrganizationId queryOrganizationId);
     }
 
-    public class OrderQueries : QueryServiceBase<OrderData>, IOrderQueries
+    public class OrderQueryService : QueryServiceBase<OrderData>, IOrderQueryService
     {
         private readonly IAvailabilityService _availabilityService;
         private readonly IMembershipQueries _membershipQueries;
 
-        public OrderQueries(IMembershipQueries membershipQueries, IAvailabilityService availabilityService)
+        public OrderQueryService(IMembershipQueries membershipQueries, IAvailabilityService availabilityService)
         {
             if (membershipQueries == null) throw new ArgumentNullException("membershipQueries");
             if (availabilityService == null) throw new ArgumentNullException("availabilityService");

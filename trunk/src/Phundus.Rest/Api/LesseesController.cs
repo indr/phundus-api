@@ -10,18 +10,18 @@
     [RoutePrefix("api/lessees")]
     public class LesseesController : ApiControllerBase
     {
-        private readonly ILesseeQueries _lesseeQueries;
+        private readonly ILesseeQueryService _lesseeQueryService;
 
-        public LesseesController(ILesseeQueries lesseeQueries)
+        public LesseesController(ILesseeQueryService lesseeQueryService)
         {            
-            _lesseeQueries = lesseeQueries;
+            _lesseeQueryService = lesseeQueryService;
         }
 
         [GET("{lesseeId}")]
         [Transaction]
         public virtual LesseesGetOkResponseContent Get(Guid lesseeId)
         {
-            var lessee = _lesseeQueries.GetById(CurrentUserId, lesseeId);
+            var lessee = _lesseeQueryService.GetById(CurrentUserId, lesseeId);
             return new LesseesGetOkResponseContent
             {
                 LesseeId = lessee.LesseeId,
