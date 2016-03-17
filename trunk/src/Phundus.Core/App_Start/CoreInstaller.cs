@@ -51,7 +51,7 @@
                 Classes.FromThisAssembly().Where(p => p.Name.EndsWith("Store")).WithServiceDefaultInterfaces());
 
             container.Register(
-                Component.For<IOrderPdfGenerator>().ImplementedBy<OrderPdfGenerator>());
+                Component.For<IOrderPdfGenerator>().ImplementedBy<OrderPdfGenerator>());            
         }
     }
 }
