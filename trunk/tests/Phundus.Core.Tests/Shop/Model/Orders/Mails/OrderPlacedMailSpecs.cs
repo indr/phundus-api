@@ -32,9 +32,9 @@
                     make.Manager(emailAddress: "manager1@test.phundus.ch"),
                     make.Manager(emailAddress: "manager2@test.phundus.ch")
                 });
-            depends.on<IOrderPdfFactory>()
-                .setup(x => x.GeneratePdf(Arg<Order>.Is.Anything))
-                .Return(new MemoryStream());
+            depends.on<IOrderPdfStore>()
+                .setup(x => x.Get(Arg<OrderId>.Is.Anything, Arg<int>.Is.Anything))
+                .Return(new MemoryStream());            
 
             var lines = new List<OrderEventLine>
             {
