@@ -5,12 +5,12 @@ namespace Phundus.Inventory.Projections
     using Common.Domain.Model;
     using Common.Querying;
 
-    public interface IArticleActionsQueries
+    public interface IArticleActionQueryService
     {
         IEnumerable<ArticleActionData> GetActions(ArticleId articleId);
     }
 
-    public class ArticleActionsQueries : QueryServiceBase<ArticleActionData>, IArticleActionsQueries
+    public class ArticleActionQueryService : QueryServiceBase<ArticleActionData>, IArticleActionQueryService
     {
         public IEnumerable<ArticleActionData> GetActions(ArticleId articleId)
         {

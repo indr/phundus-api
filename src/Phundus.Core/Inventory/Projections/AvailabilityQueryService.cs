@@ -8,12 +8,12 @@
     using Common.Domain.Model;
     using Common.Querying;
 
-    public interface IAvailabilityQueries
+    public interface IAvailabilityQueryService
     {
         IEnumerable<AvailabilityData> GetAvailability(ArticleId guid);
     }
 
-    public class AvailabilityProjection : QueryServiceBase, IAvailabilityQueries
+    public class AvailabilityQueryService : QueryServiceBase, IAvailabilityQueryService
     {
         public IAvailabilityService AvailabilityService { get; set; }
 

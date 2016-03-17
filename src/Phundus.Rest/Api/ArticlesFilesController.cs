@@ -17,13 +17,13 @@ namespace Phundus.Rest.Api
     [RoutePrefix("api/articles/{articleId}/files")]
     public class ArticlesFilesController : ApiControllerBase
     {
-        private readonly IImagesQueries _imagesQueries;
+        private readonly IArticleFileQueryService _articleFileQueryService;
 
-        public ArticlesFilesController(IImagesQueries imagesQueries)
+        public ArticlesFilesController(IArticleFileQueryService articleFileQueryService)
         {
-            if (imagesQueries == null) throw new ArgumentNullException("imagesQueries");
+            if (articleFileQueryService == null) throw new ArgumentNullException("articleFileQueryService");
 
-            _imagesQueries = imagesQueries;
+            _articleFileQueryService = articleFileQueryService;
         }
 
         private string GetPath(ArticleId articleId)
@@ -55,7 +55,7 @@ namespace Phundus.Rest.Api
         {
             // TODO: Auth filtering
             var factory = CreateFactory(GetBaseFilesUrl(articleId), articleId);
-            var images = _imagesQueries.ByArticle(articleId);
+            var images = _articleFileQueryService.ByArticle(articleId);
             var result = factory.Create(images);
             return new {files = result};
         }

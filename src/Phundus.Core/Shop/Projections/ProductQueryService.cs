@@ -7,13 +7,13 @@ namespace Phundus.Shop.Projections
     using NHibernate.Criterion;
     using NHibernate.SqlCommand;
 
-    public interface IItemQueries
+    public interface IProductQueryService
     {
         QueryResult<ShopItemsData> Query(string q, Guid? lessorId, int? offset, int? limit);
         ShopItemData Get(Guid itemGuid);
     }
 
-    public class ItemQueries : QueryServiceBase, IItemQueries
+    public class ProductQueryService : QueryServiceBase, IProductQueryService
     {
         private const int DefaultLimit = 10;
 

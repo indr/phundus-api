@@ -11,18 +11,18 @@ namespace Phundus.Rest.Api
     [Authorize(Roles = "Admin")]
     public class EventLogController : ApiControllerBase
     {
-        private readonly IEventLogQueries _eventLogQueries;
+        private readonly IEventLogQueryService _eventLogQueryService;
 
-        public EventLogController(IEventLogQueries eventLogQueries)
+        public EventLogController(IEventLogQueryService eventLogQueryService)
         {
-            _eventLogQueries = eventLogQueries;
+            _eventLogQueryService = eventLogQueryService;
         }
 
         [GET("")]
         [Transaction]
         public virtual QueryOkResponseContent<EventLogData> Get()
         {
-            var result = _eventLogQueries.Query();
+            var result = _eventLogQueryService.Query();
 
             return new QueryOkResponseContent<EventLogData>(result);
         }

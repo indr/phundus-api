@@ -6,7 +6,6 @@
     using Common.Domain.Model;
     using Common.Eventing;
     using Common.Projecting;
-    using Common.Projections;
     using Newtonsoft.Json;
 
     public class ArticleActionsProjection : ProjectionBase<ArticleActionData>,

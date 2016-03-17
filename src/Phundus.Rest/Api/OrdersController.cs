@@ -21,19 +21,19 @@
     public class OrdersController : ApiControllerBase
     {
         public IMembershipQueries MembershipQueries { get; set; }
-        private readonly IOrderQueries _orderQueries;
+        private readonly IOrderQueryService _orderQueryService;
         private readonly IPdfStore _pdfStore;
         private readonly IShortIdGeneratorService _shortIdGeneratorService;
         private readonly IMembershipQueries _membershipQueries;
 
-        public OrdersController(IOrderQueries orderQueries, IPdfStore pdfStore,
+        public OrdersController(IOrderQueryService orderQueryService, IPdfStore pdfStore,
             IShortIdGeneratorService shortIdGeneratorService, IMembershipQueries membershipQueries)
         {            
-            if (orderQueries == null) throw new ArgumentNullException("orderQueries");
+            if (orderQueryService == null) throw new ArgumentNullException("orderQueryService");
             if (pdfStore == null) throw new ArgumentNullException("pdfStore");
             if (shortIdGeneratorService == null) throw new ArgumentNullException("shortIdGeneratorService");
             if (membershipQueries == null) throw new ArgumentNullException("membershipQueries");
-            _orderQueries = orderQueries;
+            _orderQueryService = orderQueryService;
             _pdfStore = pdfStore;
             _shortIdGeneratorService = shortIdGeneratorService;
             _membershipQueries = membershipQueries;
@@ -52,7 +52,7 @@
             if (queryParams.ContainsKey("organizationId"))
                 queryOrganizationId = new OrganizationId(Guid.Parse(queryParams["organizationId"]));
 
-            var orders = _orderQueries.Query(CurrentUserId, null, queryUserId, queryOrganizationId).ToList();
+            var orders = _orderQueryService.Query(CurrentUserId, null, queryUserId, queryOrganizationId).ToList();
             return new QueryOkResponseContent<Order>(Map<IList<Order>>(orders));
         }
 
@@ -60,7 +60,7 @@
         [Transaction]
         public virtual HttpResponseMessage Get(Guid orderId)
         {
-            var order = _orderQueries.GetById(CurrentUserId, new OrderId(orderId));
+            var order = _orderQueryService.GetById(CurrentUserId, new OrderId(orderId));
             var membership = _membershipQueries.Find(order.LessorId, order.LesseeId);
 
             var result = Map<OrderDetail>(order);
@@ -72,7 +72,7 @@
         [Transaction]
         public virtual HttpResponseMessage GetPdf(Guid orderId)
         {
-            var order = _orderQueries.GetById(CurrentUserId, new OrderId(orderId));
+            var order = _orderQueryService.GetById(CurrentUserId, new OrderId(orderId));
             var result = _pdfStore.GetOrderPdf(new OrderId(orderId), CurrentUserId);
             if (result == null)
                 return CreateNotFoundResponse("Die Bestellung mit der Id {0} konnte nicht gefunden werden.", orderId);

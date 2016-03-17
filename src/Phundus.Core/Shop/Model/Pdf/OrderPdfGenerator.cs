@@ -12,18 +12,18 @@ namespace Phundus.Shop.Model.Pdf
 
     public class OrderPdfGenerator : IOrderPdfGenerator
     {
-        private readonly ILessorQueries _lessorQueries;
-        private readonly IStoresQueries _storeQueries;
+        private readonly ILessorQueryService _lessorQueryService;
+        private readonly IStoresQueryService _storeQueryService;
 
-        public OrderPdfGenerator(ILessorQueries lessorQueries, IStoresQueries storeQueries)
+        public OrderPdfGenerator(ILessorQueryService lessorQueryService, IStoresQueryService storeQueryService)
         {
-            _lessorQueries = lessorQueries;
-            _storeQueries = storeQueries;
+            _lessorQueryService = lessorQueryService;
+            _storeQueryService = storeQueryService;
         }
 
         public Stream GeneratePdf(Order order)
         {
-            var lessor = _lessorQueries.GetById(order.Lessor.LessorId.Id);
+            var lessor = _lessorQueryService.GetById(order.Lessor.LessorId.Id);
             var store = GetStore(order);
 
             return new OrderPdf(order, lessor, store).GeneratePdf();
@@ -35,7 +35,7 @@ namespace Phundus.Shop.Model.Pdf
             if (line == null)
                 return null;
 
-            return _storeQueries.GetById(line.StoreId.Id);
+            return _storeQueryService.GetById(line.StoreId.Id);
         }
     }
 }

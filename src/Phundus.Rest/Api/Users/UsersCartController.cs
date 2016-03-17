@@ -15,12 +15,12 @@ namespace Phundus.Rest.Api.Users
     [RoutePrefix("api/users/{userId}/cart")]
     public class UsersCartController : ApiControllerBase
     {
-        private readonly ICartsQueries _cartsQueries;
+        private readonly ICartQueryService _cartQueryService;
 
-        public UsersCartController(ICartsQueries cartsQueries)
+        public UsersCartController(ICartQueryService cartQueryService)
         {
-            if (cartsQueries == null) throw new ArgumentNullException("cartsQueries");
-            _cartsQueries = cartsQueries;
+            if (cartQueryService == null) throw new ArgumentNullException("cartQueryService");
+            _cartQueryService = cartQueryService;
         }
 
         [GET("")]
@@ -30,7 +30,7 @@ namespace Phundus.Rest.Api.Users
             if (userId != CurrentUserId.Id)
                 throw new ArgumentException("userId");
 
-            var cart = _cartsQueries.FindByUserGuid(CurrentUserId, new UserId(userId));
+            var cart = _cartQueryService.FindByUserGuid(CurrentUserId, new UserId(userId));
             if (cart == null)
                 return new UsersCartGetOkResponseContent(null);
             return new UsersCartGetOkResponseContent(cart);

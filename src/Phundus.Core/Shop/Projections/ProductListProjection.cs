@@ -10,7 +10,7 @@
     using Inventory.Stores.Model;
     using Orders.Model;
 
-    public class ShopItemsProjection : ProjectionBase<ShopItemsData>,
+    public class ProductListProjection : ProjectionBase<ShopItemsData>,
         ISubscribeTo<ArticleCreated>,
         ISubscribeTo<ArticleDeleted>,
         ISubscribeTo<ArticleDetailsChanged>,

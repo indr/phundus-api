@@ -5,13 +5,13 @@
     using Common;
     using Common.Querying;
 
-    public interface ILessorQueries
+    public interface ILessorQueryService
     {
         LessorData GetById(Guid lessorId);
         IList<LessorData> Query();
     }
 
-    public class LessorQueries : QueryServiceBase<LessorData>, ILessorQueries
+    public class LessorQueryService : QueryServiceBase<LessorData>, ILessorQueryService
     {
         public LessorData GetById(Guid lessorId)
         {

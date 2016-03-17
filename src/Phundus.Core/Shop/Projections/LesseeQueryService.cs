@@ -6,16 +6,16 @@
     using Common.Querying;
     using IdentityAccess.Resources;
 
-    public interface ILesseeQueries
+    public interface ILesseeQueryService
     {
         LesseeData GetById(CurrentUserId currentUserId, Guid lesseeId);
     }
 
-    public class LesseeQueries : QueryServiceBase, ILesseeQueries
+    public class LesseeQueryService : QueryServiceBase, ILesseeQueryService
     {
         private readonly IUsersResource _usersQueries;
 
-        public LesseeQueries(IUsersResource usersQueries)
+        public LesseeQueryService(IUsersResource usersQueries)
         {
             _usersQueries = usersQueries;
         }

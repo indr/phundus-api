@@ -12,11 +12,11 @@
     [RoutePrefix("api/lessors")]
     public class LessorsController : ApiControllerBase
     {
-        private readonly ILessorQueries _lessorQueries;
+        private readonly ILessorQueryService _lessorQueryService;
 
-        public LessorsController(ILessorQueries lessorQueries)
+        public LessorsController(ILessorQueryService lessorQueryService)
         {
-            _lessorQueries = lessorQueries;
+            _lessorQueryService = lessorQueryService;
         }
 
         [GET("")]
@@ -24,7 +24,7 @@
         [AllowAnonymous]
         public virtual QueryOkResponseContent<LessorData> Get()
         {
-            var results = _lessorQueries.Query();
+            var results = _lessorQueryService.Query();
 
             return new QueryOkResponseContent<LessorData>(results);
         }
@@ -34,7 +34,7 @@
         [AllowAnonymous]
         public virtual LessorsGetOkResponseContent Get(Guid lessorId)
         {
-            var lessor = _lessorQueries.GetById(lessorId);
+            var lessor = _lessorQueryService.GetById(lessorId);
 
             return new LessorsGetOkResponseContent
             {

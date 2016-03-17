@@ -2,12 +2,12 @@
 {
     using Common.Querying;
 
-    public interface IUrlMapQueries
+    public interface IUrlMapQueryService
     {
         UrlMapData FindByUrl(string url);
     }
 
-    public class UrlMapQueries : QueryServiceBase<UrlMapData>, IUrlMapQueries
+    public class UrlMapQueryService : QueryServiceBase<UrlMapData>, IUrlMapQueryService
     {
         public UrlMapData FindByUrl(string url)
         {

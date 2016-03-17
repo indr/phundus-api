@@ -3,12 +3,12 @@ namespace Phundus.Dashboard.Projections
     using System.Collections.Generic;
     using Common.Querying;
 
-    public interface IEventLogQueries
+    public interface IEventLogQueryService
     {
         IEnumerable<EventLogData> Query();
     }
 
-    public class EventLogQueries : QueryServiceBase<EventLogData>, IEventLogQueries
+    public class EventLogQueryService : QueryServiceBase<EventLogData>, IEventLogQueryService
     {
         public IEnumerable<EventLogData> Query()
         {

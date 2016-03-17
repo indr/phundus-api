@@ -1,20 +1,19 @@
 ﻿namespace Phundus.Inventory.Projections
 {
     using System.Collections.Generic;
-    using Articles.Model;
     using AutoMapper;
     using Common.Domain.Model;
     using Common.Querying;
     using Model.Articles;
 
-    public interface IImagesQueries
+    public interface IArticleFileQueryService
     {
         IEnumerable<ImageData> ByArticle(ArticleId articleId);
     }
 
-    public class ImageQueries : QueryServiceBase, IImagesQueries
+    public class ArticleFileQueryService : QueryServiceBase, IArticleFileQueryService
     {
-        static ImageQueries()
+        static ArticleFileQueryService()
         {
             Mapper.CreateMap<Image, ImageData>();
         }

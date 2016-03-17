@@ -20,16 +20,16 @@ namespace Phundus.Rest.Api
     public class UsersController : ApiControllerBase
     {
         private readonly IMembershipQueries _membershipQueries;
-        private readonly IStoresQueries _storesQueries;
+        private readonly IStoresQueryService _storesQueryService;
         private readonly IUserAddressQueryService _userAddressQueryService;
         private readonly IUserQueryService _userQueryService;
 
         public UsersController(IUserQueryService userQueryService, IMembershipQueries membershipQueries,
-            IStoresQueries storesQueries, IUserAddressQueryService userAddressQueryService)
+            IStoresQueryService storesQueryService, IUserAddressQueryService userAddressQueryService)
         {            
             _userQueryService = userQueryService;
             _membershipQueries = membershipQueries;
-            _storesQueries = storesQueries;
+            _storesQueryService = storesQueryService;
             _userAddressQueryService = userAddressQueryService;
         }
 
@@ -41,7 +41,7 @@ namespace Phundus.Rest.Api
             var user = _userQueryService.GetById(userId);
             
             var memberships = _membershipQueries.FindByUserId(userId);
-            var store = _storesQueries.FindByOwnerId(userId);
+            var store = _storesQueryService.FindByOwnerId(userId);
             var address = _userAddressQueryService.FindById(CurrentUserIdOrNull, userId);
 
             var result = new UsersGetOkResponseContent(user, memberships, address);

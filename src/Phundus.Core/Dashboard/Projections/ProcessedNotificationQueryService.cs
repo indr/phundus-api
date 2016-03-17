@@ -7,16 +7,16 @@ namespace Phundus.Dashboard.Projections
     using Common.Querying;
     using Newtonsoft.Json;
 
-    public interface IEventProcessorsQueries
+    public interface IEventProcessorsQueryService
     {
         ICollection<EventProcessorData> Query();
     }
 
-    public class EventProcessorsQueries : QueryServiceBase<EventProcessorData>, IEventProcessorsQueries
+    public class EventProcessorsQueryService : QueryServiceBase<EventProcessorData>, IEventProcessorsQueryService
     {
         private readonly IProcessedNotificationTrackerStore _processedNotificationTrackerStore;
 
-        public EventProcessorsQueries(IProcessedNotificationTrackerStore processedNotificationTrackerStore)
+        public EventProcessorsQueryService(IProcessedNotificationTrackerStore processedNotificationTrackerStore)
         {
             _processedNotificationTrackerStore = processedNotificationTrackerStore;
         }

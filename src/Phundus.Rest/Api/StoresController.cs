@@ -14,18 +14,18 @@ namespace Phundus.Rest.Api
     [RoutePrefix("api/stores")]
     public class StoresController : ApiControllerBase
     {
-        private readonly IStoresQueries _storesQueries;
+        private readonly IStoresQueryService _storesQueryService;
 
-        public StoresController(IStoresQueries storesQueries)
+        public StoresController(IStoresQueryService storesQueryService)
         {
-            _storesQueries = storesQueries;
+            _storesQueryService = storesQueryService;
         }
 
         [GET("")]
         [Transaction]
         public virtual QueryOkResponseContent<StoreDetailsCto> Get(Guid? ownerId)
         {
-            var stores = _storesQueries.Query(ownerId);
+            var stores = _storesQueryService.Query(ownerId);
             return new QueryOkResponseContent<StoreDetailsCto>(Map<StoreDetailsCto[]>(stores));
         }
 
