@@ -1,16 +1,15 @@
 namespace Phundus.Shop.Infrastructure.Persistence.Projections
 {
     using Application;
-    using Common.Infrastructure.Persistence;
     using FluentNHibernate.Mapping;
     using NHibernate.Type;
 
-    public class ShopItemDataMap : ClassMap<ShopItemData>
+    public class ProductListDataMap : ClassMap<ProductListData>
     {
-        public ShopItemDataMap()
+        public ProductListDataMap()
         {
             SchemaAction.All();
-            Table("Es_Shop_Item");
+            Table("Es_Shop_ProductList");
 
             Id(x => x.ArticleId).GeneratedBy.Assigned();
             Map(x => x.ArticleShortId).Unique();
@@ -26,18 +25,11 @@ namespace Phundus.Shop.Infrastructure.Persistence.Projections
             Map(x => x.StoreUrl);
 
             Map(x => x.Name);
-            Map(x => x.Brand);
-            Map(x => x.Color);
-            Map(x => x.Description).WithMaxSize();
-            Map(x => x.Specification).WithMaxSize();
+            Map(x => x.PreviewImageFileName);
             Map(x => x.PublicPrice);
             Map(x => x.MemberPrice);
 
-            HasMany(x => x.Documents).KeyColumn("ArticleId")
-                .Inverse().Cascade.AllDeleteOrphan()
-                .ForeignKeyCascadeOnDelete();
-
-            HasMany(x => x.Images).KeyColumn("ArticleId")
+            HasMany(x => x.Popularities).KeyColumn("ArticleId")
                 .Inverse().Cascade.AllDeleteOrphan()
                 .ForeignKeyCascadeOnDelete();
         }

@@ -320,11 +320,11 @@
     <Compile Include="Shop\Infrastructure\Persistence\Projections\CartItemDataMap.cs" />
     <Compile Include="Shop\Infrastructure\Persistence\Projections\LessorDataMap.cs" />
     <Compile Include="Shop\Infrastructure\Persistence\Projections\OrderDataMap.cs" />
-    <Compile Include="Shop\Infrastructure\Persistence\Projections\ShopItemDataMap.cs" />
-    <Compile Include="Shop\Infrastructure\Persistence\Projections\ShopItemDocumentDataMap.cs" />
-    <Compile Include="Shop\Infrastructure\Persistence\Projections\ShopItemImageDataMap.cs" />
-    <Compile Include="Shop\Infrastructure\Persistence\Projections\ShopItemsDataMap.cs" />
-    <Compile Include="Shop\Infrastructure\Persistence\Projections\ShopItemsPopularityDataMap.cs" />
+    <Compile Include="Shop\Infrastructure\Persistence\Projections\ProductDetailsDataMap.cs" />
+    <Compile Include="Shop\Infrastructure\Persistence\Projections\ProductDetailsDocumentDataMap.cs" />
+    <Compile Include="Shop\Infrastructure\Persistence\Projections\ProductDetailsImageDataMap.cs" />
+    <Compile Include="Shop\Infrastructure\Persistence\Projections\ProductListDataMap.cs" />
+    <Compile Include="Shop\Infrastructure\Persistence\Projections\ProductListPopularityDataMap.cs" />
     <Compile Include="Shop\Infrastructure\Persistence\Repositories\NhCartRepository.cs" />
     <Compile Include="Shop\Infrastructure\Persistence\Repositories\NhOrderRepository.cs" />
     <Compile Include="Shop\Model\Collaborators\ICollaboratorService.cs" />
