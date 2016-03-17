@@ -1,13 +1,16 @@
 ﻿namespace Phundus.Common.Infrastructure
 {
     using System;
+    using System.Globalization;
     using System.IO;
+    using System.Linq;
+    using System.Text.RegularExpressions;
     using System.Web.Hosting;
 
     public interface IFileStorage
-    {        
-        void Store(Storage storage, string fileName, Stream stream);
-        Stream Get(Storage storage, string fileName);
+    {
+        void Store(Storage storage, string fileName, Stream stream, int version);
+        Stream Get(Storage storage, string fileName, int version);
     }
 
     public enum Storage
@@ -29,24 +32,66 @@
             _baseDirectory = baseDirectory;
         }
 
-        public void Store(Storage fileType, string fileName, Stream stream)
+        public void Store(Storage fileType, string fileName, Stream stream, int version)
         {
-            string path = GetPath(fileType, fileName);
+            if (version < 0) throw new ArgumentOutOfRangeException("version");
+
+            var path = GetPath(fileType, fileName, version);
             Write(path, stream);
         }
 
-        public Stream Get(Storage fileType, string fileName)
-        {            
-            string path = GetPath(fileType, fileName);
+        public Stream Get(Storage fileType, string fileName, int version)
+        {
+            if (version <= -1)
+                version = FindHighestVersion(fileType, fileName);
+
+            var path = GetPath(fileType, fileName, version);
             return Read(path);
         }
 
-        private string GetPath(Storage storage, string fileName)
+        private int FindHighestVersion(Storage storage, string fileName)
         {
-            string path = Path.Combine(_baseDirectory, storage.ToString());
-            if (!Directory.Exists(path))
-                Directory.CreateDirectory(path);
-            return Path.Combine(path, fileName);
+            var storagePath = GetStoragePath(storage);
+            var pattern = GetVersionFileName(fileName, "*");
+            var regex = new Regex(@"-(\d+)(\.\w+$|$)");
+
+            var versions = Directory.GetFiles(storagePath, pattern)
+                .Select(each =>
+                {
+                    var match = regex.Match(each);
+                    if (match.Success)
+                        return Convert.ToInt32(match.Groups[1].Value);
+                    return (int?)null;
+                })
+                .ToList();
+            if (versions.Count == 0)
+                return 0;
+
+            return versions.Max() ?? 0;
+        }
+
+        private string GetPath(Storage storage, string fileName, int version)
+        {
+            var storagePath = GetStoragePath(storage);
+            var versionFileName = GetVersionFileName(fileName, version.ToString(CultureInfo.InvariantCulture));
+            return Path.Combine(storagePath, versionFileName);
+        }
+
+        private string GetStoragePath(Storage storage)
+        {
+            string storagePath = Path.Combine(_baseDirectory, storage.ToString());
+            if (!Directory.Exists(storagePath))
+                Directory.CreateDirectory(storagePath);
+            return storagePath;
+        }
+
+        private string GetVersionFileName(string fileName, string version)
+        {
+            var extensionIndex = fileName.LastIndexOf(".", System.StringComparison.Ordinal);
+            if (extensionIndex == -1)
+                return fileName + "-" + version;
+
+            return fileName.Insert(extensionIndex, "-" + version);
         }
 
         private static void Write(string fullFileName, Stream stream)

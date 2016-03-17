@@ -7,7 +7,6 @@
     using Common.Domain.Model;
     using Common.Eventing;
     using Common.Mailing;
-    using Infrastructure;
     using Model;
     using Shop.Model;
     using Shop.Model.Mails;
@@ -19,16 +18,16 @@
     {
         private readonly IMessageFactory _factory;
         private readonly IMailGateway _gateway;
-        private readonly IOrderPdfFactory _orderPdfFactory;
+        private readonly IOrderPdfStore _orderPdfStore;
         private readonly IOrderRepository _orderRepository;
 
         public OrderStatusChangedMail(IMessageFactory factory, IMailGateway gateway, IOrderRepository orderRepository,
-            IOrderPdfFactory orderPdfFactory)
+            IOrderPdfStore orderPdfStore)
         {
             _factory = factory;
             _gateway = gateway;
             _orderRepository = orderRepository;
-            _orderPdfFactory = orderPdfFactory;
+            _orderPdfStore = orderPdfStore;
         }
 
         public void Handle(OrderApproved e)
@@ -36,10 +35,7 @@
             if (e.Lessee == null)
                 return;
 
-            var order = _orderRepository.GetById(new OrderId(e.OrderId));
-            var stream = _orderPdfFactory.GeneratePdf(order);
-            var attachment = new Attachment(stream, String.Format("Bestellung-{0}.pdf", order.OrderShortId.Id),
-                "application/pdf");
+            var attachment = GetOrderPdfAttachment(e.OrderId);
 
             var model = new Model
             {
@@ -77,10 +73,7 @@
             if (e.Lessee == null)
                 return;
 
-            var order = _orderRepository.GetById(new OrderId(e.OrderId));
-            var stream = _orderPdfFactory.GeneratePdf(order);
-            var attachment = new Attachment(stream, String.Format("Bestellung-{0}.pdf", order.OrderShortId.Id),
-                "application/pdf");
+            var attachment = GetOrderPdfAttachment(e.OrderId);
 
             var model = new Model
             {
@@ -111,6 +104,15 @@
             message.Attachments.Add(attachment);
 
             _gateway.Send(e.OccuredOnUtc, message);
+        }
+
+        private Attachment GetOrderPdfAttachment(Guid orderId)
+        {
+            var order = _orderRepository.GetById(new OrderId(orderId));
+            var stream = _orderPdfStore.Get(order.OrderId, order.MutatedVersion - 1);
+
+            return new Attachment(stream, String.Format("Bestellung-{0}.pdf", order.OrderShortId.Id),
+                "application/pdf");
         }
     }
 }

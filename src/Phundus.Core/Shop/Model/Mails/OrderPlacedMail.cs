@@ -19,17 +19,17 @@
         private readonly IMessageFactory _factory;
         private readonly IMailGateway _gateway;
         private readonly ILessorService _lessorService;
-        private readonly IOrderPdfFactory _orderPdfFactory;
+        private readonly IOrderPdfStore _orderPdfStore;
         private readonly IOrderRepository _orderRepository;
 
         public OrderPlacedMail(IMessageFactory factory, IMailGateway gateway, IOrderRepository orderRepository,
-            ILessorService lessorService, IOrderPdfFactory orderPdfFactory, ICollaboratorService collaboratorService)
+            ILessorService lessorService, IOrderPdfStore orderPdfStore, ICollaboratorService collaboratorService)
         {
             _factory = factory;
             _gateway = gateway;
             _orderRepository = orderRepository;
             _lessorService = lessorService;
-            _orderPdfFactory = orderPdfFactory;
+            _orderPdfStore = orderPdfStore;
             _collaboratorService = collaboratorService;
         }
 
@@ -38,7 +38,7 @@
             var order = _orderRepository.GetById(new OrderId(e.OrderId));
             var managers = _collaboratorService.Managers(new LessorId(e.LessorId), true);
             var emailAddresses = managers.Select(s => s.EmailAddress).ToList();
-            var stream = _orderPdfFactory.GeneratePdf(order);
+            var stream = _orderPdfStore.Get(order.OrderId, order.MutatedVersion - 1);
             var attachment = new Attachment(stream, String.Format("Bestellung-{0}.pdf", order.OrderShortId.Id),
                 "application/pdf");
 
