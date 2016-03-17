@@ -12,7 +12,7 @@ namespace Phundus.Rest.Api
     using Common.Notifications.Application;
     using Common.Projecting.Application;
     using ContentObjects;
-    using Dashboard.Projections;
+    using Dashboard.Application;
     using Newtonsoft.Json;
 
     [RoutePrefix("api/event-processors")]

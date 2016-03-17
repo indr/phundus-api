@@ -102,9 +102,8 @@
     <Compile Include="App_Start\AssemblyInstaller.cs" />
     <Compile Include="App_Start\ProcessMissedNotificationsStartupTask.cs" />
     <Compile Include="Dashboard\Projections\EventLogProjection.cs" />
-    <Compile Include="Dashboard\Projections\EventLogQueryService.cs" />
-    <Compile Include="Dashboard\Projections\ProcessedNotificationQueryService.cs" />
-    <Compile Include="Guard.cs" />
+    <Compile Include="Dashboard\Application\EventLogQueryService.cs" />
+    <Compile Include="Dashboard\Application\ProcessedNotificationQueryService.cs" />
     <Compile Include="IdentityAccess\Application\IUserQueryService.cs" />
     <Compile Include="IdentityAccess\Application\Users\ChangeUserAddress.cs" />
     <Compile Include="IdentityAccess\Application\Organizations\ChangeMemberRecievesEmailNotification.cs" />
@@ -150,6 +149,7 @@
     <Compile Include="IdentityAccess\Model\Organizations\IMembershipRepository.cs" />
     <Compile Include="IdentityAccess\Model\Organizations\IMembershipRequestRepository.cs" />
     <Compile Include="IdentityAccess\Model\Organizations\IOrganizationRepository.cs" />
+    <Compile Include="IdentityAccess\Model\Users\Guard.cs" />
     <Compile Include="IdentityAccess\Model\Users\Mails\AccountLockedMail.cs" />
     <Compile Include="IdentityAccess\Model\Users\Mails\AccountUnlockedMail.cs" />
     <Compile Include="IdentityAccess\Model\Users\Mails\AccountValidationMail.cs" />
@@ -159,14 +159,14 @@
     <Compile Include="IdentityAccess\Model\Users\PasswordResetted.cs" />
     <Compile Include="IdentityAccess\Model\Users\UserRole.cs" />
     <Compile Include="IdentityAccess\Projections\OrganizationProjection.cs" />
-    <Compile Include="IdentityAccess\Projections\OrganizationQueryService.cs" />
+    <Compile Include="IdentityAccess\Application\OrganizationQueryService.cs" />
     <Compile Include="IdentityAccess\Projections\RelationshipProjection.cs" />
-    <Compile Include="IdentityAccess\Projections\MembershipQueryService.cs" />
+    <Compile Include="IdentityAccess\Application\MembershipQueryService.cs" />
     <Compile Include="IdentityAccess\Projections\MembersProjection.cs" />
-    <Compile Include="IdentityAccess\Projections\RelationshipQueryService.cs" />
+    <Compile Include="IdentityAccess\Application\RelationshipQueryService.cs" />
     <Compile Include="IdentityAccess\Projections\UserAddressProjection.cs" />
-    <Compile Include="IdentityAccess\Projections\UserAddressQueryService.cs" />
-    <Compile Include="IdentityAccess\Projections\UserQueryService.cs" />
+    <Compile Include="IdentityAccess\Application\UserAddressQueryService.cs" />
+    <Compile Include="IdentityAccess\Application\UserQueryService.cs" />
     <Compile Include="IdentityAccess\Application\Users\ApproveUser.cs" />
     <Compile Include="IdentityAccess\Application\Users\ChangeEmailAddress.cs" />
     <Compile Include="IdentityAccess\Application\Users\ChangePassword.cs" />
@@ -235,14 +235,14 @@
     <Compile Include="Inventory\Model\Stores\Events\ContactDetailsChanged.cs" />
     <Compile Include="Inventory\Model\Stores\PostalAddress.cs" />
     <Compile Include="Inventory\Projections\ArticleActionsProjection.cs" />
-    <Compile Include="Inventory\Projections\ArticleActionQueryService.cs" />
-    <Compile Include="Inventory\Projections\ArticleQueryService.cs" />
+    <Compile Include="Inventory\Application\ArticleActionQueryService.cs" />
+    <Compile Include="Inventory\Application\ArticleQueryService.cs" />
     <Compile Include="Inventory\Projections\StoreDetailsProjection.cs" />
     <Compile Include="Inventory\Projections\StoreListProjection.cs" />
     <Compile Include="Inventory\Model\Collaborators\ICollaboratorService.cs" />
     <Compile Include="Inventory\Application\Commands\RenameStore.cs" />
     <Compile Include="Inventory\Model\Stores\Events\StoreRenamed.cs" />
-    <Compile Include="Inventory\Projections\StoresQueryService.cs" />
+    <Compile Include="Inventory\Application\StoresQueryService.cs" />
     <Compile Include="Shop\Infrastructure\CollaboratorService.cs" />
     <Compile Include="Shop\Model\Collaborators\ICollaboratorService.cs" />
     <Compile Include="Shop\Model\IArticleService.cs" />
@@ -256,13 +256,13 @@
     <Compile Include="Shop\Projections\Data\LessorType.cs" />
     <Compile Include="Shop\Projections\Data\LesseeData.cs" />
     <Compile Include="Shop\Projections\LessorsProjection.cs" />
-    <Compile Include="Shop\Projections\OrderQueryService.cs" />
+    <Compile Include="Shop\Application\OrderQueryService.cs" />
     <Compile Include="Shop\Projections\ProductDetailsProjection.cs" />
     <Compile Include="Inventory\Projections\ArticlesProjection.cs" />
-    <Compile Include="Inventory\Projections\ArticleFileQueryService.cs" />
+    <Compile Include="Inventory\Application\ArticleFileQueryService.cs" />
     <Compile Include="Inventory\Model\Articles\IArticleRepository.cs" />
-    <Compile Include="Inventory\Projections\AvailabilityQueryService.cs" />
-    <Compile Include="Inventory\Application\AvailabilityService.cs" />
+    <Compile Include="Inventory\Application\AvailabilityQueryService.cs" />
+    <Compile Include="Inventory\Model\AvailabilityService.cs" />
     <Compile Include="Inventory\Infrastructure\OwnerService.cs" />
     <Compile Include="Inventory\Application\Commands\ChangeCoordinate.cs" />
     <Compile Include="Inventory\Application\Commands\ChangeOpeningHours.cs" />
@@ -304,14 +304,15 @@
     <Compile Include="Shop\Model\PerDayWithPerSevenDaysPricePricingStrategy.cs" />
     <Compile Include="Shop\Projections\OrderProjection.cs" />
     <Compile Include="Shop\Projections\ProductListProjection.cs" />
-    <Compile Include="Shop\Projections\CartQueryService.cs" />
-    <Compile Include="Shop\Projections\ProductQueryService.cs" />
-    <Compile Include="IdentityAccess\Projections\MembershipApplicationQueryService.cs" />
-    <Compile Include="Shop\Projections\LesseeQueryService.cs" />
-    <Compile Include="Shop\Projections\LessorQueryService.cs" />
+    <Compile Include="Shop\Application\CartQueryService.cs" />
+    <Compile Include="Shop\Application\ProductQueryService.cs" />
+    <Compile Include="IdentityAccess\Application\MembershipApplicationQueryService.cs" />
+    <Compile Include="Shop\Application\LesseeQueryService.cs" />
+    <Compile Include="Shop\Application\LessorQueryService.cs" />
     <Compile Include="Shop\Infrastructure\LesseeService.cs" />
     <Compile Include="Shop\Infrastructure\ArticleService.cs" />
     <Compile Include="Shop\Infrastructure\LessorService.cs" />
+    <Compile Include="Web\Projections\UrlMapData.cs" />
     <Compile Include="Web\Projections\UrlMapProjection.cs" />
     <Compile Include="App_Start\CoreInstaller.cs" />
     <Compile Include="Inventory\Model\Articles\Article.cs" />
@@ -331,7 +332,7 @@
     <Compile Include="Shop\Model\ICartRepository.cs" />
     <Compile Include="Shop\Model\IOrderRepository.cs" />
     <Compile Include="Inventory\Model\Reservations\IReservationRepository.cs" />
-    <Compile Include="Web\Projections\UrlMapQueries.cs" />
+    <Compile Include="Web\Application\UrlMapQueries.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Phundus.Common\Phundus.Common.csproj">
@@ -344,9 +345,8 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Dashboard\Application\" />
+    <Folder Include="IdentityAccess\Application\Commands\" />
     <Folder Include="Shop\Model\Orders\" />
-    <Folder Include="Web\Application\" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="IdentityAccess\Model\Organizations\Mails\Templates.resx">

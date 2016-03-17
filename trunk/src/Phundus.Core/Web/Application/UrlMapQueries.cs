@@ -1,6 +1,7 @@
-﻿namespace Phundus.Web.Projections
+﻿namespace Phundus.Web.Application
 {
     using Common.Querying;
+    using Projections;
 
     public interface IUrlMapQueryService
     {

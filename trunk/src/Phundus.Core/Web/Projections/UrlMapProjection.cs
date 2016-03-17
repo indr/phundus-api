@@ -1,6 +1,5 @@
 ﻿namespace Phundus.Web.Projections
 {
-    using System;
     using Common;
     using Common.Eventing;
     using Common.Projecting;
@@ -19,13 +18,5 @@
                 data.OrganizationId = e.OrganizationId;
             });
         }
-    }
-
-    public class UrlMapData
-    {
-        public virtual Guid RowId { get; set; }
-        public virtual string Url { get; set; }
-        public virtual Guid? OrganizationId { get; set; }
-        public virtual Guid? UserId { get; set; }
     }
 }
