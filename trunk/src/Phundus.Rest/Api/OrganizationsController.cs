@@ -19,8 +19,7 @@
     using Inventory.Model;
     using Inventory.Model.Collaborators;
     using Inventory.Projections;
-    using Newtonsoft.Json;
-    using ApiControllerBase = Rest.ApiControllerBase;
+    using Newtonsoft.Json;    
 
     [RoutePrefix("api/organizations")]
     public class OrganizationsController : ApiControllerBase

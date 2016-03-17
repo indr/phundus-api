@@ -13,8 +13,7 @@
     using Common;
     using Common.Resources;
     using ContentObjects;
-    using MsgReader.Mime;
-    using ApiControllerBase = Rest.ApiControllerBase;
+    using MsgReader.Mime;    
 
     [RoutePrefix("api/mails")]
     public class MailsController : ApiControllerBase

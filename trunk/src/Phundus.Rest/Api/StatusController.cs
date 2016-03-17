@@ -6,6 +6,7 @@
     using AttributeRouting;
     using AttributeRouting.Web.Http;
     using Common;
+    using Common.Resources;
     using ContentObjects;    
 
     [RoutePrefix("api/status")]

@@ -12,8 +12,7 @@
     using ContentObjects;
     using IdentityAccess.Application;
     using IdentityAccess.Model.Users;
-    using Newtonsoft.Json;
-    using ApiControllerBase = Rest.ApiControllerBase;
+    using Newtonsoft.Json;    
 
     [RoutePrefix("api/admin/users")]
     [Authorize(Roles = "Admin")]
@@ -49,7 +48,7 @@
             };
         }
 
-        [PATCH("{userId}")]        
+        [PATCH("{userId}")]
         public virtual HttpResponseMessage Patch(Guid userId, AdminUsersPatchRequestContent rq)
         {
             if (rq.IsLocked.HasValue)

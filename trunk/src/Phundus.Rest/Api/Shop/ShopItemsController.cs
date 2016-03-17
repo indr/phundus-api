@@ -15,7 +15,6 @@
     using Inventory.Projections;
     using Newtonsoft.Json;
     using Phundus.Shop.Application;
-    using ApiControllerBase = Rest.ApiControllerBase;
 
     [RoutePrefix("api/shop/items")]
     [AllowAnonymous]

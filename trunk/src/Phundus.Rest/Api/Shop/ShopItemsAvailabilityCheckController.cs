@@ -6,6 +6,7 @@
     using AttributeRouting.Web.Http;
     using Castle.Transactions;
     using Common.Domain.Model;
+    using Common.Resources;
     using Inventory.Application;
     using Newtonsoft.Json;
 

@@ -8,8 +8,7 @@
     using Castle.Transactions;
     using Common.Resources;
     using ContentObjects;
-    using IdentityAccess.Application;
-    using ApiControllerBase = Rest.ApiControllerBase;
+    using IdentityAccess.Application;    
 
     [RoutePrefix("api/admin/organizations")]
     [Authorize(Roles = "Admin")]

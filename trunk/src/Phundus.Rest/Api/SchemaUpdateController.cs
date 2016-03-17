@@ -9,6 +9,7 @@
     using System.Web.Http;
     using AttributeRouting;
     using AttributeRouting.Web.Http;
+    using Common.Resources;
 
     [RoutePrefix("api/schema-update")]
     [Authorize(Roles = "Admin")]

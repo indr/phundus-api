@@ -142,7 +142,7 @@
     <Compile Include="Dashboard\Projections\EventLogProjection.cs" />
     <Compile Include="Dashboard\Application\EventLogQueryService.cs" />
     <Compile Include="Dashboard\Application\ProcessedNotificationQueryService.cs" />
-    <Compile Include="Dashboard\Resources\EventLogResources.cs" />
+    <Compile Include="Dashboard\Resources\EventLogController.cs" />
     <Compile Include="IdentityAccess\Application\Commands\Users\ChangeUserAddress.cs" />
     <Compile Include="IdentityAccess\Application\Commands\Organizations\ChangeMemberRecievesEmailNotification.cs" />
     <Compile Include="IdentityAccess\Infrastructure\Persistence\Mappings\AccountMap.cs" />

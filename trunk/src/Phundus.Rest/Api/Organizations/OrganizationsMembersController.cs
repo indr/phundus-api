@@ -11,8 +11,7 @@
     using ContentObjects;
     using IdentityAccess.Application;
     using IdentityAccess.Organizations.Model;
-    using Newtonsoft.Json;
-    using ApiControllerBase = Rest.ApiControllerBase;
+    using Newtonsoft.Json;    
 
     [RoutePrefix("api/organizations/{organizationId}/members")]
     public class OrganizationsMembersController : ApiControllerBase

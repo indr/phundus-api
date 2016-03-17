@@ -10,6 +10,7 @@
     using AttributeRouting.Web.Http;
     using Auth;
     using Castle.Transactions;
+    using Common.Resources;
     using ContentObjects;
     using IdentityAccess.Application;
     using IdentityAccess.Projections;

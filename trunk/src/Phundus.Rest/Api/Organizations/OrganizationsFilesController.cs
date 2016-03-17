@@ -8,6 +8,7 @@ namespace Phundus.Rest.Api.Organizations
     using AttributeRouting.Web.Http;
     using Castle.Transactions;
     using Common.Domain.Model;
+    using Common.Resources;
     using FileUpload;
     using Inventory.Model.Collaborators;
 

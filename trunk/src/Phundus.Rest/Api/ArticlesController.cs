@@ -14,8 +14,7 @@ namespace Phundus.Rest.Api
     using Inventory.Application;
     using Inventory.Model.Reservations;
     using Inventory.Projections;
-    using Newtonsoft.Json;
-    using ApiControllerBase = Rest.ApiControllerBase;
+    using Newtonsoft.Json;    
 
     [RoutePrefix("api/articles")]
     public class ArticlesController : ApiControllerBase
