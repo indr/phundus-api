@@ -7,6 +7,7 @@
     using Common.Commanding;
     using Common.Eventing.Installers;
     using Common.Projecting.Installers;
+    using Common.Resources;
 
     public class AssemblyInstaller : IWindsorInstaller
     {
@@ -16,6 +17,10 @@
             new CommandHandlerInstaller().Install(container, assembly);
             new ProjectionsInstaller().Install(container, assembly);
             new EventHandlerInstaller().Install(container, assembly);
+
+            container.Register(Classes.FromAssembly(assembly)
+                .BasedOn<ResourceBase>()
+                .WithServiceDefaultInterfaces());
         }
     }
 }
