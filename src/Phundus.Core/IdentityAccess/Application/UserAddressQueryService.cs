@@ -1,4 +1,4 @@
-namespace Phundus.IdentityAccess.Projections
+namespace Phundus.IdentityAccess.Application
 {
     using System;
     using Common.Domain.Model;
@@ -28,5 +28,18 @@ namespace Phundus.IdentityAccess.Projections
         {
             query.Where(p => p.UserId == initiatorId.Id);
         }
+    }
+
+    public class UserAddressData
+    {
+        public virtual Guid UserId { get; set; }
+        public virtual int UserShortId { get; set; }
+        public virtual string FirstName { get; set; }
+        public virtual string LastName { get; set; }
+        public virtual string Street { get; set; }
+        public virtual string Postcode { get; set; }
+        public virtual string City { get; set; }
+        public virtual string EmailAddress { get; set; }
+        public virtual string PhoneNumber { get; set; }
     }
 }

@@ -1,7 +1,7 @@
 ﻿namespace Phundus.Persistence.Shop.Projections
 {
     using FluentNHibernate.Mapping;
-    using Phundus.Shop.Projections;
+    using Phundus.Shop.Application;
 
     public class CartDataMap : ClassMap<CartData>
     {

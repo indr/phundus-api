@@ -7,7 +7,7 @@
     using Castle.Transactions;
     using ContentObjects;
     using Newtonsoft.Json;
-    using Phundus.Shop.Projections;
+    using Phundus.Shop.Application;
 
     [RoutePrefix("api/lessors")]
     public class LessorsController : ApiControllerBase

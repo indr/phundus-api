@@ -1,7 +1,7 @@
 ﻿namespace Phundus.Persistence.IdentityAccess.Projections
 {
     using FluentNHibernate.Mapping;
-    using Phundus.IdentityAccess.Projections;
+    using Phundus.IdentityAccess.Application;
 
     public class UserAddressDataMap : ClassMap<UserAddressData>
     {

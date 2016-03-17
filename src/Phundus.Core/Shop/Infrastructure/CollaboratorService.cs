@@ -6,22 +6,22 @@
     using Common.Domain.Model;
     using IdentityAccess.Application;
     using IdentityAccess.Model;
-    using IdentityAccess.Projections;
     using IdentityAccess.Resources;
+    using Model;
     using Model.Collaborators;
-    using Manager = Model.Manager;
 
     public class CollaboratorService : ICollaboratorService
     {
+        private readonly IMemberQueryService _memberQueryService;
         private readonly IUserInRoleService _userInRoleService;
-        private readonly IMemberQueries _memberQueries;
         private readonly IUsersResource _usersQueries;
 
-        public CollaboratorService(IUsersResource usersQueries, IUserInRoleService userInRoleService, IMemberQueries memberQueries)
+        public CollaboratorService(IUsersResource usersQueries, IUserInRoleService userInRoleService,
+            IMemberQueryService memberQueryService)
         {
             _usersQueries = usersQueries;
             _userInRoleService = userInRoleService;
-            _memberQueries = memberQueries;
+            _memberQueryService = memberQueryService;
         }
 
         public Initiator Initiator(InitiatorId initiatorId)
@@ -40,7 +40,7 @@
 
         public ICollection<Manager> Managers(LessorId lessorId, bool emailSubscription)
         {
-            var managers = _memberQueries.Managers(lessorId.Id, emailSubscription);
+            var managers = _memberQueryService.Managers(lessorId.Id, emailSubscription);
 
             return managers.Select(s => new Manager(new UserId(s.Guid), s.EmailAddress, s.FullName)).ToList();
         }

@@ -1,4 +1,4 @@
-﻿namespace Phundus.IdentityAccess.Projections
+﻿namespace Phundus.IdentityAccess.Application
 {
     using System;
     using System.Collections.Generic;

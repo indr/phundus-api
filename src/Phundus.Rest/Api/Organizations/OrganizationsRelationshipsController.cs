@@ -5,7 +5,7 @@
     using AttributeRouting.Web.Http;
     using Castle.Transactions;
     using ContentObjects;
-    using IdentityAccess.Projections;
+    using IdentityAccess.Application;
     using Newtonsoft.Json;
 
     [RoutePrefix("api/organizations/{organizationId}/relationships")]

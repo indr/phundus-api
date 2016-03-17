@@ -5,7 +5,7 @@
     using AttributeRouting.Web.Http;
     using Castle.Transactions;
     using Newtonsoft.Json;
-    using Phundus.Shop.Projections;
+    using Phundus.Shop.Application;
 
     [RoutePrefix("api/lessees")]
     public class LesseesController : ApiControllerBase
@@ -13,7 +13,7 @@
         private readonly ILesseeQueryService _lesseeQueryService;
 
         public LesseesController(ILesseeQueryService lesseeQueryService)
-        {            
+        {
             _lesseeQueryService = lesseeQueryService;
         }
 
@@ -25,7 +25,7 @@
             return new LesseesGetOkResponseContent
             {
                 LesseeId = lessee.LesseeId,
-                Name = lessee.Name,                
+                Name = lessee.Name,
                 PostalAddress = lessee.PostalAddress,
                 PhoneNumber = lessee.PhoneNumber,
                 EmailAddress = lessee.EmailAddress
@@ -39,7 +39,7 @@
         public Guid LesseeId { get; set; }
 
         [JsonProperty("name")]
-        public string Name { get; set; }        
+        public string Name { get; set; }
 
         [JsonProperty("postalAddress")]
         public string PostalAddress { get; set; }

@@ -2,7 +2,6 @@
 {
     using System;
     using System.Collections.Generic;
-    using System.Data.Odbc;
     using System.Linq;
     using System.Net;
     using System.Net.Http;
@@ -11,7 +10,7 @@
     using Castle.Transactions;
     using Common.Domain.Model;
     using ContentObjects;
-    using IdentityAccess.Projections;
+    using IdentityAccess.Application;
     using Newtonsoft.Json;
     using Phundus.Shop.Application;
     using Phundus.Shop.Model.Pdf;
@@ -20,15 +19,14 @@
     [RoutePrefix("api/orders")]
     public class OrdersController : ApiControllerBase
     {
-        public IMembershipQueries MembershipQueries { get; set; }
+        private readonly IMembershipQueries _membershipQueries;
         private readonly IOrderQueryService _orderQueryService;
         private readonly IPdfStore _pdfStore;
         private readonly IShortIdGeneratorService _shortIdGeneratorService;
-        private readonly IMembershipQueries _membershipQueries;
 
         public OrdersController(IOrderQueryService orderQueryService, IPdfStore pdfStore,
             IShortIdGeneratorService shortIdGeneratorService, IMembershipQueries membershipQueries)
-        {            
+        {
             if (orderQueryService == null) throw new ArgumentNullException("orderQueryService");
             if (pdfStore == null) throw new ArgumentNullException("pdfStore");
             if (shortIdGeneratorService == null) throw new ArgumentNullException("shortIdGeneratorService");
@@ -38,6 +36,8 @@
             _shortIdGeneratorService = shortIdGeneratorService;
             _membershipQueries = membershipQueries;
         }
+
+        public IMembershipQueries MembershipQueries { get; set; }
 
         [GET("")]
         [Transaction]
@@ -80,7 +80,7 @@
             return CreatePdfResponse(result, string.Format("Bestellung-{0}.pdf", order.OrderShortId));
         }
 
-        [POST("")]        
+        [POST("")]
         public virtual OrdersPostOkResponseContent Post(OrdersPostRequestContent requestContent)
         {
             var orderId = new OrderId();
@@ -100,7 +100,7 @@
             };
         }
 
-        [PATCH("{orderId}")]        
+        [PATCH("{orderId}")]
         public virtual HttpResponseMessage Patch(Guid orderId, OrdersPatchRequestContent requestContent)
         {
             if (requestContent.Status == "Rejected")

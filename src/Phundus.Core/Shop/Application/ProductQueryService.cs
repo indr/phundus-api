@@ -1,4 +1,4 @@
-namespace Phundus.Shop.Projections
+namespace Phundus.Shop.Application
 {
     using System;
     using Common;
@@ -9,7 +9,7 @@ namespace Phundus.Shop.Projections
 
     public interface IProductQueryService
     {
-        QueryResult<ShopItemsData> Query(string q, Guid? lessorId, int? offset, int? limit);
+        QueryResult<ProductListData> Query(string q, Guid? lessorId, int? offset, int? limit);
         ShopItemData Get(Guid itemGuid);
     }
 
@@ -17,12 +17,12 @@ namespace Phundus.Shop.Projections
     {
         private const int DefaultLimit = 10;
 
-        public QueryResult<ShopItemsData> Query(string q, Guid? lessorId, int? offset, int? limit)
+        public QueryResult<ProductListData> Query(string q, Guid? lessorId, int? offset, int? limit)
         {
             offset = offset ?? 0;
             limit = limit > 0 ? limit : DefaultLimit;
 
-            ShopItemsData items = null;
+            ProductListData items = null;
             var query = Session.QueryOver(() => items);
             if (!String.IsNullOrWhiteSpace(q))
             {
@@ -34,17 +34,17 @@ namespace Phundus.Shop.Projections
                 query = query.Where(p => p.LessorId == lessorId);
             }
 
-            ShopItemsPopularityData popularity = null;
+            ProductPopularityData popularity = null;
 
             query.JoinAlias(() => items.Popularities, () => popularity, JoinType.LeftOuterJoin,
-                Restrictions.Where<ShopItemsPopularityData>(p => p.Month == DateTime.Today.Month));
+                Restrictions.Where<ProductPopularityData>(p => p.Month == DateTime.Today.Month));
 
 
             query = query.OrderBy(() => popularity.Value).Desc.ThenBy(p => p.CreatedAtUtc).Desc;
 
             var total = query.RowCountInt64();
             var result = query.Skip(offset.Value).Take(limit.Value).List();
-            return new QueryResult<ShopItemsData>(offset.Value, limit.Value, total, result);
+            return new QueryResult<ProductListData>(offset.Value, limit.Value, total, result);
         }
 
         public ShopItemData Get(Guid itemGuid)

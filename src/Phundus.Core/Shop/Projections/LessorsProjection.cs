@@ -2,6 +2,7 @@
 {
     using System;
     using System.Text;
+    using Application;
     using Common;
     using Common.Eventing;
     using Common.Projecting;

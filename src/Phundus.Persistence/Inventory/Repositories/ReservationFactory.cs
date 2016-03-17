@@ -3,8 +3,7 @@
     using System.Collections.Generic;
     using System.Linq;
     using Phundus.Inventory.AvailabilityAndReservation.Model;
-    using Phundus.Shop.Model;
-    using Phundus.Shop.Projections;
+    using Phundus.Shop.Application;
 
     public class ReservationFactory
     {

@@ -3,7 +3,7 @@ namespace Phundus.Persistence.Shop.Projections
     using Extensions;
     using FluentNHibernate.Mapping;
     using NHibernate.Type;
-    using Phundus.Shop.Projections;
+    using Phundus.Shop.Application;
 
     public class ShopItemDataMap : ClassMap<ShopItemData>
     {

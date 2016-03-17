@@ -1,14 +1,23 @@
-﻿namespace Phundus.IdentityAccess.Projections
+﻿namespace Phundus.IdentityAccess.Application
 {
     using System;
     using System.Collections.Generic;
     using System.Linq;
-    using Application;
     using Castle.Transactions;
     using Common;
     using Common.Domain.Model;
     using Common.Querying;
     using Model.Users;
+
+    public interface IUserQueryService
+    {
+        UserData GetById(Guid userId);
+        UserData FindById(Guid userId);
+        UserData FindByUsername(string username);
+        UserData FindActiveById(Guid userId);
+        bool IsEmailAddressTaken(string emailAddress);
+        IList<UserData> Query();
+    }
 
     public class UserQueryService : QueryServiceBase<UserData>, IUserQueryService
     {
@@ -91,9 +100,9 @@
         {
             get
             {
-                if (RoleId == (int) UserRole.Admin)
+                if (RoleId == (int)UserRole.Admin)
                     return "Admin";
-                if (RoleId == (int) UserRole.User)
+                if (RoleId == (int)UserRole.User)
                     return "User";
                 return null;
             }

@@ -3,6 +3,7 @@
     using System;
     using System.Collections.Generic;
     using System.Linq;
+    using Application;
     using Common;
     using Common.Eventing;
     using Common.Projecting;
@@ -10,7 +11,7 @@
     using Inventory.Stores.Model;
     using Orders.Model;
 
-    public class ProductListProjection : ProjectionBase<ShopItemsData>,
+    public class ProductListProjection : ProjectionBase<ProductListData>,
         ISubscribeTo<ArticleCreated>,
         ISubscribeTo<ArticleDeleted>,
         ISubscribeTo<ArticleDetailsChanged>,
@@ -123,81 +124,12 @@
                     var popularity = x.Popularities.SingleOrDefault(p => p.Month == month);
                     if (popularity == null)
                     {
-                        popularity = new ShopItemsPopularityData(x, articleId, month);
+                        popularity = new ProductPopularityData(x, articleId, month);
                         x.Popularities.Add(popularity);
                     }
                     popularity.Value += 1;
                 });
             }
         }
-    }
-
-    public class ShopItemsData
-    {
-        private ICollection<ShopItemsPopularityData> _popularities = new List<ShopItemsPopularityData>();
-
-        public virtual Guid ArticleId { get; set; }
-        public virtual int ArticleShortId { get; set; }
-
-        public virtual Guid LessorId { get; set; }
-        public virtual LessorType LessorType { get; set; }
-        public virtual string LessorName { get; set; }
-        public virtual string LessorUrl { get; set; }
-
-        public virtual Guid StoreId { get; set; }
-        public virtual string StoreName { get; set; }
-        public virtual string StoreUrl { get; set; }
-
-        public virtual DateTime CreatedAtUtc { get; set; }
-        public virtual string Name { get; set; }
-        public virtual decimal PublicPrice { get; set; }
-        public virtual decimal? MemberPrice { get; set; }
-        public virtual string PreviewImageFileName { get; set; }
-
-        public virtual ICollection<ShopItemsPopularityData> Popularities
-        {
-            get { return _popularities; }
-            protected set { _popularities = value; }
-        }
-    }
-
-    public class ShopItemsPopularityData
-    {
-        private Guid _articleId;
-        private int _month;
-        private ShopItemsData _shopItem;
-
-        public ShopItemsPopularityData(ShopItemsData shopItem, Guid articleId, int month)
-        {
-            _shopItem = shopItem;
-            _articleId = articleId;
-            _month = month;
-        }
-
-        protected ShopItemsPopularityData()
-        {
-        }
-
-        public virtual Guid RowId { get; protected set; }
-
-        public virtual ShopItemsData ShopItem
-        {
-            get { return _shopItem; }
-            protected set { _shopItem = value; }
-        }
-
-        public virtual Guid ArticleId
-        {
-            get { return _articleId; }
-            protected set { _articleId = value; }
-        }
-
-        public virtual int Month
-        {
-            get { return _month; }
-            protected set { _month = value; }
-        }
-
-        public virtual int Value { get; set; }
     }
 }

@@ -1,9 +1,8 @@
 ﻿namespace Phundus.Shop.Projections
 {
     using System;
-    using System.Collections.Generic;
-    using System.Collections.ObjectModel;
     using System.Linq;
+    using Application;
     using Common.Eventing;
     using Common.Projecting;
     using Orders.Model;
@@ -129,67 +128,5 @@
                 action(line);
             });
         }
-    }
-
-    public class OrderData
-    {
-        public enum OrderStatus
-        {
-            Pending = 1,
-            Approved,
-            Rejected,
-            Closed
-        }
-
-        private ICollection<OrderLineData> _lines = new Collection<OrderLineData>();
-
-        public virtual Guid OrderId { get; set; }
-        public virtual int OrderShortId { get; set; }
-        public virtual DateTime CreatedAtUtc { get; set; }
-        public virtual DateTime ModifiedAtUtc { get; set; }
-        public virtual OrderStatus Status { get; set; }
-        public virtual decimal OrderTotal { get; set; }
-
-        public virtual Guid LessorId { get; set; }
-        public virtual string LessorName { get; set; }
-        public virtual string LessorStreet { get; set; }
-        public virtual string LessorPostcode { get; set; }
-        public virtual string LessorCity { get; set; }
-        public virtual string LessorEmailAddress { get; set; }
-        public virtual string LessorPhoneNumber { get; set; }
-
-        public virtual Guid LesseeId { get; set; }
-        public virtual string LesseeFirstName { get; set; }
-        public virtual string LesseeLastName { get; set; }
-        public virtual string LesseeStreet { get; set; }
-        public virtual string LesseePostcode { get; set; }
-        public virtual string LesseeCity { get; set; }
-        public virtual string LesseeEmailAddress { get; set; }
-        public virtual string LesseePhoneNumber { get; set; }
-
-        public virtual ICollection<OrderLineData> Lines
-        {
-            get { return _lines; }
-            set { _lines = value; }
-        }
-    }
-
-    public class OrderLineData
-    {
-        public virtual Guid DataId { get; set; }
-
-        public virtual Guid LineId { get; set; }
-        public virtual OrderData Order { get; set; }
-
-        public virtual Guid ArticleId { get; set; }
-        public virtual int ArticleShortId { get; set; }
-
-        public virtual string Text { get; set; }
-        public virtual DateTime FromUtc { get; set; }
-        public virtual DateTime ToUtc { get; set; }
-        public virtual int Quantity { get; set; }
-        public virtual decimal UnitPricePerWeek { get; set; }
-        public virtual decimal LineTotal { get; set; }
-        public virtual bool IsAvailable { get; set; }
     }
 }

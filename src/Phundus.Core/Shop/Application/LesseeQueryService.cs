@@ -1,4 +1,4 @@
-﻿namespace Phundus.Shop.Projections
+﻿namespace Phundus.Shop.Application
 {
     using System;
     using Common;
@@ -33,5 +33,23 @@
                 user.FullName + "\n" + user.Street + "\n" + user.Postcode + " " + user.City,
                 user.MobilePhone, user.EmailAddress);
         }
+    }
+
+    public class LesseeData
+    {
+        internal LesseeData(Guid lesseeId, string name, string postalAddress, string phoneNumber, string emailAddress)
+        {
+            LesseeId = lesseeId;
+            Name = name;
+            PostalAddress = postalAddress;
+            PhoneNumber = phoneNumber;
+            EmailAddress = emailAddress;
+        }
+
+        public Guid LesseeId { get; private set; }
+        public string Name { get; private set; }
+        public string PostalAddress { get; private set; }
+        public string PhoneNumber { get; private set; }
+        public string EmailAddress { get; private set; }
     }
 }

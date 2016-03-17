@@ -7,7 +7,7 @@
     using AttributeRouting.Web.Http;
     using Castle.Transactions;
     using ContentObjects;
-    using IdentityAccess.Projections;
+    using IdentityAccess.Application;
 
     [RoutePrefix("api/admin/organizations")]
     [Authorize(Roles = "Admin")]
@@ -36,6 +36,6 @@
                     Plan = s.Plan.ToLowerInvariant()
                 }).ToList()
             };
-        } 
+        }
     }
 }
