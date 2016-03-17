@@ -9,8 +9,8 @@
     using Common.Commanding;
     using IdentityAccess.Application;
     using IdentityAccess.Model.Users;
+    using IdentityAccess.Projections;
     using IdentityAccess.Users.Services;
-    using Integration.IdentityAccess;
 
     public class CustomMembershipProvider : MembershipProvider
     {
@@ -233,7 +233,7 @@
             throw new NotSupportedException();
         }
 
-        private MembershipUser ConvertToExternal(IUser user)
+        private MembershipUser ConvertToExternal(UserData user)
         {
             return new MembershipUser(Name, user.EmailAddress,
                 new ProviderUserKey(user.UserId).ToString(), user.EmailAddress, null, null,

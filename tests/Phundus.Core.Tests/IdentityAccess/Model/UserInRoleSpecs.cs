@@ -3,7 +3,6 @@
     using System.Collections.Generic;
     using Common.Domain.Model;
     using developwithpassion.specifications.extensions;
-    using Integration.IdentityAccess;
     using Machine.Fakes;
     using Machine.Specifications;
     using Phundus.IdentityAccess.Application;

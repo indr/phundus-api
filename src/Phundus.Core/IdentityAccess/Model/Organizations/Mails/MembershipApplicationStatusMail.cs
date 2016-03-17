@@ -2,10 +2,10 @@
 {
     using System;
     using System.Linq;
+    using Application;
     using Common.Eventing;
     using Common.Mailing;
     using IdentityAccess.Organizations.Model;
-    using Integration.IdentityAccess;
     using Projections;
 
     public class MembershipApplicationStatusMail :

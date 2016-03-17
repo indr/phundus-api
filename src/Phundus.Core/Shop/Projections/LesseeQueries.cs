@@ -4,7 +4,7 @@
     using Common;
     using Common.Domain.Model;
     using Common.Querying;
-    using Integration.IdentityAccess;
+    using IdentityAccess.Resources;
 
     public interface ILesseeQueries
     {
@@ -13,10 +13,10 @@
 
     public class LesseeQueries : QueryBase, ILesseeQueries
     {
-        private readonly IUsersQueries _usersQueries;
+        private readonly IUsersResource _usersQueries;
 
-        public LesseeQueries(IUsersQueries usersQueries)
-        {            
+        public LesseeQueries(IUsersResource usersQueries)
+        {
             _usersQueries = usersQueries;
         }
 
@@ -25,11 +25,12 @@
             if (currentUserId.Id != lesseeId)
                 throw new NotFoundException("Lessee {0} not found.", lesseeId);
 
-            var user = _usersQueries.FindById(lesseeId);
+            var user = _usersQueries.Get(lesseeId);
             if (user == null)
                 throw new NotFoundException("Lessee {0} not found", lesseeId);
 
-            return new LesseeData(user.UserId, user.FullName, user.FullName + "\n" + user.Street + "\n" + user.Postcode + " " + user.City,
+            return new LesseeData(user.UserId, user.FullName,
+                user.FullName + "\n" + user.Street + "\n" + user.Postcode + " " + user.City,
                 user.MobilePhone, user.EmailAddress);
         }
     }

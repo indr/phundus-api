@@ -5,8 +5,8 @@
     using System.Net.Mail;
     using Common.Domain.Model;
     using developwithpassion.specifications.extensions;
-    using Integration.IdentityAccess;
     using Machine.Specifications;
+    using Phundus.IdentityAccess.Application;
     using Phundus.IdentityAccess.Model.Organizations.Mails;
     using Phundus.IdentityAccess.Organizations.Model;
     using Phundus.IdentityAccess.Projections;

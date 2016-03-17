@@ -6,13 +6,6 @@ namespace Phundus.Shop.Model
     using Inventory.Model.Articles;
     using Inventory.Model.Collaborators;
 
-    public interface IArticleService
-    {
-        // TODO: should not return article if lessee can not rent it
-        // TODO: should throw exception if lessee can not rent article
-        Article GetById(LessorId lessorId, ArticleId articleId, LesseeId lesseeId);
-    }
-
     public class ArticleService : IArticleService
     {
         private readonly IArticleRepository _articleRepository;

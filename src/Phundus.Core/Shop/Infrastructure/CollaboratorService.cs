@@ -2,11 +2,12 @@
 {
     using System.Collections.Generic;
     using System.Linq;
+    using Common;
     using Common.Domain.Model;
     using IdentityAccess.Application;
     using IdentityAccess.Model;
     using IdentityAccess.Projections;
-    using Integration.IdentityAccess;
+    using IdentityAccess.Resources;
     using Model.Collaborators;
     using Manager = Model.Manager;
 
@@ -14,9 +15,9 @@
     {
         private readonly IUserInRoleService _userInRoleService;
         private readonly IMemberQueries _memberQueries;
-        private readonly IUsersQueries _usersQueries;
+        private readonly IUsersResource _usersQueries;
 
-        public CollaboratorService(IUsersQueries usersQueries, IUserInRoleService userInRoleService, IMemberQueries memberQueries)
+        public CollaboratorService(IUsersResource usersQueries, IUserInRoleService userInRoleService, IMemberQueries memberQueries)
         {
             _usersQueries = usersQueries;
             _userInRoleService = userInRoleService;
@@ -25,7 +26,9 @@
 
         public Initiator Initiator(InitiatorId initiatorId)
         {
-            var result = _usersQueries.GetById(initiatorId.Id);
+            var result = _usersQueries.Get(initiatorId.Id);
+            if (result == null)
+                throw new NotFoundException("Initiator {0} not found.", initiatorId);
             return new Initiator(new InitiatorId(result.UserId), result.EmailAddress, result.FullName);
         }
 

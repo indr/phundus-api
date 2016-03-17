@@ -3,7 +3,6 @@
     using System;
     using Common.Domain.Model;
     using IdentityAccess.Model.Users;
-    using Integration.IdentityAccess;
 
     public class Membership
     {
