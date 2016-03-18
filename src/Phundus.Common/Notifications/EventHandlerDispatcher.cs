@@ -48,26 +48,28 @@ namespace Phundus.Common.Notifications
 
         public void Process(Notification notification)
         {
-            if (!Semaphore.WaitOne(0))
-                return;
-            try
-            {
-                lock (Lock)
-                {
-                    //var subscribers = _eventHandlerFactory.GetSubscribersForEvent(notification.Event);
+            ProcessMissedNotifications();
+            
+            //if (!Semaphore.WaitOne(0))
+            //    return;
+            //try
+            //{
+            //    lock (Lock)
+            //    {
+            //        //var subscribers = _eventHandlerFactory.GetSubscribersForEvent(notification.Event);
 
-                    //MethodInfo method = typeof(IEventHandlerFactory).GetMethod("GetSubscribersForEvent");
-                    //MethodInfo genericMethod = method.MakeGenericMethod(notification.Event.GetType());
-                    //var subscribers = (ISubscribeTo[]) genericMethod.Invoke(_eventHandlerFactory, new object[] {notification.Event});
+            //        //MethodInfo method = typeof(IEventHandlerFactory).GetMethod("GetSubscribersForEvent");
+            //        //MethodInfo genericMethod = method.MakeGenericMethod(notification.Event.GetType());
+            //        //var subscribers = (ISubscribeTo[]) genericMethod.Invoke(_eventHandlerFactory, new object[] {notification.Event});
 
-                    var subscribers = _eventHandlerFactory.GetSubscribersForEventNonGeneric(notification.Event);
-                    subscribers.ForEach(UpdateHandler);
-                }
-            }
-            finally
-            {
-                Semaphore.Release();
-            }
+            //        var subscribers = _eventHandlerFactory.GetSubscribersForEventNonGeneric(notification.Event);
+            //        subscribers.ForEach(UpdateHandler);
+            //    }
+            //}
+            //finally
+            //{
+            //    Semaphore.Release();
+            //}
         }
 
         public void ProcessMissedNotifications()
