@@ -11,9 +11,7 @@
     using Castle.Transactions;
     using Common.Domain.Model;
     using Common.Resources;
-    using ContentObjects;
     using Inventory.Application;
-    using Inventory.Projections;
     using Newtonsoft.Json;
     using Phundus.Shop.Application;
 

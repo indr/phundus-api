@@ -5,7 +5,6 @@ namespace Phundus.Rest.FileUpload
     using System.Web;
     using Common.Infrastructure;
     using Inventory.Application;
-    using Inventory.Projections;
 
     public class BlueImpFileUploadJsonResultFactory
     {
