@@ -17,6 +17,10 @@
             PdfTemplateFileName = pdfTemplateFileName;
         }
 
+        protected PdfTemplateChanged()
+        {
+        }
+
         [DataMember(Order = 1)]
         public Actor Initiator { get; protected set; }
 
