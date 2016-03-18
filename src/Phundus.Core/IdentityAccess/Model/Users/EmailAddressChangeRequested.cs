@@ -13,7 +13,8 @@ namespace Phundus.IdentityAccess.Model.Users
             if (userId == null) throw new ArgumentNullException("userId");
             if (requestedEmailAddress == null) throw new ArgumentNullException("requestedEmailAddress");
             if (validationKey == null) throw new ArgumentNullException("validationKey");            
-            Initiator = initiator;
+            
+            Initiator = initiator.ToActor();
             UserId = userId.Id;
             FirstName = firstName;
             LastName = lastName;
@@ -26,7 +27,7 @@ namespace Phundus.IdentityAccess.Model.Users
         }
 
         [DataMember(Order = 1)]
-        public Initiator Initiator { get; protected set; }
+        public Actor Initiator { get; protected set; }
 
         [DataMember(Order = 2)]
         public Guid UserId { get; protected set; }
