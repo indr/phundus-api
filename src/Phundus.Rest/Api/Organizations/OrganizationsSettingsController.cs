@@ -8,7 +8,6 @@
     using Common.Domain.Model;
     using Common.Resources;
     using IdentityAccess.Application;
-    using IdentityAccess.Projections;
     using Newtonsoft.Json;
 
     [RoutePrefix("api/organizations/{organizationId}/settings")]
@@ -17,8 +16,7 @@
         private readonly IOrganizationQueryService _organizationQueryService;
 
         public OrganizationsSettingsController(IOrganizationQueryService organizationQueryService)
-        {
-            if (organizationQueryService == null) throw new ArgumentNullException("organizationQueryService");
+        {           
             _organizationQueryService = organizationQueryService;
         }
 
@@ -31,18 +29,23 @@
             return new OrganizationsSettingsGetOkResponseContent
             {
                 OrganizationId = organization.OrganizationId,
-                PublicRental = organization.PublicRental
+                PublicRental = organization.PublicRental,
+                PdfTemplate = organization.PdfTemplateFileName
             };
         }
 
-        [PATCH("")]        
-        public virtual HttpResponseMessage Patch(Guid organizationId,
-            OrganizationsSettingsPatchRequestContent requestContent)
+        [PATCH("")]
+        public virtual HttpResponseMessage Patch(Guid organizationId, OrganizationsSettingsPatchRequestContent rq)
         {
-            if (requestContent.PublicRental.HasValue)
+            if (rq.PublicRental.HasValue)
             {
                 Dispatch(new ChangeSettingPublicRental(CurrentUserId, new OrganizationId(organizationId),
-                    requestContent.PublicRental.Value));
+                    rq.PublicRental.Value));
+            }
+            if (rq.PdfTemplate != null)
+            {
+                Dispatch(new SetPdfTemplateFileName(CurrentUserId, new OrganizationId(organizationId),
+                    rq.PdfTemplate));
             }
             return NoContent();
         }
@@ -52,6 +55,9 @@
     {
         [JsonProperty("publicRental")]
         public bool? PublicRental { get; set; }
+
+        [JsonProperty("pdfTemplate")]
+        public string PdfTemplate { get; set; }
     }
 
     public class OrganizationsSettingsGetOkResponseContent
@@ -61,5 +67,8 @@
 
         [JsonProperty("publicRental")]
         public bool PublicRental { get; set; }
+
+        [JsonProperty("pdfTemplate")]
+        public string PdfTemplate { get; set; }
     }
 }

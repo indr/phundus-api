@@ -44,6 +44,7 @@ namespace Phundus.IdentityAccess.Application
         public virtual string Url { get; set; }
         public virtual string Plan { get; set; }
         public virtual bool PublicRental { get; set; }
+        public virtual string PdfTemplateFileName { get; set; }
 
         public virtual string Line1 { get; set; }
         public virtual string Line2 { get; set; }

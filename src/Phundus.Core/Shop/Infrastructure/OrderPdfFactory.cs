@@ -17,7 +17,7 @@ namespace Phundus.Shop.Infrastructure
     {
         private readonly IOrderRepository _orderRepository;
         private readonly ILessorQueryService _lessorQueryService;
-        private readonly IStoresQueryService _storeQueryService;
+        private readonly IStoresQueryService _storeQueryService;        
 
         public OrderPdfFactory(IOrderRepository orderRepository, ILessorQueryService lessorQueryService, IStoresQueryService storeQueryService)
         {

@@ -9,7 +9,6 @@
     using iTextSharp.text;
     using iTextSharp.text.pdf;
     using Model;
-    using NHibernate.Linq.Functions;
     using Orders.Model;
 
     public class OrderPdfGenerator
@@ -173,7 +172,7 @@
             table.DefaultCell.BorderColor = BaseColor.LIGHT_GRAY;
             table.DefaultCell.HorizontalAlignment = Element.ALIGN_LEFT;
             table.DefaultCell.VerticalAlignment = Element.ALIGN_MIDDLE;
-            
+
             table.AddCell(new Phrase("#", defaultFontBold));
             table.AddCell(new Phrase("Stk.", defaultFontBold));
             table.AddCell(new Phrase("Artikel", defaultFontBold));
@@ -190,31 +189,33 @@
                 pos++;
                 table.AddCell(new Phrase(pos.ToString(), defaultFont));
                 //table.AddCell(new Phrase(item.Quantity.ToString(), defaultFont));
-                table.AddCell(PhraseCell(table.DefaultCell, new Phrase(item.Quantity.ToString(), defaultFont), Element.ALIGN_LEFT));
+                table.AddCell(PhraseCell(table.DefaultCell, new Phrase(item.Quantity.ToString(), defaultFont),
+                    Element.ALIGN_LEFT));
 
                 table.AddCell(new Phrase(item.Text, defaultFont));
                 table.AddCell(new Phrase(item.ArticleShortId.Id.ToString(), defaultFont));
                 table.AddCell(new Phrase(item.Period.FromUtc.ToLocalTime().ToString("d"), defaultFont));
                 table.AddCell(new Phrase(item.Period.ToUtc.ToLocalTime().ToString("d"), defaultFont));
                 //table.AddCell(PhraseCell(table.DefaultCell, new Phrase(item.UnitPricePerWeek.ToString("N"), defaultFont), Element.ALIGN_RIGHT));
-                table.AddCell(PhraseCell(table.DefaultCell, new Phrase(item.LineTotal.ToString("N"), defaultFont), Element.ALIGN_RIGHT));
+                table.AddCell(PhraseCell(table.DefaultCell, new Phrase(item.LineTotal.ToString("N"), defaultFont),
+                    Element.ALIGN_RIGHT));
             }
 
             table.AddCell(new Phrase("", defaultFont));
             table.AddCell(new Phrase("", defaultFont));
             table.AddCell(new Phrase("", defaultFont));
             table.AddCell(new Phrase("", defaultFont));
-            table.AddCell(new Phrase("", defaultFont));           
             table.AddCell(new Phrase("", defaultFont));
-            table.AddCell(PhraseCell(table.DefaultCell, new Phrase(order.OrderTotal.ToString("N"), defaultFontBold), Element.ALIGN_RIGHT));
+            table.AddCell(new Phrase("", defaultFont));
+            table.AddCell(PhraseCell(table.DefaultCell, new Phrase(order.OrderTotal.ToString("N"), defaultFontBold),
+                Element.ALIGN_RIGHT));
             doc.Add(table);
         }
 
 
-
         private static PdfPCell PhraseCell(PdfPCell defaultCell, Phrase phrase, int align)
         {
-            PdfPCell cell = new PdfPCell(phrase);
+            var cell = new PdfPCell(phrase);
 
 
             cell.Padding = 3;
@@ -225,10 +226,9 @@
             cell.HorizontalAlignment = align;
             cell.VerticalAlignment = defaultCell.VerticalAlignment;
 
-            
+
             return cell;
         }
-
 
 
         private void AddHeading()
