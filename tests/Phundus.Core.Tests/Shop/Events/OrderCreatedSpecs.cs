@@ -39,7 +39,7 @@
             dataMember(2).ShouldEqual(theOrderId.Id);
 
         private It should_have_at_3_the_initiator = () =>
-            dataMember(3).ShouldEqual(theInitiator);
+            dataMember(3).ShouldEqual(theInitiator.ToActor());
 
         private It should_have_at_4_the_lessor = () =>
             dataMember(4).ShouldEqual(theLessor);

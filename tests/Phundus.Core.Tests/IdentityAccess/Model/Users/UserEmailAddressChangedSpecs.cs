@@ -29,7 +29,7 @@
             dataMember(3).ShouldEqual(theNewEmailAddress);
 
         private It should_have_at_4_the_initiator = () =>
-            dataMember(4).ShouldEqual(theInitiator);
+            dataMember(4).ShouldEqual(theInitiator.ToActor());
 
         private It should_have_full_name = () =>
             itsFullName.ShouldEqual("Phundus.IdentityAccess.Users.Model.UserEmailAddressChanged");
