@@ -2,24 +2,11 @@
 
 namespace Phundus.Rest
 {
-    using System.Net.Http;
     using System.Reflection;
     using System.Web.Http;
-    using AttributeRouting.Web.Http;
     using AttributeRouting.Web.Http.WebHost;
 
 // ReSharper disable InconsistentNaming
-    public class PATCHAttribute : HttpRouteAttribute
-// ReSharper restore InconsistentNaming
-    {
-        ///
-        /// Specify a route for a GET request.
-        ///
-        /// The url that is associated with this action
-        public PATCHAttribute(string routeUrl) : base(routeUrl, new HttpMethod("PATCH"))
-        {
-        }
-    }
 
     public static class AttributeRoutingHttpConfig
     {
