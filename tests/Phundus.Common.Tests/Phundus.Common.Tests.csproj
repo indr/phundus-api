@@ -119,7 +119,8 @@
     <Compile Include="Domain.Model\ActorSpecs.cs" />
     <Compile Include="Eventing\EventHandlerFactorySpecs.cs" />
     <Compile Include="Eventing\EventSerializerSpecs.cs" />
-    <Compile Include="Infrastructure\AppDataFileStorageSpecs.cs" />
+    <Compile Include="Infrastructure\AppDataFileStoreSpecs.cs" />
+    <Compile Include="Infrastructure\AppDataFileStoreFactorySpecs.cs" />
     <Compile Include="Infrastructure\Persistence\concern.cs" />
     <Compile Include="Infrastructure\Persistence\Ddd\EventStoreSpecs.cs" />
     <Compile Include="Infrastructure\Persistence\Notifications\NhTrackerRepositorySpecs.cs" />

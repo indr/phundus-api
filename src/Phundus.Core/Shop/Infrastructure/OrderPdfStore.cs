@@ -8,18 +8,18 @@
     public class OrderPdfStore : IOrderPdfStore
     {
         private readonly IOrderPdfFactory _orderPdfFactory;
-        private readonly IFileStorage _fileStorage;
+        private readonly IFileStore _fileStore;
 
-        public OrderPdfStore(IOrderPdfFactory orderPdfFactory, IFileStorage fileStorage)
+        public OrderPdfStore(IOrderPdfFactory orderPdfFactory, IFileStoreFactory fileStoreFactory)
         {
             _orderPdfFactory = orderPdfFactory;
-            _fileStorage = fileStorage;
+            _fileStore = fileStoreFactory.GetOrders();
         }
 
         public Stream Get(OrderId orderId, int version)
         {
             var fileName = GetFileName(orderId);
-            var stream = _fileStorage.Get(Storage.Orders, fileName, version);
+            var stream = _fileStore.Get(fileName, version);
             if (stream != null)
                 return stream;
             return CreateAndStorePdf(orderId, fileName, version);
@@ -28,7 +28,7 @@
         private Stream CreateAndStorePdf(OrderId orderId, string fileName, int version)
         {
             var stream = _orderPdfFactory.GeneratePdf(orderId);
-            _fileStorage.Store(Storage.Orders, fileName, stream, version);
+            _fileStore.Add(fileName, stream, version);
             stream.Seek(0, SeekOrigin.Begin);
             return stream;
         }

@@ -9,7 +9,7 @@
     public class IndexController : Controller
     {
         public virtual ActionResult Index()
-        {
+        {            
             var content = System.IO.File.ReadAllText(Server.MapPath("~/index.html"));
 
             var idx = content.IndexOf(@"<link", StringComparison.InvariantCulture);
