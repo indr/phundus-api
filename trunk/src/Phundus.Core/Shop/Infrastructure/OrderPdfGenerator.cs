@@ -163,61 +163,69 @@
 
         private void AddOrderLines()
         {
-            var table = new PdfPTable(new float[] {5, 5, 36, 10, 12, 12, 10, 10});
+            var table = new PdfPTable(new float[] {4, 5, 36, 10, 12, 12, 10});
             table.WidthPercentage = 90;
             table.DefaultCell.Padding = 3;
             table.DefaultCell.BorderWidth = 0.5f;
+            table.DefaultCell.BorderWidthLeft = 0;
+            table.DefaultCell.BorderWidthRight = 0;
+            table.DefaultCell.BorderWidthTop = 0;
             table.DefaultCell.BorderColor = BaseColor.LIGHT_GRAY;
             table.DefaultCell.HorizontalAlignment = Element.ALIGN_LEFT;
             table.DefaultCell.VerticalAlignment = Element.ALIGN_MIDDLE;
-            table.AddCell(new Phrase("Pos.", defaultFontBold));
+            
+            table.AddCell(new Phrase("#", defaultFontBold));
             table.AddCell(new Phrase("Stk.", defaultFontBold));
             table.AddCell(new Phrase("Artikel", defaultFontBold));
             table.AddCell(new Phrase("Art.-Nr.", defaultFontBold));
             table.AddCell(new Phrase("Von", defaultFontBold));
             table.AddCell(new Phrase("Bis", defaultFontBold));
-            table.AddCell(new Phrase("Stk. Preis", defaultFontBold));
+            //table.AddCell(new Phrase("Stk. Preis", defaultFontBold));
             table.AddCell(new Phrase("Total", defaultFontBold));
 
-
+            table.DefaultCell.BorderWidthTop = 0.5f;
             int pos = 0;
             foreach (var item in order.Lines)
             {
                 pos++;
                 table.AddCell(new Phrase(pos.ToString(), defaultFont));
                 //table.AddCell(new Phrase(item.Quantity.ToString(), defaultFont));
-                table.AddCell(PhraseCell(new Phrase(item.Quantity.ToString(), defaultFont), 1));
+                table.AddCell(PhraseCell(table.DefaultCell, new Phrase(item.Quantity.ToString(), defaultFont), Element.ALIGN_LEFT));
 
                 table.AddCell(new Phrase(item.Text, defaultFont));
                 table.AddCell(new Phrase(item.ArticleShortId.Id.ToString(), defaultFont));
                 table.AddCell(new Phrase(item.Period.FromUtc.ToLocalTime().ToString("d"), defaultFont));
                 table.AddCell(new Phrase(item.Period.ToUtc.ToLocalTime().ToString("d"), defaultFont));
-                table.AddCell(new Phrase(item.UnitPricePerWeek.ToString("N"), defaultFont));
-                table.AddCell(new Phrase(item.LineTotal.ToString("N"), defaultFont));
+                //table.AddCell(PhraseCell(table.DefaultCell, new Phrase(item.UnitPricePerWeek.ToString("N"), defaultFont), Element.ALIGN_RIGHT));
+                table.AddCell(PhraseCell(table.DefaultCell, new Phrase(item.LineTotal.ToString("N"), defaultFont), Element.ALIGN_RIGHT));
             }
 
             table.AddCell(new Phrase("", defaultFont));
             table.AddCell(new Phrase("", defaultFont));
             table.AddCell(new Phrase("", defaultFont));
             table.AddCell(new Phrase("", defaultFont));
+            table.AddCell(new Phrase("", defaultFont));           
             table.AddCell(new Phrase("", defaultFont));
-            table.AddCell(new Phrase("", defaultFont));
-            table.AddCell(new Phrase("", defaultFont));
-            table.AddCell(new Phrase(order.OrderTotal.ToString("N"), defaultFontBold));
+            table.AddCell(PhraseCell(table.DefaultCell, new Phrase(order.OrderTotal.ToString("N"), defaultFontBold), Element.ALIGN_RIGHT));
             doc.Add(table);
         }
 
 
 
-        private static PdfPCell PhraseCell(Phrase phrase, int align)
+        private static PdfPCell PhraseCell(PdfPCell defaultCell, Phrase phrase, int align)
         {
             PdfPCell cell = new PdfPCell(phrase);
-            cell.BorderColor = BaseColor.WHITE;
-            // cell.VerticalAlignment = PdfCell.ALIGN_TOP;
-            //cell.VerticalAlignment = align;
+
+
+            cell.Padding = 3;
+            cell.BorderWidth = defaultCell.BorderWidth;
+            cell.BorderWidthLeft = 0;
+            cell.BorderWidthRight = 0;
+            cell.BorderColor = defaultCell.BorderColor;
             cell.HorizontalAlignment = align;
-            cell.PaddingBottom = 2f;
-            cell.PaddingTop = 0f;
+            cell.VerticalAlignment = defaultCell.VerticalAlignment;
+
+            
             return cell;
         }
 
