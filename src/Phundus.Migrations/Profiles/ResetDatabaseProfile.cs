@@ -28,6 +28,12 @@
             DropTable("Es_Shop_Item");
             DropTable("Es_Shop_Items_Popularity");
             DropTable("Es_Shop_Items");
+            DropTable("Es_Shop_ProductDetails_Files");
+            DropTable("Es_Shop_ProductDetails_Documents");
+            DropTable("Es_Shop_ProductDetails_Images");
+            DropTable("Es_Shop_ProductDetails");
+            DropTable("Es_Shop_ProductList_Popularity");
+            DropTable("Es_Shop_ProductList");
             DropTable("Es_Shop_Orders_Lines");
             DropTable("Es_Shop_Orders");
             
