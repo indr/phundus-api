@@ -1,13 +1,13 @@
-﻿namespace Phundus.Rest.Api.Organizations
+﻿namespace Phundus.IdentityAccess.Resources
 {
     using System;
     using System.Net.Http;
+    using Application;
     using AttributeRouting;
     using AttributeRouting.Web.Http;
     using Castle.Transactions;
     using Common.Domain.Model;
     using Common.Resources;
-    using IdentityAccess.Application;
     using Newtonsoft.Json;
 
     [RoutePrefix("api/organizations/{organizationId}/settings")]
@@ -16,7 +16,7 @@
         private readonly IOrganizationQueryService _organizationQueryService;
 
         public OrganizationsSettingsController(IOrganizationQueryService organizationQueryService)
-        {           
+        {
             _organizationQueryService = organizationQueryService;
         }
 

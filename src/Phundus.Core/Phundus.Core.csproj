@@ -261,6 +261,7 @@
     </Compile>
     <Compile Include="IdentityAccess\Resources\MemberInRoleResource.cs" />
     <Compile Include="IdentityAccess\Resources\OrganizationsResource.cs" />
+    <Compile Include="IdentityAccess\Resources\OrganizationsSettingsController.cs" />
     <Compile Include="IdentityAccess\Resources\UserInRoleResource.cs" />
     <Compile Include="IdentityAccess\Model\UserInRoleService.cs" />
     <Compile Include="IdentityAccess\Resources\UsersResource.cs" />

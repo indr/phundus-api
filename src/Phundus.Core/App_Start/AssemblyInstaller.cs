@@ -20,7 +20,7 @@
 
             container.Register(Classes.FromAssembly(assembly)
                 .BasedOn<ApiControllerBase>()
-                .WithServiceDefaultInterfaces()
+                .WithServiceAllInterfaces()
                 .LifestyleTransient());
         }
     }

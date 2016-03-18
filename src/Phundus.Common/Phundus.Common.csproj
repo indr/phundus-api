@@ -225,6 +225,7 @@
     <Compile Include="Querying\QueryServiceBase.cs" />
     <Compile Include="Resources\CtoMapper.cs" />
     <Compile Include="Resources\MaintenanceModeException.cs" />
+    <Compile Include="Resources\PATCHAttribute.cs" />
     <Compile Include="Resources\QueryOkResponseContent.cs" />
     <Compile Include="Resources\ResourceBase.cs" />
   </ItemGroup>

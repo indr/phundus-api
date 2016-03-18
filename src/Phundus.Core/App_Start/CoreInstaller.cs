@@ -7,6 +7,7 @@
     using Common.Infrastructure.Persistence;
     using Common.Projecting;
     using Common.Querying;
+    using IdentityAccess.Resources;
     using Inventory.Infrastructure.Persistence.Repositories;
     using Inventory.Model.Reservations;
     using Shop.Infrastructure;    

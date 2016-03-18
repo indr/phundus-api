@@ -5,8 +5,10 @@
     using System.Linq;
     using System.Text;
     using Application;
+    using Common.Infrastructure;
     using Inventory.Application;
     using iTextSharp.text;
+    using iTextSharp.text.exceptions;
     using iTextSharp.text.pdf;
     using Model;
     using Orders.Model;
@@ -15,6 +17,7 @@
     {
         private readonly LessorData _lessor;
         private readonly StoreDetailsData _store;
+        private readonly StoredFileInfo _templateFileInfo;
         private GrayColor backGroundColor;
         private Font defaultFont;
         private Font defaultFontBold;
@@ -25,12 +28,14 @@
         private MemoryStream stream;
         private PdfWriter writer;
 
-        public OrderPdfGenerator(Order aOrder, LessorData lessor, StoreDetailsData store)
+        public OrderPdfGenerator(Order aOrder, LessorData lessor, StoreDetailsData store,
+            StoredFileInfo templateFileInfo)
         {
             if (lessor == null) throw new ArgumentNullException("lessor");
             order = aOrder;
             _lessor = lessor;
             _store = store;
+            _templateFileInfo = templateFileInfo;
 
 
             var fontsFolder = Environment.GetFolderPath(Environment.SpecialFolder.Fonts);
@@ -151,7 +156,7 @@
 
             doc.Open();
 
-            reader = GetPdfReader(order);
+            reader = GetPdfReader(_templateFileInfo);
             if (reader != null)
             {
                 var importedPage = writer.GetImportedPage(reader, 1);
@@ -351,32 +356,22 @@
             doc.Add(title);
         }
 
-        private PdfReader GetPdfReader(Order order)
+        private PdfReader GetPdfReader(StoredFileInfo templateFileInfo)
         {
-            return null;
-            //var organization = OrganizationRepository.FindById(order.Lessor.LessorId.Id);
-            //if (organization == null)
-            //    return null;
+            if (templateFileInfo == null)
+                return null;
 
-            //PdfReader reader = null;
-            //if (!String.IsNullOrEmpty(organization.DocTemplateFileName))
-            //{
-            //    var fileName = HostingEnvironment.MapPath(
-            //        String.Format(@"~\Content\Uploads\{0}\{1}", organization.Id.Id.ToString("N"),
-            //            organization.DocTemplateFileName));
-            //    if (File.Exists(fileName))
-            //    {
-            //        try
-            //        {
-            //            reader = new PdfReader(fileName);
-            //        }
-            //        catch (InvalidPdfException)
-            //        {
-            //            reader = null;
-            //        }
-            //    }
-            //}
-            //return reader;
+            try
+            {
+                using (var s = templateFileInfo.GetStream())
+                {
+                    return new PdfReader(s);
+                }
+            }
+            catch (InvalidPdfException)
+            {
+                return null;
+            }
         }
     }
 
