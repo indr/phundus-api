@@ -199,19 +199,19 @@
 
         public virtual void ChangeSettingPublicRental(Manager manager, bool value)
         {
-            if (manager == null) throw new ArgumentNullException("manager");
+            AssertionConcern.AssertArgumentNotNull(manager, "Manager must be provided.");
 
             if (_settings.PublicRental == value)
                 return;
 
-            _settings = new Settings(value);
+            _settings = new Settings(value, _settings.PdfTemplateFileName);
 
             EventPublisher.Publish(new PublicRentalSettingChanged(manager, Id, _settings.PublicRental));
         }
 
         public virtual void ChangePlan(Admin admin, OrganizationPlan plan)
         {
-            if (admin == null) throw new ArgumentNullException("admin");
+            AssertionConcern.AssertArgumentNotNull(admin, "Admin must be provided.");
 
             if (Plan == plan)
                 return;
@@ -220,6 +220,18 @@
             Plan = plan;
 
             EventPublisher.Publish(new OrganizationPlanChanged(admin, Id, oldPlan, Plan));
+        }
+
+        public virtual void SetPdfTemplateFileName(Manager manager, string pdfTemplateFileName)
+        {
+            AssertionConcern.AssertArgumentNotNull(manager, "Manager must be provided.");
+
+            if (_settings.PdfTemplateFileName == pdfTemplateFileName)
+                return;
+
+            _settings = new Settings(_settings.PublicRental, pdfTemplateFileName);
+
+            EventPublisher.Publish(new PdfTemplateChanged(manager, Id, _settings.PdfTemplateFileName));
         }
     }
 }

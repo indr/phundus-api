@@ -146,6 +146,7 @@
     <Compile Include="Dashboard\Application\EventLogQueryService.cs" />
     <Compile Include="Dashboard\Application\ProcessedNotificationQueryService.cs" />
     <Compile Include="Dashboard\Resources\EventLogController.cs" />
+    <Compile Include="IdentityAccess\Application\Commands\Organizations\SetPdfTemplateFileName.cs" />
     <Compile Include="IdentityAccess\Application\Commands\Users\ChangeUserAddress.cs" />
     <Compile Include="IdentityAccess\Application\Commands\Organizations\ChangeMemberRecievesEmailNotification.cs" />
     <Compile Include="IdentityAccess\Infrastructure\Persistence\Mappings\AccountMap.cs" />
@@ -168,6 +169,7 @@
     <Compile Include="IdentityAccess\Model\Organizations\Mails\MemberUnlockedMail.cs" />
     <Compile Include="IdentityAccess\Model\Organizations\OrganizationContactDetailsChanged.cs" />
     <Compile Include="IdentityAccess\Model\Organizations\OrganizationPlanChanged.cs" />
+    <Compile Include="IdentityAccess\Model\Organizations\PdfTemplateChanged.cs" />
     <Compile Include="IdentityAccess\Model\Organizations\PublicRentalSettingChanged.cs" />
     <Compile Include="IdentityAccess\Application\Commands\Organizations\ApplyForMembership.cs" />
     <Compile Include="IdentityAccess\Application\Commands\Organizations\ApproveMembershipApplication.cs" />
