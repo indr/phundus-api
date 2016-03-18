@@ -143,10 +143,7 @@
     public class when_getting_an_existing_file_with_version : app_data_file_store_concern
     {
         private static Stream stream;
-        private static Stream result;
-
-        private Cleanup cleanup = () =>
-            result.Close();
+        private static StoredFileInfo result;
 
         private Establish ctx = () =>
         {
@@ -159,17 +156,19 @@
             result = sut.Get("fileName.pdf", 1);
 
         private It should_return_stream = () =>
-            result.ShouldEqual(stream);
+        {
+            using (var resultStream = result.GetStream())
+            {
+                resultStream.ShouldEqual(stream);
+            }
+        };
     }
 
     [Subject(typeof (AppDataFileStore))]
     public class when_getting_an_existing_file_without_version : app_data_file_store_concern
     {
         private static Stream stream;
-        private static Stream result;
-
-        private Cleanup cleanup = () =>
-            result.Close();
+        private static StoredFileInfo result;
 
         private Establish ctx = () => sut_setup.run(sut =>
         {

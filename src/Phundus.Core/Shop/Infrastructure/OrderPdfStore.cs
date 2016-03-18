@@ -19,9 +19,9 @@
         public Stream Get(OrderId orderId, int version)
         {
             var fileName = GetFileName(orderId);
-            var stream = _fileStore.Get(fileName, version);
-            if (stream != null)
-                return stream;
+            var fileInfo = _fileStore.Get(fileName, version);
+            if (fileInfo != null)
+                return fileInfo.GetStream();
             return CreateAndStorePdf(orderId, fileName, version);
         }
 

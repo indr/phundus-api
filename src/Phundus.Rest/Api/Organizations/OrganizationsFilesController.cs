@@ -47,28 +47,28 @@ namespace Phundus.Rest.Api.Organizations
             _collaboratorService.Manager(CurrentUserId, new OwnerId(organizationId));
 
             var store = CreateImageStore(organizationId);
-            var stream = store.Get(fileName, 0);
+            var fileInfo = store.Get(fileName, 0);
             var result = new MemoryStream();
 
             var query = base.GetQueryParams();
-            if (query.ContainsKey("maxwidth") || (query.ContainsKey("maxheight")))
+            if (fileInfo.IsImage && (query.ContainsKey("maxwidth") || (query.ContainsKey("maxheight"))))
             {
-                var job = new ImageJob(stream, result, new ResizeSettings(Request.RequestUri.Query));
+                var job = new ImageJob(fileInfo.GetStream(), result, new ResizeSettings(Request.RequestUri.Query));
                 job.Build();
             }
             else
             {
-                stream.CopyTo(result);
+                using (var stream = fileInfo.GetStream())
+                {
+                    stream.CopyTo(result);
+                }
             }
             result.Seek(0, SeekOrigin.Begin);
 
-            var contentType = fileName.Substring(fileName.LastIndexOf('.') + 1);
-            if (contentType == "jpg")
-                contentType = "jpeg";
-
+            
             var response = new HttpResponseMessage(HttpStatusCode.OK);
             response.Content = new StreamContent(result);
-            response.Content.Headers.ContentType = new MediaTypeHeaderValue("image/" + contentType);
+            response.Content.Headers.ContentType = new MediaTypeHeaderValue(fileInfo.MediaType);
             return response;
         }
 
