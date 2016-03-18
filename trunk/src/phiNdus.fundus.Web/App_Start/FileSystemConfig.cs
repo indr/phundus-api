@@ -11,6 +11,7 @@
             {
                 @"~\App_Data\Logs",
                 @"~\App_Data\Mails",
+                @"~\App_Data\Storage",
                 @"~\Content\Images\Articles",
                 @"~\Content\Uploads\Organizations"
             };

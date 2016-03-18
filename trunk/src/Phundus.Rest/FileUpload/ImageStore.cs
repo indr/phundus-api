@@ -11,6 +11,9 @@
         public ImageStore(string path)
         {
             BaseDirectory = HostingEnvironment.MapPath(path);
+
+            if (BaseDirectory != null && !Directory.Exists(BaseDirectory))
+                Directory.CreateDirectory(BaseDirectory);
         }
 
         public string BaseDirectory { get; private set; }
