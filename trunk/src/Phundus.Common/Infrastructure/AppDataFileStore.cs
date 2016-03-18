@@ -16,7 +16,6 @@
         void Add(string fileName, Stream stream, int version);
     }
 
-
     public class AppDataFileStore : IFileStore
     {
         private readonly string _directory;
@@ -95,6 +94,8 @@
                 version = FindHighestVersion(fileName);
 
             var path = GetPath(fileName, version);
+            if (!File.Exists(path))
+                return null;
             var fileInfo = new FileInfo(path);
             return CreateStoredFileInfo(fileInfo);
         }
