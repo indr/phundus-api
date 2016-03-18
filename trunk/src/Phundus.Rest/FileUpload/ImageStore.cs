@@ -24,7 +24,7 @@
             fileStream.Close();
         }
 
-        public Stream Get(string fileName, int version)
+        public StoredFileInfo Get(string fileName, int version)
         {
             throw new NotImplementedException();
         }

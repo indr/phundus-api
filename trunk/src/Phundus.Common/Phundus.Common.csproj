@@ -137,6 +137,7 @@
     <Compile Include="Infrastructure\Persistence\Installers\RepositoryInstaller.cs" />
     <Compile Include="Infrastructure\Persistence\NhRepositoryBase.cs" />
     <Compile Include="Infrastructure\Persistence\ShortIdGeneratorService.cs" />
+    <Compile Include="Infrastructure\StoredFileInfo.cs" />
     <Compile Include="Mailing\ContentTypes.cs" />
     <Compile Include="Mailing\MailBase.cs" />
     <Compile Include="Mailing\MailModel.cs" />

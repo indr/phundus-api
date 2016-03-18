@@ -10,28 +10,10 @@
     public interface IFileStore
     {
         string BaseDirectory { get; }
-        Stream Get(string fileName, int version);
+        StoredFileInfo Get(string fileName, int version);
         StoredFileInfo[] GetFiles();
         void Remove(string fileName);
         void Add(string fileName, Stream stream, int version);
-    }
-
-    public class StoredFileInfo
-    {
-        public StoredFileInfo(string name, int version, FileInfo fileInfo)
-        {
-            Name = name;
-            Version = version;
-            Length = fileInfo.Length;
-            FullName = fileInfo.FullName;
-            Extension = fileInfo.Extension;
-        }
-
-        public string Name { get; private set; }
-        public int Version { get; private set; }
-        public long Length { get; private set; }
-        public string FullName { get; private set; }
-        public string Extension { get; private set; }
     }
 
 
@@ -107,13 +89,14 @@
             get { return _directory; }
         }
 
-        public Stream Get(string fileName, int version)
+        public StoredFileInfo Get(string fileName, int version)
         {
             if (version <= -1)
                 version = FindHighestVersion(fileName);
 
             var path = GetPath(fileName, version);
-            return Read(path);
+            var fileInfo = new FileInfo(path);
+            return CreateStoredFileInfo(fileInfo);
         }
 
         private int FindHighestVersion(string fileName)
@@ -167,13 +150,6 @@
             stream.Seek(0, SeekOrigin.Begin);
             stream.CopyTo(fileStream);
             fileStream.Close();
-        }
-
-        private static Stream Read(string fullFileName)
-        {
-            if (!File.Exists(fullFileName))
-                return null;
-            return new FileStream(fullFileName, FileMode.Open);
         }
     }
 }
