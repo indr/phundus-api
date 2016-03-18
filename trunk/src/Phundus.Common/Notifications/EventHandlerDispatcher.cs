@@ -2,6 +2,7 @@ namespace Phundus.Common.Notifications
 {
     using System;
     using System.Reflection;
+    using System.Threading;
     using Castle.Core.Internal;
     using Castle.DynamicProxy;
     using Elmah;
@@ -17,6 +18,7 @@ namespace Phundus.Common.Notifications
     public class EventHandlerDispatcher : INotificationHandler, IEventHandlerDispatcher
     {
         private static readonly object Lock = new object();
+        private static readonly Semaphore Semaphore = new Semaphore(2, 2);
         private readonly IEventHandlerFactory _eventHandlerFactory;
         private readonly IStoredEventsProcessor _storedEventsProcessor;
         private readonly IProcessedNotificationTrackerStore _trackerStore;
@@ -38,32 +40,51 @@ namespace Phundus.Common.Notifications
             UpdateHandler(subscriber);
         }
 
-        public void Process(Notification notification)
-        {
-            lock (Lock)
-            {
-                //var subscribers = _eventHandlerFactory.GetSubscribersForEvent(notification.Event);
-
-                //MethodInfo method = typeof(IEventHandlerFactory).GetMethod("GetSubscribersForEvent");
-                //MethodInfo genericMethod = method.MakeGenericMethod(notification.Event.GetType());
-                //var subscribers = (ISubscribeTo[]) genericMethod.Invoke(_eventHandlerFactory, new object[] {notification.Event});
-                
-                var subscribers = _eventHandlerFactory.GetSubscribersForEventNonGeneric(notification.Event);
-                subscribers.ForEach(UpdateHandler);
-            }
-        }
 
         public void Handle(Notification notification)
         {
             Process(notification);
         }
 
+        public void Process(Notification notification)
+        {
+            if (!Semaphore.WaitOne(0))
+                return;
+            try
+            {
+                lock (Lock)
+                {
+                    //var subscribers = _eventHandlerFactory.GetSubscribersForEvent(notification.Event);
+
+                    //MethodInfo method = typeof(IEventHandlerFactory).GetMethod("GetSubscribersForEvent");
+                    //MethodInfo genericMethod = method.MakeGenericMethod(notification.Event.GetType());
+                    //var subscribers = (ISubscribeTo[]) genericMethod.Invoke(_eventHandlerFactory, new object[] {notification.Event});
+
+                    var subscribers = _eventHandlerFactory.GetSubscribersForEventNonGeneric(notification.Event);
+                    subscribers.ForEach(UpdateHandler);
+                }
+            }
+            finally
+            {
+                Semaphore.Release();
+            }
+        }
+
         public void ProcessMissedNotifications()
         {
-            lock (Lock)
+            if (!Semaphore.WaitOne(0))
+                return;
+            try
             {
-                var subscribers = _eventHandlerFactory.GetSubscribers();
-                subscribers.ForEach(UpdateHandler);
+                lock (Lock)
+                {
+                    var subscribers = _eventHandlerFactory.GetSubscribers();
+                    subscribers.ForEach(UpdateHandler);
+                }
+            }
+            finally
+            {
+                Semaphore.Release();
             }
         }
 
