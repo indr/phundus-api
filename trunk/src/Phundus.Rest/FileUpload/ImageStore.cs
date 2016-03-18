@@ -1,61 +1,55 @@
 ﻿namespace Phundus.Rest.FileUpload
 {
+    using System;
     using System.IO;
-    using System.Web;
+    using System.Linq;
     using System.Web.Hosting;
-    using Common;
+    using Common.Infrastructure;
 
-    public class ImageStore
+    public class ImageStore : IFileStore
     {
-        private string _filePath;
-
         public ImageStore(string path)
         {
-            FilePath = path;
+            BaseDirectory = HostingEnvironment.MapPath(path);
         }
 
-        public string FilePath
+        public string BaseDirectory { get; private set; }
+
+        public void Add(string fileName, Stream stream, int version)
         {
-            get { return _filePath; }
-            set
-            {
-                _filePath = value;
-                MappedFilePath = HostingEnvironment.MapPath(_filePath);
-            }
+            var path = Path.Combine(BaseDirectory, fileName);
+            var fileStream = new FileStream(path, FileMode.Create);
+            stream.Seek(0, SeekOrigin.Begin);
+            stream.CopyTo(fileStream);
+            fileStream.Close();
         }
 
-        private string MappedFilePath { get; set; }
-
-        public string Save(HttpPostedFile file)
+        public Stream Get(string fileName, int version)
         {
-            if (!Directory.Exists(MappedFilePath))
-                Directory.CreateDirectory(MappedFilePath);
-
-            var fileName = Path.GetFileNameWithoutExtension(file.FileName).ToFriendlyUrl(false) +
-                           Path.GetExtension(file.FileName);
-            //var fileName = Guid.NewGuid().ToString("N") + Path.GetExtension(file.FileName);
-
-            file.SaveAs(MappedFilePath + Path.DirectorySeparatorChar + fileName);
-            return FilePath + Path.DirectorySeparatorChar + fileName;
+            throw new NotImplementedException();
         }
 
-        public void Delete(string fileName)
+        public void Remove(string fileName)
         {
-            var mappedFullFileName = MappedFilePath + Path.DirectorySeparatorChar + fileName;
+            var mappedFullFileName = BaseDirectory + Path.DirectorySeparatorChar + fileName;
             if (File.Exists(mappedFullFileName))
                 File.Delete(mappedFullFileName);
 
-            if (!Directory.Exists(MappedFilePath))
+            if (!Directory.Exists(BaseDirectory))
                 return;
 
-            if (Directory.GetFiles(MappedFilePath).Length == 0)
-                Directory.Delete(MappedFilePath);
+            if (Directory.GetFiles(BaseDirectory).Length == 0)
+                Directory.Delete(BaseDirectory);
         }
 
-        public string[] GetFiles()
+        public StoredFileInfo[] GetFiles()
         {
-            Directory.CreateDirectory(MappedFilePath);
-            return Directory.GetFiles(MappedFilePath);
+            Directory.CreateDirectory(BaseDirectory);
+            return
+                Directory.GetFiles(BaseDirectory)
+                    .Select(s => new FileInfo(s))
+                    .Select(fi => new StoredFileInfo(fi.Name, 0, fi))
+                    .ToArray();
         }
     }
 }

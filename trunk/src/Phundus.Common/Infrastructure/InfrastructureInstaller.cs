@@ -8,7 +8,9 @@
     {
         public void Install(IWindsorContainer container, IConfigurationStore store)
         {
-            container.Register(Component.For<IFileStorage>().ImplementedBy<AppDataFileStorage>());
+            container.Register(
+                Component.For<IHostingEnvironment>().ImplementedBy<HostingEnvironmentImpl>(),
+                Component.For<IFileStoreFactory>().ImplementedBy<AppDataFileStoreFactory>());
         }
     }
 }

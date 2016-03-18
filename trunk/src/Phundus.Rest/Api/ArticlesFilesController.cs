@@ -9,6 +9,7 @@ namespace Phundus.Rest.Api
     using AttributeRouting.Web.Http;
     using Castle.Transactions;
     using Common.Domain.Model;
+    using Common.Infrastructure;
     using Common.Resources;
     using FileUpload;
     using Inventory.Application;
@@ -37,7 +38,7 @@ namespace Phundus.Rest.Api
             return String.Format(@"/Content/Images/Articles/{0}", articleId.Id.ToString("D"));
         }
 
-        private ImageStore CreateImageStore(string path)
+        private IFileStore CreateImageStore(string path)
         {
             return new ImageStore(path);
         }
@@ -93,7 +94,7 @@ namespace Phundus.Rest.Api
             var path = GetPath(articleId);
             var store = CreateImageStore(path);
             Dispatcher.Dispatch(new RemoveImage(CurrentUserId, articleId, fileName));
-            store.Delete(fileName);
+            store.Remove(fileName);
             return Request.CreateResponse(HttpStatusCode.NoContent);
         }
     }

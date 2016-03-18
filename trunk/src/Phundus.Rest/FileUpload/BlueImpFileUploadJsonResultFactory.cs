@@ -3,6 +3,7 @@ namespace Phundus.Rest.FileUpload
     using System.Collections.Generic;
     using System.IO;
     using System.Web;
+    using Common.Infrastructure;
     using Inventory.Application;
     using Inventory.Projections;
 
@@ -18,7 +19,7 @@ namespace Phundus.Rest.FileUpload
             {
                 deleteType = "DELETE",
                 deleteUrl = DeleteUrl + '/' + fileName,
-                thumbnailUrl = ImageUrl + '/' + fileName + ".ashx?maxwidth=120&maxheight=80",
+                thumbnailUrl = ImageUrl + '/' + fileName + "?maxwidth=120&maxheight=80",
                 url = ImageUrl + '/' + fileName,
                 name = fileName,
                 size = length,
@@ -53,6 +54,21 @@ namespace Phundus.Rest.FileUpload
             foreach (var each in images)
                 result.Add(Create(each));
             return result.ToArray();
+        }
+
+        public BlueImpFileUploadJsonResult[] Create(StoredFileInfo[] storedFileInfos)
+        {
+            var result = new List<BlueImpFileUploadJsonResult>();
+            foreach (var each in storedFileInfos)
+            {
+                result.Add(Create(each));
+            }
+            return result.ToArray();
+        }
+
+        private BlueImpFileUploadJsonResult Create(StoredFileInfo info)
+        {
+            return Create(info.Name, info.Length, info.Extension);
         }
 
         private BlueImpFileUploadJsonResult Create(string fileName)
