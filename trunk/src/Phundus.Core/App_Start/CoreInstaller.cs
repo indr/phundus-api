@@ -1,12 +1,15 @@
 ﻿namespace Phundus
 {
+    using System;
     using System.Reflection;
+    using System.Web.Http.Controllers;
     using Castle.MicroKernel.Registration;
     using Castle.MicroKernel.SubSystems.Configuration;
     using Castle.Windsor;
     using Common.Infrastructure.Persistence;
     using Common.Projecting;
     using Common.Querying;
+    using Common.Resources;
     using IdentityAccess.Resources;
     using Inventory.Infrastructure.Persistence.Repositories;
     using Inventory.Model.Reservations;
@@ -28,6 +31,17 @@
 
         public void Install(IWindsorContainer container, IConfigurationStore store)
         {
+            container.Register(Classes.FromThisAssembly()
+                .BasedOn<IHttpController>()
+                .If(t => t.Name.EndsWith("Controller", StringComparison.InvariantCulture))
+                .LifestyleScoped());
+
+            container.Register(Classes.FromThisAssembly()
+                .BasedOn<ApiControllerBase>()
+                .If(t => t.Name.EndsWith("Resource", StringComparison.InvariantCulture))
+                .WithServiceDefaultInterfaces()
+                .LifestyleTransient());
+
             container.Register(
                 Classes.FromThisAssembly()
                     .BasedOn<QueryServiceBase>()

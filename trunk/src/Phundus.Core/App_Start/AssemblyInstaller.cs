@@ -1,6 +1,8 @@
 ﻿namespace Phundus
 {
+    using System;
     using System.Reflection;
+    using System.Web.Http.Controllers;
     using Castle.MicroKernel.Registration;
     using Castle.MicroKernel.SubSystems.Configuration;
     using Castle.Windsor;
@@ -18,10 +20,7 @@
             new ProjectionsInstaller().Install(container, assembly);
             new EventHandlerInstaller().Install(container, assembly);
 
-            container.Register(Classes.FromAssembly(assembly)
-                .BasedOn<ApiControllerBase>()
-                .WithServiceAllInterfaces()
-                .LifestyleTransient());
+            
         }
     }
 }

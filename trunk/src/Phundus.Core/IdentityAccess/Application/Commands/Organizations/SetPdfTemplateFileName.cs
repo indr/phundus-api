@@ -1,6 +1,7 @@
 ﻿namespace Phundus.IdentityAccess.Application
 {
     using System;
+    using Castle.Transactions;
     using Common.Commanding;
     using Common.Domain.Model;
     using Model;
@@ -35,6 +36,7 @@
             _organizationRepository = organizationRepository;
         }
 
+        [Transaction]
         public void Handle(SetPdfTemplateFileName command)
         {
             var manager = _userInRoleService.Manager(command.InitiatorId, command.OrganizationId);
