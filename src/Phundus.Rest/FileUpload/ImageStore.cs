@@ -18,10 +18,11 @@
 
         public string BaseDirectory { get; private set; }
 
-        public StoredFileInfo Add(string fileName, Stream stream, int version)
+        public StoredFileInfo Add(string fileName, Stream stream, int version, bool overwriteExisting)
         {
+            var fileMode = overwriteExisting ? FileMode.Create : FileMode.CreateNew;
             var path = Path.Combine(BaseDirectory, fileName);
-            var fileStream = new FileStream(path, FileMode.Create);
+            var fileStream = new FileStream(path, fileMode);
             stream.Seek(0, SeekOrigin.Begin);
             stream.CopyTo(fileStream);
             fileStream.Close();
