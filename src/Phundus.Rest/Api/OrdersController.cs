@@ -67,7 +67,6 @@
         {
             var orderPdf = _orderPdfService.GetOrderPdf(CurrentUserId, new OrderId(orderId));
 
-            
             return CreatePdfResponse(orderPdf.Stream, string.Format("Bestellung-{0}.pdf", orderPdf.OrderShortId));
         }
 
