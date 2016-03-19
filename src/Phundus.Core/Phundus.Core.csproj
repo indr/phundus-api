@@ -344,7 +344,6 @@
     <Compile Include="Shop\Model\OrderLines.cs" />
     <Compile Include="Shop\Projections\LessorsProjection.cs" />
     <Compile Include="Shop\Application\OrderQueryService.cs" />
-    <Compile Include="Shop\Projections\OrderPdfProjection.cs" />
     <Compile Include="Shop\Projections\ProductDetailsProjection.cs" />
     <Compile Include="Inventory\Projections\ArticlesProjection.cs" />
     <Compile Include="Inventory\Application\ArticleFileQueryService.cs" />
