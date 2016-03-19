@@ -14,9 +14,9 @@ namespace Phundus.Shop.Application
 
     public interface IOrderQueryService
     {
-        OrderData GetById(CurrentUserId currentUserId, OrderId orderId);
+        OrderData GetById(InitiatorId initiatorId, OrderId orderId);
 
-        IEnumerable<OrderData> Query(CurrentUserId currentUserId, OrderId orderId, UserId queryUserId,
+        IEnumerable<OrderData> Query(InitiatorId initiatorId, OrderId orderId, UserId queryUserId,
             OrganizationId queryOrganizationId);
     }
 
@@ -34,12 +34,12 @@ namespace Phundus.Shop.Application
             _availabilityService = availabilityService;
         }
 
-        public OrderData GetById(CurrentUserId currentUserId, OrderId orderId)
+        public OrderData GetById(InitiatorId initiatorId, OrderId orderId)
         {
-            if (currentUserId == null) throw new ArgumentNullException("currentUserId");
+            if (initiatorId == null) throw new ArgumentNullException("initiatorId");
 
-            var result =
-                Query(currentUserId, orderId == null ? (Guid?) null : orderId.Id, null, null).SingleOrDefault();
+            var result = Query(initiatorId, orderId == null ? (Guid?) null : orderId.Id, null, null)
+                .SingleOrDefault();
             if (result == null)
                 throw new NotFoundException(String.Format("Order {0} not found.", orderId));
 
@@ -48,34 +48,34 @@ namespace Phundus.Shop.Application
             return result;
         }
 
-        public IEnumerable<OrderData> Query(CurrentUserId currentUserId, OrderId orderId, UserId queryUserId,
+        public IEnumerable<OrderData> Query(InitiatorId initiatorId, OrderId orderId, UserId queryUserId,
             OrganizationId queryOrganizationId)
         {
-            return Query(currentUserId, orderId == null ? (Guid?) null : orderId.Id,
+            return Query(initiatorId, orderId == null ? (Guid?) null : orderId.Id,
                 queryUserId == null ? (Guid?) null : queryUserId.Id,
                 queryOrganizationId == null ? (Guid?) null : queryOrganizationId.Id);
         }
 
-        private IEnumerable<OrderData> Query(CurrentUserId currentUserId, Guid? queryOrderId, Guid? queryUserId,
+        private IEnumerable<OrderData> Query(InitiatorId initiatorId, Guid? queryOrderId, Guid? queryUserId,
             Guid? queryOrganizationId)
         {
             var query = QueryOver();
 
-            AddAuthFilter(query, currentUserId);
+            AddAuthFilter(query, initiatorId);
             AddQueryFilter(query, queryOrderId, queryUserId, queryOrganizationId);
 
             return query.List();
         }
 
-        private void AddAuthFilter(IQueryOver<OrderData, OrderData> query, CurrentUserId currentUserId)
+        private void AddAuthFilter(IQueryOver<OrderData, OrderData> query, InitiatorId initiatorId)
         {
-            var organizationIds = _membershipQueries.FindByUserId(currentUserId.Id)
+            var organizationIds = _membershipQueries.FindByUserId(initiatorId.Id)
                 .Where(p => p.MembershipRole == "Manager")
                 .Select(s => s.OrganizationGuid).ToList();
 
             var lesseeOrLessor = new Disjunction();
-            lesseeOrLessor.Add(Restrictions.Where<OrderData>(p => p.LesseeId == currentUserId.Id));
-            lesseeOrLessor.Add(Restrictions.Where<OrderData>(p => p.LessorId == currentUserId.Id));
+            lesseeOrLessor.Add(Restrictions.Where<OrderData>(p => p.LesseeId == initiatorId.Id));
+            lesseeOrLessor.Add(Restrictions.Where<OrderData>(p => p.LessorId == initiatorId.Id));
 
             var authRestriction = new Disjunction();
             authRestriction.Add(lesseeOrLessor);

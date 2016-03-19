@@ -24,7 +24,8 @@
         {
             var make = new shop_factory(fake);
 
-            depends.on<IOrderRepository>().setup(x => x.GetById(Arg<OrderId>.Is.Anything)).Return(make.Order());
+            var order = make.Order();
+            depends.on<IOrderRepository>().setup(x => x.GetById(Arg<OrderId>.Is.Anything)).Return(order);
             depends.on<ICollaboratorService>()
                 .setup(x => x.Managers(Arg<LessorId>.Is.Anything, Arg<bool>.Is.Equal(true)))
                 .Return(new List<Manager>
@@ -33,8 +34,8 @@
                     make.Manager(emailAddress: "manager2@test.phundus.ch")
                 });
             depends.on<IOrderPdfStore>()
-                .setup(x => x.Get(Arg<OrderId>.Is.Anything, Arg<int>.Is.Anything))
-                .Return(new MemoryStream());            
+                .setup(x => x.Get(Arg<OrderId>.Is.Anything))
+                .Return(new OrderPdf(order.OrderId, order.OrderShortId, order.MutatedVersion - 1, new MemoryStream()));            
 
             var lines = new List<OrderEventLine>
             {

@@ -108,10 +108,9 @@
 
         private Attachment GetOrderPdfAttachment(Guid orderId)
         {
-            var order = _orderRepository.GetById(new OrderId(orderId));
-            var stream = _orderPdfStore.Get(order.OrderId, order.MutatedVersion - 1);
+            var orderPdf = _orderPdfStore.Get(new OrderId(orderId));
 
-            return new Attachment(stream, String.Format("Bestellung-{0}.pdf", order.OrderShortId.Id),
+            return new Attachment(orderPdf.GetStreamCopy(), String.Format("Bestellung-{0}.pdf", orderPdf.OrderShortId.Id),
                 "application/pdf");
         }
     }

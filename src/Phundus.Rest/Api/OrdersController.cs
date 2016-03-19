@@ -65,9 +65,10 @@
         [Transaction]
         public virtual HttpResponseMessage GetPdf(Guid orderId)
         {
-            var pdf = _orderPdfService.GetOrderPdf(CurrentUserId, new OrderId(orderId));
+            var orderPdf = _orderPdfService.GetOrderPdf(CurrentUserId, new OrderId(orderId));
+
             
-            return CreatePdfResponse(pdf.Stream, string.Format("Bestellung-{0}.pdf", pdf.OrderShortId));
+            return CreatePdfResponse(orderPdf.Stream, string.Format("Bestellung-{0}.pdf", orderPdf.OrderShortId));
         }
 
         [POST("")]

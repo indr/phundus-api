@@ -18,13 +18,15 @@
 
         public string BaseDirectory { get; private set; }
 
-        public void Add(string fileName, Stream stream, int version)
+        public StoredFileInfo Add(string fileName, Stream stream, int version)
         {
             var path = Path.Combine(BaseDirectory, fileName);
             var fileStream = new FileStream(path, FileMode.Create);
             stream.Seek(0, SeekOrigin.Begin);
             stream.CopyTo(fileStream);
             fileStream.Close();
+
+            return null;
         }
 
         public StoredFileInfo Get(string fileName, int version)
