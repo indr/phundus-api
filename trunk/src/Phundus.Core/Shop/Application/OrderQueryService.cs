@@ -27,9 +27,6 @@ namespace Phundus.Shop.Application
 
         public OrderQueryService(IMembershipQueries membershipQueries, IAvailabilityService availabilityService)
         {
-            if (membershipQueries == null) throw new ArgumentNullException("membershipQueries");
-            if (availabilityService == null) throw new ArgumentNullException("availabilityService");
-
             _membershipQueries = membershipQueries;
             _availabilityService = availabilityService;
         }
@@ -109,8 +106,7 @@ namespace Phundus.Shop.Application
             foreach (var each in orderDto.Lines)
             {
                 each.IsAvailable = _availabilityService.IsArticleAvailable(new ArticleId(each.ArticleId), each.FromUtc,
-                    each.ToUtc,
-                    each.Quantity, new OrderLineId(each.LineId));
+                    each.ToUtc, each.Quantity, new OrderLineId(each.LineId));
             }
         }
     }
