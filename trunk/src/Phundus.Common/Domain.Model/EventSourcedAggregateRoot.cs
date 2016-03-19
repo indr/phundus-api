@@ -23,7 +23,7 @@
             _unmutatedVersion = streamVersion;
         }
 
-        protected int UnmutatedVersion
+        public int UnmutatedVersion
         {
             get { return _unmutatedVersion; }
         }

@@ -1,10 +1,9 @@
 ﻿namespace Phundus.Shop.Model.Orders
 {
-    using System.IO;
     using Common.Domain.Model;
 
     public interface IOrderPdfStore
     {
-        Stream Get(OrderId orderId, int version);
+        OrderPdf Get(OrderId orderId);        
     }
 }

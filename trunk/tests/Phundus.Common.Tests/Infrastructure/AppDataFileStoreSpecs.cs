@@ -1,10 +1,8 @@
 ﻿namespace Phundus.Common.Tests.Infrastructure
 {
     using System;
-    using System.Collections.Generic;
     using System.IO;
     using Common.Infrastructure;
-    using developwithpassion.specifications.extensions;
     using developwithpassion.specifications.rhinomocks;
     using Machine.Specifications;
 
@@ -106,8 +104,19 @@
     [Subject(typeof (AppDataFileStore))]
     public class when_storing_a_file_with_version : app_data_file_store_concern
     {
+        private static StoredFileInfo result;
+
         private Because of = () =>
-            sut.Add("fileName.pdf", createStream(), 99);
+            result = sut.Add("fileName.pdf", createStream(), 99);
+
+        private It should_return_stored_file_info = () =>
+        {
+            result.ShouldNotBeNull();
+            result.Name.ShouldEqual("fileName.pdf");
+            result.Extension.ShouldEqual("pdf");
+            result.FullName.ShouldEqual(fileInfo("teststorage", "fileName-99.pdf").FullName);
+            result.Version.ShouldEqual(99);
+        };
 
         private It should_write_file_to_storage_directory = () =>
             fileInfo("teststorage", "fileName-99.pdf").Exists.ShouldBeTrue();

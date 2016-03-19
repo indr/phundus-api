@@ -13,7 +13,7 @@
         StoredFileInfo Get(string fileName, int version);
         StoredFileInfo[] GetFiles();
         void Remove(string fileName);
-        void Add(string fileName, Stream stream, int version);
+        StoredFileInfo Add(string fileName, Stream stream, int version);
     }
 
     public class AppDataFileStore : IFileStore
@@ -75,12 +75,14 @@
             fileNames.ForEach(File.Delete);
         }
 
-        public void Add(string fileName, Stream stream, int version)
+        public StoredFileInfo Add(string fileName, Stream stream, int version)
         {
             if (version < 0) throw new ArgumentOutOfRangeException("version");
 
             var path = GetPath(fileName, version);
             Write(path, stream);
+
+            return new StoredFileInfo(fileName, version, new FileInfo(path));
         }
 
         public string BaseDirectory

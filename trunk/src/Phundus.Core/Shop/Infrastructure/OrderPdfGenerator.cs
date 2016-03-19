@@ -15,25 +15,24 @@
 
     public class OrderPdfGenerator
     {
-        private readonly LessorData _lessor;
+        private readonly Lessor _lessor;
         private readonly StoreDetailsData _store;
         private readonly StoredFileInfo _templateFileInfo;
+        private readonly Order _order;
         private GrayColor backGroundColor;
         private Font defaultFont;
         private Font defaultFontBold;
         private Font defaultFontGray;
         private Document doc;
-        private Order order;
         private PdfReader reader;
         private MemoryStream stream;
         private PdfWriter writer;
 
-        public OrderPdfGenerator(Order aOrder, LessorData lessor, StoreDetailsData store,
-            StoredFileInfo templateFileInfo)
+        public OrderPdfGenerator(Order order, StoreDetailsData store, StoredFileInfo templateFileInfo)
         {
-            if (lessor == null) throw new ArgumentNullException("lessor");
-            order = aOrder;
-            _lessor = lessor;
+            if (order == null) throw new ArgumentNullException("order");
+            _order = order;
+            _lessor = _order.Lessor;            
             _store = store;
             _templateFileInfo = templateFileInfo;
 
@@ -189,7 +188,7 @@
 
             table.DefaultCell.BorderWidthTop = 0.5f;
             int pos = 0;
-            foreach (var item in order.Lines)
+            foreach (var item in _order.Lines)
             {
                 pos++;
                 table.AddCell(new Phrase(pos.ToString(), defaultFont));
@@ -212,7 +211,7 @@
             table.AddCell(new Phrase("", defaultFont));
             table.AddCell(new Phrase("", defaultFont));
             table.AddCell(new Phrase("", defaultFont));
-            table.AddCell(PhraseCell(table.DefaultCell, new Phrase(order.OrderTotal.ToString("N"), defaultFontBold),
+            table.AddCell(PhraseCell(table.DefaultCell, new Phrase(_order.OrderTotal.ToString("N"), defaultFontBold),
                 Element.ALIGN_RIGHT));
             doc.Add(table);
         }
@@ -250,7 +249,7 @@
 
             table.TotalWidth = 100;
 
-            var orderNumberCell = new PdfPCell(new Phrase(order.OrderShortId.Id.ToString(),
+            var orderNumberCell = new PdfPCell(new Phrase(_order.OrderShortId.Id.ToString(),
                 FontFactory.GetFont("calibri-bold", 36, BaseColor.WHITE)));
             orderNumberCell.HorizontalAlignment = Element.ALIGN_RIGHT;
             orderNumberCell.Rowspan = 5;
@@ -272,10 +271,10 @@
             cell.Padding = 3;
             cell.PaddingLeft = 36.0f;
             table.AddCell(cell);
-            table.AddCell(new Phrase(order.Lessee.FullName, defaultFont));
+            table.AddCell(new Phrase(_order.Lessee.FullName, defaultFont));
             table.AddCell(orderNumberCell);
 
-            var lessee = order.Lessee;
+            var lessee = _order.Lessee;
             var postalAddress = lessee.Street + "\n" + lessee.Postcode + " " + lessee.City;
             cell = new PdfPCell(new Phrase("Addresse:", defaultFontGray));
             cell.BorderWidth = 0;
@@ -291,9 +290,9 @@
             cell.Padding = 3;
             cell.PaddingLeft = 36.0f;
             table.AddCell(cell);
-            table.AddCell(new Phrase(order.Lessee.PhoneNumber + " / " + order.Lessee.EmailAddress, defaultFont));
+            table.AddCell(new Phrase(_order.Lessee.PhoneNumber + " / " + _order.Lessee.EmailAddress, defaultFont));
 
-            var firstFrom = order.Lines.Count == 0 ? (DateTime?) null : order.Lines.Min(s => s.Period.FromUtc);
+            var firstFrom = _order.Lines.Count == 0 ? (DateTime?) null : _order.Lines.Min(s => s.Period.FromUtc);
             if (firstFrom.HasValue)
             {
                 cell = new PdfPCell(new Phrase("Abholen:", defaultFontGray));
@@ -305,7 +304,7 @@
                 table.AddCell(new Phrase(firstFrom.Value.ToLocalTime().ToString("d"), defaultFont));
             }
 
-            var lastTo = order.Lines.Count == 0 ? (DateTime?) null : order.Lines.Max(s => s.Period.ToUtc);
+            var lastTo = _order.Lines.Count == 0 ? (DateTime?) null : _order.Lines.Max(s => s.Period.ToUtc);
             if (lastTo.HasValue)
             {
                 cell = new PdfPCell(new Phrase("Rückgabe:", defaultFontGray));
@@ -335,7 +334,7 @@
         private void AddTitle()
         {
             var titleCaption = "Bestellung - Provisorisch";
-            switch (order.Status)
+            switch (_order.Status)
             {
                 case OrderStatus.Pending:
                     break;
