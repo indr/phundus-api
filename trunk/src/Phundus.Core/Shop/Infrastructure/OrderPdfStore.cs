@@ -1,11 +1,18 @@
 ﻿namespace Phundus.Shop.Infrastructure
 {
+    using System;
     using Common.Domain.Model;
+    using Common.Eventing;
     using Common.Infrastructure;
     using Model;
     using Model.Orders;
+    using Orders.Model;
 
-    public class OrderPdfStore : IOrderPdfStore
+    public class OrderPdfStore : IOrderPdfStore,
+        ISubscribeTo<OrderPlaced>,
+        ISubscribeTo<OrderApproved>,
+        ISubscribeTo<OrderClosed>,
+        ISubscribeTo<OrderRejected>
     {
         private readonly IFileStore _fileStore;
         private readonly IOrderPdfFactory _orderPdfFactory;
@@ -27,6 +34,26 @@
             return Get(order, fileName);
         }
 
+        public void Handle(OrderApproved e)
+        {
+            Generate(e.OrderId);
+        }
+
+        public void Handle(OrderClosed e)
+        {
+            Generate(e.OrderId);
+        }
+
+        public void Handle(OrderPlaced e)
+        {
+            Generate(e.OrderId);
+        }
+
+        public void Handle(OrderRejected e)
+        {
+            Generate(e.OrderId);
+        }
+
         private OrderPdf Get(Order order, string fileName)
         {
             var fileInfo = _fileStore.Get(fileName, order.UnmutatedVersion);
@@ -41,6 +68,11 @@
             var stream = _orderPdfFactory.GeneratePdf(order);
 
             return _fileStore.Add(fileName, stream, order.UnmutatedVersion, false);
+        }
+
+        private void Generate(Guid orderId)
+        {
+            Get(new OrderId(orderId));
         }
     }
 }
