@@ -13,7 +13,7 @@
         StoredFileInfo Get(string fileName, int version);
         StoredFileInfo[] GetFiles();
         void Remove(string fileName);
-        StoredFileInfo Add(string fileName, Stream stream, int version);
+        StoredFileInfo Add(string fileName, Stream stream, int version, bool overwriteExisting);
     }
 
     public class AppDataFileStore : IFileStore
@@ -75,12 +75,12 @@
             fileNames.ForEach(File.Delete);
         }
 
-        public StoredFileInfo Add(string fileName, Stream stream, int version)
+        public StoredFileInfo Add(string fileName, Stream stream, int version, bool overwriteExisting = false)
         {
             if (version < 0) throw new ArgumentOutOfRangeException("version");
 
             var path = GetPath(fileName, version);
-            Write(path, stream);
+            Write(path, stream, overwriteExisting);
 
             return new StoredFileInfo(fileName, version, new FileInfo(path));
         }
@@ -147,9 +147,10 @@
             return fileName.Insert(extensionIndex, "-" + version);
         }
 
-        private static void Write(string fullFileName, Stream stream)
+        private static void Write(string fullFileName, Stream stream, bool overwriteExisting)
         {
-            var fileStream = new FileStream(fullFileName, FileMode.Create);
+            var fileMode = overwriteExisting ? FileMode.Create : FileMode.CreateNew;
+            var fileStream = new FileStream(fullFileName, fileMode);
             stream.Seek(0, SeekOrigin.Begin);
             stream.CopyTo(fileStream);
             fileStream.Close();

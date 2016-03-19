@@ -95,7 +95,7 @@
     {
         private Because of = () =>
             spec.catch_exception(() =>
-                sut.Add("fileName.pdf", createStream(), -1));
+                sut.Add("fileName.pdf", createStream(), -1, true));
 
         private It should_throw_argument_out_of_range_exception = () =>
             spec.exception_thrown.ShouldBeOfExactType<ArgumentOutOfRangeException>();
@@ -107,7 +107,7 @@
         private static StoredFileInfo result;
 
         private Because of = () =>
-            result = sut.Add("fileName.pdf", createStream(), 99);
+            result = sut.Add("fileName.pdf", createStream(), 99, true);
 
         private It should_return_stored_file_info = () =>
         {
@@ -123,17 +123,33 @@
     }
 
     [Subject(typeof (AppDataFileStore))]
-    public class when_storing_an_existing_file_with_same_version : app_data_file_store_concern
+    public class when_storing_an_existing_file_with_same_version_and_overwrite_option : app_data_file_store_concern
     {
         private Establish ctx = () =>
             sut_setup.run(sut =>
                 sut.Add("fileName.pdf", createStream(20), 99));
 
         private Because of = () =>
-            sut.Add("fileName.pdf", createStream(10), 99);
+            sut.Add("fileName.pdf", createStream(10), 99, true);
 
         private It should_overwrite_file = () =>
             fileInfo("teststorage", "fileName-99.pdf").Length.ShouldEqual(10);
+    }
+
+    [Subject(typeof (AppDataFileStore))]
+    public class when_storing_an_existing_file_with_same_version_and_without_overwrite_option :
+        app_data_file_store_concern
+    {
+        private Establish ctx = () =>
+            sut_setup.run(sut =>
+                sut.Add("fileName.pdf", createStream(20), 99));
+
+        private Because of = () =>
+            spec.catch_exception(() =>
+                sut.Add("fileName.pdf", createStream(10), 99, false));
+
+        private It should_throw_io_exception = () =>
+            spec.exception_thrown.ShouldBeOfExactType<IOException>();
     }
 
     [Subject(typeof (AppDataFileStore))]

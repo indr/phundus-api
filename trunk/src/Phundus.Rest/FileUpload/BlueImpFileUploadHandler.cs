@@ -26,7 +26,7 @@ namespace Phundus.Rest.FileUpload
                     continue;
 
                 var fileName = GetFileName(file.FileName);
-                _store.Add(fileName, file.InputStream, 0);
+                _store.Add(fileName, file.InputStream, 0, true);
 
                 var image = new ImageData();
                 image.IsPreview = false;

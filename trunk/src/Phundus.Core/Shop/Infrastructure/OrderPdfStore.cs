@@ -21,12 +21,6 @@
 
         public OrderPdf Get(OrderId orderId)
         {
-            // Pdf-Factory soll nicht nur Stream zurück geben, sondern auch die Version des Order-Aggregates
-            // beim Speichern in den File-Store soll dann diese Version verwendet werden
-
-            // Der File-Store soll eine ConcurrencyException werfen, wenn die Datei mit der übergebenen
-            // Version bereits existiert.
-
             var order = _orderRepository.GetById(orderId);
             var fileName = orderId.Id.ToString("D") + ".pdf";
 
@@ -46,7 +40,7 @@
         {
             var stream = _orderPdfFactory.GeneratePdf(order);
 
-            return _fileStore.Add(fileName, stream, order.UnmutatedVersion);
+            return _fileStore.Add(fileName, stream, order.UnmutatedVersion, false);
         }
     }
 }
