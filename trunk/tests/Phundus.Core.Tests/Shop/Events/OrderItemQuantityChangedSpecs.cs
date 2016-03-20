@@ -5,26 +5,39 @@
     using Phundus.Shop.Orders.Model;
 
     [Subject(typeof (OrderItemQuantityChanged))]
-    public class OrderItemQuantityChangedSpecs : shop_domain_event_concern<OrderItemQuantityChanged>
+    public class order_item_quantity_changed : shop_domain_event_concern<OrderItemQuantityChanged>
     {
+        private static OrderId theOrderId;
+        private static OrderShortId theOrderShortId;
+        private static int theOrderStatus;
+        private static decimal theOrderTotal;
+        private static OrderLineId theOrderItemId;
+        private static int theOldQuantity;
+        private static int theNewQuantity;
         private static OrderEventLine theOrderItem;
-        private static OrderId theOrderId = new OrderId();
-        private static OrderShortId theOrderShortId = new OrderShortId(1234);
-        private static OrderLineId theOrderLineId = new OrderLineId();
 
         private Establish ctx = () =>
         {
+            theOrderId = new OrderId();
+            theOrderShortId = new OrderShortId(1234);
+            theOrderStatus = 1;
+            theOrderTotal = 12.50m;
+            theOrderItemId = new OrderLineId();
+            theOldQuantity = 1;
+            theNewQuantity = 2;
             theOrderItem = CreateOrderEventItem();
+
             sut_factory.create_using(() =>
-                new OrderItemQuantityChanged(theManager, theOrderId, theOrderShortId, 2,
-                    3.33m, theOrderLineId, 4, 5, theOrderItem));
+                new OrderItemQuantityChanged(theManager, theOrderId, theOrderShortId,
+                    theOrderStatus, theOrderTotal, theOrderItemId, theOldQuantity,
+                    theNewQuantity, theOrderItem));
         };
 
         private It should_be_in_assembly = () =>
             itsAssembly.ShouldEqual("Phundus.Core");
 
         private It should_have_at_1_the_manager = () =>
-            dataMember(1).ShouldEqual(theManager.ToActor());
+            dataMember(1).ShouldEqual(theManager);
 
         private It should_have_at_2_the_order_id = () =>
             dataMember(2).ShouldEqual(theOrderId.Id);
@@ -33,21 +46,21 @@
             dataMember(3).ShouldEqual(theOrderShortId.Id);
 
         private It should_have_at_4_the_order_status = () =>
-            dataMember(4).ShouldEqual(2);
+            dataMember(4).ShouldEqual(theOrderStatus);
 
         private It should_have_at_5_the_order_total = () =>
-            dataMember(5).ShouldEqual(3.33m);
+            dataMember(5).ShouldEqual(theOrderTotal);
 
-        private It should_have_at_6_the_order_line_id = () =>
-            dataMember(6).ShouldEqual(theOrderLineId.Id);
+        private It should_have_at_6_the_order_item_id = () =>
+            dataMember(6).ShouldEqual(theOrderItemId.Id);
 
         private It should_have_at_7_the_old_quantity = () =>
-            dataMember(7).ShouldEqual(4);
+            dataMember(7).ShouldEqual(theOldQuantity);
 
         private It should_have_at_8_the_new_quantity = () =>
-            dataMember(8).ShouldEqual(5);
+            dataMember(8).ShouldEqual(theNewQuantity);
 
-        private It should_have_at_9_the_order_line = () =>
+        private It should_have_at_9_the_order_item = () =>
             dataMember(9).ShouldEqual(theOrderItem);
 
         private It should_have_full_name = () =>

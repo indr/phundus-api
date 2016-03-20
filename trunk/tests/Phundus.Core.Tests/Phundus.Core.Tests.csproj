@@ -221,9 +221,8 @@
     <Compile Include="Shop\Application\AddArticleToCartHandlerSpecs.cs" />
     <Compile Include="Shop\Application\PlaceOrderHandlerSpecs.cs" />
     <Compile Include="Shop\Application\RemoveCartItemHandlerSpecs.cs" />
-    <Compile Include="Shop\Events\OrderItemAmountChangedSpecs.cs" />
-    <Compile Include="Shop\Events\OrderItemPeriodChangedSpecs.cs" />
     <Compile Include="Shop\Events\OrderItemQuantityChangedSpecs.cs" />
+    <Compile Include="Shop\Events\OrderItemPeriodChangedSpecs.cs" />
     <Compile Include="Shop\Events\OrderItemRemovedSpecs.cs" />
     <Compile Include="Shop\Events\OrderItemTotalChangedSpecs.cs" />
     <Compile Include="Shop\Events\OrderRejectedSpecs.cs" />
