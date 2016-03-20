@@ -19,8 +19,7 @@ namespace Phundus.Common.Notifications
     {
         private static readonly object Lock = new object();
         private static readonly Semaphore Semaphore = new Semaphore(2, 2);
-        private static bool processAll = false;
-
+        private static bool _processAll = false;
 
         private readonly IEventHandlerFactory _eventHandlerFactory;
         private readonly IStoredEventsProcessor _storedEventsProcessor;
@@ -53,16 +52,16 @@ namespace Phundus.Common.Notifications
         {
             if (!Semaphore.WaitOne(0))
             {
-                processAll = true;
+                _processAll = true;
                 return;
             }
             try
             {
                 lock (Lock)
                 {
-                    if (processAll)
-                    {                        
-                        ProcessMissedNotifications();
+                    if (_processAll)
+                    {
+                        ProcessAllSubscribers();
                         return;
                     }
                     //var subscribers = _eventHandlerFactory.GetSubscribersForEvent(notification.Event);
@@ -89,15 +88,20 @@ namespace Phundus.Common.Notifications
             {
                 lock (Lock)
                 {
-                    processAll = false;
-                    var subscribers = _eventHandlerFactory.GetSubscribers();
-                    subscribers.ForEach(UpdateHandler);
+                    ProcessAllSubscribers();
                 }
             }
             finally
             {
                 Semaphore.Release();
             }
+        }
+
+        private void ProcessAllSubscribers()
+        {
+            _processAll = false;
+            var subscribers = _eventHandlerFactory.GetSubscribers();
+            subscribers.ForEach(UpdateHandler);
         }
 
         private void UpdateHandler(ISubscribeTo eventHandler)
