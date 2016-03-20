@@ -16,7 +16,7 @@ namespace Phundus.Shop.Orders.Model
             if (orderShortId == null) throw new ArgumentNullException("orderShortId");
             if (orderLine == null) throw new ArgumentNullException("orderLine");
 
-            Manager = manager;
+            Manager = manager.ToActor();
             OrderId = orderId.Id;
             OrderShortId = orderShortId.Id;
             OrderStatus = (int)orderStatus;
@@ -29,7 +29,7 @@ namespace Phundus.Shop.Orders.Model
         }
 
         [DataMember(Order = 1)]
-        public Manager Manager { get; protected set; }
+        public Actor Manager { get; protected set; }
 
         [DataMember(Order = 2)]
         public Guid OrderId { get; protected set; }
