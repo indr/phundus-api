@@ -29,6 +29,7 @@ namespace Phundus.Shop.Model
             var result = new MemoryStream();
             _stream.Seek(0, SeekOrigin.Begin);
             _stream.CopyTo(result);
+            result.Seek(0, SeekOrigin.Begin);
             return result;
         }
 
