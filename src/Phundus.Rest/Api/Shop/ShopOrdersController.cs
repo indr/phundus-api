@@ -19,21 +19,21 @@
         }
 
         [POST("")]
-        public virtual ShopOrdersPostOkResponseContent Post(ShopOrdersPostRequestContent requestContent)
+        public virtual PostOkResponseContent Post(PostRequestContent requestContent)
         {
             var orderId = new OrderId();
             var orderShortId = _shortIdGeneratorService.GetNext<OrderShortId>();
 
             Dispatch(new PlaceOrder(CurrentUserId, orderId, orderShortId, new LessorId(requestContent.LessorId)));
 
-            return new ShopOrdersPostOkResponseContent
+            return new PostOkResponseContent
             {
                 OrderId = orderId.Id,
                 OrderShortId = orderShortId.Id
             };
         }
 
-        public class ShopOrdersPostOkResponseContent
+        public class PostOkResponseContent
         {
             [JsonProperty("orderId")]
             public Guid OrderId { get; set; }
@@ -42,7 +42,7 @@
             public int OrderShortId { get; set; }
         }
 
-        public class ShopOrdersPostRequestContent
+        public class PostRequestContent
         {
             [JsonProperty("lessorId")]
             public Guid LessorId { get; set; }

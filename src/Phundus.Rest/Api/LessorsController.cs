@@ -32,11 +32,11 @@
         [GET("{lessorId}")]
         [Transaction]
         [AllowAnonymous]
-        public virtual LessorsGetOkResponseContent Get(Guid lessorId)
+        public virtual GetOkResponseContent Get(Guid lessorId)
         {
             var lessor = _lessorQueryService.GetById(lessorId);
 
-            return new LessorsGetOkResponseContent
+            return new GetOkResponseContent
             {
                 LessorId = lessor.LessorId,
                 Type = lessor.Type.ToString().ToLowerInvariant(),
@@ -49,35 +49,35 @@
                 PublicRental = lessor.PublicRental
             };
         }
-    }
 
-    public class LessorsGetOkResponseContent
-    {
-        [JsonProperty("lessorId")]
-        public Guid LessorId { get; set; }
+        public class GetOkResponseContent
+        {
+            [JsonProperty("lessorId")]
+            public Guid LessorId { get; set; }
 
-        [JsonProperty("type")]
-        public string Type { get; set; }
+            [JsonProperty("type")]
+            public string Type { get; set; }
 
-        [JsonProperty("name")]
-        public string Name { get; set; }
+            [JsonProperty("name")]
+            public string Name { get; set; }
 
-        [JsonProperty("url")]
-        public string Url { get; set; }
+            [JsonProperty("url")]
+            public string Url { get; set; }
 
-        [JsonProperty("postalAddress")]
-        public string PostalAddress { get; set; }
+            [JsonProperty("postalAddress")]
+            public string PostalAddress { get; set; }
 
-        [JsonProperty("phoneNumber")]
-        public string PhoneNumber { get; set; }
+            [JsonProperty("phoneNumber")]
+            public string PhoneNumber { get; set; }
 
-        [JsonProperty("emailAddress")]
-        public string EmailAddress { get; set; }
+            [JsonProperty("emailAddress")]
+            public string EmailAddress { get; set; }
 
-        [JsonProperty("website")]
-        public string Website { get; set; }
+            [JsonProperty("website")]
+            public string Website { get; set; }
 
-        [JsonProperty("publicRental")]
-        public bool PublicRental { get; set; }
+            [JsonProperty("publicRental")]
+            public bool PublicRental { get; set; }
+        }
     }
 }

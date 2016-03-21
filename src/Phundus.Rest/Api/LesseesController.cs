@@ -20,10 +20,10 @@
 
         [GET("{lesseeId}")]
         [Transaction]
-        public virtual LesseesGetOkResponseContent Get(Guid lesseeId)
+        public virtual GetOkResponseContent Get(Guid lesseeId)
         {
             var lessee = _lesseeQueryService.GetById(CurrentUserId, lesseeId);
-            return new LesseesGetOkResponseContent
+            return new GetOkResponseContent
             {
                 LesseeId = lessee.LesseeId,
                 Name = lessee.Name,
@@ -32,23 +32,23 @@
                 EmailAddress = lessee.EmailAddress
             };
         }
-    }
 
-    public class LesseesGetOkResponseContent
-    {
-        [JsonProperty("lesseeId")]
-        public Guid LesseeId { get; set; }
+        public class GetOkResponseContent
+        {
+            [JsonProperty("lesseeId")]
+            public Guid LesseeId { get; set; }
 
-        [JsonProperty("name")]
-        public string Name { get; set; }
+            [JsonProperty("name")]
+            public string Name { get; set; }
 
-        [JsonProperty("postalAddress")]
-        public string PostalAddress { get; set; }
+            [JsonProperty("postalAddress")]
+            public string PostalAddress { get; set; }
 
-        [JsonProperty("phoneNumber")]
-        public string PhoneNumber { get; set; }
+            [JsonProperty("phoneNumber")]
+            public string PhoneNumber { get; set; }
 
-        [JsonProperty("emailAddress")]
-        public string EmailAddress { get; set; }
+            [JsonProperty("emailAddress")]
+            public string EmailAddress { get; set; }
+        }
     }
 }
