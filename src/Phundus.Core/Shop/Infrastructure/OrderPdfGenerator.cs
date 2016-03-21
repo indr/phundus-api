@@ -61,16 +61,6 @@
 
         private void AddFooter()
         {
-            //            var path = HttpContext.Current.Server.MapPath(@"~\Content\Images\PdfFooter.png");
-            //            var img = iTextSharp.text.Image.GetInstance(path);
-            //            img.ScaleToFit(doc.PageSize.Width, doc.PageSize.Height);
-            //            img.SetAbsolutePosition(0, 40);
-            //            img.BorderColor = BaseColor.LIGHT_GRAY;
-            //            img.BorderWidthTop = 1.0f;
-            //            img.BorderWidthBottom = 1.0f;
-            //            doc.Add(img);
-
-
             var contactDetails = _store != null ? GetStoreContactDetails() : GetLessorContactDetails();
 
             var table = new PdfPTable(1);
@@ -149,7 +139,7 @@
         private void CreateDocument()
         {
             stream = new MemoryStream();
-            doc = new Document(PageSize.A4, 0, 0, 36.0f, 36.0f);
+            doc = new Document(PageSize.A4, 0, 0, 36.0f * 3, 36.0f);
             writer = PdfWriter.GetInstance(doc, stream);
             writer.CloseStream = false;
 
@@ -183,8 +173,7 @@
             table.AddCell(new Phrase("Art.-Nr.", defaultFontBold));
             table.AddCell(new Phrase("Von", defaultFontBold));
             table.AddCell(new Phrase("Bis", defaultFontBold));
-            //table.AddCell(new Phrase("Stk. Preis", defaultFontBold));
-            table.AddCell(new Phrase("Total", defaultFontBold));
+            table.AddCell(PhraseCell(table.DefaultCell, new Phrase("Total", defaultFontBold), Element.ALIGN_RIGHT));
 
             table.DefaultCell.BorderWidthTop = 0.5f;
             int pos = 0;
@@ -220,16 +209,15 @@
         private static PdfPCell PhraseCell(PdfPCell defaultCell, Phrase phrase, int align)
         {
             var cell = new PdfPCell(phrase);
-
-
             cell.Padding = 3;
             cell.BorderWidth = defaultCell.BorderWidth;
             cell.BorderWidthLeft = 0;
             cell.BorderWidthRight = 0;
+            cell.BorderWidthTop = defaultCell.BorderWidthTop;
+            cell.BorderWidthBottom = defaultCell.BorderWidthBottom;
             cell.BorderColor = defaultCell.BorderColor;
             cell.HorizontalAlignment = align;
             cell.VerticalAlignment = defaultCell.VerticalAlignment;
-
 
             return cell;
         }
@@ -350,7 +338,7 @@
                 default:
                     throw new ArgumentOutOfRangeException();
             }
-            var title = new Paragraph(titleCaption, FontFactory.GetFont("calibri-bold", 22));
+            var title = new Paragraph(titleCaption, FontFactory.GetFont("calibri-bold", 22));            
             title.IndentationLeft = 36.0f;
             doc.Add(title);
         }
@@ -376,14 +364,31 @@
 
     public class RoundRectangle : IPdfPCellEvent
     {
-        #region IPdfPCellEvent Members
+        public void CellLayout(PdfPCell cell, Rectangle rect, PdfContentByte[] canvas)
+        {
+            SetBackground(rect, canvas);
+            //SetBorder(rect, canvas);
+        }
 
-        public void CellLayout(
-            PdfPCell cell, Rectangle rect, PdfContentByte[] canvas
-            )
+        //private static void SetBorder(Rectangle rect, PdfContentByte[] canvas)
+        //{
+        //    PdfContentByte cb;
+        //    cb = canvas[PdfPTable.LINECANVAS];
+        //    cb.RoundRectangle(
+        //        rect.Left,
+        //        rect.Bottom,
+        //        rect.Width,
+        //        rect.Height,
+        //        8 // change to adjust how "round" corner is displayed
+        //        );
+        //    cb.SetLineWidth(0.5f);
+        //    cb.SetCMYKColorStrokeF(0f, 0f, 0f, 1f);
+        //    cb.Stroke();
+        //}
+
+        private static void SetBackground(Rectangle rect, PdfContentByte[] canvas)
         {
             PdfContentByte cb;
-
             cb = canvas[PdfPTable.BACKGROUNDCANVAS];
             cb.RoundRectangle(
                 rect.Left,
@@ -394,20 +399,6 @@
                 );
             cb.SetColorFill(BaseColor.WHITE);
             cb.Fill();
-
-            cb = canvas[PdfPTable.LINECANVAS];
-            cb.RoundRectangle(
-                rect.Left,
-                rect.Bottom,
-                rect.Width,
-                rect.Height,
-                8 // change to adjust how "round" corner is displayed
-                );
-            cb.SetLineWidth(0.5f);
-            cb.SetCMYKColorStrokeF(0f, 0f, 0f, 1f);
-            cb.Stroke();
         }
-
-        #endregion
     }
 }
