@@ -14,12 +14,12 @@ namespace Phundus.Rest.FileUpload
 
         public string DeleteUrl { get; set; }
 
-        private static string[] _imageTypes = new[] {"png", "jpg", "gif"};
+        private static readonly string[] ImageTypes = {"png", "jpg", "gif"};
 
         private BlueImpFileUploadJsonResult Create(string fileName, long length, string type, bool isPreview = false)
         {
             var isImage = type.StartsWith("image/", StringComparison.InvariantCultureIgnoreCase) ||
-                          _imageTypes.Contains(type.ToLowerInvariant());
+                          ImageTypes.Contains(type.ToLowerInvariant());
             var thumbnailUrl = isImage ? ImageUrl + '/' + fileName + "?maxwidth=120&maxheight=80" : null;
             return new BlueImpFileUploadJsonResult
             {
