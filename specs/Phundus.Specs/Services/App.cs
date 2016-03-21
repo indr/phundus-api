@@ -329,7 +329,7 @@
 
         public Guid CreateOrder(Guid organizationId, Guid lesseeId)
         {
-            var result = _apiClient.OrdersApi.Post<OrdersPostOkResponseContent>(new {ownerId = organizationId, lesseeId});
+            var result = _apiClient.OrdersApi.Post<OrdersPostOkResponseContent>(new {lessorId = organizationId, lesseeId});
             return result.Data.OrderId;
         }
 
