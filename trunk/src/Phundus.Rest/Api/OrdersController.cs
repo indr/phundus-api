@@ -19,8 +19,8 @@
     public class OrdersController : ApiControllerBase
     {
         private readonly IMembershipQueries _membershipQueries;
-        private readonly IOrderQueryService _orderQueryService;
         private readonly IOrderPdfService _orderPdfService;
+        private readonly IOrderQueryService _orderQueryService;
         private readonly IShortIdGeneratorService _shortIdGeneratorService;
 
         public OrdersController(IOrderQueryService orderQueryService, IOrderPdfService orderPdfService,
@@ -71,19 +71,19 @@
         }
 
         [POST("")]
-        public virtual OrdersPostOkResponseContent Post(OrdersPostRequestContent requestContent)
+        public virtual PostOkResponseContent Post(PostRequestContent requestContent)
         {
             var orderId = new OrderId();
             var orderShortId = _shortIdGeneratorService.GetNext<OrderShortId>();
 
             var command = new CreateEmptyOrder(CurrentUserId,
                 orderId, orderShortId,
-                new LessorId(requestContent.OwnerId),
+                new LessorId(requestContent.LessorId),
                 new LesseeId(requestContent.LesseeId));
 
             Dispatch(command);
 
-            return new OrdersPostOkResponseContent
+            return new PostOkResponseContent
             {
                 OrderId = orderId.Id,
                 OrderShortId = orderShortId.Id
@@ -91,7 +91,7 @@
         }
 
         [PATCH("{orderId}")]
-        public virtual HttpResponseMessage Patch(Guid orderId, OrdersPatchRequestContent requestContent)
+        public virtual HttpResponseMessage Patch(Guid orderId, PatchRequestContent requestContent)
         {
             if (requestContent.Status == "Rejected")
                 Dispatch(new RejectOrder(CurrentUserId, new OrderId(orderId)));
@@ -105,29 +105,29 @@
 
             return Get(orderId);
         }
-    }
 
-    public class OrdersPatchRequestContent
-    {
-        [JsonProperty("status")]
-        public string Status { get; set; }
-    }
+        public class PatchRequestContent
+        {
+            [JsonProperty("status")]
+            public string Status { get; set; }
+        }
 
-    public class OrdersPostRequestContent
-    {
-        [JsonProperty("ownerId")]
-        public Guid OwnerId { get; set; }
+        public class PostOkResponseContent
+        {
+            [JsonProperty("orderId")]
+            public Guid OrderId { get; set; }
 
-        [JsonProperty("lesseeId")]
-        public Guid LesseeId { get; set; }
-    }
+            [JsonProperty("orderShortId")]
+            public int OrderShortId { get; set; }
+        }
 
-    public class OrdersPostOkResponseContent
-    {
-        [JsonProperty("orderId")]
-        public Guid OrderId { get; set; }
+        public class PostRequestContent
+        {
+            [JsonProperty("lessorId")]
+            public Guid LessorId { get; set; }
 
-        [JsonProperty("orderShortId")]
-        public int OrderShortId { get; set; }
+            [JsonProperty("lesseeId")]
+            public Guid LesseeId { get; set; }
+        }
     }
 }
