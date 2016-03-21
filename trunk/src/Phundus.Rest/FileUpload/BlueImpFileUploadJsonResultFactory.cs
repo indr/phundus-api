@@ -1,7 +1,9 @@
 namespace Phundus.Rest.FileUpload
 {
+    using System;
     using System.Collections.Generic;
     using System.IO;
+    using System.Linq;
     using System.Web;
     using Common.Infrastructure;
     using Inventory.Application;
@@ -12,13 +14,18 @@ namespace Phundus.Rest.FileUpload
 
         public string DeleteUrl { get; set; }
 
+        private static string[] _imageTypes = new[] {"png", "jpg", "gif"};
+
         private BlueImpFileUploadJsonResult Create(string fileName, long length, string type, bool isPreview = false)
         {
+            var isImage = type.StartsWith("image/", StringComparison.InvariantCultureIgnoreCase) ||
+                          _imageTypes.Contains(type.ToLowerInvariant());
+            var thumbnailUrl = isImage ? ImageUrl + '/' + fileName + "?maxwidth=120&maxheight=80" : null;
             return new BlueImpFileUploadJsonResult
             {
                 deleteType = "DELETE",
                 deleteUrl = DeleteUrl + '/' + fileName,
-                thumbnailUrl = ImageUrl + '/' + fileName + "?maxwidth=120&maxheight=80",
+                thumbnailUrl = thumbnailUrl,
                 url = ImageUrl + '/' + fileName,
                 name = fileName,
                 size = length,
@@ -30,7 +37,7 @@ namespace Phundus.Rest.FileUpload
 
         public BlueImpFileUploadJsonResult Create(ImageData image)
         {
-            string fileName = System.IO.Path.GetFileName(image.FileName);
+            string fileName = System.IO.Path.GetFileName(image.FileName);            
             return Create(fileName, image.Length, image.Type, image.IsPreview);
         }
 
@@ -67,7 +74,7 @@ namespace Phundus.Rest.FileUpload
 
         private BlueImpFileUploadJsonResult Create(StoredFileInfo info)
         {
-            return Create(info.Name, info.Length, info.Extension);
+            return Create(info.Name, info.Length, info.Extension, false);
         }
 
         private BlueImpFileUploadJsonResult Create(string fileName)
