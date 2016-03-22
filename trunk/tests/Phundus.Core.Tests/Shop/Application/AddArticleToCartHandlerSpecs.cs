@@ -24,7 +24,7 @@
 
         private Establish ctx = () =>
         {
-            theArticle = make.Article();
+            theArticle = make.Product();
 
             var lesseeId = new LesseeId(theInitiatorId);
             depends.on<ILesseeService>()

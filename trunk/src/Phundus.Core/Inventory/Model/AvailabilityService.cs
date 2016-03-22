@@ -42,7 +42,6 @@
             if (article == null) throw new ArgumentNullException("article");
             if (period == null) throw new ArgumentNullException("period");
 
-
             var availabilities = GetAvailabilityDetails(article, orderLineIdToExclude);
 
             var inRange = availabilities.Where(p => p.FromUtc <= period.ToUtc).OrderByDescending(x => x.FromUtc);

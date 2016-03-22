@@ -69,7 +69,7 @@
         private Establish ctx = () =>
         {
             theOrderItemId = new OrderLineId();
-            theArticle = make.Article();
+            theArticle = make.Product();
             thePeriod = Period.FromNow(6);
             theQuantity = 10;
             theLineTotal = 1.23m;

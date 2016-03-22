@@ -14,11 +14,12 @@ namespace Phundus.Tests.Shop
         {
         }
 
-        public Article Article(Guid lessorId = default(Guid))
+        public Article Product(LessorId lessorId = null)
         {
-            lessorId = lessorId == default(Guid) ? Guid.NewGuid() : lessorId;
+            lessorId = lessorId ?? new LessorId();
+
             var shortId = new ArticleShortId(NextNumericId());
-            var article = new Article(shortId, new ArticleId(), Lessor(new LessorId(lessorId)), new StoreId(),
+            var article = new Article(shortId, new ArticleId(), Lessor(lessorId), new StoreId(),
                 "The article " + shortId.Id, 7.0m);
             return article;
         }

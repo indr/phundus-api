@@ -46,6 +46,12 @@ namespace Phundus.Shop.Model
 
         public virtual int Quantity { get; set; }
 
+        public virtual Period Period
+        {
+            get { return new Period(From, To); }
+        }
+
+
         public virtual DateTime From { get; set; }
 
         public virtual DateTime To { get; set; }
@@ -88,10 +94,11 @@ namespace Phundus.Shop.Model
             }
         }
 
-        public virtual Period Period
+        public LessorId LessorId
         {
-            get { return new Period(From, To); }
+            get { return Article.LessorId; }
         }
+
 
         public virtual void ChangeQuantity(int quantity)
         {

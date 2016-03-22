@@ -1,6 +1,8 @@
 ﻿namespace Phundus.Shop.Model
 {
     using System;
+    using System.Collections;
+    using System.Collections.Generic;
     using System.Linq;
     using Common.Domain.Model;
     using Iesi.Collections.Generic;    
@@ -8,7 +10,7 @@
 
     public class Cart : Aggregate<CartId>
     {
-        private ISet<CartItem> _items = new HashedSet<CartItem>();
+        private Iesi.Collections.Generic.ISet<CartItem> _items = new HashedSet<CartItem>();
         private UserId _userId;
 
         public Cart(UserId userId) : base(new CartId())
@@ -21,7 +23,7 @@
         {
         }
 
-        public virtual ISet<CartItem> Items
+        public virtual Iesi.Collections.Generic.ISet<CartItem> Items
         {
             get { return _items; }
             set { _items = value; }
@@ -38,7 +40,12 @@
             protected set { _userId = value; }
         }
 
-        public virtual CartItemId AddItem(CartItemId cartItemId, Article article, DateTime fromUtc, DateTime toUtc, int quantity)
+        public virtual CartItemId AddItem(Article product, Period period, int quantity)
+        {
+            return AddItem(new CartItemId(), product, period, quantity);
+        }
+
+        public virtual CartItemId AddItem(CartItemId cartItemId, Article article, Period period, int quantity)
         {
             var item = new CartItem(cartItemId);
             item.Position = 1;
@@ -46,8 +53,8 @@
                 item.Position = Items.Max(s => s.Position) + 1;
             item.Article = article;
             item.Quantity = quantity;
-            item.From = fromUtc;
-            item.To = toUtc;
+            item.From = period.FromUtc;
+            item.To = period.ToUtc;
 
             AddItem(item);
             return item.CartItemId;
@@ -90,6 +97,13 @@
 
             item.ChangeQuantity(quantity);
             item.ChangePeriod(fromUtc, toUtc);
+        }
+
+        public virtual ICollection<CartItem> TakeItems(LessorId lessorId)
+        {
+            var items = _items.Where(p => Equals(p.LessorId, lessorId)).ToList();
+            items.ForEach(RemoveItem);
+            return items;
         }
     }
 }

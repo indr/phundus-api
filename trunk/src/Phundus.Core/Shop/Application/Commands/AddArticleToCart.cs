@@ -36,16 +36,23 @@
         public UserId UserId { get; protected set; }
         public DateTime FromUtc { get; protected set; }
         public DateTime ToUtc { get; protected set; }
+
+        public Period Period
+        {
+            get { return new Period(FromUtc, ToUtc); }
+        }
+
         public int Quantity { get; protected set; }
     }
 
     public class AddArticleToCartHandler : IHandleCommand<AddArticleToCart>
     {
-        private readonly IProductsService _productsService;
         private readonly ICartRepository _cartRepository;
         private readonly ILesseeService _lesseeService;
+        private readonly IProductsService _productsService;
 
-        public AddArticleToCartHandler(ICartRepository cartRepository, ILesseeService lesseeService, IProductsService productsService)
+        public AddArticleToCartHandler(ICartRepository cartRepository, ILesseeService lesseeService,
+            IProductsService productsService)
         {
             _cartRepository = cartRepository;
             _lesseeService = lesseeService;
@@ -60,7 +67,7 @@
 
             var cart = GetCart(command);
 
-            cart.AddItem(command.CartItemId, article, command.FromUtc, command.ToUtc, command.Quantity);
+            cart.AddItem(command.CartItemId, article, command.Period, command.Quantity);
         }
 
         private Cart GetCart(AddArticleToCart command)
