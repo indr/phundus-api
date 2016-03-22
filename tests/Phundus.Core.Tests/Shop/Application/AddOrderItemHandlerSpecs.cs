@@ -21,7 +21,7 @@
             theOrder = make.Order(theLessor, theLessee);
             orderRepository.setup(x => x.GetById(theOrder.OrderId)).Return(theOrder);
 
-            theArticle = make.Article();
+            theArticle = make.Product();
             productsService.setup(x => x.GetById(theLessor.LessorId, theArticle.ArticleId, theLessee.LesseeId))
                 .Return(theArticle);
 

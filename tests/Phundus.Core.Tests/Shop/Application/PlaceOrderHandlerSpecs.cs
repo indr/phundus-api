@@ -34,10 +34,10 @@
 
         protected static CartItemId AddCartItem(LessorId lessorId)
         {
-            var anArticle = make.Article(lessorId.Id);
+            var anArticle = make.Product(lessorId);
             productsService.setup(x => x.GetById(anArticle.LessorId, anArticle.ArticleId, new LesseeId(theCart.UserId)))
                 .Return(anArticle);
-            return theCart.AddItem(new CartItemId(), anArticle, DateTime.UtcNow, DateTime.UtcNow.AddDays(1), 1);
+            return theCart.AddItem(new CartItemId(), anArticle, Period.FromNow(2), 1);
         }
     }
 

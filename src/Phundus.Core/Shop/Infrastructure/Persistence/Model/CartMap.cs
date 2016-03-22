@@ -11,7 +11,8 @@ namespace Phundus.Shop.Infrastructure.Persistence.Model
 
             Table("Dm_Shop_Cart");
 
-            CompositeId(x => x.Id).KeyProperty(kp => kp.Id, "CartGuid");
+            CompositeId(x => x.Id)
+                .KeyProperty(kp => kp.Id, "CartGuid");
             Version(x => x.Version);
 
             Component(x => x.UserId, a =>
