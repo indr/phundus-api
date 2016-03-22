@@ -1,5 +1,6 @@
 ﻿namespace Phundus.Tests.Shop.Model
 {
+    using System;
     using System.Collections.Generic;
     using System.Linq;
     using Common.Domain.Model;
@@ -78,6 +79,16 @@
 
         private It should_not_contain_the_removed_item = () =>
             sut.Items.ShouldNotContain(c => Equals(c.CartItemId, theCartItemId));
+    }
+
+    [Subject(typeof (Cart))]
+    public class when_trying_to_remove_an_non_existing_cart_item : cart_concern
+    {
+        private Because of = () => spec.catch_exception(() =>
+            sut.RemoveItem(new CartItemId()));
+
+        private It should_throw_invalid_operation_exception = () =>
+            spec.exception_thrown.ShouldBeOfExactType<InvalidOperationException>();
     }
 
     [Subject(typeof (Cart))]

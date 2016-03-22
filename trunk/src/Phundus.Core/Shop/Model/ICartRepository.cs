@@ -6,5 +6,7 @@
     {
         Cart GetByUserGuid(UserId userId);
         Cart FindByUserGuid(UserId userId);
+
+        void Save(Cart aggregate);
     }
 }

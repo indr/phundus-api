@@ -94,7 +94,7 @@ namespace Phundus.Shop.Model
             }
         }
 
-        public LessorId LessorId
+        public virtual LessorId LessorId
         {
             get { return Article.LessorId; }
         }
