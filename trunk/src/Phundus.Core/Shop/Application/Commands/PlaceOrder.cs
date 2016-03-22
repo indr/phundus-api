@@ -72,23 +72,15 @@
                 _productsService.GetById(lessor.LessorId, eachCartItem.ArticleId, lessee.LesseeId);
             }
 
-
             var orderLines = new OrderLines(cartItemsToPlace);
             var order = new Order(initiator, command.OrderId, command.OrderShortId, lessor, lessee, orderLines);
-
+            order.Place(initiator);
             _orderRepository.Add(order);
 
-            // TODO: 
             foreach (var each in cartItemsToPlace)
             {
                 cart.RemoveItem(each.CartItemId);
             }
-
-            // TODO: Move to method Order.Place();
-            EventPublisher.Publish(new OrderPlaced(initiator, order.OrderId, order.OrderShortId,
-                lessor, lessee, order.Status, order.OrderTotal, order.Lines.Select(s => new OrderEventLine(
-                    s.LineId, s.ArticleId, s.ArticleShortId, s.StoreId, s.Text, s.UnitPricePerWeek, s.Period, s.Quantity,
-                    s.LineTotal)).ToList()));
         }
     }
 }

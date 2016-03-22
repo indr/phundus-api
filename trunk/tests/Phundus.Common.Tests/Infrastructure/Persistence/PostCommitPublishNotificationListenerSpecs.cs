@@ -31,7 +31,7 @@
 
         protected static PostInsertEvent makePostInsertEvent(object entity)
         {
-            return new PostInsertEvent(storedEvent, null, null, null, null);
+            return new PostInsertEvent(entity, null, null, null, null);
         }
     }
 

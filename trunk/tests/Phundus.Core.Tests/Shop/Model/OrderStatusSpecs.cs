@@ -4,7 +4,6 @@
     using Machine.Specifications;    
     using Phundus.Shop.Model;
     using Phundus.Shop.Orders.Model;
-    using Shop.Orders.Model;
 
     public abstract class pending_order_concern : order_concern
     {
