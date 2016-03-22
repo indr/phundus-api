@@ -25,8 +25,8 @@
             theOrderShortId = new OrderShortId(1234);
 
             theCart = new Cart(theInitiatorId);
-            depends.on<ICartRepository>()
-                .WhenToldTo(x => x.GetByUserGuid(new UserId(theInitiatorId.Id)))
+            cartRepository = depends.on<ICartRepository>();
+            cartRepository.setup(x => x.GetByUserGuid(new UserId(theInitiatorId.Id)))
                 .Return(theCart);
 
             command = new PlaceOrder(theInitiatorId, theOrderId, theOrderShortId, theLessor.LessorId);
@@ -100,12 +100,15 @@
             theCartItemsToRemove.Add(AddCartItem(theLessor.LessorId));            
         };
 
-        private It should_add_to_repository_with_two_items =
-            () => orderRepository.WasToldTo(x => x.Add(Arg<Order>.Matches(p =>
+        private It should_add_to_repository_with_two_items = () =>
+            orderRepository.WasToldTo(x => x.Add(Arg<Order>.Matches(p =>
                 p.Lines.Count == 2
                 && p.MutatingEvents.Count == 2)));
 
-        private It should_tell_cart_to_remove_items =
-            () => theCart.Items.ShouldNotContain(c => theCartItemsToRemove.Contains(c.CartItemId));
+        private It should_tell_cart_to_remove_items = () =>
+            theCart.Items.ShouldNotContain(c => theCartItemsToRemove.Contains(c.CartItemId));
+
+        private It should_save_cart = () =>
+            cartRepository.received(x => x.Save(theCart));
     }
 }

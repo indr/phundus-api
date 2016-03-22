@@ -26,5 +26,10 @@
                 select c;
             return query.SingleOrDefault();
         }
+
+        public void Save(Cart aggregate)
+        {
+            Session.SaveOrUpdate(aggregate);
+        }
     }
 }

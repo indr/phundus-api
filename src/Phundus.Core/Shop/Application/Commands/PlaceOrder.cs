@@ -59,28 +59,24 @@
             var cart = _cartRepository.GetByUserGuid(new UserId(command.InitiatorId.Id));
             AssertionConcern.AssertArgumentFalse(cart.IsEmpty, "Your cart is empty, there is no order to place.");
 
-            var cartItemsToPlace = cart.Items.Where(p => Equals(p.Article.LessorId, command.LessorId)).ToList();
-            AssertionConcern.AssertArgumentGreaterThan(cartItemsToPlace.Count, 0,
+            var items = cart.TakeItems(command.LessorId);
+            AssertionConcern.AssertArgumentGreaterThan(items.Count, 0,
                 String.Format("The cart does not contain items belonging to the lessor {0}.", command.LessorId));
 
             var initiator = _collaboratorService.Initiator(command.InitiatorId);
             var lessor = _lessorService.GetById(command.LessorId);
             var lessee = _lesseeService.GetById(new LesseeId(command.InitiatorId.Id));
 
-            foreach (var eachCartItem in cartItemsToPlace)
+            foreach (var eachCartItem in items)
             {
                 _productsService.GetById(lessor.LessorId, eachCartItem.ArticleId, lessee.LesseeId);
             }
 
-            var orderLines = new OrderLines(cartItemsToPlace);
+            var orderLines = new OrderLines(items);
             var order = new Order(initiator, command.OrderId, command.OrderShortId, lessor, lessee, orderLines);
             order.Place(initiator);
             _orderRepository.Add(order);
-
-            foreach (var each in cartItemsToPlace)
-            {
-                cart.RemoveItem(each.CartItemId);
-            }
+            _cartRepository.Save(cart);
         }
     }
 }

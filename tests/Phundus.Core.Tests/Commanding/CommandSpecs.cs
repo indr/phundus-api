@@ -9,7 +9,7 @@
     [Subject("Command handler properties")]
     public class every_command_should
     {
-        private static Dictionary<PropertyInfo, string> propertiesWithoutProtectedSetter;
+        private static Dictionary<PropertyInfo, string> propertiesWithPublicSetter;
 
         private Establish ctx = () =>
         {
@@ -17,17 +17,17 @@
                 .Where(p => !p.IsAbstract)
                 .Where(p => typeof (ICommand).IsAssignableFrom(p));
 
-            propertiesWithoutProtectedSetter = commands
+            propertiesWithPublicSetter = commands
                 .SelectMany(s => s.GetProperties(BindingFlags.SetProperty | BindingFlags.Instance
                                                  | BindingFlags.Public | BindingFlags.NonPublic))
-                .Where(p => !HasProtectedSetter(p))
+                .Where(p => HasPublicOrPrivateSetter(p))
                 .ToDictionary(p => p, p => p.DeclaringType.Name);
         };
 
         private It should_have_only_protected_setter = () =>
-            propertiesWithoutProtectedSetter.ShouldBeEmpty();
+            propertiesWithPublicSetter.ShouldBeEmpty();
 
-        private static bool HasProtectedSetter(PropertyInfo arg)
+        private static bool HasPublicOrPrivateSetter(PropertyInfo arg)
         {
             if (!arg.CanWrite)
                 return false;
@@ -35,7 +35,7 @@
             if (info == null)
                 return false;
 
-            return !info.IsPrivate && !info.IsPublic;
+            return info.IsPrivate || info.IsPublic;
         }
     }
 }
