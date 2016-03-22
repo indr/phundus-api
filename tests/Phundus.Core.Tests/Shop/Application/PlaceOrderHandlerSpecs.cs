@@ -101,12 +101,9 @@
         };
 
         private It should_add_to_repository_with_two_items =
-            () => orderRepository.WasToldTo(x => x.Add(Arg<Order>.Matches(p => p.Lines.Count == 2)));
-
-        private It should_publish_order_placed = () =>
-            published<OrderPlaced>(p =>
-                Equals(p.Initiator, theInitiator.ToActor())
-                && p.LessorId == theLessor.LessorId.Id);
+            () => orderRepository.WasToldTo(x => x.Add(Arg<Order>.Matches(p =>
+                p.Lines.Count == 2
+                && p.MutatingEvents.Count == 2)));
 
         private It should_tell_cart_to_remove_items =
             () => theCart.Items.ShouldNotContain(c => theCartItemsToRemove.Contains(c.CartItemId));

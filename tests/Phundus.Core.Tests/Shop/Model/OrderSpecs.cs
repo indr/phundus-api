@@ -1,4 +1,4 @@
-﻿namespace Phundus.Tests.Shop.Orders.Model
+﻿namespace Phundus.Tests.Shop.Model
 {
     using System;
     using Common.Domain.Model;
@@ -89,5 +89,16 @@
                 && p.OrderTotal == theLineTotal
                 && p.OrderLine.LineId == theOrderItemId.Id
                 && p.OrderLine.LineTotal == theLineTotal);
+    }
+
+    [Subject(typeof (Order))]
+    public class when_placing_an_order : order_concern
+    {
+        private Because of = () =>
+            sut.Place(theInitiator);
+
+        private It should_have_mutating_event_order_placed = () =>
+            mutatingEvent<OrderPlaced>(p =>
+                p.OrderId == theOrderId.Id);
     }
 }

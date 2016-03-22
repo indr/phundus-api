@@ -61,6 +61,20 @@
             _orderLines = new OrderLines(e.Lines);
         }
 
+
+        public virtual void Place(Initiator initiator)
+        {
+            AssertPending();
+
+            Apply(new OrderPlaced(initiator, OrderId, OrderShortId,
+                Lessor, Lessee, Status, OrderTotal, CreateOrderEventItems(_orderLines)));
+        }
+
+        protected void When(OrderPlaced e)
+        {
+        }
+
+
         public virtual void Reject(Manager manager)
         {
             if (Status == OrderStatus.Closed)
