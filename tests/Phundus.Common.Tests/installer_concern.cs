@@ -2,6 +2,7 @@
 {
     using Castle.Facilities.TypedFactory;
     using Castle.MicroKernel.Registration;
+    using Castle.MicroKernel.SubSystems.Configuration;
     using Castle.Windsor;
     using developwithpassion.specifications.rhinomocks;
     using Injecting;
@@ -39,12 +40,14 @@
     public class container_concern : Observes
     {
         protected static WindsorContainer container;
+        protected static IConfigurationStore configurationStore;
 
         private Cleanup cleanup = () =>
             container.Dispose();
 
         private Establish ctx = () =>
         {
+            configurationStore = fake.an<IConfigurationStore>();
             container = new WindsorContainer();
             container.AddFacility<TypedFactoryFacility>();
         };
@@ -76,11 +79,9 @@
             new TInstaller().Install(container, typeof (TTypeOfAssembly).Assembly);
     }
 
-    public class windsor_installer_concern<TInstaller> : installer_concern
-        where TInstaller : IWindsorInstaller, new()
+    public class windsor_installer_concern<TInstaller> : container_concern where TInstaller : IWindsorInstaller, new()
     {
-
         private Because of = () =>
-            container.Install(new TInstaller());
+            new TInstaller().Install(container, configurationStore);
     }
 }

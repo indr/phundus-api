@@ -8,16 +8,23 @@ namespace Phundus.Common.Infrastructure.Persistence.Installers
     using FluentNHibernate.Cfg;
     using NHibernate;
     using NHibernate.Cfg;
+    using NHibernate.Event;
     using NHibernate.Tool.hbm2ddl;
     using Notifications;
 
     public class NHibernateInstaller : INHibernateInstaller
     {
+        private static string _fileName;
         private readonly Maybe<IInterceptor> _interceptor;
 
-        public NHibernateInstaller()
+        public NHibernateInstaller() : this(null)
+        {
+        }
+
+        public NHibernateInstaller(string cfgOutputFileName)
         {
             _interceptor = Maybe.None<IInterceptor>();
+            _fileName = cfgOutputFileName ?? HttpContext.Current.Server.MapPath(@"~\App_Data\SchemaUpdate.sql");
         }
 
         public FluentConfiguration BuildFluent()
@@ -28,7 +35,11 @@ namespace Phundus.Common.Infrastructure.Persistence.Installers
                     m.FluentMappings.AddFromAssembly(Assembly.GetExecutingAssembly());
                     m.FluentMappings.AddFromAssembly(Assembly.GetAssembly(typeof (ProcessedNotificationTrackerStore)));
                 })
-                .ExposeConfiguration(WriteConfiguration);
+                .ExposeConfiguration(cfg =>
+                {
+                    ChangeExposedConfiguration(cfg);
+                    WriteConfiguration(cfg);
+                });
             return result;
         }
 
@@ -51,14 +62,22 @@ namespace Phundus.Common.Infrastructure.Persistence.Installers
             get { return _interceptor; }
         }
 
+        public static void ChangeExposedConfiguration(Configuration cfg)
+        {
+            cfg.AppendListeners(ListenerType.PostCommitInsert,
+                new IPostInsertEventListener[] {new PostCommitPublishNotificationListener()});
+        }
+
         private static void WriteConfiguration(Configuration cfg)
         {
-            var fileName = HttpContext.Current.Server.MapPath(@"~\App_Data\SchemaUpdate.sql");
-
-            using (var writer = new StreamWriter(fileName, false))
+            using (var writer = new StreamWriter(_fileName, false))
             {
                 new SchemaUpdate(cfg).Execute(writer.WriteLine, true);
             }
         }
+    }
+
+    public class NHibernateSchemaUpdateWriter
+    {
     }
 }

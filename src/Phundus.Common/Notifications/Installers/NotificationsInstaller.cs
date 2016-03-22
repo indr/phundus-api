@@ -16,6 +16,7 @@ namespace Phundus.Common.Notifications.Installers
             container.Register(Component.For<INotificationPublisher>()
                 //.ImplementedBy<InThreadNotificationPublisher>());
                 .ImplementedBy<BusNotificationPublisher>());
+            NotificationPublisher.Factory(container.Resolve<INotificationPublisher>);
 
             container.Register(
                 Component.For<INotificationHandlerFactory>().AsFactory());
