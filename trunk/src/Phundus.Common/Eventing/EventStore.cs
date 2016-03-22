@@ -4,7 +4,6 @@
     using System.Collections.Generic;
     using System.Linq;
     using Domain.Model;
-    using Notifications;
 
     public interface IEventStore
     {
@@ -21,13 +20,11 @@
     public class EventStore : IEventStore
     {
         private readonly IEventSerializer _eventSerializer;
-        private readonly INotificationPublisher _notificationPublisher;
         private readonly IStoredEventRepository _storedEventRepository;
 
-        public EventStore(INotificationPublisher notificationPublisher, IStoredEventRepository storedEventRepository,
+        public EventStore(IStoredEventRepository storedEventRepository,
             IEventSerializer eventSerializer)
-        {            
-            _notificationPublisher = notificationPublisher;
+        {
             _storedEventRepository = storedEventRepository;
             _eventSerializer = eventSerializer;
         }
@@ -35,17 +32,13 @@
         public void Append(DomainEvent domainEvent)
         {
             var storedEvent = Serialize(domainEvent);
-            _storedEventRepository.Append(storedEvent);
-
-            _notificationPublisher.PublishNotification(storedEvent, Deserialize);
+            _storedEventRepository.Append(storedEvent);            
         }
 
         public void AppendToStream(GuidIdentity id, int version, ICollection<IDomainEvent> events)
         {
             var storedEvents = Serialize(events, id.Id, version);
-            _storedEventRepository.Append(storedEvents, id.Id, version - 1);
-
-            _notificationPublisher.PublishNotification(storedEvents, Deserialize);
+            _storedEventRepository.Append(storedEvents, id.Id, version - 1);            
         }
 
         public IEnumerable<StoredEvent> AllStoredEventsBetween(long lowStoredEventId, long highStoredEventId)

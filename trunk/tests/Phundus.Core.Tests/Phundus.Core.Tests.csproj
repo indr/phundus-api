@@ -153,6 +153,7 @@
     <Compile Include="Inventory\Projections\inventory_projection_concern.cs" />
     <Compile Include="Inventory\Projections\StoreListProjectionSpecs.cs" />
     <Compile Include="MappedEntitiesSpecs.cs" />
+    <Compile Include="NHibernateInstallerSpecs.cs" />
     <Compile Include="projection_concern.cs" />
     <Compile Include="Inventory\Projections\StoreDetailsProjectionSpecs.cs" />
     <Compile Include="mail_concern.cs" />
