@@ -4,6 +4,7 @@ namespace Phundus.Tests
     using System.Linq.Expressions;
     using Common.Domain.Model;
     using Common.Eventing;
+    using developwithpassion.specifications.extensions;
     using developwithpassion.specifications.rhinomocks;
     using Machine.Fakes;
     using Machine.Specifications;
@@ -15,7 +16,8 @@ namespace Phundus.Tests
         protected static InitiatorId theInitiatorId;
         protected static Initiator theInitiator;
 
-        private Cleanup cleanup = () => EventPublisher.Factory(null);
+        private Cleanup cleanup = () =>
+            EventPublisher.Factory(null);
 
         private Establish ctx = () =>
         {
@@ -29,16 +31,14 @@ namespace Phundus.Tests
         protected static IMethodCallOccurrence published<T>(Expression<Predicate<T>> eventPredicate)
             where T : DomainEvent
         {
-            return publisher.WasToldTo(x =>
+            return publisher.received(x =>
                 x.Publish(Arg<T>.Matches(eventPredicate)));
         }
 
         protected static void NotPublished<T>() where T : DomainEvent
         {
-            publisher.WasNotToldTo(x =>
+            publisher.never_received(x =>
                 x.Publish(Arg<T>.Is.Anything));
         }
-
-        
     }
 }

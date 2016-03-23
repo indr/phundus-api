@@ -336,6 +336,7 @@
     <Compile Include="Shop\Model\Collaborators\ICollaboratorService.cs" />
     <Compile Include="Shop\Model\OrderPdf.cs" />
     <Compile Include="Shop\Model\Orders\OrderPdfStore.cs" />
+    <Compile Include="Shop\Model\Orders\PlaceOrderService.cs" />
     <Compile Include="Shop\Model\Products\IProductsService.cs" />
     <Compile Include="Shop\Model\ILesseeService.cs" />
     <Compile Include="Shop\Model\ILessorService.cs" />
