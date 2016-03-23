@@ -19,16 +19,16 @@
     [RoutePrefix("/api/sessions")]
     public class SessionsController : ApiControllerBase
     {
-        private readonly IMembershipQueries _membershipQueries;
+        private readonly IMembershipQueryService _membershipQueryService;
         private readonly IUserQueryService _userQueryService;
 
-        public SessionsController(IUserQueryService userQueryService, IMembershipQueries membershipQueries)
+        public SessionsController(IUserQueryService userQueryService, IMembershipQueryService membershipQueryService)
         {
             if (userQueryService == null) throw new ArgumentNullException("userQueryService");
-            if (membershipQueries == null) throw new ArgumentNullException("membershipQueries");
+            if (membershipQueryService == null) throw new ArgumentNullException("membershipQueryService");
 
             _userQueryService = userQueryService;
-            _membershipQueries = membershipQueries;
+            _membershipQueryService = membershipQueryService;
         }
 
         [POST("")]
@@ -45,7 +45,7 @@
 
             var user = _userQueryService.FindByUsername(requestContent.Username);
 
-            var memberships = _membershipQueries.FindByUserId(user.UserId)
+            var memberships = _membershipQueryService.FindByUserId(user.UserId)
                 .Select(each => new Memberships
                 {
                     IsManager = each.MembershipRole == "Manager",

@@ -13,11 +13,11 @@ namespace Phundus.Rest.Api
     [RoutePrefix("api/orders/{orderId}/items")]
     public class OrdersItemsController : ApiControllerBase
     {
-        private readonly IAvailabilityService _availabilityService;
+        private readonly IAvailabilityQueryService _availabilityQueryService;
 
-        public OrdersItemsController(IAvailabilityService availabilityService)
+        public OrdersItemsController(IAvailabilityQueryService availabilityQueryService)
         {
-            _availabilityService = availabilityService;
+            _availabilityQueryService = availabilityQueryService;
         }
 
         [POST("")]
@@ -29,7 +29,7 @@ namespace Phundus.Rest.Api
             Dispatch(new AddOrderItem(CurrentUserId, new OrderId(orderId), orderLineId, articleId,
                 new Period(rq.FromUtc, rq.ToUtc), rq.Quantity, rq.LineTotal));
 
-            var isAvailable = _availabilityService.IsArticleAvailable(articleId, rq.FromUtc, rq.ToUtc, rq.Quantity,
+            var isAvailable = _availabilityQueryService.IsArticleAvailable(articleId, rq.FromUtc, rq.ToUtc, rq.Quantity,
                 orderLineId);
 
             return Created(new PostCreatedResponseContent {OrderLineId = orderLineId.Id, IsAvailable = isAvailable});

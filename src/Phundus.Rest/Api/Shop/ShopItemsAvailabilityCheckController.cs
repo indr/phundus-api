@@ -4,7 +4,6 @@
     using System.Web.Http;
     using AttributeRouting;
     using AttributeRouting.Web.Http;
-    using Castle.Transactions;
     using Common.Domain.Model;
     using Common.Resources;
     using Inventory.Application;
@@ -13,20 +12,20 @@
     [RoutePrefix("api/shop/items/{itemId}/availability-check")]
     public class ShopItemsAvailabilityCheckController : ApiControllerBase
     {
-        private readonly IAvailabilityService _availabilityService;
+        private readonly IAvailabilityQueryService _availabilityQueryService;
 
-        public ShopItemsAvailabilityCheckController(IAvailabilityService availabilityService)
+        public ShopItemsAvailabilityCheckController(IAvailabilityQueryService availabilityQueryService)
         {
-            if (availabilityService == null) throw new ArgumentNullException("availabilityService");
-            _availabilityService = availabilityService;
+            _availabilityQueryService = availabilityQueryService;
         }
 
-        [POST("")]        
+        [POST("")]
         [AllowAnonymous]
         public virtual ShopItemsAvailabilityCheckOkResponseContent Post(Guid itemId,
             ShopItemsAvailabilityCheckRequestContent requestContent)
         {
-            var isAvailable = _availabilityService.IsArticleAvailable(new ArticleId(requestContent.ItemId), requestContent.FromUtc,
+            var isAvailable = _availabilityQueryService.IsArticleAvailable(new ArticleId(requestContent.ItemId),
+                requestContent.FromUtc,
                 requestContent.ToUtc, requestContent.Quantity);
 
             return new ShopItemsAvailabilityCheckOkResponseContent {IsAvailable = isAvailable};

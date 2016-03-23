@@ -18,18 +18,18 @@
     [RoutePrefix("api/orders")]
     public class OrdersController : ApiControllerBase
     {
-        private readonly IMembershipQueries _membershipQueries;
+        private readonly IMembershipQueryService _membershipQueryService;
         private readonly IOrderPdfService _orderPdfService;
         private readonly IOrderQueryService _orderQueryService;
         private readonly IShortIdGeneratorService _shortIdGeneratorService;
 
         public OrdersController(IOrderQueryService orderQueryService, IOrderPdfService orderPdfService,
-            IShortIdGeneratorService shortIdGeneratorService, IMembershipQueries membershipQueries)
+            IShortIdGeneratorService shortIdGeneratorService, IMembershipQueryService membershipQueryService)
         {
             _orderQueryService = orderQueryService;
             _orderPdfService = orderPdfService;
             _shortIdGeneratorService = shortIdGeneratorService;
-            _membershipQueries = membershipQueries;
+            _membershipQueryService = membershipQueryService;
         }
 
         [GET("")]
@@ -54,7 +54,7 @@
         public virtual HttpResponseMessage Get(Guid orderId)
         {
             var order = _orderQueryService.GetById(CurrentUserId, new OrderId(orderId));
-            var membership = _membershipQueries.Find(order.LessorId, order.LesseeId);
+            var membership = _membershipQueryService.Find(order.LessorId, order.LesseeId);
 
             var result = Map<OrderDetail>(order);
             result.IsMember = membership != null;

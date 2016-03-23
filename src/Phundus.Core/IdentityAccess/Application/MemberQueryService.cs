@@ -15,26 +15,26 @@
 
     public class MembersProjection : QueryServiceBase, IMemberQueryService
     {
-        private readonly IMembershipQueries _membershipQueries;
+        private readonly IMembershipQueryService _membershipQueryService;
         private readonly IUserQueryService _userQueries;
 
-        public MembersProjection(IMembershipQueries membershipQueries, IUserQueryService userQueries)
+        public MembersProjection(IMembershipQueryService membershipQueryService, IUserQueryService userQueries)
         {
-            if (membershipQueries == null) throw new ArgumentNullException("membershipQueries");
+            if (membershipQueryService == null) throw new ArgumentNullException("membershipQueryService");
             if (userQueries == null) throw new ArgumentNullException("userQueries");
-            _membershipQueries = membershipQueries;
+            _membershipQueryService = membershipQueryService;
             _userQueries = userQueries;
         }
 
         public IList<MemberData> FindByOrganizationId(Guid organizationId)
         {
-            var memberships = _membershipQueries.FindByOrganizationId(organizationId);
+            var memberships = _membershipQueryService.FindByOrganizationId(organizationId);
             return ToMemberData(memberships);
         }
 
         public IEnumerable<MemberData> Query(CurrentUserId currentUserId, Guid queryOrganizationId, string queryFullName)
         {
-            var memberships = _membershipQueries.FindByOrganizationId(queryOrganizationId);
+            var memberships = _membershipQueryService.FindByOrganizationId(queryOrganizationId);
             return ToMemberData(memberships, queryFullName);
         }
 
