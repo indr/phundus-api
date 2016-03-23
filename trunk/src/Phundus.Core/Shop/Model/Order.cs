@@ -79,6 +79,7 @@
 
         protected void When(OrderPlaced e)
         {
+            // Until 23.03.2016 OrderPlaced events we're single events and not part of the aggregate. You should update the Stream name / Aggregate id.
         }
 
 

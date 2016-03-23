@@ -49,6 +49,11 @@
             theCartItems.Add(cartItem);
             return cartItem;
         }
+
+        protected static Order sutPlaceOrder()
+        {
+            return sut.PlaceOrder(theOrderId, theOrderShortId, theLessor, theLessee, theCartItems);
+        }
     }
 
     [Subject(typeof (PlaceOrderService))]
@@ -65,7 +70,7 @@
         };
 
         private Because of = () =>
-            result = sut.PlaceOrder(theActor, theOrderId, theOrderShortId, theLessor, theLessee, theCartItems);
+            result = sutPlaceOrder();
 
         private It should_return_order_with_mutating_event_order_created = () =>
             result.MutatingEvents.ShouldContain(c => c.GetType() == typeof (OrderCreated));
@@ -81,7 +86,7 @@
     public class when_trying_to_place_with_empty_items : place_order_service_concern
     {
         private Because of = () => spec.catch_exception(() =>
-            sut.PlaceOrder(theActor, theOrderId, theOrderShortId, theLessor, theLessee, new CartItem[0]));
+            sutPlaceOrder());
 
         private It should_throw_exception_message = () =>
             spec.exception_thrown.Message.ShouldEqual("Cart items must not be empty.");
@@ -102,7 +107,7 @@
         };
 
         private Because of = () => spec.catch_exception(() =>
-            sut.PlaceOrder(theActor, theOrderId, theOrderShortId, theLessor, theLessee, theCartItems));
+            sutPlaceOrder());
 
         private It should_throw_exception_message = () =>
             spec.exception_thrown.Message.ShouldEqual("The cart item price is out of date.");
@@ -124,7 +129,7 @@
         };
 
         private Because of = () => spec.catch_exception(() =>
-            sut.PlaceOrder(theActor, theOrderId, theOrderShortId, theLessor, theLessee, theCartItems));
+            sutPlaceOrder());
 
         private It should_throw_exception_message = () =>
             spec.exception_thrown.Message.ShouldEqual("The cart item text is out of date.");
@@ -145,7 +150,7 @@
         };
 
         private Because of = () => spec.catch_exception(() =>
-            sut.PlaceOrder(theActor, theOrderId, theOrderShortId, theLessor, theLessee, theCartItems));
+            sutPlaceOrder());
 
         private It should_throw_exception_message = () =>
             spec.exception_thrown.Message.ShouldMatch("Product service exception.");

@@ -8,7 +8,7 @@
     using Common.Domain.Model;
     using Common.Eventing;
     using Model;
-    using Model.Collaborators;
+    using Model.Orders;
     using Model.Products;
     using Orders.Model;
 
@@ -36,16 +36,13 @@
     {
         private readonly IProductsService _productsService;
         private readonly ICartRepository _cartRepository;
-        private readonly ICollaboratorService _collaboratorService;
         private readonly ILesseeService _lesseeService;
         private readonly ILessorService _lessorService;
         private readonly IOrderRepository _orderRepository;
 
-        public PlaceOrderHandler(ICollaboratorService collaboratorService,
-            ICartRepository cartRepository, IOrderRepository orderRepository,
+        public PlaceOrderHandler(ICartRepository cartRepository, IOrderRepository orderRepository,
             ILessorService lessorService, ILesseeService lesseeService, IProductsService productsService)
         {
-            _collaboratorService = collaboratorService;
             _cartRepository = cartRepository;
             _orderRepository = orderRepository;
             _lessorService = lessorService;
@@ -63,18 +60,12 @@
             AssertionConcern.AssertArgumentGreaterThan(items.Count, 0,
                 String.Format("The cart does not contain items belonging to the lessor {0}.", command.LessorId));
 
-            var initiator = _collaboratorService.Initiator(command.InitiatorId);
             var lessor = _lessorService.GetById(command.LessorId);
             var lessee = _lesseeService.GetById(new LesseeId(command.InitiatorId.Id));
 
-            foreach (var eachCartItem in items)
-            {
-                _productsService.GetById(lessor.LessorId, eachCartItem.ArticleId, lessee.LesseeId);
-            }
+            var order = new PlaceOrderService(_productsService).PlaceOrder(command.OrderId, command.OrderShortId, lessor,
+                lessee, items);
 
-            var orderLines = new OrderLines(items);
-            var order = new Order(command.OrderId, command.OrderShortId, lessor, lessee, orderLines);
-            order.Place(initiator);
             _orderRepository.Add(order);
             _cartRepository.Save(cart);
         }
