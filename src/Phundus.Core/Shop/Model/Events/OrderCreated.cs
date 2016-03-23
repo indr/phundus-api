@@ -9,7 +9,7 @@ namespace Phundus.Shop.Orders.Model
     [DataContract]
     public class OrderCreated : DomainEvent
     {
-        public OrderCreated(Initiator initiator, OrderId orderId, OrderShortId orderShortId, Lessor lessor, Lessee lessee, OrderStatus orderStatus,
+        public OrderCreated(Actor initiator, OrderId orderId, OrderShortId orderShortId, Lessor lessor, Lessee lessee, OrderStatus orderStatus,
             decimal orderTotal, IList<OrderEventLine> orderLines = null)
         {
             if (initiator == null) throw new ArgumentNullException("initiator");
@@ -18,7 +18,7 @@ namespace Phundus.Shop.Orders.Model
             if (lessor == null) throw new ArgumentNullException("lessor");
             if (lessee == null) throw new ArgumentNullException("lessee");
 
-            Initiator = initiator.ToActor();
+            Initiator = initiator;
             OrderShortId = orderShortId.Id;
             OrderId = orderId.Id;
             Lessor = lessor;

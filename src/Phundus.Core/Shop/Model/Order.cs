@@ -3,6 +3,7 @@
     using System;
     using System.Collections.Generic;
     using System.Linq;
+    using Common;
     using Common.Domain.Model;
     using Products;
     using Shop.Orders.Model;
@@ -12,16 +13,14 @@
         private OrderLines _orderLines;
 
         public Order(Manager manager, OrderId orderId, OrderShortId orderShortId, Lessor lessor, Lessee lessee)
-            : this(new Initiator(new InitiatorId(manager.UserId.Id), manager.EmailAddress, manager.FullName),
-                orderId, orderShortId, lessor, lessee)
         {
+            CreateOrder(manager.ToActor(), orderId, orderShortId, lessor, lessee);
         }
 
-        public Order(Initiator initiator, OrderId orderId, OrderShortId orderShortId, Lessor lessor, Lessee lessee,
-            OrderLines orderLines = null)
+        public Order(OrderId orderId, OrderShortId orderShortId, Lessor lessor, Lessee lessee, OrderLines orderLines)
         {
-            Apply(new OrderCreated(initiator, orderId, orderShortId, lessor, lessee, OrderStatus.Pending,
-                orderLines == null ? 0.0m : orderLines.GetOrderLinesSum(), CreateOrderEventItems(orderLines)));
+            CreateOrder(new Actor(lessee.LesseeId.Id, lessee.EmailAddress, lessee.FullName),
+                orderId, orderShortId, lessor, lessee, orderLines);
         }
 
         protected Order()
@@ -50,6 +49,13 @@
             get { return _orderLines.Lines; }
         }
 
+
+        private void CreateOrder(Actor initiator, OrderId orderId, OrderShortId orderShortId, Lessor lessor, Lessee lessee, OrderLines orderLines = null)
+        {
+            Apply(new OrderCreated(initiator, orderId, orderShortId, lessor, lessee, OrderStatus.Pending,
+               orderLines == null ? 0.0m : orderLines.GetOrderLinesSum(), CreateOrderEventItems(orderLines)));
+        }
+
         protected void When(OrderCreated e)
         {
             OrderId = new OrderId(e.OrderId);
@@ -62,11 +68,13 @@
         }
 
 
-        public virtual void Place(Initiator initiator)
+        public virtual void Place()
         {
             AssertPending();
+            AssertionConcern.AssertStateFalse(_orderLines.IsEmpty, "An empty order can not be placed.");
 
-            Apply(new OrderPlaced(initiator, OrderId, OrderShortId,
+            var actor = new Initiator(new UserId(Lessee.LesseeId.Id), Lessee.EmailAddress, Lessee.FullName);
+            Apply(new OrderPlaced(actor, OrderId, OrderShortId,
                 Lessor, Lessee, Status, OrderTotal, CreateOrderEventItems(_orderLines)));
         }
 

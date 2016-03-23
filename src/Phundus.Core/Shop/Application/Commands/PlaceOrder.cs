@@ -73,8 +73,8 @@
             }
 
             var orderLines = new OrderLines(items);
-            var order = new Order(initiator, command.OrderId, command.OrderShortId, lessor, lessee, orderLines);
-            order.Place(initiator);
+            var order = new Order(command.OrderId, command.OrderShortId, lessor, lessee, orderLines);
+            order.Place();
             _orderRepository.Add(order);
             _cartRepository.Save(cart);
         }

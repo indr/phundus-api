@@ -34,7 +34,6 @@
         public AggregateNotFoundException(string name, GuidIdentity id)
             : base(String.Format("Aggregate {0} {1} not found.", name, id))
         {
-            
         }
     }
 }
