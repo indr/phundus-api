@@ -74,7 +74,7 @@
 
             var orderLines = new OrderLines(items);
             var order = new Order(command.OrderId, command.OrderShortId, lessor, lessee, orderLines);
-            order.Place();
+            order.Place(initiator);
             _orderRepository.Add(order);
             _cartRepository.Save(cart);
         }

@@ -22,7 +22,10 @@
 
             ValidateCartItems(lessor.LessorId, lessee.LesseeId, cartItems);
 
-            return new Order(orderId, orderShortId, lessor, lessee, null);
+            var orderLines = new OrderLines(cartItems);
+            var order = new Order(orderId, orderShortId, lessor, lessee, orderLines);
+            order.Place(new Initiator(new UserId(lessee.LesseeId.Id), lessee.EmailAddress, lessee.FullName));
+            return order;
         }
 
         private void ValidateCartItems(LessorId lessorId, LesseeId lesseeId, IEnumerable<CartItem> cartItems)

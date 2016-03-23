@@ -68,13 +68,12 @@
         }
 
 
-        public virtual void Place()
+        public virtual void Place(Initiator initiator)
         {
             AssertPending();
             AssertionConcern.AssertStateFalse(_orderLines.IsEmpty, "An empty order can not be placed.");
 
-            var actor = new Initiator(new UserId(Lessee.LesseeId.Id), Lessee.EmailAddress, Lessee.FullName);
-            Apply(new OrderPlaced(actor, OrderId, OrderShortId,
+            Apply(new OrderPlaced(initiator, OrderId, OrderShortId,
                 Lessor, Lessee, Status, OrderTotal, CreateOrderEventItems(_orderLines)));
         }
 

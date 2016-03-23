@@ -72,6 +72,9 @@
 
         private It should_return_order_with_mutating_event_order_placed = () =>
             result.MutatingEvents.ShouldContain(c => c.GetType() == typeof (OrderPlaced));
+
+        private It should_have_order_lines = () =>
+            result.Lines.ShouldNotBeEmpty();
     }
 
     [Subject(typeof (PlaceOrderService))]

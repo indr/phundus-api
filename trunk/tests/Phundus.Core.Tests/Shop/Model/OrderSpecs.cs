@@ -99,7 +99,7 @@
                 sut.AddItem(theManager, new OrderLineId(), make.Product(), Period.FromNow(1), 2, 3.00m));
 
         private Because of = () =>
-            sut.Place();
+            sut.Place(theInitiator);
 
         private It should_have_mutating_event_order_placed = () =>
             mutatingEvent<OrderPlaced>(p =>
@@ -110,7 +110,7 @@
     public class when_trying_to_place_an_empty_order : order_concern
     {
         private Because of = () => spec.catch_exception(() =>
-            sut.Place());
+            sut.Place(theInitiator));
 
         private It should_throw_invalid_operation_exception = () =>
             spec.exception_thrown.ShouldBeOfExactType<InvalidOperationException>();
