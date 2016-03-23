@@ -22,13 +22,13 @@ namespace Phundus.Shop.Application
 
     public class OrderQueryService : QueryServiceBase<OrderData>, IOrderQueryService
     {
-        private readonly IAvailabilityService _availabilityService;
-        private readonly IMembershipQueries _membershipQueries;
+        private readonly IAvailabilityQueryService _availabilityQueryService;
+        private readonly IMembershipQueryService _membershipQueryService;
 
-        public OrderQueryService(IMembershipQueries membershipQueries, IAvailabilityService availabilityService)
+        public OrderQueryService(IMembershipQueryService membershipQueryService, IAvailabilityQueryService availabilityQueryService)
         {
-            _membershipQueries = membershipQueries;
-            _availabilityService = availabilityService;
+            _membershipQueryService = membershipQueryService;
+            _availabilityQueryService = availabilityQueryService;
         }
 
         public OrderData GetById(InitiatorId initiatorId, OrderId orderId)
@@ -66,7 +66,7 @@ namespace Phundus.Shop.Application
 
         private void AddAuthFilter(IQueryOver<OrderData, OrderData> query, InitiatorId initiatorId)
         {
-            var organizationIds = _membershipQueries.FindByUserId(initiatorId.Id)
+            var organizationIds = _membershipQueryService.FindByUserId(initiatorId.Id)
                 .Where(p => p.MembershipRole == "Manager")
                 .Select(s => s.OrganizationGuid).ToList();
 
@@ -105,7 +105,7 @@ namespace Phundus.Shop.Application
 
             foreach (var each in orderDto.Lines)
             {
-                each.IsAvailable = _availabilityService.IsArticleAvailable(new ArticleId(each.ArticleId), each.FromUtc,
+                each.IsAvailable = _availabilityQueryService.IsArticleAvailable(new ArticleId(each.ArticleId), each.FromUtc,
                     each.ToUtc, each.Quantity, new OrderLineId(each.LineId));
             }
         }

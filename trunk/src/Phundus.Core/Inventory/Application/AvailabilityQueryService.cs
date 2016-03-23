@@ -10,6 +10,9 @@
     public interface IAvailabilityQueryService
     {
         IEnumerable<AvailabilityData> GetAvailability(ArticleId guid);
+
+        bool IsArticleAvailable(ArticleId articleId, DateTime fromUtc, DateTime toUtc, int quantity,
+            OrderLineId orderItemToExclude = null);
     }
 
     public class AvailabilityQueryService : QueryServiceBase, IAvailabilityQueryService
@@ -20,6 +23,12 @@
         {
             var availabilities = AvailabilityService.GetAvailabilityDetails(guid);
             return availabilities.Select(each => new AvailabilityData {FromUtc = each.FromUtc, Quantity = each.Quantity});
+        }
+
+        public bool IsArticleAvailable(ArticleId articleId, DateTime fromUtc, DateTime toUtc, int quantity,
+            OrderLineId orderItemToExclude = null)
+        {
+            return AvailabilityService.IsArticleAvailable(articleId, fromUtc, toUtc, quantity, orderItemToExclude);
         }
     }
 

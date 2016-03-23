@@ -7,14 +7,14 @@
     using Model.Organizations;
     using Organizations.Model;
 
-    public interface IMembershipQueries
+    public interface IMembershipQueryService
     {
         MembershipData Find(Guid organizationId, Guid userId);
         ICollection<MembershipData> FindByOrganizationId(Guid organizationId);
         ICollection<MembershipData> FindByUserId(Guid userId);
     }
 
-    public class MembershipsProjection : QueryServiceBase, IMembershipQueries
+    public class MembershipsProjection : QueryServiceBase, IMembershipQueryService
     {
         private readonly IMembershipRepository _membershipRepository;
 
