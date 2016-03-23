@@ -1,6 +1,5 @@
 namespace Phundus.Tests.Shop
 {
-    using System;
     using Common.Domain.Model;
     using developwithpassion.specifications.core;
     using developwithpassion.specifications.extensions;
@@ -14,14 +13,11 @@ namespace Phundus.Tests.Shop
         {
         }
 
-        public Article Product(LessorId lessorId = null)
+        public CartItem CartItem(Article product = null)
         {
-            lessorId = lessorId ?? new LessorId();
-
-            var shortId = new ArticleShortId(NextNumericId());
-            var article = new Article(shortId, new ArticleId(), Lessor(lessorId), new StoreId(),
-                "The article " + shortId.Id, 7.0m);
-            return article;
+            product = product ?? Product();
+            var result = new CartItem(new CartItemId(), product);
+            return result;
         }
 
         public Lessee Lessee(UserId userId = null)
@@ -35,6 +31,7 @@ namespace Phundus.Tests.Shop
             var lessee = fake.an<Lessee>();
             lessee.setup(x => x.LesseeId).Return(lesseeId);
             lessee.setup(x => x.EmailAddress).Return("lessee@test.phundus.ch");
+            lessee.setup(x => x.FullName).Return("The Lessee");
             return lessee;
         }
 
@@ -43,6 +40,13 @@ namespace Phundus.Tests.Shop
             var lessor = fake.an<Lessor>();
             lessor.setup(x => x.LessorId).Return(lessorId ?? new LessorId());
             return lessor;
+        }
+
+        public Manager Manager(UserId userId = null, string emailAddress = null)
+        {
+            userId = userId ?? new UserId();
+            emailAddress = emailAddress ?? "manager@test.phundus.ch";
+            return new Manager(userId, emailAddress, "The Manager");
         }
 
         public Order Order(Lessor lessor = null, Lessee lessee = null)
@@ -57,11 +61,16 @@ namespace Phundus.Tests.Shop
             return order;
         }
 
-        public Manager Manager(UserId userId = null, string emailAddress = null)
+        public Article Product(LessorId lessorId = null, string name = null, decimal? price = null)
         {
-            userId = userId ?? new UserId();
-            emailAddress = emailAddress ?? "manager@test.phundus.ch";
-            return new Manager(userId, emailAddress, "The Manager");
+            var shortId = new ArticleShortId(NextNumericId());
+            lessorId = lessorId ?? new LessorId();
+            name = name ?? "The article " + shortId.Id;
+            price = price ?? 7.0m;
+            
+            var article = new Article(shortId, new ArticleId(), Lessor(lessorId), new StoreId(),
+                name, price.Value);
+            return article;
         }
     }
 }

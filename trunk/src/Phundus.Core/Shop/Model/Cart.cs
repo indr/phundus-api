@@ -47,11 +47,10 @@
 
         public virtual CartItemId AddItem(CartItemId cartItemId, Article article, Period period, int quantity)
         {
-            var item = new CartItem(cartItemId);
+            var item = new CartItem(cartItemId, article);
             item.Position = 1;
             if (Items.Count > 0)
-                item.Position = Items.Max(s => s.Position) + 1;
-            item.Article = article;
+                item.Position = Items.Max(s => s.Position) + 1;            
             item.Quantity = quantity;
             item.From = period.FromUtc;
             item.To = period.ToUtc;

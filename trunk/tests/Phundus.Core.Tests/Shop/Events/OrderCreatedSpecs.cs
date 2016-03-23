@@ -25,7 +25,7 @@
             theOrderLines.Add(CreateOrderEventItem());
 
             sut_factory.create_using(() =>
-                new OrderCreated(theInitiator, theOrderId, theOrderShortId,
+                new OrderCreated(theInitiator.ToActor(), theOrderId, theOrderShortId,
                     theLessor, theLessee, theOrderStatus, theOrderTotal, theOrderLines));
         };
 

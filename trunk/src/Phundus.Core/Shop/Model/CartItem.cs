@@ -7,10 +7,23 @@ namespace Phundus.Shop.Model
     public class CartItem : EntityBase
     {
         private CartItemId _cartItemId = new CartItemId();
+        private LessorId _lessorId;
+        private decimal _unitPrice;
+        private string _lineText;
+        private StoreId _storeId;
+        private ArticleShortId _articleShortId;
+        private ArticleId _articleId;
 
-        public CartItem(CartItemId cartItemId)
+        public CartItem(CartItemId cartItemId, Article article)
         {
             _cartItemId = cartItemId;
+
+            _articleId = article.ArticleId;
+            _articleShortId = article.ArticleShortId;
+            _lessorId = article.LessorId;
+            _storeId = article.StoreId;
+            _unitPrice = article.Price;
+            _lineText = article.Name;
         }
 
         protected CartItem()
@@ -27,21 +40,22 @@ namespace Phundus.Shop.Model
 
         public virtual int Position { get; set; }
 
-        public virtual Article Article { get; set; }
-
         public virtual ArticleId ArticleId
         {
-            get { return Article.ArticleId; }
+            get { return _articleId; }
+            protected set { _articleId = value; }
         }
 
         public virtual ArticleShortId ArticleShortId
         {
-            get { return Article.ArticleShortId; }
+            get { return _articleShortId; }
+            protected set { _articleShortId = value; }
         }
 
         public virtual StoreId StoreId
         {
-            get { return Article.StoreId; }
+            get { return _storeId; }
+            protected set { _storeId = value; }
         }
 
         public virtual int Quantity { get; set; }
@@ -72,12 +86,14 @@ namespace Phundus.Shop.Model
 
         public virtual string LineText
         {
-            get { return Article.Name; }
+            get { return _lineText; }
+            protected set { _lineText = value; }
         }
 
         public virtual decimal UnitPrice
         {
-            get { return Article.Price; }
+            get { return _unitPrice; }
+            protected set { _unitPrice = value; }
         }
 
         public virtual decimal ItemTotal
@@ -96,7 +112,8 @@ namespace Phundus.Shop.Model
 
         public virtual LessorId LessorId
         {
-            get { return Article.LessorId; }
+            get { return _lessorId; }
+            protected set { _lessorId = value; }
         }
 
 

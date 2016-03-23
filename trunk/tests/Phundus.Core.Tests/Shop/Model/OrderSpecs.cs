@@ -27,7 +27,7 @@
             theOrderId = new OrderId();
 
             sut_factory.create_using(() =>
-                new Order(theInitiator, theOrderId, new OrderShortId(1234), theLessor, theLessee));
+                new Order(theManager, theOrderId, new OrderShortId(1234), theLessor, theLessee));
         };
     }
 
@@ -38,7 +38,7 @@
         {
             theLessor = make.Lessor();
             theLessee = make.Lessee();
-            return new Order(theInitiator, new OrderId(), new OrderShortId(1234), theLessor, theLessee);
+            return new Order(theManager, new OrderId(), new OrderShortId(1234), theLessor, theLessee);
         });
 
         public It should_be_empty = () =>
@@ -94,11 +94,28 @@
     [Subject(typeof (Order))]
     public class when_placing_an_order : order_concern
     {
+        private Establish ctx = () =>
+            sut_setup.run(sut =>
+                sut.AddItem(theManager, new OrderLineId(), make.Product(), Period.FromNow(1), 2, 3.00m));
+
         private Because of = () =>
-            sut.Place(theInitiator);
+            sut.Place();
 
         private It should_have_mutating_event_order_placed = () =>
             mutatingEvent<OrderPlaced>(p =>
                 p.OrderId == theOrderId.Id);
+    }
+
+    [Subject(typeof (Order))]
+    public class when_trying_to_place_an_empty_order : order_concern
+    {
+        private Because of = () => spec.catch_exception(() =>
+            sut.Place());
+
+        private It should_throw_invalid_operation_exception = () =>
+            spec.exception_thrown.ShouldBeOfExactType<InvalidOperationException>();
+
+        private It should_throw_exception_message = () =>
+            spec.exception_thrown.Message.ShouldEqual("An empty order can not be placed.");
     }
 }

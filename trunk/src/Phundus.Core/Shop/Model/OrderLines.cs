@@ -22,7 +22,8 @@ namespace Phundus.Shop.Model
 
             foreach (var each in cartItems)
             {
-                var item = new OrderLine(new OrderLineId(), each.ArticleId, each.ArticleShortId, each.StoreId, each.LineText,
+                var item = new OrderLine(new OrderLineId(), each.ArticleId, each.ArticleShortId, each.StoreId,
+                    each.LineText,
                     each.Period, each.Quantity, each.UnitPrice, each.ItemTotal);
                 _items.Add(item);
             }
@@ -48,6 +49,11 @@ namespace Phundus.Shop.Model
             get { return new ReadOnlyCollection<OrderLine>(_items); }
         }
 
+        public bool IsEmpty
+        {
+            get { return _items.Count == 0; }
+        }
+
         public decimal GetOrderLinesSum()
         {
             return _items.Count == 0 ? 0.0m : _items.Sum(s => s.LineTotal);
@@ -56,7 +62,7 @@ namespace Phundus.Shop.Model
         public void When(OrderItemAdded e)
         {
             var item = new OrderLine(new OrderLineId(e.OrderLine.LineId), new ArticleId(e.OrderLine.ArticleId),
-                new ArticleShortId(e.OrderLine.ArticleShortId), new StoreId(e.OrderLine.StoreId), 
+                new ArticleShortId(e.OrderLine.ArticleShortId), new StoreId(e.OrderLine.StoreId),
                 e.OrderLine.Text, e.OrderLine.Period, e.OrderLine.Quantity, e.OrderLine.UnitPricePerWeek,
                 e.OrderLine.LineTotal);
             _items.Add(item);
