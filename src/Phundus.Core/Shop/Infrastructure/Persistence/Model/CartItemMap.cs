@@ -26,31 +26,15 @@
             Map(x => x.Days, "Days");
             Map(x => x.ItemTotal, "ItemTotal");
 
-            Map(x => x.ArticleId, "Article_ArticleGuid");
-            Map(x => x.ArticleShortId, "Article_ArticleId");
-            Map(x => x.LessorId, "Article_Owner_OwnerId");
-            Map(x => x.StoreId, "Article_StoreId");
-
-            
-            
-            //Component(x => x.Article, m =>
-            //{
-            //    m.Component(x => x.ArticleShortId, a =>
-            //        a.Map(x => x.Id, "Article_ArticleId"));
-            //    m.Component(x => x.ArticleId, a =>
-            //        a.Map(x => x.Id, "Article_ArticleGuid"));
-            //    m.Component(x => x.StoreId, a =>
-            //        a.Map(x => x.Id, "Article_StoreId"));
-
-            //    m.Map(x => x.Name, "Article_Name");
-            //    m.Map(x => x.Price, "Article_UnitPricePerWeek");
-            //    m.Component(x => x.Lessor, a =>
-            //    {
-            //        a.Component(x => x.LessorId, a2 =>
-            //            a2.Map(x => x.Id, "Article_Owner_OwnerId"));
-            //        a.Map(x => x.Name, "Article_Owner_Name");
-            //    });
-            //});
+            Component(x => x.ArticleId, a =>
+                a.Map(x => x.Id, "Article_ArticleGuid"));
+            Component(x => x.ArticleShortId, a =>
+                a.Map(x => x.Id, "Article_ArticleId"));
+            Component(x => x.LessorId, a =>
+                a.Map(x => x.Id, "Article_Owner_OwnerId"));
+            Map(x => x.LessorName, "Article_Owner_Name");
+            Component(x => x.StoreId, a =>
+                a.Map(x => x.Id, "Article_StoreId"));
         }
     }
 }

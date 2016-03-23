@@ -13,6 +13,7 @@ namespace Phundus.Shop.Model
         private StoreId _storeId;
         private ArticleShortId _articleShortId;
         private ArticleId _articleId;
+        private string _lessorName;
 
         public CartItem(CartItemId cartItemId, Article article)
         {
@@ -21,6 +22,7 @@ namespace Phundus.Shop.Model
             _articleId = article.ArticleId;
             _articleShortId = article.ArticleShortId;
             _lessorId = article.LessorId;
+            _lessorName = article.Lessor.Name;
             _storeId = article.StoreId;
             _unitPrice = article.Price;
             _lineText = article.Name;
@@ -116,6 +118,11 @@ namespace Phundus.Shop.Model
             protected set { _lessorId = value; }
         }
 
+        public virtual string LessorName
+        {
+            get { return _lessorName; }
+            protected set { _lessorName = value; }
+        }
 
         public virtual void ChangeQuantity(int quantity)
         {
