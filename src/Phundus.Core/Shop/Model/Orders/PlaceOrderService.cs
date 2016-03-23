@@ -16,7 +16,7 @@
         }
 
 
-        public Order PlaceOrder(Actor actor, OrderId orderId, OrderShortId orderShortId, Lessor lessor, Lessee lessee, ICollection<CartItem> cartItems)
+        public Order PlaceOrder(OrderId orderId, OrderShortId orderShortId, Lessor lessor, Lessee lessee, ICollection<CartItem> cartItems)
         {
             AssertionConcern.AssertArgumentNotEmpty(cartItems, "Cart items must not be empty.");
 
