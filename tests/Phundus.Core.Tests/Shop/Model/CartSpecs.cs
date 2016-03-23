@@ -69,10 +69,11 @@
     [Subject(typeof (Cart))]
     public class when_removing_an_item : cart_concern
     {
-        private static CartItemId theCartItemId;
+        private static CartItemId theCartItemId = new CartItemId();
 
         private Establish ctx = () =>
-            theCartItemId = AddCartItem();
+            sut_setup.run(sut =>
+                sut.AddItem(theCartItemId, make.Product(), Period.FromNow(1), 2));
 
         private Because of = () =>
             sut.RemoveItem(theCartItemId);

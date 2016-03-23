@@ -1,6 +1,8 @@
 ﻿namespace Phundus.Common
 {
     using System;
+    using System.Collections;
+    using System.Collections.Generic;
     using System.Text.RegularExpressions;
 
     public class AssertionConcern
@@ -82,6 +84,12 @@
             {
                 throw new InvalidOperationException(message);
             }
+        }
+
+        public static void AssertArgumentNotEmpty<T>(ICollection<T> value, string message)
+        {
+            AssertArgumentNotNull(value, message);
+            AssertArgumentGreaterThan(value.Count, 0, message);
         }
 
         public static void AssertArgumentNotEquals(object object1, object object2, string message)

@@ -1,18 +1,17 @@
 ﻿namespace Phundus.Shop.Model
 {
     using System;
-    using System.Collections;
     using System.Collections.Generic;
     using System.Collections.ObjectModel;
     using System.Linq;
     using Common;
     using Common.Domain.Model;
-    using Iesi.Collections.Generic;    
+    using Iesi.Collections.Generic;
     using Products;
 
     public class Cart : Aggregate<CartId>
     {
-        private Iesi.Collections.Generic.ISet<CartItem> _items = new HashedSet<CartItem>();
+        private readonly Iesi.Collections.Generic.ISet<CartItem> _items = new HashedSet<CartItem>();
         private UserId _userId;
 
         public Cart(UserId userId) : base(new CartId())
@@ -27,7 +26,7 @@
 
         public virtual ICollection<CartItem> Items
         {
-            get { return new ReadOnlyCollection<CartItem>(_items.ToList()); }         
+            get { return new ReadOnlyCollection<CartItem>(_items.ToList()); }
         }
 
         public virtual bool IsEmpty
@@ -71,7 +70,7 @@
         {
             var item = _items.SingleOrDefault(p => Equals(p.CartItemId, cartItemId));
             AssertionConcern.AssertArgumentNotNull(item, String.Format("Cart item {0} not found.", cartItemId));
-            
+
             RemoveItem(item);
         }
 

@@ -245,6 +245,7 @@
     <Compile Include="Mock.cs" />
     <Compile Include="Shop\Model\Orders\Mails\OrderPlacedMailSpecs.cs" />
     <Compile Include="Shop\Model\Orders\Mails\OrderStatusChangedMailSpecs.cs" />
+    <Compile Include="Shop\Model\Orders\PlaceOrderServiceSpecs.cs" />
     <Compile Include="Shop\order_command_handler_concern.cs" />
     <Compile Include="Shop\Application\RejectOrderHandlerSpecs.cs" />
     <Compile Include="Shop\Application\RemoveOrderItemHandlerSpecs.cs" />
