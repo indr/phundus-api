@@ -16,6 +16,15 @@
             ToUtc = toUtc;
         }
 
+        public Period(DateTime fromUtc, TimeSpan duration)
+        {
+            if (duration.Ticks <= 0)
+                throw new ArgumentOutOfRangeException("duration", "Duration must be greater than zero.");
+
+            FromUtc = fromUtc;
+            ToUtc = FromUtc.Add(duration);
+        }
+
         protected Period()
         {
         }
@@ -36,6 +45,11 @@
         {
             var now = DateTime.UtcNow;
             return new Period(now, now.AddDays(days));
+        }
+
+        public Period Intersection(Period other)
+        {
+            return null;
         }
     }
 }
