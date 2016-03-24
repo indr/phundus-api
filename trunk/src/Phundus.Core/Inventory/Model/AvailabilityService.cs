@@ -20,9 +20,14 @@
 
     public class AvailabilityService : IAvailabilityService
     {
-        public IArticleRepository ArticleRepository { get; set; }
+        private readonly IArticleRepository _articleRepository;
+        private readonly IReservationRepository _reservationRepository;
 
-        public IReservationRepository ReservationRepository { get; set; }
+        public AvailabilityService(IArticleRepository articleRepository, IReservationRepository reservationRepository)
+        {
+            _articleRepository = articleRepository;
+            _reservationRepository = reservationRepository;
+        }
 
         [Transaction]
         public bool IsArticleAvailable(ArticleId articleId, DateTime fromUtc, DateTime toUtc, int quantity,
@@ -65,11 +70,11 @@
             var utcNow = DateTimeProvider.UtcNow;
 
             var result = new List<Availability>();
-            var article = ArticleRepository.FindById(articleId);
+            var article = _articleRepository.FindById(articleId);
             if (article == null)
                 return result;
 
-            var reservations = ReservationRepository.Find(articleId, orderLineIdToExclude).OrderBy(x => x.FromUtc);
+            var reservations = _reservationRepository.Find(articleId, orderLineIdToExclude).OrderBy(x => x.FromUtc);
 
             var diffsAt = new Dictionary<DateTime, int>();
             diffsAt[DateTime.MinValue] = article.GrossStock;
