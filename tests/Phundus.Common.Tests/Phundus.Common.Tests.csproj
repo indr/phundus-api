@@ -72,6 +72,9 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\packages\Iesi.Collections.3.2.0.4000\lib\Net35\Iesi.Collections.dll</HintPath>
     </Reference>
+    <Reference Include="Itenso.TimePeriod">
+      <HintPath>..\..\packages\TimePeriodLibrary.NET.2.0.0\lib\net35\Desktop.Release\Itenso.TimePeriod.dll</HintPath>
+    </Reference>
     <Reference Include="Machine.Fakes">
       <HintPath>..\..\packages\Machine.Fakes.2.4.0\lib\net40\Machine.Fakes.dll</HintPath>
     </Reference>
@@ -117,6 +120,7 @@
     <Compile Include="Domain.Model\PeriodSpecs.cs" />
     <Compile Include="Domain.Model\PostalAddressFactorySpecs.cs" />
     <Compile Include="Domain.Model\ActorSpecs.cs" />
+    <Compile Include="Domain.Model\QuantityPeriodsSpecs.cs" />
     <Compile Include="Eventing\EventHandlerFactorySpecs.cs" />
     <Compile Include="Eventing\EventSerializerSpecs.cs" />
     <Compile Include="Infrastructure\AppDataFileStoreSpecs.cs" />

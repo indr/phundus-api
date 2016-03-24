@@ -79,6 +79,9 @@
     <Reference Include="ImageResizer">
       <HintPath>..\..\packages\ImageResizer.3.3.3\lib\ImageResizer.dll</HintPath>
     </Reference>
+    <Reference Include="Itenso.TimePeriod">
+      <HintPath>..\..\packages\TimePeriodLibrary.NET.2.0.0\lib\net35\Desktop.Release\Itenso.TimePeriod.dll</HintPath>
+    </Reference>
     <Reference Include="itextsharp, Version=5.2.0.0, Culture=neutral, PublicKeyToken=8354ae6d2174ddca, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\packages\iTextSharp.5.2.0\lib\itextsharp.dll</HintPath>
