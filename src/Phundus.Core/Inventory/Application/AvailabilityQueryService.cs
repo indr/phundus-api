@@ -33,8 +33,8 @@
 
         public IEnumerable<AvailabilityData> GetAvailability(ArticleId guid)
         {
-            var availabilities = _availabilityService.GetAvailabilityDetails(guid);
-            return availabilities.Select(each => new AvailabilityData {FromUtc = each.FromUtc, Quantity = each.Quantity});
+            var quantityPeriods = GetAvailabilities(guid);
+            return quantityPeriods.Intervals.Select(s => new AvailabilityData {FromUtc = s.Start, Quantity = s.Quantity});
         }
 
         public bool IsArticleAvailable(ArticleId articleId, DateTime fromUtc, DateTime toUtc, int quantity,
@@ -45,15 +45,14 @@
 
         public bool IsAvailable(ArticleId productId, ICollection<QuantityPeriod> quantityPeriods)
         {
-            throw new NotImplementedException();
-            //var stockAvailable = GetAvailabilities(productId);
+            var stockAvailable = GetAvailabilities(productId);
 
-            //foreach (var each in quantityPeriods)
-            //{
-            //    stockAvailable.Add(each.Start, each.End, each.Quantity * -1);
-            //}
+            foreach (var each in quantityPeriods)
+            {
+                stockAvailable.Add(each.Start, each.End, each.Quantity * -1);
+            }
 
-            //return stockAvailable.Intervals.All(p => p.Quantity >= 0);
+            return stockAvailable.Intervals.All(p => p.Quantity >= 0);
         }
 
         private QuantityPeriods GetAvailabilities(ArticleId productId)

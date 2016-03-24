@@ -2,6 +2,7 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.Security.Principal;
     using Common.Domain.Model;
     using NUnit.Framework;
     using Phundus.Inventory.Application;
@@ -15,10 +16,10 @@
     using TechTalk.SpecFlow.Assist;
 
     [Binding]
-    public class AvailabilitySteps : concern<AvailabilityService>
+    public class AvailabilitySteps : concern<AvailabilityQueryService>
     {
         private Article _article;
-        private IEnumerable<Availability> _availabilities;
+        private IEnumerable<AvailabilityData> _availabilities;
         private bool _isAvailable;
         private readonly IArticleRepository _articleRepository;
         private readonly IReservationRepository _reservationRepository;
@@ -28,6 +29,7 @@
         {
             _articleRepository = dependsOn<IArticleRepository>();
             _reservationRepository = dependsOn<IReservationRepository>();
+            dependsOn<IAvailabilityService>(new AvailabilityService(_articleRepository, _reservationRepository));
         }
 
         [Given(@"an article with gross stock of (.*)")]
@@ -43,7 +45,7 @@
         public void WhenIAskForAvailabilityDetails()
         {
             _reservationRepository.Stub(x => x.Find(_article.ArticleId, null)).Return(_reservations);
-            _availabilities = Sut.GetAvailabilityDetails(_article.ArticleId);
+            _availabilities = Sut.GetAvailability(_article.ArticleId);
         }
 
         [Given(@"these reservations exists")]
@@ -64,6 +66,18 @@
             _reservationRepository.Stub(x => x.Find(_article.ArticleId, null)).Return(_reservations);
             _isAvailable = Sut.IsArticleAvailable(_article.ArticleId, from, to, of, null);
         }
+
+        [When(@"I ask for multiple availability")]
+        public void WhenIAskForMultipleAvailability(Table table)
+        {
+            _reservationRepository.Stub(x => x.Find(_article.ArticleId, null)).Return(_reservations);
+            var quantityPeriods = new List<QuantityPeriod>();
+            foreach (var row in table.Rows)
+                quantityPeriods.Add(new QuantityPeriod(new Period(Convert.ToDateTime(row["FromUtc"]), Convert.ToDateTime(row["ToUtc"])), Convert.ToInt32(row["Quantity"])));
+
+            _isAvailable = Sut.IsAvailable(_article.ArticleId, quantityPeriods);
+        }
+
 
         [Then(@"the result should be (true|false)")]
         public void ThenTheResultShouldBeTrue(bool trueOrFalse)

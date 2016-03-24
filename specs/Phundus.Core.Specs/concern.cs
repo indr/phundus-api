@@ -24,11 +24,11 @@
         }
 
         // ReSharper disable once InconsistentNaming
-        protected TDependency dependsOn<TDependency>() where TDependency : class
+        protected TDependency dependsOn<TDependency>(TDependency instance = null) where TDependency : class
         {
-            var dependency = MockRepository.GenerateMock<TDependency>();
-            _container.Register(Component.For<TDependency>().Instance(dependency));
-            return dependency;
+            instance = instance ?? MockRepository.GenerateMock<TDependency>();
+            _container.Register(Component.For<TDependency>().Instance(instance));
+            return instance;
         }
 
         protected virtual void Establish()

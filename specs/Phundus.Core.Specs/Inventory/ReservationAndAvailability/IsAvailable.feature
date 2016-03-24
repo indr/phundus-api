@@ -66,3 +66,12 @@ Scenario: Multiple reservations sufficient quantity
 	| 18.08.2014 00:00:00 | 20.08.2014 23:59:59 | 2        |
 	When I ask for availability from 18.08.2014 00:00:00 to 20.08.2014 23:59:59 of 1
 	Then the result should be true
+
+Scenario: Multiple questions
+	Given an article with gross stock of 1
+	And now is 16.08.2014 10:00:00
+	When I ask for multiple availability
+	| FromUtc             | ToUtc               | Quantity |
+	| 18.08.2014 22:00:00 | 21.08.2014 21:59:59 | 1        |
+	| 20.08.2014 00:00:00 | 23.08.2014 23:59:59 | 1        |
+	Then the result should be false

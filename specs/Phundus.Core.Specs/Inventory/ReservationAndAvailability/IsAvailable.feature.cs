@@ -276,6 +276,38 @@ this.ScenarioSetup(scenarioInfo);
 #line hidden
             this.ScenarioCleanup();
         }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("Multiple questions")]
+        public virtual void MultipleQuestions()
+        {
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Multiple questions", ((string[])(null)));
+#line 70
+this.ScenarioSetup(scenarioInfo);
+#line 71
+ testRunner.Given("an article with gross stock of 1", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line 72
+ testRunner.And("now is 16.08.2014 10:00:00", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
+            TechTalk.SpecFlow.Table table6 = new TechTalk.SpecFlow.Table(new string[] {
+                        "FromUtc",
+                        "ToUtc",
+                        "Quantity"});
+            table6.AddRow(new string[] {
+                        "18.08.2014 22:00:00",
+                        "21.08.2014 21:59:59",
+                        "1"});
+            table6.AddRow(new string[] {
+                        "20.08.2014 00:00:00",
+                        "23.08.2014 23:59:59",
+                        "1"});
+#line 73
+ testRunner.When("I ask for multiple availability", ((string)(null)), table6, "When ");
+#line 77
+ testRunner.Then("the result should be false", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line hidden
+            this.ScenarioCleanup();
+        }
     }
 }
 #pragma warning restore
