@@ -10,6 +10,12 @@
 
     public class QuantityPeriods
     {
+        private readonly PeriodRelation[] _irrelevants =
+        {
+            PeriodRelation.Before, PeriodRelation.StartTouching,
+            PeriodRelation.EndTouching, PeriodRelation.After
+        };
+
         private readonly ITimePeriodCollection _tpc = new TimePeriodCollection();
 
         public IList<QuantityPeriod> Intervals
@@ -17,80 +23,81 @@
             get { return new ReadOnlyCollection<QuantityPeriod>(_tpc.Cast<QuantityPeriod>().ToList()); }
         }
 
+        public void Add(DateTime startUtc, DateTime endUtc, int quantity)
+        {
+            Add(new QuantityPeriod(new Period(startUtc, endUtc), quantity));
+        }
+
         public void Add(QuantityPeriod p)
         {
-            var intersections = _tpc.IntersectionPeriods(p).Cast<QuantityPeriod>().ToList();
-            if (intersections.Count == 0)
+            var intersection = GetSections(p).FirstOrDefault();
+            if (intersection == null)
             {
                 _tpc.Add(p);
                 return;
             }
-            foreach (var i in intersections)
+
+            var i = intersection;
+            var r = p.GetRelation(i);
+            switch (r)
             {
-                var r = p.GetRelation(i);
-                switch (r)
-                {
-                    case PeriodRelation.After:
-                        throw new NotImplementedException("After");
-                        break;
-                    case PeriodRelation.StartTouching:
-                        AddPeriod(p.Start, p.End, p.Quantity);
-                        break;
-                    case PeriodRelation.StartInside:
-                        AddPeriod(p.Start, i.End, p.Quantity + i.Quantity);
-                        AddPeriod(i.End, p.End, p.Quantity);
-                        i.ShrinkEndTo(p.Start);
-                        break;
-                    case PeriodRelation.InsideStartTouching:
-                        AddPeriod(p.Start, p.End, p.Quantity + i.Quantity);
-                        i.ShrinkStartTo(p.End);
-                        break;
-                    case PeriodRelation.EnclosingStartTouching:
-                        AddPeriod(i.End, p.End, p.Quantity);
-                        i.AddQuantity(p.Quantity);
-                        break;
-                    case PeriodRelation.Enclosing:
-                        AddPeriod(p.Start, i.Start, p.Quantity);
-                        AddPeriod(i.End, p.End, p.Quantity);
-                        i.AddQuantity(p.Quantity);
-                        break;
-                    case PeriodRelation.EnclosingEndTouching:
-                        AddPeriod(p.Start, i.Start, p.Quantity);
-                        i.AddQuantity(p.Quantity);
-                        break;
-                    case PeriodRelation.ExactMatch:
-                        i.AddQuantity(p.Quantity);
-                        break;
-                    case PeriodRelation.Inside:
-                        AddPeriod(i.Start, p.Start, i.Quantity);
-                        AddPeriod(p.Start, p.End, p.Quantity + i.Quantity);
-                        i.ShrinkStartTo(p.End);
-                        break;
-                    case PeriodRelation.InsideEndTouching:
-                        AddPeriod(p.Start, p.End, p.Quantity + i.Quantity);
-                        i.ShrinkEndTo(p.Start);
-                        break;
-                    case PeriodRelation.EndInside:
-                        AddPeriod(p.Start, i.Start, p.Quantity);
-                        AddPeriod(i.Start, p.End, p.Quantity + i.Quantity);
-                        i.ShrinkStartTo(p.End);
-                        break;
-                    case PeriodRelation.EndTouching:
-                        AddPeriod(p.Start, p.End, p.Quantity);
-                        break;
-                    case PeriodRelation.Before:
-                        throw new NotImplementedException("Before");
-                        break;
-                    default:
-                        throw new ArgumentOutOfRangeException();
-                }
+                case PeriodRelation.StartInside:
+                    var i_e = i.End;
+                    i.ShrinkEndTo(p.Start);
+                    Add(p.Start, i_e, i.Quantity + p.Quantity);
+                    Add(i_e, p.End, p.Quantity);
+                    break;
+                case PeriodRelation.InsideStartTouching:
+                    i.ShrinkStartTo(p.End);
+                    Add(p.Start, p.End, p.Quantity + i.Quantity);
+                    break;
+
+                case PeriodRelation.EnclosingStartTouching:
+                    Add(i.End, p.End, p.Quantity);
+                    i.AddQuantity(p.Quantity);
+                    break;
+                case PeriodRelation.Enclosing:
+                    Add(p.Start, i.Start, p.Quantity);
+                    Add(i.End, p.End, p.Quantity);
+                    i.AddQuantity(p.Quantity);
+                    break;
+                case PeriodRelation.EnclosingEndTouching:
+                    Add(p.Start, i.Start, p.Quantity);
+                    i.AddQuantity(p.Quantity);
+                    break;
+                case PeriodRelation.ExactMatch:
+                    i.AddQuantity(p.Quantity);
+                    break;
+                case PeriodRelation.Inside:
+                    var i_s2 = i.Start;
+                    i.ShrinkStartTo(p.End);
+                    Add(i_s2, p.Start, i.Quantity);
+                    Add(p.Start, p.End, p.Quantity + i.Quantity);
+                    break;
+
+                case PeriodRelation.InsideEndTouching:
+                    i.ShrinkEndTo(p.Start);
+                    Add(p.Start, p.End, i.Quantity + p.Quantity);
+                    break;
+                case PeriodRelation.EndInside:
+                    var i_s = i.Start;
+                    i.ShrinkStartTo(p.End);
+                    Add(i_s, p.End, i.Quantity + p.Quantity);
+                    Add(p.Start, i_s, p.Quantity);
+                    break;
+
+
+                default:
+                    throw new ArgumentOutOfRangeException();
             }
         }
 
-        private void AddPeriod(DateTime start, DateTime end, int quantity)
+        private IEnumerable<QuantityPeriod> GetSections(QuantityPeriod p)
         {
-            var period = new QuantityPeriod(new Period(start, end), quantity);            
-            _tpc.Add(period);
+            return _tpc.IntersectionPeriods(p)
+                    .Cast<QuantityPeriod>()
+                    .Where(s => !_irrelevants.Contains(p.GetRelation(s)))
+                    .ToList();
         }
 
         public override string ToString()
@@ -103,11 +110,6 @@
                               each.End.ToString(CultureInfo.GetCultureInfo("DE-ch")) + " | " + each.Quantity);
 
             return sb.ToString().Trim();
-        }
-
-        public void Add(DateTime startUtc, DateTime endUtc, int quantity)
-        {
-            Add(new QuantityPeriod(new Period(startUtc, endUtc), quantity));
         }
     }
 }
