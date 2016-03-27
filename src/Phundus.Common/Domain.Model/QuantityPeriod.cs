@@ -7,7 +7,8 @@
     [DataContract]
     public class QuantityPeriod : TimeInterval
     {
-        public QuantityPeriod(Period period, int quantity) : base(period.FromUtc, period.ToUtc, IntervalEdge.Closed, IntervalEdge.Closed, true, false)
+        public QuantityPeriod(Period period, int quantity)
+            : base(period.FromUtc, period.ToUtc, IntervalEdge.Closed, IntervalEdge.Closed, true, false)
         {
             Quantity = quantity;
         }
@@ -16,6 +17,11 @@
         public QuantityPeriod(ITimePeriod period, int quantity) : base(period)
         {
             Quantity = quantity;
+        }
+
+        public QuantityPeriod(DateTime fromUtc, DateTime toUtc, int quantity)
+            : this(new Period(fromUtc, toUtc), quantity)
+        {
         }
 
         [DataMember(Order = 1)]
