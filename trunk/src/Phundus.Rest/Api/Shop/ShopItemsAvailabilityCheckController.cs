@@ -30,26 +30,26 @@
 
             return new ShopItemsAvailabilityCheckOkResponseContent {IsAvailable = isAvailable};
         }
-    }
 
-    public class ShopItemsAvailabilityCheckRequestContent
-    {
-        [JsonProperty("itemId")]
-        public Guid ItemId { get; set; }
+        public class ShopItemsAvailabilityCheckRequestContent
+        {
+            [JsonProperty("itemId")]
+            public Guid ItemId { get; set; }
 
-        [JsonProperty("quantity")]
-        public int Quantity { get; set; }
+            [JsonProperty("quantity")]
+            public int Quantity { get; set; }
 
-        [JsonProperty("fromUtc")]
-        public DateTime FromUtc { get; set; }
+            [JsonProperty("fromUtc")]
+            public DateTime FromUtc { get; set; }
 
-        [JsonProperty("toUtc")]
-        public DateTime ToUtc { get; set; }
-    }
+            [JsonProperty("toUtc")]
+            public DateTime ToUtc { get; set; }
+        }
 
-    public class ShopItemsAvailabilityCheckOkResponseContent
-    {
-        [JsonProperty("isAvailable")]
-        public bool IsAvailable { get; set; }
+        public class ShopItemsAvailabilityCheckOkResponseContent
+        {
+            [JsonProperty("isAvailable")]
+            public bool IsAvailable { get; set; }
+        }
     }
 }

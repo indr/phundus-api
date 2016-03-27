@@ -401,6 +401,7 @@
     <Compile Include="Shop\Infrastructure\LesseeService.cs" />
     <Compile Include="Shop\Infrastructure\ProductsService.cs" />
     <Compile Include="Shop\Infrastructure\LessorService.cs" />
+    <Compile Include="Shop\Resources\ShopProductsAvailabilityCheckController.cs" />
     <Compile Include="Web\Infrastructure\Mappings\UrlMapDataMap.cs" />
     <Compile Include="Web\Projections\UrlMapProjection.cs" />
     <Compile Include="App_Start\CoreInstaller.cs" />
