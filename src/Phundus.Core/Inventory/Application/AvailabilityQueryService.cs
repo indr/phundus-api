@@ -14,6 +14,7 @@
     {
         IEnumerable<AvailabilityData> GetAvailability(ArticleId guid);
 
+        [Obsolete]
         bool IsArticleAvailable(ArticleId articleId, DateTime fromUtc, DateTime toUtc, int quantity,
             OrderLineId orderItemToExclude = null);
 
