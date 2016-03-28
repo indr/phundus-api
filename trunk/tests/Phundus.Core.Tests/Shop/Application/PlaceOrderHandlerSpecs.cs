@@ -2,10 +2,12 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.Collections.ObjectModel;
     using Common.Domain.Model;
     using developwithpassion.specifications.extensions;
     using Machine.Fakes;
     using Machine.Specifications;
+    using Phundus.Inventory.Application;
     using Phundus.Shop.Application;
     using Phundus.Shop.Model;
     using Phundus.Shop.Orders.Model;
@@ -93,11 +95,16 @@
 
         private Establish ctx = () =>
         {
+            var availabilitiyQueryService = depends.on<IAvailabilityQueryService>();
+            availabilitiyQueryService.setup(x =>
+                x.IsAvailable(Arg<ArticleId>.Is.Anything, Arg<ICollection<QuantityPeriod>>.Is.Anything))
+                .Return(new Collection<AvailabilitiyInfo> {new AvailabilitiyInfo {IsAvailable = true}});
+
             theCartItemsToRemove = new List<CartItemId>();
             var anOtherLessorId = new LessorId();
             theCartItemsToRemove.Add(AddCartItem(theLessor.LessorId));
             AddCartItem(anOtherLessorId);
-            theCartItemsToRemove.Add(AddCartItem(theLessor.LessorId));            
+            theCartItemsToRemove.Add(AddCartItem(theLessor.LessorId));
         };
 
         private It should_add_to_repository_with_two_items = () =>
@@ -105,10 +112,10 @@
                 p.Lines.Count == 2
                 && p.MutatingEvents.Count == 2)));
 
-        private It should_tell_cart_to_remove_items = () =>
-            theCart.Items.ShouldNotContain(c => theCartItemsToRemove.Contains(c.CartItemId));
-
         private It should_save_cart = () =>
             cartRepository.received(x => x.Save(theCart));
+
+        private It should_tell_cart_to_remove_items = () =>
+            theCart.Items.ShouldNotContain(c => theCartItemsToRemove.Contains(c.CartItemId));
     }
 }
