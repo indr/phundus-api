@@ -2,6 +2,7 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.Linq;
     using System.Security.Principal;
     using Common.Domain.Model;
     using NUnit.Framework;
@@ -75,7 +76,7 @@
             foreach (var row in table.Rows)
                 quantityPeriods.Add(new QuantityPeriod(new Period(Convert.ToDateTime(row["FromUtc"]), Convert.ToDateTime(row["ToUtc"])), Convert.ToInt32(row["Quantity"])));
 
-            _isAvailable = Sut.IsAvailable(_article.ArticleId, quantityPeriods);
+            _isAvailable = Sut.IsAvailable(_article.ArticleId, quantityPeriods).All(p => p.IsAvailable);
         }
 
 

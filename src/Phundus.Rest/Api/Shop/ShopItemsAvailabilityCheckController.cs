@@ -25,8 +25,7 @@
             ShopItemsAvailabilityCheckRequestContent requestContent)
         {
             var isAvailable = _availabilityQueryService.IsArticleAvailable(new ArticleId(requestContent.ItemId),
-                requestContent.FromUtc,
-                requestContent.ToUtc, requestContent.Quantity);
+                requestContent.FromUtc, requestContent.ToUtc, requestContent.Quantity);
 
             return new ShopItemsAvailabilityCheckOkResponseContent {IsAvailable = isAvailable};
         }

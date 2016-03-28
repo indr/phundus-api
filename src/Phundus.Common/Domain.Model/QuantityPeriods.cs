@@ -25,7 +25,7 @@
 
         public void Add(DateTime startUtc, DateTime endUtc, int quantity)
         {
-            Add(new QuantityPeriod(new Period(startUtc, endUtc), quantity));
+            Add(new QuantityPeriod(startUtc, endUtc, quantity));
         }
 
         public void Add(QuantityPeriod p)
@@ -54,19 +54,19 @@
 
                 case PeriodRelation.EnclosingStartTouching:
                     Add(i.End, p.End, p.Quantity);
-                    i.AddQuantity(p.Quantity);
+                    i.IncQuantity(p.Quantity);
                     break;
                 case PeriodRelation.Enclosing:
                     Add(p.Start, i.Start, p.Quantity);
                     Add(i.End, p.End, p.Quantity);
-                    i.AddQuantity(p.Quantity);
+                    i.IncQuantity(p.Quantity);
                     break;
                 case PeriodRelation.EnclosingEndTouching:
                     Add(p.Start, i.Start, p.Quantity);
-                    i.AddQuantity(p.Quantity);
+                    i.IncQuantity(p.Quantity);
                     break;
                 case PeriodRelation.ExactMatch:
-                    i.AddQuantity(p.Quantity);
+                    i.IncQuantity(p.Quantity);
                     break;
                 case PeriodRelation.Inside:
                     var i_s2 = i.Start;
@@ -95,9 +95,9 @@
         private IEnumerable<QuantityPeriod> GetSections(QuantityPeriod p)
         {
             return _tpc.IntersectionPeriods(p)
-                    .Cast<QuantityPeriod>()
-                    .Where(s => !_irrelevants.Contains(p.GetRelation(s)))
-                    .ToList();
+                .Cast<QuantityPeriod>()
+                .Where(s => !_irrelevants.Contains(p.GetRelation(s)))
+                .ToList();
         }
 
         public override string ToString()
@@ -110,6 +110,12 @@
                               each.End.ToString(CultureInfo.GetCultureInfo("DE-ch")) + " | " + each.Quantity);
 
             return sb.ToString().Trim();
+        }
+
+        public bool IsAvailable(QuantityPeriod quantityPeriod)
+        {
+            var sections = GetSections(quantityPeriod);
+            return sections.All(p => p.Quantity >= 0);
         }
     }
 }
