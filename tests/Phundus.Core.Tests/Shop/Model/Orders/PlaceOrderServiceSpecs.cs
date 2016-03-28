@@ -14,12 +14,13 @@
     using Phundus.Shop.Model.Orders;
     using Phundus.Shop.Model.Products;
     using Phundus.Shop.Orders.Model;
+    using Rhino.Mocks;
 
     public class place_order_service_concern : Observes<PlaceOrderService>
     {
         protected static shop_factory make;
 
-        protected static IAvailabilityService availabilityService;
+        protected static IAvailabilityQueryService availabilityService;
         protected static IProductsService productService;
 
         protected static Actor theActor;
@@ -27,7 +28,7 @@
         protected static OrderShortId theOrderShortId;
         protected static Lessor theLessor;
         protected static Lessee theLessee;
-        protected static ICollection<CartItem> theCartItems; 
+        protected static ICollection<CartItem> theCartItems;
 
         private Establish ctx = () =>
         {
@@ -41,7 +42,7 @@
             theCartItems = new Collection<CartItem>();
 
             productService = depends.on<IProductsService>();
-            availabilityService = depends.on<IAvailabilityService>();
+            availabilityService = depends.on<IAvailabilityQueryService>();
         };
 
         protected static CartItem addCartItem(CartItem cartItem)
@@ -66,20 +67,23 @@
             var product = make.Product();
             productService.setup(x => x.GetById(theLessor.LessorId, product.ArticleId, theLessee.LesseeId))
                 .Return(product);
+            availabilityService.setup(x =>
+                x.IsAvailable(Arg<ArticleId>.Is.Anything, Arg<ICollection<QuantityPeriod>>.Is.Anything))
+                .Return(new Collection<AvailabilitiyInfo> {new AvailabilitiyInfo {IsAvailable = true}});
             addCartItem(new CartItem(new CartItemId(), product));
         };
 
         private Because of = () =>
             result = sutPlaceOrder();
 
+        private It should_have_order_lines = () =>
+            result.Lines.ShouldNotBeEmpty();
+
         private It should_return_order_with_mutating_event_order_created = () =>
             result.MutatingEvents.ShouldContain(c => c.GetType() == typeof (OrderCreated));
 
         private It should_return_order_with_mutating_event_order_placed = () =>
             result.MutatingEvents.ShouldContain(c => c.GetType() == typeof (OrderPlaced));
-
-        private It should_have_order_lines = () =>
-            result.Lines.ShouldNotBeEmpty();
     }
 
     [Subject(typeof (PlaceOrderService))]
@@ -157,5 +161,29 @@
 
         private It should_throw_not_found_exception = () =>
             spec.exception_thrown.ShouldBeOfExactType<NotFoundException>();
+    }
+
+    [Subject(typeof (PlaceOrderService))]
+    public class when_trying_to_place_when_product_is_not_available : place_order_service_concern
+    {
+        private Establish ctx = () =>
+        {
+            var product = make.Product();
+            var cartItem = addCartItem(make.CartItem(product));
+            productService.setup(x => x.GetById(theLessor.LessorId, cartItem.ArticleId, theLessee.LesseeId))
+                .Return(product);
+            availabilityService.setup(x =>
+                x.IsAvailable(Arg<ArticleId>.Is.Anything, Arg<ICollection<QuantityPeriod>>.Is.Anything))
+                .Return(new Collection<AvailabilitiyInfo> { new AvailabilitiyInfo { IsAvailable = false } });
+        };
+
+        private Because of = () => spec.catch_exception(() =>
+            sutPlaceOrder());
+
+        private It should_throw_exception = () =>
+            spec.exception_thrown.ShouldBeOfExactType<Exception>();
+
+        private It should_throw_exception_message = () =>
+            spec.exception_thrown.Message.ShouldMatch(new Regex(@"^Product .+ is not available\.$"));
     }
 }

@@ -7,6 +7,7 @@
     using Common.Commanding;
     using Common.Domain.Model;
     using Common.Eventing;
+    using Inventory.Application;
     using Model;
     using Model.Orders;
     using Model.Products;
@@ -35,19 +36,22 @@
     public class PlaceOrderHandler : IHandleCommand<PlaceOrder>
     {
         private readonly IProductsService _productsService;
+        private readonly IAvailabilityQueryService _availabilityQueryService;
         private readonly ICartRepository _cartRepository;
         private readonly ILesseeService _lesseeService;
         private readonly ILessorService _lessorService;
         private readonly IOrderRepository _orderRepository;
 
         public PlaceOrderHandler(ICartRepository cartRepository, IOrderRepository orderRepository,
-            ILessorService lessorService, ILesseeService lesseeService, IProductsService productsService)
+            ILessorService lessorService, ILesseeService lesseeService, IProductsService productsService,
+            IAvailabilityQueryService availabilityQueryService)
         {
             _cartRepository = cartRepository;
             _orderRepository = orderRepository;
             _lessorService = lessorService;
             _lesseeService = lesseeService;
             _productsService = productsService;
+            _availabilityQueryService = availabilityQueryService;
         }
 
         [Transaction]
@@ -63,8 +67,8 @@
             var lessor = _lessorService.GetById(command.LessorId);
             var lessee = _lesseeService.GetById(new LesseeId(command.InitiatorId.Id));
 
-            var order = new PlaceOrderService(_productsService).PlaceOrder(command.OrderId, command.OrderShortId, lessor,
-                lessee, items);
+            var order = new PlaceOrderService(_productsService, _availabilityQueryService)
+                .PlaceOrder(command.OrderId, command.OrderShortId, lessor, lessee, items);
 
             _orderRepository.Add(order);
             _cartRepository.Save(cart);
