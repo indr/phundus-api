@@ -4,11 +4,9 @@
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
     using System.Linq;
-    using Common;
     using Common.Domain.Model;
     using Common.Querying;
     using Itenso.TimePeriod;
-    using Model.Reservations;
 
     public interface IAvailabilityQueryService
     {
@@ -18,17 +16,24 @@
         bool IsArticleAvailable(ArticleId articleId, DateTime fromUtc, DateTime toUtc, int quantity,
             OrderLineId orderItemToExclude = null);
 
-        bool IsAvailable(ArticleId productId, ICollection<QuantityPeriod> quantityPeriods);
+        ICollection<AvailabilitiyInfo> IsAvailable(ArticleId productId, ICollection<QuantityPeriod> quantityPeriods);
+    }
+
+    public class AvailabilitiyInfo
+    {
+        public Guid CorrelationId { get; set; }
+        public Guid ProductId { get; set; }
+        public Period Period { get; set; }
+        public int Quantity { get; set; }
+        public bool IsAvailable { get; set; }
     }
 
     public class AvailabilityQueryService : QueryServiceBase, IAvailabilityQueryService
     {
-        private readonly IReservationRepository _reservationRepository;
         private readonly IAvailabilityService _availabilityService;
 
-        public AvailabilityQueryService(IReservationRepository reservationRepository, IAvailabilityService availabilityService)
+        public AvailabilityQueryService(IAvailabilityService availabilityService)
         {
-            _reservationRepository = reservationRepository;
             _availabilityService = availabilityService;
         }
 
@@ -44,16 +49,29 @@
             return _availabilityService.IsArticleAvailable(articleId, fromUtc, toUtc, quantity, orderItemToExclude);
         }
 
-        public bool IsAvailable(ArticleId productId, ICollection<QuantityPeriod> quantityPeriods)
+        public ICollection<AvailabilitiyInfo> IsAvailable(ArticleId productId,
+            ICollection<QuantityPeriod> quantityPeriods)
         {
             var stockAvailable = GetAvailabilities(productId);
 
             foreach (var each in quantityPeriods)
             {
-                stockAvailable.Add(each.Start, each.End, each.Quantity * -1);
+                stockAvailable.Add(each.Start, each.End, each.Quantity*-1);
             }
 
-            return stockAvailable.Intervals.All(p => p.Quantity >= 0);
+            var result = new List<AvailabilitiyInfo>();
+            foreach (var each in quantityPeriods)
+            {
+                result.Add(new AvailabilitiyInfo
+                {
+                    IsAvailable = stockAvailable.IsAvailable(each),
+                    Period = each.Period,
+                    ProductId = productId.Id,
+                    Quantity = each.Quantity,
+                    CorrelationId = each.CorrelationId
+                });
+            }
+            return result;
         }
 
         private QuantityPeriods GetAvailabilities(ArticleId productId)
@@ -66,15 +84,15 @@
                 ITimePeriod interval;
                 if (i == availabilities.Count - 1)
                 {
-                    interval = new TimeInterval(each.FromUtc, DateTime.MaxValue, IntervalEdge.Closed, IntervalEdge.Open, true, true);
+                    interval = new TimeInterval(each.FromUtc, DateTime.MaxValue, IntervalEdge.Closed, IntervalEdge.Open,
+                        true, true);
                 }
                 else
                 {
                     var end = availabilities[i + 1].FromUtc;
                     interval = new TimeInterval(each.FromUtc, end, IntervalEdge.Closed, IntervalEdge.Open, true, true);
-                    
                 }
-                result.Add(interval.Start, interval.End, each.Quantity);                
+                result.Add(interval.Start, interval.End, each.Quantity);
             }
 
             return result;

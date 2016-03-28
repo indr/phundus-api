@@ -120,6 +120,7 @@ namespace Phundus.Rest.Api.Users
                 CartItemId = s.CartItemGuid,
                 ArticleId = s.ArticleId,
                 ArticleGuid = s.ArticleGuid,
+                ProductId = s.ArticleGuid,
                 StoreId = s.StoreId,
                 Text = s.Text,
                 FromUtc = s.FromUtc,
@@ -153,6 +154,9 @@ namespace Phundus.Rest.Api.Users
 
         [JsonProperty("articleGuid")]
         public Guid ArticleGuid { get; set; }
+
+        [JsonProperty("productId")]
+        public Guid ProductId { get; set; }
 
         [JsonProperty("storeId")]
         public Guid StoreId { get; set; }

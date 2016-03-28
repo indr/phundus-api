@@ -1,46 +1,32 @@
 ﻿namespace Phundus.Common.Domain.Model
 {
     using System;
-    using System.Runtime.Serialization;
     using Itenso.TimePeriod;
 
-    [DataContract]
     public class QuantityPeriod : TimeInterval
     {
-        public QuantityPeriod(Period period, int quantity)
+        public QuantityPeriod(Period period, int quantity, Guid correlationId = default(Guid))
             : base(period.FromUtc, period.ToUtc, IntervalEdge.Closed, IntervalEdge.Closed, true, false)
         {
             Quantity = quantity;
+            CorrelationId = correlationId;
         }
 
-        [Obsolete]
-        public QuantityPeriod(ITimePeriod period, int quantity) : base(period)
-        {
-            Quantity = quantity;
-        }
-
-        public QuantityPeriod(DateTime fromUtc, DateTime toUtc, int quantity)
-            : this(new Period(fromUtc, toUtc), quantity)
+        public QuantityPeriod(DateTime fromUtc, DateTime toUtc, int quantity, Guid correlationId = default(Guid))
+            : this(new Period(fromUtc, toUtc), quantity, correlationId)
         {
         }
 
-        [DataMember(Order = 1)]
+        public Guid CorrelationId { get; private set; }
+
         public Period Period
         {
             get { return new Period(Start, End); }
-            set
-            {
-                base.ExpandStartTo(value.FromUtc);
-                base.ExpandStartTo(value.ToUtc);
-                //Start = value.FromUtc;
-                //End = value.ToUtc;
-            }
         }
 
-        [DataMember(Order = 2)]
-        public int Quantity { get; protected set; }
+        public int Quantity { get; private set; }
 
-        public void AddQuantity(int quantity)
+        public void IncQuantity(int quantity)
         {
             Quantity += quantity;
         }
