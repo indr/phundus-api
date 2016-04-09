@@ -2,6 +2,7 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.Collections.ObjectModel;
 
     public class ProductListData
     {
@@ -29,6 +30,13 @@
         {
             get { return _popularities; }
             protected set { _popularities = value; }
+        }
+
+        private ISet<string> _tags = new HashSet<string>();
+
+        public virtual ICollection<string> Tags
+        {
+            get { return _tags; }
         }
     }
 

@@ -7,6 +7,7 @@ namespace Phundus.Shop.Projections
     using Common.Eventing;
     using Common.Projecting;
     using Inventory.Articles.Model;
+    using Inventory.Model.Articles;
     using Inventory.Stores.Model;
 
     public class ProductDetailsProjection : ProjectionBase<ProductDetailsData>,
@@ -18,7 +19,9 @@ namespace Phundus.Shop.Projections
         ISubscribeTo<PricesChanged>,
         ISubscribeTo<StoreRenamed>,
         ISubscribeTo<ImageAdded>,
-        ISubscribeTo<ImageRemoved>
+        ISubscribeTo<ImageRemoved>,
+        ISubscribeTo<ProductTagged>,
+        ISubscribeTo<ProductUntagged>
 
     {
         public void Handle(ArticleCreated e)
@@ -165,6 +168,17 @@ namespace Phundus.Shop.Projections
 
                 x.Images.Add(image);
             });
+        }
+
+
+        public void Handle(ProductTagged e)
+        {
+            Update(e.ArticleId, x => x.Tags.Add(e.TagName));
+        }
+
+        public void Handle(ProductUntagged e)
+        {
+            Update(e.ArticleId, x => x.Tags.Remove(e.TagName));
         }
     }
 }

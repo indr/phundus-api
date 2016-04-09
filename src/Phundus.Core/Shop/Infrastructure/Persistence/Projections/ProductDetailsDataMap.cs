@@ -40,6 +40,8 @@ namespace Phundus.Shop.Infrastructure.Persistence.Projections
             HasMany(x => x.Images).KeyColumn("ArticleId")
                 .Inverse().Cascade.AllDeleteOrphan()
                 .ForeignKeyCascadeOnDelete();
+
+            HasMany(x => x.Tags).Table("Es_Shop_ProductDetails_Tags").AsSet().Element("TagName", m => m.Type<string>()); 
         }
     }
 }

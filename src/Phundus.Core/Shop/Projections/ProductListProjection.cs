@@ -8,6 +8,7 @@
     using Common.Eventing;
     using Common.Projecting;
     using Inventory.Articles.Model;
+    using Inventory.Model.Articles;
     using Inventory.Stores.Model;
     using Orders.Model;
 
@@ -19,7 +20,9 @@
         ISubscribeTo<PreviewImageChanged>,
         ISubscribeTo<PricesChanged>,
         ISubscribeTo<StoreRenamed>,
-        ISubscribeTo<OrderPlaced>
+        ISubscribeTo<OrderPlaced>,
+        ISubscribeTo<ProductTagged>,
+        ISubscribeTo<ProductUntagged>
     {
         public void Handle(ArticleCreated e)
         {
@@ -130,6 +133,16 @@
                     popularity.Value += 1;
                 });
             }
+        }
+
+        public void Handle(ProductTagged e)
+        {
+            Update(e.ArticleId, x => x.Tags.Add(e.TagName));
+        }
+
+        public void Handle(ProductUntagged e)
+        {
+            Update(e.ArticleId, x => x.Tags.Remove(e.TagName));
         }
     }
 }

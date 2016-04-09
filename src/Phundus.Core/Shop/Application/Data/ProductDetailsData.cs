@@ -38,6 +38,13 @@
             get { return _images; }
             protected set { _images = value; }
         }
+
+        private ISet<string> _tags = new HashSet<string>();
+
+        public virtual ICollection<string> Tags
+        {
+            get { return _tags; }
+        }
     }
 
     public class ProductDetailsDocumentData
