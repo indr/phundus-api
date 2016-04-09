@@ -7,7 +7,7 @@
     using developwithpassion.specifications.extensions;
     using developwithpassion.specifications.rhinomocks;
     using Machine.Specifications;
-    
+
     public abstract class when_handling_reset_projection : Observes<ResetProjectionHandler>
     {
         protected static IProcessedNotificationTrackerStore trackerStore;
@@ -24,7 +24,7 @@
             sut.Handle(new ResetProjection(new InitiatorId(), projectionTypeName));
     }
 
-    [Subject(typeof(ResetProjectionHandler))]
+    [Subject(typeof (ResetProjectionHandler))]
     public class when_projection_does_not_exist : when_handling_reset_projection
     {
         private Establish ctx = () =>
@@ -34,7 +34,7 @@
             trackerStore.never_received(x => x.DeleteTracker(projectionTypeName));
     }
 
-    [Subject(typeof(ResetProjectionHandler))]
+    [Subject(typeof (ResetProjectionHandler))]
     public class when_projection_exists_and_can_reset_is_true : when_handling_reset_projection
     {
         private static IProjection projection;
@@ -53,7 +53,7 @@
             trackerStore.received(x => x.ResetTracker(projectionTypeName));
     }
 
-    [Subject(typeof(ResetProjectionHandler))]
+    [Subject(typeof (ResetProjectionHandler))]
     public class when_projection_exists_but_can_reset_is_false : when_handling_reset_projection
     {
         private static IProjection projection;

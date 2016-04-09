@@ -1,6 +1,5 @@
 ﻿namespace Phundus.Persistence.Tests.Ddd
 {
-    using System;
     using System.Collections.Generic;
     using Common.Domain.Model;
     using Common.Eventing;

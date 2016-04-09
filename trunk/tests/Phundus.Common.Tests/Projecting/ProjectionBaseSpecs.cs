@@ -44,7 +44,7 @@
         }
     }
 
-    [Subject(typeof(ProjectionBase))]
+    [Subject(typeof (ProjectionBase))]
     public class when_inserting_entity : projection_base_concern
     {
         private Because of = () =>
@@ -54,7 +54,7 @@
             session.received(x => x.Save(Arg<TestProjectionEntity>.Is.Equal(entity)));
     }
 
-    [Subject(typeof(ProjectionBase))]
+    [Subject(typeof (ProjectionBase))]
     public class when_insert_with_action : projection_base_concern
     {
         private static Guid value = Guid.NewGuid();
@@ -67,7 +67,7 @@
                 p.Value == value)));
     }
 
-    [Subject(typeof(ProjectionBase))]
+    [Subject(typeof (ProjectionBase))]
     public class when_updating_a_single_entity : projection_base_concern
     {
         private static Guid value = Guid.NewGuid();
@@ -85,7 +85,7 @@
             session.received(x => x.Update(entity));
     }
 
-    [Subject(typeof(ProjectionBase))]
+    [Subject(typeof (ProjectionBase))]
     public class when_updating_a_single_entity_that_is_not_existing : projection_base_concern
     {
         private Because of = () =>
@@ -100,7 +100,7 @@
                 "Could not update projection TestProjection. Projection TestProjectionEntity -1 not found.");
     }
 
-    [Subject(typeof(ProjectionBase))]
+    [Subject(typeof (ProjectionBase))]
     public class when_updating_multiple_entities_with_expression : projection_base_concern
     {
         private static Guid value = Guid.NewGuid();
@@ -151,7 +151,7 @@
         };
     }
 
-    [Subject(typeof(ProjectionBase))]
+    [Subject(typeof (ProjectionBase))]
     public class when_inserting_or_updating_with_expression : projection_base_concern
     {
         protected static Guid value;
@@ -169,7 +169,7 @@
             sut.InsertOrUpdate(expression, value);
     }
 
-    [Subject(typeof(ProjectionBase))]
+    [Subject(typeof (ProjectionBase))]
     public class when_inserting_or_updating_with_expression_and_expression_returns_nothing :
         when_inserting_or_updating_with_expression
     {
@@ -195,7 +195,7 @@
                 p.Id == 0 && p.Value == value)));
     }
 
-    [Subject(typeof(ProjectionBase))]
+    [Subject(typeof (ProjectionBase))]
     public class when_inserting_or_updating_with_expression_and_expression_returns_entity :
         when_inserting_or_updating_with_expression
     {
@@ -223,7 +223,7 @@
             session.received(x => x.SaveOrUpdate(entity));
     }
 
-    [Subject(typeof(ProjectionBase))]
+    [Subject(typeof (ProjectionBase))]
     public class when_inserting_or_updating_entity : projection_base_concern
     {
         private Because of = () =>
@@ -233,7 +233,7 @@
             session.received(x => x.SaveOrUpdate(entity));
     }
 
-    [Subject(typeof(ProjectionBase))]
+    [Subject(typeof (ProjectionBase))]
     public class when_deleting_with_object_as_id : projection_base_concern
     {
         private Establish ctx = () =>
@@ -246,7 +246,7 @@
             session.received(x => x.Delete(entity));
     }
 
-    [Subject(typeof(ProjectionBase))]
+    [Subject(typeof (ProjectionBase))]
     public class when_deleting_an_entity : projection_base_concern
     {
         private Because of = () =>
@@ -256,7 +256,7 @@
             session.received(x => x.Delete(entity));
     }
 
-    [Subject(typeof(ProjectionBase))]
+    [Subject(typeof (ProjectionBase))]
     public class when_resetting : projection_base_concern
     {
         private Because of = () =>

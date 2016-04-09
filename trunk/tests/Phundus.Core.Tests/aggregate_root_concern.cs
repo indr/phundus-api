@@ -22,5 +22,10 @@ namespace Phundus.Tests
             var e = sut.MutatingEvents.SingleOrDefault(p => p.GetType() == typeof (T));
             a((T)e);
         }
+
+        protected static T mutatingEvent<T>()
+        {
+            return (T)sut.MutatingEvents.SingleOrDefault(p => p.GetType() == typeof (T));
+        }
     }
 }

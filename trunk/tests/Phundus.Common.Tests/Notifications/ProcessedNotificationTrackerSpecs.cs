@@ -43,11 +43,11 @@
         private Because of = () =>
             sut.Track(1234);
 
-        private It should_clear_error_message = () =>
-            sut.ErrorMessage.ShouldBeNull();
-
         private It should_clear_error_at_utc = () =>
             sut.ErrorAtUtc.ShouldBeNull();
+
+        private It should_clear_error_message = () =>
+            sut.ErrorMessage.ShouldBeNull();
 
         private It should_set_last_processing_at_utc = () =>
             sut.MostRecentProcessedAtUtc.ShouldEqual(dateTime.UtcNow);
@@ -78,11 +78,11 @@
         private It should_not_touch_most_recent_processed_notification_id = () =>
             sut.MostRecentProcessedNotificationId.ShouldEqual(1);
 
-        private It should_set_error_message = () =>
-            sut.ErrorMessage.ShouldEqual("Error message");
-
         private It should_set_error_at_utc = () =>
             sut.ErrorAtUtc.ShouldEqual(DateTimeProvider.UtcNow);
+
+        private It should_set_error_message = () =>
+            sut.ErrorMessage.ShouldEqual("Error message");
     }
 
     [Subject(typeof (ProcessedNotificationTracker))]
@@ -99,11 +99,11 @@
         private Because of = () =>
             sut.Reset();
 
-        private It should_clear_error_message = () =>
-            sut.ErrorMessage.ShouldBeNull();
-
         private It should_clear_error_at = () =>
             sut.ErrorAtUtc.ShouldBeNull();
+
+        private It should_clear_error_message = () =>
+            sut.ErrorMessage.ShouldBeNull();
 
         private It should_set_most_recent_processed_at_utc = () =>
             sut.MostRecentProcessedAtUtc.ShouldEqual(dateTime.UtcNow);

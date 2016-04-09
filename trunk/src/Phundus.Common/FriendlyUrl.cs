@@ -17,7 +17,7 @@
                 value = value.ToLowerInvariant();
             }
             value = Regex.Replace(value, " ", "-");
-            return Regex.Replace(value, @"[^A-Za-zÄÖÜäöü0-9\-\._~]+", "");
+            return Regex.Replace(value, @"[^A-Za-zÄÖÜäöü0-9\-\._~]+", "", RegexOptions.IgnoreCase);
         }
     }
 }
