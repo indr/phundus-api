@@ -1,6 +1,9 @@
 ﻿namespace Phundus.Tests.Inventory.Projections
 {
+    using Common.Domain.Model;
+    using developwithpassion.specifications.extensions;
     using Machine.Specifications;
+    using Phundus.Inventory.Model.Articles;
     using Phundus.Inventory.Projections;
     using Phundus.Inventory.Stores.Model;
 

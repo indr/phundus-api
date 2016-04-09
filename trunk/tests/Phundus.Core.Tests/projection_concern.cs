@@ -43,5 +43,18 @@
             session.received(x => x.Update(entity));
             action(entity);
         }
+
+        protected static void insertedOrUpdated(object id, Action<TData> action)
+        {
+            session.received(x => x.Get<TData>(id));
+            session.received(x => x.SaveOrUpdate(entity));
+            action(entity);
+        }
+
+        protected static void deleted(Action<TData> action)
+        {
+            session.received(x => x.Delete(entity));
+            action(entity);
+        }
     }
 }

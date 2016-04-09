@@ -134,7 +134,7 @@
         public virtual Iesi.Collections.Generic.ISet<Tag> Tags
         {
             get { return _tags; }
-            private set { _tags = value; }
+            protected set { _tags = value; }
         }
 
         public virtual void ChangeDescription(Manager manager, string description)
