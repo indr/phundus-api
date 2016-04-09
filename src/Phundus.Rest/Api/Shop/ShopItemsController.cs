@@ -92,7 +92,8 @@
                     FileName = s.FileName,
                     FileType = s.FileType,
                     Url = GetArticleFileUrl(item.ArticleId, s.FileName)
-                }).ToList()
+                }).ToList(),
+                Tags = item.Tags.ToList()
             };
         }
 
@@ -162,6 +163,9 @@
 
         [JsonProperty("documents")]
         public ICollection<DocumentObject> Documents { get; set; }
+
+        [JsonProperty("tags")]
+        public List<string> Tags { get; set; }
 
         public class DocumentObject
         {
