@@ -279,8 +279,11 @@
     <Compile Include="Inventory\Application\Commands\ChangePrices.cs" />
     <Compile Include="Inventory\Application\Commands\RemoveImage.cs" />
     <Compile Include="Inventory\Application\Commands\SetPreviewImage.cs" />
+    <Compile Include="Inventory\Application\Commands\TagProductCommand.cs" />
+    <Compile Include="Inventory\Application\Commands\UntagProductCommand.cs" />
     <Compile Include="Inventory\Application\Commands\UpdateDescription.cs" />
     <Compile Include="Inventory\Application\Commands\UpdateSpecification.cs" />
+    <Compile Include="Inventory\Application\TagsQueryService.cs" />
     <Compile Include="Inventory\Infrastructure\Persistence\Mappings\ArticleActionDataMap.cs" />
     <Compile Include="Inventory\Infrastructure\Persistence\Mappings\ArticleDataMap.cs" />
     <Compile Include="Inventory\Infrastructure\Persistence\Mappings\ArticleMap.cs" />
@@ -324,6 +327,8 @@
     <Compile Include="Inventory\Model\Stores\Events\StoreRenamed.cs" />
     <Compile Include="Inventory\Application\StoresQueryService.cs" />
     <Compile Include="Inventory\Projections\TagsProjection.cs" />
+    <Compile Include="Inventory\Resources\ProductsTagsController.cs" />
+    <Compile Include="Inventory\Resources\TagsController.cs" />
     <Compile Include="Shop\Application\Data\LessorData.cs" />
     <Compile Include="Shop\Application\Data\LessorType.cs" />
     <Compile Include="Shop\Application\Data\ProductDetailsData.cs" />
@@ -344,6 +349,7 @@
     <Compile Include="Shop\Infrastructure\Persistence\Projections\ProductDetailsImageDataMap.cs" />
     <Compile Include="Shop\Infrastructure\Persistence\Projections\ProductListDataMap.cs" />
     <Compile Include="Shop\Infrastructure\Persistence\Projections\ProductListPopularityDataMap.cs" />
+    <Compile Include="Inventory\Infrastructure\Persistence\Mappings\TagDataMap.cs" />
     <Compile Include="Shop\Infrastructure\Persistence\Repositories\NhCartRepository.cs" />
     <Compile Include="Shop\Infrastructure\Persistence\Repositories\NhOrderRepository.cs" />
     <Compile Include="Shop\Model\Collaborators\ICollaboratorService.cs" />
@@ -444,9 +450,7 @@
     <None Include="app.config" />
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Inventory\Resources\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <EmbeddedResource Include="IdentityAccess\Model\Organizations\Mails\Templates.resx">
       <Generator>ResXFileCodeGenerator</Generator>
