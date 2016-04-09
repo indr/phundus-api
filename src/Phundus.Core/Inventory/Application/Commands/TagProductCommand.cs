@@ -1,5 +1,6 @@
 ﻿namespace Phundus.Inventory.Application
 {
+    using Castle.Transactions;
     using Common.Commanding;
     using Common.Domain.Model;
     using Model.Articles;
@@ -30,6 +31,7 @@
             _articleRepository = articleRepository;
         }
 
+        [Transaction]
         public void Handle(TagProductCommand command)
         {
             var product = _articleRepository.GetById(command.ProductId);

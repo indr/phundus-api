@@ -1,6 +1,7 @@
 ﻿namespace Phundus.Specs.Features.Articles
 {
     using System;
+    using System.Linq;
     using ContentTypes;
     using NUnit.Framework;
     using Services;
@@ -162,5 +163,22 @@
                 Assert.That(article.Specification, Is.EqualTo(multilineText));
             });
         }
+
+        [When(@"I tag a product with ""(.*)""")]
+        public void WhenITagAProductWith(string p0)
+        {
+            App.TagProduct(Ctx.Article.ArticleId, p0);
+        }
+
+        [Then(@"the tag ""(.*)"" should be in the public list")]
+        public void ThenTheTagShouldBeInThePublicList(string tagName)
+        {
+            Eventual.NoTestException(() =>
+            {
+                var tags = App.GetTags();
+                Assert.That(tags.SingleOrDefault(p => p.Name == tagName), Is.Not.Null);
+            });
+        }
+
     }
 }

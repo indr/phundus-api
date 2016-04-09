@@ -142,6 +142,16 @@
             get { return Resource("lessors/{lessorId}"); }
         }
 
+        public Resource ProductsTagsApi
+        {
+            get { return Resource("inventory/products/{productId}/tags"); }
+        }
+
+        public Resource TagsApi
+        {
+            get { return Resource("inventory/tags"); }
+        }
+
         private Resource Resource(string url)
         {
             var result = new Resource(url, _assertNextHttpStatusCode);

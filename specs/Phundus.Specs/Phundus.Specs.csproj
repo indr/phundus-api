@@ -107,6 +107,7 @@
     <Compile Include="ContentTypes\ShopContentTypes.cs" />
     <Compile Include="ContentTypes\StatusGetOkResponseContent.cs" />
     <Compile Include="ContentTypes\StoresContentTypes.cs" />
+    <Compile Include="ContentTypes\TagData.cs" />
     <Compile Include="ContentTypes\UsersContentTypes.cs" />
     <Compile Include="Eventual.cs" />
     <Compile Include="Features\Account\ChangeEmailAddress.feature.cs">
@@ -176,6 +177,11 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>AddOrganizationItems.feature</DependentUpon>
+    </Compile>
+    <Compile Include="Features\Catalog\ProductTags.feature.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ProductTags.feature</DependentUpon>
     </Compile>
     <Compile Include="Features\Feedback\Feedback.feature.cs">
       <AutoGen>True</AutoGen>
@@ -371,6 +377,10 @@
     <None Include="Features\Cart\AddOrganizationItems.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>AddOrganizationItems.feature.cs</LastGenOutput>
+    </None>
+    <None Include="Features\Catalog\ProductTags.feature">
+      <Generator>SpecFlowSingleFileGenerator</Generator>
+      <LastGenOutput>ProductTags.feature.cs</LastGenOutput>
     </None>
     <None Include="Features\Feedback\Feedback.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>

@@ -458,5 +458,15 @@
         {
             return _apiClient.StoresApi.Query<Store>(new {ownerId = ownerId}).Data;            
         }
+
+        public void TagProduct(Guid productId, string tagName)
+        {
+            _apiClient.ProductsTagsApi.Post(new {productId, name = tagName});
+        }
+
+        public IList<TagData> GetTags()
+        {
+            return _apiClient.TagsApi.Query<TagData>().Data.Results;
+        }
     }
 }
