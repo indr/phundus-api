@@ -32,6 +32,8 @@ namespace Phundus.Shop.Infrastructure.Persistence.Projections
             HasMany(x => x.Popularities).KeyColumn("ArticleId")
                 .Inverse().Cascade.AllDeleteOrphan()
                 .ForeignKeyCascadeOnDelete();
+
+            HasMany(x => x.Tags).Table("Es_Shop_ProductList_Tags").AsSet().Element("TagName", m => m.Type<string>()); 
         }
     }
 }
