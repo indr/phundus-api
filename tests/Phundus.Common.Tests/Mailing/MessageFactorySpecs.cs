@@ -3,10 +3,8 @@
     using System;
     using System.Net.Mail;
     using Common.Mailing;
-    using developwithpassion.specifications.extensions;
     using developwithpassion.specifications.rhinomocks;
     using Machine.Specifications;
-    using Rhino.Mocks;
 
     public class TestModel : MailModel
     {

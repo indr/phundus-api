@@ -151,8 +151,11 @@
     <Compile Include="IdentityAccess\Model\Users\Mails\NewPasswordMailSpecs.cs" />
     <Compile Include="Inventory\Application\ChangeContactDetailsHandlerSpecs.cs" />
     <Compile Include="Inventory\Events\GrossStockChangedSpecs.cs" />
+    <Compile Include="Inventory\Events\ProductTaggedSpecs.cs" />
+    <Compile Include="Inventory\Events\ProductUntaggedSpecs.cs" />
     <Compile Include="Inventory\inventory_command_handler_concern.cs" />
     <Compile Include="Inventory\Model\Stores\Events\ContactDetailsChangedSpecs.cs" />
+    <Compile Include="Inventory\Model\TagSpecs.cs" />
     <Compile Include="Inventory\Projections\inventory_projection_concern.cs" />
     <Compile Include="Inventory\Projections\StoreListProjectionSpecs.cs" />
     <Compile Include="MappedEntitiesSpecs.cs" />

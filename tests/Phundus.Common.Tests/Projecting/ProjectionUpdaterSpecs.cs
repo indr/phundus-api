@@ -55,7 +55,7 @@
             tracker = new ProcessedNotificationTracker("typeName");
             tracker.Track(lowNotificationId);
             eventHandlerMock = fake.an<ITestEventHandler>();
-            eventHandlerAdapter = new TestEventHandlerAdapter().SetMock(eventHandlerMock);            
+            eventHandlerAdapter = new TestEventHandlerAdapter().SetMock(eventHandlerMock);
 
             eventStore = depends.on<IEventStore>();
             eventStore.setup(x => x.GetMaxNotificationId()).Return(maxNotificationId);

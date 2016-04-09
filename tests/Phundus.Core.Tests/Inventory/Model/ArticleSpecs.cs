@@ -7,6 +7,7 @@
     using Machine.Specifications;
     using Phundus.Inventory.Articles.Model;
     using Phundus.Inventory.Model;
+    using Phundus.Inventory.Model.Articles;
     using Rhino.Mocks;
 
     public abstract class article_concern : aggregate_concern<Article>
@@ -51,6 +52,9 @@
     [Subject(typeof (Article))]
     public class when_instantiating : article_concern
     {
+        private It should_have_no_tags = () =>
+            sut.Tags.ShouldBeEmpty();
+
         private It should_have_the_article_id = () =>
             sut.ArticleId.ShouldEqual(theArticleId);
 
@@ -377,5 +381,68 @@
 
         private It should_set_preview_flag = () =>
             sut.Images.Single(p => p.FileName == "second.jpg").IsPreview.ShouldBeTrue();
+    }
+
+
+    [Subject(typeof (Article))]
+    public class when_tagging_an_untagged_product : article_concern
+    {
+        private Because of = () =>
+            sut.Tag(theManager, "tag1");
+
+        private It should_contain_one_tag = () =>
+            sut.Tags.Count.ShouldEqual(1);
+
+        private It should_contain_only_the_tag = () =>
+            sut.Tags.ShouldContainOnly(new Tag("tag1"));
+
+        private It should_publish_product_tagged = () =>
+            published<ProductTagged>(p => p.TagName == "tag1");
+    }
+
+    [Subject(typeof (Article))]
+    public class when_tagging_a_product_with_the_same_tag_twice : article_concern
+    {
+        private Establish ctx = () =>
+            sut_setup.run(sut =>
+                sut.Tag(theManager, "tag"));
+
+        private Because of = () =>
+            spec.catch_exception(() =>
+                sut.Tag(theManager, "tag"));
+
+        private It should_throw_invalid_operation_exception = () =>
+            spec.exception_thrown.ShouldBeOfExactType<InvalidOperationException>();
+    }
+
+    [Subject(typeof (Article))]
+    public class when_untagging_a_product_when_the_tag_is_not_present : article_concern
+    {
+        private Because of = () =>
+            spec.catch_exception(() =>
+                sut.Untag(theManager, "tag"));
+
+        private It should_throw_invalid_operation_exception = () =>
+            spec.exception_thrown.ShouldBeOfExactType<InvalidOperationException>();
+    }
+
+    [Subject(typeof (Article))]
+    public class when_untagging_a_product : article_concern
+    {
+        private Establish ctx = () => sut_setup.run(sut =>
+        {
+            sut.Tag(theManager, "tag1");
+            sut.Tag(theManager, "tag2");
+        });
+
+        private Because of = () =>
+            sut.Untag(theManager, "tag1");
+
+        private It should_remove_tag = () =>
+            sut.Tags.ShouldNotContain(new Tag("tag1"));
+
+        private It should_publish_product_untagged = () =>
+            published<ProductUntagged>(p =>
+                p.TagName == "tag1");
     }
 }

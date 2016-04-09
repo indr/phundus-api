@@ -22,7 +22,8 @@
 
         private static FieldInfo GetNotificationPublishersStaticFactory()
         {
-            var result = typeof (NotificationPublisher).GetField("_factory", BindingFlags.Static | BindingFlags.NonPublic);
+            var result = typeof (NotificationPublisher).GetField("_factory",
+                BindingFlags.Static | BindingFlags.NonPublic);
             result.ShouldNotBeNull();
             return result;
         }

@@ -57,7 +57,7 @@
             sut.ServerUrl.ShouldEqual("acceptance.test.phundus.ch");
     }
 
-    [Subject(typeof(ConfigImpl))]
+    [Subject(typeof (ConfigImpl))]
     public class when_server_url_is_staging_test_phundus_ch : config_concern
     {
         private Establish ctx = () =>
@@ -70,7 +70,7 @@
             sut.ServerUrl.ShouldEqual("staging.test.phundus.ch");
     }
 
-    [Subject(typeof(ConfigImpl))]
+    [Subject(typeof (ConfigImpl))]
     public class when_server_url_is_phundus_ch : config_concern
     {
         private Establish ctx = () =>
@@ -83,7 +83,7 @@
             sut.ServerUrl.ShouldEqual("www.phundus.ch");
     }
 
-    [Subject(typeof(ConfigImpl))]
+    [Subject(typeof (ConfigImpl))]
     public class when_server_url_is_www_phundus_ch : config_concern
     {
         private Establish ctx = () =>

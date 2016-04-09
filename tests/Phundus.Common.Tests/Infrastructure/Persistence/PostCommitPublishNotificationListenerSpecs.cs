@@ -3,18 +3,17 @@
     using System;
     using Common.Eventing;
     using Common.Infrastructure.Persistence;
-    using Common.Infrastructure.Persistence.Installers;
     using Common.Notifications;
     using developwithpassion.specifications.extensions;
     using developwithpassion.specifications.rhinomocks;
     using Machine.Specifications;
     using NHibernate.Event;
     using Rhino.Mocks;
-    using Rhino.Mocks.Constraints;
 
     public class post_commit_publish_notification_listener_concern : Observes<PostCommitPublishNotificationListener>
     {
         protected static INotificationPublisher notificationPubliser;
+        protected static StoredEvent storedEvent;
 
         private Cleanup cleanup = () =>
             NotificationPublisher.Factory(null);
@@ -26,8 +25,6 @@
 
             storedEvent = new StoredEvent(Guid.NewGuid(), DateTime.UtcNow, "typeName", new byte[0], Guid.NewGuid(), 1);
         };
-
-        protected static StoredEvent storedEvent;
 
         protected static PostInsertEvent makePostInsertEvent(object entity)
         {

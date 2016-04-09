@@ -110,7 +110,7 @@
             subscribers = sut.GetSubscribersForEvent(new TestDomainEvent2());
 
         private It should_return_array_that_contains_test_subscriber_2 = () =>
-            subscribers.ShouldContain(p => ProxyUtil.GetUnproxiedType(p) == typeof(TestSubscriber2));
+            subscribers.ShouldContain(p => ProxyUtil.GetUnproxiedType(p) == typeof (TestSubscriber2));
     }
 
     public class when_get_subscribers_for_event_non_generic : event_handler_factory_concern

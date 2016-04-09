@@ -23,6 +23,7 @@
         private decimal _publicPrice;
         private string _specification;
         private StoreId _storeId;
+        private Iesi.Collections.Generic.ISet<Tag> _tags = new HashedSet<Tag>();
 
         protected Article()
         {
@@ -125,7 +126,16 @@
 
         public virtual string Color { get; set; }
 
-        public virtual OwnerId OwnerId { get { return Owner.OwnerId; } }
+        public virtual OwnerId OwnerId
+        {
+            get { return Owner.OwnerId; }
+        }
+
+        public virtual Iesi.Collections.Generic.ISet<Tag> Tags
+        {
+            get { return _tags; }
+            private set { _tags = value; }
+        }
 
         public virtual void ChangeDescription(Manager manager, string description)
         {
@@ -258,13 +268,33 @@
             GrossStock = grossStock;
 
             EventPublisher.Publish(new GrossStockChanged(manager, ArticleShortId, ArticleId, Owner.OwnerId,
-                oldGrossStock,
-                GrossStock));
+                oldGrossStock, GrossStock));
         }
 
         protected override IEnumerable<object> GetIdentityComponents()
         {
             yield return ArticleId;
+        }
+
+        public virtual void Tag(Manager manager, string name)
+        {
+            var tag = new Tag(name);
+            if (_tags.Contains(tag))
+                throw new InvalidOperationException(String.Format("Product is already tagged with {0}.", tag.Name));
+            if (!_tags.Add(tag))
+                throw new InvalidOperationException(String.Format("Could not add tag {0}.", name));
+
+            EventPublisher.Publish(new ProductTagged(manager, ArticleId, OwnerId, tag.Name));
+        }
+
+        public virtual void Untag(Manager manager, string name)
+        {
+            var tag = new Tag(name);
+            
+            if (!_tags.Remove(tag))
+                throw new InvalidOperationException(String.Format("Could not remove tag {0}.", name));
+
+            EventPublisher.Publish(new ProductUntagged(manager, ArticleId, OwnerId, tag.Name));
         }
     }
 }

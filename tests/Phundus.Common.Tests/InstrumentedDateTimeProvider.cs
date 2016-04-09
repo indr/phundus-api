@@ -7,7 +7,7 @@
         private DateTime _utcNow;
 
         public InstrumentedDateTimeProvider() : this(DateTime.UtcNow)
-        {           
+        {
         }
 
         public InstrumentedDateTimeProvider(DateTime utcNow)

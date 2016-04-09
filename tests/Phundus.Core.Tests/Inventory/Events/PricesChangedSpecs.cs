@@ -3,7 +3,6 @@
     using Common.Domain.Model;
     using Machine.Specifications;
     using Phundus.Inventory.Articles.Model;
-    using Phundus.Inventory.Model;
 
     [Subject(typeof (PricesChanged))]
     public class prices_changed : inventory_domain_event_concern<PricesChanged>
