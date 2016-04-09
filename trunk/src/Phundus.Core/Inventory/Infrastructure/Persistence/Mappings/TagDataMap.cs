@@ -11,6 +11,7 @@ namespace Phundus.Inventory.Infrastructure.Persistence.Mappings
             Table("Es_Inventory_Tags");
 
             Id(x => x.Name).GeneratedBy.Assigned();
+            Version(x => x.ConcurrencyVersion);
             Map(x => x.Count);
         }
     }

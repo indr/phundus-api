@@ -36,7 +36,8 @@ namespace Phundus.Inventory.Projections
 
     public class TagData
     {
-        public string Name { get; set; }
-        public int Count { get; set; }
+        public virtual string Name { get; set; }
+        public virtual int ConcurrencyVersion { get; set; }
+        public virtual int Count { get; set; }
     }
 }
