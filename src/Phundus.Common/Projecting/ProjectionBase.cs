@@ -70,6 +70,13 @@ namespace Phundus.Common.Projecting
             }
         }
 
+        protected void InsertOrUpdate(object id, Action<TEntity> action)
+        {
+            var entity = Session.Get<TEntity>(id) ?? new TEntity();
+            action(entity);
+            Session.SaveOrUpdate(entity);
+        }
+
         protected void InsertOrUpdate(Expression<Func<TEntity, bool>> expression, Action<TEntity> action)
         {
             Session.Flush();

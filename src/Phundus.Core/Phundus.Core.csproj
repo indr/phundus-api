@@ -323,6 +323,7 @@
     <Compile Include="Inventory\Application\Commands\RenameStore.cs" />
     <Compile Include="Inventory\Model\Stores\Events\StoreRenamed.cs" />
     <Compile Include="Inventory\Application\StoresQueryService.cs" />
+    <Compile Include="Inventory\Projections\TagsProjection.cs" />
     <Compile Include="Shop\Application\Data\LessorData.cs" />
     <Compile Include="Shop\Application\Data\LessorType.cs" />
     <Compile Include="Shop\Application\Data\ProductDetailsData.cs" />
