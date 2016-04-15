@@ -2,6 +2,7 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.Linq;
 
     public class ProductListData
     {
@@ -35,6 +36,15 @@
         public virtual ICollection<string> Tags
         {
             get { return _tags; }            
+        }
+
+        public virtual string TagsAsString
+        {
+            get { return String.Join(" ", Tags); }
+            protected set
+            {
+                // Noop
+            }
         }
     }
 

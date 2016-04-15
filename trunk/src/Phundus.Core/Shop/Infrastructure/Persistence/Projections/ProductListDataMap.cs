@@ -1,6 +1,7 @@
 namespace Phundus.Shop.Infrastructure.Persistence.Projections
 {
     using Application;
+    using Common.Infrastructure.Persistence;
     using FluentNHibernate.Mapping;
     using NHibernate.Type;
 
@@ -33,7 +34,9 @@ namespace Phundus.Shop.Infrastructure.Persistence.Projections
                 .Inverse().Cascade.AllDeleteOrphan()
                 .ForeignKeyCascadeOnDelete();
 
-            HasMany(x => x.Tags).Table("Es_Shop_ProductList_Tags").AsSet().Element("TagName", m => m.Type<string>()); 
+            HasMany(x => x.Tags).Table("Es_Shop_ProductList_Tags").AsSet().Element("TagName", m => m.Type<string>());
+
+            Map(x => x.TagsAsString).WithMaxSize().Nullable();
         }
     }
 }

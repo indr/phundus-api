@@ -1,6 +1,8 @@
 namespace Phundus.Shop.Application
 {
     using System;
+    using System.Linq;
+    using System.Text.RegularExpressions;
     using Common;
     using Common.Projections;
     using Common.Querying;
@@ -26,8 +28,11 @@ namespace Phundus.Shop.Application
             var query = Session.QueryOver(() => items);
             if (!String.IsNullOrWhiteSpace(q))
             {
-                q = q.ToLowerInvariant();
-                query = query.WhereRestrictionOn(e => e.Name).IsLike(q, MatchMode.Anywhere);
+                var d = new Disjunction();
+                d.Add(Restrictions.On<ProductListData>(e => e.Name).IsInsensitiveLike(q, MatchMode.Anywhere));
+                d.Add(Restrictions.On<ProductListData>(e => e.TagsAsString).IsInsensitiveLike(q, MatchMode.Anywhere));
+
+                query.Where(d);
             }
             if (lessorId.HasValue)
             {
