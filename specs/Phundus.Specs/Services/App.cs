@@ -459,9 +459,9 @@
             return _apiClient.StoresApi.Query<Store>(new {ownerId = ownerId}).Data;            
         }
 
-        public void TagProduct(Guid productId, string tagName)
+        public void TagProduct(Guid tenantId, Guid articleId, string tagName)
         {
-            _apiClient.ProductsTagsApi.Post(new {productId, name = tagName});
+            _apiClient.ProductsTagsApi.Post(new {tenantId,articleId, name = tagName});
         }
 
         public IList<TagData> GetTags()

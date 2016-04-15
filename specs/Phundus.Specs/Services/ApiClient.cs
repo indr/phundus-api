@@ -144,7 +144,7 @@
 
         public Resource ProductsTagsApi
         {
-            get { return Resource("inventory/products/{productId}/tags"); }
+            get { return Resource("inventory/{tenantId}/articles/{articleId}/tags"); }
         }
 
         public Resource TagsApi
