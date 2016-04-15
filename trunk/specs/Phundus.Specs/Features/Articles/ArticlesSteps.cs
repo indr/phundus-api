@@ -167,7 +167,7 @@
         [When(@"I tag a product with ""(.*)""")]
         public void WhenITagAProductWith(string p0)
         {
-            App.TagProduct(Ctx.Article.ArticleId, p0);
+            App.TagProduct(Ctx.Article.OwnerId, Ctx.Article.ArticleId, p0);
         }
 
         [Then(@"the tag ""(.*)"" should be in the public list")]
