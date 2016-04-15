@@ -9,21 +9,21 @@
     using Common.Resources;
     using Newtonsoft.Json;
 
-    [RoutePrefix("api/inventory/products/{productId}/tags")]
+    [RoutePrefix("api/inventory/{tenantId}/articles/{articleId}/tags")]
     public class ProductsTagsController : ApiControllerBase
     {
         [POST("")]
-        public virtual HttpResponseMessage Post(Guid productId, PostRequestContent rq)
+        public virtual HttpResponseMessage Post(Guid tenantId, Guid articleId, PostRequestContent rq)
         {
-            Dispatch(new TagProductCommand(CurrentUserId, new ArticleId(productId), rq.Name));
+            Dispatch(new TagProductCommand(CurrentUserId, new ArticleId(articleId), rq.Name));
 
             return NoContent();
         }
 
         [DELETE("{name}")]
-        public virtual HttpResponseMessage Delete(Guid productId, string name)
+        public virtual HttpResponseMessage Delete(Guid tenantId, Guid articleId, string name)
         {
-            Dispatch(new UntagProductCommand(CurrentUserId, new ArticleId(productId), name));
+            Dispatch(new UntagProductCommand(CurrentUserId, new ArticleId(articleId), name));
 
             return NoContent();
         }
