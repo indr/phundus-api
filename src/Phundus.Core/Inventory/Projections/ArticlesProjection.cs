@@ -1,10 +1,13 @@
 ﻿namespace Phundus.Inventory.Projections
 {
     using System;
+    using System.Collections.Generic;
+    using System.Collections.ObjectModel;
     using Articles.Model;
     using Common.Eventing;
     using Common.Projecting;
     using Model;
+    using Model.Articles;
 
     public class ArticlesProjection : ProjectionBase<ArticleData>,
         ISubscribeTo<ArticleCreated>,
@@ -13,7 +16,9 @@
         ISubscribeTo<GrossStockChanged>,
         ISubscribeTo<DescriptionChanged>,
         ISubscribeTo<SpecificationChanged>,
-        ISubscribeTo<PricesChanged>
+        ISubscribeTo<PricesChanged>,
+        ISubscribeTo<ProductTagged>,
+        ISubscribeTo<ProductUntagged>
     {
         public void Handle(ArticleCreated e)
         {
@@ -74,10 +79,24 @@
         {
             Update(e.ArticleId, r => { r.Specification = e.Specification; });
         }
+
+        public void Handle(ProductTagged e)
+        {
+            Update(e.ArticleId, x =>
+                x.Tags.Add(e.TagName));
+        }
+
+        public void Handle(ProductUntagged e)
+        {
+            Update(e.ArticleId, x =>
+                x.Tags.Remove(e.TagName));
+        }
     }
 
     public class ArticleData
     {
+        private ICollection<string> _tags = new Collection<string>();
+
         public virtual Guid ArticleId { get; set; }
         public virtual int ArticleShortId { get; set; }
         public virtual DateTime CreatedAtUtc { get; set; }
@@ -93,5 +112,11 @@
         public virtual decimal PublicPrice { get; set; }
         public virtual decimal? MemberPrice { get; set; }
         public virtual int GrossStock { get; set; }
+
+        public virtual ICollection<string> Tags
+        {
+            get { return _tags; }
+            protected set { _tags = value; }
+        }
     }
 }
