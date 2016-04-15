@@ -23,7 +23,11 @@
         [AllowAnonymous]
         public virtual QueryOkResponseContent<TagData> GetAll()
         {
-            var results = _tagsQueryService.Query();
+            string q = null;
+            var queryParams = GetQueryParams();
+            if (queryParams.ContainsKey("q"))
+                q = queryParams["q"];
+            var results = _tagsQueryService.Query(q);
             return new QueryOkResponseContent<TagData>(results);
         }
     }
