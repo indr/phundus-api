@@ -173,12 +173,20 @@ namespace Phundus.Shop.Projections
 
         public void Handle(ProductTagged e)
         {
-            Update(e.ArticleId, x => x.Tags.Add(e.TagName));
+            if (String.IsNullOrWhiteSpace(e.TagName))
+                return;
+
+            Update(e.ArticleId, x =>
+                x.Tags.Add(e.TagName));
         }
 
         public void Handle(ProductUntagged e)
         {
-            Update(e.ArticleId, x => x.Tags.Remove(e.TagName));
+            if (String.IsNullOrWhiteSpace(e.TagName))
+                return;
+
+            Update(e.ArticleId, x =>
+                x.Tags.Remove(e.TagName));
         }
     }
 }

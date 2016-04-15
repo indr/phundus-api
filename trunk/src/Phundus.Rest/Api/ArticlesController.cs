@@ -17,6 +17,7 @@ namespace Phundus.Rest.Api
     using Newtonsoft.Json;    
 
     [RoutePrefix("api/articles")]
+    [RoutePrefix("api/inventory/{tenantId}/articles")]
     public class ArticlesController : ApiControllerBase
     {
         private readonly IArticleActionQueryService _articleActionQueryService;
@@ -81,6 +82,8 @@ namespace Phundus.Rest.Api
             var queryParams = GetQueryParams();
             if (queryParams.ContainsKey("ownerId"))
                 ownerId = GetOwnerId(queryParams["ownerId"]);
+            if (queryParams.ContainsKey("tenantId"))
+                ownerId = GetOwnerId(queryParams["tenantId"]);
 
             if (ownerId == null)
                 throw new NotFoundException("Article not found.");
@@ -101,7 +104,8 @@ namespace Phundus.Rest.Api
                 PublicPrice = result.PublicPrice,
                 MemberPrice = result.MemberPrice,
                 Description = result.Description,
-                Specification = result.Specification
+                Specification = result.Specification,
+                Tags = result.Tags.ToArray()
             };
         }
 
@@ -260,6 +264,9 @@ namespace Phundus.Rest.Api
 
         [JsonProperty("specification")]
         public string Specification { get; set; }
+
+        [JsonProperty("tags")]
+        public string[] Tags { get; set; }
     }
 
     public class ArticlesPostRequestContent

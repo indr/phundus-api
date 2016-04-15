@@ -2,11 +2,11 @@
 {
     using System;
     using System.Collections.Generic;
-    using System.Collections.ObjectModel;
 
     public class ProductListData
     {
         private ICollection<ProductListPopularityData> _popularities = new List<ProductListPopularityData>();
+        private ISet<string> _tags = new HashSet<string>();
 
         public virtual Guid ArticleId { get; set; }
         public virtual int ArticleShortId { get; set; }
@@ -32,11 +32,9 @@
             protected set { _popularities = value; }
         }
 
-        private ISet<string> _tags = new HashSet<string>();
-
         public virtual ICollection<string> Tags
         {
-            get { return _tags; }
+            get { return _tags; }            
         }
     }
 

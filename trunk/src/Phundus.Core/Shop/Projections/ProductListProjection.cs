@@ -137,12 +137,14 @@
 
         public void Handle(ProductTagged e)
         {
-            Update(e.ArticleId, x => x.Tags.Add(e.TagName));
+            Update(e.ArticleId, x =>
+                x.Tags.Add(e.TagName));
         }
 
         public void Handle(ProductUntagged e)
         {
-            Update(e.ArticleId, x => x.Tags.Remove(e.TagName));
+            Update(e.ArticleId, x =>
+                x.Tags.Remove(e.TagName));
         }
     }
 }

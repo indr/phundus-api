@@ -40,6 +40,8 @@
             HasMany(x => x.Images).AsSet()
                 .KeyColumn("ArticleId").Inverse()
                 .Cascade.AllDeleteOrphan();
+
+            Map(x => x.TagsAsString, "Tags");
         }
     }
 }

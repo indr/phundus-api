@@ -1,5 +1,6 @@
 namespace Phundus.Inventory.Model.Articles
 {
+    using System;
     using System.Collections.Generic;
     using Common;
     using Common.Domain.Model;
@@ -8,7 +9,11 @@ namespace Phundus.Inventory.Model.Articles
     {
         public Tag(string name)
         {
-            Name = name.ToFriendlyUrl();
+            name = name.Replace(' ', '-');
+            if (String.IsNullOrWhiteSpace(name))
+                throw new ArgumentNullException("name");
+
+            Name = name;
         }
 
         public string Name { get; private set; }

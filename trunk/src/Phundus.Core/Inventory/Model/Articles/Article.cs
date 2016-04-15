@@ -137,6 +137,23 @@
             protected set { _tags = value; }
         }
 
+        [Obsolete("Will be removed when this aggregate root is event sourced.")]
+        public virtual string TagsAsString
+        {
+            get
+            {
+                if (_tags.Count == 0)
+                    return null;
+                return String.Join(" ", _tags.Select(x => x.Name));
+            }
+            protected set
+            {
+                if (String.IsNullOrWhiteSpace(value))
+                    return;
+                _tags = new HashedSet<Tag>(value.Split(' ').Select(s => new Tag(s)).ToArray());
+            }
+        }
+
         public virtual void ChangeDescription(Manager manager, string description)
         {
             if (_description != null && description == _description)
@@ -290,7 +307,7 @@
         public virtual void Untag(Manager manager, string name)
         {
             var tag = new Tag(name);
-            
+
             if (!_tags.Remove(tag))
                 throw new InvalidOperationException(String.Format("Could not remove tag {0}.", name));
 

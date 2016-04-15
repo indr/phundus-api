@@ -174,6 +174,7 @@
     <Compile Include="2016\03\M201603150232_Add_column_Article_StoreId_to_CartItem.cs" />
     <Compile Include="2016\03\M201603182224_Remove_ShopItem_and_ShopItems_projections.cs" />
     <Compile Include="2016\03\M201603192257_Migrate_OrderEventLines.cs" />
+    <Compile Include="2016\04\M201604150407_Add_column_Tags_to_Dm_Inventory_Article.cs" />
     <Compile Include="Helper\FluentMigratorExtensions.cs" />
     <Compile Include="2016\03\M201603020229_Create_primary_and_foreign_keys.cs" />
     <Compile Include="2016\02\M201602020534_Create_or_populate_ArticleCreated.cs" />

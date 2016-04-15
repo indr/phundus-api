@@ -9,14 +9,14 @@
     }
 
     [Subject(typeof (Tag))]
-    public class creating_a_tag_sanitizes_name : tag_concern
+    public class creating_a_tag_replaces_whitespace_with_dash : tag_concern
     {
         private Establish ctx = () =>
             sut_factory.create_using(() =>
                 new Tag("Tä g@ 1"));
 
         private It should_have_url_friendly_name = () =>
-            sut.Name.ShouldEqual("tä-g-1");
+            sut.Name.ShouldEqual("Tä-g@-1");
     }
 
     [Subject(typeof (Tag))]
@@ -28,7 +28,7 @@
             sut_factory.create_using(() =>
                 new Tag("abc"));
 
-        private It should_have_the_same_hash_code = () =>
-            sut.GetHashCode().ShouldEqual(other.GetHashCode());
+        private It should_not_have_the_same_hash_code = () =>
+            sut.GetHashCode().ShouldNotEqual(other.GetHashCode());
     }
 }
