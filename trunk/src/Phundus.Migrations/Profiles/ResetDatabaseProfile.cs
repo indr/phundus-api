@@ -37,9 +37,9 @@
             DropTable("Es_Shop_ProductList");
             DropTable("Es_Shop_Orders_Lines");
             DropTable("Es_Shop_Orders");
-            
-            DeleteAllRowsIfTableExists("Es_Inventory_Articles_Tags");
-            DeleteAllRowsIfTableExists("Es_Inventory_Articles");
+
+            DropTable("Es_Inventory_Articles_Tags");
+            DropTable("Es_Inventory_Articles");
 
             DeleteAllRowsFromTableWithPrefix("Es_");
 
