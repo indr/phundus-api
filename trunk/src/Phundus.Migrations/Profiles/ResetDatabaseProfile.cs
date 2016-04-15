@@ -38,7 +38,9 @@
             DropTable("Es_Shop_Orders_Lines");
             DropTable("Es_Shop_Orders");
             
+            DeleteAllRowsIfTableExists("Es_Inventory_Articles_Tags");
             DeleteAllRowsIfTableExists("Es_Inventory_Articles");
+
             DeleteAllRowsFromTableWithPrefix("Es_");
 
             Delete.FromTable("ProcessedNotificationTracker").InSchema(SchemaName).AllRows();
