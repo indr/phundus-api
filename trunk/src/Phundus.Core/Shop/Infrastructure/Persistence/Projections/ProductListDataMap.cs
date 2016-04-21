@@ -34,7 +34,9 @@ namespace Phundus.Shop.Infrastructure.Persistence.Projections
                 .Inverse().Cascade.AllDeleteOrphan()
                 .ForeignKeyCascadeOnDelete();
 
-            HasMany(x => x.Tags).Table("Es_Shop_ProductList_Tags").AsSet().Element("TagName", m => m.Type<string>());
+            HasMany(x => x.Tags).Table("Es_Shop_ProductList_Tags")
+                .AsSet().Element("TagName", m => m.Type<string>())
+                .OrderBy("TagName");
 
             Map(x => x.TagsAsString).WithMaxSize().Nullable();
         }

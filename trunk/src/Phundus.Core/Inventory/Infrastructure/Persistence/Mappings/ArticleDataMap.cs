@@ -30,8 +30,10 @@
             Map(x => x.MemberPrice, "MemberPrice");
             Map(x => x.GrossStock, "GrossStock");
 
-            HasMany(x => x.Tags).Table("Es_Inventory_Articles_Tags").AsSet().Element("TagName", m => m.Type<string>())
-                .Not.LazyLoad();
+            HasMany(x => x.Tags).Table("Es_Inventory_Articles_Tags")
+                .AsSet().Element("TagName", m => m.Type<string>())
+                .Not.LazyLoad()
+                .OrderBy("TagName");
         }
     }
 }
