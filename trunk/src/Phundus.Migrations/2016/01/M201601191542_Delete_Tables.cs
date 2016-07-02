@@ -9,7 +9,8 @@
         public override void Up()
         {
             Delete.Table("Rm_Relationships");
-            Rename.Table("Rm_EventLog").To("Es_Dashboard_EventLog");
+            if (Schema.Table("Rm_EventLog").Exists())
+                Rename.Table("Rm_EventLog").To("Es_Dashboard_EventLog");
 
             if (Schema.Table("model_store").Exists())
                 Delete.Table("model_store");
