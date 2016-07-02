@@ -9,7 +9,8 @@ namespace Phundus.Migrations
         public override void Up()
         {
             ResetAllProcessedNotificationTrackers();
-            Delete.FromTable("Es_Dashboard_EventLog").AllRows();
+            if (Schema.Table("Es_Dashboard_EventLog").Exists())
+                Delete.FromTable("Es_Dashboard_EventLog").AllRows();
             Delete.FromTable("Es_IdentityAccess_Relationships").AllRows();
             Delete.FromTable("Es_Inventory_Articles").AllRows();
         }
