@@ -88,7 +88,7 @@ Das phundus-Team
 --
 This is an automatically generated message from phundus.
 -
-If you think it was sent incorrectly contact the administrators at lukas.mueller@phundus.ch or reto.inderbitzin@phundus.ch.", ((TechTalk.SpecFlow.Table)(null)), "Then ");
+If you think it was sent incorrectly contact the administrators at mail@phundus.ch.", ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line 25
  testRunner.And("\"admin@test.phundus.ch\" should receive email \"[phundus] Feedback\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden

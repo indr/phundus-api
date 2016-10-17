@@ -7,11 +7,11 @@ namespace Phundus.Common.Mailing
 --
 This is an automatically generated message from phundus.
 -
-If you think it was sent incorrectly contact the administrators at lukas.mueller@phundus.ch or reto.inderbitzin@phundus.ch.";
+If you think it was sent incorrectly contact the administrators at mail@phundus.ch.";
 
         public const string HtmlFooter = @"<hr />
 <footer>
-    <p>This is an automatically generated message from phundus.<br />If you think it was sent incorrectly contact the administrators at lukas.mueller@phundus.ch or reto.inderbitzin@phundus.ch.</p>
+    <p>This is an automatically generated message from phundus.<br />If you think it was sent incorrectly contact the administrators at mail@phundus.ch.</p>
 </footer>
 </div>
 </body>
