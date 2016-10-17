@@ -20,7 +20,7 @@ Scenario: Send as anon
 		--
 		This is an automatically generated message from phundus.
 		-
-		If you think it was sent incorrectly contact the administrators at lukas.mueller@phundus.ch or reto.inderbitzin@phundus.ch.
+		If you think it was sent incorrectly contact the administrators at mail@phundus.ch.
 		"""
 	And "admin@test.phundus.ch" should receive email "[phundus] Feedback"
 
