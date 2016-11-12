@@ -16,6 +16,7 @@ namespace Phundus.Shop.Model.Mails
         {
             public OrderModel Order { get; set; }
             public LesseeModel Lessee { get; set; }
+            public string Text { get; set; }
         }
 
         public class OrderLineModel

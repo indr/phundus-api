@@ -30,7 +30,8 @@
             {
                 OrganizationId = organization.OrganizationId,
                 PublicRental = organization.PublicRental,
-                PdfTemplate = organization.PdfTemplateFileName
+                PdfTemplate = organization.PdfTemplateFileName,
+                OrderReceivedEmail = organization.OrderReceivedText
             };
         }
 
@@ -47,6 +48,11 @@
                 Dispatch(new SetPdfTemplateFileName(CurrentUserId, new OrganizationId(organizationId),
                     rq.PdfTemplate));
             }
+            if (rq.OrderReceivedEmail != null)
+            {
+                Dispatch(new ChangeEmailTemplate(CurrentUserId, new OrganizationId(organizationId),
+                    rq.OrderReceivedEmail));
+            }
             return NoContent();
         }
     }
@@ -58,6 +64,9 @@
 
         [JsonProperty("pdfTemplate")]
         public string PdfTemplate { get; set; }
+
+        [JsonProperty("orderReceivedEmail")]
+        public string OrderReceivedEmail { get; set; }
     }
 
     public class OrganizationsSettingsGetOkResponseContent
@@ -70,5 +79,8 @@
 
         [JsonProperty("pdfTemplate")]
         public string PdfTemplate { get; set; }
+
+        [JsonProperty("orderReceivedEmail")]
+        public string OrderReceivedEmail { get; set; }
     }
 }

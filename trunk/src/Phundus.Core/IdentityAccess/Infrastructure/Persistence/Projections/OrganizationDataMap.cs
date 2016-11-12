@@ -19,6 +19,7 @@ namespace Phundus.IdentityAccess.Infrastructure.Persistence.Projections
             Map(x => x.Plan, "[Plan]");
             Map(x => x.PublicRental);
             Map(x => x.PdfTemplateFileName);
+            Map(x => x.OrderReceivedText).WithMaxSize();
 
             Map(x => x.Line1);
             Map(x => x.Line2);
