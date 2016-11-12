@@ -11,6 +11,7 @@ namespace Phundus.IdentityAccess.Projections
     using Organizations.Model;
 
     public class OrganizationProjection : ProjectionBase<OrganizationData>,
+        ISubscribeTo<EmailTemplateChanged>,
         ISubscribeTo<OrganizationEstablished>,
         ISubscribeTo<OrganizationContactDetailsChanged>,
         ISubscribeTo<OrganizationPlanChanged>,
@@ -87,6 +88,12 @@ namespace Phundus.IdentityAccess.Projections
             else if (!String.IsNullOrWhiteSpace(e.City))
                 sb.AppendLine(e.City);
             return sb.ToString();
+        }
+
+        public void Handle(EmailTemplateChanged e)
+        {
+            Update(e.OrganizationId, x =>
+                x.OrderReceivedText = e.OrderReceivedText);
         }
     }
 }

@@ -69,5 +69,6 @@ namespace Phundus.IdentityAccess.Application
 
         public virtual string Startpage { get; set; }
         public virtual string DocumentTemplate { get; set; }
+        public virtual string OrderReceivedText { get; set; }
     }
 }

@@ -204,7 +204,7 @@
             if (_settings.PublicRental == value)
                 return;
 
-            _settings = new Settings(value, _settings.PdfTemplateFileName);
+            _settings = new Settings(value, _settings.PdfTemplateFileName, _settings.OrderReceivedText);
 
             EventPublisher.Publish(new PublicRentalSettingChanged(manager, Id, _settings.PublicRental));
         }
@@ -229,9 +229,21 @@
             if (_settings.PdfTemplateFileName == pdfTemplateFileName)
                 return;
 
-            _settings = new Settings(_settings.PublicRental, pdfTemplateFileName);
+            _settings = new Settings(_settings.PublicRental, pdfTemplateFileName, _settings.OrderReceivedText);
 
             EventPublisher.Publish(new PdfTemplateChanged(manager, Id, _settings.PdfTemplateFileName));
+        }
+
+        public virtual void ChangeEmailTemplate(Manager manager, string orderReceivedText)
+        {
+            AssertionConcern.AssertArgumentNotNull(manager, "Manager must be provided.");
+
+            if (_settings.OrderReceivedText == orderReceivedText)
+                return;
+
+            _settings = new Settings(_settings.PublicRental, _settings.PdfTemplateFileName, orderReceivedText);
+
+            EventPublisher.Publish(new EmailTemplateChanged(manager, Id, _settings.OrderReceivedText));
         }
     }
 }

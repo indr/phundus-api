@@ -8,6 +8,7 @@
     using Common.Domain.Model;
     using Common.Eventing;
     using Common.Mailing;
+    using IdentityAccess.Application;
     using Infrastructure;
     using Orders;    
     using Shop.Orders.Model;
@@ -16,6 +17,7 @@
         ISubscribeTo<OrderPlaced>
     {
         private readonly ICollaboratorService _collaboratorService;
+        private readonly IOrganizationQueryService _organizationQueryService;
         private readonly IMessageFactory _factory;
         private readonly IMailGateway _gateway;
         private readonly ILessorService _lessorService;
@@ -23,7 +25,7 @@
         private readonly IOrderRepository _orderRepository;
 
         public OrderPlacedMail(IMessageFactory factory, IMailGateway gateway, IOrderRepository orderRepository,
-            ILessorService lessorService, IOrderPdfStore orderPdfStore, ICollaboratorService collaboratorService)
+            ILessorService lessorService, IOrderPdfStore orderPdfStore, ICollaboratorService collaboratorService, IOrganizationQueryService organizationQueryService)
         {
             _factory = factory;
             _gateway = gateway;
@@ -31,6 +33,7 @@
             _lessorService = lessorService;
             _orderPdfStore = orderPdfStore;
             _collaboratorService = collaboratorService;
+            _organizationQueryService = organizationQueryService;
         }
 
         public void Handle(OrderPlaced e)
@@ -41,6 +44,15 @@
             var orderPdf = _orderPdfStore.Get(order.OrderId);
             var attachment = new Attachment(orderPdf.GetStreamCopy(), String.Format("Bestellung-{0}.pdf", order.OrderShortId.Id),
                 "application/pdf");
+
+            var text = @"Die Materialien sind im angegeben Zeitraum nun für dich reserviert. Das Sekretariat bestätigt deine Buchung vor dem Abholdatum nochmals manuell und sendet dir die abschliessende Bestellungsgenehmigung. Bitte melde dich anschliessend beim Sekretariat um einen Abholtermin zu vereinbaren.";
+
+            // This is a context violation. This email template setting belongs to the shop context.
+            var organization = _organizationQueryService.FindById(e.LessorId);
+            if (organization != null && !String.IsNullOrWhiteSpace(organization.OrderReceivedText))
+            {
+                text = organization.OrderReceivedText;
+            }
 
             var model = new Model
             {
@@ -63,7 +75,8 @@
                             LineTotal = l.LineTotal
                         }).ToList(),
                     OrderTotal = e.OrderTotal
-                }
+                },
+                Text = text
             };
 
             var message = _factory.MakeMessage(model, Templates.OrderReceivedSubject, null, Templates.OrderReceivedHtml);

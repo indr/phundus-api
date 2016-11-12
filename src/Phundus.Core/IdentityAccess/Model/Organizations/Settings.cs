@@ -7,15 +7,17 @@
     {
         private bool _publicRental = true;
         private string _pdfTemplateFileName;
+        private string _orderReceivedText;
 
         public Settings()
         {
         }
 
-        public Settings(bool publicRental, string pdfTemplateFileName)
+        public Settings(bool publicRental, string pdfTemplateFileName, string orderReceivedText)
         {
             _publicRental = publicRental;
             _pdfTemplateFileName = pdfTemplateFileName;
+            _orderReceivedText = orderReceivedText;
         }
 
         public virtual bool PublicRental
@@ -30,10 +32,17 @@
             protected set { _pdfTemplateFileName = value; }
         }
 
+        public virtual string OrderReceivedText
+        {
+            get { return _orderReceivedText; }
+            private set { _orderReceivedText = value; }
+        }
+
         protected override IEnumerable<object> GetEqualityComponents()
         {
             yield return PublicRental;
             yield return PdfTemplateFileName;
+            yield return OrderReceivedText;
         }
     }
 }
