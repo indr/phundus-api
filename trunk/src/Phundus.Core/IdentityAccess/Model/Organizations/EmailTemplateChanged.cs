@@ -26,12 +26,12 @@
         }
 
         [DataMember(Order = 1)]
-        public Actor Initiator { get; set; }
+        public Actor Initiator { get; protected set; }
 
         [DataMember(Order = 2)]
-        public Guid OrganizationId { get; set; }
+        public Guid OrganizationId { get; protected set; }
 
         [DataMember(Order = 3)]
-        public string OrderReceivedText { get; set; }
+        public string OrderReceivedText { get; protected set; }
     }
 }
