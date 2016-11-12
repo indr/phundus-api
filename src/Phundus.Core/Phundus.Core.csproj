@@ -173,6 +173,7 @@
     <Compile Include="IdentityAccess\Infrastructure\Persistence\Repositories\NhMembershipRequestRepository.cs" />
     <Compile Include="IdentityAccess\Infrastructure\Persistence\Repositories\NhOrganizationRepository.cs" />
     <Compile Include="IdentityAccess\Infrastructure\Persistence\Repositories\NhUserRepository.cs" />
+    <Compile Include="IdentityAccess\Model\Organizations\EmailTemplateChanged.cs" />
     <Compile Include="IdentityAccess\Model\Organizations\Founder.cs" />
     <Compile Include="IdentityAccess\Model\Organizations\Mails\MemberLockedMail.cs" />
     <Compile Include="IdentityAccess\Model\Organizations\Mails\MembershipApplicationStatusMail.cs" />

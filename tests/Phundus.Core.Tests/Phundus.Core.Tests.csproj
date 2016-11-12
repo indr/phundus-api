@@ -136,8 +136,11 @@
     <Compile Include="IdentityAccess\Application\LockUserHandlerSpecs.cs" />
     <Compile Include="IdentityAccess\Application\LockMemberHandlerSpecs.cs" />
     <Compile Include="IdentityAccess\Application\UnlockMemberHandlerSpecs.cs" />
+    <Compile Include="IdentityAccess\Events\email_template_changed.cs" />
+    <Compile Include="IdentityAccess\Events\identityaccess_domain_event_concern.cs" />
     <Compile Include="IdentityAccess\Events\MembershipApplicationApprovedSpecs.cs" />
     <Compile Include="IdentityAccess\Events\MembershipApplicationRejectedSpecs.cs" />
+    <Compile Include="IdentityAccess\Events\organization_plan_changed.cs" />
     <Compile Include="IdentityAccess\identityaccess_factory.cs" />
     <Compile Include="IdentityAccess\Model\Organizations\Mails\MemberLockedMailSpecs.cs" />
     <Compile Include="IdentityAccess\Model\Organizations\Mails\MembershipApplicationStatusMailSpecs.cs" />
@@ -166,7 +169,7 @@
     <Compile Include="mail_concern.cs" />
     <Compile Include="IdentityAccess\Model\MembershipSpecs.cs" />
     <Compile Include="IdentityAccess\Model\OrganizationSettingsSpecs.cs" />
-    <Compile Include="IdentityAccess\Events\PublicRentalSettingChangedSpecs.cs" />
+    <Compile Include="IdentityAccess\Events\public_rental_setting_changed.cs" />
     <Compile Include="IdentityAccess\Application\EstablishOrganizationHandlerSpecs.cs" />
     <Compile Include="IdentityAccess\identityaccess_command_handler_concern.cs" />
     <Compile Include="IdentityAccess\Application\UpdateOrganizationDetailsHandlerSpecs.cs" />
