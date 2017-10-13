@@ -183,6 +183,7 @@
     <Compile Include="FileUpload\BlueImpFileUploadJsonResult.cs" />
     <Compile Include="FileUpload\BlueImpFileUploadJsonResultFactory.cs" />
     <Compile Include="FileUpload\ImageStore.cs" />
+    <Compile Include="Filters\LocalOnlyAttribute.cs" />
     <Compile Include="Filters\ExceptionFilterAttribute.cs" />
     <Compile Include="Installer.cs" />
     <Compile Include="Profiles.cs" />

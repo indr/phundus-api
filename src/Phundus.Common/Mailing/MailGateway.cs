@@ -2,6 +2,7 @@
 {
     using System;
     using System.Net.Mail;
+    using System.Net.Mime;
     using System.Text.RegularExpressions;
     using System.Web.Hosting;
     using Castle.Core.Logging;
@@ -66,6 +67,8 @@
             var client = new SmtpClient("", 0);
             client.DeliveryMethod = SmtpDeliveryMethod.SpecifiedPickupDirectory;
             client.PickupDirectoryLocation = defaultPickupDirectoryLocation;
+            // Pickup delivery method requires EnableSsl to be false
+            client.EnableSsl = false;
             client.Send(message);
         }
 
