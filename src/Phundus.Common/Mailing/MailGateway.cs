@@ -32,20 +32,25 @@
 
             if (Config.InMaintenance)
             {
-                RemoveUnallowedRecipients(message);
+                RemoveRecipients(message, @"@(test\.)?phundus\.ch$");
                 if (message.To.Count == 0)
                     return;
             }
-            SendUsingSystemNetMailSettings(message);
             SaveToPickupDirectory(message);
+
+            // Emails to test.phundus.ch are only stored in pickup directory
+            RemoveRecipients(message, @"@test\.phundus\.ch$");
+            if (message.To.Count == 0)
+                return;
+            SendUsingSystemNetMailSettings(message);
         }
 
-        private void RemoveUnallowedRecipients(MailMessage message)
+        private void RemoveRecipients(MailMessage message, string regex)
         {
             for (var idx = message.To.Count - 1; idx >= 0; idx--)
             {
                 var to = message.To[idx];
-                if (!Regex.Match(to.Address, @"@(test\.)?phundus\.ch$", RegexOptions.IgnoreCase).Success)
+                if (!Regex.Match(to.Address, regex, RegexOptions.IgnoreCase).Success)
                     message.To.Remove(to);
             }
         }
