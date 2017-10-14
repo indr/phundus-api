@@ -24,10 +24,11 @@
 
             _objectContainer.RegisterInstanceAs<IWindsorContainer>(container);
 
-            if (ConfigurationManager.AppSettings["ServerUrl"] == "localhost")
-                _objectContainer.RegisterTypeAs<RestMailbox, IMailbox>();
-            else
-                _objectContainer.RegisterTypeAs<PopMailbox, IMailbox>();
+            _objectContainer.RegisterTypeAs<RestMailbox, IMailbox>();
+            // if (ConfigurationManager.AppSettings["ServerUrl"] == "localhost")
+            //     _objectContainer.RegisterTypeAs<RestMailbox, IMailbox>();
+            // else
+            //     _objectContainer.RegisterTypeAs<PopMailbox, IMailbox>();
         }
     }
 }

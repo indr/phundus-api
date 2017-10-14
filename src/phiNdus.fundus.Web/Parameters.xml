@@ -18,6 +18,12 @@
                     match="/configuration/system.net/mailSettings/smtp/@from" />
   </parameter>
 
+  <parameter name="SMTP Password">
+    <parameterEntry kind="XmlFile"
+					scope="\\Web\.config$"
+					match="/configuration/system.net/mailSettings/smtp/network/@password" />
+  </parameter>
+
   <parameter name="Migration Tags"
              defaultValue="">
     <parameterEntry kind="XmlFile"

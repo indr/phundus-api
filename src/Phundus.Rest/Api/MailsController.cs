@@ -13,17 +13,19 @@
     using Common;
     using Common.Resources;
     using ContentObjects;
-    using MsgReader.Mime;    
+    using Filters;
+    using MsgReader.Mime;
 
     [RoutePrefix("api/mails")]
+    [Authorize(Roles = "Admin")]
     public class MailsController : ApiControllerBase
     {
         [GET("")]
+        [LocalOnly]
         [AllowAnonymous]
         public virtual QueryOkResponseContent<MailCto> Get()
         {
             var messages = GetMails();
-
             foreach (var each in Request.GetQueryNameValuePairs())
             {
                 if (each.Key == "to")
