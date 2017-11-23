@@ -1,0 +1,7 @@
+bin/
+obj/
+/*.suo
+
+src/phiNdus.fundus.Web/App_Data/Logs/*
+src/phiNdus.fundus.Web/App_Data/Mails/*
+src/phiNdus.fundus.Web/App_Data/SchemaUpdate.sql
