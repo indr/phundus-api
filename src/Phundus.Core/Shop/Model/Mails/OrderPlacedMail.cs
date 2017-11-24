@@ -41,6 +41,15 @@
             var order = _orderRepository.GetById(new OrderId(e.OrderId));
             var managers = _collaboratorService.Managers(new LessorId(e.LessorId), true);
             var emailAddresses = managers.Select(s => s.EmailAddress).ToList();
+
+            // 24.11.2017: Looks like when you order from a users store, collaborator service returns
+            // an empty list for managers and this causes this handler to fail cause
+            // there is no recipient for the email message.
+            if (emailAddresses.Count <= 0)
+            {
+                return;
+            }
+
             var orderPdf = _orderPdfStore.Get(order.OrderId);
             var attachment = new Attachment(orderPdf.GetStreamCopy(), String.Format("Bestellung-{0}.pdf", order.OrderShortId.Id),
                 "application/pdf");
