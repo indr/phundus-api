@@ -21,8 +21,6 @@
     public class MailsController : ApiControllerBase
     {
         [GET("")]
-        [LocalOnly]
-        [AllowAnonymous]
         public virtual QueryOkResponseContent<MailCto> Get()
         {
             var messages = GetMails();
@@ -35,6 +33,14 @@
                 }
             }
             return new QueryOkResponseContent<MailCto>(messages.OrderByDescending(p => p.Date));
+        }
+
+        [GET("local-only")]
+        [AllowAnonymous]
+        [LocalOnly]
+        public virtual QueryOkResponseContent<MailCto> GetLocalOnly()
+        {
+            return Get();
         }
 
         [GET("{mailId}")]

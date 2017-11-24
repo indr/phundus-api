@@ -59,7 +59,7 @@
 
         public Resource MailsApi
         {
-            get { return Resource("mails"); }
+            get { return Resource("mails/local-only"); }
         }
 
         public Resource ArticlesApi
