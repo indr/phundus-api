@@ -2,7 +2,8 @@
 bin/
 obj/
 /*.suo
-
+*.user
+/artifacts/
 src/phiNdus.fundus.Web/App_Data/Elmah/*
 src/phiNdus.fundus.Web/App_Data/Logs/*
 src/phiNdus.fundus.Web/App_Data/Mails/*
