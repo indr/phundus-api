@@ -15,7 +15,6 @@
     using Common;
     using Common.Resources;
     using Elmah;
-    using Rest.Auth;
     using Security;
 
     public class MvcApplication : HttpApplication, IContainerAccessor

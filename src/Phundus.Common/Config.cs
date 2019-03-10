@@ -34,6 +34,36 @@
         {
             get { return _config.ServerUrl; }
         }
+
+        public static string SmtpHost
+        {
+            get { return _config.SmtpHost; }
+        }
+
+        public static int SmtpPort
+        {
+            get { return _config.SmtpPort;  }
+        }
+
+        public static bool SmtpEnableSsl
+        {
+            get { return _config.SmtpEnableSsl; }
+        }
+
+        public static string SmtpUserName
+        {
+            get { return _config.SmtpUserName; }
+        }
+
+        public static string SmtpPassword
+        {
+            get { return _config.SmtpPassword;  }
+        }
+
+        public static string SmtpFrom
+        {
+            get { return _config.SmtpFrom; }
+        }
     }
 
     public class ConfigImpl
@@ -47,6 +77,12 @@
             InMaintenance = Convert.ToBoolean(settings["MaintenanceMode"]);
             ServerUrl = settings["ServerUrl"] ?? "";
             BaseUrl = ServerUrl;
+            SmtpHost = settings["SmtpHost"];
+            SmtpPort = Convert.ToInt32(settings["SmtpPort"]);
+            SmtpEnableSsl = Convert.ToBoolean(settings["SmtpEnableSsl"]);
+            SmtpUserName = settings["SmtpUserName"];
+            SmtpPassword = settings["SmtpPassword"];
+            SmtpFrom = settings["SmtpFrom"];
         }
 
         public string BaseUrl
@@ -80,5 +116,17 @@
         public bool InMaintenance { get; set; }
 
         public string FeedbackRecipients { get; private set; }
+
+        public string SmtpHost { get; private set; }
+
+        public int SmtpPort { get; private set; }
+
+        public bool SmtpEnableSsl { get; private set; }
+
+        public string SmtpUserName { get; private set; }
+
+        public string SmtpPassword { get; private set; }
+
+        public string SmtpFrom { get; private set; }
     }
 }

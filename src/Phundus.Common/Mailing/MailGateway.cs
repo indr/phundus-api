@@ -1,6 +1,7 @@
 ﻿namespace Phundus.Common.Mailing
 {
     using System;
+    using System.Net;
     using System.Net.Mail;
     using System.Net.Mime;
     using System.Text.RegularExpressions;
@@ -26,6 +27,7 @@
             message.To.Add(recipients);
             message.Subject = subject;
             message.Body = body;
+            message.From = new MailAddress(Config.SmtpFrom);
             Send(date, message);
         }
 
@@ -97,8 +99,18 @@
         private static SmtpClient GetClient()
         {
             var client = new SmtpClient();
+            
+            // If there is no pickup directory specified, the intention is 
+            // to send the email through smtp.
             if (String.IsNullOrWhiteSpace(client.PickupDirectoryLocation))
+            {
+                client.DeliveryMethod = SmtpDeliveryMethod.Network;
+                client.Host = Config.SmtpHost;
+                client.Port = Config.SmtpPort;
+                client.EnableSsl = Config.SmtpEnableSsl;
+                client.Credentials = new NetworkCredential(Config.SmtpUserName, Config.SmtpPassword);
                 return client;
+            }
 
             if (!System.IO.Path.IsPathRooted(client.PickupDirectoryLocation))
             {
