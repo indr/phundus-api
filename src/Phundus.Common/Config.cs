@@ -5,8 +5,8 @@
     using System.Configuration;
 
     public static class Config
-    {       
-// ReSharper disable once InconsistentNaming
+    {
+        // ReSharper disable once InconsistentNaming
         private static readonly ConfigImpl _config;
 
         static Config()
@@ -42,7 +42,7 @@
 
         public static int SmtpPort
         {
-            get { return _config.SmtpPort;  }
+            get { return _config.SmtpPort; }
         }
 
         public static bool SmtpEnableSsl
@@ -57,12 +57,22 @@
 
         public static string SmtpPassword
         {
-            get { return _config.SmtpPassword;  }
+            get { return _config.SmtpPassword; }
         }
 
         public static string SmtpFrom
         {
             get { return _config.SmtpFrom; }
+        }
+
+        public static string StorageBasePublicUrl
+        {
+            get { return _config.StorageBasePublicUrl; }
+        }
+
+        public static string StorageSharedAccessSignature
+        {
+            get { return _config.StorageSharedAccessSignature; }
         }
     }
 
@@ -83,6 +93,8 @@
             SmtpUserName = settings["SmtpUserName"];
             SmtpPassword = settings["SmtpPassword"];
             SmtpFrom = settings["SmtpFrom"];
+            StorageBasePublicUrl = settings["StorageBasePublicUrl"];
+            StorageSharedAccessSignature = settings["StorageSharedAccessSignature"];
         }
 
         public string BaseUrl
@@ -128,5 +140,9 @@
         public string SmtpPassword { get; private set; }
 
         public string SmtpFrom { get; private set; }
+
+        public string StorageBasePublicUrl { get; private set; }
+
+        public string StorageSharedAccessSignature { get; private set; }
     }
 }

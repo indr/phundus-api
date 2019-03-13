@@ -24,6 +24,23 @@ namespace Phundus.Common.Infrastructure
                 MediaType = "application/" + Extension;
         }
 
+        public StoredFileInfo(string name, int version, string fullName, string extension, long length, string publicUrl)
+        {
+            Name = name;
+            Version = version;
+            Length = length;
+            FullName = fullName;
+            Extension = extension.TrimStart('.').ToLowerInvariant();
+            IsImage = ImageExtensions.Contains(Extension);
+            if (IsImage)
+                MediaType = "image/" + Extension;
+            else if (Extension == "txt")
+                MediaType = "text/plain";
+            else
+                MediaType = "application/" + Extension;
+            PublicUrl = publicUrl;
+        }
+
         public string Name { get; private set; }
         public int Version { get; private set; }
         public long Length { get; private set; }
@@ -32,6 +49,7 @@ namespace Phundus.Common.Infrastructure
 
         public bool IsImage { get; private set; }
         public string MediaType { get; private set; }
+        public string PublicUrl { get; private set; }
 
         public Stream GetStream()
         {

@@ -15,6 +15,7 @@ namespace Phundus.Rest.Api
     using Inventory.Application;
     using Inventory.Projections;
     using Newtonsoft.Json;
+    using Phundus.Common;
 
     [RoutePrefix("api/articles/{articleId}/files")]
     public class ArticlesFilesController : ApiControllerBase
@@ -28,27 +29,33 @@ namespace Phundus.Rest.Api
             _articleFileQueryService = articleFileQueryService;
         }
 
-        private string GetPath(ArticleId articleId)
-        {
-            return String.Format(@"~\Content\Images\Articles\{0}", articleId.Id.ToString("D"));
-        }
+        // private string GetPath(ArticleId articleId)
+        // {
+        //     return String.Format(@"~\Content\Images\Articles\{0}", articleId.Id.ToString("D"));
+        // }
 
         private string GetBaseFilesUrl(ArticleId articleId)
         {
-            return String.Format(@"/Content/Images/Articles/{0}", articleId.Id.ToString("D"));
+            // return String.Format(@"/Content/Images/Articles/{0}", articleId.Id.ToString("D"));
+            return Config.StorageBasePublicUrl + String.Format(@"articles/{0}", articleId.Id.ToString("D"));
+        }
+
+        private IFileStore CreateImageStore(ArticleId articleId)
+        {
+            // string path = GetPath(articleId);
+            string path = Path.Combine("articles", articleId.Id.ToString("D"));
+            return CreateImageStore(path);
         }
 
         private IFileStore CreateImageStore(string path)
         {
-            return new ImageStore(path);
+            // return new ImageStore(path);
+            return new AzureFileStore(path, false);
         }
 
         private BlueImpFileUploadJsonResultFactory CreateFactory(string path, ArticleId articleId)
         {
-            var factory = new BlueImpFileUploadJsonResultFactory();
-            factory.ImageUrl = path;
-            factory.DeleteUrl = "/api/articles/" + articleId.Id.ToString("D") + "/files";
-            return factory;
+            return new BlueImpFileUploadJsonResultFactory("/api/articles/" + articleId.Id.ToString("D") + "/files", path);
         }
 
         [GET("")]
@@ -65,8 +72,7 @@ namespace Phundus.Rest.Api
         [POST("")]        
         public virtual object Post(ArticleId articleId)
         {
-            var path = GetPath(articleId);
-            var store = CreateImageStore(path);
+            var store = CreateImageStore(articleId);
             var factory = CreateFactory(GetBaseFilesUrl(articleId), articleId);
             var handler = new BlueImpFileUploadHandler(store);
             var images = handler.Handle(HttpContext.Current.Request.Files);
@@ -91,8 +97,7 @@ namespace Phundus.Rest.Api
         [DELETE("{fileName}")]        
         public virtual HttpResponseMessage Delete(ArticleId articleId, string fileName)
         {
-            var path = GetPath(articleId);
-            var store = CreateImageStore(path);
+            var store = CreateImageStore(articleId);
             Dispatcher.Dispatch(new RemoveImage(CurrentUserId, articleId, fileName));
             store.Remove(fileName);
             return Request.CreateResponse(HttpStatusCode.NoContent);

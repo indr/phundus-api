@@ -13,6 +13,7 @@
     using Common.Resources;
     using Inventory.Application;
     using Newtonsoft.Json;
+    using Phundus.Common;
     using Phundus.Shop.Application;
 
     [RoutePrefix("api/shop/items")]
@@ -101,8 +102,9 @@
         {
             if (String.IsNullOrWhiteSpace(fileName))
                 return null;
-            const string format = @"/Content/Images/Articles/{0}/{1}";
-            return String.Format(format, articleId.ToString("D"), fileName);
+            // const string format = @"/Content/Images/Articles/{0}/{1}";
+            const string format = @"articles/{0}/{1}";
+            return Config.StorageBasePublicUrl + String.Format(format, articleId.ToString("D"), fileName) + Config.StorageSharedAccessSignature;
         }
 
         [GET("{articleId}/availability")]

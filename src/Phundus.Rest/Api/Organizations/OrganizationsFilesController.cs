@@ -108,10 +108,7 @@ namespace Phundus.Rest.Api.Organizations
 
         private BlueImpFileUploadJsonResultFactory CreateFactory(string path, Guid organizationId)
         {
-            var factory = new BlueImpFileUploadJsonResultFactory();
-            factory.ImageUrl = path;
-            factory.DeleteUrl = "/api/organizations/" + organizationId + "/files";
-            return factory;
+            return new BlueImpFileUploadJsonResultFactory("/api/organizations/" + organizationId + "/files", path);
         }
     }
 }

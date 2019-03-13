@@ -7,15 +7,6 @@
     using System.Text.RegularExpressions;
     using Castle.Core.Internal;
 
-    public interface IFileStore
-    {
-        string BaseDirectory { get; }
-        StoredFileInfo Get(string fileName, int version);
-        StoredFileInfo[] GetFiles();
-        void Remove(string fileName);
-        StoredFileInfo Add(string fileName, Stream stream, int version, bool overwriteExisting);
-    }
-
     public class AppDataFileStore : IFileStore
     {
         private readonly string _directory;
@@ -24,12 +15,12 @@
         public AppDataFileStore(string directory)
         {
             _directory = directory;
-            _versionRegex = new Regex(@"-(\d+)(\.\w+$|$)");            
+            _versionRegex = new Regex(@"-(\d+)(\.\w+$|$)");
         }
 
         public string[] GetFileNames()
         {
-            var fileNames = Directory.GetFiles(GetStoragePath())               
+            var fileNames = Directory.GetFiles(GetStoragePath())
                 .Select(each =>
                 {
                     var name = new FileInfo(each).Name;
@@ -114,7 +105,7 @@
                     var match = _versionRegex.Match(each);
                     if (match.Success)
                         return Convert.ToInt32(match.Groups[1].Value);
-                    return (int?) null;
+                    return (int?)null;
                 })
                 .ToList();
             if (versions.Count == 0)

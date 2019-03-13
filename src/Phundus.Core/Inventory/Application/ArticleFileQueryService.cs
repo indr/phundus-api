@@ -34,5 +34,6 @@
         public string Type { get; set; }
         public bool IsPreview { get; set; }
         public long Length { get; set; }
+        public string PublicUrl { get; set; }
     }
 }

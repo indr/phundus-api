@@ -21,27 +21,29 @@
 
         public IFileStore GetOrders()
         {
-            return CreateStorage("Orders");
+            return CreateStorage("Orders", true);
         }
 
         public IFileStore GetOrganizations(Guid organizationId)
         {
-            return CreateStorage("Organizations", organizationId);
+            return CreateStorage("Organizations", organizationId, true);
         }
 
         public IFileStore GetArticles(Guid articleId)
         {
-            return CreateStorage("Articles", articleId);
+            return CreateStorage("Articles", articleId, true);
         }
 
-        private IFileStore CreateStorage(string path)
+        private IFileStore CreateStorage(string path, bool versioned)
         {
-            return new AppDataFileStore(Path.Combine(_storageDirectory, path));
+            // return new AppDataFileStore(Path.Combine(_storageDirectory, path));
+            return new AzureFileStore(path, versioned);
         }
 
-        private IFileStore CreateStorage(string path, Guid id)
+        private IFileStore CreateStorage(string path, Guid id, bool versioned)
         {
-            return new AppDataFileStore(Path.Combine(_storageDirectory, path, id.ToString("D")));
+            // return new AppDataFileStore(Path.Combine(_storageDirectory, path, id.ToString("D")));
+            return new AzureFileStore(Path.Combine(path, id.ToString("D")), versioned);
         }
     }
 }

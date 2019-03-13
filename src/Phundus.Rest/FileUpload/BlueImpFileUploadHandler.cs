@@ -26,13 +26,14 @@ namespace Phundus.Rest.FileUpload
                     continue;
 
                 var fileName = GetFileName(file.FileName);
-                _store.Add(fileName, file.InputStream, 0, true);
+                var storedFileInfo = _store.Add(fileName, file.InputStream, 0, true);
 
                 var image = new ImageData();
                 image.IsPreview = false;
                 image.FileName = fileName;
                 image.Length = file.ContentLength;
                 image.Type = file.ContentType;
+                image.PublicUrl = storedFileInfo.PublicUrl;
 
                 result.Add(image);
             }
