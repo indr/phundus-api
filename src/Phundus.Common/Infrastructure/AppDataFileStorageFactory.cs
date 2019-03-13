@@ -21,17 +21,17 @@
 
         public IFileStore GetOrders()
         {
-            return CreateStorage("Orders", true);
+            return CreateStorage("orders", true);
         }
 
         public IFileStore GetOrganizations(Guid organizationId)
         {
-            return CreateStorage("Organizations", organizationId, true);
+            return CreateStorage("organizations", organizationId, true);
         }
 
         public IFileStore GetArticles(Guid articleId)
         {
-            return CreateStorage("Articles", articleId, true);
+            return CreateStorage("articles", articleId, true);
         }
 
         private IFileStore CreateStorage(string path, bool versioned)
