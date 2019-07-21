@@ -93,7 +93,7 @@
 
         private static CloudFileShare GetFileShare()
         {
-            var shareName = "test1";
+            var shareName = CloudConfigurationManager.GetSetting("StorageShareName");
             var storageAccount = CloudStorageAccount.Parse(
                 CloudConfigurationManager.GetSetting("StorageConnectionString"));
             var fileClient = storageAccount.CreateCloudFileClient();

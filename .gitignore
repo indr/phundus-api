@@ -9,3 +9,4 @@ src/phiNdus.fundus.Web/App_Data/Logs/*
 src/phiNdus.fundus.Web/App_Data/Mails/*
 src/phiNdus.fundus.Web/App_Data/Storage/*
 src/phiNdus.fundus.Web/App_Data/SchemaUpdate.sql
+src/phiNdus.fundus.Web/Properties/PublishProfiles/
