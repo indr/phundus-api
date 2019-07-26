@@ -93,6 +93,11 @@
             return CreateStoredFileInfo(fileInfo);
         }
 
+        public Stream GetStream(StoredFileInfo info)
+        {
+            return File.OpenRead(info.FullName);
+        }
+
         private int FindHighestVersion(string fileName)
         {
             var storagePath = GetStoragePath();

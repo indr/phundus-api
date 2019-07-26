@@ -50,10 +50,5 @@ namespace Phundus.Common.Infrastructure
         public bool IsImage { get; private set; }
         public string MediaType { get; private set; }
         public string PublicUrl { get; private set; }
-
-        public Stream GetStream()
-        {
-            return File.OpenRead(FullName);
-        }
     }
 }

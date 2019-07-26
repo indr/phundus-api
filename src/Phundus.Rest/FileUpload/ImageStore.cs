@@ -57,5 +57,10 @@
                     .Select(fi => new StoredFileInfo(fi.Name, 0, fi))
                     .ToArray();
         }
+
+        public Stream GetStream(StoredFileInfo info)
+        {
+            return File.OpenRead(info.FullName);
+        }
     }
 }

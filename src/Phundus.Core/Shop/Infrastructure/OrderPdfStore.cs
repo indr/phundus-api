@@ -60,7 +60,8 @@
             if (fileInfo == null)
                 fileInfo = CreateAndStorePdf(order, fileName);
 
-            return new OrderPdf(order.OrderId, order.OrderShortId, fileInfo.Version, fileInfo.GetStream());
+            var stream = _fileStore.GetStream(fileInfo);
+            return new OrderPdf(order.OrderId, order.OrderShortId, fileInfo.Version, stream);
         }
 
         private StoredFileInfo CreateAndStorePdf(Order order, string fileName)

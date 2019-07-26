@@ -17,6 +17,7 @@
     {
         private readonly Lessor _lessor;
         private readonly StoreDetailsData _store;
+        private readonly IFileStore _fileStore;
         private readonly StoredFileInfo _templateFileInfo;
         private readonly Order _order;
         private GrayColor backGroundColor;
@@ -28,12 +29,13 @@
         private MemoryStream stream;
         private PdfWriter writer;
 
-        public OrderPdfGenerator(Order order, StoreDetailsData store, StoredFileInfo templateFileInfo)
+        public OrderPdfGenerator(Order order, StoreDetailsData store, IFileStore fileStore, StoredFileInfo templateFileInfo)
         {
             if (order == null) throw new ArgumentNullException("order");
             _order = order;
             _lessor = _order.Lessor;            
             _store = store;
+            _fileStore = fileStore;
             _templateFileInfo = templateFileInfo;
 
 
@@ -347,10 +349,9 @@
         {
             if (templateFileInfo == null)
                 return null;
-
             try
             {
-                using (var s = templateFileInfo.GetStream())
+                using (var s = _fileStore.GetStream(templateFileInfo))
                 {
                     return new PdfReader(s);
                 }

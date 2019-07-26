@@ -38,9 +38,14 @@
 
         public StoredFileInfo Get(string fileName, int version)
         {
+            if (version <= -1)
+                version = FindHighestVersion(fileName);
+
             var directory = GetDirectory();
             fileName = GetVersionFileName(fileName, version.ToString(CultureInfo.InvariantCulture));
             var file = directory.GetFileReference(fileName);
+            if (!file.Exists())
+                return null;
             return CreateStoredFileInfo(file);
         }
 
@@ -118,6 +123,29 @@
 
             string extension = cloudFile.Name.Substring(cloudFile.Name.LastIndexOf('.') + 1);
             return new StoredFileInfo(name, version, cloudFile.StorageUri.PrimaryUri.ToString(), extension, cloudFile.Properties.Length, cloudFile.StorageUri.PrimaryUri.ToString());
+        }
+
+        public Stream GetStream(StoredFileInfo info)
+        {
+            var directory = GetDirectory();
+            var file = directory.GetFileReference(GetVersionFileName(info.Name, info.Version.ToString(CultureInfo.InvariantCulture)));
+            return file.OpenRead();
+        }
+
+        private int FindHighestVersion(string fileName)
+        {
+            var pattern = GetVersionFileName(fileName, @"\d+");
+            var directory = GetDirectory();
+            var versions = directory.ListFilesAndDirectories()
+                .OfType<CloudFile>()
+           .Where(p => _versionRegex.Match(p.Name).Success)
+           .Select(x => Convert.ToInt32(_versionRegex.Match(x.Name).Groups[1].Value))
+           .ToList();
+
+            if (versions.Count == 0)
+                return 0;
+
+            return versions.Max();
         }
     }
 }

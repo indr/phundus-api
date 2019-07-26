@@ -30,19 +30,20 @@ namespace Phundus.Shop.Infrastructure
         public Stream GeneratePdf(Order order)
         {
             var store = GetStore(order);
-            var template = GetTemplate(order.Lessor.LessorId.Id);
+            var lessorId = order.Lessor.LessorId.Id;
+            var fileStore = _fileStoreFactory.GetOrganizations(lessorId);
+            var template = GetTemplate(lessorId, fileStore);
 
-            return new OrderPdfGenerator(order, store, template).GeneratePdf();            
+            return new OrderPdfGenerator(order, store, fileStore, template).GeneratePdf();
         }
 
-        private StoredFileInfo GetTemplate(Guid lessorId)
+        private StoredFileInfo GetTemplate(Guid lessorId, IFileStore fileStore)
         {
             var result = _organizationQueryService.FindById(lessorId);
             if (result == null || String.IsNullOrWhiteSpace(result.PdfTemplateFileName))
                 return null;
 
             var fileName = result.PdfTemplateFileName;
-            var fileStore = _fileStoreFactory.GetOrganizations(lessorId);
             return fileStore.Get(fileName, -1);
         }
 

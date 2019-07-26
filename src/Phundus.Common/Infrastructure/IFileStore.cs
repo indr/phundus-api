@@ -9,5 +9,6 @@
         StoredFileInfo[] GetFiles();
         void Remove(string fileName);
         StoredFileInfo Add(string fileName, Stream stream, int version, bool overwriteExisting);
+        Stream GetStream(StoredFileInfo info);
     }
 }

@@ -53,12 +53,12 @@ namespace Phundus.Rest.Api.Organizations
             var query = base.GetQueryParams();
             if (fileInfo.IsImage && (query.ContainsKey("maxwidth") || (query.ContainsKey("maxheight"))))
             {
-                var job = new ImageJob(fileInfo.GetStream(), result, new ResizeSettings(Request.RequestUri.Query));
+                var job = new ImageJob(store.GetStream(fileInfo), result, new ResizeSettings(Request.RequestUri.Query));
                 job.Build();
             }
             else
             {
-                using (var stream = fileInfo.GetStream())
+                using (var stream = store.GetStream(fileInfo))
                 {
                     stream.CopyTo(result);
                 }
