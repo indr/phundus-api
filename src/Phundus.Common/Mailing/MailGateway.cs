@@ -27,7 +27,6 @@
             message.To.Add(recipients);
             message.Subject = subject;
             message.Body = body;
-            message.From = new MailAddress(Config.SmtpFrom);
             Send(date, message);
         }
 
@@ -37,6 +36,11 @@
             {
                 Logger.Warn("Skipped sending mail message because it is too old.");
                 return;
+            }
+
+            if (message.From == null)
+            {
+                message.From = new MailAddress(Config.SmtpFrom);
             }
 
             // In maintenance method, we remove all recipients except test.phundus.ch or phundus.ch
