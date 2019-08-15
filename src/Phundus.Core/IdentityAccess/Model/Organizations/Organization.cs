@@ -89,6 +89,13 @@
             protected set { _settings = value; }
         }
 
+        public virtual void Rename(Manager manager, string name)
+        {
+            this.Name = name;
+
+            EventPublisher.Publish(new OrganizationRenamed(manager, Id, name));
+        }
+
         public virtual MembershipApplication ApplyForMembership(InitiatorId initiatorId,
             MembershipApplicationId membershipApplicationId,
             User user)

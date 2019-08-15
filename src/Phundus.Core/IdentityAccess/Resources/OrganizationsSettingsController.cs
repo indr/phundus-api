@@ -29,6 +29,7 @@
             return new OrganizationsSettingsGetOkResponseContent
             {
                 OrganizationId = organization.OrganizationId,
+                Name = organization.Name,
                 PublicRental = organization.PublicRental,
                 PdfTemplate = organization.PdfTemplateFileName,
                 OrderReceivedEmail = organization.OrderReceivedText
@@ -38,6 +39,10 @@
         [PATCH("")]
         public virtual HttpResponseMessage Patch(Guid organizationId, OrganizationsSettingsPatchRequestContent rq)
         {
+            if(!String.IsNullOrWhiteSpace(rq.Name))
+            {
+                Dispatch(new RenameOrganization(CurrentUserId, new OrganizationId(organizationId), rq.Name));
+            }
             if (rq.PublicRental.HasValue)
             {
                 Dispatch(new ChangeSettingPublicRental(CurrentUserId, new OrganizationId(organizationId),
@@ -59,6 +64,9 @@
 
     public class OrganizationsSettingsPatchRequestContent
     {
+        [JsonProperty("name")]
+        public string Name { get; set; }
+
         [JsonProperty("publicRental")]
         public bool? PublicRental { get; set; }
 
@@ -73,6 +81,9 @@
     {
         [JsonProperty("organizationId")]
         public Guid OrganizationId { get; set; }
+
+        [JsonProperty("name")]
+        public string Name { get; set; }
 
         [JsonProperty("publicRental")]
         public bool PublicRental { get; set; }

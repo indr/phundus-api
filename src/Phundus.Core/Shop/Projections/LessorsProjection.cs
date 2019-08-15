@@ -15,6 +15,7 @@
     public class LessorsProjection : ProjectionBase<LessorData>,
         ISubscribeTo<OrganizationEstablished>,
         ISubscribeTo<OrganizationContactDetailsChanged>,
+        ISubscribeTo<OrganizationRenamed>,
         ISubscribeTo<PublicRentalSettingChanged>,
         ISubscribeTo<UserSignedUp>,
         ISubscribeTo<UserEmailAddressChanged>,
@@ -45,6 +46,11 @@
                 x.Website = null;
                 x.PublicRental = e.PublicRental;
             });
+        }
+
+        public void Handle(OrganizationRenamed e)
+        {
+            Update(e.OrganizationId, x => { x.Name = e.Name; });
         }
 
         public void Handle(PublicRentalSettingChanged e)

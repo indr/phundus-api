@@ -11,6 +11,7 @@
     using Inventory.Model.Articles;
     using Inventory.Stores.Model;
     using Orders.Model;
+    using Phundus.IdentityAccess.Organizations.Model;
 
     public class ProductListProjection : ProjectionBase<ProductListData>,
         ISubscribeTo<ArticleCreated>,
@@ -22,7 +23,8 @@
         ISubscribeTo<StoreRenamed>,
         ISubscribeTo<OrderPlaced>,
         ISubscribeTo<ProductTagged>,
-        ISubscribeTo<ProductUntagged>
+        ISubscribeTo<ProductUntagged>,
+        ISubscribeTo<OrganizationRenamed>
     {
         public void Handle(ArticleCreated e)
         {
@@ -145,6 +147,16 @@
         {
             Update(e.ArticleId, x =>
                 x.Tags.Remove(e.TagName));
+        }
+
+        // OrganizationRenamed should probably not handled here as it violates the bounded context. OrganizationRenamed should be converted to LessorRenamed.
+        public void Handle(OrganizationRenamed e)
+        {
+            Update(x => x.LessorId == e.OrganizationId, x =>
+            {
+                x.LessorName = e.Name;
+                x.LessorUrl = e.Name.ToFriendlyUrl();
+            });
         }
     }
 }

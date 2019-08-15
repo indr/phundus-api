@@ -7,7 +7,8 @@
     using IdentityAccess.Organizations.Model;
 
     public class UrlMapProjection : ProjectionBase<UrlMapData>,
-        ISubscribeTo<OrganizationEstablished>
+        ISubscribeTo<OrganizationEstablished>,
+        ISubscribeTo<OrganizationRenamed>
     {
         public void Handle(OrganizationEstablished e)
         {
@@ -18,6 +19,13 @@
                 data.Url = url;
                 data.OrganizationId = e.OrganizationId;
             });
+        }
+
+        public void Handle(OrganizationRenamed e)
+        {
+            var url = e.Name.ToFriendlyUrl();
+
+            Update(x => x.OrganizationId == e.OrganizationId, x => { x.Url = url; });
         }
     }
 }

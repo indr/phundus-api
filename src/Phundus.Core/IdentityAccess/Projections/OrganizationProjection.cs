@@ -15,6 +15,7 @@ namespace Phundus.IdentityAccess.Projections
         ISubscribeTo<OrganizationEstablished>,
         ISubscribeTo<OrganizationContactDetailsChanged>,
         ISubscribeTo<OrganizationPlanChanged>,
+        ISubscribeTo<OrganizationRenamed>,
         ISubscribeTo<PdfTemplateChanged>,
         ISubscribeTo<PublicRentalSettingChanged>,
         ISubscribeTo<StartpageChanged>
@@ -52,6 +53,12 @@ namespace Phundus.IdentityAccess.Projections
         {
             Update(e.OrganizationId, x =>
                 x.Plan = e.NewPlan);
+        }
+
+        public void Handle(OrganizationRenamed e)
+        {
+            Update(e.OrganizationId, x =>
+                x.Name = e.Name);
         }
 
         public void Handle(PdfTemplateChanged e)
