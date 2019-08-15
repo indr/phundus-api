@@ -118,6 +118,7 @@
         private Because of = () =>
             result = Period.FromNow(2).Intersection(new Period(DateTime.UtcNow.AddDays(-2), TimeSpan.FromDays(1)));
 
-        private It should_not_intersect_and_return_null;
+        private It should_not_intersect_and_return_null = () =>
+            result.ShouldBeNull();
     }
 }
