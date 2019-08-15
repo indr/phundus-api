@@ -142,9 +142,6 @@
       <HintPath>..\..\packages\NHibernate.3.3.3.4000\lib\Net35\NHibernate.dll</HintPath>
     </Reference>
     <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="System.Data.SqlServerCe, Version=4.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
-      <Private>True</Private>
-    </Reference>
     <Reference Include="System.Transactions" />
     <Reference Include="System.Web.Extensions" />
     <Reference Include="System.Web.Helpers, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
@@ -259,7 +256,7 @@
     <Content Include="fonts\fontawesome-webfont.eot" />
     <None Include="Properties\PublishProfiles\phundus-prod - Web Deploy.pubxml" />
     <None Include="Properties\PublishProfiles\phundus-test - Web Deploy.pubxml" />
-    <Content Include="scripts\scripts.5f1f02c0.js" />
+    <Content Include="scripts\scripts.1b925d36.js" />
     <Content Include="scripts\skins\lightgray\content.inline.min.css" />
     <Content Include="scripts\skins\lightgray\content.min.css" />
     <Content Include="scripts\skins\lightgray\fonts\tinymce-small.svg" />
