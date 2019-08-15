@@ -182,7 +182,7 @@
 
         private It should_return_stream = () =>
         {
-            using (var resultStream = result.GetStream())
+            using (var resultStream = sut.GetStream(result))
             {
                 resultStream.ShouldEqual(stream);
             }
