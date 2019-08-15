@@ -57,8 +57,10 @@ namespace Phundus.IdentityAccess.Projections
 
         public void Handle(OrganizationRenamed e)
         {
-            Update(e.OrganizationId, x =>
-                x.Name = e.Name);
+            Update(e.OrganizationId, x => {
+                x.Name = e.Name;
+                x.Url = e.Name.ToFriendlyUrl();
+            });
         }
 
         public void Handle(PdfTemplateChanged e)

@@ -91,6 +91,8 @@
 
         public virtual void Rename(Manager manager, string name)
         {
+            if (this.Name == name) return;
+
             this.Name = name;
 
             EventPublisher.Publish(new OrganizationRenamed(manager, Id, name));
